@@ -1,0 +1,108 @@
+- generic [ref=f4e3]:
+  - banner [ref=f4e4]:
+    - generic [ref=f4e5]: NITHYA
+    - generic [ref=f4e12]:
+      - button "LIVE CLASS" [ref=f4e13] [cursor=pointer]
+      - button "Test Loud Sound Chime" [ref=f4e16] [cursor=pointer]
+      - button "Notifications" [ref=f4e22] [cursor=pointer]
+      - button "EN" [ref=f4e26] [cursor=pointer]
+      - button "Toggle Theme" [ref=f4e31] [cursor=pointer]
+      - generic "View Profile" [ref=f4e38] [cursor=pointer]: S
+  - main [ref=f4e41]:
+    - generic [ref=f4e1084]:
+      - generic [ref=f4e1085]:
+        - generic [ref=f4e1086]:
+          - generic [ref=f4e1087]: LIVE CLASS
+          - generic [ref=f4e1090]:
+            - heading "Hatha Yoga" [level=2] [ref=f4e1091]
+            - paragraph [ref=f4e1092]: "Instructor: Priya • 60 mins session"
+        - generic [ref=f4e1093]:
+          - button "Share Invite" [ref=f4e1094] [cursor=pointer]
+          - button "Leave Class" [ref=f4e1102] [cursor=pointer]
+      - generic [ref=f4e1108]:
+        - generic [ref=f4e1109]:
+          - generic [ref=f4e1110]:
+            - generic [ref=f4e1112]:
+              - heading "Hatha Yoga" [level=4] [ref=f4e1119]
+              - paragraph [ref=f4e1120]: Instructor streaming in HD • Ready for deep breathwork
+            - generic [ref=f4e1121]:
+              - generic [ref=f4e1122]: 00:32:16
+              - generic [ref=f4e1123]: HD 1080p • 60fps
+            - generic [ref=f4e1124]:
+              - generic [ref=f4e1125]:
+                - generic [ref=f4e1130]:
+                  - text: "Live Attendance:"
+                  - generic [ref=f4e1131]: 72%
+                - generic [ref=f4e1132]: 70%+ Verified ✓
+              - generic "70% Goal Threshold" [ref=f4e1138]
+          - generic [ref=f4e1140]:
+            - button "Mute Microphone" [ref=f4e1141] [cursor=pointer]
+            - button "Turn On Camera" [ref=f4e1145] [cursor=pointer]
+            - button "Share Screen" [ref=f4e1150] [cursor=pointer]
+            - button "Fullscreen" [ref=f4e1153] [cursor=pointer]
+        - generic [ref=f4e1159]:
+          - generic [ref=f4e1160]:
+            - strong [ref=f4e1168]: Participants (6)
+            - generic [ref=f4e1169]:
+              - generic [ref=f4e1170]:
+                - generic [ref=f4e1171]: T
+                - generic [ref=f4e1172]:
+                  - generic [ref=f4e1173]: Teacher (Host)
+                  - generic [ref=f4e1174]: Host
+              - generic [ref=f4e1176]:
+                - generic [ref=f4e1177]: S
+                - generic [ref=f4e1178]:
+                  - generic [ref=f4e1179]: Sarah (You)
+                  - generic [ref=f4e1180]: Student
+              - generic [ref=f4e1182]:
+                - generic [ref=f4e1183]: M
+                - generic [ref=f4e1184]:
+                  - generic [ref=f4e1185]: Meena
+                  - generic [ref=f4e1186]: Student
+              - generic [ref=f4e1188]:
+                - generic [ref=f4e1189]: K
+                - generic [ref=f4e1190]:
+                  - generic [ref=f4e1191]: Karthik
+                  - generic [ref=f4e1192]: Student
+              - generic [ref=f4e1194]:
+                - generic [ref=f4e1195]: D
+                - generic [ref=f4e1196]:
+                  - generic [ref=f4e1197]: Divya
+                  - generic [ref=f4e1198]: Student
+              - generic [ref=f4e1200]:
+                - generic [ref=f4e1201]: R
+                - generic [ref=f4e1202]:
+                  - generic [ref=f4e1203]: Ravi
+                  - generic [ref=f4e1204]: Student
+          - generic [ref=f4e1206]:
+            - strong [ref=f4e1211]: Class Chat
+            - generic [ref=f4e1212]:
+              - generic [ref=f4e1213]:
+                - generic [ref=f4e1214]:
+                  - strong [ref=f4e1215]: Meena
+                  - generic [ref=f4e1216]: 10:24 AM
+                - paragraph [ref=f4e1217]: This is so relaxing! 💜
+              - generic [ref=f4e1218]:
+                - generic [ref=f4e1219]:
+                  - strong [ref=f4e1220]: Karthik
+                  - generic [ref=f4e1221]: 10:26 AM
+                - paragraph [ref=f4e1222]: Nice breathing technique!
+              - generic [ref=f4e1223]:
+                - generic [ref=f4e1224]:
+                  - strong [ref=f4e1225]: You
+                  - generic [ref=f4e1226]: 10:28 AM
+                - paragraph [ref=f4e1227]: Feeling so relaxed 🧘‍♀️
+            - generic [ref=f4e1228]:
+              - textbox "Type a message..." [ref=f4e1229]
+              - button "Send" [ref=f4e1230] [cursor=pointer]
+  - navigation [ref=f4e1050]:
+    - button "Home" [ref=f4e1051] [cursor=pointer]
+    - button "Yoga" [ref=f4e1057] [cursor=pointer]
+    - button "Reminders" [ref=f4e1065] [cursor=pointer]
+    - button "Relax" [ref=f4e1073] [cursor=pointer]
+    - button "Profile" [ref=f4e1078] [cursor=pointer]
+  - generic [ref=f4e1234]:
+    - generic [ref=f4e1239]:
+      - strong [ref=f4e1240]: Joined Live Session
+      - paragraph [ref=f4e1241]: Hatha Yoga
+    - button "Dismiss" [ref=f4e1242] [cursor=pointer]

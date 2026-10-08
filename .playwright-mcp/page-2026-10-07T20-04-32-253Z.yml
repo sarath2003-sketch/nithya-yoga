@@ -1,0 +1,529 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e10] [cursor=pointer]:
+        - generic [ref=e11]: NITHYA
+        - generic [ref=e12]: Yoga & Wellness
+      - textbox "Search anything..." [ref=e17]
+    - generic [ref=e18]:
+      - button "LIVE CLASS" [ref=e19] [cursor=pointer]
+      - button "Test Loud Sound Chime" [ref=e22] [cursor=pointer]
+      - button "Notifications" [ref=e28] [cursor=pointer]
+      - button "EN" [ref=e32] [cursor=pointer]
+      - button "Toggle Theme" [ref=e37] [cursor=pointer]
+      - generic "View Profile" [ref=e44] [cursor=pointer]:
+        - generic [ref=e45]: S
+        - generic [ref=e46]:
+          - generic [ref=e47]: Welcome,
+          - generic [ref=e48]: Sarah
+  - generic [ref=e49]:
+    - complementary [ref=e50]:
+      - navigation [ref=e51]:
+        - button "Home" [active] [ref=e52] [cursor=pointer]
+        - button "Yoga Classes" [ref=e58] [cursor=pointer]
+        - button "Live Classes LIVE" [ref=e66] [cursor=pointer]:
+          - generic [ref=e71]: Live Classes
+          - generic [ref=e72]: LIVE
+        - button "Reminders" [ref=e73] [cursor=pointer]
+        - button "Yoga Notes" [ref=e81] [cursor=pointer]
+        - button "Attendance" [ref=e87] [cursor=pointer]
+        - button "Relaxation" [ref=e93] [cursor=pointer]
+        - button "Profile" [ref=e98] [cursor=pointer]
+      - paragraph [ref=e108]: A healthier you is a happier you... ♡
+    - main [ref=e109]:
+      - generic [ref=e1284]:
+        - generic [ref=e1285]:
+          - generic [ref=e1286]:
+            - generic [ref=e1287]:
+              - generic [ref=e1288]: NITHYA YOGA & WELLNESS
+              - heading "Move • Breathe • Remember • Relax" [level=1] [ref=e1293]
+              - paragraph [ref=e1294]: Your personal space for yoga, wellness, mindful routines and everyday care.
+              - generic [ref=e1295]:
+                - button "Join Live Class" [ref=e1296] [cursor=pointer]
+                - button "View Today's Schedule" [ref=e1301] [cursor=pointer]
+            - generic [ref=e1305]:
+              - img "Seated yoga pose in sage line art" [ref=e1307]:
+                - generic [ref=e1317] [cursor=pointer]
+                - generic [ref=e1319] [cursor=pointer]
+                - generic [ref=e1321] [cursor=pointer]
+                - generic [ref=e1323] [cursor=pointer]
+                - generic [ref=e1325] [cursor=pointer]
+                - generic [ref=e1327] [cursor=pointer]
+                - generic [ref=e1329] [cursor=pointer]
+              - generic [ref=e1331]: A moment to reset
+          - generic [ref=e1332]:
+            - generic [ref=e1333]:
+              - generic [ref=e1334]: S
+              - generic [ref=e1335]:
+                - heading "Hello, Sarah" [level=3] [ref=e1336]
+                - paragraph [ref=e1337]: Stay consistent. Stay healthy.
+            - generic [ref=e1338]:
+              - generic [ref=e1344]:
+                - strong [ref=e1345]: "12"
+                - generic [ref=e1346]: Classes Attended
+              - generic [ref=e1352]:
+                - strong [ref=e1353]: 85%
+                - generic [ref=e1354]: Attendance Rate
+              - generic [ref=e1359]:
+                - strong [ref=e1360]: "7"
+                - generic [ref=e1361]: Day Streak
+              - generic [ref=e1366]:
+                - strong [ref=e1367]: Beginner
+                - generic [ref=e1368]: Level
+        - generic [ref=e1369]:
+          - generic [ref=e1370]:
+            - generic [ref=e1371]:
+              - generic [ref=e1372]: CARE & WELLNESS ROUTINE
+              - heading "Today's Reminders" [level=2] [ref=e1373]
+              - paragraph [ref=e1374]: Smart Care Timeline • Mindful nudges for your body, water, meals and routines.
+            - generic [ref=e1375]:
+              - button "+ Quick Add Reminder" [ref=e1376] [cursor=pointer]
+              - button "View All →" [ref=e1379] [cursor=pointer]
+          - generic [ref=e1380]:
+            - button "All" [ref=e1381] [cursor=pointer]
+            - button "Water" [ref=e1382] [cursor=pointer]
+            - button "Yoga" [ref=e1383] [cursor=pointer]
+            - button "Meal" [ref=e1384] [cursor=pointer]
+            - button "Call" [ref=e1385] [cursor=pointer]
+            - button "Personal Care" [ref=e1386] [cursor=pointer]
+          - generic [ref=e1387]:
+            - generic [ref=e1388]:
+              - generic [ref=e1389]:
+                - generic [ref=e1393]:
+                  - generic [ref=e1394]: 08:00 AM
+                  - generic [ref=e1399]: Water
+                - 'button "Test Sound: Gentle Bell" [ref=e1400] [cursor=pointer]'
+              - generic [ref=e1404]:
+                - heading "Morning Water" [level=3] [ref=e1405]
+                - paragraph [ref=e1406]: "\"கொஞ்சம் தண்ணி குடிச்சுக்கோங்க… உடம்புக்கு அது தேவை ❤️\""
+              - generic [ref=e1407]:
+                - generic [ref=e1408]: Daily
+                - generic [ref=e1415]:
+                  - button "Mark Complete" [ref=e1416] [cursor=pointer]
+                  - button "Mute Reminder" [ref=e1419] [cursor=pointer]
+                  - button "Share to WhatsApp" [ref=e1423] [cursor=pointer]
+                  - button "Edit Reminder" [ref=e1430] [cursor=pointer]
+                  - button "Delete Reminder" [ref=e1434] [cursor=pointer]
+            - generic [ref=e1438]:
+              - generic [ref=e1439]:
+                - generic [ref=e1446]:
+                  - generic [ref=e1447]: 10:00 AM
+                  - generic [ref=e1452]: Yoga
+                - 'button "Test Sound: Singing Bowl" [ref=e1453] [cursor=pointer]'
+              - generic [ref=e1457]:
+                - heading "Yoga Session" [level=3] [ref=e1458]
+                - paragraph [ref=e1459]: "\"யோகா டைம்… கொஞ்ச நேரம் உங்களுக்காக ஒதுக்கிக்கோங்க 🧘‍♀️\""
+              - generic [ref=e1460]:
+                - generic [ref=e1461]: Daily
+                - generic [ref=e1468]:
+                  - button "Mark Complete" [ref=e1469] [cursor=pointer]
+                  - button "Mute Reminder" [ref=e1472] [cursor=pointer]
+                  - button "Share to WhatsApp" [ref=e1476] [cursor=pointer]
+                  - button "Edit Reminder" [ref=e1483] [cursor=pointer]
+                  - button "Delete Reminder" [ref=e1487] [cursor=pointer]
+            - generic [ref=e1491]:
+              - generic [ref=e1492]:
+                - generic [ref=e1497]:
+                  - generic [ref=e1498]: 01:00 PM
+                  - generic [ref=e1503]: Meal
+                - 'button "Test Sound: Gentle Bell" [ref=e1504] [cursor=pointer]'
+              - generic [ref=e1508]:
+                - heading "Meal" [level=3] [ref=e1509]
+                - paragraph [ref=e1510]: "\"சாப்பிடாம இருக்காதீங்க… நேரத்துக்கு சாப்பிடுங்க ❤️\""
+              - generic [ref=e1511]:
+                - generic [ref=e1512]: Daily
+                - generic [ref=e1519]:
+                  - button "Mark Complete" [ref=e1520] [cursor=pointer]
+                  - button "Mute Reminder" [ref=e1523] [cursor=pointer]
+                  - button "Share to WhatsApp" [ref=e1527] [cursor=pointer]
+                  - button "Edit Reminder" [ref=e1534] [cursor=pointer]
+                  - button "Delete Reminder" [ref=e1538] [cursor=pointer]
+            - generic [ref=e1542]:
+              - generic [ref=e1543]:
+                - generic [ref=e1547]:
+                  - generic [ref=e1548]: 05:30 PM
+                  - generic [ref=e1553]: Water
+                - 'button "Test Sound: Gentle Bell" [ref=e1554] [cursor=pointer]'
+              - generic [ref=e1558]:
+                - heading "Water Reminder" [level=3] [ref=e1559]
+                - paragraph [ref=e1560]: "\"தண்ணி குடிக்க நேரமாச்சு… Stay fresh & hydrated! 💧\""
+              - generic [ref=e1561]:
+                - generic [ref=e1562]: Daily
+                - generic [ref=e1569]:
+                  - button "Mark Complete" [ref=e1570] [cursor=pointer]
+                  - button "Mute Reminder" [ref=e1573] [cursor=pointer]
+                  - button "Share to WhatsApp" [ref=e1577] [cursor=pointer]
+                  - button "Edit Reminder" [ref=e1584] [cursor=pointer]
+                  - button "Delete Reminder" [ref=e1588] [cursor=pointer]
+            - generic [ref=e1592]:
+              - generic [ref=e1593]:
+                - generic [ref=e1600]:
+                  - generic [ref=e1601]: 06:00 PM
+                  - generic [ref=e1606]: Yoga
+                - 'button "Test Sound: Temple Bell" [ref=e1607] [cursor=pointer]'
+              - generic [ref=e1611]:
+                - heading "Next Yoga Class" [level=3] [ref=e1612]
+                - paragraph [ref=e1613]: "\"Keep going! You're doing great! 💜 மாலை வகுப்பு துவங்குகிறது.\""
+              - generic [ref=e1614]:
+                - generic [ref=e1615]: Weekdays
+                - generic [ref=e1622]:
+                  - button "Mark Complete" [ref=e1623] [cursor=pointer]
+                  - button "Mute Reminder" [ref=e1626] [cursor=pointer]
+                  - button "Share to WhatsApp" [ref=e1630] [cursor=pointer]
+                  - button "Edit Reminder" [ref=e1637] [cursor=pointer]
+                  - button "Delete Reminder" [ref=e1641] [cursor=pointer]
+            - generic [ref=e1645]:
+              - generic [ref=e1646]:
+                - generic [ref=e1650]:
+                  - generic [ref=e1651]: 07:00 PM
+                  - generic [ref=e1656]: Call
+                - 'button "Test Sound: Gentle Bell" [ref=e1657] [cursor=pointer]'
+              - generic [ref=e1661]:
+                - heading "Call Reminder" [level=3] [ref=e1662]
+                - paragraph [ref=e1663]: "\"Don't forget to call your loved ones. குடும்பத்தினரிடம் பேசுங்கள் 📞\""
+              - generic [ref=e1664]:
+                - generic [ref=e1665]: Daily
+                - generic [ref=e1672]:
+                  - button "Mark Complete" [ref=e1673] [cursor=pointer]
+                  - button "Mute Reminder" [ref=e1676] [cursor=pointer]
+                  - button "Share to WhatsApp" [ref=e1680] [cursor=pointer]
+                  - button "Edit Reminder" [ref=e1687] [cursor=pointer]
+                  - button "Delete Reminder" [ref=e1691] [cursor=pointer]
+        - generic [ref=e1695]:
+          - generic [ref=e1696]:
+            - generic [ref=e1697]:
+              - generic [ref=e1698]: CURATED ASANAS & ROUTINES
+              - heading "Yoga Classes" [level=2] [ref=e1699]
+              - paragraph [ref=e1700]: Flow through foundational, restorative, and energizing sessions.
+            - button "View All →" [ref=e1701] [cursor=pointer]
+          - generic [ref=e1702]:
+            - button "All" [ref=e1703] [cursor=pointer]
+            - button "Beginner" [ref=e1704] [cursor=pointer]
+            - button "Intermediate" [ref=e1705] [cursor=pointer]
+            - button "Advanced" [ref=e1706] [cursor=pointer]
+          - generic [ref=e1707]:
+            - generic [ref=e1708]:
+              - generic [ref=e1709]: Beginner
+              - generic [ref=e1711]:
+                - generic [ref=e1712]:
+                  - generic [ref=e1713]: 06:00 AM • 60 min
+                  - generic [ref=e1718]: Priya
+                - heading "Hatha Yoga" [level=3] [ref=e1722]
+                - paragraph [ref=e1723]: Build flexibility, gentle core stability and natural balance.
+                - generic [ref=e1724]:
+                  - generic [ref=e1725]: Attended
+                  - button "Join Live" [ref=e1731] [cursor=pointer]
+            - generic [ref=e1736]:
+              - generic [ref=e1737]: Intermediate
+              - generic [ref=e1739]:
+                - generic [ref=e1740]:
+                  - generic [ref=e1741]: 08:30 AM • 60 min
+                  - generic [ref=e1746]: Anu
+                - heading "Vinyasa Flow" [level=3] [ref=e1750]
+                - paragraph [ref=e1751]: Improve stamina, breath synchronicity and fluid motion.
+                - generic [ref=e1752]:
+                  - generic [ref=e1753]: Attended
+                  - button "Join Live" [ref=e1759] [cursor=pointer]
+            - generic [ref=e1764]:
+              - generic [ref=e1765]: Advanced
+              - generic [ref=e1767]:
+                - generic [ref=e1768]:
+                  - generic [ref=e1769]: 04:30 PM • 75 min
+                  - generic [ref=e1774]: Meena
+                - heading "Power Yoga" [level=3] [ref=e1778]
+                - paragraph [ref=e1779]: Boost metabolic energy, muscular endurance and sharp focus.
+                - generic [ref=e1780]:
+                  - generic [ref=e1781]: Upcoming
+                  - button "Join Live" [ref=e1787] [cursor=pointer]
+            - generic [ref=e1792]:
+              - generic [ref=e1793]: All Levels
+              - generic [ref=e1795]:
+                - generic [ref=e1796]:
+                  - generic [ref=e1797]: 06:00 PM • 50 min
+                  - generic [ref=e1802]: Lakshmi
+                - heading "Yin Yoga" [level=3] [ref=e1806]
+                - paragraph [ref=e1807]: Deep restorative stretching and meditative spine release.
+                - generic [ref=e1808]:
+                  - generic [ref=e1809]: Upcoming
+                  - button "Join Live" [ref=e1815] [cursor=pointer]
+        - generic [ref=e1821]:
+          - generic [ref=e1822]:
+            - generic [ref=e1823]:
+              - generic [ref=e1824]: LIVE CLASS
+              - generic [ref=e1827]:
+                - heading "Hatha Yoga" [level=2] [ref=e1828]
+                - paragraph [ref=e1829]: "Instructor: Priya • 60 mins session"
+            - generic [ref=e1830]:
+              - button "Share Invite" [ref=e1831] [cursor=pointer]
+              - button "Leave Class" [ref=e1839] [cursor=pointer]
+          - generic [ref=e1845]:
+            - generic [ref=e1846]:
+              - generic [ref=e1847]:
+                - generic [ref=e1849]:
+                  - heading "Hatha Yoga" [level=4] [ref=e1856]
+                  - paragraph [ref=e1857]: Instructor streaming in HD • Ready for deep breathwork
+                - generic [ref=e1858]:
+                  - generic [ref=e1859]: 00:32:16
+                  - generic [ref=e1860]: HD 1080p • 60fps
+                - generic [ref=e1861]:
+                  - generic [ref=e1862]:
+                    - generic [ref=e1867]:
+                      - text: "Live Attendance:"
+                      - generic [ref=e1868]: 72%
+                    - generic [ref=e1869]: 70%+ Verified ✓
+                  - generic "70% Goal Threshold" [ref=e1875]
+              - generic [ref=e1877]:
+                - button "Mute Microphone" [ref=e1878] [cursor=pointer]
+                - button "Turn On Camera" [ref=e1882] [cursor=pointer]
+                - button "Share Screen" [ref=e1887] [cursor=pointer]
+                - button "Fullscreen" [ref=e1890] [cursor=pointer]
+            - generic [ref=e1896]:
+              - generic [ref=e1897]:
+                - strong [ref=e1905]: Participants (6)
+                - generic [ref=e1906]:
+                  - generic [ref=e1907]:
+                    - generic [ref=e1908]: T
+                    - generic [ref=e1909]:
+                      - generic [ref=e1910]: Teacher (Host)
+                      - generic [ref=e1911]: Host
+                  - generic [ref=e1913]:
+                    - generic [ref=e1914]: S
+                    - generic [ref=e1915]:
+                      - generic [ref=e1916]: Sarah (You)
+                      - generic [ref=e1917]: Student
+                  - generic [ref=e1919]:
+                    - generic [ref=e1920]: M
+                    - generic [ref=e1921]:
+                      - generic [ref=e1922]: Meena
+                      - generic [ref=e1923]: Student
+                  - generic [ref=e1925]:
+                    - generic [ref=e1926]: K
+                    - generic [ref=e1927]:
+                      - generic [ref=e1928]: Karthik
+                      - generic [ref=e1929]: Student
+                  - generic [ref=e1931]:
+                    - generic [ref=e1932]: D
+                    - generic [ref=e1933]:
+                      - generic [ref=e1934]: Divya
+                      - generic [ref=e1935]: Student
+                  - generic [ref=e1937]:
+                    - generic [ref=e1938]: R
+                    - generic [ref=e1939]:
+                      - generic [ref=e1940]: Ravi
+                      - generic [ref=e1941]: Student
+              - generic [ref=e1943]:
+                - strong [ref=e1948]: Class Chat
+                - generic [ref=e1949]:
+                  - generic [ref=e1950]:
+                    - generic [ref=e1951]:
+                      - strong [ref=e1952]: Meena
+                      - generic [ref=e1953]: 10:24 AM
+                    - paragraph [ref=e1954]: This is so relaxing! 💜
+                  - generic [ref=e1955]:
+                    - generic [ref=e1956]:
+                      - strong [ref=e1957]: Karthik
+                      - generic [ref=e1958]: 10:26 AM
+                    - paragraph [ref=e1959]: Nice breathing technique!
+                  - generic [ref=e1960]:
+                    - generic [ref=e1961]:
+                      - strong [ref=e1962]: You
+                      - generic [ref=e1963]: 10:28 AM
+                    - paragraph [ref=e1964]: Feeling so relaxed 🧘‍♀️
+                - generic [ref=e1965]:
+                  - textbox "Type a message..." [ref=e1966]
+                  - button "Send" [ref=e1967] [cursor=pointer]
+        - generic [ref=e1971]:
+          - generic [ref=e1973]:
+            - generic [ref=e1974]: CONSISTENCY & CELEBRATION
+            - heading "Progress & Attendance" [level=2] [ref=e1975]
+            - paragraph [ref=e1976]: Track your journey, celebrate growth, and verify class attendance.
+          - generic [ref=e1977]:
+            - generic [ref=e1983]:
+              - generic [ref=e1984]: Classes Attended
+              - heading "12" [level=3] [ref=e1985]
+              - generic [ref=e1986]: +2 this week
+            - generic [ref=e1991]:
+              - generic [ref=e1992]: Attendance Rate
+              - heading "85%" [level=3] [ref=e1993]
+              - generic [ref=e1994]: +5% vs last month
+            - generic [ref=e2000]:
+              - generic [ref=e2001]: Reminders Completed
+              - heading "18" [level=3] [ref=e2002]
+              - generic [ref=e2003]: +3 than last week
+            - generic [ref=e2008]:
+              - generic [ref=e2009]: Yoga Progress
+              - heading "Good" [level=3] [ref=e2010]
+              - generic [ref=e2011]: 7-day streak active
+          - generic [ref=e2012]:
+            - generic [ref=e2013]:
+              - generic [ref=e2014]:
+                - heading "Weekly Activity" [level=4] [ref=e2015]
+                - generic [ref=e2016]: ~ 250 mins total
+              - generic [ref=e2017]:
+                - generic [ref=e2018]:
+                  - generic [ref=e2019]: 45m
+                  - generic [ref=e2022]: Mon
+                - generic [ref=e2023]:
+                  - generic [ref=e2024]: 30m
+                  - generic [ref=e2027]: Tue
+                - generic [ref=e2028]:
+                  - generic [ref=e2029]: 60m
+                  - generic [ref=e2032]: Wed
+                - generic [ref=e2033]:
+                  - generic [ref=e2034]: "0"
+                  - generic [ref=e2036]: Thu
+                - generic [ref=e2037]:
+                  - generic [ref=e2038]: 55m
+                  - generic [ref=e2041]: Fri
+                - generic [ref=e2042]:
+                  - generic [ref=e2043]: 40m
+                  - generic [ref=e2046]: Sat
+                - generic [ref=e2047]:
+                  - generic [ref=e2048]: 20m
+                  - generic [ref=e2051]: Sun
+            - generic [ref=e2052]:
+              - generic [ref=e2053]:
+                - heading "Reminder Completion" [level=4] [ref=e2054]
+                - generic [ref=e2055]: 80% Today
+              - generic [ref=e2056]:
+                - generic [ref=e2057]: 80%
+                - generic [ref=e2063]:
+                  - generic [ref=e2064]:
+                    - generic [ref=e2066]: Water
+                    - generic [ref=e2067]: 3/3
+                  - generic [ref=e2068]:
+                    - generic [ref=e2070]: Meal
+                    - generic [ref=e2071]: 2/2
+                  - generic [ref=e2072]:
+                    - generic [ref=e2074]: Call
+                    - generic [ref=e2075]: 2/3
+                  - generic [ref=e2076]:
+                    - generic [ref=e2078]: Other
+                    - generic [ref=e2079]: 5/7
+          - generic [ref=e2080]:
+            - heading "Recent Class Attendance Records" [level=4] [ref=e2081]
+            - generic [ref=e2082]:
+              - generic [ref=e2083]:
+                - generic [ref=e2084]: 07 Oct 2026
+                - generic [ref=e2088]:
+                  - strong [ref=e2089]: Morning Prana Flow
+                  - generic [ref=e2090]: 42 min attended
+                - generic [ref=e2091]: 93%
+                - generic [ref=e2093]: 70%+ Verified ✓
+              - generic [ref=e2099]:
+                - generic [ref=e2100]: 06 Oct 2026
+                - generic [ref=e2104]:
+                  - strong [ref=e2105]: Spine Health & Hatha
+                  - generic [ref=e2106]: 35 min attended
+                - generic [ref=e2107]: 87%
+                - generic [ref=e2109]: 70%+ Verified ✓
+              - generic [ref=e2115]:
+                - generic [ref=e2116]: 05 Oct 2026
+                - generic [ref=e2120]:
+                  - strong [ref=e2121]: Evening Yin Release
+                  - generic [ref=e2122]: 32 min attended
+                - generic [ref=e2123]: 71%
+                - generic [ref=e2125]: 70%+ Verified ✓
+              - generic [ref=e2131]:
+                - generic [ref=e2132]: 03 Oct 2026
+                - generic [ref=e2136]:
+                  - strong [ref=e2137]: Desk Stress Relief
+                  - generic [ref=e2138]: 18 min attended
+                - generic [ref=e2139]: 60%
+                - generic [ref=e2141]: Incomplete
+        - generic [ref=e2142]:
+          - generic [ref=e2144]:
+            - generic [ref=e2145]: SERENITY & REST
+            - heading "Relaxation Zone" [level=2] [ref=e2146]
+            - paragraph [ref=e2147]: Calm your mind. Heal your soul with restorative breathwork and soundscapes.
+          - generic [ref=e2148]:
+            - button "Meditation" [ref=e2149] [cursor=pointer]
+            - button "Breathing" [ref=e2150] [cursor=pointer]
+            - button "Music" [ref=e2151] [cursor=pointer]
+            - button "Sleep" [ref=e2152] [cursor=pointer]
+          - generic [ref=e2153]:
+            - generic [ref=e2155]:
+              - generic [ref=e2156]: GUIDED SESSION
+              - heading "Guided Meditation" [level=3] [ref=e2161]
+              - paragraph [ref=e2162]: 10 min • Calm Mind & Deep Release
+              - button "Play Guided Session" [ref=e2163] [cursor=pointer]
+            - generic [ref=e2166]:
+              - heading "Box Breathing Visual Guide" [level=4] [ref=e2167]
+              - paragraph [ref=e2168]: Inhale
+              - generic [ref=e2169]: "4"
+              - generic [ref=e2172]:
+                - generic [ref=e2173]:
+                  - generic [ref=e2174]: Deep Breathing
+                  - generic [ref=e2175]: 5 min • Focus
+                - generic [ref=e2176]:
+                  - generic [ref=e2177]: Relaxing Music
+                  - generic [ref=e2178]: 30 min • Calm
+                - generic [ref=e2179]:
+                  - generic [ref=e2180]: Sleep Sounds
+                  - generic [ref=e2181]: 45 min • Sleep
+          - generic [ref=e2182]:
+            - generic [ref=e2189]:
+              - strong [ref=e2190]: Peaceful Mind
+              - text: Relaxing Music
+            - generic [ref=e2191]:
+              - generic [ref=e2192]:
+                - button "Previous" [ref=e2193] [cursor=pointer]
+                - button "Play" [ref=e2196] [cursor=pointer]
+                - button "Next" [ref=e2199] [cursor=pointer]
+              - generic [ref=e2202]:
+                - generic [ref=e2203]: 04:12
+                - slider [ref=e2204] [cursor=pointer]: "35"
+                - generic [ref=e2205]: 12:00
+            - slider "Volume" [ref=e2211] [cursor=pointer]: "80"
+        - generic [ref=e2212]:
+          - generic [ref=e2213]:
+            - generic [ref=e2214]:
+              - generic [ref=e2215]: MINDFUL REFLECTIONS
+              - heading "Yoga Notes" [level=2] [ref=e2216]
+              - paragraph [ref=e2217]: Keep your thoughts, learnings and wellness insights in one quiet space.
+            - button "+ Add Note" [ref=e2218] [cursor=pointer]
+          - generic [ref=e2221]:
+            - textbox "Search notes..." [ref=e2226]
+            - generic [ref=e2227]:
+              - button "All" [ref=e2228] [cursor=pointer]
+              - button "Yoga" [ref=e2229] [cursor=pointer]
+              - button "Health" [ref=e2230] [cursor=pointer]
+              - button "Routine" [ref=e2231] [cursor=pointer]
+              - button "Wellness" [ref=e2232] [cursor=pointer]
+          - generic [ref=e2233]:
+            - generic [ref=e2234]:
+              - generic [ref=e2235]:
+                - generic [ref=e2236]: Yoga
+                - generic [ref=e2237]: Oct 5, 2026
+              - heading "Benefits of Yoga" [level=3] [ref=e2238]
+              - paragraph [ref=e2239]: Yoga improves flexibility, reduces cortisol stress and sharpens mental focus. Consistent 20-min daily practice brings sustained tranquility.
+              - generic [ref=e2240]:
+                - button "Edit" [ref=e2241] [cursor=pointer]
+                - button "Delete Note" [ref=e2246] [cursor=pointer]
+            - generic [ref=e2250]:
+              - generic [ref=e2251]:
+                - generic [ref=e2252]: Health
+                - generic [ref=e2253]: Oct 4, 2026
+              - heading "Healthy Food Habits" [level=3] [ref=e2254]
+              - paragraph [ref=e2255]: Eat clean, stay hydrated. Fresh sattvic food provides sustained physical energy without afternoon crashes.
+              - generic [ref=e2256]:
+                - button "Edit" [ref=e2257] [cursor=pointer]
+                - button "Delete Note" [ref=e2262] [cursor=pointer]
+            - generic [ref=e2266]:
+              - generic [ref=e2267]:
+                - generic [ref=e2268]: Routine
+                - generic [ref=e2269]: Oct 3, 2026
+              - heading "Morning Routine" [level=3] [ref=e2270]
+              - paragraph [ref=e2271]: Wake up early, drink 2 glasses of warm water, 10 minutes of Nadi Shodhana breathing, then light dynamic stretches.
+              - generic [ref=e2272]:
+                - button "Edit" [ref=e2273] [cursor=pointer]
+                - button "Delete Note" [ref=e2278] [cursor=pointer]
+            - generic [ref=e2282]:
+              - generic [ref=e2283]:
+                - generic [ref=e2284]: Wellness
+                - generic [ref=e2285]: Oct 2, 2026
+              - heading "Self Care" [level=3] [ref=e2286]
+              - paragraph [ref=e2287]: Take care of your mind. It's just as important as your body. Remember to pause whenever tension creeps in.
+              - generic [ref=e2288]:
+                - button "Edit" [ref=e2289] [cursor=pointer]
+                - button "Delete Note" [ref=e2294] [cursor=pointer]

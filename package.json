@@ -1,0 +1,22 @@
+{
+  "name": "nithya-web-page_files",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build_site.js",
+  "scripts": {
+    "build": "esbuild src/index.jsx --bundle --platform=browser --format=iife --target=es2020 --outfile=dist/bundle.js --sourcemap",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "lucide-react": "^1.52.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
+  }
+}

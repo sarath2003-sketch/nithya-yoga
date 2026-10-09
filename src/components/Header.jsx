@@ -14,6 +14,12 @@ export default function Header({
 }) {
   return (
     <header className="dashboard-top-header">
+      {/* Mobile Brand Logo */}
+      <div className="header-mobile-brand-wrap" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <img src="assets/images/logo.png" alt="Nithya Yoga" className="header-mobile-logo-img" />
+        <span className="header-mobile-title">NITHYA</span>
+      </div>
+
       {/* Search Input Bar */}
       <div className="header-search-wrapper">
         <Search size={16} className="search-icon-left" />
@@ -64,7 +70,16 @@ export default function Header({
         </button>
 
         {/* User Pill */}
-        <div className="header-user-badge">
+        <div 
+          className="header-user-badge"
+          onClick={() => {
+            const el = document.querySelector('.profile-dashboard-card');
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+          title="View / Edit Profile"
+          role="button"
+          tabIndex={0}
+        >
           <div className="user-avatar-circle">
             {user.avatar ? (
               <img src={user.avatar} alt={user.name} />

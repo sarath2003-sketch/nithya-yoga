@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Radio, 
   Plus, 
@@ -12,32 +12,105 @@ import {
   Play, 
   Users, 
   MessageSquare,
-  LogOut
+  LogOut,
+  ExternalLink,
+  CheckCircle,
+  Calendar,
+  Clock,
+  ShieldCheck,
+  Award
 } from 'lucide-react';
+import { audioEngine } from '../utils/audioEngine';
+import LiveYogaClassRoom from './LiveYogaClassRoom';
 
 export default function LiveClassStudio({
   activeClass,
   onLeaveClass,
+  onRecordAttendance,
+  onScheduleClass,
+  onOpenFullStudio,
   lang = 'en'
 }) {
+  const [isLiveKitActive, setIsLiveKitActive] = useState(false);
   const [isMicOn, setIsMicOn] = useState(true);
   const [isVideoOn, setIsVideoOn] = useState(true);
-  const [isPaused, setIsPaused] = useState(false);
+  const [isSessionActive, setIsSessionActive] = useState(false);
+  const [sessionSeconds, setSessionSeconds] = useState(0);
+  const [attendanceVerified, setAttendanceVerified] = useState(false);
+  const [isTeacherMode, setIsTeacherMode] = useState(false);
+  
+  // Teacher Class Scheduling State
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [newClassTitle, setNewClassTitle] = useState('');
+  const [newClassInstructor, setNewClassInstructor] = useState('Priya');
+  const [newClassTime, setNewClassTime] = useState('07:00 AM');
+  const [newClassDate, setNewClassDate] = useState(() => new Date().toISOString().split('T')[0]);
+  const [newMeetUrl, setNewMeetUrl] = useState('https://meet.google.com/new');
+  const [newClassDuration, setNewClassDuration] = useState('60');
+
+  // Chat State
   const [chatInput, setChatInput] = useState('');
   const [messages, setMessages] = useState([
-    { id: 1, sender: 'Meena', text: 'This is so relaxing! 💜', time: '10:24 AM' },
-    { id: 2, sender: 'Karthik', text: 'Nice breathing technique!', time: '10:26 AM' },
-    { id: 3, sender: 'You', text: 'Feeling so relaxed 😊', time: '10:34 AM' }
+    { id: 1, sender: 'Teacher Priya', text: 'Welcome everyone! Unroll your mat and sit comfortably. 🧘‍♀️', time: '10:20 AM' },
+    { id: 2, sender: 'Meena', text: 'Namaste teacher! Ready for class.', time: '10:24 AM' },
+    { id: 3, sender: 'You', text: 'Namaste! Audio & video working well.', time: '10:28 AM' }
   ]);
 
   const participants = [
-    { id: 1, name: 'Teacher (Host)', role: 'Host', isHost: true },
-    { id: 2, name: 'You', role: 'Student' },
+    { id: 1, name: `${activeClass?.instructor || 'Priya'} (Instructor)`, role: 'Host', isHost: true },
+    { id: 2, name: 'You (Sarah)', role: 'Student' },
     { id: 3, name: 'Meena', role: 'Student' },
     { id: 4, name: 'Karthik', role: 'Student' },
     { id: 5, name: 'Divya', role: 'Student' },
     { id: 6, name: 'Ravi', role: 'Student' }
   ];
+
+  // Timer effect for active session
+  useEffect(() => {
+    let interval = null;
+    if (isSessionActive) {
+      interval = setInterval(() => {
+        setSessionSeconds(prev => prev + 1);
+      }, 1000);
+    } else {
+      clearInterval(interval);
+    }
+    return () => clearInterval(interval);
+  }, [isSessionActive]);
+
+  const formatTimer = (totalSec) => {
+    const hrs = Math.floor(totalSec / 3600);
+    const mins = Math.floor((totalSec % 3600) / 60);
+    const secs = totalSec % 60;
+    return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
+
+  const handleLaunchGoogleMeet = () => {
+    setIsSessionActive(true);
+    audioEngine.playGentleChime();
+    const meetUrl = activeClass?.meetUrl || 'https://meet.google.com/new';
+    window.open(meetUrl, '_blank', 'noopener,noreferrer');
+  };
+
+  const handleVerifyAttendance = () => {
+    setAttendanceVerified(true);
+    audioEngine.playTempleBell();
+    const minutesSpent = Math.max(1, Math.round(sessionSeconds / 60));
+    
+    if (onRecordAttendance) {
+      onRecordAttendance({
+        id: `att-${Date.now()}`,
+        studentName: 'Sarah',
+        classId: activeClass?.id || 'cls-1',
+        className: activeClass?.title || activeClass?.name || 'Hatha Yoga',
+        instructor: activeClass?.instructor || 'Priya',
+        date: new Date().toISOString().split('T')[0],
+        durationMinutes: minutesSpent,
+        status: 'Verified',
+        timestamp: new Date().toISOString()
+      });
+    }
+  };
 
   const handleSendMessage = (e) => {
     e.preventDefault();
@@ -55,6 +128,57 @@ export default function LiveClassStudio({
     setChatInput('');
   };
 
+  const handleScheduleSubmit = (e) => {
+    e.preventDefault();
+    if (!newClassTitle.trim()) return;
+
+    const newClass = {
+      id: `cls-${Date.now()}`,
+      name: newClassTitle.trim(),
+      title: newClassTitle.trim(),
+      instructor: newClassInstructor.trim(),
+      duration: parseInt(newClassDuration, 10) || 60,
+      level: 'All Levels',
+      time: newClassTime,
+      date: newClassDate,
+      meetUrl: newMeetUrl.trim() || 'https://meet.google.com/new',
+      description: 'Scheduled live yoga session.',
+      attended: false,
+      category: 'Beginner'
+    };
+
+    if (onScheduleClass) {
+      onScheduleClass(newClass);
+    }
+    setShowScheduleModal(false);
+    setNewClassTitle('');
+  };
+
+  const handleLeave = () => {
+    setIsSessionActive(false);
+    if (onLeaveClass) onLeaveClass();
+  };
+
+  if (isLiveKitActive) {
+    return (
+      <div className="dashboard-card live-class-card p-0 overflow-hidden ya-reveal">
+        <LiveYogaClassRoom
+          activeClass={activeClass}
+          user={{
+            name: isTeacherMode ? (activeClass?.instructor || 'Priya') : 'Sarah',
+            role: isTeacherMode ? 'instructor' : 'student'
+          }}
+          onLeaveClass={() => {
+            setIsLiveKitActive(false);
+            if (onLeaveClass) onLeaveClass();
+          }}
+          onRecordAttendance={onRecordAttendance}
+          lang={lang}
+        />
+      </div>
+    );
+  }
+
   return (
     <div className="dashboard-card live-class-card">
       {/* Header */}
@@ -62,23 +186,41 @@ export default function LiveClassStudio({
         <div className="live-title-group">
           <span className="live-pulse-icon">((•))</span>
           <h3 className="card-title-main">
-            <span>{lang === 'ta' ? 'லைவ் வகுப்பு' : 'Live Class'}</span>
+            <span>{lang === 'ta' ? 'லைவ் வகுப்பு ஸ்டுடியோ' : 'Live Class Studio'}</span>
           </h3>
         </div>
 
-        <div className="live-header-actions">
+        <div className="live-header-actions flex items-center gap-2">
+          {/* Mode Badge / Switch */}
+          <button
+            type="button"
+            className={`btn-mode-toggle text-xs px-2 py-1 rounded-full ${isTeacherMode ? 'bg-purple text-white' : 'bg-subtle text-muted'}`}
+            onClick={() => setIsTeacherMode(!isTeacherMode)}
+            title="Switch Teacher / Student Mode"
+          >
+            {isTeacherMode ? '👨‍🏫 Teacher Mode' : '🧘 Student Mode'}
+          </button>
+
           <span className="live-status-badge">
             <span className="green-dot-pulse">●</span>
             <span>Live</span>
           </span>
-          <button type="button" className="btn-icon-square" title="Add participant">
-            <Plus size={14} />
-          </button>
+
+          {isTeacherMode && (
+            <button 
+              type="button" 
+              className="btn-icon-square" 
+              title="Schedule New Class"
+              onClick={() => setShowScheduleModal(true)}
+            >
+              <Plus size={14} />
+            </button>
+          )}
         </div>
       </div>
 
-      {/* Video Screen Feed */}
-      <div className="live-video-screen">
+      {/* Video Screen Feed & LiveKit Launcher */}
+      <div className="live-video-screen relative">
         <img 
           src="assets/images/live-class.jpg" 
           alt="Live Yoga Stream" 
@@ -87,8 +229,59 @@ export default function LiveClassStudio({
         
         {/* Top-Right Timer */}
         <div className="video-timer-badge">
-          <span>00:32:16</span>
+          <span>{formatTimer(sessionSeconds || 1936)}</span>
           <span className="red-record-dot">🔴</span>
+        </div>
+
+        {/* Top-Left Active Class Meta */}
+        <div className="video-class-meta-overlay">
+          <span className="class-name-tag">{activeClass?.title || activeClass?.name || 'Hatha Yoga'}</span>
+          <span className="class-teacher-tag">by {activeClass?.instructor || 'Priya'}</span>
+        </div>
+
+        {/* Center LiveKit Quick Launcher Button */}
+        <div className="video-center-launcher-box">
+          <button
+            type="button"
+            className="btn-launch-meet-gold ya-btn ya-ripple"
+            onClick={() => {
+              if (onOpenFullStudio) {
+                onOpenFullStudio();
+              } else {
+                setIsLiveKitActive(true);
+              }
+            }}
+          >
+            <Radio size={16} />
+            <span>{lang === 'ta' ? 'லைவ்கிட் HD ஸ்டுடியோவில் இணைக 🧘‍♀️' : 'Enter LiveKit HD Studio 🧘‍♀️'}</span>
+          </button>
+
+          <button
+            type="button"
+            className="btn-google-meet-subtle mt-2 text-xs text-white/90 hover:text-white underline cursor-pointer flex items-center justify-center gap-1 bg-black/40 px-3 py-1 rounded-full backdrop-blur"
+            onClick={handleLaunchGoogleMeet}
+          >
+            <ExternalLink size={12} />
+            <span>{lang === 'ta' ? 'அல்லது Google Meet பயன்படுத்தவும்' : 'Or join via Google Meet'}</span>
+          </button>
+          
+          {isSessionActive && !attendanceVerified && (
+            <button
+              type="button"
+              className="btn-verify-attendance-green mt-2"
+              onClick={handleVerifyAttendance}
+            >
+              <ShieldCheck size={15} />
+              <span>{lang === 'ta' ? 'வருகையை சரிபார்க்கவும் ✓' : 'Verify Attendance ✓'}</span>
+            </button>
+          )}
+
+          {attendanceVerified && (
+            <div className="attendance-verified-chip mt-2">
+              <CheckCircle size={14} />
+              <span>{lang === 'ta' ? 'வருகை பதிவு செய்யப்பட்டது ✓' : 'Attendance Verified & Logged ✓'}</span>
+            </div>
+          )}
         </div>
 
         {/* Video Control Bar */}
@@ -97,10 +290,10 @@ export default function LiveClassStudio({
             <button 
               type="button" 
               className="ctrl-btn"
-              onClick={() => setIsPaused(!isPaused)}
-              title={isPaused ? "Play" : "Pause"}
+              onClick={() => setIsSessionActive(!isSessionActive)}
+              title={isSessionActive ? "Pause Timer" : "Start Timer"}
             >
-              {isPaused ? <Play size={15} /> : <Pause size={15} />}
+              {isSessionActive ? <Pause size={15} /> : <Play size={15} />}
             </button>
 
             <button 
@@ -121,19 +314,34 @@ export default function LiveClassStudio({
               {isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
             </button>
 
-            <button type="button" className="ctrl-btn" title="Settings">
-              <Settings size={15} />
+            <button 
+              type="button" 
+              className="ctrl-btn" 
+              title="Google Meet Link"
+              onClick={() => window.open(activeClass?.meetUrl || 'https://meet.google.com/new', '_blank')}
+            >
+              <ExternalLink size={15} />
             </button>
           </div>
 
           <button 
             type="button" 
             className="btn-leave-class-pill"
-            onClick={onLeaveClass}
+            onClick={handleLeave}
           >
             {lang === 'ta' ? 'வெளியேறு' : 'Leave Class'}
           </button>
         </div>
+      </div>
+
+      {/* Honest Technical Integration Notice */}
+      <div className="meet-tech-notice-bar text-xs text-muted p-2 bg-subtle rounded mt-2 flex items-center gap-1">
+        <span>ℹ️</span>
+        <span>
+          {lang === 'ta' 
+            ? 'பாதுகாப்புக் காரணங்களால் Google Meet பிரத்யேக சாளரத்தில் திறக்கும். உங்கள் வருகை மற்றும் நேரம் இங்கே துல்லியமாகப் பதியப்படும்.' 
+            : 'For security (CSP policy), Google Meet opens securely in a dedicated window while attendance and practice time are verified here.'}
+        </span>
       </div>
 
       {/* Split Below Video: Participants (Left) + Chat (Right) */}
@@ -141,7 +349,7 @@ export default function LiveClassStudio({
         {/* Participants Column */}
         <div className="participants-col">
           <div className="split-col-header">
-            <h4>{lang === 'ta' ? 'பங்கேற்பாளர்கள் (12)' : 'Participants (12)'}</h4>
+            <h4>{lang === 'ta' ? `பங்கேற்பாளர்கள் (${participants.length})` : `Participants (${participants.length})`}</h4>
           </div>
           <div className="participants-list-scroll">
             {participants.map(p => (
@@ -152,14 +360,14 @@ export default function LiveClassStudio({
                 <span className="online-green-indicator">●</span>
               </div>
             ))}
-            <div className="more-participants-label">+7 more</div>
+            <div className="more-participants-label">+6 more</div>
           </div>
         </div>
 
         {/* Chat Column */}
         <div className="chat-col">
           <div className="split-col-header">
-            <h4>{lang === 'ta' ? 'அரட்டை' : 'Chat'}</h4>
+            <h4>{lang === 'ta' ? 'நேரலை அரட்டை' : 'Live Chat'}</h4>
           </div>
 
           <div className="chat-messages-scroll">
@@ -184,6 +392,80 @@ export default function LiveClassStudio({
           </form>
         </div>
       </div>
+
+      {/* Teacher Schedule Modal */}
+      {showScheduleModal && (
+        <div className="modal-backdrop-scrim" onClick={() => setShowScheduleModal(false)}>
+          <div className="modal-bottom-sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="sheet-drag-handle"></div>
+            <div className="modal-header-bar">
+              <h3 className="modal-title-bold">
+                {lang === 'ta' ? 'புதிய யோகா வகுப்பு திட்டமிடுக' : 'Schedule New Live Class (Teacher)'}
+              </h3>
+              <button type="button" className="btn-modal-close" onClick={() => setShowScheduleModal(false)}>✕</button>
+            </div>
+
+            <form onSubmit={handleScheduleSubmit} className="modal-form-flow">
+              <div className="form-field-unit">
+                <label>{lang === 'ta' ? 'வகுப்பு தலைப்பு:' : 'Class Title:'}</label>
+                <input 
+                  type="text" 
+                  className="form-input" 
+                  placeholder="e.g. Morning Vinyasa Flow"
+                  value={newClassTitle}
+                  onChange={(e) => setNewClassTitle(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="form-row-2col">
+                <div className="form-field-unit">
+                  <label>{lang === 'ta' ? 'ஆசிரியர் பெயர்:' : 'Instructor Name:'}</label>
+                  <input 
+                    type="text" 
+                    className="form-input" 
+                    value={newClassInstructor}
+                    onChange={(e) => setNewClassInstructor(e.target.value)}
+                    required
+                  />
+                </div>
+
+                <div className="form-field-unit">
+                  <label>{lang === 'ta' ? 'நேரம்:' : 'Time:'}</label>
+                  <input 
+                    type="text" 
+                    className="form-input" 
+                    value={newClassTime}
+                    onChange={(e) => setNewClassTime(e.target.value)}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="form-field-unit">
+                <label>Google Meet Link:</label>
+                <input 
+                  type="url" 
+                  className="form-input" 
+                  placeholder="https://meet.google.com/abc-defg-hij"
+                  value={newMeetUrl}
+                  onChange={(e) => setNewMeetUrl(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="modal-actions-bar">
+                <button type="button" className="btn-modal-cancel" onClick={() => setShowScheduleModal(false)}>
+                  {lang === 'ta' ? 'ரத்து' : 'Cancel'}
+                </button>
+                <button type="submit" className="btn-modal-save">
+                  {lang === 'ta' ? 'வகுப்பு உருவாக்குக' : 'Schedule Class'}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

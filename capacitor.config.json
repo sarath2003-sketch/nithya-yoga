@@ -1,0 +1,9 @@
+{
+  "appId": "com.nithya.yoga",
+  "appName": "NITHYA Yoga",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
+}

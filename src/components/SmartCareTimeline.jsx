@@ -1,152 +1,221 @@
 import React from 'react';
 import { 
   Calendar, 
-  Droplet, 
-  Utensils, 
-  Phone, 
-  Heart, 
-  Flower2, 
   Check, 
   Trash2, 
-  Clock 
+  Clock,
+  Edit3,
+  Volume2,
+  Sparkles
 } from 'lucide-react';
+import { 
+  ThreeDWater, 
+  ThreeDBell, 
+  ThreeDMeal, 
+  ThreeDHeart, 
+  ThreeDPhone, 
+  ThreeDLotus,
+  KitBell
+} from './ThreeDIcons';
 import { audioEngine } from '../utils/audioEngine';
 
 export default function SmartCareTimeline({
   reminders,
   onToggleComplete,
   onDeleteReminder,
+  onEditReminder,
   onShowAll,
   lang = 'en'
 }) {
-  // Pre-configured reminder cards matching screenshot
   const defaultCareCards = [
     {
       id: 'rem-yoga-1',
       title: 'Next Yoga Class',
       titleTa: 'அடுத்த யோகா வகுப்பு',
-      time: '6:00 PM',
+      time: '06:00 PM',
       category: 'Yoga',
       message: "Keep going! You're doing great! 💜",
       messageTa: "தொடர்ந்து செய்யுங்கள்! நீங்கள் சிறப்பாக செய்கிறீர்கள்! 💜",
       themeClass: 'care-card-purple',
-      icon: Flower2,
-      iconColor: 'purple'
+      sound: 'Soft Bell'
     },
     {
       id: 'rem-water-1',
       title: 'Water Reminder',
       titleTa: 'தண்ணீர் நினைவூட்டல்',
-      time: '5:30 PM',
+      time: '05:30 PM',
       category: 'Water',
       message: "Drink water... Stay fresh! 💧",
       messageTa: "தண்ணீர் குடியுங்கள்... புத்துணர்ச்சியுடன் இருங்கள்! 💧",
       themeClass: 'care-card-cyan',
-      icon: Droplet,
-      iconColor: 'cyan'
+      sound: 'Gentle Chime'
     },
     {
       id: 'rem-meal-1',
       title: 'Meal Reminder',
       titleTa: 'உணவு நினைவூட்டல்',
-      time: '1:00 PM',
+      time: '01:00 PM',
       category: 'Meal',
       message: "Healthy food = Happy you! 🥗",
       messageTa: "ஆரோக்கிய உணவு = மகிழ்ச்சியான நீங்கள்! 🥗",
       themeClass: 'care-card-yellow',
-      icon: Utensils,
-      iconColor: 'yellow'
+      sound: 'Peaceful Nature'
     },
     {
       id: 'rem-call-1',
       title: 'Call Reminder',
       titleTa: 'அழைப்பு நினைவூட்டல்',
-      time: '7:00 PM',
+      time: '07:00 PM',
       category: 'Call',
       message: "Don't forget to call your loved ones. 📞",
       messageTa: "உங்கள் அன்புக்குரியவர்களை அழைக்க மறக்காதீர்கள். 📞",
       themeClass: 'care-card-green',
-      icon: Phone,
-      iconColor: 'green'
+      sound: 'Soft Bell'
     },
     {
       id: 'rem-care-1',
       title: 'Personal Care',
       titleTa: 'சுய பராமரிப்பு',
-      time: '9:00 PM',
+      time: '09:00 PM',
       category: 'Personal Care',
       message: "Take care of yourself. You matter! 💕",
       messageTa: "உங்களை கவனித்துக் கொள்ளுங்கள். நீங்களும் முக்கியம்! 💕",
       themeClass: 'care-card-pink',
-      icon: Heart,
-      iconColor: 'pink'
+      sound: 'Meditation Tone'
     }
   ];
 
-  // Merge default cards with any custom user reminders
   const allCards = reminders && reminders.length > 0 
     ? reminders.slice(0, 5).map((r, idx) => ({
         ...r,
         themeClass: idx === 0 ? 'care-card-purple'
                   : idx === 1 ? 'care-card-cyan'
                   : idx === 2 ? 'care-card-yellow'
-                  : idx === 3 ? 'care-card-green' : 'care-card-pink',
-        icon: r.category === 'Water' ? Droplet
-            : r.category === 'Meal' ? Utensils
-            : r.category === 'Call' ? Phone
-            : r.category === 'Personal Care' ? Heart : Flower2,
-        iconColor: idx === 0 ? 'purple' : idx === 1 ? 'cyan' : idx === 2 ? 'yellow' : idx === 3 ? 'green' : 'pink'
+                  : idx === 3 ? 'care-card-green' : 'care-card-pink'
       }))
     : defaultCareCards;
 
+  const get3DBadge = (category) => {
+    switch (category) {
+      case 'Water': return <ThreeDWater size={38} />;
+      case 'Meal': return <ThreeDMeal size={38} />;
+      case 'Call': return <ThreeDPhone size={38} />;
+      case 'Personal Care': return <ThreeDHeart size={38} />;
+      case 'Yoga':
+      default:
+        return <ThreeDLotus size={38} />;
+    }
+  };
+
+  const handlePlayCardSound = (e, sound) => {
+    e.stopPropagation();
+    audioEngine.playSoundByName(sound || 'Soft Bell');
+  };
+
   return (
     <section className="dashboard-section today-reminders-section">
-      <div className="section-title-bar">
-        <h3 className="section-heading-with-icon">
-          <Calendar size={18} className="text-violet" />
-          <span>{lang === 'ta' ? 'இன்றைய நினைவூட்டல்கள்' : "Today's Reminders"}</span>
-        </h3>
+      <div className="section-title-bar flex justify-between items-center mb-3">
+        <div className="flex items-center gap-2">
+          <ThreeDBell size={28} />
+          <div>
+            <h3 className="section-heading-with-icon m-0 font-bold text-base">
+              <span>{lang === 'ta' ? 'இன்றைய ஸ்மார்ட் நினைவூட்டல்கள்' : "Today's Smart Reminders"}</span>
+            </h3>
+            <span className="text-xs text-muted">
+              {lang === 'ta' ? 'உங்கள் தினசரி ஆரோக்கிய வழக்கத்தைக் கண்காணிக்கவும்' : 'Mindful reminders with 3D audio chimes'}
+            </span>
+          </div>
+        </div>
+
         <button 
           type="button" 
-          className="link-view-all" 
+          className="link-view-all modern-pill-action text-xs font-semibold px-3 py-1.5 rounded-full bg-subtle hover-accent cursor-pointer flex items-center gap-1" 
           onClick={onShowAll}
         >
-          {lang === 'ta' ? 'அனைத்தும் பார்க்க →' : 'View All →'}
+          <span>{lang === 'ta' ? 'அனைத்தும் பார்க்க' : 'Manage All'}</span>
+          <span>→</span>
         </button>
       </div>
 
-      {/* 5 Cards Row */}
+      {/* 5 Cards Row with 3D Badges */}
       <div className="reminders-carousel-row">
-        {allCards.map((card) => {
-          const IconComponent = card.icon || Flower2;
-          return (
-            <div 
-              key={card.id} 
-              className={`reminder-pastel-card ${card.themeClass} ${card.completed ? 'is-completed' : ''}`}
-              onClick={() => onToggleComplete && onToggleComplete(card.id)}
-            >
-              <div className="card-top-icon-badge">
-                <IconComponent size={20} className={`icon-care-${card.iconColor}`} />
+        {allCards.map((card) => (
+          <div 
+            key={card.id} 
+            className={`reminder-pastel-card modern-3d-card ${card.themeClass} ${card.completed ? 'is-completed' : ''}`}
+            onClick={() => onToggleComplete && onToggleComplete(card.id)}
+            role="button"
+            tabIndex={0}
+            title={lang === 'ta' ? 'முடிந்தது என மாற்ற கிளிக் செய்யவும்' : 'Click to toggle done / undo'}
+          >
+            <div className="card-top-header-flex flex items-center justify-between w-full mb-1">
+              {/* 3D Animated Icon Badge */}
+              <div className="card-3d-badge-container">
+                {get3DBadge(card.category)}
               </div>
 
-              <div className="card-inner-info">
-                <h4 className="care-card-title">
-                  {lang === 'ta' && card.titleTa ? card.titleTa : card.title}
-                </h4>
-                <div className="care-card-time-row">
-                  <span className="care-time-text">{card.time}</span>
-                </div>
-                <p className="care-card-quote-text">
-                  {lang === 'ta' && card.messageTa ? card.messageTa : card.message}
-                </p>
+              {/* Modern Action Cluster */}
+              <div className="card-action-mini-cluster flex items-center gap-1" onClick={(e) => e.stopPropagation()}>
+                <button
+                  type="button"
+                  className="card-mini-action-btn ya-icon-btn"
+                  onClick={(e) => handlePlayCardSound(e, card.sound)}
+                  title={`Chime sound: ${card.sound || 'Soft Bell'}`}
+                >
+                  <Volume2 size={13} />
+                </button>
+                {onEditReminder && (
+                  <button
+                    type="button"
+                    className="card-mini-action-btn ya-icon-btn"
+                    onClick={() => onEditReminder(card)}
+                    title="Edit reminder"
+                  >
+                    <Edit3 size={13} />
+                  </button>
+                )}
+                {onDeleteReminder && (
+                  <button
+                    type="button"
+                    className="card-mini-action-btn ya-icon-btn hover-red"
+                    onClick={() => onDeleteReminder(card.id)}
+                    title="Delete reminder"
+                  >
+                    <Trash2 size={13} />
+                  </button>
+                )}
               </div>
-
-              {card.completed && (
-                <div className="completed-check-tag">✓ Done</div>
-              )}
             </div>
-          );
-        })}
+
+            <div className="card-inner-info mt-1">
+              <h4 className="care-card-title text-sm font-bold text-slate-800 m-0">
+                {lang === 'ta' && card.titleTa ? card.titleTa : card.title}
+              </h4>
+              
+              <div className="care-card-time-row flex items-center gap-2 my-1">
+                <span className="care-time-text font-bold text-xs">{card.time}</span>
+                {card.sound && (
+                  <span className="care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full bg-white/60 text-slate-600 font-medium inline-flex items-center gap-1">
+                    <KitBell size={10} />
+                    <span>{card.sound}</span>
+                  </span>
+                )}
+              </div>
+
+              <p className="care-card-quote-text text-xs text-slate-600 m-0 line-clamp-2">
+                {lang === 'ta' && card.messageTa ? card.messageTa : card.message}
+              </p>
+            </div>
+
+            {/* Completed Badge */}
+            {card.completed && (
+              <div className="completed-check-tag flex items-center gap-1">
+                <Check size={12} strokeWidth={3} />
+                <span>Done</span>
+              </div>
+            )}
+          </div>
+        ))}
       </div>
     </section>
   );

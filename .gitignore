@@ -1,0 +1,8 @@
+node_modules/
+.env
+android/app/build/
+android/.gradle/
+android/build/
+*.log
+nithya-yoga-android-project.zip
+www/nithya-yoga-android-project.zip

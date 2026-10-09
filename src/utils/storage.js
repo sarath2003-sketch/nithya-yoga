@@ -10,13 +10,14 @@ export const DEFAULT_USER = {
   classesAttended: 12,
   attendanceRate: 85,
   dayStreak: 7,
-  level: "Beginner"
+  level: "Beginner",
+  avatar: "" // Supports Base64 data URL from file upload
 };
 
 export const DEFAULT_REMINDERS = [
   {
     id: "rem-1",
-    time: "6:00 PM",
+    time: "06:00 PM",
     date: "2026-10-08",
     title: "Next Yoga Class",
     titleTa: "அடுத்த யோகா வகுப்பு",
@@ -24,13 +25,13 @@ export const DEFAULT_REMINDERS = [
     message: "Keep going! You're doing great! 💜",
     messageTa: "தொடர்ந்து செய்யுங்கள்! நீங்கள் சிறப்பாக செய்கிறீர்கள்! 💜",
     repeat: "Daily",
-    sound: "Gentle Bell",
+    sound: "Soft Bell",
     enabled: true,
     completed: false
   },
   {
     id: "rem-2",
-    time: "5:30 PM",
+    time: "05:30 PM",
     date: "2026-10-08",
     title: "Water Reminder",
     titleTa: "தண்ணீர் நினைவூட்டல்",
@@ -38,13 +39,13 @@ export const DEFAULT_REMINDERS = [
     message: "Drink water... Stay fresh! 💧",
     messageTa: "தண்ணீர் குடியுங்கள்... புத்துணர்ச்சியுடன் இருங்கள்! 💧",
     repeat: "Daily",
-    sound: "Gentle Bell",
+    sound: "Gentle Chime",
     enabled: true,
     completed: false
   },
   {
     id: "rem-3",
-    time: "1:00 PM",
+    time: "01:00 PM",
     date: "2026-10-08",
     title: "Meal Reminder",
     titleTa: "உணவு நினைவூட்டல்",
@@ -52,13 +53,13 @@ export const DEFAULT_REMINDERS = [
     message: "Healthy food = Happy you! 🥗",
     messageTa: "ஆரோக்கிய உணவு = மகிழ்ச்சியான நீங்கள்! 🥗",
     repeat: "Daily",
-    sound: "Gentle Bell",
+    sound: "Peaceful Nature",
     enabled: true,
     completed: false
   },
   {
     id: "rem-4",
-    time: "7:00 PM",
+    time: "07:00 PM",
     date: "2026-10-08",
     title: "Call Reminder",
     titleTa: "அழைப்பு நினைவூட்டல்",
@@ -66,13 +67,13 @@ export const DEFAULT_REMINDERS = [
     message: "Don't forget to call your loved ones. 📞",
     messageTa: "உங்கள் அன்புக்குரியவர்களை அழைக்க மறக்காதீர்கள். 📞",
     repeat: "Daily",
-    sound: "Gentle Bell",
+    sound: "Soft Bell",
     enabled: true,
     completed: false
   },
   {
     id: "rem-5",
-    time: "9:00 PM",
+    time: "09:00 PM",
     date: "2026-10-08",
     title: "Personal Care",
     titleTa: "சுய பராமரிப்பு",
@@ -80,7 +81,7 @@ export const DEFAULT_REMINDERS = [
     message: "Take care of yourself. You matter! 💕",
     messageTa: "உங்களை கவனித்துக் கொள்ளுங்கள். நீங்களும் முக்கியம்! 💕",
     repeat: "Daily",
-    sound: "Gentle Bell",
+    sound: "Meditation Tone",
     enabled: true,
     completed: false
   }
@@ -90,57 +91,72 @@ export const DEFAULT_CLASSES = [
   {
     id: "cls-1",
     name: "Hatha Yoga",
+    title: "Hatha Yoga",
     instructor: "Priya",
     duration: 60,
     level: "Beginner",
     time: "06:00 AM",
+    date: "2026-10-09",
     description: "Build flexibility, gentle core stability and natural balance.",
     attended: true,
-    category: "Beginner"
+    category: "Beginner",
+    meetUrl: "https://meet.google.com/new"
   },
   {
     id: "cls-2",
     name: "Vinyasa Flow",
+    title: "Vinyasa Flow",
     instructor: "Anu",
     duration: 60,
     level: "Intermediate",
     time: "08:30 AM",
+    date: "2026-10-09",
     description: "Improve stamina, breath synchronicity and fluid motion.",
     attended: true,
-    category: "Intermediate"
+    category: "Intermediate",
+    meetUrl: "https://meet.google.com/new"
   },
   {
     id: "cls-3",
     name: "Power Yoga",
+    title: "Power Yoga",
     instructor: "Meena",
     duration: 75,
     level: "Advanced",
     time: "04:30 PM",
+    date: "2026-10-09",
     description: "Boost metabolic energy, muscular endurance and sharp focus.",
     attended: false,
-    category: "Advanced"
+    category: "Advanced",
+    meetUrl: "https://meet.google.com/new"
   },
   {
     id: "cls-4",
     name: "Yin Yoga",
+    title: "Yin Yoga",
     instructor: "Lakshmi",
     duration: 50,
     level: "All Levels",
     time: "06:00 PM",
+    date: "2026-10-09",
     description: "Deep restorative stretching and meditative spine release.",
     attended: false,
-    category: "Beginner"
+    category: "Beginner",
+    meetUrl: "https://meet.google.com/new"
   },
   {
     id: "cls-5",
     name: "Pranayama & Breathwork",
+    title: "Pranayama & Breathwork",
     instructor: "Nithya",
     duration: 35,
     level: "All Levels",
     time: "07:30 PM",
+    date: "2026-10-09",
     description: "Ancient breath regulation for deep nervous system calming.",
     attended: true,
-    category: "Beginner"
+    category: "Beginner",
+    meetUrl: "https://meet.google.com/new"
   }
 ];
 
@@ -150,39 +166,112 @@ export const DEFAULT_NOTES = [
     title: "Benefits of Yoga",
     body: "Yoga improves flexibility, reduces cortisol stress and sharpens mental focus. Consistent 20-min daily practice brings sustained tranquility.",
     category: "Yoga",
-    date: "Oct 5, 2026"
+    date: "Oct 5, 2026",
+    colorClass: "icon-orange-note"
   },
   {
     id: "note-2",
     title: "Healthy Food Habits",
     body: "Eat clean, stay hydrated. Fresh sattvic food provides sustained physical energy without afternoon crashes.",
     category: "Health",
-    date: "Oct 4, 2026"
+    date: "Oct 4, 2026",
+    colorClass: "icon-red-note"
   },
   {
     id: "note-3",
     title: "Morning Routine",
     body: "Wake up early, drink 2 glasses of warm water, 10 minutes of Nadi Shodhana breathing, then light dynamic stretches.",
     category: "Routine",
-    date: "Oct 3, 2026"
+    date: "Oct 3, 2026",
+    colorClass: "icon-blue-note"
   },
   {
     id: "note-4",
     title: "Self Care",
     body: "Take care of your mind. It's just as important as your body. Remember to pause whenever tension creeps in.",
     category: "Wellness",
-    date: "Oct 2, 2026"
+    date: "Oct 2, 2026",
+    colorClass: "icon-teal-note"
   }
 ];
 
-export const DEFAULT_WEEKLY_ACTIVITY = [
-  { day: "Mon", minutes: 45, full: "Monday" },
-  { day: "Tue", minutes: 30, full: "Tuesday" },
-  { day: "Wed", minutes: 60, full: "Wednesday" },
-  { day: "Thu", minutes: 0, full: "Thursday" },
-  { day: "Fri", minutes: 55, full: "Friday" },
-  { day: "Sat", minutes: 40, full: "Saturday" },
-  { day: "Sun", minutes: 20, full: "Sunday" }
+export const DEFAULT_PLAYLIST = [
+  {
+    id: "track-1",
+    title: "Peaceful Mind",
+    titleTa: "அமைதியான மனம்",
+    category: "Relaxing Music",
+    categoryTa: "நிம்மதியான இசை",
+    duration: "30:00",
+    sourceType: "ambient",
+    ambientType: "bowl"
+  },
+  {
+    id: "track-2",
+    title: "Guided Meditation",
+    titleTa: "வழிகாட்டப்பட்ட தியானம்",
+    category: "10 min • Calm Mind",
+    categoryTa: "10 நிமிடம் • அமைதி மனம்",
+    duration: "10:00",
+    sourceType: "ambient",
+    ambientType: "om"
+  },
+  {
+    id: "track-3",
+    title: "Deep Breathing",
+    titleTa: "ஆழ்ந்த சுவாசம்",
+    category: "5 min • Focus",
+    categoryTa: "5 நிமிடம் • கவனம்",
+    duration: "05:00",
+    sourceType: "ambient",
+    ambientType: "music"
+  },
+  {
+    id: "track-4",
+    title: "Sleep Sounds",
+    titleTa: "உறக்க ஒலிகள்",
+    category: "45 min • Good Sleep",
+    categoryTa: "45 நிமிடம் • ஆழ்ந்த உறக்கம்",
+    duration: "45:00",
+    sourceType: "ambient",
+    ambientType: "rain"
+  }
+];
+
+export const DEFAULT_ATTENDANCE_LOGS = [
+  {
+    id: "att-1",
+    studentName: "Sarah",
+    classId: "cls-1",
+    className: "Hatha Yoga",
+    instructor: "Priya",
+    date: "2026-10-08",
+    durationMinutes: 60,
+    status: "Verified",
+    timestamp: "2026-10-08T06:00:00.000Z"
+  },
+  {
+    id: "att-2",
+    studentName: "Sarah",
+    classId: "cls-2",
+    className: "Vinyasa Flow",
+    instructor: "Anu",
+    date: "2026-10-07",
+    durationMinutes: 60,
+    status: "Verified",
+    timestamp: "2026-10-07T08:30:00.000Z"
+  },
+  {
+    id: "att-3",
+    studentName: "Sarah",
+    classId: "cls-5",
+    className: "Pranayama & Breathwork",
+    instructor: "Nithya",
+    date: "2026-10-05",
+    durationMinutes: 35,
+    status: "Verified",
+    timestamp: "2026-10-05T19:30:00.000Z"
+  }
 ];
 
 export function loadStorage(key, fallback) {

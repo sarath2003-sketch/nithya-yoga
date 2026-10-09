@@ -13,21 +13,20 @@ export default function HeroSection({
       <div className="hero-banner-card">
         <div className="hero-banner-bg">
           <img 
-            src="assets/images/hero-yoga.jpg" 
-            alt="Yoga &amp; Wellness Meditation" 
+            src="assets/images/chakra-meditation.jpg" 
+            alt="Yoga &amp; Wellness Chakra Meditation" 
             className="hero-img-cover" 
           />
           <div className="hero-gradient-overlay"></div>
         </div>
 
-        {/* Floating Top Right Script Tag */}
-        <div className="hero-floating-quote">
-          <span>Good</span>
-          <span className="heart-icon">♡</span>
-          <br />
-          <span>Vibes</span>
-          <br />
-          <span className="script-only">Only</span>
+        {/* Right Side Chakra Meditation Focal Artwork (In place of 'Good Vibes Only') */}
+        <div className="hero-right-visual-wrapper">
+          <img 
+            src="assets/images/chakra-meditation.jpg" 
+            alt="7 Chakras Meditation" 
+            className="hero-chakra-visual-img" 
+          />
         </div>
 
         {/* Hero Copy & CTAs */}
@@ -47,16 +46,18 @@ export default function HeroSection({
           <div className="hero-cta-buttons-row">
             <button 
               type="button" 
-              className="btn-hero-primary"
+              className="btn-hero-primary ya-btn ya-ripple"
               onClick={onJoinLive}
             >
-              <span className="btn-play-circle">▶</span>
+              <span className="btn-play-circle" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Play size={11} fill="currentColor" />
+              </span>
               <span>{lang === 'ta' ? 'லைவ் வகுப்பில் இணைக' : 'Join Live Class'}</span>
             </button>
 
             <button 
               type="button" 
-              className="btn-hero-secondary"
+              className="btn-hero-secondary ya-btn ya-ripple"
               onClick={onViewSchedule}
             >
               <Calendar size={16} />
@@ -70,7 +71,11 @@ export default function HeroSection({
       <div className="hero-user-stat-card">
         <div className="user-profile-header-mini">
           <div className="user-round-avatar">
-            <span>{user.name.charAt(0)}</span>
+            {user?.avatar ? (
+              <img src={user.avatar} alt={user.name} className="hero-avatar-img" />
+            ) : (
+              <span>{user?.name ? user.name.charAt(0) : 'S'}</span>
+            )}
           </div>
           <div className="user-heading-meta">
             <h3 className="user-greeting-name">

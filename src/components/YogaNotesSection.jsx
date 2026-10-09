@@ -1,70 +1,33 @@
-import React, { useState } from 'react';
-import { BookOpen, Plus, Tag, Calendar } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { BookOpen, Plus, Tag, Calendar, Trash2, X } from 'lucide-react';
+import { loadStorage, saveStorage, DEFAULT_NOTES } from '../utils/storage';
 
 export default function YogaNotesSection({ lang = 'en' }) {
-  const [notes, setNotes] = useState([
-    {
-      id: 1,
-      title: 'Benefits of Yoga',
-      titleTa: 'யோகாவின் நன்மைகள்',
-      content: 'Yoga improves flexibility, reduces stress and increases focus...',
-      contentTa: 'யோகா நெகிழ்வுத்தன்மையை மேம்படுத்துகிறது, மன அழுத்தத்தைக் குறைக்கிறது...',
-      date: 'Oct 5, 2026',
-      tag: 'Yoga',
-      tagTa: 'யோகா',
-      colorClass: 'icon-orange-note'
-    },
-    {
-      id: 2,
-      title: 'Healthy Food Habits',
-      titleTa: 'ஆரோக்கிய உணவுப் பழக்கங்கள்',
-      content: 'Eat clean, stay fit. Fresh food gives more energy...',
-      contentTa: 'சுத்தமாக உண்ணுங்கள், ஆரோக்கியமாக இருங்கள். புதிய உணவு அதிக ஆற்றலைத் தரும்...',
-      date: 'Oct 4, 2026',
-      tag: 'Health',
-      tagTa: 'ஆரோக்கியம்',
-      colorClass: 'icon-red-note'
-    },
-    {
-      id: 3,
-      title: 'Morning Routine',
-      titleTa: 'காலை வழக்கம்',
-      content: 'Wake up early, do breathing exercises, drink water...',
-      contentTa: 'அதிகாலையில் எழும்புங்கள், மூச்சுப் பயிற்சி செய்யுங்கள், தண்ணீர் குடியுங்கள்...',
-      date: 'Oct 3, 2026',
-      tag: 'Routine',
-      tagTa: 'வழக்கம்',
-      colorClass: 'icon-blue-note'
-    },
-    {
-      id: 4,
-      title: 'Self Care',
-      titleTa: 'சுய பராமரிப்பு',
-      content: "Take care of your mind. It's just as important as your body...",
-      contentTa: 'உங்கள் மனதை கவனித்துக் கொள்ளுங்கள். அது உடலைப் போலவே முக்கியமானது...',
-      date: 'Oct 2, 2026',
-      tag: 'Wellness',
-      tagTa: 'நல்வாழ்வு',
-      colorClass: 'icon-teal-note'
-    }
-  ]);
-
+  const [notes, setNotes] = useState(() => loadStorage('nithya_notes', DEFAULT_NOTES));
   const [isAdding, setIsAdding] = useState(false);
   const [newTitle, setNewTitle] = useState('');
   const [newContent, setNewContent] = useState('');
+  const [newTag, setNewTag] = useState('Yoga');
+
+  useEffect(() => {
+    saveStorage('nithya_notes', notes);
+  }, [notes]);
 
   const handleAddNote = (e) => {
     e.preventDefault();
     if (!newTitle.trim()) return;
 
+    const colors = ['icon-orange-note', 'icon-red-note', 'icon-blue-note', 'icon-teal-note'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
     setNotes(prev => [
       {
-        id: Date.now(),
+        id: `note-${Date.now()}`,
         title: newTitle.trim(),
         content: newContent.trim() || 'Mindful reflection...',
         date: 'Today',
-        tag: 'Wellness',
-        colorClass: 'icon-teal-note'
+        tag: newTag,
+        colorClass: randomColor
       },
       ...prev
     ]);
@@ -72,6 +35,10 @@ export default function YogaNotesSection({ lang = 'en' }) {
     setNewTitle('');
     setNewContent('');
     setIsAdding(false);
+  };
+
+  const handleDeleteNote = (id) => {
+    setNotes(prev => prev.filter(n => n.id !== id));
   };
 
   return (
@@ -93,8 +60,8 @@ export default function YogaNotesSection({ lang = 'en' }) {
           className="btn-add-note-pill"
           onClick={() => setIsAdding(!isAdding)}
         >
-          <Plus size={14} />
-          <span>{lang === 'ta' ? 'குறிப்பு சேர்க்க' : '+ Add Note'}</span>
+          {isAdding ? <X size={14} /> : <Plus size={14} />}
+          <span>{isAdding ? (lang === 'ta' ? 'ரத்து' : 'Cancel') : (lang === 'ta' ? 'குறிப்பு சேர்க்க' : '+ Add Note')}</span>
         </button>
       </div>
 
@@ -114,17 +81,29 @@ export default function YogaNotesSection({ lang = 'en' }) {
             value={newContent}
             onChange={(e) => setNewContent(e.target.value)}
           />
-          <button type="submit" className="btn-save-note">
-            {lang === 'ta' ? 'சேமி' : 'Save'}
-          </button>
+          <div className="flex items-center justify-between mt-2">
+            <select 
+              className="select-field-custom text-xs py-1"
+              value={newTag}
+              onChange={(e) => setNewTag(e.target.value)}
+            >
+              <option value="Yoga">Yoga</option>
+              <option value="Health">Health</option>
+              <option value="Routine">Routine</option>
+              <option value="Wellness">Wellness</option>
+            </select>
+            <button type="submit" className="btn-save-note">
+              {lang === 'ta' ? 'சேமி' : 'Save'}
+            </button>
+          </div>
         </form>
       )}
 
       {/* Notes List */}
       <div className="notes-vertical-stack">
         {notes.map((note) => (
-          <div key={note.id} className="note-item-row">
-            <div className={`note-icon-badge ${note.colorClass}`}>
+          <div key={note.id} className="note-item-row group relative">
+            <div className={`note-icon-badge ${note.colorClass || 'icon-orange-note'}`}>
               <BookOpen size={15} />
             </div>
 
@@ -135,15 +114,25 @@ export default function YogaNotesSection({ lang = 'en' }) {
                 </strong>
               </div>
               <p className="note-excerpt-p">
-                {lang === 'ta' && note.contentTa ? note.contentTa : note.content}
+                {lang === 'ta' && note.contentTa ? note.contentTa : (note.content || note.body)}
               </p>
               <div className="note-date-sub">
                 <span>🗓 {note.date}</span>
               </div>
             </div>
 
-            <div className="note-tag-pill">
-              {lang === 'ta' && note.tagTa ? note.tagTa : note.tag}
+            <div className="flex items-center gap-1">
+              <div className="note-tag-pill">
+                {lang === 'ta' && note.tagTa ? note.tagTa : (note.tag || note.category)}
+              </div>
+              <button
+                type="button"
+                className="btn-delete-note-mini text-muted hover-red p-1 cursor-pointer"
+                onClick={() => handleDeleteNote(note.id)}
+                title="Delete note"
+              >
+                <Trash2 size={13} />
+              </button>
             </div>
           </div>
         ))}

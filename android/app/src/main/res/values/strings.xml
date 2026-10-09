@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">NITHYA Yoga</string>
+    <string name="title_activity_main">NITHYA Yoga</string>
+    <string name="package_name">com.nithya.yoga</string>
+    <string name="custom_url_scheme">com.nithya.yoga</string>
+</resources>

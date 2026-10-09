@@ -1,7 +1,13 @@
-import React from 'react';
-import { TrendingUp, Flower2, Calendar, CheckCircle2, Star } from 'lucide-react';
+import React, { useState } from 'react';
+import { TrendingUp, Flower2, Calendar, CheckCircle2, Star, ListFilter, X, ShieldCheck } from 'lucide-react';
+import { loadStorage, DEFAULT_ATTENDANCE_LOGS } from '../utils/storage';
 
-export default function AttendanceProgressSection({ user, lang = 'en' }) {
+export default function AttendanceProgressSection({ user, attendanceLogs = [], lang = 'en' }) {
+  const [showLogsModal, setShowLogsModal] = useState(false);
+  const logs = attendanceLogs && attendanceLogs.length > 0 
+    ? attendanceLogs 
+    : loadStorage('nithya_attendance', DEFAULT_ATTENDANCE_LOGS);
+
   const weeklyData = [
     { day: 'Mon', h1: 45, h2: 25 },
     { day: 'Tue', h1: 65, h2: 40 },
@@ -15,14 +21,26 @@ export default function AttendanceProgressSection({ user, lang = 'en' }) {
   return (
     <div className="dashboard-card progress-dashboard-card">
       {/* Header */}
-      <div className="card-header-block">
-        <h3 className="card-title-main">
-          <TrendingUp size={18} className="text-violet" />
-          <span>{lang === 'ta' ? 'முன்னேற்றம்' : 'Progress'}</span>
-        </h3>
-        <p className="card-sub-motto">
-          {lang === 'ta' ? 'உங்கள் பயணத்தைக் கண்காணித்து வளர்ச்சியைக் கொண்டாடுங்கள்.' : 'Track your journey and celebrate your growth.'}
-        </p>
+      <div className="card-header-block flex justify-between items-start">
+        <div>
+          <h3 className="card-title-main">
+            <TrendingUp size={18} className="text-violet" />
+            <span>{lang === 'ta' ? 'முன்னேற்றம் மற்றும் வருகை' : 'Progress & Attendance'}</span>
+          </h3>
+          <p className="card-sub-motto">
+            {lang === 'ta' ? 'உங்கள் பயணத்தைக் கண்காணித்து வளர்ச்சியைக் கொண்டாடுங்கள்.' : 'Track your journey and celebrate your growth.'}
+          </p>
+        </div>
+
+        <button
+          type="button"
+          className="btn-logs-pill text-xs flex items-center gap-1 px-2 py-1 rounded bg-subtle hover-accent cursor-pointer"
+          onClick={() => setShowLogsModal(true)}
+          title="View Verified Attendance Records"
+        >
+          <Calendar size={13} />
+          <span>{lang === 'ta' ? 'வருகை வரலாறு' : 'Attendance Log'}</span>
+        </button>
       </div>
 
       {/* 4 Stat Boxes Row */}
@@ -35,7 +53,7 @@ export default function AttendanceProgressSection({ user, lang = 'en' }) {
           <span className="prog-metric-label">
             {lang === 'ta' ? 'கலந்துகொண்ட வகுப்புகள்' : 'Classes Attended'}
           </span>
-          <strong className="prog-metric-val">{user?.classesAttended || 12}</strong>
+          <strong className="prog-metric-val">{user?.classesAttended || logs.length || 12}</strong>
           <small className="prog-metric-sub">{lang === 'ta' ? 'இந்த மாதம்' : 'This month'}</small>
         </div>
 
@@ -125,7 +143,7 @@ export default function AttendanceProgressSection({ user, lang = 'en' }) {
                   r="38"
                   className="donut-accent-ring"
                   strokeDasharray="238.76"
-                  strokeDashoffset="47.75" // 80%
+                  strokeDashoffset="47.75"
                 />
               </svg>
               <div className="donut-center-text">
@@ -162,6 +180,62 @@ export default function AttendanceProgressSection({ user, lang = 'en' }) {
           </div>
         </div>
       </div>
+
+      {/* Attendance History Logs Modal */}
+      {showLogsModal && (
+        <div className="modal-backdrop-scrim" onClick={() => setShowLogsModal(false)}>
+          <div className="modal-bottom-sheet" onClick={(e) => e.stopPropagation()}>
+            <div className="sheet-drag-handle"></div>
+
+            <div className="modal-header-bar">
+              <div className="flex items-center gap-2">
+                <ShieldCheck size={18} className="text-green" />
+                <h3 className="modal-title-bold">
+                  {lang === 'ta' ? 'சரிபார்க்கப்பட்ட வருகைப் பதிவு' : 'Verified Attendance Records'}
+                </h3>
+              </div>
+              <button type="button" className="btn-modal-close" onClick={() => setShowLogsModal(false)}>
+                <X size={18} />
+              </button>
+            </div>
+
+            <div className="attendance-history-table-wrapper max-h-60 overflow-y-auto">
+              <table className="w-full text-left text-xs border-collapse">
+                <thead>
+                  <tr className="border-b border-subtle text-muted">
+                    <th className="py-2 px-1">{lang === 'ta' ? 'வகுப்பு' : 'Class'}</th>
+                    <th className="py-2 px-1">{lang === 'ta' ? 'ஆசிரியர்' : 'Teacher'}</th>
+                    <th className="py-2 px-1">{lang === 'ta' ? 'தேதி' : 'Date'}</th>
+                    <th className="py-2 px-1">{lang === 'ta' ? 'நேரம்' : 'Duration'}</th>
+                    <th className="py-2 px-1">{lang === 'ta' ? 'நிலை' : 'Status'}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {logs.map((log) => (
+                    <tr key={log.id} className="border-b border-subtle">
+                      <td className="py-2 px-1 font-semibold">{log.className}</td>
+                      <td className="py-2 px-1 text-muted">{log.instructor}</td>
+                      <td className="py-2 px-1">{log.date}</td>
+                      <td className="py-2 px-1">{log.durationMinutes} mins</td>
+                      <td className="py-2 px-1">
+                        <span className="inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium">
+                          ✓ {log.status || 'Verified'}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            <div className="modal-actions-bar mt-4">
+              <button type="button" className="btn-modal-cancel" onClick={() => setShowLogsModal(false)}>
+                {lang === 'ta' ? 'மூடு' : 'Close'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

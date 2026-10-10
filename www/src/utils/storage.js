@@ -203,37 +203,52 @@ export const DEFAULT_PLAYLIST = [
     category: "Relaxing Music",
     categoryTa: "நிம்மதியான இசை",
     duration: "30:00",
-    sourceType: "ambient",
+    audioUrl: "assets/audio/peaceful-mind.wav",
+    sourceType: "audio",
     ambientType: "bowl"
   },
   {
     id: "track-2",
-    title: "Guided Meditation",
+    title: "Featured Meditation",
     titleTa: "வழிகாட்டப்பட்ட தியானம்",
     category: "10 min • Calm Mind",
     categoryTa: "10 நிமிடம் • அமைதி மனம்",
     duration: "10:00",
-    sourceType: "ambient",
+    audioUrl: "assets/audio/featured-meditation-om.wav",
+    sourceType: "audio",
     ambientType: "om"
   },
   {
     id: "track-3",
-    title: "Deep Breathing",
+    title: "Pranayama",
     titleTa: "ஆழ்ந்த சுவாசம்",
     category: "5 min • Focus",
     categoryTa: "5 நிமிடம் • கவனம்",
     duration: "05:00",
-    sourceType: "ambient",
+    audioUrl: "assets/audio/pranayama-432hz.wav",
+    sourceType: "audio",
     ambientType: "music"
   },
   {
     id: "track-4",
-    title: "Sleep Sounds",
+    title: "Singing Bowl",
+    titleTa: "திபெத்திய பாடும் கிண்ணம்",
+    category: "15 min • Deep Healing",
+    categoryTa: "15 நிமிடம் • ஆழ்ந்த அமைதி",
+    duration: "15:00",
+    audioUrl: "assets/audio/singing-bowl.wav",
+    sourceType: "audio",
+    ambientType: "bowl"
+  },
+  {
+    id: "track-5",
+    title: "Sleep Zen",
     titleTa: "உறக்க ஒலிகள்",
     category: "45 min • Good Sleep",
     categoryTa: "45 நிமிடம் • ஆழ்ந்த உறக்கம்",
     duration: "45:00",
-    sourceType: "ambient",
+    audioUrl: "assets/audio/sleep-zen-rain.wav",
+    sourceType: "audio",
     ambientType: "rain"
   }
 ];

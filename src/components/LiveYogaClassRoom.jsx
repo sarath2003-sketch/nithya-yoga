@@ -35,6 +35,7 @@ import {
 } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus, ThreeDBell, ThreeDHeart } from './ThreeDIcons';
+import { apiFetch, getApiBaseUrl, setApiBaseUrl } from '../utils/api';
 
 // Single Participant Video Tile with real track attachment
 function ParticipantTile({
@@ -218,7 +219,9 @@ export default function LiveYogaClassRoom({
   const [needsSetup, setNeedsSetup] = useState(false);
   const [showConfigModal, setShowConfigModal] = useState(false);
 
-  // LiveKit credentials form state
+  // Backend URL & LiveKit credentials form state
+  const [backendUrl, setBackendUrlState] = useState(() => getApiBaseUrl());
+  const [testBackendStatus, setTestBackendStatus] = useState('idle'); // 'idle' | 'testing' | 'success' | 'error'
   const [configUrl, setConfigUrl] = useState('');
   const [configApiKey, setConfigApiKey] = useState('');
   const [configApiSecret, setConfigApiSecret] = useState('');
@@ -280,17 +283,18 @@ export default function LiveYogaClassRoom({
     return `${hrs > 0 ? `${hrs}:` : ''}${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  // Check backend LiveKit status on mount
+  // Check backend LiveKit status on mount using safe apiFetch
   useEffect(() => {
-    fetch('/api/livekit/status')
-      .then(res => res.json())
+    apiFetch('/api/livekit/status')
       .then(data => {
         if (!data.configured) {
           setNeedsSetup(true);
         }
         if (data.serverUrl) setConfigUrl(data.serverUrl);
       })
-      .catch(() => {});
+      .catch((err) => {
+        console.warn('Backend LiveKit status check:', err.message);
+      });
   }, []);
 
   // Connect to LiveKit Room via secure backend token
@@ -303,29 +307,33 @@ export default function LiveYogaClassRoom({
       const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : 'nithya-live-studio').toLowerCase().replace(/[^a-z0-9_-]/g, '-');
       const participantName = (user?.name || 'Sarah').trim();
 
-      // Step 1: Request token from secure backend (API secrets never in frontend)
-      const res = await fetch('/api/livekit/token', {
+      // Step 1: Request token from secure backend with verified credentials (JWT)
+      const authToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_auth_token');
+      const reqHeaders = {};
+      if (authToken) {
+        reqHeaders['Authorization'] = `Bearer ${authToken}`;
+      }
+
+      const data = await apiFetch('/api/livekit/token', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: reqHeaders,
         body: JSON.stringify({
           roomName,
           participantName,
-          role: isInstructorRole ? 'instructor' : 'student',
-          isTeacher: isInstructorRole
+          classId: activeClass?.id
         })
       });
 
-      const data = await res.json();
-
-      if (!res.ok || data.error) {
-        if (data.needsConfig) {
-          setNeedsSetup(true);
-          setShowConfigModal(true);
-        }
-        throw new Error(data.error || 'Failed to obtain LiveKit token from server');
+      if (data.needsConfig) {
+        setNeedsSetup(true);
+        setShowConfigModal(true);
+        throw new Error(data.error || 'LiveKit server credentials required. Please configure below.');
       }
 
       const { token, serverUrl } = data;
+      if (!token || !serverUrl) {
+        throw new Error('Invalid token response from backend: missing token or serverUrl');
+      }
 
       // Step 2: Initialize LiveKit Room
       const liveRoom = new Room({
@@ -341,6 +349,18 @@ export default function LiveYogaClassRoom({
         setConnectionState('connected');
         setParticipants(Array.from(liveRoom.remoteParticipants.values()));
         audioEngine.playTempleBell();
+
+        // Server-backed attendance start for registered members
+        const memberToken = localStorage.getItem('nithya_auth_token');
+        if (memberToken) {
+          apiFetch('/api/attendance/join', {
+            method: 'POST',
+            headers: {
+              'Authorization': `Bearer ${memberToken}`
+            },
+            body: JSON.stringify({ classId: activeClass?.id })
+          }).catch(err => console.warn('Attendance join logging note:', err.message));
+        }
       });
 
       liveRoom.on(RoomEvent.Disconnected, () => {
@@ -511,6 +531,19 @@ export default function LiveYogaClassRoom({
   // Leave Class
   const handleLeave = () => {
     audioEngine.playGentleChime();
+
+    // Server-backed attendance leave
+    const memberToken = localStorage.getItem('nithya_auth_token');
+    if (memberToken) {
+      apiFetch('/api/attendance/leave', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${memberToken}`
+        },
+        body: JSON.stringify({ classId: activeClass?.id })
+      }).catch(err => console.warn('Attendance leave logging note:', err.message));
+    }
+
     if (room) {
       try {
         room.disconnect();
@@ -542,32 +575,56 @@ export default function LiveYogaClassRoom({
     }
   };
 
+  // Test backend connection
+  const handleTestBackend = async () => {
+    setTestBackendStatus('testing');
+    try {
+      const clean = (backendUrl || '').trim().replace(/\/+$/, '');
+      const testUrl = clean ? `${clean}/api/health` : '/api/health';
+      const res = await fetch(testUrl);
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && (data.status === 'ok' || data.name)) {
+        setTestBackendStatus('success');
+      } else {
+        setTestBackendStatus('error');
+      }
+    } catch (_) {
+      setTestBackendStatus('error');
+    }
+  };
+
   // Save LiveKit Server Credentials dynamically
   const handleSaveConfig = async (e) => {
     e.preventDefault();
     setIsSavingConfig(true);
 
     try {
-      const res = await fetch('/api/livekit/config', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          serverUrl: configUrl,
-          apiKey: configApiKey,
-          apiSecret: configApiSecret
-        })
-      });
+      setApiBaseUrl(backendUrl);
 
-      const data = await res.json();
-      if (res.ok && data.success) {
-        setNeedsSetup(false);
-        setShowConfigModal(false);
-        connectToRoom();
-      } else {
-        alert(data.error || 'Failed to save configuration');
+      if (configApiKey || configApiSecret || configUrl) {
+        const adminToken = localStorage.getItem('nithya_admin_token');
+        const headers = {};
+        if (adminToken) headers['Authorization'] = `Bearer ${adminToken}`;
+
+        const data = await apiFetch('/api/livekit/config', {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({
+            serverUrl: configUrl,
+            apiKey: configApiKey,
+            apiSecret: configApiSecret
+          })
+        });
+
+        if (data.success) {
+          setNeedsSetup(false);
+        }
       }
+
+      setShowConfigModal(false);
+      connectToRoom();
     } catch (err) {
-      alert('Network error saving LiveKit configuration');
+      alert(err.message || 'Error saving LiveKit configuration');
     } finally {
       setIsSavingConfig(false);
     }
@@ -1025,6 +1082,41 @@ export default function LiveYogaClassRoom({
 
             <form onSubmit={handleSaveConfig} className="livekit-credentials-form">
               <div className="form-group-field">
+                <label className="form-label font-bold text-heading">
+                  Backend API Server URL
+                  <span className="text-muted text-xs block font-normal">
+                    Required when hosted on static GitHub Pages. Leave empty if hosted on same domain.
+                  </span>
+                </label>
+                <div className="flex gap-2 items-center">
+                  <input
+                    type="text"
+                    placeholder="e.g. http://localhost:8080 or https://your-backend.onrender.com"
+                    value={backendUrl}
+                    onChange={(e) => {
+                      setBackendUrlState(e.target.value);
+                      setTestBackendStatus('idle');
+                    }}
+                    className="modal-text-input flex-1"
+                  />
+                  <button
+                    type="button"
+                    onClick={handleTestBackend}
+                    disabled={testBackendStatus === 'testing'}
+                    className="ya-btn ya-btn--soft text-xs px-3 py-2 whitespace-nowrap cursor-pointer"
+                  >
+                    {testBackendStatus === 'testing' ? 'Testing...' : testBackendStatus === 'success' ? '✓ Online' : testBackendStatus === 'error' ? '✕ Offline' : 'Test Server'}
+                  </button>
+                </div>
+                {testBackendStatus === 'success' && (
+                  <span className="text-emerald-500 text-[11px] block mt-1 font-semibold">✓ Backend server is active and reachable!</span>
+                )}
+                {testBackendStatus === 'error' && (
+                  <span className="text-rose-500 text-[11px] block mt-1 font-medium">✕ Cannot reach backend at this URL. Make sure server is deployed &amp; running.</span>
+                )}
+              </div>
+
+              <div className="form-group-field">
                 <label className="form-label">
                   LiveKit WebSocket URL
                   <span className="text-muted text-xs block font-normal">
@@ -1033,7 +1125,6 @@ export default function LiveYogaClassRoom({
                 </label>
                 <input
                   type="text"
-                  required
                   placeholder="wss://your-project.livekit.cloud"
                   value={configUrl}
                   onChange={(e) => setConfigUrl(e.target.value)}
@@ -1050,7 +1141,6 @@ export default function LiveYogaClassRoom({
                 </label>
                 <input
                   type="text"
-                  required
                   placeholder="APIxxxxxxxxxxxx"
                   value={configApiKey}
                   onChange={(e) => setConfigApiKey(e.target.value)}
@@ -1067,7 +1157,6 @@ export default function LiveYogaClassRoom({
                 </label>
                 <input
                   type="password"
-                  required
                   placeholder="••••••••••••••••••••••••"
                   value={configApiSecret}
                   onChange={(e) => setConfigApiSecret(e.target.value)}

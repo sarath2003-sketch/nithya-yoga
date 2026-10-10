@@ -1,79 +1,182 @@
-const CACHE_NAME = 'nithya-yoga-v1';
-const STATIC_ASSETS = [
+/**
+ * NITHYA Yoga & Wellness - Production PWA Service Worker
+ * Conforms to PWABuilder & W3C Service Worker Specifications
+ * 
+ * Features:
+ * - Robust cache versioning & automatic cleanup of obsolete caches
+ * - Offline navigation fallback to index.html
+ * - Stale-while-revalidate for core assets, CSS, JS, and UI images
+ * - Direct network passthrough for all /api/* backend & LiveKit calls
+ * - Immediate activation via skipWaiting & clients.claim
+ * - Client messaging for smooth update notification
+ */
+
+const CACHE_VERSION = 'v3.0.0';
+const PRECACHE_NAME = `nithya-yoga-precache-${CACHE_VERSION}`;
+const RUNTIME_CACHE_NAME = `nithya-yoga-runtime-${CACHE_VERSION}`;
+
+// Core assets required for complete offline application startup
+const PRECACHE_URLS = [
   './',
   './index.html',
   './manifest.json',
   './dist/bundle.js',
   './assets/yoga-ui.css',
   './assets/yoga-ui.js',
+  './src/styles.css',
+  './assets/icons/icon-96.png',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-192-maskable.png',
+  './assets/icons/icon-512.png',
+  './assets/icons/icon-maskable.png',
   './assets/images/logo.png',
   './assets/images/chakra-meditation.jpg',
-  './assets/icons/icon-192.png',
-  './assets/icons/icon-512.png',
-  './assets/icons/icon-maskable.png'
+  './assets/screenshots/screenshot-desktop.png',
+  './assets/screenshots/screenshot-mobile.png'
 ];
 
+// -------------------------------------------------------------
+// 1. INSTALLATION EVENT
+// -------------------------------------------------------------
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS).catch((err) => {
-        console.warn('Some non-critical static assets could not be pre-cached:', err);
-      });
-    })
-  );
-  self.skipWaiting();
-});
-
-self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys.map((key) => {
-          if (key !== CACHE_NAME) {
-            return caches.delete(key);
+    caches.open(PRECACHE_NAME).then(async (cache) => {
+      // Use individual caching to prevent one non-critical file failure from breaking PWA install
+      await Promise.allSettled(
+        PRECACHE_URLS.map(async (url) => {
+          try {
+            const response = await fetch(url, { cache: 'no-cache' });
+            if (response && response.status === 200) {
+              await cache.put(url, response);
+            }
+          } catch (err) {
+            console.warn(`[ServiceWorker] Precache skipped for ${url}:`, err);
           }
         })
       );
     })
   );
-  self.clients.claim();
+
+  // Force active state without waiting for old workers
+  self.skipWaiting();
 });
 
+// -------------------------------------------------------------
+// 2. ACTIVATION EVENT & OBSOLETE CACHE PURGE
+// -------------------------------------------------------------
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((name) => {
+          if (name !== PRECACHE_NAME && name !== RUNTIME_CACHE_NAME) {
+            console.log(`[ServiceWorker] Removing outdated cache: ${name}`);
+            return caches.delete(name);
+          }
+        })
+      );
+    }).then(() => {
+      // Take immediate control of all open pages
+      return self.clients.claim();
+    })
+  );
+});
+
+// -------------------------------------------------------------
+// 3. FETCH EVENT HANDLING
+// -------------------------------------------------------------
 self.addEventListener('fetch', (event) => {
-  // Pass API requests directly to network
-  if (event.request.url.includes('/api/')) {
+  const { request } = event;
+  const url = new URL(request.url);
+
+  // RULE A: Strictly bypass non-GET requests (POST, PUT, DELETE)
+  if (request.method !== 'GET') {
     return;
   }
 
-  event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      if (cachedResponse) {
-        // Fetch in background for freshness
-        fetch(event.request).then((networkResponse) => {
+  // RULE B: Strictly bypass all /api/* backend endpoints & WebSocket/LiveKit protocols
+  if (url.pathname.includes('/api/') || url.protocol === 'ws:' || url.protocol === 'wss:') {
+    return;
+  }
+
+  // RULE C: Navigation Requests (HTML / SPA page transitions)
+  // Strategy: Network-First with fallback to cached index.html for complete offline support
+  if (request.mode === 'navigate') {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
           if (networkResponse && networkResponse.status === 200) {
-            caches.open(CACHE_NAME).then((cache) => {
-              cache.put(event.request, networkResponse);
+            const responseClone = networkResponse.clone();
+            caches.open(RUNTIME_CACHE_NAME).then((cache) => {
+              cache.put(request, responseClone);
             });
           }
-        }).catch(() => {});
+          return networkResponse;
+        })
+        .catch(async () => {
+          // Offline fallback
+          const cachedNavigate = await caches.match(request);
+          if (cachedNavigate) return cachedNavigate;
+          return caches.match('./index.html') || caches.match('./');
+        })
+    );
+    return;
+  }
+
+  // RULE D: Static Assets (JS, CSS, Images, Fonts, Audio, Icons)
+  // Strategy: Stale-While-Revalidate (Instant load from cache, silent background refresh)
+  event.respondWith(
+    caches.match(request).then((cachedResponse) => {
+      const fetchPromise = fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
+            caches.open(RUNTIME_CACHE_NAME).then((cache) => {
+              cache.put(request, responseClone);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => {
+          // Network failed; offline mode in effect
+          return null;
+        });
+
+      // If cached response exists, return it immediately while fetching fresh in background
+      if (cachedResponse) {
         return cachedResponse;
       }
 
-      return fetch(event.request).then((response) => {
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
+      // Otherwise await network response
+      return fetchPromise.then((response) => {
+        if (response) return response;
+        // If image request failed offline, fallback
+        if (request.destination === 'image') {
+          return caches.match('./assets/images/logo.png');
         }
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
+        return new Response('Network unavailable (Offline)', {
+          status: 503,
+          statusText: 'Service Unavailable',
+          headers: new Headers({ 'Content-Type': 'text/plain' })
         });
-        return response;
-      }).catch(() => {
-        // Fallback to index.html for navigation
-        if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
-        }
       });
     })
   );
+});
+
+// -------------------------------------------------------------
+// 4. CLIENT MESSAGING & LIFECYCLE HOOKS
+// -------------------------------------------------------------
+self.addEventListener('message', (event) => {
+  if (!event.data) return;
+
+  if (event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  } else if (event.data.type === 'CLIENTS_CLAIM') {
+    self.clients.claim();
+  } else if (event.data.type === 'GET_VERSION') {
+    if (event.ports && event.ports[0]) {
+      event.ports[0].postMessage({ version: CACHE_VERSION });
+    }
+  }
 });

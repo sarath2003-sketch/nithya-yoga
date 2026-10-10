@@ -45,8 +45,18 @@
   --shadow-card-hover: 0 10px 28px -4px rgba(100, 116, 139, 0.12);
 
   /* Typography */
-  --font-family: 'Plus Jakarta Sans', 'Figtree', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-heading: 'Plus Jakarta Sans', 'Figtree', 'Noto Sans Tamil', sans-serif;
+  --font-family: 'Inter', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'Inter', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* Tamil font optimization when data-lang="ta" */
+[data-lang="ta"],
+[data-lang="ta"] body,
+[data-lang="ta"] input,
+[data-lang="ta"] button,
+[data-lang="ta"] textarea,
+[data-lang="ta"] select {
+  font-family: 'Noto Sans Tamil', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
 }
 
 /* Dark Mode Palette Overrides */
@@ -1415,7 +1425,7 @@ input, select, textarea {
 
 .audio-chips-row {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
   gap: 8px;
 }
 
@@ -1437,6 +1447,7 @@ input, select, textarea {
 .audio-chip-item.chip-green { background: #F0FDF4; border-color: #DCFCE7; }
 .audio-chip-item.chip-purple { background: #F5F3FF; border-color: #EDE9FE; }
 .audio-chip-item.chip-blue { background: #EFF6FF; border-color: #DBEAFE; }
+.audio-chip-item.chip-amber { background: #FFFBEB; border-color: #FEF3C7; }
 
 [data-theme="dark"] .audio-chip-item {
   background: var(--bg-card-subtle) !important;
@@ -2100,11 +2111,12 @@ input, select, textarea {
 .sidebar-brand-logo-img {
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
   flex-shrink: 0;
+  background: #FFFFFF;
 }
 
 .header-mobile-brand-wrap {
@@ -2114,10 +2126,12 @@ input, select, textarea {
   cursor: pointer;
 }
 .header-mobile-logo-img {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
   object-fit: cover;
+  border: 1px solid var(--border-light);
+  background: #FFFFFF;
 }
 .header-mobile-title {
   font-weight: 800;

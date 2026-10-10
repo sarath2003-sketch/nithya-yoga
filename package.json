@@ -4,8 +4,10 @@
   "description": "",
   "main": "build_site.js",
   "scripts": {
+    "start": "node serve.js",
+    "server": "node server.js",
     "build": "esbuild src/index.jsx --bundle --platform=browser --format=iife --target=es2020 --outfile=dist/bundle.js --sourcemap",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node scripts/test_backend.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +17,12 @@
     "@capacitor/android": "^8.5.3",
     "@capacitor/cli": "^8.5.3",
     "@capacitor/core": "^8.5.3",
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.0.3",
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.7",
+    "express": "^5.3.0",
+    "jsonwebtoken": "^9.0.3",
     "livekit-client": "^2.22.3",
     "livekit-server-sdk": "^2.19.1",
     "lucide-react": "^1.52.0",

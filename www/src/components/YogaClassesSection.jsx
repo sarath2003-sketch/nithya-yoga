@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Clock, User, ChevronRight, Sparkles, Compass } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Clock, User, ChevronRight, Sparkles, Compass, Play, Pause, RotateCcw, X, Video } from 'lucide-react';
 import { ThreeDLotus } from './ThreeDIcons';
 import { audioEngine } from '../utils/audioEngine';
 
@@ -133,19 +133,34 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
     return c.level.toLowerCase() === activeFilter.toLowerCase();
   });
 
+  const [activeAsanaModal, setActiveAsanaModal] = useState(null);
+  const [showAllModal, setShowAllModal] = useState(false);
+  const [asanaTimer, setAsanaTimer] = useState(60);
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
+
+  useEffect(() => {
+    let interval = null;
+    if (isTimerRunning && asanaTimer > 0) {
+      interval = setInterval(() => {
+        setAsanaTimer(prev => prev - 1);
+      }, 1000);
+    } else if (asanaTimer === 0 && isTimerRunning) {
+      audioEngine.playTempleBell();
+      setIsTimerRunning(false);
+    }
+    return () => clearInterval(interval);
+  }, [isTimerRunning, asanaTimer]);
+
   const handlePracticeAsana = (asana) => {
     audioEngine.playMeditationTone();
-    if (onSelectClass) {
-      onSelectClass({
-        id: asana.id,
-        name: asana.name,
-        title: asana.name,
-        instructor: 'Asana Guide',
-        duration: asana.duration,
-        level: 'All Levels',
-        desc: asana.benefit
-      });
-    }
+    setActiveAsanaModal(asana);
+    setAsanaTimer(60);
+    setIsTimerRunning(true);
+  };
+
+  const handleViewAllClick = () => {
+    audioEngine.playMeditationTone();
+    setShowAllModal(true);
   };
 
   return (
@@ -158,7 +173,7 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
         <button 
           type="button" 
           className="link-view-all text-xs font-semibold text-primary hover:underline cursor-pointer" 
-          onClick={onShowAll}
+          onClick={handleViewAllClick}
         >
           {lang === 'ta' ? 'அனைத்தும் பார்க்க →' : 'View All →'}
         </button>
@@ -281,6 +296,164 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* MODAL 1: INTERACTIVE ASANA PRACTICE GUIDE */}
+      {activeAsanaModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm ya-modal-overlay">
+          <div className="relative w-full max-w-md p-6 rounded-2xl border border-subtle bg-card shadow-2xl ya-modal-content">
+            <button
+              type="button"
+              onClick={() => {
+                setActiveAsanaModal(null);
+                setIsTimerRunning(false);
+              }}
+              className="absolute top-4 right-4 p-1 rounded-full text-muted hover:text-heading hover:bg-subtle transition-all cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="text-center pb-3 border-b border-subtle">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-0.5 rounded-full inline-block mb-1">
+                {lang === 'ta' ? activeAsanaModal.chakraTa : activeAsanaModal.chakra}
+              </span>
+              <h3 className="text-base font-bold text-heading m-0">
+                {lang === 'ta' ? activeAsanaModal.nameTa : activeAsanaModal.name}
+              </h3>
+              <p className="text-xs text-muted font-mono italic mt-0.5">
+                {activeAsanaModal.sanskrit} • {activeAsanaModal.duration}
+              </p>
+            </div>
+
+            {/* Asana Benefit & Breathing Rhythm */}
+            <div className="my-3 p-3 rounded-xl bg-subtle border border-subtle flex flex-col gap-2">
+              <p className="text-xs text-heading font-medium m-0">
+                ✨ <strong>{lang === 'ta' ? 'நன்மைகள்:' : 'Benefits:'}</strong>{' '}
+                {lang === 'ta' ? activeAsanaModal.benefitTa : activeAsanaModal.benefit}
+              </p>
+              <div className="p-2 rounded-lg bg-card/60 text-[11px] text-muted flex items-center justify-between">
+                <span>🌬️ {lang === 'ta' ? 'சுவாச முறை:' : 'Breath Alignment:'}</span>
+                <span className="font-semibold text-heading">
+                  {lang === 'ta' ? '4s மூச்சை உள்ளிழு • 4s நிலைநிறுத்து • 4s வெளிவிடு' : '4s Inhale • 4s Hold • 4s Exhale'}
+                </span>
+              </div>
+            </div>
+
+            {/* Practice Countdown Timer */}
+            <div className="text-center p-4 rounded-2xl bg-card border border-primary/20 flex flex-col items-center justify-center my-3">
+              <span className="text-[11px] text-muted font-bold uppercase tracking-wider">
+                {lang === 'ta' ? 'பயிற்சி டைமர்' : 'Posture Hold Timer'}
+              </span>
+              <div className="text-3xl font-extrabold text-primary font-mono my-1">
+                {String(Math.floor(asanaTimer / 60)).padStart(2, '0')}:{String(asanaTimer % 60).padStart(2, '0')}
+              </div>
+
+              <div className="flex items-center gap-2 mt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsTimerRunning(!isTimerRunning)}
+                  className="ya-btn ya-btn--primary px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 cursor-pointer"
+                >
+                  {isTimerRunning ? <Pause size={12} /> : <Play size={12} />}
+                  <span>{isTimerRunning ? (lang === 'ta' ? 'நிறுத்து' : 'Pause') : (lang === 'ta' ? 'துவங்கு' : 'Start')}</span>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => {
+                    setAsanaTimer(60);
+                    setIsTimerRunning(false);
+                    audioEngine.playSoftBell();
+                  }}
+                  className="ya-btn ya-btn--soft px-2.5 py-1.5 rounded-full text-xs flex items-center gap-1 cursor-pointer"
+                  title="Reset Timer"
+                >
+                  <RotateCcw size={12} />
+                  <span>{lang === 'ta' ? 'மீட்டமை' : 'Reset'}</span>
+                </button>
+              </div>
+            </div>
+
+            {/* Join Full Live Studio Button */}
+            <button
+              type="button"
+              onClick={() => {
+                const targetClass = classesList[0];
+                setActiveAsanaModal(null);
+                setIsTimerRunning(false);
+                if (onSelectClass) onSelectClass(targetClass);
+              }}
+              className="ya-btn ya-btn--primary w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer mt-2"
+            >
+              <Video size={14} />
+              <span>{lang === 'ta' ? 'நேரலை வகுப்பறையில் இணையவும்' : 'Join Full Live Yoga Studio'}</span>
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* MODAL 2: ALL LESSONS & CLASSES OVERVIEW */}
+      {showAllModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm ya-modal-overlay">
+          <div className="relative w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 rounded-2xl border border-subtle bg-card shadow-2xl ya-modal-content">
+            <button
+              type="button"
+              onClick={() => setShowAllModal(false)}
+              className="absolute top-4 right-4 p-1 rounded-full text-muted hover:text-heading hover:bg-subtle transition-all cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            <div className="pb-3 border-b border-subtle">
+              <h3 className="text-base font-bold text-heading m-0 flex items-center gap-2">
+                <ThreeDLotus size={22} />
+                <span>{lang === 'ta' ? 'அனைத்து யோகா பாடங்கள் & வழிகாட்டி' : 'All Yoga Lessons & Full Curriculum'}</span>
+              </h3>
+              <p className="text-xs text-muted m-0 mt-0.5">
+                {lang === 'ta' ? 'தொடக்க நிலை முதல் முதிர்ந்த நிலை வரையிலான பயிற்சிகள்' : 'Explore beginner to advanced sessions with certified yoga instructors.'}
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-4">
+              {classesList.map(c => (
+                <div key={c.id} className="p-3 rounded-xl border border-subtle bg-subtle/40 flex flex-col justify-between gap-2">
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <h4 className="text-xs font-bold text-heading m-0">{lang === 'ta' && c.titleTa ? c.titleTa : c.title}</h4>
+                      <span className="text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full">{c.duration}</span>
+                    </div>
+                    <p className="text-[11px] text-muted mt-1 m-0 line-clamp-2">{lang === 'ta' && c.descTa ? c.descTa : c.desc}</p>
+                    <div className="text-[10px] text-muted mt-1.5">
+                      <strong>{lang === 'ta' ? 'பயிற்றுநர்:' : 'Instructor:'}</strong> {lang === 'ta' && c.instructorTa ? c.instructorTa : c.instructor} • {lang === 'ta' && c.levelTa ? c.levelTa : c.level}
+                    </div>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowAllModal(false);
+                      if (onSelectClass) onSelectClass(c);
+                    }}
+                    className="ya-btn ya-btn--primary text-xs py-1.5 rounded-lg flex items-center justify-center gap-1.5 font-bold cursor-pointer mt-1"
+                  >
+                    <Video size={12} />
+                    <span>{lang === 'ta' ? 'வகுப்பில் இணையவும்' : 'Join Live Class'}</span>
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex justify-end pt-2 border-t border-subtle">
+              <button
+                type="button"
+                onClick={() => setShowAllModal(false)}
+                className="ya-btn ya-btn--soft px-4 py-1.5 rounded-xl text-xs font-semibold cursor-pointer"
+              >
+                {lang === 'ta' ? 'மூடு' : 'Close'}
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -6,7 +6,8 @@ import {
   Clock,
   Edit3,
   Volume2,
-  Sparkles
+  Sparkles,
+  Bell
 } from 'lucide-react';
 import { 
   ThreeDWater, 
@@ -22,6 +23,7 @@ import { audioEngine } from '../utils/audioEngine';
 export default function SmartCareTimeline({
   reminders,
   onToggleComplete,
+  onToggleEnable,
   onDeleteReminder,
   onEditReminder,
   onShowAll,
@@ -142,7 +144,7 @@ export default function SmartCareTimeline({
         {allCards.map((card) => (
           <div 
             key={card.id} 
-            className={`reminder-pastel-card modern-3d-card ${card.themeClass} ${card.completed ? 'is-completed' : ''}`}
+            className={`reminder-pastel-card modern-3d-card ${card.themeClass} ${card.completed ? 'is-completed' : ''} ${card.enabled === false ? 'opacity-60 grayscale-[0.2]' : ''}`}
             onClick={() => onToggleComplete && onToggleComplete(card.id)}
             role="button"
             tabIndex={0}
@@ -164,6 +166,16 @@ export default function SmartCareTimeline({
                 >
                   <Volume2 size={13} />
                 </button>
+                {onToggleEnable && (
+                  <button
+                    type="button"
+                    className={`card-mini-action-btn ya-icon-btn ${card.enabled === false ? 'opacity-40 text-muted' : 'text-primary'}`}
+                    onClick={() => onToggleEnable(card.id)}
+                    title={card.enabled === false ? (lang === 'ta' ? 'இயக்குக' : 'Enable reminder') : (lang === 'ta' ? 'இடைநிறுத்துக' : 'Pause reminder')}
+                  >
+                    <Bell size={13} />
+                  </button>
+                )}
                 {onEditReminder && (
                   <button
                     type="button"
@@ -194,12 +206,16 @@ export default function SmartCareTimeline({
               
               <div className="care-card-time-row flex items-center gap-2 my-1">
                 <span className="care-time-text font-bold text-xs">{card.time}</span>
-                {card.sound && (
+                {card.enabled === false ? (
+                  <span className="care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full bg-slate-200/80 text-slate-500 font-semibold">
+                    {lang === 'ta' ? 'இடைநிறுத்தப்பட்டது' : 'Paused'}
+                  </span>
+                ) : card.sound ? (
                   <span className="care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full bg-white/60 text-slate-600 font-medium inline-flex items-center gap-1">
                     <KitBell size={10} />
                     <span>{card.sound}</span>
                   </span>
-                )}
+                ) : null}
               </div>
 
               <p className="care-card-quote-text text-xs text-slate-600 m-0 line-clamp-2">
@@ -216,6 +232,15 @@ export default function SmartCareTimeline({
             )}
           </div>
         ))}
+      </div>
+
+      {/* Browser Timers vs Background Notifications Explanation Hint */}
+      <div className="reminder-info-hint-banner p-2.5 rounded-xl bg-subtle text-[11px] text-muted flex items-center justify-between mt-2 border border-subtle">
+        <span>
+          💡 {lang === 'ta' 
+            ? 'உலவி நினைவூட்டல்கள் பக்கம் இயங்கும்போது துல்லியமாக ஒலிக்கும். உலவி மூடப்பட்டிருக்கும் போதும் அறிவிப்புகள் வர இந்த தளத்தை PWA அல்லது APK ஆக நிறுவிக்கொள்ளலாம்.'
+            : 'Browser timers chime accurately while the app is open. For alerts when browser is closed, install NITHYA as a PWA / Android APK.'}
+        </span>
       </div>
     </section>
   );

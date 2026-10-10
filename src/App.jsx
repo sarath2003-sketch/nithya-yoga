@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
@@ -15,6 +15,8 @@ import ToastContainer from './components/ToastContainer';
 import MobileBottomNav from './components/MobileBottomNav';
 import ReminderModal from './components/ReminderModal';
 import LiveYogaClassRoom from './components/LiveYogaClassRoom';
+import AdminPortalSection from './components/AdminPortalSection';
+import InviteRegistrationModal from './components/InviteRegistrationModal';
 
 import { 
   loadStorage, 
@@ -22,7 +24,7 @@ import {
   DEFAULT_USER, 
   DEFAULT_REMINDERS, 
   DEFAULT_CLASSES, 
-  DEFAULT_NOTES,
+  DEFAULT_NOTES, 
   DEFAULT_ATTENDANCE_LOGS 
 } from './utils/storage';
 import { audioEngine } from './utils/audioEngine';
@@ -32,6 +34,16 @@ export default function App() {
   const [theme, setTheme] = useState(() => loadStorage('nithya_theme', 'light'));
   const [lang, setLang] = useState(() => loadStorage('nithya_lang', 'en'));
   const [searchQuery, setSearchQuery] = useState('');
+
+  // Invite Token from URL search parameters (?invite=...)
+  const [inviteToken, setInviteToken] = useState(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      return params.get('invite') || '';
+    } catch (e) {
+      return '';
+    }
+  });
 
   // States
   const [user, setUser] = useState(() => loadStorage('nithya_user', DEFAULT_USER));
@@ -74,6 +86,106 @@ export default function App() {
     saveStorage('nithya_attendance', attendanceLogs);
   }, [attendanceLogs]);
 
+  // Active reminder scheduler loop - checks device clock & triggers alarms without duplicates
+  const firedRemindersRef = useRef(new Set());
+
+  useEffect(() => {
+    const checkScheduledReminders = () => {
+      const now = new Date();
+      const currentHours = now.getHours();
+      const currentMinutes = now.getMinutes();
+      const current24 = `${String(currentHours).padStart(2, '0')}:${String(currentMinutes).padStart(2, '0')}`;
+      
+      const year = now.getFullYear();
+      const month = String(now.getMonth() + 1).padStart(2, '0');
+      const day = String(now.getDate()).padStart(2, '0');
+      const todayDateStr = `${year}-${month}-${day}`;
+      const dayOfWeek = now.getDay(); // 0 is Sunday, 6 is Saturday
+
+      reminders.forEach(r => {
+        if (r.enabled === false || r.completed) return;
+
+        // Determine scheduled 24h time ("HH:MM")
+        let scheduled24 = '';
+        if (r.rawTime && r.rawTime.includes(':')) {
+          scheduled24 = r.rawTime.trim().slice(0, 5);
+        } else if (r.time) {
+          const t = r.time.trim();
+          if (t.toUpperCase().includes('AM') || t.toUpperCase().includes('PM')) {
+            const parts = t.split(/\s+/);
+            const [hStr, mStr] = (parts[0] || '08:00').split(':');
+            let h = parseInt(hStr, 10);
+            const m = parseInt(mStr || '0', 10);
+            const isPM = (parts[1] || '').toUpperCase() === 'PM';
+            if (isPM && h < 12) h += 12;
+            if (!isPM && h === 12) h = 0;
+            scheduled24 = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+          } else {
+            scheduled24 = t.slice(0, 5);
+          }
+        }
+
+        if (scheduled24 !== current24) return;
+
+        // Check Repeat pattern
+        const repeat = r.repeat || 'Daily';
+        if (repeat === 'Once') {
+          if (r.date && r.date !== todayDateStr) return;
+        } else if (repeat === 'Weekdays') {
+          if (dayOfWeek === 0 || dayOfWeek === 6) return;
+        } else if (repeat === 'Weekly') {
+          if (r.date) {
+            const remDate = new Date(r.date + 'T00:00:00');
+            if (remDate.getDay() !== dayOfWeek) return;
+          }
+        }
+
+        // Deduplication key: only fire once per reminder per date per minute
+        const fireKey = `${r.id}_${todayDateStr}_${current24}`;
+        if (firedRemindersRef.current.has(fireKey)) return;
+
+        firedRemindersRef.current.add(fireKey);
+
+        // 1. Play audio chime
+        if (r.customAudioUrl) {
+          audioEngine.playAudioFile(r.customAudioUrl);
+        } else {
+          audioEngine.playSoundByName(r.sound || 'Soft Bell');
+        }
+
+        // 2. In-app toast notification
+        showToast(
+          lang === 'ta' ? `🔔 நினைவூட்டல்: ${r.titleTa || r.title}` : `🔔 Reminder: ${r.title}`,
+          lang === 'ta' ? (r.messageTa || r.message || 'உங்கள் ஆரோக்கியத்தைக் கவனிக்கவும்') : (r.message || 'Time for your healthy habit'),
+          'success'
+        );
+
+        // 3. Browser native notification / PWA notification
+        if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+          try {
+            const notification = new Notification(
+              lang === 'ta' ? `NITHYA யோகா: ${r.titleTa || r.title}` : `NITHYA Yoga: ${r.title}`,
+              {
+                body: lang === 'ta' ? (r.messageTa || r.message) : r.message,
+                icon: 'assets/images/logo.png',
+                badge: 'assets/images/logo.png',
+                tag: fireKey
+              }
+            );
+            notification.onclick = () => {
+              window.focus();
+            };
+          } catch (_) {}
+        }
+      });
+    };
+
+    // Run check immediately and every 5 seconds
+    checkScheduledReminders();
+    const interval = setInterval(checkScheduledReminders, 5000);
+    return () => clearInterval(interval);
+  }, [reminders, lang]);
+
   const showToast = (title, message = '', type = 'success') => {
     const id = Date.now();
     setToasts(prev => [...prev, { id, title, message, type }]);
@@ -88,6 +200,36 @@ export default function App() {
 
   const handleTestSound = () => {
     audioEngine.playMeditationTone();
+
+    // Check & request browser notification permission with clear guidance
+    if (typeof window !== 'undefined' && 'Notification' in window) {
+      if (Notification.permission === 'default') {
+        Notification.requestPermission().then(permission => {
+          if (permission === 'granted') {
+            showToast(
+              lang === 'ta' ? 'அறிவிப்பு அனுமதி வழங்கப்பட்டது ✓' : 'Notification Permission Granted ✓',
+              lang === 'ta' ? 'நினைவூட்டல்கள் சரியான நேரத்தில் திரையில் தோன்றும்.' : 'Reminders will alert you with chime & notifications.',
+              'success'
+            );
+          } else {
+            showToast(
+              lang === 'ta' ? 'உலவி அறிவிப்பு தடுக்கப்பட்டுள்ளது ⚠️' : 'Browser Notifications Blocked ⚠️',
+              lang === 'ta' ? 'உலவி அமைப்புகளில் அனுமதி வழங்கவும். உள்ளமைக்கப்பட்ட ஒலி இயங்கும்.' : 'Please allow notifications in browser address bar. In-app audio will still chime.',
+              'warning'
+            );
+          }
+        });
+        return;
+      } else if (Notification.permission === 'denied') {
+        showToast(
+          lang === 'ta' ? 'உலவி அறிவிப்பு தடுக்கப்பட்டுள்ளது ⚠️' : 'Browser Notifications Blocked ⚠️',
+          lang === 'ta' ? 'உலவி URL பாரில் கிளிக் செய்து அனுமதியை இயக்கவும். பயன்பாட்டில் ஒலி இயங்கும்.' : 'Notifications blocked in browser settings. Active page chime will still ring.',
+          'warning'
+        );
+        return;
+      }
+    }
+
     showToast(
       lang === 'ta' ? 'அறிவிப்பு ஒலி சரிபார்க்கப்பட்டது 🔔' : 'Notification chime verified 🔔',
       lang === 'ta' ? 'தியான ஒலி இயங்கியது' : 'Meditation Tone played successfully',
@@ -158,6 +300,23 @@ export default function App() {
         const nextState = !r.completed;
         if (nextState) audioEngine.playSoftBell();
         return { ...r, completed: nextState };
+      }
+      return r;
+    }));
+  };
+
+  const handleToggleEnable = (id) => {
+    setReminders(prev => prev.map(r => {
+      if (r.id === id) {
+        const nextState = r.enabled !== false ? false : true;
+        showToast(
+          nextState 
+            ? (lang === 'ta' ? 'நினைவூட்டல் இயக்கப்பட்டது ✓' : 'Reminder Enabled ✓') 
+            : (lang === 'ta' ? 'நினைவூட்டல் இடைநிறுத்தப்பட்டது' : 'Reminder Paused'),
+          r.title,
+          'info'
+        );
+        return { ...r, enabled: nextState };
       }
       return r;
     }));
@@ -248,7 +407,31 @@ export default function App() {
             onTestSound={handleTestSound}
           />
 
-          {currentTab === 'live' ? (
+          {currentTab === 'admin' ? (
+            <main className="dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal">
+              <div className="flex items-center gap-2 mb-4">
+                <button 
+                  type="button" 
+                  className="ya-btn ya-btn--soft text-xs cursor-pointer"
+                  onClick={() => setCurrentTab('home')}
+                >
+                  ← {lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}
+                </button>
+                <span className="text-muted">/</span>
+                <span className="font-bold text-sm text-heading">
+                  {lang === 'ta' ? 'நிர்வாகி கட்டுப்பாட்டு அறை' : 'Instructor & Admin Portal'}
+                </span>
+              </div>
+              <AdminPortalSection
+                onLaunchInstructorStudio={(cls) => {
+                  if (cls) setActiveClass(cls);
+                  setCurrentTab('live');
+                }}
+                showToast={showToast}
+                lang={lang}
+              />
+            </main>
+          ) : currentTab === 'live' ? (
             <main className="dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal">
               {/* Breadcrumb & Switcher Bar */}
               <div className="live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2">
@@ -317,6 +500,7 @@ export default function App() {
               <SmartCareTimeline
                 reminders={reminders}
                 onToggleComplete={handleToggleComplete}
+                onToggleEnable={handleToggleEnable}
                 onDeleteReminder={handleDeleteReminder}
                 onEditReminder={handleEditReminder}
                 onShowAll={() => {
@@ -419,6 +603,34 @@ export default function App() {
         initialData={editingReminder}
         lang={lang}
       />
+
+      {/* Invite Link Member Registration Modal */}
+      {inviteToken && (
+        <InviteRegistrationModal
+          inviteToken={inviteToken}
+          onClose={() => setInviteToken('')}
+          onRegistrationSuccess={({ member, classInfo }) => {
+            setInviteToken('');
+            setUser(prev => ({
+              ...prev,
+              name: member.name,
+              email: member.email,
+              phone: member.phone,
+              role: 'Verified Member'
+            }));
+            if (classInfo) {
+              setActiveClass(prev => ({ ...prev, id: classInfo.id, title: classInfo.title, name: classInfo.title }));
+            }
+            setCurrentTab('live');
+            showToast(
+              lang === 'ta' ? 'பதிவு முடிந்தது! நேரலை வகுப்பிற்கு வரவேற்கிறோம் 🧘‍♀️' : 'Registration Complete! Welcome to Live Class 🧘‍♀️',
+              `${member.name} • ${classInfo?.title || 'Yoga Session'}`,
+              'success'
+            );
+          }}
+          lang={lang}
+        />
+      )}
 
       {/* Toast Notification Tray */}
       <ToastContainer 

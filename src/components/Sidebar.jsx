@@ -8,7 +8,8 @@ import {
   Calendar, 
   Music, 
   User,
-  Heart
+  Heart,
+  ShieldCheck
 } from 'lucide-react';
 import { KitHeart } from './ThreeDIcons';
 import LotusMark from './LotusMark';
@@ -23,6 +24,7 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en' }) {
     { id: 'attendance', label: 'Attendance', labelTa: 'வருகைப் பதிவு', icon: Calendar },
     { id: 'relaxation', label: 'Relaxation', labelTa: 'ரிலாக்சேஷன்', icon: Music },
     { id: 'profile', label: 'Profile', labelTa: 'சுயவிவரம்', icon: User },
+    { id: 'admin', label: 'Admin Portal', labelTa: 'நிர்வாகி பகுதி', icon: ShieldCheck },
   ];
 
   return (

@@ -1096,7 +1096,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState12(initialState) {
+          function useState14(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1104,11 +1104,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef5(initialValue) {
+          function useRef6(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect8(create, deps) {
+          function useEffect11(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1891,15 +1891,15 @@
           exports.useContext = useContext2;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect8;
+          exports.useEffect = useEffect11;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
           exports.useLayoutEffect = useLayoutEffect;
           exports.useMemo = useMemo2;
           exports.useReducer = useReducer;
-          exports.useRef = useRef5;
-          exports.useState = useState12;
+          exports.useRef = useRef6;
+          exports.useState = useState14;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2395,9 +2395,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React20 = require_react();
+          var React22 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React20.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React22.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -4004,7 +4004,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React20.Children.forEach(props.children, function(child) {
+                  React22.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -24114,12 +24114,30 @@
     }
   });
 
+  // node_modules/lucide-react/dist/esm/icons/copy.mjs
+  var __iconData12, Copy;
+  var init_copy = __esm({
+    "node_modules/lucide-react/dist/esm/icons/copy.mjs"() {
+      init_createLucideIcon();
+      __iconData12 = {
+        name: "copy",
+        size: 24,
+        node: [
+          ["rect", { width: "14", height: "14", x: "8", y: "8", rx: "2", ry: "2", key: "17jyea" }],
+          ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
+        ]
+      };
+      __iconData12.node;
+      Copy = createLucideIcon(__iconData12);
+    }
+  });
+
   // node_modules/lucide-react/dist/esm/icons/crown.mjs
-  var __iconData12, Crown;
+  var __iconData13, Crown;
   var init_crown = __esm({
     "node_modules/lucide-react/dist/esm/icons/crown.mjs"() {
       init_createLucideIcon();
-      __iconData12 = {
+      __iconData13 = {
         name: "crown",
         size: 24,
         node: [
@@ -24133,17 +24151,17 @@
           ["path", { d: "M5 21h14", key: "11awu3" }]
         ]
       };
-      __iconData12.node;
-      Crown = createLucideIcon(__iconData12);
+      __iconData13.node;
+      Crown = createLucideIcon(__iconData13);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/external-link.mjs
-  var __iconData13, ExternalLink;
+  var __iconData14, ExternalLink;
   var init_external_link = __esm({
     "node_modules/lucide-react/dist/esm/icons/external-link.mjs"() {
       init_createLucideIcon();
-      __iconData13 = {
+      __iconData14 = {
         name: "external-link",
         size: 24,
         node: [
@@ -24152,17 +24170,17 @@
           ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
         ]
       };
-      __iconData13.node;
-      ExternalLink = createLucideIcon(__iconData13);
+      __iconData14.node;
+      ExternalLink = createLucideIcon(__iconData14);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/file-text.mjs
-  var __iconData14, FileText;
+  var __iconData15, FileText;
   var init_file_text = __esm({
     "node_modules/lucide-react/dist/esm/icons/file-text.mjs"() {
       init_createLucideIcon();
-      __iconData14 = {
+      __iconData15 = {
         name: "file-text",
         size: 24,
         node: [
@@ -24179,17 +24197,17 @@
           ["path", { d: "M16 17H8", key: "z1uh3a" }]
         ]
       };
-      __iconData14.node;
-      FileText = createLucideIcon(__iconData14);
+      __iconData15.node;
+      FileText = createLucideIcon(__iconData15);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/flame.mjs
-  var __iconData15, Flame;
+  var __iconData16, Flame;
   var init_flame = __esm({
     "node_modules/lucide-react/dist/esm/icons/flame.mjs"() {
       init_createLucideIcon();
-      __iconData15 = {
+      __iconData16 = {
         name: "flame",
         size: 24,
         node: [
@@ -24202,17 +24220,17 @@
           ]
         ]
       };
-      __iconData15.node;
-      Flame = createLucideIcon(__iconData15);
+      __iconData16.node;
+      Flame = createLucideIcon(__iconData16);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/flower-2.mjs
-  var __iconData16, Flower2;
+  var __iconData17, Flower2;
   var init_flower_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/flower-2.mjs"() {
       init_createLucideIcon();
-      __iconData16 = {
+      __iconData17 = {
         name: "flower-2",
         size: 24,
         node: [
@@ -24229,17 +24247,17 @@
           ["path", { d: "M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z", key: "ufn41s" }]
         ]
       };
-      __iconData16.node;
-      Flower2 = createLucideIcon(__iconData16);
+      __iconData17.node;
+      Flower2 = createLucideIcon(__iconData17);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/globe.mjs
-  var __iconData17, Globe;
+  var __iconData18, Globe;
   var init_globe = __esm({
     "node_modules/lucide-react/dist/esm/icons/globe.mjs"() {
       init_createLucideIcon();
-      __iconData17 = {
+      __iconData18 = {
         name: "globe",
         size: 24,
         node: [
@@ -24248,17 +24266,17 @@
           ["path", { d: "M2 12h20", key: "9i4pu4" }]
         ]
       };
-      __iconData17.node;
-      Globe = createLucideIcon(__iconData17);
+      __iconData18.node;
+      Globe = createLucideIcon(__iconData18);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/hand.mjs
-  var __iconData18, Hand;
+  var __iconData19, Hand;
   var init_hand = __esm({
     "node_modules/lucide-react/dist/esm/icons/hand.mjs"() {
       init_createLucideIcon();
-      __iconData18 = {
+      __iconData19 = {
         name: "hand",
         size: 24,
         node: [
@@ -24274,17 +24292,17 @@
           ]
         ]
       };
-      __iconData18.node;
-      Hand = createLucideIcon(__iconData18);
+      __iconData19.node;
+      Hand = createLucideIcon(__iconData19);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/headphones.mjs
-  var __iconData19, Headphones;
+  var __iconData20, Headphones;
   var init_headphones = __esm({
     "node_modules/lucide-react/dist/esm/icons/headphones.mjs"() {
       init_createLucideIcon();
-      __iconData19 = {
+      __iconData20 = {
         name: "headphones",
         size: 24,
         node: [
@@ -24297,17 +24315,17 @@
           ]
         ]
       };
-      __iconData19.node;
-      Headphones = createLucideIcon(__iconData19);
+      __iconData20.node;
+      Headphones = createLucideIcon(__iconData20);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/house.mjs
-  var __iconData20, House;
+  var __iconData21, House;
   var init_house = __esm({
     "node_modules/lucide-react/dist/esm/icons/house.mjs"() {
       init_createLucideIcon();
-      __iconData20 = {
+      __iconData21 = {
         name: "house",
         size: 24,
         node: [
@@ -24322,17 +24340,39 @@
         ],
         aliases: ["home"]
       };
-      __iconData20.node;
-      House = createLucideIcon(__iconData20);
+      __iconData21.node;
+      House = createLucideIcon(__iconData21);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/key.mjs
+  var __iconData22, Key;
+  var init_key = __esm({
+    "node_modules/lucide-react/dist/esm/icons/key.mjs"() {
+      init_createLucideIcon();
+      __iconData22 = {
+        name: "key",
+        size: 24,
+        node: [
+          ["path", { d: "m2 21 9.6-9.6", key: "9l79m3" }],
+          [
+            "path",
+            { d: "m7.5 15.5 2.3 2.3a1 1 0 0 1 0 1.4l-2.1 2.1a1 1 0 0 1-1.4 0L4 19", key: "fw8biw" }
+          ],
+          ["circle", { cx: "15.5", cy: "7.5", r: "5.5", key: "4wxmhb" }]
+        ]
+      };
+      __iconData22.node;
+      Key = createLucideIcon(__iconData22);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/layers.mjs
-  var __iconData21, Layers;
+  var __iconData23, Layers;
   var init_layers = __esm({
     "node_modules/lucide-react/dist/esm/icons/layers.mjs"() {
       init_createLucideIcon();
-      __iconData21 = {
+      __iconData23 = {
         name: "layers",
         size: 24,
         node: [
@@ -24360,17 +24400,17 @@
         ],
         aliases: ["layers-3"]
       };
-      __iconData21.node;
-      Layers = createLucideIcon(__iconData21);
+      __iconData23.node;
+      Layers = createLucideIcon(__iconData23);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/link.mjs
-  var __iconData22, Link;
+  var __iconData24, Link;
   var init_link = __esm({
     "node_modules/lucide-react/dist/esm/icons/link.mjs"() {
       init_createLucideIcon();
-      __iconData22 = {
+      __iconData24 = {
         name: "link",
         size: 24,
         node: [
@@ -24378,17 +24418,54 @@
           ["path", { d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71", key: "19qd67" }]
         ]
       };
-      __iconData22.node;
-      Link = createLucideIcon(__iconData22);
+      __iconData24.node;
+      Link = createLucideIcon(__iconData24);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/log-out.mjs
+  var __iconData25, LogOut;
+  var init_log_out = __esm({
+    "node_modules/lucide-react/dist/esm/icons/log-out.mjs"() {
+      init_createLucideIcon();
+      __iconData25 = {
+        name: "log-out",
+        size: 24,
+        node: [
+          ["path", { d: "m16 17 5-5-5-5", key: "1bji2h" }],
+          ["path", { d: "M21 12H9", key: "dn1m92" }],
+          ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
+        ]
+      };
+      __iconData25.node;
+      LogOut = createLucideIcon(__iconData25);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/mail.mjs
+  var __iconData26, Mail;
+  var init_mail = __esm({
+    "node_modules/lucide-react/dist/esm/icons/mail.mjs"() {
+      init_createLucideIcon();
+      __iconData26 = {
+        name: "mail",
+        size: 24,
+        node: [
+          ["path", { d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7", key: "132q7q" }],
+          ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
+        ]
+      };
+      __iconData26.node;
+      Mail = createLucideIcon(__iconData26);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/maximize-2.mjs
-  var __iconData23, Maximize2;
+  var __iconData27, Maximize2;
   var init_maximize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/maximize-2.mjs"() {
       init_createLucideIcon();
-      __iconData23 = {
+      __iconData27 = {
         name: "maximize-2",
         size: 24,
         node: [
@@ -24398,17 +24475,17 @@
           ["path", { d: "M9 21H3v-6", key: "wtvkvv" }]
         ]
       };
-      __iconData23.node;
-      Maximize2 = createLucideIcon(__iconData23);
+      __iconData27.node;
+      Maximize2 = createLucideIcon(__iconData27);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/message-square.mjs
-  var __iconData24, MessageSquare;
+  var __iconData28, MessageSquare;
   var init_message_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/message-square.mjs"() {
       init_createLucideIcon();
-      __iconData24 = {
+      __iconData28 = {
         name: "message-square",
         size: 24,
         node: [
@@ -24421,17 +24498,17 @@
           ]
         ]
       };
-      __iconData24.node;
-      MessageSquare = createLucideIcon(__iconData24);
+      __iconData28.node;
+      MessageSquare = createLucideIcon(__iconData28);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic-off.mjs
-  var __iconData25, MicOff;
+  var __iconData29, MicOff;
   var init_mic_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic-off.mjs"() {
       init_createLucideIcon();
-      __iconData25 = {
+      __iconData29 = {
         name: "mic-off",
         size: 24,
         node: [
@@ -24443,17 +24520,17 @@
           ["path", { d: "M9 9v3a3 3 0 0 0 5.12 2.12", key: "r2i35w" }]
         ]
       };
-      __iconData25.node;
-      MicOff = createLucideIcon(__iconData25);
+      __iconData29.node;
+      MicOff = createLucideIcon(__iconData29);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic.mjs
-  var __iconData26, Mic;
+  var __iconData30, Mic;
   var init_mic = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic.mjs"() {
       init_createLucideIcon();
-      __iconData26 = {
+      __iconData30 = {
         name: "mic",
         size: 24,
         node: [
@@ -24462,17 +24539,17 @@
           ["rect", { x: "9", y: "2", width: "6", height: "13", rx: "3", key: "s6n7sd" }]
         ]
       };
-      __iconData26.node;
-      Mic = createLucideIcon(__iconData26);
+      __iconData30.node;
+      Mic = createLucideIcon(__iconData30);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/minimize-2.mjs
-  var __iconData27, Minimize2;
+  var __iconData31, Minimize2;
   var init_minimize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/minimize-2.mjs"() {
       init_createLucideIcon();
-      __iconData27 = {
+      __iconData31 = {
         name: "minimize-2",
         size: 24,
         node: [
@@ -24482,17 +24559,17 @@
           ["path", { d: "M4 14h6v6", key: "rmj7iw" }]
         ]
       };
-      __iconData27.node;
-      Minimize2 = createLucideIcon(__iconData27);
+      __iconData31.node;
+      Minimize2 = createLucideIcon(__iconData31);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/moon.mjs
-  var __iconData28, Moon;
+  var __iconData32, Moon;
   var init_moon = __esm({
     "node_modules/lucide-react/dist/esm/icons/moon.mjs"() {
       init_createLucideIcon();
-      __iconData28 = {
+      __iconData32 = {
         name: "moon",
         size: 24,
         node: [
@@ -24505,17 +24582,17 @@
           ]
         ]
       };
-      __iconData28.node;
-      Moon = createLucideIcon(__iconData28);
+      __iconData32.node;
+      Moon = createLucideIcon(__iconData32);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/music.mjs
-  var __iconData29, Music;
+  var __iconData33, Music;
   var init_music = __esm({
     "node_modules/lucide-react/dist/esm/icons/music.mjs"() {
       init_createLucideIcon();
-      __iconData29 = {
+      __iconData33 = {
         name: "music",
         size: 24,
         node: [
@@ -24524,17 +24601,17 @@
           ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
         ]
       };
-      __iconData29.node;
-      Music = createLucideIcon(__iconData29);
+      __iconData33.node;
+      Music = createLucideIcon(__iconData33);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pause.mjs
-  var __iconData30, Pause;
+  var __iconData34, Pause;
   var init_pause = __esm({
     "node_modules/lucide-react/dist/esm/icons/pause.mjs"() {
       init_createLucideIcon();
-      __iconData30 = {
+      __iconData34 = {
         name: "pause",
         size: 24,
         node: [
@@ -24542,17 +24619,17 @@
           ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
         ]
       };
-      __iconData30.node;
-      Pause = createLucideIcon(__iconData30);
+      __iconData34.node;
+      Pause = createLucideIcon(__iconData34);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pen-line.mjs
-  var __iconData31, PenLine;
+  var __iconData35, PenLine;
   var init_pen_line = __esm({
     "node_modules/lucide-react/dist/esm/icons/pen-line.mjs"() {
       init_createLucideIcon();
-      __iconData31 = {
+      __iconData35 = {
         name: "pen-line",
         size: 24,
         node: [
@@ -24567,17 +24644,17 @@
         ],
         aliases: ["edit-3"]
       };
-      __iconData31.node;
-      PenLine = createLucideIcon(__iconData31);
+      __iconData35.node;
+      PenLine = createLucideIcon(__iconData35);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone-off.mjs
-  var __iconData32, PhoneOff;
+  var __iconData36, PhoneOff;
   var init_phone_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone-off.mjs"() {
       init_createLucideIcon();
-      __iconData32 = {
+      __iconData36 = {
         name: "phone-off",
         size: 24,
         node: [
@@ -24598,17 +24675,40 @@
           ]
         ]
       };
-      __iconData32.node;
-      PhoneOff = createLucideIcon(__iconData32);
+      __iconData36.node;
+      PhoneOff = createLucideIcon(__iconData36);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/phone.mjs
+  var __iconData37, Phone;
+  var init_phone = __esm({
+    "node_modules/lucide-react/dist/esm/icons/phone.mjs"() {
+      init_createLucideIcon();
+      __iconData37 = {
+        name: "phone",
+        size: 24,
+        node: [
+          [
+            "path",
+            {
+              d: "M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",
+              key: "9njp5v"
+            }
+          ]
+        ]
+      };
+      __iconData37.node;
+      Phone = createLucideIcon(__iconData37);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/play.mjs
-  var __iconData33, Play;
+  var __iconData38, Play;
   var init_play = __esm({
     "node_modules/lucide-react/dist/esm/icons/play.mjs"() {
       init_createLucideIcon();
-      __iconData33 = {
+      __iconData38 = {
         name: "play",
         size: 24,
         node: [
@@ -24621,17 +24721,17 @@
           ]
         ]
       };
-      __iconData33.node;
-      Play = createLucideIcon(__iconData33);
+      __iconData38.node;
+      Play = createLucideIcon(__iconData38);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/plus.mjs
-  var __iconData34, Plus;
+  var __iconData39, Plus;
   var init_plus = __esm({
     "node_modules/lucide-react/dist/esm/icons/plus.mjs"() {
       init_createLucideIcon();
-      __iconData34 = {
+      __iconData39 = {
         name: "plus",
         size: 24,
         node: [
@@ -24639,17 +24739,17 @@
           ["path", { d: "M12 5v14", key: "s699le" }]
         ]
       };
-      __iconData34.node;
-      Plus = createLucideIcon(__iconData34);
+      __iconData39.node;
+      Plus = createLucideIcon(__iconData39);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/radio.mjs
-  var __iconData35, Radio;
+  var __iconData40, Radio;
   var init_radio = __esm({
     "node_modules/lucide-react/dist/esm/icons/radio.mjs"() {
       init_createLucideIcon();
-      __iconData35 = {
+      __iconData40 = {
         name: "radio",
         size: 24,
         node: [
@@ -24660,17 +24760,17 @@
           ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
         ]
       };
-      __iconData35.node;
-      Radio = createLucideIcon(__iconData35);
+      __iconData40.node;
+      Radio = createLucideIcon(__iconData40);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs
-  var __iconData36, RefreshCw;
+  var __iconData41, RefreshCw;
   var init_refresh_cw = __esm({
     "node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs"() {
       init_createLucideIcon();
-      __iconData36 = {
+      __iconData41 = {
         name: "refresh-cw",
         size: 24,
         node: [
@@ -24680,17 +24780,17 @@
           ["path", { d: "M8 16H3v5", key: "1cv678" }]
         ]
       };
-      __iconData36.node;
-      RefreshCw = createLucideIcon(__iconData36);
+      __iconData41.node;
+      RefreshCw = createLucideIcon(__iconData41);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/repeat.mjs
-  var __iconData37, Repeat;
+  var __iconData42, Repeat;
   var init_repeat = __esm({
     "node_modules/lucide-react/dist/esm/icons/repeat.mjs"() {
       init_createLucideIcon();
-      __iconData37 = {
+      __iconData42 = {
         name: "repeat",
         size: 24,
         node: [
@@ -24700,17 +24800,17 @@
           ["path", { d: "M21 13v1a4 4 0 0 1-4 4H3", key: "1rx37r" }]
         ]
       };
-      __iconData37.node;
-      Repeat = createLucideIcon(__iconData37);
+      __iconData42.node;
+      Repeat = createLucideIcon(__iconData42);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs
-  var __iconData38, RotateCcw;
+  var __iconData43, RotateCcw;
   var init_rotate_ccw = __esm({
     "node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs"() {
       init_createLucideIcon();
-      __iconData38 = {
+      __iconData43 = {
         name: "rotate-ccw",
         size: 24,
         node: [
@@ -24718,17 +24818,17 @@
           ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
         ]
       };
-      __iconData38.node;
-      RotateCcw = createLucideIcon(__iconData38);
+      __iconData43.node;
+      RotateCcw = createLucideIcon(__iconData43);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/save.mjs
-  var __iconData39, Save;
+  var __iconData44, Save;
   var init_save = __esm({
     "node_modules/lucide-react/dist/esm/icons/save.mjs"() {
       init_createLucideIcon();
-      __iconData39 = {
+      __iconData44 = {
         name: "save",
         size: 24,
         node: [
@@ -24743,17 +24843,17 @@
           ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
         ]
       };
-      __iconData39.node;
-      Save = createLucideIcon(__iconData39);
+      __iconData44.node;
+      Save = createLucideIcon(__iconData44);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/search.mjs
-  var __iconData40, Search;
+  var __iconData45, Search;
   var init_search = __esm({
     "node_modules/lucide-react/dist/esm/icons/search.mjs"() {
       init_createLucideIcon();
-      __iconData40 = {
+      __iconData45 = {
         name: "search",
         size: 24,
         node: [
@@ -24761,17 +24861,17 @@
           ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
         ]
       };
-      __iconData40.node;
-      Search = createLucideIcon(__iconData40);
+      __iconData45.node;
+      Search = createLucideIcon(__iconData45);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/send.mjs
-  var __iconData41, Send;
+  var __iconData46, Send;
   var init_send = __esm({
     "node_modules/lucide-react/dist/esm/icons/send.mjs"() {
       init_createLucideIcon();
-      __iconData41 = {
+      __iconData46 = {
         name: "send",
         size: 24,
         node: [
@@ -24785,17 +24885,17 @@
           ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
         ]
       };
-      __iconData41.node;
-      Send = createLucideIcon(__iconData41);
+      __iconData46.node;
+      Send = createLucideIcon(__iconData46);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/settings.mjs
-  var __iconData42, Settings;
+  var __iconData47, Settings;
   var init_settings = __esm({
     "node_modules/lucide-react/dist/esm/icons/settings.mjs"() {
       init_createLucideIcon();
-      __iconData42 = {
+      __iconData47 = {
         name: "settings",
         size: 24,
         node: [
@@ -24809,17 +24909,17 @@
           ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
         ]
       };
-      __iconData42.node;
-      Settings = createLucideIcon(__iconData42);
+      __iconData47.node;
+      Settings = createLucideIcon(__iconData47);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/share-2.mjs
-  var __iconData43, Share2;
+  var __iconData48, Share2;
   var init_share_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/share-2.mjs"() {
       init_createLucideIcon();
-      __iconData43 = {
+      __iconData48 = {
         name: "share-2",
         size: 24,
         node: [
@@ -24830,17 +24930,17 @@
           ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49", key: "1n3mei" }]
         ]
       };
-      __iconData43.node;
-      Share2 = createLucideIcon(__iconData43);
+      __iconData48.node;
+      Share2 = createLucideIcon(__iconData48);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/shield-check.mjs
-  var __iconData44, ShieldCheck;
+  var __iconData49, ShieldCheck;
   var init_shield_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/shield-check.mjs"() {
       init_createLucideIcon();
-      __iconData44 = {
+      __iconData49 = {
         name: "shield-check",
         size: 24,
         node: [
@@ -24854,17 +24954,17 @@
           ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
         ]
       };
-      __iconData44.node;
-      ShieldCheck = createLucideIcon(__iconData44);
+      __iconData49.node;
+      ShieldCheck = createLucideIcon(__iconData49);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/skip-back.mjs
-  var __iconData45, SkipBack;
+  var __iconData50, SkipBack;
   var init_skip_back = __esm({
     "node_modules/lucide-react/dist/esm/icons/skip-back.mjs"() {
       init_createLucideIcon();
-      __iconData45 = {
+      __iconData50 = {
         name: "skip-back",
         size: 24,
         node: [
@@ -24878,17 +24978,17 @@
           ["path", { d: "M3 20V4", key: "1ptbpl" }]
         ]
       };
-      __iconData45.node;
-      SkipBack = createLucideIcon(__iconData45);
+      __iconData50.node;
+      SkipBack = createLucideIcon(__iconData50);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/skip-forward.mjs
-  var __iconData46, SkipForward;
+  var __iconData51, SkipForward;
   var init_skip_forward = __esm({
     "node_modules/lucide-react/dist/esm/icons/skip-forward.mjs"() {
       init_createLucideIcon();
-      __iconData46 = {
+      __iconData51 = {
         name: "skip-forward",
         size: 24,
         node: [
@@ -24902,17 +25002,17 @@
           ]
         ]
       };
-      __iconData46.node;
-      SkipForward = createLucideIcon(__iconData46);
+      __iconData51.node;
+      SkipForward = createLucideIcon(__iconData51);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/sparkles.mjs
-  var __iconData47, Sparkles;
+  var __iconData52, Sparkles;
   var init_sparkles = __esm({
     "node_modules/lucide-react/dist/esm/icons/sparkles.mjs"() {
       init_createLucideIcon();
-      __iconData47 = {
+      __iconData52 = {
         name: "sparkles",
         size: 24,
         node: [
@@ -24929,32 +25029,32 @@
         ],
         aliases: ["stars"]
       };
-      __iconData47.node;
-      Sparkles = createLucideIcon(__iconData47);
+      __iconData52.node;
+      Sparkles = createLucideIcon(__iconData52);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/square.mjs
-  var __iconData48, Square;
+  var __iconData53, Square;
   var init_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/square.mjs"() {
       init_createLucideIcon();
-      __iconData48 = {
+      __iconData53 = {
         name: "square",
         size: 24,
         node: [["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]]
       };
-      __iconData48.node;
-      Square = createLucideIcon(__iconData48);
+      __iconData53.node;
+      Square = createLucideIcon(__iconData53);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/star.mjs
-  var __iconData49, Star;
+  var __iconData54, Star;
   var init_star = __esm({
     "node_modules/lucide-react/dist/esm/icons/star.mjs"() {
       init_createLucideIcon();
-      __iconData49 = {
+      __iconData54 = {
         name: "star",
         size: 24,
         node: [
@@ -24967,17 +25067,17 @@
           ]
         ]
       };
-      __iconData49.node;
-      Star = createLucideIcon(__iconData49);
+      __iconData54.node;
+      Star = createLucideIcon(__iconData54);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/tag.mjs
-  var __iconData50, Tag;
+  var __iconData55, Tag;
   var init_tag = __esm({
     "node_modules/lucide-react/dist/esm/icons/tag.mjs"() {
       init_createLucideIcon();
-      __iconData50 = {
+      __iconData55 = {
         name: "tag",
         size: 24,
         node: [
@@ -24991,17 +25091,17 @@
           ["circle", { cx: "7.5", cy: "7.5", r: ".5", fill: "currentColor", key: "kqv944" }]
         ]
       };
-      __iconData50.node;
-      Tag = createLucideIcon(__iconData50);
+      __iconData55.node;
+      Tag = createLucideIcon(__iconData55);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trash.mjs
-  var __iconData51, Trash;
+  var __iconData56, Trash;
   var init_trash = __esm({
     "node_modules/lucide-react/dist/esm/icons/trash.mjs"() {
       init_createLucideIcon();
-      __iconData51 = {
+      __iconData56 = {
         name: "trash",
         size: 24,
         node: [
@@ -25013,17 +25113,17 @@
         ],
         aliases: ["trash-2"]
       };
-      __iconData51.node;
-      Trash = createLucideIcon(__iconData51);
+      __iconData56.node;
+      Trash = createLucideIcon(__iconData56);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trending-up.mjs
-  var __iconData52, TrendingUp;
+  var __iconData57, TrendingUp;
   var init_trending_up = __esm({
     "node_modules/lucide-react/dist/esm/icons/trending-up.mjs"() {
       init_createLucideIcon();
-      __iconData52 = {
+      __iconData57 = {
         name: "trending-up",
         size: 24,
         node: [
@@ -25031,17 +25131,17 @@
           ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
         ]
       };
-      __iconData52.node;
-      TrendingUp = createLucideIcon(__iconData52);
+      __iconData57.node;
+      TrendingUp = createLucideIcon(__iconData57);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/upload.mjs
-  var __iconData53, Upload;
+  var __iconData58, Upload;
   var init_upload = __esm({
     "node_modules/lucide-react/dist/esm/icons/upload.mjs"() {
       init_createLucideIcon();
-      __iconData53 = {
+      __iconData58 = {
         name: "upload",
         size: 24,
         node: [
@@ -25050,17 +25150,17 @@
           ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
         ]
       };
-      __iconData53.node;
-      Upload = createLucideIcon(__iconData53);
+      __iconData58.node;
+      Upload = createLucideIcon(__iconData58);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/user.mjs
-  var __iconData54, User;
+  var __iconData59, User;
   var init_user = __esm({
     "node_modules/lucide-react/dist/esm/icons/user.mjs"() {
       init_createLucideIcon();
-      __iconData54 = {
+      __iconData59 = {
         name: "user",
         size: 24,
         node: [
@@ -25068,17 +25168,17 @@
           ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
         ]
       };
-      __iconData54.node;
-      User = createLucideIcon(__iconData54);
+      __iconData59.node;
+      User = createLucideIcon(__iconData59);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/users.mjs
-  var __iconData55, Users;
+  var __iconData60, Users;
   var init_users = __esm({
     "node_modules/lucide-react/dist/esm/icons/users.mjs"() {
       init_createLucideIcon();
-      __iconData55 = {
+      __iconData60 = {
         name: "users",
         size: 24,
         node: [
@@ -25088,17 +25188,17 @@
           ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
         ]
       };
-      __iconData55.node;
-      Users = createLucideIcon(__iconData55);
+      __iconData60.node;
+      Users = createLucideIcon(__iconData60);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video-off.mjs
-  var __iconData56, VideoOff;
+  var __iconData61, VideoOff;
   var init_video_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/video-off.mjs"() {
       init_createLucideIcon();
-      __iconData56 = {
+      __iconData61 = {
         name: "video-off",
         size: 24,
         node: [
@@ -25110,17 +25210,17 @@
           ["path", { d: "m2 2 20 20", key: "1ooewy" }]
         ]
       };
-      __iconData56.node;
-      VideoOff = createLucideIcon(__iconData56);
+      __iconData61.node;
+      VideoOff = createLucideIcon(__iconData61);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video.mjs
-  var __iconData57, Video;
+  var __iconData62, Video;
   var init_video = __esm({
     "node_modules/lucide-react/dist/esm/icons/video.mjs"() {
       init_createLucideIcon();
-      __iconData57 = {
+      __iconData62 = {
         name: "video",
         size: 24,
         node: [
@@ -25134,17 +25234,17 @@
           ["rect", { x: "2", y: "6", width: "14", height: "12", rx: "2", key: "158x01" }]
         ]
       };
-      __iconData57.node;
-      Video = createLucideIcon(__iconData57);
+      __iconData62.node;
+      Video = createLucideIcon(__iconData62);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/volume-2.mjs
-  var __iconData58, Volume2;
+  var __iconData63, Volume2;
   var init_volume_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/volume-2.mjs"() {
       init_createLucideIcon();
-      __iconData58 = {
+      __iconData63 = {
         name: "volume-2",
         size: 24,
         node: [
@@ -25159,17 +25259,17 @@
           ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
         ]
       };
-      __iconData58.node;
-      Volume2 = createLucideIcon(__iconData58);
+      __iconData63.node;
+      Volume2 = createLucideIcon(__iconData63);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/wind.mjs
-  var __iconData59, Wind;
+  var __iconData64, Wind;
   var init_wind = __esm({
     "node_modules/lucide-react/dist/esm/icons/wind.mjs"() {
       init_createLucideIcon();
-      __iconData59 = {
+      __iconData64 = {
         name: "wind",
         size: 24,
         node: [
@@ -25178,17 +25278,17 @@
           ["path", { d: "M9.8 4.4A2 2 0 1 1 11 8H2", key: "75valh" }]
         ]
       };
-      __iconData59.node;
-      Wind = createLucideIcon(__iconData59);
+      __iconData64.node;
+      Wind = createLucideIcon(__iconData64);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/x.mjs
-  var __iconData60, X;
+  var __iconData65, X;
   var init_x = __esm({
     "node_modules/lucide-react/dist/esm/icons/x.mjs"() {
       init_createLucideIcon();
-      __iconData60 = {
+      __iconData65 = {
         name: "x",
         size: 24,
         node: [
@@ -25196,8 +25296,8 @@
           ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
         ]
       };
-      __iconData60.node;
-      X = createLucideIcon(__iconData60);
+      __iconData65.node;
+      X = createLucideIcon(__iconData65);
     }
   });
 
@@ -25221,6 +25321,7 @@
       init_camera();
       init_check();
       init_clock();
+      init_copy();
       init_crown();
       init_external_link();
       init_file_text();
@@ -25229,7 +25330,10 @@
       init_globe();
       init_hand();
       init_headphones();
+      init_key();
       init_link();
+      init_log_out();
+      init_mail();
       init_maximize_2();
       init_message_square();
       init_mic_off();
@@ -25239,6 +25343,7 @@
       init_music();
       init_pause();
       init_phone_off();
+      init_phone();
       init_play();
       init_plus();
       init_radio();
@@ -25417,7 +25522,8 @@
       { id: "notes", label: "Yoga Notes", labelTa: "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD", icon: FileText },
       { id: "attendance", label: "Attendance", labelTa: "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1", icon: Calendar },
       { id: "relaxation", label: "Relaxation", labelTa: "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD", icon: Music },
-      { id: "profile", label: "Profile", labelTa: "\u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD", icon: User }
+      { id: "profile", label: "Profile", labelTa: "\u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD", icon: User },
+      { id: "admin", label: "Admin Portal", labelTa: "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0BAA\u0B95\u0BC1\u0BA4\u0BBF", icon: ShieldCheck }
     ];
     return /* @__PURE__ */ import_react6.default.createElement("aside", { className: "app-sidebar-nav" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "sidebar-brand-container", onClick: () => setCurrentTab("home") }, /* @__PURE__ */ import_react6.default.createElement(
       "img",
@@ -25898,6 +26004,7 @@
   function SmartCareTimeline({
     reminders,
     onToggleComplete,
+    onToggleEnable,
     onDeleteReminder,
     onEditReminder,
     onShowAll,
@@ -25996,7 +26103,7 @@
       "div",
       {
         key: card.id,
-        className: `reminder-pastel-card modern-3d-card ${card.themeClass} ${card.completed ? "is-completed" : ""}`,
+        className: `reminder-pastel-card modern-3d-card ${card.themeClass} ${card.completed ? "is-completed" : ""} ${card.enabled === false ? "opacity-60 grayscale-[0.2]" : ""}`,
         onClick: () => onToggleComplete && onToggleComplete(card.id),
         role: "button",
         tabIndex: 0,
@@ -26011,6 +26118,15 @@
           title: `Chime sound: ${card.sound || "Soft Bell"}`
         },
         /* @__PURE__ */ import_react9.default.createElement(Volume2, { size: 13 })
+      ), onToggleEnable && /* @__PURE__ */ import_react9.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: `card-mini-action-btn ya-icon-btn ${card.enabled === false ? "opacity-40 text-muted" : "text-primary"}`,
+          onClick: () => onToggleEnable(card.id),
+          title: card.enabled === false ? lang === "ta" ? "\u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BC1\u0B95" : "Enable reminder" : lang === "ta" ? "\u0B87\u0B9F\u0BC8\u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95" : "Pause reminder"
+        },
+        /* @__PURE__ */ import_react9.default.createElement(Bell, { size: 13 })
       ), onEditReminder && /* @__PURE__ */ import_react9.default.createElement(
         "button",
         {
@@ -26030,9 +26146,9 @@
         },
         /* @__PURE__ */ import_react9.default.createElement(Trash, { size: 13 })
       ))),
-      /* @__PURE__ */ import_react9.default.createElement("div", { className: "card-inner-info mt-1" }, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "care-card-title text-sm font-bold text-slate-800 m-0" }, lang === "ta" && card.titleTa ? card.titleTa : card.title), /* @__PURE__ */ import_react9.default.createElement("div", { className: "care-card-time-row flex items-center gap-2 my-1" }, /* @__PURE__ */ import_react9.default.createElement("span", { className: "care-time-text font-bold text-xs" }, card.time), card.sound && /* @__PURE__ */ import_react9.default.createElement("span", { className: "care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full bg-white/60 text-slate-600 font-medium inline-flex items-center gap-1" }, /* @__PURE__ */ import_react9.default.createElement(KitBell, { size: 10 }), /* @__PURE__ */ import_react9.default.createElement("span", null, card.sound))), /* @__PURE__ */ import_react9.default.createElement("p", { className: "care-card-quote-text text-xs text-slate-600 m-0 line-clamp-2" }, lang === "ta" && card.messageTa ? card.messageTa : card.message)),
+      /* @__PURE__ */ import_react9.default.createElement("div", { className: "card-inner-info mt-1" }, /* @__PURE__ */ import_react9.default.createElement("h4", { className: "care-card-title text-sm font-bold text-slate-800 m-0" }, lang === "ta" && card.titleTa ? card.titleTa : card.title), /* @__PURE__ */ import_react9.default.createElement("div", { className: "care-card-time-row flex items-center gap-2 my-1" }, /* @__PURE__ */ import_react9.default.createElement("span", { className: "care-time-text font-bold text-xs" }, card.time), card.enabled === false ? /* @__PURE__ */ import_react9.default.createElement("span", { className: "care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full bg-slate-200/80 text-slate-500 font-semibold" }, lang === "ta" ? "\u0B87\u0B9F\u0BC8\u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Paused") : card.sound ? /* @__PURE__ */ import_react9.default.createElement("span", { className: "care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full bg-white/60 text-slate-600 font-medium inline-flex items-center gap-1" }, /* @__PURE__ */ import_react9.default.createElement(KitBell, { size: 10 }), /* @__PURE__ */ import_react9.default.createElement("span", null, card.sound)) : null), /* @__PURE__ */ import_react9.default.createElement("p", { className: "care-card-quote-text text-xs text-slate-600 m-0 line-clamp-2" }, lang === "ta" && card.messageTa ? card.messageTa : card.message)),
       card.completed && /* @__PURE__ */ import_react9.default.createElement("div", { className: "completed-check-tag flex items-center gap-1" }, /* @__PURE__ */ import_react9.default.createElement(Check, { size: 12, strokeWidth: 3 }), /* @__PURE__ */ import_react9.default.createElement("span", null, "Done"))
-    ))));
+    ))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "reminder-info-hint-banner p-2.5 rounded-xl bg-subtle text-[11px] text-muted flex items-center justify-between mt-2 border border-subtle" }, /* @__PURE__ */ import_react9.default.createElement("span", null, "\u{1F4A1} ", lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0B87\u0BAF\u0B99\u0BCD\u0B95\u0BC1\u0BAE\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BA4\u0BC1\u0BB2\u0BCD\u0BB2\u0BBF\u0BAF\u0BAE\u0BBE\u0B95 \u0B92\u0BB2\u0BBF\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD. \u0B89\u0BB2\u0BB5\u0BBF \u0BAE\u0BC2\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BAA\u0BCB\u0BA4\u0BC1\u0BAE\u0BCD \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BB5\u0BB0 \u0B87\u0BA8\u0BCD\u0BA4 \u0BA4\u0BB3\u0BA4\u0BCD\u0BA4\u0BC8 PWA \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 APK \u0B86\u0B95 \u0BA8\u0BBF\u0BB1\u0BC1\u0BB5\u0BBF\u0B95\u0BCD\u0B95\u0BCA\u0BB3\u0BCD\u0BB3\u0BB2\u0BBE\u0BAE\u0BCD." : "Browser timers chime accurately while the app is open. For alerts when browser is closed, install NITHYA as a PWA / Android APK.")));
   }
   var import_react9;
   var init_SmartCareTimeline = __esm({
@@ -26169,26 +26285,38 @@
       if (activeFilter === "All") return true;
       return c.level.toLowerCase() === activeFilter.toLowerCase();
     });
+    const [activeAsanaModal, setActiveAsanaModal] = (0, import_react10.useState)(null);
+    const [showAllModal, setShowAllModal] = (0, import_react10.useState)(false);
+    const [asanaTimer, setAsanaTimer] = (0, import_react10.useState)(60);
+    const [isTimerRunning, setIsTimerRunning] = (0, import_react10.useState)(false);
+    (0, import_react10.useEffect)(() => {
+      let interval = null;
+      if (isTimerRunning && asanaTimer > 0) {
+        interval = setInterval(() => {
+          setAsanaTimer((prev) => prev - 1);
+        }, 1e3);
+      } else if (asanaTimer === 0 && isTimerRunning) {
+        audioEngine.playTempleBell();
+        setIsTimerRunning(false);
+      }
+      return () => clearInterval(interval);
+    }, [isTimerRunning, asanaTimer]);
     const handlePracticeAsana = (asana) => {
       audioEngine.playMeditationTone();
-      if (onSelectClass) {
-        onSelectClass({
-          id: asana.id,
-          name: asana.name,
-          title: asana.name,
-          instructor: "Asana Guide",
-          duration: asana.duration,
-          level: "All Levels",
-          desc: asana.benefit
-        });
-      }
+      setActiveAsanaModal(asana);
+      setAsanaTimer(60);
+      setIsTimerRunning(true);
+    };
+    const handleViewAllClick = () => {
+      audioEngine.playMeditationTone();
+      setShowAllModal(true);
     };
     return /* @__PURE__ */ import_react10.default.createElement("div", { className: "dashboard-card yoga-classes-card" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-header-row flex items-center justify-between pb-2 border-b border-subtle" }, /* @__PURE__ */ import_react10.default.createElement("h3", { className: "card-title-main flex items-center gap-2 m-0 text-base font-bold" }, /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 24 }), /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE & \u0B86\u0B9A\u0BA9 \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BBF" : "Yoga Classes & Asanas")), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
         className: "link-view-all text-xs font-semibold text-primary hover:underline cursor-pointer",
-        onClick: onShowAll
+        onClick: handleViewAllClick
       },
       lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95 \u2192" : "View All \u2192"
     )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "yoga-view-switch-tabs flex p-1 bg-subtle rounded-xl my-2.5" }, /* @__PURE__ */ import_react10.default.createElement(
@@ -26242,7 +26370,83 @@
         /* @__PURE__ */ import_react10.default.createElement(Sparkles, { size: 11 }),
         /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF" : "Practice")
       ))
-    ))));
+    ))), activeAsanaModal && /* @__PURE__ */ import_react10.default.createElement("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm ya-modal-overlay" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "relative w-full max-w-md p-6 rounded-2xl border border-subtle bg-card shadow-2xl ya-modal-content" }, /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          setActiveAsanaModal(null);
+          setIsTimerRunning(false);
+        },
+        className: "absolute top-4 right-4 p-1 rounded-full text-muted hover:text-heading hover:bg-subtle transition-all cursor-pointer"
+      },
+      /* @__PURE__ */ import_react10.default.createElement(X, { size: 18 })
+    ), /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-center pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[10px] font-bold uppercase tracking-wider text-primary bg-primary/10 px-2.5 py-0.5 rounded-full inline-block mb-1" }, lang === "ta" ? activeAsanaModal.chakraTa : activeAsanaModal.chakra), /* @__PURE__ */ import_react10.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, lang === "ta" ? activeAsanaModal.nameTa : activeAsanaModal.name), /* @__PURE__ */ import_react10.default.createElement("p", { className: "text-xs text-muted font-mono italic mt-0.5" }, activeAsanaModal.sanskrit, " \u2022 ", activeAsanaModal.duration)), /* @__PURE__ */ import_react10.default.createElement("div", { className: "my-3 p-3 rounded-xl bg-subtle border border-subtle flex flex-col gap-2" }, /* @__PURE__ */ import_react10.default.createElement("p", { className: "text-xs text-heading font-medium m-0" }, "\u2728 ", /* @__PURE__ */ import_react10.default.createElement("strong", null, lang === "ta" ? "\u0BA8\u0BA9\u0BCD\u0BAE\u0BC8\u0B95\u0BB3\u0BCD:" : "Benefits:"), " ", lang === "ta" ? activeAsanaModal.benefitTa : activeAsanaModal.benefit), /* @__PURE__ */ import_react10.default.createElement("div", { className: "p-2 rounded-lg bg-card/60 text-[11px] text-muted flex items-center justify-between" }, /* @__PURE__ */ import_react10.default.createElement("span", null, "\u{1F32C}\uFE0F ", lang === "ta" ? "\u0B9A\u0BC1\u0BB5\u0BBE\u0B9A \u0BAE\u0BC1\u0BB1\u0BC8:" : "Breath Alignment:"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "font-semibold text-heading" }, lang === "ta" ? "4s \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0BB4\u0BC1 \u2022 4s \u0BA8\u0BBF\u0BB2\u0BC8\u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 \u2022 4s \u0BB5\u0BC6\u0BB3\u0BBF\u0BB5\u0BBF\u0B9F\u0BC1" : "4s Inhale \u2022 4s Hold \u2022 4s Exhale"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-center p-4 rounded-2xl bg-card border border-primary/20 flex flex-col items-center justify-center my-3" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[11px] text-muted font-bold uppercase tracking-wider" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0B9F\u0BC8\u0BAE\u0BB0\u0BCD" : "Posture Hold Timer"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-3xl font-extrabold text-primary font-mono my-1" }, String(Math.floor(asanaTimer / 60)).padStart(2, "0"), ":", String(asanaTimer % 60).padStart(2, "0")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-2 mt-2" }, /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setIsTimerRunning(!isTimerRunning),
+        className: "ya-btn ya-btn--primary px-3 py-1.5 rounded-full text-xs font-bold flex items-center gap-1 cursor-pointer"
+      },
+      isTimerRunning ? /* @__PURE__ */ import_react10.default.createElement(Pause, { size: 12 }) : /* @__PURE__ */ import_react10.default.createElement(Play, { size: 12 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, isTimerRunning ? lang === "ta" ? "\u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1" : "Pause" : lang === "ta" ? "\u0BA4\u0BC1\u0BB5\u0B99\u0BCD\u0B95\u0BC1" : "Start")
+    ), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          setAsanaTimer(60);
+          setIsTimerRunning(false);
+          audioEngine.playSoftBell();
+        },
+        className: "ya-btn ya-btn--soft px-2.5 py-1.5 rounded-full text-xs flex items-center gap-1 cursor-pointer",
+        title: "Reset Timer"
+      },
+      /* @__PURE__ */ import_react10.default.createElement(RotateCcw, { size: 12 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8" : "Reset")
+    ))), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          const targetClass = classesList[0];
+          setActiveAsanaModal(null);
+          setIsTimerRunning(false);
+          if (onSelectClass) onSelectClass(targetClass);
+        },
+        className: "ya-btn ya-btn--primary w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer mt-2"
+      },
+      /* @__PURE__ */ import_react10.default.createElement(Video, { size: 14 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Join Full Live Yoga Studio")
+    ))), showAllModal && /* @__PURE__ */ import_react10.default.createElement("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm ya-modal-overlay" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "relative w-full max-w-2xl max-h-[85vh] overflow-y-auto p-6 rounded-2xl border border-subtle bg-card shadow-2xl ya-modal-content" }, /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setShowAllModal(false),
+        className: "absolute top-4 right-4 p-1 rounded-full text-muted hover:text-heading hover:bg-subtle transition-all cursor-pointer"
+      },
+      /* @__PURE__ */ import_react10.default.createElement(X, { size: 18 })
+    ), /* @__PURE__ */ import_react10.default.createElement("div", { className: "pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react10.default.createElement("h3", { className: "text-base font-bold text-heading m-0 flex items-center gap-2" }, /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 22 }), /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BBE\u0B9F\u0B99\u0BCD\u0B95\u0BB3\u0BCD & \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BBF" : "All Yoga Lessons & Full Curriculum")), /* @__PURE__ */ import_react10.default.createElement("p", { className: "text-xs text-muted m-0 mt-0.5" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95 \u0BA8\u0BBF\u0BB2\u0BC8 \u0BAE\u0BC1\u0BA4\u0BB2\u0BCD \u0BAE\u0BC1\u0BA4\u0BBF\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4 \u0BA8\u0BBF\u0BB2\u0BC8 \u0BB5\u0BB0\u0BC8\u0BAF\u0BBF\u0BB2\u0BBE\u0BA9 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BB3\u0BCD" : "Explore beginner to advanced sessions with certified yoga instructors.")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-3 my-4" }, classesList.map((c) => /* @__PURE__ */ import_react10.default.createElement("div", { key: c.id, className: "p-3 rounded-xl border border-subtle bg-subtle/40 flex flex-col justify-between gap-2" }, /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react10.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, lang === "ta" && c.titleTa ? c.titleTa : c.title), /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[10px] font-bold text-primary bg-primary/10 px-2 py-0.5 rounded-full" }, c.duration)), /* @__PURE__ */ import_react10.default.createElement("p", { className: "text-[11px] text-muted mt-1 m-0 line-clamp-2" }, lang === "ta" && c.descTa ? c.descTa : c.desc), /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-[10px] text-muted mt-1.5" }, /* @__PURE__ */ import_react10.default.createElement("strong", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Instructor:"), " ", lang === "ta" && c.instructorTa ? c.instructorTa : c.instructor, " \u2022 ", lang === "ta" && c.levelTa ? c.levelTa : c.level)), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          setShowAllModal(false);
+          if (onSelectClass) onSelectClass(c);
+        },
+        className: "ya-btn ya-btn--primary text-xs py-1.5 rounded-lg flex items-center justify-center gap-1.5 font-bold cursor-pointer mt-1"
+      },
+      /* @__PURE__ */ import_react10.default.createElement(Video, { size: 12 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Join Live Class")
+    )))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex justify-end pt-2 border-t border-subtle" }, /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setShowAllModal(false),
+        className: "ya-btn ya-btn--soft px-4 py-1.5 rounded-xl text-xs font-semibold cursor-pointer"
+      },
+      lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close"
+    )))));
   }
   var import_react10;
   var init_YogaClassesSection = __esm({
@@ -57852,6 +58056,105 @@
     }
   });
 
+  // src/utils/api.js
+  function getApiBaseUrl() {
+    const storedUrl = localStorage.getItem("nithya_backend_url");
+    if (storedUrl && storedUrl.trim()) {
+      return storedUrl.trim().replace(/\/+$/, "");
+    }
+    if (typeof window !== "undefined" && window.__NITHYA_API_URL__) {
+      return window.__NITHYA_API_URL__.replace(/\/+$/, "");
+    }
+    if (typeof window !== "undefined" && window.location.hostname.includes("github.io")) {
+      return "";
+    }
+    return "";
+  }
+  function setApiBaseUrl(url) {
+    if (!url || !url.trim()) {
+      localStorage.removeItem("nithya_backend_url");
+    } else {
+      localStorage.setItem("nithya_backend_url", url.trim().replace(/\/+$/, ""));
+    }
+  }
+  async function apiFetch(endpoint, options = {}) {
+    const baseUrl = getApiBaseUrl();
+    const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+    const fullUrl = baseUrl ? `${baseUrl}${cleanEndpoint}` : cleanEndpoint;
+    const defaultHeaders = {
+      "Accept": "application/json"
+    };
+    if (options.body && typeof options.body === "string" && !options.headers?.["Content-Type"]) {
+      defaultHeaders["Content-Type"] = "application/json";
+    }
+    const mergedHeaders = {
+      ...defaultHeaders,
+      ...options.headers || {}
+    };
+    let response;
+    try {
+      response = await fetch(fullUrl, {
+        ...options,
+        headers: mergedHeaders
+      });
+    } catch (networkErr) {
+      throw new Error(
+        `Cannot connect to backend server at ${fullUrl || window.location.origin}. Please verify that the server is online and reachable.`
+      );
+    }
+    const contentType = response.headers.get("content-type") || "";
+    if (response.status === 404 || contentType.includes("text/html")) {
+      const isGitHubPages = typeof window !== "undefined" && window.location.hostname.includes("github.io");
+      if (isGitHubPages && !baseUrl) {
+        throw new Error(
+          `Backend server not configured. GitHub Pages is a static host and does not run a Node.js backend. Please open LiveKit Settings and enter your hosted backend API URL (e.g. from Render or Railway).`
+        );
+      }
+      throw new Error(
+        `API endpoint "${cleanEndpoint}" not found on ${baseUrl || window.location.origin} (HTTP 404). Check your backend URL configuration.`
+      );
+    }
+    if (!response.ok) {
+      let errorMessage = `Server error (HTTP ${response.status})`;
+      if (contentType.includes("application/json")) {
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } catch (_2) {
+        }
+      } else {
+        try {
+          const textData = await response.text();
+          if (textData && !textData.startsWith("<")) {
+            errorMessage = textData;
+          }
+        } catch (_2) {
+        }
+      }
+      const err = new Error(errorMessage);
+      err.status = response.status;
+      throw err;
+    }
+    if (!contentType.includes("application/json")) {
+      const rawText = await response.text();
+      if (rawText.startsWith("<!DOCTYPE") || rawText.startsWith("<html")) {
+        throw new Error(
+          `Received HTML instead of JSON from ${fullUrl}. Ensure your backend server is deployed and correctly mapped.`
+        );
+      }
+      try {
+        return JSON.parse(rawText);
+      } catch (_2) {
+        throw new Error(`Unexpected non-JSON response from server: ${rawText.slice(0, 120)}`);
+      }
+    }
+    return await response.json();
+  }
+  var init_api = __esm({
+    "src/utils/api.js"() {
+    }
+  });
+
   // src/components/LiveYogaClassRoom.jsx
   function ParticipantTile({
     participant,
@@ -57963,6 +58266,8 @@
     const [errorMessage, setErrorMessage] = (0, import_react11.useState)("");
     const [needsSetup, setNeedsSetup] = (0, import_react11.useState)(false);
     const [showConfigModal, setShowConfigModal] = (0, import_react11.useState)(false);
+    const [backendUrl, setBackendUrlState] = (0, import_react11.useState)(() => getApiBaseUrl());
+    const [testBackendStatus, setTestBackendStatus] = (0, import_react11.useState)("idle");
     const [configUrl, setConfigUrl] = (0, import_react11.useState)("");
     const [configApiKey, setConfigApiKey] = (0, import_react11.useState)("");
     const [configApiSecret, setConfigApiSecret] = (0, import_react11.useState)("");
@@ -58011,12 +58316,13 @@
       return `${hrs > 0 ? `${hrs}:` : ""}${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
     };
     (0, import_react11.useEffect)(() => {
-      fetch("/api/livekit/status").then((res) => res.json()).then((data) => {
+      apiFetch("/api/livekit/status").then((data) => {
         if (!data.configured) {
           setNeedsSetup(true);
         }
         if (data.serverUrl) setConfigUrl(data.serverUrl);
-      }).catch(() => {
+      }).catch((err) => {
+        console.warn("Backend LiveKit status check:", err.message);
       });
     }, []);
     const connectToRoom = (0, import_react11.useCallback)(async () => {
@@ -58026,25 +58332,29 @@
       try {
         const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : "nithya-live-studio").toLowerCase().replace(/[^a-z0-9_-]/g, "-");
         const participantName = (user?.name || "Sarah").trim();
-        const res = await fetch("/api/livekit/token", {
+        const authToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_auth_token");
+        const reqHeaders = {};
+        if (authToken) {
+          reqHeaders["Authorization"] = `Bearer ${authToken}`;
+        }
+        const data = await apiFetch("/api/livekit/token", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: reqHeaders,
           body: JSON.stringify({
             roomName,
             participantName,
-            role: isInstructorRole ? "instructor" : "student",
-            isTeacher: isInstructorRole
+            classId: activeClass?.id
           })
         });
-        const data = await res.json();
-        if (!res.ok || data.error) {
-          if (data.needsConfig) {
-            setNeedsSetup(true);
-            setShowConfigModal(true);
-          }
-          throw new Error(data.error || "Failed to obtain LiveKit token from server");
+        if (data.needsConfig) {
+          setNeedsSetup(true);
+          setShowConfigModal(true);
+          throw new Error(data.error || "LiveKit server credentials required. Please configure below.");
         }
         const { token, serverUrl } = data;
+        if (!token || !serverUrl) {
+          throw new Error("Invalid token response from backend: missing token or serverUrl");
+        }
         const liveRoom = new Room({
           adaptiveStream: true,
           dynacast: true,
@@ -58056,6 +58366,16 @@
           setConnectionState("connected");
           setParticipants(Array.from(liveRoom.remoteParticipants.values()));
           audioEngine.playTempleBell();
+          const memberToken = localStorage.getItem("nithya_auth_token");
+          if (memberToken) {
+            apiFetch("/api/attendance/join", {
+              method: "POST",
+              headers: {
+                "Authorization": `Bearer ${memberToken}`
+              },
+              body: JSON.stringify({ classId: activeClass?.id })
+            }).catch((err) => console.warn("Attendance join logging note:", err.message));
+          }
         });
         liveRoom.on(RoomEvent.Disconnected, () => {
           setConnectionState("disconnected");
@@ -58198,6 +58518,16 @@
     };
     const handleLeave = () => {
       audioEngine.playGentleChime();
+      const memberToken = localStorage.getItem("nithya_auth_token");
+      if (memberToken) {
+        apiFetch("/api/attendance/leave", {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${memberToken}`
+          },
+          body: JSON.stringify({ classId: activeClass?.id })
+        }).catch((err) => console.warn("Attendance leave logging note:", err.message));
+      }
       if (room) {
         try {
           room.disconnect();
@@ -58226,29 +58556,48 @@
         });
       }
     };
+    const handleTestBackend = async () => {
+      setTestBackendStatus("testing");
+      try {
+        const clean = (backendUrl || "").trim().replace(/\/+$/, "");
+        const testUrl = clean ? `${clean}/api/health` : "/api/health";
+        const res = await fetch(testUrl);
+        const data = await res.json().catch(() => ({}));
+        if (res.ok && (data.status === "ok" || data.name)) {
+          setTestBackendStatus("success");
+        } else {
+          setTestBackendStatus("error");
+        }
+      } catch (_2) {
+        setTestBackendStatus("error");
+      }
+    };
     const handleSaveConfig = async (e2) => {
       e2.preventDefault();
       setIsSavingConfig(true);
       try {
-        const res = await fetch("/api/livekit/config", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            serverUrl: configUrl,
-            apiKey: configApiKey,
-            apiSecret: configApiSecret
-          })
-        });
-        const data = await res.json();
-        if (res.ok && data.success) {
-          setNeedsSetup(false);
-          setShowConfigModal(false);
-          connectToRoom();
-        } else {
-          alert(data.error || "Failed to save configuration");
+        setApiBaseUrl(backendUrl);
+        if (configApiKey || configApiSecret || configUrl) {
+          const adminToken = localStorage.getItem("nithya_admin_token");
+          const headers = {};
+          if (adminToken) headers["Authorization"] = `Bearer ${adminToken}`;
+          const data = await apiFetch("/api/livekit/config", {
+            method: "POST",
+            headers,
+            body: JSON.stringify({
+              serverUrl: configUrl,
+              apiKey: configApiKey,
+              apiSecret: configApiSecret
+            })
+          });
+          if (data.success) {
+            setNeedsSetup(false);
+          }
         }
+        setShowConfigModal(false);
+        connectToRoom();
       } catch (err) {
-        alert("Network error saving LiveKit configuration");
+        alert(err.message || "Error saving LiveKit configuration");
       } finally {
         setIsSavingConfig(false);
       }
@@ -58503,11 +58852,31 @@
         onClick: () => setShowConfigModal(false)
       },
       "\u2715"
-    )), /* @__PURE__ */ import_react11.default.createElement("p", { className: "modal-explanation-text" }, "LiveKit powers real-time WebRTC audio and video streaming. Your API Secret is stored securely in the local backend (", /* @__PURE__ */ import_react11.default.createElement("code", { className: "bg-slate-100 px-1 py-0.5 rounded text-xs" }, ".env"), ") and is never exposed to frontend code."), /* @__PURE__ */ import_react11.default.createElement("form", { onSubmit: handleSaveConfig, className: "livekit-credentials-form" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "form-group-field" }, /* @__PURE__ */ import_react11.default.createElement("label", { className: "form-label" }, "LiveKit WebSocket URL", /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-muted text-xs block font-normal" }, "e.g. ", /* @__PURE__ */ import_react11.default.createElement("code", null, "wss://your-project.livekit.cloud"), " or ", /* @__PURE__ */ import_react11.default.createElement("code", null, "ws://localhost:7880"))), /* @__PURE__ */ import_react11.default.createElement(
+    )), /* @__PURE__ */ import_react11.default.createElement("p", { className: "modal-explanation-text" }, "LiveKit powers real-time WebRTC audio and video streaming. Your API Secret is stored securely in the local backend (", /* @__PURE__ */ import_react11.default.createElement("code", { className: "bg-slate-100 px-1 py-0.5 rounded text-xs" }, ".env"), ") and is never exposed to frontend code."), /* @__PURE__ */ import_react11.default.createElement("form", { onSubmit: handleSaveConfig, className: "livekit-credentials-form" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "form-group-field" }, /* @__PURE__ */ import_react11.default.createElement("label", { className: "form-label font-bold text-heading" }, "Backend API Server URL", /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-muted text-xs block font-normal" }, "Required when hosted on static GitHub Pages. Leave empty if hosted on same domain.")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex gap-2 items-center" }, /* @__PURE__ */ import_react11.default.createElement(
       "input",
       {
         type: "text",
-        required: true,
+        placeholder: "e.g. http://localhost:8080 or https://your-backend.onrender.com",
+        value: backendUrl,
+        onChange: (e2) => {
+          setBackendUrlState(e2.target.value);
+          setTestBackendStatus("idle");
+        },
+        className: "modal-text-input flex-1"
+      }
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: handleTestBackend,
+        disabled: testBackendStatus === "testing",
+        className: "ya-btn ya-btn--soft text-xs px-3 py-2 whitespace-nowrap cursor-pointer"
+      },
+      testBackendStatus === "testing" ? "Testing..." : testBackendStatus === "success" ? "\u2713 Online" : testBackendStatus === "error" ? "\u2715 Offline" : "Test Server"
+    )), testBackendStatus === "success" && /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-emerald-500 text-[11px] block mt-1 font-semibold" }, "\u2713 Backend server is active and reachable!"), testBackendStatus === "error" && /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-rose-500 text-[11px] block mt-1 font-medium" }, "\u2715 Cannot reach backend at this URL. Make sure server is deployed & running.")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "form-group-field" }, /* @__PURE__ */ import_react11.default.createElement("label", { className: "form-label" }, "LiveKit WebSocket URL", /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-muted text-xs block font-normal" }, "e.g. ", /* @__PURE__ */ import_react11.default.createElement("code", null, "wss://your-project.livekit.cloud"), " or ", /* @__PURE__ */ import_react11.default.createElement("code", null, "ws://localhost:7880"))), /* @__PURE__ */ import_react11.default.createElement(
+      "input",
+      {
+        type: "text",
         placeholder: "wss://your-project.livekit.cloud",
         value: configUrl,
         onChange: (e2) => setConfigUrl(e2.target.value),
@@ -58517,7 +58886,6 @@
       "input",
       {
         type: "text",
-        required: true,
         placeholder: "APIxxxxxxxxxxxx",
         value: configApiKey,
         onChange: (e2) => setConfigApiKey(e2.target.value),
@@ -58527,7 +58895,6 @@
       "input",
       {
         type: "password",
-        required: true,
         placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
         value: configApiSecret,
         onChange: (e2) => setConfigApiSecret(e2.target.value),
@@ -58559,6 +58926,7 @@
       init_lucide_react();
       init_audioEngine();
       init_ThreeDIcons();
+      init_api();
     }
   });
 
@@ -59284,37 +59652,52 @@
           category: "Relaxing Music",
           categoryTa: "\u0BA8\u0BBF\u0BAE\u0BCD\u0BAE\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B87\u0B9A\u0BC8",
           duration: "30:00",
-          sourceType: "ambient",
+          audioUrl: "assets/audio/peaceful-mind.wav",
+          sourceType: "audio",
           ambientType: "bowl"
         },
         {
           id: "track-2",
-          title: "Guided Meditation",
+          title: "Featured Meditation",
           titleTa: "\u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD",
           category: "10 min \u2022 Calm Mind",
           categoryTa: "10 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0BAE\u0BA9\u0BAE\u0BCD",
           duration: "10:00",
-          sourceType: "ambient",
+          audioUrl: "assets/audio/featured-meditation-om.wav",
+          sourceType: "audio",
           ambientType: "om"
         },
         {
           id: "track-3",
-          title: "Deep Breathing",
+          title: "Pranayama",
           titleTa: "\u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD",
           category: "5 min \u2022 Focus",
           categoryTa: "5 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B95\u0BB5\u0BA9\u0BAE\u0BCD",
           duration: "05:00",
-          sourceType: "ambient",
+          audioUrl: "assets/audio/pranayama-432hz.wav",
+          sourceType: "audio",
           ambientType: "music"
         },
         {
           id: "track-4",
-          title: "Sleep Sounds",
+          title: "Singing Bowl",
+          titleTa: "\u0BA4\u0BBF\u0BAA\u0BC6\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0BC1\u0BAE\u0BCD \u0B95\u0BBF\u0BA3\u0BCD\u0BA3\u0BAE\u0BCD",
+          category: "15 min \u2022 Deep Healing",
+          categoryTa: "15 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF",
+          duration: "15:00",
+          audioUrl: "assets/audio/singing-bowl.wav",
+          sourceType: "audio",
+          ambientType: "bowl"
+        },
+        {
+          id: "track-5",
+          title: "Sleep Zen",
           titleTa: "\u0B89\u0BB1\u0B95\u0BCD\u0B95 \u0B92\u0BB2\u0BBF\u0B95\u0BB3\u0BCD",
           category: "45 min \u2022 Good Sleep",
           categoryTa: "45 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B89\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD",
           duration: "45:00",
-          sourceType: "ambient",
+          audioUrl: "assets/audio/sleep-zen-rain.wav",
+          sourceType: "audio",
           ambientType: "rain"
         }
       ];
@@ -59361,7 +59744,16 @@
     const [subMode, setSubMode] = (0, import_react14.useState)("curated");
     const [isPlaying, setIsPlaying] = (0, import_react14.useState)(false);
     const [volume, setVolume] = (0, import_react14.useState)(0.85);
-    const [playlist, setPlaylist] = (0, import_react14.useState)(() => loadStorage("nithya_playlist", DEFAULT_PLAYLIST));
+    const [playlist, setPlaylist] = (0, import_react14.useState)(() => {
+      const saved = loadStorage("nithya_playlist", DEFAULT_PLAYLIST);
+      if (Array.isArray(saved) && saved.length > 0) {
+        return saved.map((t) => {
+          const match = DEFAULT_PLAYLIST.find((d) => d.id === t.id || d.title === t.title);
+          return match ? { ...match, ...t, audioUrl: match.audioUrl, ambientType: match.ambientType } : t;
+        });
+      }
+      return DEFAULT_PLAYLIST;
+    });
     const [currentIndex, setCurrentIndex] = (0, import_react14.useState)(0);
     const [localFileTitle, setLocalFileTitle] = (0, import_react14.useState)("");
     const [localFileName, setLocalFileName] = (0, import_react14.useState)("");
@@ -59369,6 +59761,10 @@
     const [urlTrackTitle, setUrlTrackTitle] = (0, import_react14.useState)("");
     const [audioUrlInput, setAudioUrlInput] = (0, import_react14.useState)("");
     const [playbackSeconds, setPlaybackSeconds] = (0, import_react14.useState)(0);
+    const [durationSeconds, setDurationSeconds] = (0, import_react14.useState)(0);
+    const [isAudioLoading, setIsAudioLoading] = (0, import_react14.useState)(false);
+    const [audioError, setAudioError] = (0, import_react14.useState)(null);
+    const audioRef = (0, import_react14.useRef)(null);
     const currentTrack = playlist[currentIndex] || playlist[0] || {
       id: "track-1",
       title: "Peaceful Mind",
@@ -59381,70 +59777,138 @@
       saveStorage("nithya_playlist", playlist);
     }, [playlist]);
     (0, import_react14.useEffect)(() => {
-      let interval = null;
-      if (isPlaying) {
-        interval = setInterval(() => {
-          setPlaybackSeconds((s) => s + 1);
-        }, 1e3);
-      } else {
-        clearInterval(interval);
-      }
-      return () => clearInterval(interval);
-    }, [isPlaying]);
+      return () => {
+        if (audioRef.current) {
+          audioRef.current.pause();
+        }
+        audioEngine.stopAllAmbient();
+      };
+    }, []);
     const formatSec = (sec) => {
+      if (!sec || isNaN(sec)) return "00:00";
       const m = Math.floor(sec / 60);
-      const s = sec % 60;
+      const s = Math.floor(sec % 60);
       return `${m.toString().padStart(2, "0")}:${s.toString().padStart(2, "0")}`;
     };
-    const playTrackAtIndex = (index) => {
+    const playTrackAtIndex = (index, autoPlay = true) => {
       if (index < 0 || index >= playlist.length) return;
       setCurrentIndex(index);
       setPlaybackSeconds(0);
-      const track = playlist[index];
+      setAudioError(null);
       audioEngine.stopAllAmbient();
-      if (track.audioUrl) {
-        audioEngine.playAudioFile(track.audioUrl, () => {
-          handleNext();
-        });
-      } else {
-        audioEngine.startAmbient(track.ambientType || "bowl");
+      const track = playlist[index];
+      if (!track) return;
+      if (audioRef.current) {
+        if (track.audioUrl) {
+          audioRef.current.src = track.audioUrl;
+          audioRef.current.volume = volume;
+          if (autoPlay) {
+            setIsAudioLoading(true);
+            const playPromise = audioRef.current.play();
+            if (playPromise !== void 0) {
+              playPromise.then(() => {
+                setIsPlaying(true);
+                setIsAudioLoading(false);
+              }).catch((err) => {
+                console.warn("Playback error or auto-play prevented:", err);
+                setIsAudioLoading(false);
+                if (track.ambientType) {
+                  audioEngine.startAmbient(track.ambientType);
+                  setIsPlaying(true);
+                  setAudioError(lang === "ta" ? "\u0B9A\u0BBF\u0BA8\u0BCD\u0BA4\u0B9A\u0BC8\u0B9A\u0BB0\u0BCD \u0B92\u0BB2\u0BBF \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1" : "Using ambient synthesizer");
+                }
+              });
+            }
+          }
+        } else if (track.ambientType) {
+          audioRef.current.pause();
+          audioRef.current.removeAttribute("src");
+          audioEngine.startAmbient(track.ambientType);
+          setIsPlaying(true);
+        }
       }
-      setIsPlaying(true);
     };
-    const togglePlay = (track) => {
-      if (track) {
-        const idx = playlist.findIndex((p) => p.id === track.id || p.title === track.title);
+    const togglePlay = (targetTrack) => {
+      if (targetTrack) {
+        const idx = playlist.findIndex((p) => p.id === targetTrack.id || p.title === targetTrack.title);
         if (idx !== -1) {
-          if (idx === currentIndex && isPlaying) {
-            handleStop();
+          if (idx === currentIndex) {
+            if (isPlaying) {
+              pauseAudio();
+            } else {
+              resumeAudio();
+            }
             return;
           }
-          playTrackAtIndex(idx);
+          playTrackAtIndex(idx, true);
           return;
         }
       }
       if (isPlaying) {
-        handleStop();
+        pauseAudio();
       } else {
-        playTrackAtIndex(currentIndex);
+        resumeAudio();
+      }
+    };
+    const pauseAudio = () => {
+      if (audioRef.current && !audioRef.current.paused) {
+        audioRef.current.pause();
+      }
+      audioEngine.stopAllAmbient();
+      setIsPlaying(false);
+    };
+    const resumeAudio = () => {
+      const track = playlist[currentIndex];
+      if (audioRef.current && track?.audioUrl) {
+        setIsAudioLoading(true);
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+          setIsAudioLoading(false);
+          setAudioError(null);
+        }).catch((err) => {
+          console.warn("Playback error on resume:", err);
+          setIsAudioLoading(false);
+          if (track?.ambientType) {
+            audioEngine.startAmbient(track.ambientType);
+            setIsPlaying(true);
+          }
+        });
+      } else if (track?.ambientType) {
+        audioEngine.startAmbient(track.ambientType);
+        setIsPlaying(true);
       }
     };
     const handleStop = () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+      }
       audioEngine.stopAllAmbient();
       setIsPlaying(false);
       setPlaybackSeconds(0);
+      setAudioError(null);
     };
     const handleNext = () => {
       const nextIdx = (currentIndex + 1) % playlist.length;
-      playTrackAtIndex(nextIdx);
+      playTrackAtIndex(nextIdx, true);
     };
     const handlePrev = () => {
       const prevIdx = (currentIndex - 1 + playlist.length) % playlist.length;
-      playTrackAtIndex(prevIdx);
+      playTrackAtIndex(prevIdx, true);
     };
     const handleVolumeChange = (newVol) => {
       setVolume(newVol);
+      if (audioRef.current) {
+        audioRef.current.volume = newVol;
+      }
       audioEngine.setVolume(newVol);
+    };
+    const handleSeek = (e2) => {
+      const newSec = Number(e2.target.value);
+      setPlaybackSeconds(newSec);
+      if (audioRef.current && durationSeconds > 0) {
+        audioRef.current.currentTime = newSec;
+      }
     };
     const handleLocalFileChange = (e2) => {
       const file = e2.target.files && e2.target.files[0];
@@ -59470,12 +59934,19 @@
         audioUrl: localDataUrl,
         isLocal: true
       };
-      setPlaylist((prev) => [newTrack, ...prev]);
+      const newPlaylist = [newTrack, ...playlist];
+      setPlaylist(newPlaylist);
       setCurrentIndex(0);
       setPlaybackSeconds(0);
       audioEngine.stopAllAmbient();
-      audioEngine.playAudioFile(localDataUrl, () => handleNext());
-      setIsPlaying(true);
+      if (audioRef.current) {
+        audioRef.current.src = localDataUrl;
+        audioRef.current.volume = volume;
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+          setIsAudioLoading(false);
+        }).catch((e2) => console.warn(e2));
+      }
     };
     const handlePlayUrlNow = () => {
       if (!audioUrlInput.trim()) return;
@@ -59486,20 +59957,62 @@
         duration: "Live Stream",
         audioUrl: audioUrlInput.trim()
       };
-      setPlaylist((prev) => [newTrack, ...prev]);
+      const newPlaylist = [newTrack, ...playlist];
+      setPlaylist(newPlaylist);
       setCurrentIndex(0);
       setPlaybackSeconds(0);
       audioEngine.stopAllAmbient();
-      audioEngine.playAudioFile(audioUrlInput.trim(), () => handleNext());
-      setIsPlaying(true);
+      if (audioRef.current) {
+        audioRef.current.src = audioUrlInput.trim();
+        audioRef.current.volume = volume;
+        audioRef.current.play().then(() => {
+          setIsPlaying(true);
+          setIsAudioLoading(false);
+        }).catch((e2) => {
+          console.warn(e2);
+          setAudioError(lang === "ta" ? "URL \u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC8 \u0B8F\u0BB1\u0BCD\u0BB1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8" : "Could not stream audio URL");
+        });
+      }
     };
-    const handleDeleteCurrentTrack = (id) => {
-      if (playlist.length <= 1) return;
-      setPlaylist((prev) => prev.filter((t) => t.id !== id));
-      setCurrentIndex(0);
-      handleStop();
-    };
-    return /* @__PURE__ */ import_react14.default.createElement("div", { className: "dashboard-card relaxation-zone-card modern-zen-relaxation" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "card-header-block flex justify-between items-center mb-3" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react14.default.createElement(ThreeDMusic, { size: 34 }), /* @__PURE__ */ import_react14.default.createElement("div", null, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "card-title-main text-base font-extrabold m-0" }, /* @__PURE__ */ import_react14.default.createElement("span", null, lang === "ta" ? "\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B87\u0B9A\u0BC8 & \u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD" : "Yoga Sound & Relaxation")), /* @__PURE__ */ import_react14.default.createElement("p", { className: "card-sub-motto text-xs text-muted m-0" }, lang === "ta" ? "\u0BAE\u0BA9\u0BA4\u0BC8 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0B86\u0BA9\u0BCD\u0BAE\u0BBE\u0BB5\u0BC8 \u0B95\u0BC1\u0BA3\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Calm your mind. Heal your soul in-place."))), isPlaying && /* @__PURE__ */ import_react14.default.createElement("div", { className: "audio-playing-indicator-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-subtle text-purple text-xs font-bold" }, /* @__PURE__ */ import_react14.default.createElement("span", { className: "live-dot-pulse" }, "\u25CF"), /* @__PURE__ */ import_react14.default.createElement("span", null, lang === "ta" ? "\u0B92\u0BB2\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1" : "Playing"))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "in-card-audio-tabs-row flex gap-1 p-1 bg-subtle rounded-xl mb-3" }, /* @__PURE__ */ import_react14.default.createElement(
+    return /* @__PURE__ */ import_react14.default.createElement("div", { className: "dashboard-card relaxation-zone-card modern-zen-relaxation" }, /* @__PURE__ */ import_react14.default.createElement(
+      "audio",
+      {
+        ref: audioRef,
+        preload: "auto",
+        onTimeUpdate: (e2) => {
+          setPlaybackSeconds(Math.floor(e2.currentTarget.currentTime));
+          if (e2.currentTarget.duration && !isNaN(e2.currentTarget.duration)) {
+            setDurationSeconds(Math.floor(e2.currentTarget.duration));
+          }
+        },
+        onLoadedMetadata: (e2) => {
+          if (e2.currentTarget.duration && !isNaN(e2.currentTarget.duration)) {
+            setDurationSeconds(Math.floor(e2.currentTarget.duration));
+          }
+          setIsAudioLoading(false);
+        },
+        onWaiting: () => setIsAudioLoading(true),
+        onPlaying: () => {
+          setIsAudioLoading(false);
+          setIsPlaying(true);
+          setAudioError(null);
+        },
+        onPause: () => setIsPlaying(false),
+        onEnded: handleNext,
+        onError: () => {
+          setIsAudioLoading(false);
+          setIsPlaying(false);
+          const track = playlist[currentIndex];
+          if (track?.ambientType) {
+            audioEngine.startAmbient(track.ambientType);
+            setIsPlaying(true);
+            setAudioError(lang === "ta" ? "\u0B9A\u0BBF\u0BA8\u0BCD\u0BA4\u0B9A\u0BC8\u0B9A\u0BB0\u0BCD \u0B92\u0BB2\u0BBF \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1" : "Ambient sound generator active");
+          } else {
+            setAudioError(lang === "ta" ? "\u0B86\u0B9F\u0BBF\u0BAF\u0BCB \u0BAA\u0BBF\u0BB4\u0BC8" : "Playback error");
+          }
+        }
+      }
+    ), /* @__PURE__ */ import_react14.default.createElement("div", { className: "card-header-block flex justify-between items-center mb-3" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react14.default.createElement(ThreeDMusic, { size: 34 }), /* @__PURE__ */ import_react14.default.createElement("div", null, /* @__PURE__ */ import_react14.default.createElement("h3", { className: "card-title-main text-base font-extrabold m-0" }, /* @__PURE__ */ import_react14.default.createElement("span", null, lang === "ta" ? "\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B87\u0B9A\u0BC8 & \u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD" : "Yoga Sound & Relaxation")), /* @__PURE__ */ import_react14.default.createElement("p", { className: "card-sub-motto text-xs text-muted m-0" }, lang === "ta" ? "\u0BAE\u0BA9\u0BA4\u0BC8 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0B86\u0BA9\u0BCD\u0BAE\u0BBE\u0BB5\u0BC8 \u0B95\u0BC1\u0BA3\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Calm your mind. Heal your soul in-place."))), isPlaying && /* @__PURE__ */ import_react14.default.createElement("div", { className: "audio-playing-indicator-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-subtle text-purple text-xs font-bold" }, /* @__PURE__ */ import_react14.default.createElement("span", { className: "live-dot-pulse" }, "\u25CF"), /* @__PURE__ */ import_react14.default.createElement("span", null, isAudioLoading ? lang === "ta" ? "\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Buffering..." : lang === "ta" ? "\u0B92\u0BB2\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1" : "Playing"))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "in-card-audio-tabs-row flex gap-1 p-1 bg-subtle rounded-xl mb-3" }, /* @__PURE__ */ import_react14.default.createElement(
       "button",
       {
         type: "button",
@@ -59530,14 +60043,10 @@
       "div",
       {
         className: "guided-meditation-box modern-sound-hero cursor-pointer relative overflow-hidden rounded-xl",
-        onClick: () => togglePlay({
-          id: "track-2",
-          title: "Guided Meditation",
-          titleTa: "\u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD",
-          category: "10 min \u2022 Calm Mind",
-          categoryTa: "10 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0BAE\u0BA9\u0BAE\u0BCD",
-          ambientType: "om"
-        })
+        onClick: () => {
+          const track = playlist.find((t) => t.id === "track-2") || playlist[1];
+          togglePlay(track);
+        }
       },
       /* @__PURE__ */ import_react14.default.createElement(
         "img",
@@ -59556,47 +60065,48 @@
           className: "meditation-play-circle",
           "aria-label": "Play Meditation"
         },
-        isPlaying && currentTrack.title.includes("Meditation") ? /* @__PURE__ */ import_react14.default.createElement(Pause, { size: 18 }) : /* @__PURE__ */ import_react14.default.createElement(Play, { size: 18 })
+        isPlaying && currentTrack.id === "track-2" ? /* @__PURE__ */ import_react14.default.createElement(Pause, { size: 18 }) : /* @__PURE__ */ import_react14.default.createElement(Play, { size: 18 })
       )
-    ), /* @__PURE__ */ import_react14.default.createElement("div", { className: "audio-chips-row grid grid-cols-3 gap-2" }, /* @__PURE__ */ import_react14.default.createElement(
+    ), /* @__PURE__ */ import_react14.default.createElement("div", { className: "audio-chips-row grid grid-cols-2 sm:grid-cols-4 gap-2" }, /* @__PURE__ */ import_react14.default.createElement(
       "div",
       {
-        className: `audio-chip-item chip-green cursor-pointer p-2 rounded-xl transition-all ${currentTrack.title.includes("Breathing") && isPlaying ? "ring-2 ring-green" : ""}`,
-        onClick: () => togglePlay({
-          id: "track-3",
-          title: "Deep Breathing",
-          titleTa: "\u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD",
-          category: "5 min \u2022 Focus",
-          ambientType: "music"
-        })
+        className: `audio-chip-item chip-green cursor-pointer p-2 rounded-xl transition-all ${currentTrack.id === "track-3" && isPlaying ? "ring-2 ring-green" : ""}`,
+        onClick: () => {
+          const track = playlist.find((t) => t.id === "track-3") || playlist[2];
+          togglePlay(track);
+        }
       },
       /* @__PURE__ */ import_react14.default.createElement("div", { className: "chip-meta" }, /* @__PURE__ */ import_react14.default.createElement("strong", { className: "text-xs block" }, lang === "ta" ? "\u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD" : "Pranayama"), /* @__PURE__ */ import_react14.default.createElement("small", { className: "text-[10px] text-muted" }, "432 Hz Healing"))
     ), /* @__PURE__ */ import_react14.default.createElement(
       "div",
       {
-        className: `audio-chip-item chip-purple cursor-pointer p-2 rounded-xl transition-all ${currentTrack.title.includes("Relaxing") && isPlaying ? "ring-2 ring-purple" : ""}`,
-        onClick: () => togglePlay({
-          id: "track-1",
-          title: "Peaceful Mind",
-          titleTa: "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BA9\u0BAE\u0BCD",
-          category: "Relaxing Music",
-          ambientType: "bowl"
-        })
+        className: `audio-chip-item chip-purple cursor-pointer p-2 rounded-xl transition-all ${currentTrack.id === "track-4" && isPlaying ? "ring-2 ring-purple" : ""}`,
+        onClick: () => {
+          const track = playlist.find((t) => t.id === "track-4") || playlist[3];
+          togglePlay(track);
+        }
       },
-      /* @__PURE__ */ import_react14.default.createElement("div", { className: "chip-meta" }, /* @__PURE__ */ import_react14.default.createElement("strong", { className: "text-xs block" }, lang === "ta" ? "\u0B87\u0B9A\u0BC8" : "Singing Bowl"), /* @__PURE__ */ import_react14.default.createElement("small", { className: "text-[10px] text-muted" }, "Tibetan Resonant"))
+      /* @__PURE__ */ import_react14.default.createElement("div", { className: "chip-meta" }, /* @__PURE__ */ import_react14.default.createElement("strong", { className: "text-xs block" }, lang === "ta" ? "\u0BAA\u0BBE\u0B9F\u0BC1\u0BAE\u0BCD \u0B95\u0BBF\u0BA3\u0BCD\u0BA3\u0BAE\u0BCD" : "Singing Bowl"), /* @__PURE__ */ import_react14.default.createElement("small", { className: "text-[10px] text-muted" }, "Tibetan Resonant"))
     ), /* @__PURE__ */ import_react14.default.createElement(
       "div",
       {
-        className: `audio-chip-item chip-blue cursor-pointer p-2 rounded-xl transition-all ${currentTrack.title.includes("Sleep") && isPlaying ? "ring-2 ring-blue" : ""}`,
-        onClick: () => togglePlay({
-          id: "track-4",
-          title: "Sleep Sounds",
-          titleTa: "\u0B89\u0BB1\u0B95\u0BCD\u0B95 \u0B92\u0BB2\u0BBF\u0B95\u0BB3\u0BCD",
-          category: "45 min \u2022 Good Sleep",
-          ambientType: "rain"
-        })
+        className: `audio-chip-item chip-blue cursor-pointer p-2 rounded-xl transition-all ${currentTrack.id === "track-5" && isPlaying ? "ring-2 ring-blue" : ""}`,
+        onClick: () => {
+          const track = playlist.find((t) => t.id === "track-5") || playlist[4];
+          togglePlay(track);
+        }
       },
       /* @__PURE__ */ import_react14.default.createElement("div", { className: "chip-meta" }, /* @__PURE__ */ import_react14.default.createElement("strong", { className: "text-xs block" }, lang === "ta" ? "\u0B89\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD" : "Sleep Zen"), /* @__PURE__ */ import_react14.default.createElement("small", { className: "text-[10px] text-muted" }, "White Rain Waves"))
+    ), /* @__PURE__ */ import_react14.default.createElement(
+      "div",
+      {
+        className: `audio-chip-item chip-amber cursor-pointer p-2 rounded-xl transition-all ${currentTrack.id === "track-1" && isPlaying ? "ring-2 ring-amber" : ""}`,
+        onClick: () => {
+          const track = playlist.find((t) => t.id === "track-1") || playlist[0];
+          togglePlay(track);
+        }
+      },
+      /* @__PURE__ */ import_react14.default.createElement("div", { className: "chip-meta" }, /* @__PURE__ */ import_react14.default.createElement("strong", { className: "text-xs block" }, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0BAE\u0BA9\u0BAE\u0BCD" : "Peaceful Mind"), /* @__PURE__ */ import_react14.default.createElement("small", { className: "text-[10px] text-muted" }, "Harmonic Balance"))
     ))), subMode === "upload" && /* @__PURE__ */ import_react14.default.createElement("div", { className: "direct-upload-box p-3 bg-subtle rounded-xl mb-3 border border-dashed border-purple" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "flex items-center gap-2 mb-2" }, /* @__PURE__ */ import_react14.default.createElement(Upload, { size: 16, className: "text-purple" }), /* @__PURE__ */ import_react14.default.createElement("h4", { className: "text-xs font-bold m-0" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9A\u0BCA\u0BA8\u0BCD\u0BA4 \u0B86\u0B9F\u0BBF\u0BAF\u0BCB \u0B95\u0BCB\u0BAA\u0BCD\u0BAA\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1\u0BB5\u0BC1\u0BAE\u0BCD" : "Upload Your Local Audio (.mp3 / .wav)")), /* @__PURE__ */ import_react14.default.createElement("p", { className: "text-[11px] text-muted mb-2" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B95\u0BA3\u0BBF\u0BA9\u0BBF\u0BAF\u0BBF\u0BB2\u0BC1\u0BB3\u0BCD\u0BB3 \u0B8E\u0BA8\u0BCD\u0BA4\u0BB5\u0BCA\u0BB0\u0BC1 \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAA\u0BCD \u0BAA\u0BBE\u0B9F\u0BB2\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 \u0B89\u0B9F\u0BA9\u0BC7 \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BB2\u0BBE\u0BAE\u0BCD." : "Select any yoga music file from your device. Plays directly inside this browser."), /* @__PURE__ */ import_react14.default.createElement(
       "input",
       {
@@ -59641,7 +60151,7 @@
       },
       /* @__PURE__ */ import_react14.default.createElement(Play, { size: 12 }),
       /* @__PURE__ */ import_react14.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BCD\u0BB0\u0BC0\u0BAE\u0BCD \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BC1" : "Play Stream in Page")
-    ))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-waveform-visualizer-bar flex items-center justify-center gap-1 py-1.5 px-3 bg-card rounded-lg mb-2" }, [40, 75, 55, 90, 60, 85, 45, 95, 70, 50, 80, 65].map((h2, i) => /* @__PURE__ */ import_react14.default.createElement(
+    ))), audioError && /* @__PURE__ */ import_react14.default.createElement("div", { className: "flex items-center gap-1.5 p-2 mb-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[11px]" }, /* @__PURE__ */ import_react14.default.createElement(CircleAlert, { size: 13, className: "flex-shrink-0" }), /* @__PURE__ */ import_react14.default.createElement("span", { className: "truncate" }, audioError)), /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-waveform-visualizer-bar flex items-center justify-center gap-1 py-1.5 px-3 bg-card rounded-lg mb-2" }, [40, 75, 55, 90, 60, 85, 45, 95, 70, 50, 80, 65].map((h2, i) => /* @__PURE__ */ import_react14.default.createElement(
       "span",
       {
         key: i,
@@ -59651,7 +60161,18 @@
           animationDelay: `${i * 0.08}s`
         }
       }
-    )), /* @__PURE__ */ import_react14.default.createElement("span", { className: "text-[10px] text-muted ml-2 font-mono" }, isPlaying ? formatSec(playbackSeconds) : "00:00")), /* @__PURE__ */ import_react14.default.createElement("div", { className: "mini-player-dock-bar modern-dock p-2.5 rounded-xl bg-card flex items-center justify-between shadow-sm" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-track-info flex items-center gap-2.5 overflow-hidden" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-album-thumb w-8 h-8 rounded-lg overflow-hidden flex-shrink-0" }, /* @__PURE__ */ import_react14.default.createElement("img", { src: "assets/images/class-thumb.jpg", alt: "Track Art", className: "w-full h-full object-fit-cover" })), /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-text overflow-hidden" }, /* @__PURE__ */ import_react14.default.createElement("strong", { className: "text-xs block truncate text-heading" }, lang === "ta" && currentTrack.titleTa ? currentTrack.titleTa : currentTrack.title), /* @__PURE__ */ import_react14.default.createElement("small", { className: "text-[10px] text-muted block truncate" }, lang === "ta" && currentTrack.categoryTa ? currentTrack.categoryTa : currentTrack.category))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-controls-cluster flex items-center gap-1.5" }, /* @__PURE__ */ import_react14.default.createElement(
+    )), /* @__PURE__ */ import_react14.default.createElement("span", { className: "text-[10px] text-muted ml-2 font-mono" }, formatSec(playbackSeconds), " / ", durationSeconds > 0 ? formatSec(durationSeconds) : currentTrack.duration || "--:--")), /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-progress-container px-2 mb-2 flex items-center gap-2" }, /* @__PURE__ */ import_react14.default.createElement(
+      "input",
+      {
+        type: "range",
+        min: "0",
+        max: durationSeconds > 0 ? durationSeconds : 180,
+        value: playbackSeconds,
+        onChange: handleSeek,
+        className: "w-full h-1.5 bg-subtle rounded-lg appearance-none cursor-pointer accent-purple",
+        title: `${formatSec(playbackSeconds)} / ${durationSeconds > 0 ? formatSec(durationSeconds) : currentTrack.duration}`
+      }
+    )), /* @__PURE__ */ import_react14.default.createElement("div", { className: "mini-player-dock-bar modern-dock p-2.5 rounded-xl bg-card flex items-center justify-between shadow-sm" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-track-info flex items-center gap-2.5 overflow-hidden" }, /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-album-thumb w-8 h-8 rounded-lg overflow-hidden flex-shrink-0" }, /* @__PURE__ */ import_react14.default.createElement("img", { src: "assets/images/class-thumb.jpg", alt: "Track Art", className: "w-full h-full object-fit-cover" })), /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-text overflow-hidden" }, /* @__PURE__ */ import_react14.default.createElement("strong", { className: "text-xs block truncate text-heading" }, lang === "ta" && currentTrack.titleTa ? currentTrack.titleTa : currentTrack.title), /* @__PURE__ */ import_react14.default.createElement("small", { className: "text-[10px] text-muted block truncate" }, isAudioLoading ? lang === "ta" ? "\u0B8F\u0BB1\u0BCD\u0BB1\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Buffering..." : lang === "ta" && currentTrack.categoryTa ? currentTrack.categoryTa : currentTrack.category))), /* @__PURE__ */ import_react14.default.createElement("div", { className: "player-controls-cluster flex items-center gap-1.5" }, /* @__PURE__ */ import_react14.default.createElement(
       "button",
       {
         type: "button",
@@ -59670,7 +60191,7 @@
         "aria-label": isPlaying ? "Pause" : "Play",
         title: isPlaying ? "Pause" : "Play"
       },
-      isPlaying ? /* @__PURE__ */ import_react14.default.createElement(Pause, { size: 14 }) : /* @__PURE__ */ import_react14.default.createElement(Play, { size: 14 })
+      isAudioLoading ? /* @__PURE__ */ import_react14.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : isPlaying ? /* @__PURE__ */ import_react14.default.createElement(Pause, { size: 14 }) : /* @__PURE__ */ import_react14.default.createElement(Play, { size: 14 })
     ), /* @__PURE__ */ import_react14.default.createElement(
       "button",
       {
@@ -60540,40 +61061,699 @@
     }
   });
 
+  // src/components/AdminPortalSection.jsx
+  function AdminPortalSection({
+    onLaunchInstructorStudio,
+    showToast,
+    lang = "en"
+  }) {
+    const [adminToken, setAdminToken] = (0, import_react22.useState)(() => localStorage.getItem("nithya_admin_token") || "");
+    const [activeTab, setActiveTab] = (0, import_react22.useState)("classes");
+    const [email, setEmail] = (0, import_react22.useState)("admin@nithyayoga.com");
+    const [password, setPassword] = (0, import_react22.useState)("");
+    const [loginLoading, setLoginLoading] = (0, import_react22.useState)(false);
+    const [loginError, setLoginError] = (0, import_react22.useState)("");
+    const [classesList, setClassesList] = (0, import_react22.useState)([]);
+    const [classesLoading, setClassesLoading] = (0, import_react22.useState)(false);
+    const [newTitle, setNewTitle] = (0, import_react22.useState)("");
+    const [newStartsAt, setNewStartsAt] = (0, import_react22.useState)(() => {
+      const d = /* @__PURE__ */ new Date();
+      d.setHours(d.getHours() + 1, 0, 0, 0);
+      return d.toISOString().slice(0, 16);
+    });
+    const [newDuration, setNewDuration] = (0, import_react22.useState)("60");
+    const [isCreatingClass, setIsCreatingClass] = (0, import_react22.useState)(false);
+    const [inviteUrls, setInviteUrls] = (0, import_react22.useState)({});
+    const [copiedId, setCopiedId] = (0, import_react22.useState)(null);
+    const [attendanceLogs, setAttendanceLogs] = (0, import_react22.useState)([]);
+    const [attendanceLoading, setAttendanceLoading] = (0, import_react22.useState)(false);
+    const [livekitStatus, setLivekitStatus] = (0, import_react22.useState)(null);
+    const [configUrl, setConfigUrl] = (0, import_react22.useState)("");
+    const [configApiKey, setConfigApiKey] = (0, import_react22.useState)("");
+    const [configApiSecret, setConfigApiSecret] = (0, import_react22.useState)("");
+    const [savingConfig, setSavingConfig] = (0, import_react22.useState)(false);
+    const fetchClasses = async () => {
+      if (!adminToken) return;
+      setClassesLoading(true);
+      try {
+        const data = await apiFetch("/api/admin/classes", {
+          headers: { "Authorization": `Bearer ${adminToken}` }
+        });
+        if (Array.isArray(data)) {
+          setClassesList(data);
+        }
+      } catch (err) {
+        if (err.status === 401 || err.status === 403) {
+          handleLogout();
+          return;
+        }
+        console.error("Error fetching admin classes:", err);
+      } finally {
+        setClassesLoading(false);
+      }
+    };
+    const fetchAttendance = async () => {
+      if (!adminToken) return;
+      setAttendanceLoading(true);
+      try {
+        const data = await apiFetch("/api/admin/attendance", {
+          headers: { "Authorization": `Bearer ${adminToken}` }
+        });
+        if (Array.isArray(data)) {
+          setAttendanceLogs(data);
+        }
+      } catch (err) {
+        if (err.status === 401 || err.status === 403) {
+          handleLogout();
+          return;
+        }
+        console.error("Error fetching admin attendance:", err);
+      } finally {
+        setAttendanceLoading(false);
+      }
+    };
+    const fetchLiveKitStatus = async () => {
+      try {
+        const data = await apiFetch("/api/livekit/status");
+        setLivekitStatus(data);
+        if (data.serverUrl) setConfigUrl(data.serverUrl);
+      } catch (e2) {
+      }
+    };
+    (0, import_react22.useEffect)(() => {
+      if (adminToken) {
+        fetchClasses();
+        fetchAttendance();
+        fetchLiveKitStatus();
+      }
+    }, [adminToken]);
+    const handleLogin = async (e2) => {
+      e2.preventDefault();
+      setLoginLoading(true);
+      setLoginError("");
+      try {
+        const data = await apiFetch("/api/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password })
+        });
+        setAdminToken(data.token);
+        localStorage.setItem("nithya_admin_token", data.token);
+        audioEngine.playTempleBell();
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0BA9\u0BA4\u0BC1 \u2713" : "Admin Login Successful \u2713",
+            `${data.email} (Instructor Verified)`,
+            "success"
+          );
+        }
+      } catch (err) {
+        setLoginError(err.message);
+        audioEngine.playSoundByName("Soft Bell");
+      } finally {
+        setLoginLoading(false);
+      }
+    };
+    const handleLogout = () => {
+      setAdminToken("");
+      localStorage.removeItem("nithya_admin_token");
+      audioEngine.playGentleChime();
+      if (showToast) {
+        showToast(
+          lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BBF\u0BA9\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Logged Out",
+          lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Admin session ended",
+          "info"
+        );
+      }
+    };
+    const handleCreateClass = async (e2) => {
+      e2.preventDefault();
+      if (!newTitle.trim()) return;
+      setIsCreatingClass(true);
+      try {
+        const data = await apiFetch("/api/admin/classes", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({
+            title: newTitle.trim(),
+            startsAt: new Date(newStartsAt).toISOString(),
+            durationMinutes: Number(newDuration) || 60
+          })
+        });
+        setClassesList((prev) => [data, ...prev]);
+        setNewTitle("");
+        audioEngine.playMeditationTone();
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Yoga Class Created \u2713",
+            data.title,
+            "success"
+          );
+        }
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        setIsCreatingClass(false);
+      }
+    };
+    const handleGenerateInvite = async (classId) => {
+      try {
+        const data = await apiFetch(`/api/admin/classes/${classId}/invites`, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${adminToken}`
+          }
+        });
+        const resolvedUrl = window.location.origin && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? `${window.location.origin}/?invite=${encodeURIComponent(data.token)}` : data.inviteUrl;
+        setInviteUrls((prev) => ({ ...prev, [classId]: resolvedUrl }));
+        audioEngine.playSoftBell();
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u{1F517}" : "Invite Link Generated \u{1F517}",
+            data.classTitle || "7-day secure access token",
+            "success"
+          );
+        }
+      } catch (err) {
+        alert(err.message);
+      }
+    };
+    const handleCopyLink = (url, classId) => {
+      navigator.clipboard.writeText(url).then(() => {
+        setCopiedId(classId);
+        setTimeout(() => setCopiedId(null), 2500);
+        audioEngine.playSoftBell();
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Copied to Clipboard \u2713",
+            url,
+            "success"
+          );
+        }
+      });
+    };
+    const handleSaveLiveKitConfig = async (e2) => {
+      e2.preventDefault();
+      setSavingConfig(true);
+      try {
+        const data = await apiFetch("/api/livekit/config", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${adminToken}`
+          },
+          body: JSON.stringify({
+            serverUrl: configUrl.trim(),
+            apiKey: configApiKey.trim(),
+            apiSecret: configApiSecret.trim()
+          })
+        });
+        setLivekitStatus((prev) => ({
+          ...prev,
+          configured: data.configured,
+          serverUrl: data.serverUrl,
+          hasApiKey: Boolean(configApiKey),
+          hasApiSecret: Boolean(configApiSecret)
+        }));
+        audioEngine.playTempleBell();
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA9 \u2713" : "LiveKit Credentials Saved \u2713",
+            data.serverUrl,
+            "success"
+          );
+        }
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        setSavingConfig(false);
+      }
+    };
+    if (!adminToken) {
+      return /* @__PURE__ */ import_react22.default.createElement("div", { className: "dashboard-card admin-login-card max-w-lg mx-auto my-6 p-6" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "card-header-block text-center pb-4 border-b border-subtle" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "inline-flex p-3 rounded-2xl bg-primary/10 text-primary mb-3" }, /* @__PURE__ */ import_react22.default.createElement(ShieldCheck, { size: 32 })), /* @__PURE__ */ import_react22.default.createElement("h2", { className: "text-xl font-bold text-heading m-0" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 (Admin Portal)" : "NITHYA Yoga Admin Portal"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "text-xs text-muted mt-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95, \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BB3\u0BC8 \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0B95\u0BBF\u0B95\u0BCD\u0B95 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAF\u0BC8\u0B95\u0BCD \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0B95\u0BCD\u0B95 \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Secure instructor dashboard to schedule classes, generate invite links & monitor attendance.")), loginError && /* @__PURE__ */ import_react22.default.createElement("div", { className: "alert-box-error flex items-center gap-2 p-3 my-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs" }, /* @__PURE__ */ import_react22.default.createElement(CircleAlert, { size: 16 }), /* @__PURE__ */ import_react22.default.createElement("span", null, loginError)), /* @__PURE__ */ import_react22.default.createElement("form", { onSubmit: handleLogin, className: "flex flex-col gap-4 mt-4" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-xs font-bold text-heading" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B88\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD (Admin Email)" : "Admin Email"), /* @__PURE__ */ import_react22.default.createElement(
+        "input",
+        {
+          type: "email",
+          value: email,
+          onChange: (e2) => setEmail(e2.target.value),
+          required: true,
+          className: "ya-input w-full text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading",
+          placeholder: "admin@nithyayoga.com"
+        }
+      )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-xs font-bold text-heading" }, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD (Password)" : "Admin Password"), /* @__PURE__ */ import_react22.default.createElement(
+        "input",
+        {
+          type: "password",
+          value: password,
+          onChange: (e2) => setPassword(e2.target.value),
+          required: true,
+          className: "ya-input w-full text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading",
+          placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+        }
+      ), /* @__PURE__ */ import_react22.default.createElement("small", { className: "text-[11px] text-muted" }, lang === "ta" ? "\u0B87\u0BAF\u0BB2\u0BCD\u0BAA\u0BC1\u0BA8\u0BBF\u0BB2\u0BC8 \u0B9F\u0BC6\u0BB5\u0BB2\u0BAA\u0BCD\u0BAE\u0BC6\u0BA9\u0BCD\u0B9F\u0BCD \u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD: NithyaAdmin2026!" : "Default development password: NithyaAdmin2026!")), /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "submit",
+          disabled: loginLoading,
+          className: "ya-btn ya-btn--primary w-full py-2.5 rounded-xl font-bold text-xs flex items-center justify-center gap-2 cursor-pointer mt-2"
+        },
+        loginLoading ? /* @__PURE__ */ import_react22.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react22.default.createElement(Key, { size: 14 }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF\u0BAF\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Sign In as Admin")
+      )));
+    }
+    return /* @__PURE__ */ import_react22.default.createElement("div", { className: "dashboard-card admin-dashboard-portal p-6" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "admin-portal-header flex items-center justify-between pb-4 border-b border-subtle flex-wrap gap-3" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "p-2.5 rounded-xl bg-primary/10 text-primary" }, /* @__PURE__ */ import_react22.default.createElement(ShieldCheck, { size: 24 })), /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement("h2", { className: "text-lg font-bold text-heading m-0" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-[10px] font-bold px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20" }, "\u2713 Verified Admin")), /* @__PURE__ */ import_react22.default.createElement("p", { className: "text-xs text-muted m-0" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD, \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAE\u0BC7\u0BB2\u0BBE\u0BA3\u0BCD\u0BAE\u0BC8" : "Classes, shareable invites, LiveKit and server-backed attendance."))), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: handleLogout,
+        className: "ya-btn ya-btn--soft text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-subtle hover:bg-red-500/10 hover:text-red-400 transition-all cursor-pointer"
+      },
+      /* @__PURE__ */ import_react22.default.createElement(LogOut, { size: 14 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Log Out")
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "admin-subtabs flex items-center gap-2 my-4 bg-subtle p-1 rounded-xl" }, /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `flex-1 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${activeTab === "classes" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
+        onClick: () => setActiveTab("classes")
+      },
+      /* @__PURE__ */ import_react22.default.createElement(Calendar, { size: 14 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD" : "Classes & Invites")
+    ), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `flex-1 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${activeTab === "attendance" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
+        onClick: () => setActiveTab("attendance")
+      },
+      /* @__PURE__ */ import_react22.default.createElement(Users, { size: 14 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0B9F\u0BC1" : "Server Attendance Audit")
+    ), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `flex-1 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-2 ${activeTab === "settings" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
+        onClick: () => setActiveTab("settings")
+      },
+      /* @__PURE__ */ import_react22.default.createElement(Settings, { size: 14 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "LiveKit Server Config")
+    )), activeTab === "classes" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "create-class-card p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react22.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95" : "Schedule New Live Yoga Class")), /* @__PURE__ */ import_react22.default.createElement("form", { onSubmit: handleCreateClass, className: "grid grid-cols-1 md:grid-cols-4 gap-3" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "md:col-span-2 flex flex-col gap-1" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Class Title"), /* @__PURE__ */ import_react22.default.createElement(
+      "input",
+      {
+        type: "text",
+        value: newTitle,
+        onChange: (e2) => setNewTitle(e2.target.value),
+        placeholder: "e.g. Morning Surya Namaskar & Pranayama",
+        required: true,
+        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading"
+      }
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BA4\u0BBF" : "Date & Start Time"), /* @__PURE__ */ import_react22.default.createElement(
+      "input",
+      {
+        type: "datetime-local",
+        value: newStartsAt,
+        onChange: (e2) => setNewStartsAt(e2.target.value),
+        required: true,
+        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading"
+      }
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2 \u0B85\u0BB3\u0BB5\u0BC1 (\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD)" : "Duration (Minutes)"), /* @__PURE__ */ import_react22.default.createElement(
+      "input",
+      {
+        type: "number",
+        min: "5",
+        max: "240",
+        value: newDuration,
+        onChange: (e2) => setNewDuration(e2.target.value),
+        required: true,
+        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading"
+      }
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "md:col-span-4 flex justify-end" }, /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "submit",
+        disabled: isCreatingClass,
+        className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer"
+      },
+      isCreatingClass ? /* @__PURE__ */ import_react22.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react22.default.createElement(Plus, { size: 14 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Save & Schedule Class")
+    )))), /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between mb-3" }, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement(Calendar, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Scheduled Classes & Active Invites")), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: fetchClasses,
+        className: "text-xs text-primary flex items-center gap-1 hover:underline cursor-pointer"
+      },
+      /* @__PURE__ */ import_react22.default.createElement(RefreshCw, { size: 12, className: classesLoading ? "animate-spin" : "" }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-3" }, classesList.length === 0 ? /* @__PURE__ */ import_react22.default.createElement("div", { className: "text-center p-6 text-xs text-muted rounded-xl border border-subtle" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No scheduled classes found. Create your first class above!") : classesList.map((c) => {
+      const currentInvite = inviteUrls[c.id];
+      return /* @__PURE__ */ import_react22.default.createElement("div", { key: c.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col gap-2.5" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, c.title), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 text-[11px] text-muted mt-0.5" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react22.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react22.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react22.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react22.default.createElement("span", null, c.duration_minutes, " mins"), /* @__PURE__ */ import_react22.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "font-mono text-[10px] bg-subtle px-1.5 py-0.5 rounded" }, "Room: ", c.room_name))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: () => handleGenerateInvite(c.id),
+          className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
+        },
+        /* @__PURE__ */ import_react22.default.createElement(Link, { size: 13, className: "text-primary" }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAA\u0BC6\u0BB1\u0BC1\u0B95" : "Get Invite Link")
+      ), onLaunchInstructorStudio && /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: () => onLaunchInstructorStudio(c),
+          className: "ya-btn ya-btn--primary text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
+        },
+        /* @__PURE__ */ import_react22.default.createElement(Video, { size: 13 }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0B95 \u0BA4\u0BC1\u0BB5\u0B99\u0BCD\u0B95" : "Launch as Instructor")
+      ))), currentInvite && /* @__PURE__ */ import_react22.default.createElement("div", { className: "p-2 rounded-lg bg-subtle border border-primary/20 flex items-center justify-between gap-2 mt-1" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 flex-1 overflow-hidden" }, /* @__PURE__ */ import_react22.default.createElement(Link, { size: 13, className: "text-primary flex-shrink-0" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-[11px] font-mono text-heading truncate" }, currentInvite)), /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: () => handleCopyLink(currentInvite, c.id),
+          className: "ya-btn ya-btn--primary text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1 cursor-pointer flex-shrink-0"
+        },
+        copiedId === c.id ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 12 }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 12 }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, copiedId === c.id ? lang === "ta" ? "\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B86\u0BA9\u0BA4\u0BC1" : "Copied!" : lang === "ta" ? "\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF" : "Copy")
+      )));
+    })))), activeTab === "attendance" && /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between mb-3" }, /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement(Users, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0B9F\u0BC1 (SQLite)" : "Server-Backed Attendance Audit (SQLite)")), /* @__PURE__ */ import_react22.default.createElement("p", { className: "text-[11px] text-muted m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BBF\u0BA9\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Real-time verified WebRTC session logs calculated on class duration.")), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: fetchAttendance,
+        className: "text-xs text-primary flex items-center gap-1 hover:underline cursor-pointer"
+      },
+      /* @__PURE__ */ import_react22.default.createElement(RefreshCw, { size: 12, className: attendanceLoading ? "animate-spin" : "" }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh Logs")
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "overflow-x-auto rounded-xl border border-subtle bg-card" }, /* @__PURE__ */ import_react22.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react22.default.createElement("thead", null, /* @__PURE__ */ import_react22.default.createElement("tr", { className: "border-b border-subtle bg-subtle/50 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react22.default.createElement("th", { className: "p-2.5" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Student Name"), /* @__PURE__ */ import_react22.default.createElement("th", { className: "p-2.5" }, lang === "ta" ? "\u0B88\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BA4\u0BCA\u0BB2\u0BC8\u0BAA\u0BC7\u0B9A\u0BBF" : "Email / Phone"), /* @__PURE__ */ import_react22.default.createElement("th", { className: "p-2.5" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class"), /* @__PURE__ */ import_react22.default.createElement("th", { className: "p-2.5" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BA8\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Joined At"), /* @__PURE__ */ import_react22.default.createElement("th", { className: "p-2.5" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD (\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD)" : "Duration"), /* @__PURE__ */ import_react22.default.createElement("th", { className: "p-2.5" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 %" : "Attendance Rate"), /* @__PURE__ */ import_react22.default.createElement("th", { className: "p-2.5" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Status"))), /* @__PURE__ */ import_react22.default.createElement("tbody", null, attendanceLogs.length === 0 ? /* @__PURE__ */ import_react22.default.createElement("tr", null, /* @__PURE__ */ import_react22.default.createElement("td", { colSpan: "7", className: "p-6 text-center text-muted" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "No verified attendance sessions recorded yet.")) : attendanceLogs.map((log2, idx) => /* @__PURE__ */ import_react22.default.createElement("tr", { key: idx, className: "border-b border-subtle/50 hover:bg-subtle/30" }, /* @__PURE__ */ import_react22.default.createElement("td", { className: "p-2.5 font-bold text-heading" }, log2.name), /* @__PURE__ */ import_react22.default.createElement("td", { className: "p-2.5 text-muted" }, /* @__PURE__ */ import_react22.default.createElement("div", null, log2.email), /* @__PURE__ */ import_react22.default.createElement("div", { className: "text-[10px]" }, log2.phone)), /* @__PURE__ */ import_react22.default.createElement("td", { className: "p-2.5 font-medium" }, log2.classTitle), /* @__PURE__ */ import_react22.default.createElement("td", { className: "p-2.5 text-muted" }, log2.joinedAt ? new Date(log2.joinedAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) : "\u2014"), /* @__PURE__ */ import_react22.default.createElement("td", { className: "p-2.5 font-semibold text-heading" }, Math.round((log2.durationSeconds || 0) / 60), " mins"), /* @__PURE__ */ import_react22.default.createElement("td", { className: "p-2.5 font-bold" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${(log2.attendancePercent || 0) >= 70 ? "bg-green-500/10 text-green-400 border border-green-500/20" : "bg-yellow-500/10 text-yellow-400 border border-yellow-500/20"}` }, log2.attendancePercent || 0, "%")), /* @__PURE__ */ import_react22.default.createElement("td", { className: "p-2.5" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: `text-[10px] font-semibold px-2 py-0.5 rounded ${log2.status === "joined" ? "bg-blue-500/10 text-blue-400" : "bg-gray-500/10 text-muted"}` }, log2.status === "joined" ? "\u25CF Live Now" : "Completed")))))))), activeTab === "settings" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-4 max-w-xl" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "p-3.5 rounded-xl border border-subtle bg-card flex items-center justify-between" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: `w-3 h-3 rounded-full ${livekitStatus?.configured ? "bg-green-400" : "bg-yellow-400"}` }), /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("strong", { className: "text-xs text-heading block" }, livekitStatus?.configured ? "LiveKit Cloud Connected" : "LiveKit Credentials Needed"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-[11px] text-muted font-mono" }, livekitStatus?.serverUrl || "wss://your-project.livekit.cloud"))), /* @__PURE__ */ import_react22.default.createElement("span", { className: `text-[10px] font-bold px-2 py-0.5 rounded-full ${livekitStatus?.configured ? "bg-green-500/10 text-green-400" : "bg-yellow-500/10 text-yellow-400"}` }, livekitStatus?.configured ? "Active" : "Setup Required")), /* @__PURE__ */ import_react22.default.createElement("form", { onSubmit: handleSaveLiveKitConfig, className: "flex flex-col gap-3 p-4 rounded-xl border border-subtle bg-card" }, /* @__PURE__ */ import_react22.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BA8\u0BB1\u0BCD\u0B9A\u0BBE\u0BA9\u0BCD\u0BB1\u0BBF\u0BA4\u0BB4\u0BCD\u0B95\u0BB3\u0BCD" : "Configure LiveKit Cloud Server"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "text-[11px] text-muted m-0" }, lang === "ta" ? "\u0B87\u0BB2\u0BB5\u0B9A \u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC8 https://cloud.livekit.io \u0BA4\u0BB3\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0BA4\u0BC1\u0BB5\u0B99\u0BCD\u0B95\u0BBF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD URL \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B95\u0BC0\u0B95\u0BB3\u0BC8 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB2\u0BBE\u0BAE\u0BCD." : "Get free real-time video credentials at https://cloud.livekit.io and paste them below."), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "LIVEKIT_URL"), /* @__PURE__ */ import_react22.default.createElement(
+      "input",
+      {
+        type: "text",
+        value: configUrl,
+        onChange: (e2) => setConfigUrl(e2.target.value),
+        placeholder: "wss://your-project.livekit.cloud",
+        required: true,
+        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading font-mono"
+      }
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "LIVEKIT_API_KEY"), /* @__PURE__ */ import_react22.default.createElement(
+      "input",
+      {
+        type: "text",
+        value: configApiKey,
+        onChange: (e2) => setConfigApiKey(e2.target.value),
+        placeholder: "APIxxxxxxxxx",
+        required: true,
+        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading font-mono"
+      }
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "LIVEKIT_API_SECRET"), /* @__PURE__ */ import_react22.default.createElement(
+      "input",
+      {
+        type: "password",
+        value: configApiSecret,
+        onChange: (e2) => setConfigApiSecret(e2.target.value),
+        placeholder: "secretxxxxxxxx",
+        required: true,
+        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading font-mono"
+      }
+    )), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "submit",
+        disabled: savingConfig,
+        className: "ya-btn ya-btn--primary py-2 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer mt-1"
+      },
+      savingConfig ? /* @__PURE__ */ import_react22.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react22.default.createElement(CircleCheck, { size: 14 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Save LiveKit Credentials")
+    ))));
+  }
+  var import_react22;
+  var init_AdminPortalSection = __esm({
+    "src/components/AdminPortalSection.jsx"() {
+      import_react22 = __toESM(require_react());
+      init_lucide_react();
+      init_audioEngine();
+      init_ThreeDIcons();
+      init_api();
+    }
+  });
+
+  // src/components/InviteRegistrationModal.jsx
+  function InviteRegistrationModal({
+    inviteToken,
+    onClose,
+    onRegistrationSuccess,
+    lang = "en"
+  }) {
+    const [loading, setLoading] = (0, import_react23.useState)(true);
+    const [classInfo, setClassInfo] = (0, import_react23.useState)(null);
+    const [error, setError] = (0, import_react23.useState)("");
+    const [name, setName] = (0, import_react23.useState)("");
+    const [email, setEmail] = (0, import_react23.useState)("");
+    const [phone, setPhone] = (0, import_react23.useState)("");
+    const [submitting, setSubmitting] = (0, import_react23.useState)(false);
+    const [submitError, setSubmitError] = (0, import_react23.useState)("");
+    (0, import_react23.useEffect)(() => {
+      if (!inviteToken) return;
+      const fetchInvite = async () => {
+        setLoading(true);
+        setError("");
+        try {
+          const data = await apiFetch(`/api/invites/${encodeURIComponent(inviteToken)}`);
+          setClassInfo(data.class);
+          audioEngine.playMeditationTone();
+        } catch (err) {
+          setError(err.message);
+        } finally {
+          setLoading(false);
+        }
+      };
+      fetchInvite();
+    }, [inviteToken]);
+    const handleSubmit = async (e2) => {
+      e2.preventDefault();
+      setSubmitting(true);
+      setSubmitError("");
+      try {
+        const data = await apiFetch("/api/members/register", {
+          method: "POST",
+          body: JSON.stringify({
+            inviteToken,
+            name: name.trim(),
+            email: email.trim().toLowerCase(),
+            phone: phone.trim()
+          })
+        });
+        localStorage.setItem("nithya_auth_token", data.token);
+        localStorage.setItem("nithya_member", JSON.stringify(data.member));
+        audioEngine.playTempleBell();
+        if (onRegistrationSuccess) {
+          onRegistrationSuccess({
+            token: data.token,
+            member: data.member,
+            classId: data.classId,
+            classInfo
+          });
+        }
+      } catch (err) {
+        setSubmitError(err.message);
+        audioEngine.playSoundByName("Soft Bell");
+      } finally {
+        setSubmitting(false);
+      }
+    };
+    if (!inviteToken) return null;
+    return /* @__PURE__ */ import_react23.default.createElement("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm ya-modal-overlay" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "relative w-full max-w-md p-6 rounded-2xl border border-subtle bg-card shadow-2xl ya-modal-content" }, /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: onClose,
+        className: "absolute top-4 right-4 p-1 rounded-full text-muted hover:text-heading hover:bg-subtle transition-all cursor-pointer"
+      },
+      /* @__PURE__ */ import_react23.default.createElement(X, { size: 18 })
+    ), loading ? /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col items-center justify-center py-10 gap-3" }, /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 28, className: "animate-spin text-primary" }), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted m-0" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying class invitation...")) : error ? /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-center py-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "inline-flex p-3 rounded-full bg-red-500/10 text-red-400 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(CircleAlert, { size: 28 })), /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 mb-1" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BB2\u0BBE\u0BB5\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BA4\u0BC1" : "Invitation Expired or Invalid"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mb-4" }, error), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: onClose,
+        className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold"
+      },
+      lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Continue to Dashboard"
+    )) : /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-center pb-4 border-b border-subtle" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "inline-flex p-2.5 rounded-2xl bg-primary/10 text-primary mb-2" }, /* @__PURE__ */ import_react23.default.createElement(ThreeDLotus, { size: 32 })), /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "You're Invited to Live Yoga Class!"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mt-1 m-0" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BCD\u0B9F\u0BC1 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Complete your registration to join this verified instructor session.")), classInfo && /* @__PURE__ */ import_react23.default.createElement("div", { className: "my-3 p-3 rounded-xl bg-subtle border border-primary/20" }, /* @__PURE__ */ import_react23.default.createElement("h4", { className: "text-xs font-bold text-heading m-0 flex items-center gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement(Video, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, classInfo.title)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-3 text-[11px] text-muted mt-1" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, classInfo.durationMinutes || 60, " mins")), /* @__PURE__ */ import_react23.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react23.default.createElement("span", null, new Date(classInfo.startsAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })))), submitError && /* @__PURE__ */ import_react23.default.createElement("div", { className: "alert-box-error flex items-center gap-2 p-2.5 my-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs" }, /* @__PURE__ */ import_react23.default.createElement(CircleAlert, { size: 14 }), /* @__PURE__ */ import_react23.default.createElement("span", null, submitError)), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleSubmit, className: "flex flex-col gap-3 mt-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react23.default.createElement(User, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Full Name")), /* @__PURE__ */ import_react23.default.createElement(
+      "input",
+      {
+        type: "text",
+        value: name,
+        onChange: (e2) => setName(e2.target.value),
+        placeholder: "e.g. Sarah Santhons",
+        required: true,
+        className: "ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
+      }
+    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react23.default.createElement(Mail, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B88\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF (Gmail)" : "Email Address (Gmail)")), /* @__PURE__ */ import_react23.default.createElement(
+      "input",
+      {
+        type: "email",
+        value: email,
+        onChange: (e2) => setEmail(e2.target.value),
+        placeholder: "sarah@gmail.com",
+        required: true,
+        className: "ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
+      }
+    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react23.default.createElement(Phone, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD" : "Mobile Number (10 digits)")), /* @__PURE__ */ import_react23.default.createElement(
+      "input",
+      {
+        type: "tel",
+        value: phone,
+        onChange: (e2) => setPhone(e2.target.value),
+        placeholder: "+91 9876543210",
+        required: true,
+        className: "ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
+      }
+    )), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "submit",
+        disabled: submitting,
+        className: "ya-btn ya-btn--primary w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer mt-1"
+      },
+      submitting ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(CircleCheck, { size: 14 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Register & Join Live Class")
+    )))));
+  }
+  var import_react23;
+  var init_InviteRegistrationModal = __esm({
+    "src/components/InviteRegistrationModal.jsx"() {
+      import_react23 = __toESM(require_react());
+      init_lucide_react();
+      init_audioEngine();
+      init_ThreeDIcons();
+      init_api();
+    }
+  });
+
   // src/App.jsx
   function App() {
-    const [currentTab, setCurrentTab] = (0, import_react22.useState)("home");
-    const [theme, setTheme] = (0, import_react22.useState)(() => loadStorage("nithya_theme", "light"));
-    const [lang, setLang] = (0, import_react22.useState)(() => loadStorage("nithya_lang", "en"));
-    const [searchQuery, setSearchQuery] = (0, import_react22.useState)("");
-    const [user, setUser] = (0, import_react22.useState)(() => loadStorage("nithya_user", DEFAULT_USER));
-    const [reminders, setReminders] = (0, import_react22.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
-    const [classes, setClasses] = (0, import_react22.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
-    const [activeClass, setActiveClass] = (0, import_react22.useState)(() => classes[0] || DEFAULT_CLASSES[0]);
-    const [attendanceLogs, setAttendanceLogs] = (0, import_react22.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
-    const [toasts, setToasts] = (0, import_react22.useState)([]);
-    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react22.useState)(false);
-    const [editingReminder, setEditingReminder] = (0, import_react22.useState)(null);
-    (0, import_react22.useEffect)(() => {
+    const [currentTab, setCurrentTab] = (0, import_react24.useState)("home");
+    const [theme, setTheme] = (0, import_react24.useState)(() => loadStorage("nithya_theme", "light"));
+    const [lang, setLang] = (0, import_react24.useState)(() => loadStorage("nithya_lang", "en"));
+    const [searchQuery, setSearchQuery] = (0, import_react24.useState)("");
+    const [inviteToken, setInviteToken] = (0, import_react24.useState)(() => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("invite") || "";
+      } catch (e2) {
+        return "";
+      }
+    });
+    const [user, setUser] = (0, import_react24.useState)(() => loadStorage("nithya_user", DEFAULT_USER));
+    const [reminders, setReminders] = (0, import_react24.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
+    const [classes, setClasses] = (0, import_react24.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
+    const [activeClass, setActiveClass] = (0, import_react24.useState)(() => classes[0] || DEFAULT_CLASSES[0]);
+    const [attendanceLogs, setAttendanceLogs] = (0, import_react24.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
+    const [toasts, setToasts] = (0, import_react24.useState)([]);
+    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react24.useState)(false);
+    const [editingReminder, setEditingReminder] = (0, import_react24.useState)(null);
+    (0, import_react24.useEffect)(() => {
       saveStorage("nithya_theme", theme);
       document.documentElement.setAttribute("data-theme", theme);
     }, [theme]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       saveStorage("nithya_lang", lang);
       document.documentElement.setAttribute("data-lang", lang);
     }, [lang]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       saveStorage("nithya_user", user);
     }, [user]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       saveStorage("nithya_reminders", reminders);
     }, [reminders]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       saveStorage("nithya_classes", classes);
     }, [classes]);
-    (0, import_react22.useEffect)(() => {
+    (0, import_react24.useEffect)(() => {
       saveStorage("nithya_attendance", attendanceLogs);
     }, [attendanceLogs]);
+    const firedRemindersRef = (0, import_react24.useRef)(/* @__PURE__ */ new Set());
+    (0, import_react24.useEffect)(() => {
+      const checkScheduledReminders = () => {
+        const now = /* @__PURE__ */ new Date();
+        const currentHours = now.getHours();
+        const currentMinutes = now.getMinutes();
+        const current24 = `${String(currentHours).padStart(2, "0")}:${String(currentMinutes).padStart(2, "0")}`;
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, "0");
+        const day = String(now.getDate()).padStart(2, "0");
+        const todayDateStr = `${year}-${month}-${day}`;
+        const dayOfWeek = now.getDay();
+        reminders.forEach((r) => {
+          if (r.enabled === false || r.completed) return;
+          let scheduled24 = "";
+          if (r.rawTime && r.rawTime.includes(":")) {
+            scheduled24 = r.rawTime.trim().slice(0, 5);
+          } else if (r.time) {
+            const t = r.time.trim();
+            if (t.toUpperCase().includes("AM") || t.toUpperCase().includes("PM")) {
+              const parts = t.split(/\s+/);
+              const [hStr, mStr] = (parts[0] || "08:00").split(":");
+              let h2 = parseInt(hStr, 10);
+              const m = parseInt(mStr || "0", 10);
+              const isPM = (parts[1] || "").toUpperCase() === "PM";
+              if (isPM && h2 < 12) h2 += 12;
+              if (!isPM && h2 === 12) h2 = 0;
+              scheduled24 = `${String(h2).padStart(2, "0")}:${String(m).padStart(2, "0")}`;
+            } else {
+              scheduled24 = t.slice(0, 5);
+            }
+          }
+          if (scheduled24 !== current24) return;
+          const repeat = r.repeat || "Daily";
+          if (repeat === "Once") {
+            if (r.date && r.date !== todayDateStr) return;
+          } else if (repeat === "Weekdays") {
+            if (dayOfWeek === 0 || dayOfWeek === 6) return;
+          } else if (repeat === "Weekly") {
+            if (r.date) {
+              const remDate = /* @__PURE__ */ new Date(r.date + "T00:00:00");
+              if (remDate.getDay() !== dayOfWeek) return;
+            }
+          }
+          const fireKey = `${r.id}_${todayDateStr}_${current24}`;
+          if (firedRemindersRef.current.has(fireKey)) return;
+          firedRemindersRef.current.add(fireKey);
+          if (r.customAudioUrl) {
+            audioEngine.playAudioFile(r.customAudioUrl);
+          } else {
+            audioEngine.playSoundByName(r.sound || "Soft Bell");
+          }
+          showToast(
+            lang === "ta" ? `\u{1F514} \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD: ${r.titleTa || r.title}` : `\u{1F514} Reminder: ${r.title}`,
+            lang === "ta" ? r.messageTa || r.message || "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BB5\u0BA9\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : r.message || "Time for your healthy habit",
+            "success"
+          );
+          if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
+            try {
+              const notification = new Notification(
+                lang === "ta" ? `NITHYA \u0BAF\u0BCB\u0B95\u0BBE: ${r.titleTa || r.title}` : `NITHYA Yoga: ${r.title}`,
+                {
+                  body: lang === "ta" ? r.messageTa || r.message : r.message,
+                  icon: "assets/images/logo.png",
+                  badge: "assets/images/logo.png",
+                  tag: fireKey
+                }
+              );
+              notification.onclick = () => {
+                window.focus();
+              };
+            } catch (_2) {
+            }
+          }
+        });
+      };
+      checkScheduledReminders();
+      const interval = setInterval(checkScheduledReminders, 5e3);
+      return () => clearInterval(interval);
+    }, [reminders, lang]);
     const showToast = (title, message = "", type = "success") => {
       const id = Date.now();
       setToasts((prev) => [...prev, { id, title, message, type }]);
@@ -60586,6 +61766,33 @@
     };
     const handleTestSound = () => {
       audioEngine.playMeditationTone();
+      if (typeof window !== "undefined" && "Notification" in window) {
+        if (Notification.permission === "default") {
+          Notification.requestPermission().then((permission) => {
+            if (permission === "granted") {
+              showToast(
+                lang === "ta" ? "\u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0BB5\u0BB4\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Notification Permission Granted \u2713",
+                lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA8\u0BC7\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB0\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0BA4\u0BCB\u0BA9\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD." : "Reminders will alert you with chime & notifications.",
+                "success"
+              );
+            } else {
+              showToast(
+                lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1 \u26A0\uFE0F" : "Browser Notifications Blocked \u26A0\uFE0F",
+                lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BBF\u0BB2\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0BB5\u0BB4\u0B99\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD. \u0B89\u0BB3\u0BCD\u0BB3\u0BAE\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0B92\u0BB2\u0BBF \u0B87\u0BAF\u0B99\u0BCD\u0B95\u0BC1\u0BAE\u0BCD." : "Please allow notifications in browser address bar. In-app audio will still chime.",
+                "warning"
+              );
+            }
+          });
+          return;
+        } else if (Notification.permission === "denied") {
+          showToast(
+            lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1 \u26A0\uFE0F" : "Browser Notifications Blocked \u26A0\uFE0F",
+            lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF URL \u0BAA\u0BBE\u0BB0\u0BBF\u0BB2\u0BCD \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF\u0BAF\u0BC8 \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD. \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BBF\u0BB2\u0BCD \u0B92\u0BB2\u0BBF \u0B87\u0BAF\u0B99\u0BCD\u0B95\u0BC1\u0BAE\u0BCD." : "Notifications blocked in browser settings. Active page chime will still ring.",
+            "warning"
+          );
+          return;
+        }
+      }
       showToast(
         lang === "ta" ? "\u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0B92\u0BB2\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u{1F514}" : "Notification chime verified \u{1F514}",
         lang === "ta" ? "\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B92\u0BB2\u0BBF \u0B87\u0BAF\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1" : "Meditation Tone played successfully",
@@ -60654,6 +61861,20 @@
         return r;
       }));
     };
+    const handleToggleEnable = (id) => {
+      setReminders((prev) => prev.map((r) => {
+        if (r.id === id) {
+          const nextState = r.enabled !== false ? false : true;
+          showToast(
+            nextState ? lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Reminder Enabled \u2713" : lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0B87\u0B9F\u0BC8\u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Reminder Paused",
+            r.title,
+            "info"
+          );
+          return { ...r, enabled: nextState };
+        }
+        return r;
+      }));
+    };
     const handleDeleteReminder = (id) => {
       setReminders((prev) => prev.filter((r) => r.id !== id));
       showToast(
@@ -60708,14 +61929,14 @@
         remEl.scrollIntoView({ behavior: "smooth" });
       }
     };
-    return /* @__PURE__ */ import_react22.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react22.default.createElement(
+    return /* @__PURE__ */ import_react24.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react24.default.createElement(
       Sidebar,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react22.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react22.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react24.default.createElement(
       Header,
       {
         searchQuery,
@@ -60728,7 +61949,26 @@
         onOpenNotifications: handleTestSound,
         onTestSound: handleTestSound
       }
-    ), currentTab === "live" ? /* @__PURE__ */ import_react22.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement(
+    ), currentTab === "admin" ? /* @__PURE__ */ import_react24.default.createElement("main", { className: "dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react24.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "ya-btn ya-btn--soft text-xs cursor-pointer",
+        onClick: () => setCurrentTab("home")
+      },
+      "\u2190 ",
+      lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
+    ), /* @__PURE__ */ import_react24.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react24.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react24.default.createElement(
+      AdminPortalSection,
+      {
+        onLaunchInstructorStudio: (cls) => {
+          if (cls) setActiveClass(cls);
+          setCurrentTab("live");
+        },
+        showToast,
+        lang
+      }
+    )) : currentTab === "live" ? /* @__PURE__ */ import_react24.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react24.default.createElement(
       "button",
       {
         type: "button",
@@ -60737,7 +61977,7 @@
       },
       "\u2190 ",
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 (LiveKit HD)" : "Live Yoga Class Studio (LiveKit HD)")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react22.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react24.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 (LiveKit HD)" : "Live Yoga Class Studio (LiveKit HD)")), /* @__PURE__ */ import_react24.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react24.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react24.default.createElement(
       "select",
       {
         value: activeClass?.id,
@@ -60747,8 +61987,8 @@
         },
         className: "text-xs px-2.5 py-1.5 rounded-lg border bg-card text-heading font-semibold"
       },
-      classes.map((c) => /* @__PURE__ */ import_react22.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
-    ))), /* @__PURE__ */ import_react22.default.createElement(
+      classes.map((c) => /* @__PURE__ */ import_react24.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
+    ))), /* @__PURE__ */ import_react24.default.createElement(
       LiveYogaClassRoom,
       {
         activeClass,
@@ -60764,7 +62004,7 @@
         onRecordAttendance: handleRecordAttendance,
         lang
       }
-    )) : /* @__PURE__ */ import_react22.default.createElement("main", { className: "dashboard-content-grid-wrapper" }, /* @__PURE__ */ import_react22.default.createElement(
+    )) : /* @__PURE__ */ import_react24.default.createElement("main", { className: "dashboard-content-grid-wrapper" }, /* @__PURE__ */ import_react24.default.createElement(
       HeroSection,
       {
         user,
@@ -60772,11 +62012,12 @@
         onViewSchedule: handleViewSchedule,
         lang
       }
-    ), /* @__PURE__ */ import_react22.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement(
       SmartCareTimeline,
       {
         reminders,
         onToggleComplete: handleToggleComplete,
+        onToggleEnable: handleToggleEnable,
         onDeleteReminder: handleDeleteReminder,
         onEditReminder: handleEditReminder,
         onShowAll: () => {
@@ -60785,7 +62026,7 @@
         },
         lang
       }
-    ), /* @__PURE__ */ import_react22.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react22.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react24.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -60794,7 +62035,7 @@
         onShowAll: () => handleTabChange("classes"),
         lang
       }
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react22.default.createElement(
+    )), /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react24.default.createElement(
       LiveClassStudio,
       {
         activeClass,
@@ -60804,49 +62045,49 @@
         onOpenFullStudio: () => setCurrentTab("live"),
         lang
       }
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react22.default.createElement(
+    )), /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react24.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ), /* @__PURE__ */ import_react22.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement(
       PranayamaBreathingOrb,
       {
         lang
       }
-    ), /* @__PURE__ */ import_react22.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement(
       RelaxationZone,
       {
         lang
       }
-    ))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "grid-col col-progress" }, /* @__PURE__ */ import_react22.default.createElement(
+    ))), /* @__PURE__ */ import_react24.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-progress" }, /* @__PURE__ */ import_react24.default.createElement(
       AttendanceProgressSection,
       {
         user,
         attendanceLogs,
         lang
       }
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react22.default.createElement(
+    )), /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react24.default.createElement(
       YogaNotesSection,
       {
         lang
       }
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react22.default.createElement(
+    )), /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react24.default.createElement(
       ProfileSection,
       {
         user,
         onUpdateUser: handleUpdateUser,
         lang
       }
-    )))))), /* @__PURE__ */ import_react22.default.createElement(
+    )))))), /* @__PURE__ */ import_react24.default.createElement(
       MobileBottomNav,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react22.default.createElement(
+    ), /* @__PURE__ */ import_react24.default.createElement(
       ReminderModal,
       {
         isOpen: isReminderModalOpen,
@@ -60859,7 +62100,33 @@
         initialData: editingReminder,
         lang
       }
-    ), /* @__PURE__ */ import_react22.default.createElement(
+    ), inviteToken && /* @__PURE__ */ import_react24.default.createElement(
+      InviteRegistrationModal,
+      {
+        inviteToken,
+        onClose: () => setInviteToken(""),
+        onRegistrationSuccess: ({ member, classInfo }) => {
+          setInviteToken("");
+          setUser((prev) => ({
+            ...prev,
+            name: member.name,
+            email: member.email,
+            phone: member.phone,
+            role: "Verified Member"
+          }));
+          if (classInfo) {
+            setActiveClass((prev) => ({ ...prev, id: classInfo.id, title: classInfo.title, name: classInfo.title }));
+          }
+          setCurrentTab("live");
+          showToast(
+            lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1! \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1 \u0BB5\u0BB0\u0BB5\u0BC7\u0BB1\u0BCD\u0B95\u0BBF\u0BB1\u0BCB\u0BAE\u0BCD \u{1F9D8}\u200D\u2640\uFE0F" : "Registration Complete! Welcome to Live Class \u{1F9D8}\u200D\u2640\uFE0F",
+            `${member.name} \u2022 ${classInfo?.title || "Yoga Session"}`,
+            "success"
+          );
+        },
+        lang
+      }
+    ), /* @__PURE__ */ import_react24.default.createElement(
       ToastContainer,
       {
         toasts,
@@ -60867,10 +62134,10 @@
       }
     ));
   }
-  var import_react22;
+  var import_react24;
   var init_App = __esm({
     "src/App.jsx"() {
-      import_react22 = __toESM(require_react());
+      import_react24 = __toESM(require_react());
       init_Sidebar();
       init_Header();
       init_HeroSection();
@@ -60887,6 +62154,8 @@
       init_MobileBottomNav();
       init_ReminderModal();
       init_LiveYogaClassRoom();
+      init_AdminPortalSection();
+      init_InviteRegistrationModal();
       init_storage();
       init_audioEngine();
     }
@@ -60895,13 +62164,13 @@
   // src/index.jsx
   var require_index = __commonJS({
     "src/index.jsx"() {
-      var import_react23 = __toESM(require_react());
+      var import_react25 = __toESM(require_react());
       var import_client = __toESM(require_client());
       init_App();
       var container = document.getElementById("root");
       if (container) {
         const root = (0, import_client.createRoot)(container);
-        root.render(/* @__PURE__ */ import_react23.default.createElement(App, null));
+        root.render(/* @__PURE__ */ import_react25.default.createElement(App, null));
       }
     }
   });
@@ -60978,6 +62247,7 @@ lucide-react/dist/esm/icons/circle-alert.mjs:
 lucide-react/dist/esm/icons/circle-check-big.mjs:
 lucide-react/dist/esm/icons/circle-check.mjs:
 lucide-react/dist/esm/icons/clock.mjs:
+lucide-react/dist/esm/icons/copy.mjs:
 lucide-react/dist/esm/icons/crown.mjs:
 lucide-react/dist/esm/icons/external-link.mjs:
 lucide-react/dist/esm/icons/file-text.mjs:
@@ -60987,8 +62257,11 @@ lucide-react/dist/esm/icons/globe.mjs:
 lucide-react/dist/esm/icons/hand.mjs:
 lucide-react/dist/esm/icons/headphones.mjs:
 lucide-react/dist/esm/icons/house.mjs:
+lucide-react/dist/esm/icons/key.mjs:
 lucide-react/dist/esm/icons/layers.mjs:
 lucide-react/dist/esm/icons/link.mjs:
+lucide-react/dist/esm/icons/log-out.mjs:
+lucide-react/dist/esm/icons/mail.mjs:
 lucide-react/dist/esm/icons/maximize-2.mjs:
 lucide-react/dist/esm/icons/message-square.mjs:
 lucide-react/dist/esm/icons/mic-off.mjs:
@@ -60999,6 +62272,7 @@ lucide-react/dist/esm/icons/music.mjs:
 lucide-react/dist/esm/icons/pause.mjs:
 lucide-react/dist/esm/icons/pen-line.mjs:
 lucide-react/dist/esm/icons/phone-off.mjs:
+lucide-react/dist/esm/icons/phone.mjs:
 lucide-react/dist/esm/icons/play.mjs:
 lucide-react/dist/esm/icons/plus.mjs:
 lucide-react/dist/esm/icons/radio.mjs:

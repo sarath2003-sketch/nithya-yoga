@@ -11,7 +11,9 @@ import {
   Trash2,
   Check,
   Headphones,
-  Music2
+  Music2,
+  RefreshCw,
+  AlertCircle
 } from 'lucide-react';
 import { ThreeDMusic } from './ThreeDIcons';
 import { audioEngine } from '../utils/audioEngine';
@@ -21,7 +23,17 @@ export default function RelaxationZone({ lang = 'en' }) {
   const [subMode, setSubMode] = useState('curated'); // 'curated', 'upload', 'url'
   const [isPlaying, setIsPlaying] = useState(false);
   const [volume, setVolume] = useState(0.85);
-  const [playlist, setPlaylist] = useState(() => loadStorage('nithya_playlist', DEFAULT_PLAYLIST));
+  const [playlist, setPlaylist] = useState(() => {
+    const saved = loadStorage('nithya_playlist', DEFAULT_PLAYLIST);
+    if (Array.isArray(saved) && saved.length > 0) {
+      // Merge latest audioUrls from DEFAULT_PLAYLIST to prevent stale localStorage paths
+      return saved.map(t => {
+        const match = DEFAULT_PLAYLIST.find(d => d.id === t.id || d.title === t.title);
+        return match ? { ...match, ...t, audioUrl: match.audioUrl, ambientType: match.ambientType } : t;
+      });
+    }
+    return DEFAULT_PLAYLIST;
+  });
   const [currentIndex, setCurrentIndex] = useState(0);
 
   // In-card Upload state
@@ -33,8 +45,13 @@ export default function RelaxationZone({ lang = 'en' }) {
   const [urlTrackTitle, setUrlTrackTitle] = useState('');
   const [audioUrlInput, setAudioUrlInput] = useState('');
 
-  // Progress state
+  // Playback & Audio State
   const [playbackSeconds, setPlaybackSeconds] = useState(0);
+  const [durationSeconds, setDurationSeconds] = useState(0);
+  const [isAudioLoading, setIsAudioLoading] = useState(false);
+  const [audioError, setAudioError] = useState(null);
+
+  const audioRef = useRef(null);
 
   const currentTrack = playlist[currentIndex] || playlist[0] || {
     id: 'track-1',
@@ -49,82 +66,156 @@ export default function RelaxationZone({ lang = 'en' }) {
     saveStorage('nithya_playlist', playlist);
   }, [playlist]);
 
-  // Timer simulation for playback progress
+  // Clean up any audio or ambient synthesis on unmount
   useEffect(() => {
-    let interval = null;
-    if (isPlaying) {
-      interval = setInterval(() => {
-        setPlaybackSeconds(s => s + 1);
-      }, 1000);
-    } else {
-      clearInterval(interval);
-    }
-    return () => clearInterval(interval);
-  }, [isPlaying]);
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+      audioEngine.stopAllAmbient();
+    };
+  }, []);
 
   const formatSec = (sec) => {
+    if (!sec || isNaN(sec)) return '00:00';
     const m = Math.floor(sec / 60);
-    const s = sec % 60;
+    const s = Math.floor(sec % 60);
     return `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
   };
 
-  const playTrackAtIndex = (index) => {
+  const playTrackAtIndex = (index, autoPlay = true) => {
     if (index < 0 || index >= playlist.length) return;
     setCurrentIndex(index);
     setPlaybackSeconds(0);
-    const track = playlist[index];
+    setAudioError(null);
 
+    // Guarantee no overlapping ambient or previous track sounds
     audioEngine.stopAllAmbient();
 
-    if (track.audioUrl) {
-      audioEngine.playAudioFile(track.audioUrl, () => {
-        handleNext();
-      });
-    } else {
-      audioEngine.startAmbient(track.ambientType || 'bowl');
+    const track = playlist[index];
+    if (!track) return;
+
+    if (audioRef.current) {
+      if (track.audioUrl) {
+        audioRef.current.src = track.audioUrl;
+        audioRef.current.volume = volume;
+        if (autoPlay) {
+          setIsAudioLoading(true);
+          const playPromise = audioRef.current.play();
+          if (playPromise !== undefined) {
+            playPromise.then(() => {
+              setIsPlaying(true);
+              setIsAudioLoading(false);
+            }).catch(err => {
+              console.warn('Playback error or auto-play prevented:', err);
+              setIsAudioLoading(false);
+              // Fallback to Web Audio synth
+              if (track.ambientType) {
+                audioEngine.startAmbient(track.ambientType);
+                setIsPlaying(true);
+                setAudioError(lang === 'ta' ? 'சிந்தசைசர் ஒலி இயக்கப்படுகிறது' : 'Using ambient synthesizer');
+              }
+            });
+          }
+        }
+      } else if (track.ambientType) {
+        audioRef.current.pause();
+        audioRef.current.removeAttribute('src');
+        audioEngine.startAmbient(track.ambientType);
+        setIsPlaying(true);
+      }
     }
-    setIsPlaying(true);
   };
 
-  const togglePlay = (track) => {
-    if (track) {
-      const idx = playlist.findIndex(p => p.id === track.id || p.title === track.title);
+  const togglePlay = (targetTrack) => {
+    if (targetTrack) {
+      const idx = playlist.findIndex(p => p.id === targetTrack.id || p.title === targetTrack.title);
       if (idx !== -1) {
-        if (idx === currentIndex && isPlaying) {
-          handleStop();
+        if (idx === currentIndex) {
+          if (isPlaying) {
+            pauseAudio();
+          } else {
+            resumeAudio();
+          }
           return;
         }
-        playTrackAtIndex(idx);
+        playTrackAtIndex(idx, true);
         return;
       }
     }
 
     if (isPlaying) {
-      handleStop();
+      pauseAudio();
     } else {
-      playTrackAtIndex(currentIndex);
+      resumeAudio();
+    }
+  };
+
+  const pauseAudio = () => {
+    if (audioRef.current && !audioRef.current.paused) {
+      audioRef.current.pause();
+    }
+    audioEngine.stopAllAmbient();
+    setIsPlaying(false);
+  };
+
+  const resumeAudio = () => {
+    const track = playlist[currentIndex];
+    if (audioRef.current && track?.audioUrl) {
+      setIsAudioLoading(true);
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        setIsAudioLoading(false);
+        setAudioError(null);
+      }).catch(err => {
+        console.warn('Playback error on resume:', err);
+        setIsAudioLoading(false);
+        if (track?.ambientType) {
+          audioEngine.startAmbient(track.ambientType);
+          setIsPlaying(true);
+        }
+      });
+    } else if (track?.ambientType) {
+      audioEngine.startAmbient(track.ambientType);
+      setIsPlaying(true);
     }
   };
 
   const handleStop = () => {
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
     audioEngine.stopAllAmbient();
     setIsPlaying(false);
     setPlaybackSeconds(0);
+    setAudioError(null);
   };
 
   const handleNext = () => {
     const nextIdx = (currentIndex + 1) % playlist.length;
-    playTrackAtIndex(nextIdx);
+    playTrackAtIndex(nextIdx, true);
   };
 
   const handlePrev = () => {
     const prevIdx = (currentIndex - 1 + playlist.length) % playlist.length;
-    playTrackAtIndex(prevIdx);
+    playTrackAtIndex(prevIdx, true);
   };
 
   const handleVolumeChange = (newVol) => {
     setVolume(newVol);
+    if (audioRef.current) {
+      audioRef.current.volume = newVol;
+    }
     audioEngine.setVolume(newVol);
+  };
+
+  const handleSeek = (e) => {
+    const newSec = Number(e.target.value);
+    setPlaybackSeconds(newSec);
+    if (audioRef.current && durationSeconds > 0) {
+      audioRef.current.currentTime = newSec;
+    }
   };
 
   // Direct File Upload from card
@@ -156,12 +247,20 @@ export default function RelaxationZone({ lang = 'en' }) {
       isLocal: true
     };
 
-    setPlaylist(prev => [newTrack, ...prev]);
+    const newPlaylist = [newTrack, ...playlist];
+    setPlaylist(newPlaylist);
     setCurrentIndex(0);
     setPlaybackSeconds(0);
     audioEngine.stopAllAmbient();
-    audioEngine.playAudioFile(localDataUrl, () => handleNext());
-    setIsPlaying(true);
+
+    if (audioRef.current) {
+      audioRef.current.src = localDataUrl;
+      audioRef.current.volume = volume;
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        setIsAudioLoading(false);
+      }).catch(e => console.warn(e));
+    }
   };
 
   const handlePlayUrlNow = () => {
@@ -175,23 +274,65 @@ export default function RelaxationZone({ lang = 'en' }) {
       audioUrl: audioUrlInput.trim()
     };
 
-    setPlaylist(prev => [newTrack, ...prev]);
+    const newPlaylist = [newTrack, ...playlist];
+    setPlaylist(newPlaylist);
     setCurrentIndex(0);
     setPlaybackSeconds(0);
     audioEngine.stopAllAmbient();
-    audioEngine.playAudioFile(audioUrlInput.trim(), () => handleNext());
-    setIsPlaying(true);
-  };
 
-  const handleDeleteCurrentTrack = (id) => {
-    if (playlist.length <= 1) return;
-    setPlaylist(prev => prev.filter(t => t.id !== id));
-    setCurrentIndex(0);
-    handleStop();
+    if (audioRef.current) {
+      audioRef.current.src = audioUrlInput.trim();
+      audioRef.current.volume = volume;
+      audioRef.current.play().then(() => {
+        setIsPlaying(true);
+        setIsAudioLoading(false);
+      }).catch(e => {
+        console.warn(e);
+        setAudioError(lang === 'ta' ? 'URL ஆடியோவை ஏற்ற முடியவில்லை' : 'Could not stream audio URL');
+      });
+    }
   };
 
   return (
     <div className="dashboard-card relaxation-zone-card modern-zen-relaxation">
+      {/* Native HTML5 Audio Element */}
+      <audio
+        ref={audioRef}
+        preload="auto"
+        onTimeUpdate={(e) => {
+          setPlaybackSeconds(Math.floor(e.currentTarget.currentTime));
+          if (e.currentTarget.duration && !isNaN(e.currentTarget.duration)) {
+            setDurationSeconds(Math.floor(e.currentTarget.duration));
+          }
+        }}
+        onLoadedMetadata={(e) => {
+          if (e.currentTarget.duration && !isNaN(e.currentTarget.duration)) {
+            setDurationSeconds(Math.floor(e.currentTarget.duration));
+          }
+          setIsAudioLoading(false);
+        }}
+        onWaiting={() => setIsAudioLoading(true)}
+        onPlaying={() => {
+          setIsAudioLoading(false);
+          setIsPlaying(true);
+          setAudioError(null);
+        }}
+        onPause={() => setIsPlaying(false)}
+        onEnded={handleNext}
+        onError={() => {
+          setIsAudioLoading(false);
+          setIsPlaying(false);
+          const track = playlist[currentIndex];
+          if (track?.ambientType) {
+            audioEngine.startAmbient(track.ambientType);
+            setIsPlaying(true);
+            setAudioError(lang === 'ta' ? 'சிந்தசைசர் ஒலி இயக்கப்படுகிறது' : 'Ambient sound generator active');
+          } else {
+            setAudioError(lang === 'ta' ? 'ஆடியோ பிழை' : 'Playback error');
+          }
+        }}
+      />
+
       {/* Header with 3D Music Badge */}
       <div className="card-header-block flex justify-between items-center mb-3">
         <div className="flex items-center gap-2.5">
@@ -210,7 +351,7 @@ export default function RelaxationZone({ lang = 'en' }) {
         {isPlaying && (
           <div className="audio-playing-indicator-pill flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-subtle text-purple text-xs font-bold">
             <span className="live-dot-pulse">●</span>
-            <span>{lang === 'ta' ? 'ஒலிக்கிறது' : 'Playing'}</span>
+            <span>{isAudioLoading ? (lang === 'ta' ? 'ஏற்றுகிறது...' : 'Buffering...') : (lang === 'ta' ? 'ஒலிக்கிறது' : 'Playing')}</span>
           </div>
         )}
       </div>
@@ -248,17 +389,13 @@ export default function RelaxationZone({ lang = 'en' }) {
       {/* TAB CONTENT A: Curated Audio Grid */}
       {subMode === 'curated' && (
         <div className="curated-tracks-deck mb-3 space-y-2">
-          {/* Hero Track Card */}
+          {/* Hero Track Card: Featured Meditation */}
           <div 
             className="guided-meditation-box modern-sound-hero cursor-pointer relative overflow-hidden rounded-xl"
-            onClick={() => togglePlay({
-              id: 'track-2',
-              title: 'Guided Meditation',
-              titleTa: 'வழிகாட்டப்பட்ட தியானம்',
-              category: '10 min • Calm Mind',
-              categoryTa: '10 நிமிடம் • அமைதி மனம்',
-              ambientType: 'om'
-            })}
+            onClick={() => {
+              const track = playlist.find(t => t.id === 'track-2') || playlist[1];
+              togglePlay(track);
+            }}
           >
             <img 
               src="assets/images/meditation.jpg" 
@@ -284,21 +421,19 @@ export default function RelaxationZone({ lang = 'en' }) {
               className="meditation-play-circle" 
               aria-label="Play Meditation"
             >
-              {isPlaying && currentTrack.title.includes('Meditation') ? <Pause size={18} /> : <Play size={18} />}
+              {isPlaying && currentTrack.id === 'track-2' ? <Pause size={18} /> : <Play size={18} />}
             </button>
           </div>
 
-          {/* 3 Quick Audio Pills */}
-          <div className="audio-chips-row grid grid-cols-3 gap-2">
+          {/* 4 Quick Audio Pills: Pranayama, Singing Bowl, Sleep Zen, Peaceful Mind */}
+          <div className="audio-chips-row grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {/* 1. Pranayama */}
             <div 
-              className={`audio-chip-item chip-green cursor-pointer p-2 rounded-xl transition-all ${currentTrack.title.includes('Breathing') && isPlaying ? 'ring-2 ring-green' : ''}`}
-              onClick={() => togglePlay({
-                id: 'track-3',
-                title: 'Deep Breathing',
-                titleTa: 'ஆழ்ந்த சுவாசம்',
-                category: '5 min • Focus',
-                ambientType: 'music'
-              })}
+              className={`audio-chip-item chip-green cursor-pointer p-2 rounded-xl transition-all ${currentTrack.id === 'track-3' && isPlaying ? 'ring-2 ring-green' : ''}`}
+              onClick={() => {
+                const track = playlist.find(t => t.id === 'track-3') || playlist[2];
+                togglePlay(track);
+              }}
             >
               <div className="chip-meta">
                 <strong className="text-xs block">{lang === 'ta' ? 'சுவாசம்' : 'Pranayama'}</strong>
@@ -306,35 +441,45 @@ export default function RelaxationZone({ lang = 'en' }) {
               </div>
             </div>
 
+            {/* 2. Singing Bowl */}
             <div 
-              className={`audio-chip-item chip-purple cursor-pointer p-2 rounded-xl transition-all ${currentTrack.title.includes('Relaxing') && isPlaying ? 'ring-2 ring-purple' : ''}`}
-              onClick={() => togglePlay({
-                id: 'track-1',
-                title: 'Peaceful Mind',
-                titleTa: 'அமைதியான மனம்',
-                category: 'Relaxing Music',
-                ambientType: 'bowl'
-              })}
+              className={`audio-chip-item chip-purple cursor-pointer p-2 rounded-xl transition-all ${currentTrack.id === 'track-4' && isPlaying ? 'ring-2 ring-purple' : ''}`}
+              onClick={() => {
+                const track = playlist.find(t => t.id === 'track-4') || playlist[3];
+                togglePlay(track);
+              }}
             >
               <div className="chip-meta">
-                <strong className="text-xs block">{lang === 'ta' ? 'இசை' : 'Singing Bowl'}</strong>
+                <strong className="text-xs block">{lang === 'ta' ? 'பாடும் கிண்ணம்' : 'Singing Bowl'}</strong>
                 <small className="text-[10px] text-muted">Tibetan Resonant</small>
               </div>
             </div>
 
+            {/* 3. Sleep Zen */}
             <div 
-              className={`audio-chip-item chip-blue cursor-pointer p-2 rounded-xl transition-all ${currentTrack.title.includes('Sleep') && isPlaying ? 'ring-2 ring-blue' : ''}`}
-              onClick={() => togglePlay({
-                id: 'track-4',
-                title: 'Sleep Sounds',
-                titleTa: 'உறக்க ஒலிகள்',
-                category: '45 min • Good Sleep',
-                ambientType: 'rain'
-              })}
+              className={`audio-chip-item chip-blue cursor-pointer p-2 rounded-xl transition-all ${currentTrack.id === 'track-5' && isPlaying ? 'ring-2 ring-blue' : ''}`}
+              onClick={() => {
+                const track = playlist.find(t => t.id === 'track-5') || playlist[4];
+                togglePlay(track);
+              }}
             >
               <div className="chip-meta">
                 <strong className="text-xs block">{lang === 'ta' ? 'உறக்கம்' : 'Sleep Zen'}</strong>
                 <small className="text-[10px] text-muted">White Rain Waves</small>
+              </div>
+            </div>
+
+            {/* 4. Peaceful Mind */}
+            <div 
+              className={`audio-chip-item chip-amber cursor-pointer p-2 rounded-xl transition-all ${currentTrack.id === 'track-1' && isPlaying ? 'ring-2 ring-amber' : ''}`}
+              onClick={() => {
+                const track = playlist.find(t => t.id === 'track-1') || playlist[0];
+                togglePlay(track);
+              }}
+            >
+              <div className="chip-meta">
+                <strong className="text-xs block">{lang === 'ta' ? 'அமைதி மனம்' : 'Peaceful Mind'}</strong>
+                <small className="text-[10px] text-muted">Harmonic Balance</small>
               </div>
             </div>
           </div>
@@ -414,6 +559,14 @@ export default function RelaxationZone({ lang = 'en' }) {
         </div>
       )}
 
+      {/* Error notice if audio fails */}
+      {audioError && (
+        <div className="flex items-center gap-1.5 p-2 mb-2 rounded-lg bg-amber-500/10 border border-amber-500/20 text-amber-500 text-[11px]">
+          <AlertCircle size={13} className="flex-shrink-0" />
+          <span className="truncate">{audioError}</span>
+        </div>
+      )}
+
       {/* Modern Waveform Visualizer Bar */}
       <div className="player-waveform-visualizer-bar flex items-center justify-center gap-1 py-1.5 px-3 bg-card rounded-lg mb-2">
         {[40, 75, 55, 90, 60, 85, 45, 95, 70, 50, 80, 65].map((h, i) => (
@@ -427,8 +580,21 @@ export default function RelaxationZone({ lang = 'en' }) {
           />
         ))}
         <span className="text-[10px] text-muted ml-2 font-mono">
-          {isPlaying ? formatSec(playbackSeconds) : '00:00'}
+          {formatSec(playbackSeconds)} / {durationSeconds > 0 ? formatSec(durationSeconds) : (currentTrack.duration || '--:--')}
         </span>
+      </div>
+
+      {/* Interactive Progress Scrubber Slider */}
+      <div className="player-progress-container px-2 mb-2 flex items-center gap-2">
+        <input
+          type="range"
+          min="0"
+          max={durationSeconds > 0 ? durationSeconds : 180}
+          value={playbackSeconds}
+          onChange={handleSeek}
+          className="w-full h-1.5 bg-subtle rounded-lg appearance-none cursor-pointer accent-purple"
+          title={`${formatSec(playbackSeconds)} / ${durationSeconds > 0 ? formatSec(durationSeconds) : currentTrack.duration}`}
+        />
       </div>
 
       {/* Mini Music Player Dock */}
@@ -442,7 +608,9 @@ export default function RelaxationZone({ lang = 'en' }) {
               {lang === 'ta' && currentTrack.titleTa ? currentTrack.titleTa : currentTrack.title}
             </strong>
             <small className="text-[10px] text-muted block truncate">
-              {lang === 'ta' && currentTrack.categoryTa ? currentTrack.categoryTa : currentTrack.category}
+              {isAudioLoading 
+                ? (lang === 'ta' ? 'ஏற்றுகிறது...' : 'Buffering...')
+                : (lang === 'ta' && currentTrack.categoryTa ? currentTrack.categoryTa : currentTrack.category)}
             </small>
           </div>
         </div>
@@ -466,7 +634,13 @@ export default function RelaxationZone({ lang = 'en' }) {
             aria-label={isPlaying ? "Pause" : "Play"}
             title={isPlaying ? "Pause" : "Play"}
           >
-            {isPlaying ? <Pause size={14} /> : <Play size={14} />}
+            {isAudioLoading ? (
+              <RefreshCw size={14} className="animate-spin" />
+            ) : isPlaying ? (
+              <Pause size={14} />
+            ) : (
+              <Play size={14} />
+            )}
           </button>
 
           <button 

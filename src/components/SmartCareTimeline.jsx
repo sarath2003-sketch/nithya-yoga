@@ -200,25 +200,25 @@ export default function SmartCareTimeline({
             </div>
 
             <div className="card-inner-info mt-1">
-              <h4 className="care-card-title text-sm font-bold text-slate-800 m-0">
+              <h4 className="care-card-title text-sm font-bold m-0">
                 {lang === 'ta' && card.titleTa ? card.titleTa : card.title}
               </h4>
               
               <div className="care-card-time-row flex items-center gap-2 my-1">
                 <span className="care-time-text font-bold text-xs">{card.time}</span>
                 {card.enabled === false ? (
-                  <span className="care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full bg-slate-200/80 text-slate-500 font-semibold">
+                  <span className="care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full font-semibold">
                     {lang === 'ta' ? 'இடைநிறுத்தப்பட்டது' : 'Paused'}
                   </span>
                 ) : card.sound ? (
-                  <span className="care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full bg-white/60 text-slate-600 font-medium inline-flex items-center gap-1">
+                  <span className="care-sound-badge text-[10px] px-1.5 py-0.5 rounded-full font-medium inline-flex items-center gap-1">
                     <KitBell size={10} />
                     <span>{card.sound}</span>
                   </span>
                 ) : null}
               </div>
 
-              <p className="care-card-quote-text text-xs text-slate-600 m-0 line-clamp-2">
+              <p className="care-card-quote-text text-xs m-0 line-clamp-2">
                 {lang === 'ta' && card.messageTa ? card.messageTa : card.message}
               </p>
             </div>

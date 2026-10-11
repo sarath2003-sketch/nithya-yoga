@@ -224,7 +224,7 @@ export default function ReminderModal({
           </div>
 
           {/* Date and Time Row */}
-          <div className="form-row-2col grid grid-cols-2 gap-2 mb-2">
+          <div className="form-row-2col mb-2">
             <div className="form-field-unit">
               <label className="flex items-center gap-1.5 text-xs font-semibold text-muted mb-1">
                 <Calendar size={14} className="text-primary" />

@@ -1006,3 +1006,85 @@
     max-width: 280px;
   }
 }
+
+@media (max-width: 520px) {
+  .livekit-lobby-card {
+    padding: 24px 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .lobby-headline {
+    font-size: 1.15rem;
+    overflow-wrap: break-word;
+  }
+  .lobby-subtext {
+    font-size: 12px;
+    margin-bottom: 16px;
+    max-width: 100%;
+  }
+  .lobby-role-selector {
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
+    gap: 8px;
+  }
+  .role-card-btn {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+  }
+  .lobby-media-preview-row {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .media-check-toggle {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+  .btn-join-studio {
+    width: 100%;
+    max-width: 100%;
+    white-space: normal;
+    text-align: center;
+    padding: 10px 16px;
+    box-sizing: border-box;
+  }
+  .livekit-studio-header {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 10px;
+  }
+  .studio-header-center {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+  }
+  .livekit-controls-dock {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 6px;
+    gap: 4px;
+  }
+  .dock-control-btn {
+    padding: 6px;
+    min-width: 40px;
+  }
+}
+
+@media (max-width: 360px) {
+  .livekit-lobby-card {
+    padding: 16px 8px;
+  }
+  .lobby-artwork-wrap {
+    margin-bottom: 10px;
+  }
+  .lobby-headline {
+    font-size: 1.05rem;
+  }
+  .dock-control-btn .dock-label {
+    display: none;
+  }
+}

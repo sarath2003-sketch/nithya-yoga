@@ -81,6 +81,12 @@
   -webkit-tap-highlight-color: transparent;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
 body {
   background-color: var(--bg-app);
   color: var(--text-main);
@@ -89,6 +95,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  width: 100%;
 }
 
 button {
@@ -101,6 +108,8 @@ button {
 input, select, textarea {
   font-family: inherit;
   outline: none;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 /* ==========================================================================
@@ -110,12 +119,19 @@ input, select, textarea {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
 }
 
 .app-main-layout {
   display: grid;
   grid-template-columns: 240px 1fr;
   min-height: 100vh;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
 }
 
 /* ==========================================================================
@@ -594,7 +610,7 @@ input, select, textarea {
   .hero-right-visual-wrapper {
     width: 50%;
     opacity: 0.4;
-    right: -10px;
+    right: 0;
   }
 }
 
@@ -894,12 +910,27 @@ input, select, textarea {
 .care-card-time-row {
   display: flex;
   align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .care-time-text {
   font-size: 0.8rem;
   font-weight: 700;
   color: var(--text-sub);
+}
+
+.care-sound-badge {
+  background: var(--bg-subtle);
+  color: var(--text-muted);
+  border: 1px solid var(--border-light);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 500;
 }
 
 .care-card-quote-text {
@@ -929,6 +960,22 @@ input, select, textarea {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr) minmax(0, 1fr);
   gap: 20px;
   width: 100%;
+  max-width: 100%;
+}
+
+.grid-col {
+  min-width: 0;
+  max-width: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.col-quick-relax {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  min-width: 0;
+  max-width: 100%;
 }
 
 /* Col 1: Yoga Classes */
@@ -993,6 +1040,15 @@ input, select, textarea {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-wrap: wrap;
+}
+
+.tag-meta {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .bullet-sep {
@@ -2001,68 +2057,598 @@ input, select, textarea {
 }
 
 /* ==========================================================================
-   Responsive Adaptations (Tablet & Mobile-First)
+   Responsive Adaptations (320px, 360px, 375px, 390px, 430px, 768px, 1024px, 1280px)
    ========================================================================== */
+
+/* Utility: Fluid text wrapping and containment */
+.pill-filters-row {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.pill-filters-row::-webkit-scrollbar {
+  display: none;
+}
+.filter-pill-btn {
+  flex-shrink: 0;
+}
+.detail-field-row {
+  min-width: 0;
+  width: 100%;
+}
+.field-key-label {
+  flex-shrink: 0;
+  width: 60px;
+}
+.field-val-text {
+  min-width: 0;
+  flex: 1;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+.email-val {
+  overflow-wrap: anywhere;
+  word-break: break-all;
+}
+
+/* 1. Large Laptops / Desktops (max-width: 1280px) */
 @media (max-width: 1280px) {
   .hero-section-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
   .reminders-carousel-row {
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
   .dashboard-row-3-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   }
   .col-quick-relax {
     grid-column: span 2;
   }
   .dashboard-row-4-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
+/* 2. Small Laptops & Tablets Landscape (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .app-main-layout {
+    grid-template-columns: 200px 1fr;
+  }
+  .dashboard-top-header {
+    padding: 0 20px;
+  }
+  .dashboard-content-grid-wrapper {
+    padding: 20px 20px 70px;
+  }
+  .hero-content-body {
+    padding: 28px 24px;
+  }
+}
+
+/* 3. Tablets Portrait & Mobile Shell (max-width: 980px) */
 @media (max-width: 980px) {
   .app-main-layout {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
   }
   .app-sidebar-nav {
-    display: none;
+    display: none !important;
   }
   .mobile-bottom-nav {
     display: flex;
   }
+  .header-mobile-brand-wrap {
+    display: flex;
+  }
   .dashboard-top-header {
     padding: 0 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   .header-search-wrapper {
     display: none;
   }
   .dashboard-content-grid-wrapper {
     padding: 16px 16px 90px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
   .dashboard-row-3-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    width: 100%;
+    max-width: 100%;
   }
   .col-quick-relax {
     grid-column: span 1;
   }
+  .grid-col {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
 }
 
-@media (max-width: 640px) {
-  .reminders-carousel-row {
-    grid-template-columns: 1fr;
+/* 4. Tablets & Large Phablets (max-width: 768px) */
+@media (max-width: 768px) {
+  .dashboard-top-header {
+    padding: 0 14px;
+    height: 64px;
+    gap: 8px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
-  .user-stats-2x2-grid {
-    grid-template-columns: 1fr;
+  .header-tools-cluster {
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .user-greeting-meta {
+    display: none !important;
+  }
+  .header-user-badge {
+    padding: 3px 6px 3px 3px;
+    gap: 4px;
+  }
+  .header-tool-btn {
+    width: 34px;
+    height: 34px;
+  }
+  .lang-pill-btn {
+    height: 34px;
+    padding: 0 8px;
+    font-size: 0.72rem;
+    gap: 4px;
+  }
+  .dashboard-card {
+    padding: 18px 16px;
+  }
+  .hero-right-visual-wrapper {
+    width: 44%;
+    opacity: 0.35;
+    right: 0;
   }
   .progress-metrics-4row {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
   }
   .charts-split-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
   }
   .profile-content-split {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+  .live-split-footer {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .dedicated-admin-viewport,
+  .dedicated-live-class-viewport {
+    padding: 14px 12px 90px !important;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+}
+
+/* 5. Mobile Landscape & Standard Phones (max-width: 640px) */
+@media (max-width: 640px) {
+  .dashboard-content-grid-wrapper {
+    padding: 14px 14px 90px;
+    gap: 16px;
+  }
+  .dashboard-card {
+    padding: 16px;
+    border-radius: var(--radius-md);
+  }
+  .hero-content-body {
+    padding: 22px 18px;
+    max-width: 100%;
+    gap: 10px;
+  }
+  .hero-headline-title {
+    font-size: clamp(1.4rem, 5vw, 1.85rem);
+    line-height: 1.22;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .hero-supporting-sub {
+    font-size: 0.85rem;
+    line-height: 1.45;
+  }
+  .hero-right-visual-wrapper {
+    width: 46%;
+    max-width: 180px;
+    opacity: 0.28;
+    right: 0;
+  }
+  .hero-cta-buttons-row {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin-top: 6px;
+  }
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    width: 100%;
+    justify-content: center;
+    padding: 11px 18px;
+    text-align: center;
+    box-sizing: border-box;
+  }
+  .user-stats-2x2-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .stat-tile-box {
+    padding: 10px;
+    min-width: 0;
+  }
+  .stat-label {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .reminders-carousel-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .reminder-pastel-card {
+    padding: 14px;
+    min-width: 0;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .care-card-title,
+  .care-card-quote-text {
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .admin-subtabs {
+    flex-direction: column;
+    gap: 6px;
+    width: 100%;
+  }
+  .admin-subtabs button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* 6. Mobile Mid-Tier Screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .dashboard-content-grid-wrapper {
+    padding: 12px 12px 90px;
+    gap: 14px;
+  }
+  .dashboard-top-header {
+    padding: 0 10px;
+    height: 60px;
+    gap: 6px;
+  }
+  .header-mobile-brand-wrap {
+    gap: 6px;
+  }
+  .header-mobile-logo-img {
+    width: 30px;
+    height: 30px;
+  }
+  .header-mobile-title {
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+  .in-card-audio-tabs-row {
+    gap: 4px;
+    padding: 3px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .tab-pill-flex {
+    padding: 6px 4px;
+    font-size: 10px;
+    gap: 3px;
+    white-space: normal;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .audio-chips-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 6px !important;
+  }
+  .audio-chip-item {
+    padding: 8px 6px;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+  .audio-chip-item .chip-meta strong {
+    font-size: 11px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+  .mini-player-dock-bar {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 10px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .player-track-info {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+  .player-controls-cluster {
+    flex: 1;
+    justify-content: flex-start;
+    gap: 6px;
+  }
+  .player-volume-slider-wrap {
+    flex-shrink: 0;
+  }
+  .breathing-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+  .technique-pills-row {
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+  .technique-pills-row .pill-mini-btn {
+    flex: 1;
+    text-align: center;
+    padding: 4px 6px;
+    font-size: 10px;
+  }
+  .modal-bottom-sheet {
+    padding: 16px 14px;
+    border-radius: 20px;
+    max-height: 94vh;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .ya-modal-content {
+    padding: 16px 14px;
+    border-radius: 18px;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+  .form-row-2col {
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 10px;
+  }
+  .category-select-chips {
+    gap: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .cat-chip-btn {
+    padding: 5px 2px;
+    border-radius: 8px;
+  }
+  .cat-chip-btn span {
+    font-size: 9px;
+  }
+  .video-center-launcher-box {
+    width: calc(100% - 20px);
+    max-width: 320px;
+    padding: 0 8px;
+  }
+  .btn-launch-meet-gold {
+    font-size: 0.78rem;
+    padding: 8px 12px;
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    line-height: 1.25;
+  }
+  .video-class-meta-overlay {
+    top: 8px;
+    left: 8px;
+    padding: 3px 8px;
+  }
+  .video-timer-badge {
+    top: 8px;
+    right: 8px;
+    padding: 3px 8px;
+    font-size: 0.75rem;
+  }
+  .card-header-block {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    width: 100%;
+  }
+  .class-thumb-wrap {
+    width: 48px;
+    height: 48px;
+  }
+  .btn-join-live-pill {
+    font-size: 0.72rem;
+    padding: 5px 10px;
+  }
+}
+
+/* 7. Compact Screens (max-width: 390px - e.g. iPhone 12/13/14/15, Pixel) */
+@media (max-width: 390px) {
+  .hero-content-body {
+    padding: 18px 14px;
+  }
+  .hero-headline-title {
+    font-size: 1.3rem;
+  }
+  .quick-category-3d-row {
+    gap: 3px;
+  }
+  .category-preset-btn {
+    padding: 4px 2px;
+    border-radius: 8px;
+  }
+  .category-preset-btn span {
+    font-size: 8.5px;
+  }
+  .form-grid-2col {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+  .donut-chart-flex {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .notes-search-and-new-row {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+  }
+  .notes-search-and-new-row input,
+  .notes-search-and-new-row button {
+    width: 100%;
+  }
+  .user-stats-2x2-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+  .class-thumb-wrap {
+    width: 44px;
+    height: 44px;
+  }
+  .class-row-item {
+    gap: 8px;
+    padding: 8px 6px;
+  }
+}
+
+/* 8. Small Screens (max-width: 360px - Android Compact) */
+@media (max-width: 360px) {
+  .dashboard-content-grid-wrapper {
+    padding: 10px 8px 85px;
+  }
+  .dashboard-top-header {
+    padding: 0 8px;
+    height: 56px;
+    gap: 4px;
+  }
+  .header-mobile-brand-wrap {
+    gap: 4px;
+  }
+  .header-mobile-logo-img {
+    width: 26px;
+    height: 26px;
+  }
+  .header-mobile-title {
+    font-size: 0.88rem;
+  }
+  .header-tools-cluster {
+    gap: 3px;
+  }
+  .header-tool-btn {
+    width: 30px;
+    height: 30px;
+  }
+  .lang-pill-btn {
+    height: 30px;
+    padding: 0 5px;
+    font-size: 0.65rem;
+    gap: 2px;
+  }
+  .header-user-badge {
+    padding: 2px;
+  }
+  .user-avatar-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 0.75rem;
+  }
+  .progress-metrics-4row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+  }
+  .in-card-audio-tabs-row {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .tab-pill-flex {
+    width: 100%;
+    padding: 6px;
+    font-size: 10px;
+  }
+  .breathing-outer-aura {
+    width: 100px;
+    height: 100px;
+  }
+  .breathing-inner-orb {
+    width: 74px;
+    height: 74px;
+  }
+  .orb-phase-text {
+    font-size: 0.68rem;
+  }
+  .orb-timer-countdown {
+    font-size: 1.25rem;
+  }
+  .modal-bottom-sheet {
+    padding: 12px 8px;
+  }
+  .modal-actions-bar {
+    flex-direction: column-reverse;
+    gap: 6px;
+    width: 100%;
+  }
+  .modal-actions-bar button {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+  .mobile-bottom-nav {
+    padding: 4px 2px calc(4px + env(safe-area-inset-bottom, 0px));
+  }
+  .mobile-nav-btn {
+    font-size: 0.62rem;
+    gap: 1px;
+  }
+}
+
+/* 9. Extra Small Screens (max-width: 320px - e.g. iPhone SE 1st gen, Galaxy Fold outer) */
+@media (max-width: 320px) {
+  .dashboard-card {
+    padding: 12px 8px;
+  }
+  .hero-content-body {
+    padding: 14px 8px;
+  }
+  .btn-hero-primary,
+  .btn-hero-secondary {
+    font-size: 0.78rem;
+    padding: 9px 12px;
+  }
+  .card-title-main {
+    font-size: 0.95rem;
+  }
+  .section-heading-with-icon {
+    font-size: 1rem;
+  }
+  .class-row-item {
+    padding: 6px 4px;
+    gap: 6px;
+  }
+  .class-thumb-wrap {
+    width: 38px;
+    height: 38px;
+  }
+  .btn-join-live-pill {
+    font-size: 9.5px;
+    padding: 4px 6px;
   }
 }
 

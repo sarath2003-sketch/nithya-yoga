@@ -58899,7 +58899,7 @@
       setErrorMessage("");
       const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : "nithya-live-studio").toLowerCase().replace(/[^a-z0-9_-]/g, "-");
       const studentInfo = loadStorage("nithya_student_session", null);
-      const participantName2 = (studentInfo?.name || user2?.name || (isInstructorRole ? "NITHYA Master" : "Yoga Practitioner")).trim();
+      const participantName2 = (isInstructorRole ? "NITHYA Master" : studentInfo?.name || (user2?.name && user2.name !== "Kavitha Ram" && user2.name !== "Yoga Practitioner" && user2.name !== "NITHYA Master" ? user2.name : "Yoga Student")).trim();
       let connectedViaLiveKit = false;
       const hasBackend = Boolean(getApiBaseUrl()) || typeof window !== "undefined" && window.location.hostname === "localhost";
       if (hasBackend) {
@@ -59414,9 +59414,9 @@ ${url}`;
     const studentInfoForPresence = loadStorage("nithya_student_session", null);
     const localWebrtcParticipant = {
       identity: isInstructorRole ? "instructor-local" : studentInfoForPresence?.phone || user2?.id || "student-local",
-      name: isInstructorRole ? user2?.name || "NITHYA Master" : studentInfoForPresence?.name || user2?.name || "Yoga Student",
+      name: isInstructorRole ? "NITHYA Master" : studentInfoForPresence?.name || (user2?.name && user2.name !== "Kavitha Ram" && user2.name !== "Yoga Practitioner" && user2.name !== "NITHYA Master" ? user2.name : "Yoga Student"),
       role: isInstructorRole ? "instructor" : "student",
-      phone: studentInfoForPresence?.phone || user2?.phone || "",
+      phone: studentInfoForPresence?.phone || (isInstructorRole ? "" : user2?.phone || ""),
       stream: localStream,
       isLocal: true,
       isInstructor: isInstructorRole
@@ -63637,7 +63637,8 @@ ${liveUrl}`;
     const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react28.useState)(false);
     const [user2, setUser] = (0, import_react28.useState)(() => {
       const stored = loadStorage("nithya_user", null);
-      if (!stored || stored.name === "Yoga Practitioner" || stored.role === "Member") {
+      const isLegacyOrNotTrainer = !stored || stored.name === "Yoga Practitioner" || stored.name === "Kavitha Ram" || stored.role === "Member" || stored.role === "Verified Member" || stored.role !== "trainer";
+      if (isLegacyOrNotTrainer) {
         const defaultInstructor = {
           ...DEFAULT_USER,
           name: "NITHYA Master",

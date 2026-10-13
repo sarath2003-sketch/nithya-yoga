@@ -409,7 +409,9 @@ export default function LiveYogaClassRoom({
 
     const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : 'nithya-live-studio').toLowerCase().replace(/[^a-z0-9_-]/g, '-');
     const studentInfo = loadStorage('nithya_student_session', null);
-    const participantName = (studentInfo?.name || user?.name || (isInstructorRole ? 'NITHYA Master' : 'Yoga Practitioner')).trim();
+    const participantName = (isInstructorRole 
+      ? 'NITHYA Master' 
+      : (studentInfo?.name || (user?.name && user.name !== 'Kavitha Ram' && user.name !== 'Yoga Practitioner' && user.name !== 'NITHYA Master' ? user.name : 'Yoga Student'))).trim();
 
     let connectedViaLiveKit = false;
     const hasBackend = Boolean(getApiBaseUrl()) || (typeof window !== 'undefined' && window.location.hostname === 'localhost');
@@ -962,10 +964,10 @@ export default function LiveYogaClassRoom({
   const localWebrtcParticipant = {
     identity: isInstructorRole ? 'instructor-local' : (studentInfoForPresence?.phone || user?.id || 'student-local'),
     name: isInstructorRole 
-      ? (user?.name || 'NITHYA Master') 
-      : (studentInfoForPresence?.name || user?.name || 'Yoga Student'),
+      ? 'NITHYA Master' 
+      : (studentInfoForPresence?.name || (user?.name && user.name !== 'Kavitha Ram' && user.name !== 'Yoga Practitioner' && user.name !== 'NITHYA Master' ? user.name : 'Yoga Student')),
     role: isInstructorRole ? 'instructor' : 'student',
-    phone: studentInfoForPresence?.phone || user?.phone || '',
+    phone: studentInfoForPresence?.phone || (isInstructorRole ? '' : user?.phone || ''),
     stream: localStream,
     isLocal: true,
     isInstructor: isInstructorRole

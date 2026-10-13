@@ -62,7 +62,14 @@ export default function App() {
   // States - Default app owner is 👑 NITHYA Master (Instructor / Admin)
   const [user, setUser] = useState(() => {
     const stored = loadStorage('nithya_user', null);
-    if (!stored || stored.name === 'Yoga Practitioner' || stored.role === 'Member') {
+    const isLegacyOrNotTrainer = !stored || 
+      stored.name === 'Yoga Practitioner' || 
+      stored.name === 'Kavitha Ram' || 
+      stored.role === 'Member' || 
+      stored.role === 'Verified Member' || 
+      stored.role !== 'trainer';
+
+    if (isLegacyOrNotTrainer) {
       const defaultInstructor = {
         ...DEFAULT_USER,
         name: 'NITHYA Master',

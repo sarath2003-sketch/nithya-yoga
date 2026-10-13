@@ -15,8 +15,8 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
       duration: '60 min',
       level: 'Beginner',
       levelTa: 'தொடக்கநிலை',
-      instructor: 'Priya',
-      instructorTa: 'பிரியா',
+      instructor: 'NITHYA Master',
+      instructorTa: 'நித்யா மாஸ்டர்',
       desc: 'Build flexibility, alignment and deep breathing balance.',
       descTa: 'நெகிழ்வுத்தன்மையையும் சமநிலையையும் உருவாக்குங்கள்.',
       img: 'assets/images/class-hatha.svg'
@@ -28,8 +28,8 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
       duration: '60 min',
       level: 'Intermediate',
       levelTa: 'இடைநிலை',
-      instructor: 'Anu',
-      instructorTa: 'அனு',
+      instructor: 'NITHYA Master',
+      instructorTa: 'நித்யா மாஸ்டர்',
       desc: 'Dynamic breath-to-movement sequences for stamina.',
       descTa: 'வலிமையையும் சகிப்புத்தன்மையையும் மேம்படுத்துங்கள்.',
       img: 'assets/images/class-vinyasa.svg'
@@ -41,8 +41,8 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
       duration: '75 min',
       level: 'Advanced',
       levelTa: 'முதிர்ந்த நிலை',
-      instructor: 'Meena',
-      instructorTa: 'மீனா',
+      instructor: 'NITHYA Master',
+      instructorTa: 'நித்யா மாஸ்டர்',
       desc: 'High energy core activation and cardiovascular heat.',
       descTa: 'ஆற்றலையும் கவனத்தையும் அதிகரியுங்கள்.',
       img: 'assets/images/class-power.svg'
@@ -54,8 +54,8 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
       duration: '50 min',
       level: 'All Levels',
       levelTa: 'அனைத்து நிலைகளும்',
-      instructor: 'Lakshmi',
-      instructorTa: 'லட்சுமி',
+      instructor: 'NITHYA Master',
+      instructorTa: 'நித்யா மாஸ்டர்',
       desc: 'Deep restorative fascia relaxation and meditative stillness.',
       descTa: 'ஆழ்ந்த ஓய்வும் நெகிழ்வுத்தன்மையும்.',
       img: 'assets/images/class-yin.svg'

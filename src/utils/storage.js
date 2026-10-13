@@ -1,15 +1,15 @@
 // LocalStorage Persistence Layer for NITHYA Yoga & Wellness
 
 export const DEFAULT_USER = {
-  name: "Sarah",
-  role: "Yoga Enthusiast",
-  email: "sarah@gmail.com",
+  name: "Yoga Practitioner",
+  role: "Member",
+  email: "member@nithyayoga.com",
   age: 28,
   goal: "Better Health & Peace",
-  joined: "Oct 1, 2026",
-  classesAttended: 12,
-  attendanceRate: 85,
-  dayStreak: 7,
+  joined: "Oct 2026",
+  classesAttended: 0,
+  attendanceRate: 0,
+  dayStreak: 0,
   level: "Beginner",
   avatar: "" // Supports Base64 data URL from file upload
 };
@@ -92,13 +92,13 @@ export const DEFAULT_CLASSES = [
     id: "cls-1",
     name: "Hatha Yoga",
     title: "Hatha Yoga",
-    instructor: "Priya",
+    instructor: "NITHYA Master",
     duration: 60,
     level: "Beginner",
     time: "06:00 AM",
     date: "2026-10-09",
     description: "Build flexibility, gentle core stability and natural balance.",
-    attended: true,
+    attended: false,
     category: "Beginner",
     meetUrl: "https://meet.google.com/new"
   },
@@ -106,13 +106,13 @@ export const DEFAULT_CLASSES = [
     id: "cls-2",
     name: "Vinyasa Flow",
     title: "Vinyasa Flow",
-    instructor: "Anu",
+    instructor: "NITHYA Master",
     duration: 60,
     level: "Intermediate",
     time: "08:30 AM",
     date: "2026-10-09",
     description: "Improve stamina, breath synchronicity and fluid motion.",
-    attended: true,
+    attended: false,
     category: "Intermediate",
     meetUrl: "https://meet.google.com/new"
   },
@@ -120,7 +120,7 @@ export const DEFAULT_CLASSES = [
     id: "cls-3",
     name: "Power Yoga",
     title: "Power Yoga",
-    instructor: "Meena",
+    instructor: "NITHYA Master",
     duration: 75,
     level: "Advanced",
     time: "04:30 PM",
@@ -134,7 +134,7 @@ export const DEFAULT_CLASSES = [
     id: "cls-4",
     name: "Yin Yoga",
     title: "Yin Yoga",
-    instructor: "Lakshmi",
+    instructor: "NITHYA Master",
     duration: 50,
     level: "All Levels",
     time: "06:00 PM",
@@ -148,13 +148,13 @@ export const DEFAULT_CLASSES = [
     id: "cls-5",
     name: "Pranayama & Breathwork",
     title: "Pranayama & Breathwork",
-    instructor: "Nithya",
+    instructor: "NITHYA Master",
     duration: 35,
     level: "All Levels",
     time: "07:30 PM",
     date: "2026-10-09",
     description: "Ancient breath regulation for deep nervous system calming.",
-    attended: true,
+    attended: false,
     category: "Beginner",
     meetUrl: "https://meet.google.com/new"
   }
@@ -253,41 +253,7 @@ export const DEFAULT_PLAYLIST = [
   }
 ];
 
-export const DEFAULT_ATTENDANCE_LOGS = [
-  {
-    id: "att-1",
-    studentName: "Sarah",
-    classId: "cls-1",
-    className: "Hatha Yoga",
-    instructor: "Priya",
-    date: "2026-10-08",
-    durationMinutes: 60,
-    status: "Verified",
-    timestamp: "2026-10-08T06:00:00.000Z"
-  },
-  {
-    id: "att-2",
-    studentName: "Sarah",
-    classId: "cls-2",
-    className: "Vinyasa Flow",
-    instructor: "Anu",
-    date: "2026-10-07",
-    durationMinutes: 60,
-    status: "Verified",
-    timestamp: "2026-10-07T08:30:00.000Z"
-  },
-  {
-    id: "att-3",
-    studentName: "Sarah",
-    classId: "cls-5",
-    className: "Pranayama & Breathwork",
-    instructor: "Nithya",
-    date: "2026-10-05",
-    durationMinutes: 35,
-    status: "Verified",
-    timestamp: "2026-10-05T19:30:00.000Z"
-  }
-];
+export const DEFAULT_ATTENDANCE_LOGS = [];
 
 export function loadStorage(key, fallback) {
   try {

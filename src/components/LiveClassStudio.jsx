@@ -21,6 +21,7 @@ import {
   Award
 } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
+import { getProductionLiveUrl } from '../utils/api';
 import LiveYogaClassRoom from './LiveYogaClassRoom';
 
 export default function LiveClassStudio({
@@ -119,16 +120,18 @@ export default function LiveClassStudio({
   };
 
   const handleCopyLiveLink = () => {
-    const link = `${window.location.origin}${window.location.pathname}?live=${activeClass?.id || 'cls-1'}`;
+    const link = getProductionLiveUrl(activeClass?.id || 'cls-1');
     navigator.clipboard.writeText(link).then(() => {
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2500);
       audioEngine.playSoftBell();
-    }).catch(() => {});
+    }).catch(() => {
+      prompt('Copy class link:', link);
+    });
   };
 
   const handleWhatsAppShare = () => {
-    const link = `${window.location.origin}${window.location.pathname}?live=${activeClass?.id || 'cls-1'}`;
+    const link = getProductionLiveUrl(activeClass?.id || 'cls-1');
     const text = encodeURIComponent(
       lang === 'ta'
         ? `வணக்கம்! NITHYA யோகா நேரலை வகுப்பில் இணையுங்கள்: ${activeClass?.title || activeClass?.name || 'Live Class'}\nஇணைய இந்த லிங்க்கை கிளிக் செய்யவும்: ${link}`

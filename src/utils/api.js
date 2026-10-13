@@ -133,3 +133,41 @@ export async function apiFetch(endpoint, options = {}) {
 
   return await response.json();
 }
+
+/**
+ * Resolves a shareable, publicly accessible live class URL.
+ * Automatically handles Capacitor Android/iOS apps (where window.location is localhost),
+ * localhost testing, and GitHub Pages deployments.
+ */
+export function getProductionLiveUrl(classId = 'cls-1', extraParams = {}) {
+  const PRODUCTION_BASE = 'https://sarath2003-sketch.github.io/nithya-yoga/';
+
+  let originBase = PRODUCTION_BASE;
+
+  if (typeof window !== 'undefined' && window.location) {
+    const isCapacitorOrLocal = 
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      window.location.origin?.includes('localhost') ||
+      window.location.protocol === 'capacitor:' ||
+      window.location.protocol === 'file:';
+
+    if (!isCapacitorOrLocal && window.location.origin && window.location.origin.startsWith('http')) {
+      originBase = `${window.location.origin}${window.location.pathname}`;
+    }
+  }
+
+  if (!originBase.endsWith('/') && !originBase.includes('?')) {
+    originBase += '/';
+  }
+
+  const url = new URL(originBase.startsWith('http') ? originBase : PRODUCTION_BASE);
+  url.searchParams.set('live', classId);
+
+  Object.entries(extraParams).forEach(([k, v]) => {
+    if (v) url.searchParams.set(k, v);
+  });
+
+  return url.toString();
+}
+

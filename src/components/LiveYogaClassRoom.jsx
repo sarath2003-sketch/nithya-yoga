@@ -38,7 +38,7 @@ import {
 } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus, ThreeDBell, ThreeDHeart } from './ThreeDIcons';
-import { apiFetch, getApiBaseUrl, setApiBaseUrl } from '../utils/api';
+import { apiFetch, getApiBaseUrl, setApiBaseUrl, getProductionLiveUrl } from '../utils/api';
 import { loadStorage, saveStorage } from '../utils/storage';
 
 // Single Participant Video Tile with real track attachment
@@ -770,10 +770,10 @@ export default function LiveYogaClassRoom({
     }
   };
 
-  // Generate shareable live class link
+  // Generate shareable live class link (uses production URL when in mobile app or localhost)
   const getShareableClassLink = () => {
     const classId = activeClass?.id || 'cls-1';
-    return `${window.location.origin}${window.location.pathname}?live=${classId}`;
+    return getProductionLiveUrl(classId);
   };
 
   // Phase 4: Copy link with feedback
@@ -1119,27 +1119,30 @@ export default function LiveYogaClassRoom({
               </button>
             </div>
 
-            {/* Share Live Link Box in Lobby */}
-            <div className="lobby-share-box mt-3 p-3 rounded-xl bg-subtle/50 border border-subtle flex items-center justify-between gap-2 flex-wrap">
-              <span className="text-xs text-muted font-medium">
-                {lang === 'ta' ? 'வகுப்பு அழைப்பு லிங்க்:' : 'Share class link with students:'}
+            {/* Share Live Link Box in Lobby (High Contrast & Clear Visibility) */}
+            <div className="lobby-share-box mt-3 text-left">
+              <span className="lobby-share-label">
+                {lang === 'ta' ? '🔗 நேரலை வகுப்பு அழைப்பு லிங்க் (மாணவர்களுடன் பகிர):' : '🔗 Share Class Link with Students (Live Link):'}
               </span>
-              <div className="flex items-center gap-2">
+              <div className="share-link-pill mb-2 select-all">
+                {getShareableClassLink()}
+              </div>
+              <div className="flex items-center gap-2 flex-wrap pt-1">
                 <button
                   type="button"
-                  className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5"
+                  className="ya-btn ya-btn--primary text-xs px-3 py-1.5 flex items-center gap-1.5 font-bold cursor-pointer"
                   onClick={handleCopyShareLink}
                 >
-                  {copiedLink ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} />}
-                  <span>{copiedLink ? 'Copied!' : 'Copy Link'}</span>
+                  {copiedLink ? <Check size={14} className="text-white" /> : <Copy size={14} />}
+                  <span>{copiedLink ? (lang === 'ta' ? 'நகலெடுக்கப்பட்டது!' : 'Copied!') : (lang === 'ta' ? 'லிங்க் நகலெடு' : 'Copy Live Link')}</span>
                 </button>
                 <button
                   type="button"
-                  className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5 text-emerald-600"
+                  className="ya-btn text-xs px-3 py-1.5 flex items-center gap-1.5 font-bold cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white"
                   onClick={handleWhatsAppShare}
                 >
-                  <Share2 size={13} />
-                  <span>WhatsApp</span>
+                  <Share2 size={14} />
+                  <span>{lang === 'ta' ? 'வாட்ஸ்அப்பில் பகிர்' : 'Share on WhatsApp'}</span>
                 </button>
               </div>
             </div>

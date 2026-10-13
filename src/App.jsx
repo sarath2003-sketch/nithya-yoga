@@ -98,6 +98,13 @@ export default function App() {
     saveStorage('nithya_attendance', attendanceLogs);
   }, [attendanceLogs]);
 
+  // Pre-request notification permission on mount
+  useEffect(() => {
+    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default') {
+      try { Notification.requestPermission().catch(() => {}); } catch (_) {}
+    }
+  }, []);
+
   // Active reminder scheduler loop - checks device clock & triggers alarms without duplicates
   const firedRemindersRef = useRef(new Set());
 
@@ -158,11 +165,15 @@ export default function App() {
 
         firedRemindersRef.current.add(fireKey);
 
-        // 1. Play repeating alarm chime
+        // 1. Play repeating alarm chime & mobile hardware vibration
         if (r.customAudioUrl) {
           audioEngine.playAudioFile(r.customAudioUrl);
         } else {
           audioEngine.playAlarmChime();
+        }
+
+        if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+          try { navigator.vibrate([400, 200, 400, 200, 400]); } catch (_) {}
         }
 
         // 2. Set active in-app ringing alarm modal

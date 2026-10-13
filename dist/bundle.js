@@ -25710,14 +25710,7 @@
         alt: "Yoga & Wellness Chakra Meditation",
         className: "hero-img-cover"
       }
-    ), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-gradient-overlay" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-right-visual-wrapper" }, /* @__PURE__ */ import_react8.default.createElement(
-      "img",
-      {
-        src: "assets/images/chakra-meditation.jpg",
-        alt: "7 Chakras Meditation",
-        className: "hero-chakra-visual-img"
-      }
-    )), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-content-body" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "hero-headline-title" }, /* @__PURE__ */ import_react8.default.createElement("span", null, "Move \u2022 Breathe \u2022"), /* @__PURE__ */ import_react8.default.createElement("br", null), /* @__PURE__ */ import_react8.default.createElement("span", null, "Remember \u2022 Relax")), /* @__PURE__ */ import_react8.default.createElement("p", { className: "hero-supporting-sub" }, lang === "ta" ? "\u0B92\u0BB5\u0BCD\u0BB5\u0BCA\u0BB0\u0BC1 \u0BA8\u0BBE\u0BB3\u0BC1\u0BAE\u0BCD \u0B8E\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC8\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B9A\u0BBF\u0BB1\u0BBF\u0BAF \u0B85\u0B9F\u0BBF\u0B95\u0BB3\u0BCD, \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD." : "Small steps every day lead to a healthier and happier you."), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-cta-buttons-row" }, /* @__PURE__ */ import_react8.default.createElement(
+    ), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-gradient-overlay" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-content-body" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "hero-headline-title" }, /* @__PURE__ */ import_react8.default.createElement("span", null, "Move \u2022 Breathe \u2022"), /* @__PURE__ */ import_react8.default.createElement("br", null), /* @__PURE__ */ import_react8.default.createElement("span", null, "Remember \u2022 Relax")), /* @__PURE__ */ import_react8.default.createElement("p", { className: "hero-supporting-sub" }, lang === "ta" ? "\u0B92\u0BB5\u0BCD\u0BB5\u0BCA\u0BB0\u0BC1 \u0BA8\u0BBE\u0BB3\u0BC1\u0BAE\u0BCD \u0B8E\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC8\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B9A\u0BBF\u0BB1\u0BBF\u0BAF \u0B85\u0B9F\u0BBF\u0B95\u0BB3\u0BCD, \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD." : "Small steps every day lead to a healthier and happier you."), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-cta-buttons-row" }, /* @__PURE__ */ import_react8.default.createElement(
       "button",
       {
         type: "button",
@@ -26599,6 +26592,127 @@
       init_lucide_react();
       init_ThreeDIcons();
       init_audioEngine();
+    }
+  });
+
+  // src/utils/api.js
+  function getApiBaseUrl() {
+    const storedUrl = localStorage.getItem("nithya_backend_url");
+    if (storedUrl && storedUrl.trim()) {
+      return storedUrl.trim().replace(/\/+$/, "");
+    }
+    if (typeof window !== "undefined" && window.__NITHYA_API_URL__) {
+      return window.__NITHYA_API_URL__.replace(/\/+$/, "");
+    }
+    if (typeof window !== "undefined" && window.location.hostname.includes("github.io")) {
+      return "";
+    }
+    return "";
+  }
+  function setApiBaseUrl(url) {
+    if (!url || !url.trim()) {
+      localStorage.removeItem("nithya_backend_url");
+    } else {
+      localStorage.setItem("nithya_backend_url", url.trim().replace(/\/+$/, ""));
+    }
+  }
+  async function apiFetch(endpoint, options = {}) {
+    const baseUrl = getApiBaseUrl();
+    const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
+    const fullUrl = baseUrl ? `${baseUrl}${cleanEndpoint}` : cleanEndpoint;
+    const defaultHeaders = {
+      "Accept": "application/json"
+    };
+    if (options.body && typeof options.body === "string" && !options.headers?.["Content-Type"]) {
+      defaultHeaders["Content-Type"] = "application/json";
+    }
+    const mergedHeaders = {
+      ...defaultHeaders,
+      ...options.headers || {}
+    };
+    let response;
+    try {
+      response = await fetch(fullUrl, {
+        ...options,
+        headers: mergedHeaders
+      });
+    } catch (networkErr) {
+      throw new Error(
+        `Cannot connect to backend server at ${fullUrl || window.location.origin}. Please verify that the server is online and reachable.`
+      );
+    }
+    const contentType = response.headers.get("content-type") || "";
+    if (response.status === 404 || contentType.includes("text/html")) {
+      const isGitHubPages = typeof window !== "undefined" && window.location.hostname.includes("github.io");
+      if (isGitHubPages && !baseUrl) {
+        throw new Error(
+          `Backend server not configured. GitHub Pages is a static host and does not run a Node.js backend. Please open LiveKit Settings and enter your hosted backend API URL (e.g. from Render or Railway).`
+        );
+      }
+      throw new Error(
+        `API endpoint "${cleanEndpoint}" not found on ${baseUrl || window.location.origin} (HTTP 404). Check your backend URL configuration.`
+      );
+    }
+    if (!response.ok) {
+      let errorMessage = `Server error (HTTP ${response.status})`;
+      if (contentType.includes("application/json")) {
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } catch (_2) {
+        }
+      } else {
+        try {
+          const textData = await response.text();
+          if (textData && !textData.startsWith("<")) {
+            errorMessage = textData;
+          }
+        } catch (_2) {
+        }
+      }
+      const err = new Error(errorMessage);
+      err.status = response.status;
+      if (response.status === 405 || response.status === 404) {
+        err.isStaticHost = typeof window !== "undefined" && window.location.hostname.includes("github.io");
+      }
+      throw err;
+    }
+    if (!contentType.includes("application/json")) {
+      const rawText = await response.text();
+      if (rawText.startsWith("<!DOCTYPE") || rawText.startsWith("<html")) {
+        throw new Error(
+          `Received HTML instead of JSON from ${fullUrl}. Ensure your backend server is deployed and correctly mapped.`
+        );
+      }
+      try {
+        return JSON.parse(rawText);
+      } catch (_2) {
+        throw new Error(`Unexpected non-JSON response from server: ${rawText.slice(0, 120)}`);
+      }
+    }
+    return await response.json();
+  }
+  function getProductionLiveUrl(classId = "cls-1", extraParams = {}) {
+    const PRODUCTION_BASE = "https://sarath2003-sketch.github.io/nithya-yoga/";
+    let originBase = PRODUCTION_BASE;
+    if (typeof window !== "undefined" && window.location) {
+      const isCapacitorOrLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.origin?.includes("localhost") || window.location.protocol === "capacitor:" || window.location.protocol === "file:";
+      if (!isCapacitorOrLocal && window.location.origin && window.location.origin.startsWith("http")) {
+        originBase = `${window.location.origin}${window.location.pathname}`;
+      }
+    }
+    if (!originBase.endsWith("/") && !originBase.includes("?")) {
+      originBase += "/";
+    }
+    const url = new URL(originBase.startsWith("http") ? originBase : PRODUCTION_BASE);
+    url.searchParams.set("live", classId);
+    Object.entries(extraParams).forEach(([k, v]) => {
+      if (v) url.searchParams.set(k, v);
+    });
+    return url.toString();
+  }
+  var init_api = __esm({
+    "src/utils/api.js"() {
     }
   });
 
@@ -58200,108 +58314,6 @@
     }
   });
 
-  // src/utils/api.js
-  function getApiBaseUrl() {
-    const storedUrl = localStorage.getItem("nithya_backend_url");
-    if (storedUrl && storedUrl.trim()) {
-      return storedUrl.trim().replace(/\/+$/, "");
-    }
-    if (typeof window !== "undefined" && window.__NITHYA_API_URL__) {
-      return window.__NITHYA_API_URL__.replace(/\/+$/, "");
-    }
-    if (typeof window !== "undefined" && window.location.hostname.includes("github.io")) {
-      return "";
-    }
-    return "";
-  }
-  function setApiBaseUrl(url) {
-    if (!url || !url.trim()) {
-      localStorage.removeItem("nithya_backend_url");
-    } else {
-      localStorage.setItem("nithya_backend_url", url.trim().replace(/\/+$/, ""));
-    }
-  }
-  async function apiFetch(endpoint, options = {}) {
-    const baseUrl = getApiBaseUrl();
-    const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
-    const fullUrl = baseUrl ? `${baseUrl}${cleanEndpoint}` : cleanEndpoint;
-    const defaultHeaders = {
-      "Accept": "application/json"
-    };
-    if (options.body && typeof options.body === "string" && !options.headers?.["Content-Type"]) {
-      defaultHeaders["Content-Type"] = "application/json";
-    }
-    const mergedHeaders = {
-      ...defaultHeaders,
-      ...options.headers || {}
-    };
-    let response;
-    try {
-      response = await fetch(fullUrl, {
-        ...options,
-        headers: mergedHeaders
-      });
-    } catch (networkErr) {
-      throw new Error(
-        `Cannot connect to backend server at ${fullUrl || window.location.origin}. Please verify that the server is online and reachable.`
-      );
-    }
-    const contentType = response.headers.get("content-type") || "";
-    if (response.status === 404 || contentType.includes("text/html")) {
-      const isGitHubPages = typeof window !== "undefined" && window.location.hostname.includes("github.io");
-      if (isGitHubPages && !baseUrl) {
-        throw new Error(
-          `Backend server not configured. GitHub Pages is a static host and does not run a Node.js backend. Please open LiveKit Settings and enter your hosted backend API URL (e.g. from Render or Railway).`
-        );
-      }
-      throw new Error(
-        `API endpoint "${cleanEndpoint}" not found on ${baseUrl || window.location.origin} (HTTP 404). Check your backend URL configuration.`
-      );
-    }
-    if (!response.ok) {
-      let errorMessage = `Server error (HTTP ${response.status})`;
-      if (contentType.includes("application/json")) {
-        try {
-          const errorData = await response.json();
-          errorMessage = errorData.error || errorData.message || errorMessage;
-        } catch (_2) {
-        }
-      } else {
-        try {
-          const textData = await response.text();
-          if (textData && !textData.startsWith("<")) {
-            errorMessage = textData;
-          }
-        } catch (_2) {
-        }
-      }
-      const err = new Error(errorMessage);
-      err.status = response.status;
-      if (response.status === 405 || response.status === 404) {
-        err.isStaticHost = typeof window !== "undefined" && window.location.hostname.includes("github.io");
-      }
-      throw err;
-    }
-    if (!contentType.includes("application/json")) {
-      const rawText = await response.text();
-      if (rawText.startsWith("<!DOCTYPE") || rawText.startsWith("<html")) {
-        throw new Error(
-          `Received HTML instead of JSON from ${fullUrl}. Ensure your backend server is deployed and correctly mapped.`
-        );
-      }
-      try {
-        return JSON.parse(rawText);
-      } catch (_2) {
-        throw new Error(`Unexpected non-JSON response from server: ${rawText.slice(0, 120)}`);
-      }
-    }
-    return await response.json();
-  }
-  var init_api = __esm({
-    "src/utils/api.js"() {
-    }
-  });
-
   // src/utils/storage.js
   function loadStorage(key, fallback2) {
     try {
@@ -59179,7 +59191,7 @@
     };
     const getShareableClassLink = () => {
       const classId = activeClass?.id || "cls-1";
-      return `${window.location.origin}${window.location.pathname}?live=${classId}`;
+      return getProductionLiveUrl(classId);
     };
     const handleCopyShareLink = () => {
       const url = getShareableClassLink();
@@ -59410,24 +59422,24 @@ ${url}`;
       },
       /* @__PURE__ */ import_react11.default.createElement(Radio, { size: 16 }),
       /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Enter Live Yoga Room")
-    )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "lobby-share-box mt-3 p-3 rounded-xl bg-subtle/50 border border-subtle flex items-center justify-between gap-2 flex-wrap" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD:" : "Share class link with students:"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement(
+    )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "lobby-share-box mt-3 text-left" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "lobby-share-label" }, lang === "ta" ? "\u{1F517} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD (\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BAA\u0B95\u0BBF\u0BB0):" : "\u{1F517} Share Class Link with Students (Live Link):"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "share-link-pill mb-2 select-all" }, getShareableClassLink()), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2 flex-wrap pt-1" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5",
+        className: "ya-btn ya-btn--primary text-xs px-3 py-1.5 flex items-center gap-1.5 font-bold cursor-pointer",
         onClick: handleCopyShareLink
       },
-      copiedLink ? /* @__PURE__ */ import_react11.default.createElement(Check, { size: 13, className: "text-emerald-500" }) : /* @__PURE__ */ import_react11.default.createElement(Copy, { size: 13 }),
-      /* @__PURE__ */ import_react11.default.createElement("span", null, copiedLink ? "Copied!" : "Copy Link")
+      copiedLink ? /* @__PURE__ */ import_react11.default.createElement(Check, { size: 14, className: "text-white" }) : /* @__PURE__ */ import_react11.default.createElement(Copy, { size: 14 }),
+      /* @__PURE__ */ import_react11.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Copied!" : lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1" : "Copy Live Link")
     ), /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5 text-emerald-600",
+        className: "ya-btn text-xs px-3 py-1.5 flex items-center gap-1.5 font-bold cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white",
         onClick: handleWhatsAppShare
       },
-      /* @__PURE__ */ import_react11.default.createElement(Share2, { size: 13 }),
-      /* @__PURE__ */ import_react11.default.createElement("span", null, "WhatsApp")
+      /* @__PURE__ */ import_react11.default.createElement(Share2, { size: 14 }),
+      /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BCD" : "Share on WhatsApp")
     ))), needsSetup && /* @__PURE__ */ import_react11.default.createElement("div", { className: "needs-config-banner", onClick: () => setShowConfigModal(true) }, /* @__PURE__ */ import_react11.default.createElement(CircleAlert, { size: 15 }), /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BA8\u0BB1\u0BCD\u0B9A\u0BBE\u0BA9\u0BCD\u0BB1\u0BBF\u0BA4\u0BB4\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BAE\u0BC8\u0B95\u0BCD\u0B95 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "LiveKit server credentials needed \u2014 Click here to configure."))), connectionState === "connecting" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-loading-state" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "spinner-lotus-wrap" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "outer-pulse-ring" }), /* @__PURE__ */ import_react11.default.createElement(ThreeDLotus, { size: 52 })), /* @__PURE__ */ import_react11.default.createElement("h4", { className: "loading-title" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to LiveKit WebRTC Studio..."), /* @__PURE__ */ import_react11.default.createElement("p", { className: "loading-sub" }, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0BA9 \u0B9F\u0BCB\u0B95\u0BCD\u0B95\u0BA9\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1 & \u0B86\u0B9F\u0BBF\u0BAF\u0BCB/\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAA\u0BB0\u0BBF\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Negotiating secure media channels & joining room...")), connectionState === "error" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-error-state" }, /* @__PURE__ */ import_react11.default.createElement(CircleAlert, { size: 42, className: "error-icon" }), /* @__PURE__ */ import_react11.default.createElement("h4", { className: "error-heading" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF" : "Connection Failed"), /* @__PURE__ */ import_react11.default.createElement("p", { className: "error-detail-text" }, errorMessage), /* @__PURE__ */ import_react11.default.createElement("div", { className: "error-actions-row" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
@@ -59833,16 +59845,17 @@ Verified WebRTC Attendance Session`;
       window.open(meetUrl, "_blank", "noopener,noreferrer");
     };
     const handleCopyLiveLink = () => {
-      const link = `${window.location.origin}${window.location.pathname}?live=${activeClass?.id || "cls-1"}`;
+      const link = getProductionLiveUrl(activeClass?.id || "cls-1");
       navigator.clipboard.writeText(link).then(() => {
         setCopiedLink(true);
         setTimeout(() => setCopiedLink(false), 2500);
         audioEngine.playSoftBell();
       }).catch(() => {
+        prompt("Copy class link:", link);
       });
     };
     const handleWhatsAppShare = () => {
-      const link = `${window.location.origin}${window.location.pathname}?live=${activeClass?.id || "cls-1"}`;
+      const link = getProductionLiveUrl(activeClass?.id || "cls-1");
       const text = encodeURIComponent(
         lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD! NITHYA \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD: ${activeClass?.title || activeClass?.name || "Live Class"}
 \u0B87\u0BA3\u0BC8\u0BAF \u0B87\u0BA8\u0BCD\u0BA4 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD: ${link}` : `Namaste! Join NITHYA Live Yoga Class: ${activeClass?.title || activeClass?.name || "Live Class"}
@@ -60102,6 +60115,7 @@ Click to join: ${link}`
       import_react12 = __toESM(require_react());
       init_lucide_react();
       init_audioEngine();
+      init_api();
       init_LiveYogaClassRoom();
     }
   });
@@ -61926,7 +61940,7 @@ Click to join: ${link}`
           method: "POST",
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
-        const resolvedUrl = window.location.origin && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? `${window.location.origin}/?live=${encodeURIComponent(classId)}&invite=${encodeURIComponent(data.token)}` : data.inviteUrl;
+        const resolvedUrl = data.token ? getProductionLiveUrl(classId, { invite: data.token }) : data.inviteUrl || getProductionLiveUrl(classId);
         setInviteUrls((prev) => ({ ...prev, [classId]: resolvedUrl }));
         audioEngine.playSoftBell();
         if (showToast) {
@@ -61952,10 +61966,12 @@ Click to join: ${link}`
             "success"
           );
         }
+      }).catch(() => {
+        prompt("Copy invite link:", url);
       });
     };
     const handleWhatsAppShare = (cls) => {
-      const liveUrl = `${window.location.origin}${window.location.pathname}?live=${cls.id}`;
+      const liveUrl = getProductionLiveUrl(cls.id);
       const text = `\u{1F9D8} *Join Live Yoga Class with NITHYA Yoga Studio*
 
 Class: *${cls.title}*
@@ -62253,7 +62269,7 @@ ${liveUrl}`;
       const currentInvite = inviteUrls[c.id];
       const isLive = c.status === "live";
       const isEnded = c.status === "ended";
-      const liveUrl = `${window.location.origin}${window.location.pathname}?live=${c.id}`;
+      const liveUrl = getProductionLiveUrl(c.id);
       return /* @__PURE__ */ import_react22.default.createElement("div", { key: c.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col gap-2.5" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, c.title), /* @__PURE__ */ import_react22.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${isLive ? "bg-red-500 text-white animate-pulse" : isEnded ? "bg-gray-500/20 text-muted" : "bg-primary/20 text-primary"}` }, isLive ? "\u25CF LIVE NOW" : isEnded ? "ENDED" : "SCHEDULED")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 text-[11px] text-muted mt-1" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react22.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react22.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react22.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react22.default.createElement("span", null, c.duration_minutes, " mins"), /* @__PURE__ */ import_react22.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "font-mono text-[10px] bg-subtle px-1.5 py-0.5 rounded" }, "Room: ", c.room_name))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, !isEnded && /* @__PURE__ */ import_react22.default.createElement(
         "button",
         {
@@ -63265,6 +63281,15 @@ ${liveUrl}`;
     (0, import_react27.useEffect)(() => {
       saveStorage("nithya_attendance", attendanceLogs);
     }, [attendanceLogs]);
+    (0, import_react27.useEffect)(() => {
+      if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "default") {
+        try {
+          Notification.requestPermission().catch(() => {
+          });
+        } catch (_2) {
+        }
+      }
+    }, []);
     const firedRemindersRef = (0, import_react27.useRef)(/* @__PURE__ */ new Set());
     (0, import_react27.useEffect)(() => {
       const checkScheduledReminders = () => {
@@ -63316,6 +63341,12 @@ ${liveUrl}`;
             audioEngine.playAudioFile(r.customAudioUrl);
           } else {
             audioEngine.playAlarmChime();
+          }
+          if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+            try {
+              navigator.vibrate([400, 200, 400, 200, 400]);
+            } catch (_2) {
+            }
           }
           setActiveAlarm(r);
           showToast(

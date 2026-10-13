@@ -60,3 +60,6 @@ data/
 .windsurf/
 .zcode/
 .zencoder/
+.idea/
+*.apk
+

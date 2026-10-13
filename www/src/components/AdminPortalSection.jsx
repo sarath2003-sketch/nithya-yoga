@@ -29,7 +29,7 @@ import {
 } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus } from './ThreeDIcons';
-import { apiFetch } from '../utils/api';
+import { apiFetch, getProductionLiveUrl } from '../utils/api';
 
 export default function AdminPortalSection({
   onLaunchInstructorStudio,
@@ -362,9 +362,9 @@ export default function AdminPortalSection({
         method: 'POST',
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });
-      const resolvedUrl = (window.location.origin && (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'))
-        ? `${window.location.origin}/?live=${encodeURIComponent(classId)}&invite=${encodeURIComponent(data.token)}`
-        : data.inviteUrl;
+      const resolvedUrl = data.token
+        ? getProductionLiveUrl(classId, { invite: data.token })
+        : (data.inviteUrl || getProductionLiveUrl(classId));
 
       setInviteUrls(prev => ({ ...prev, [classId]: resolvedUrl }));
       audioEngine.playSoftBell();
@@ -392,11 +392,13 @@ export default function AdminPortalSection({
           'success'
         );
       }
+    }).catch(() => {
+      prompt('Copy invite link:', url);
     });
   };
 
   const handleWhatsAppShare = (cls) => {
-    const liveUrl = `${window.location.origin}${window.location.pathname}?live=${cls.id}`;
+    const liveUrl = getProductionLiveUrl(cls.id);
     const text = `🧘 *Join Live Yoga Class with NITHYA Yoga Studio*\n\nClass: *${cls.title}*\nTime: *${new Date(cls.starts_at).toLocaleString()}*\nDuration: *${cls.duration_minutes} mins*\n\nTap link to register and enter live yoga room:\n${liveUrl}`;
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
   };
@@ -814,7 +816,7 @@ export default function AdminPortalSection({
                   const currentInvite = inviteUrls[c.id];
                   const isLive = c.status === 'live';
                   const isEnded = c.status === 'ended';
-                  const liveUrl = `${window.location.origin}${window.location.pathname}?live=${c.id}`;
+                  const liveUrl = getProductionLiveUrl(c.id);
 
                   return (
                     <div key={c.id} className="p-3.5 rounded-xl border border-subtle bg-card flex flex-col gap-2.5">

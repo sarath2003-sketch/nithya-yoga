@@ -305,14 +305,16 @@ input, select, textarea {
 }
 
 .dashboard-top-header {
-  height: 72px;
-  padding: 0 32px;
+  min-height: calc(72px + env(safe-area-inset-top, 0px));
+  height: auto;
+  padding: max(env(safe-area-inset-top, 0px), 12px) 32px 12px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 20px;
   border-bottom: 1px solid var(--border-light);
   background-color: var(--bg-card);
+  box-sizing: border-box;
 }
 
 .header-search-wrapper {
@@ -2146,7 +2148,12 @@ input, select, textarea {
     display: flex;
   }
   .dashboard-top-header {
-    padding: 0 16px;
+    padding-top: max(env(safe-area-inset-top, 0px), 16px);
+    padding-bottom: 10px;
+    padding-left: 16px;
+    padding-right: 16px;
+    min-height: calc(58px + max(env(safe-area-inset-top, 0px), 16px));
+    height: auto;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -2178,8 +2185,12 @@ input, select, textarea {
 /* 4. Tablets & Large Phablets (max-width: 768px) */
 @media (max-width: 768px) {
   .dashboard-top-header {
-    padding: 0 14px;
-    height: 64px;
+    padding-top: max(env(safe-area-inset-top, 0px), 16px);
+    padding-bottom: 10px;
+    padding-left: 14px;
+    padding-right: 14px;
+    min-height: calc(56px + max(env(safe-area-inset-top, 0px), 16px));
+    height: auto;
     gap: 8px;
     width: 100%;
     max-width: 100%;
@@ -2210,9 +2221,7 @@ input, select, textarea {
     padding: 18px 16px;
   }
   .hero-right-visual-wrapper {
-    width: 44%;
-    opacity: 0.35;
-    right: 0;
+    display: none !important;
   }
   .progress-metrics-4row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2265,10 +2274,7 @@ input, select, textarea {
     line-height: 1.45;
   }
   .hero-right-visual-wrapper {
-    width: 46%;
-    max-width: 180px;
-    opacity: 0.28;
-    right: 0;
+    display: none !important;
   }
   .hero-cta-buttons-row {
     flex-direction: column;
@@ -2329,8 +2335,12 @@ input, select, textarea {
     gap: 14px;
   }
   .dashboard-top-header {
-    padding: 0 10px;
-    height: 60px;
+    padding-top: max(env(safe-area-inset-top, 0px), 18px);
+    padding-bottom: 8px;
+    padding-left: 10px;
+    padding-right: 10px;
+    min-height: calc(52px + max(env(safe-area-inset-top, 0px), 18px));
+    height: auto;
     gap: 6px;
   }
   .header-mobile-brand-wrap {
@@ -2535,8 +2545,12 @@ input, select, textarea {
     padding: 10px 8px 85px;
   }
   .dashboard-top-header {
-    padding: 0 8px;
-    height: 56px;
+    padding-top: max(env(safe-area-inset-top, 0px), 18px);
+    padding-bottom: 6px;
+    padding-left: 8px;
+    padding-right: 8px;
+    min-height: calc(48px + max(env(safe-area-inset-top, 0px), 18px));
+    height: auto;
     gap: 4px;
   }
   .header-mobile-brand-wrap {
@@ -3611,4 +3625,55 @@ input, select, textarea {
   background: #EF4444;
   color: #FFFFFF;
 }
+
+/* ==========================================================================
+   Live Class Lobby Share Card (High Contrast & Clear Visibility)
+   ========================================================================== */
+.lobby-share-box {
+  background: linear-gradient(135deg, rgba(91, 68, 230, 0.08) 0%, rgba(13, 148, 136, 0.08) 100%) !important;
+  border: 1.5px solid rgba(91, 68, 230, 0.35) !important;
+  border-radius: 14px !important;
+  padding: 14px 16px !important;
+  color: var(--text-heading) !important;
+  box-shadow: 0 4px 16px -2px rgba(91, 68, 230, 0.12);
+}
+
+[data-theme="dark"] .lobby-share-box {
+  background: linear-gradient(135deg, rgba(30, 27, 75, 0.95) 0%, rgba(15, 23, 42, 0.95) 100%) !important;
+  border: 1.5px solid rgba(139, 92, 246, 0.45) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 6px 20px -2px rgba(0, 0, 0, 0.5);
+}
+
+.lobby-share-box .lobby-share-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--primary-purple);
+  margin-bottom: 6px;
+  display: block;
+}
+
+[data-theme="dark"] .lobby-share-box .lobby-share-label {
+  color: #C4B5FD;
+}
+
+.lobby-share-box .share-link-pill {
+  font-family: monospace;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 6px 10px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  color: var(--text-main);
+  word-break: break-all;
+  max-width: 100%;
+}
+
+[data-theme="dark"] .lobby-share-box .share-link-pill {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(139, 92, 246, 0.3);
+  color: #E2E8F0;
+}
+
 

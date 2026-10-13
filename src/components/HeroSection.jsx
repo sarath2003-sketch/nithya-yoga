@@ -20,15 +20,6 @@ export default function HeroSection({
           <div className="hero-gradient-overlay"></div>
         </div>
 
-        {/* Right Side Chakra Meditation Focal Artwork (In place of 'Good Vibes Only') */}
-        <div className="hero-right-visual-wrapper">
-          <img 
-            src="assets/images/chakra-meditation.jpg" 
-            alt="7 Chakras Meditation" 
-            className="hero-chakra-visual-img" 
-          />
-        </div>
-
         {/* Hero Copy & CTAs */}
         <div className="hero-content-body">
           <h2 className="hero-headline-title">

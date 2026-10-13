@@ -54,7 +54,7 @@ export default function StudentJoinModal({
     };
   }, [isValidated, classStatus, activeClass?.id, lang]);
 
-  // Step 4: Validate submitted info
+  // Submit Name & Mobile Number and directly join the live class as Student
   const handleValidate = async (e) => {
     e.preventDefault();
     const cleanName = name.trim();
@@ -76,11 +76,44 @@ export default function StudentJoinModal({
     try {
       localStorage.setItem('nithya_student_name', cleanName);
       localStorage.setItem('nithya_student_phone', cleanPhone);
+      // Ensure student does not have trainer privileges
+      localStorage.removeItem('nithya_admin_token');
+      localStorage.removeItem('nithya_trainer_token');
 
-      const classId = activeClass?.id || 'cls-1';
-      let resData = null;
+      const studentSession = {
+        name: cleanName,
+        phone: cleanPhone,
+        role: 'student',
+        joinedAt: new Date().toISOString()
+      };
+      localStorage.setItem('nithya_student_session', JSON.stringify(studentSession));
+
+      const newParticipant = {
+        id: `p-${Date.now()}`,
+        name: cleanName,
+        phone: cleanPhone,
+        role: 'Student',
+        joinedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      };
+
       try {
-        resData = await apiFetch('/api/student/validate-join', {
+        const existing = JSON.parse(localStorage.getItem('nithya_live_participants') || '[]');
+        const updated = [newParticipant, ...existing.filter(p => p.phone !== cleanPhone)];
+        localStorage.setItem('nithya_live_participants', JSON.stringify(updated));
+      } catch (_) {}
+
+      try {
+        if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+          const bc = new BroadcastChannel('nithya_live_class_channel');
+          bc.postMessage({ type: 'student_joined', student: newParticipant });
+          setTimeout(() => { try { bc.close(); } catch (_) {} }, 150);
+        }
+      } catch (_) {}
+
+      // Attempt background record with backend if running
+      try {
+        const classId = activeClass?.id || 'cls-1';
+        apiFetch('/api/student/validate-join', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -88,53 +121,18 @@ export default function StudentJoinModal({
             name: cleanName,
             phone: cleanPhone
           })
-        });
-      } catch (err) {
-        console.warn('Backend validation fallback to local:', err.message);
-      }
+        }).then(data => {
+          if (data?.token) localStorage.setItem('nithya_auth_token', data.token);
+        }).catch(() => {});
+      } catch (_) {}
 
-      if (resData) {
-        if (resData.allowed === false && resData.reason === 'ended') {
-          setClassStatus('ended');
-          setStatusMessage(resData.message || (lang === 'ta' ? 'இந்த யோகா வகுப்பு முடிந்துவிட்டது.' : 'This yoga class has ended.'));
-          setIsValidated(true);
-          return;
-        }
-
-        if (resData.status) {
-          setClassStatus(resData.status);
-        }
-        if (resData.token) {
-          localStorage.setItem('nithya_auth_token', resData.token);
-        }
-      } else {
-        // Fallback: Check local class status
-        setClassStatus(activeClass?.status || 'live');
-      }
-
-      setIsValidated(true);
-      audioEngine.playSoftBell();
+      // Immediately enter classroom as Student!
+      onJoin(studentSession);
     } catch (e) {
-      setError(e.message || 'Validation error');
+      setError(e.message || 'Error joining class');
     } finally {
       setIsValidating(false);
     }
-  };
-
-  // Step 6: Connect to live room
-  const handleJoinConfirmed = () => {
-    const cleanName = name.trim();
-    const cleanPhone = phone.replace(/[^\d+]/g, '');
-
-    const studentSession = {
-      name: cleanName,
-      phone: cleanPhone,
-      joinedAt: new Date().toISOString()
-    };
-    localStorage.setItem('nithya_student_session', JSON.stringify(studentSession));
-
-    audioEngine.playTempleBell();
-    onJoin(studentSession);
   };
 
   return (
@@ -257,12 +255,12 @@ export default function StudentJoinModal({
                 {isValidating ? (
                   <>
                     <RefreshCw size={13} className="animate-spin" />
-                    <span>{lang === 'ta' ? 'சரிபார்க்கிறது...' : 'Validating...'}</span>
+                    <span>{lang === 'ta' ? 'இணைகிறது...' : 'Connecting...'}</span>
                   </>
                 ) : (
                   <>
-                    <CheckCircle2 size={14} />
-                    <span>{lang === 'ta' ? 'சரிபார்த்து தொடர்க ✓' : 'Validate & Continue ✓'}</span>
+                    <Radio size={14} className="text-white animate-pulse" />
+                    <span>{lang === 'ta' ? 'பதிவு செய்து வகுப்பில் இணைக 🧘‍♀️' : 'Register & Enter Live Class 🧘‍♀️'}</span>
                   </>
                 )}
               </button>

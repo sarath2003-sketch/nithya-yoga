@@ -35,7 +35,6 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
       if (res.ok) {
         const data = await res.json();
         setRemoteUpdate(data);
-        audioEngine.playSoftBell();
       }
     } catch (e) {
       console.warn('Update check failed:', e);
@@ -46,7 +45,6 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
 
   const handleTriggerUpdate = async () => {
     setIsUpdatingApp(true);
-    audioEngine.playTempleBell();
     try {
       if ('caches' in window) {
         const cacheNames = await caches.keys();
@@ -55,14 +53,17 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
       if ('serviceWorker' in navigator) {
         const regs = await navigator.serviceWorker.getRegistrations();
         for (const reg of regs) {
-          await reg.update();
+          await reg.unregister();
         }
       }
+      if (remoteUpdate?.version) {
+        localStorage.setItem('nithya_installed_version', remoteUpdate.version);
+      }
       setTimeout(() => {
-        window.location.reload(true);
-      }, 700);
+        window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+      }, 500);
     } catch (_) {
-      window.location.reload(true);
+      window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
     }
   };
 
@@ -71,9 +72,8 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
       const keys = await caches.keys();
       await Promise.all(keys.map(k => caches.delete(k)));
     }
-    audioEngine.playSoftBell();
     alert(lang === 'ta' ? 'கேச் வெற்றிகரமாக நீக்கப்பட்டது!' : 'Web Cache Cleared Successfully!');
-    window.location.reload(true);
+    window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
   };
 
   // Keep form data synced if prop changes
@@ -314,7 +314,7 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
                   onClick={handleTriggerUpdate}
                   disabled={isUpdatingApp}
                 >
-                  <Download size={13} className={isUpdatingApp ? 'animate-bounce' : ''} />
+                  <RefreshCw size={13} className={isUpdatingApp ? 'animate-spin' : ''} />
                   <span>
                     {isUpdatingApp 
                       ? (lang === 'ta' ? 'அப்டேட் ஆகிறது...' : 'Updating...') 
@@ -322,15 +322,14 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
                   </span>
                 </button>
 
-                <a
-                  href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={handleClearCache}
                   className="ya-btn text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold border border-subtle bg-card text-heading hover:bg-subtle/50 ml-auto"
                 >
-                  <Download size={13} />
-                  <span>{lang === 'ta' ? 'நேரடி APK டவுன்லோட்' : 'Direct APK Download'}</span>
-                </a>
+                  <RefreshCw size={13} />
+                  <span>{lang === 'ta' ? 'நேரலை புதுப்பித்தல்' : 'Live Sync'}</span>
+                </button>
               </div>
             </div>
 

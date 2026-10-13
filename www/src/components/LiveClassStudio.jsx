@@ -114,7 +114,6 @@ export default function LiveClassStudio({
 
   const handleLaunchGoogleMeet = () => {
     setIsSessionActive(true);
-    audioEngine.playGentleChime();
     const meetUrl = activeClass?.meetUrl || 'https://meet.google.com/new';
     window.open(meetUrl, '_blank', 'noopener,noreferrer');
   };
@@ -124,7 +123,6 @@ export default function LiveClassStudio({
     navigator.clipboard.writeText(link).then(() => {
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2500);
-      audioEngine.playSoftBell();
     }).catch(() => {
       prompt('Copy class link:', link);
     });
@@ -142,7 +140,6 @@ export default function LiveClassStudio({
 
   const handleVerifyAttendance = () => {
     setAttendanceVerified(true);
-    audioEngine.playTempleBell();
     const minutesSpent = Math.max(1, Math.round(sessionSeconds / 60));
     const studentName = localStorage.getItem('nithya_student_name') || 'Yoga Practitioner';
     

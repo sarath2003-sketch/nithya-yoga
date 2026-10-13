@@ -224,7 +224,7 @@ export default function AdminPortalSection({
 
       setAdminToken(data.token);
       localStorage.setItem('nithya_admin_token', data.token);
-      audioEngine.playTempleBell();
+      localStorage.removeItem('nithya_student_session');
       if (showToast) {
         showToast(
           lang === 'ta' ? 'பயிற்றுநர் உள்நுழைவு வெற்றிகரமானது ✓' : 'Trainer Login Successful ✓',
@@ -234,7 +234,6 @@ export default function AdminPortalSection({
       }
     } catch (err) {
       setLoginError(err.message);
-      audioEngine.playSoundByName('Soft Bell');
     } finally {
       setLoginLoading(false);
     }
@@ -243,7 +242,6 @@ export default function AdminPortalSection({
   const handleLogout = () => {
     setAdminToken('');
     localStorage.removeItem('nithya_admin_token');
-    audioEngine.playGentleChime();
     if (showToast) {
       showToast(
         lang === 'ta' ? 'வெளியேறினீர்கள்' : 'Logged Out',
@@ -275,7 +273,6 @@ export default function AdminPortalSection({
 
       setClassesList(prev => [data, ...prev]);
       setNewTitle('');
-      audioEngine.playMeditationTone();
       if (showToast) {
         showToast(
           lang === 'ta' ? 'வகுப்பு உருவாக்கப்பட்டது ✓' : 'Yoga Class Created ✓',
@@ -293,12 +290,12 @@ export default function AdminPortalSection({
   // 2. Start Class (sets status to 'live' and launches studio)
   const handleStartClass = async (cls) => {
     try {
+      localStorage.removeItem('nithya_student_session');
       await apiFetch(`/api/trainer/classes/${cls.id}/start`, {
         method: 'PUT',
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });
       setClassesList(prev => prev.map(c => c.id === cls.id ? { ...c, status: 'live' } : c));
-      audioEngine.playTempleBell();
       if (showToast) {
         showToast(
           lang === 'ta' ? 'வகுப்பு தொடங்கப்பட்டது (Live) 🔴' : 'Class Started Live 🔴',
@@ -325,7 +322,6 @@ export default function AdminPortalSection({
         headers: { 'Authorization': `Bearer ${adminToken}` }
       });
       setClassesList(prev => prev.map(c => c.id === cls.id ? { ...c, status: 'ended' } : c));
-      audioEngine.playGentleChime();
       if (showToast) {
         showToast(
           lang === 'ta' ? 'வகுப்பு நிறைவுபெற்றது ✓' : 'Class Ended for All Participants ✓',
@@ -367,7 +363,6 @@ export default function AdminPortalSection({
         : (data.inviteUrl || getProductionLiveUrl(classId));
 
       setInviteUrls(prev => ({ ...prev, [classId]: resolvedUrl }));
-      audioEngine.playSoftBell();
       if (showToast) {
         showToast(
           lang === 'ta' ? 'அழைப்பு லிங்க் உருவாக்கப்பட்டது 🔗' : 'Invite Link Generated 🔗',
@@ -384,7 +379,6 @@ export default function AdminPortalSection({
     navigator.clipboard.writeText(url).then(() => {
       setCopiedId(classId);
       setTimeout(() => setCopiedId(null), 2500);
-      audioEngine.playSoftBell();
       if (showToast) {
         showToast(
           lang === 'ta' ? 'லிங்க் காப்பி செய்யப்பட்டது ✓' : 'Copied to Clipboard ✓',
@@ -431,7 +425,6 @@ export default function AdminPortalSection({
       setNewMatDesc('');
       setNewMatUrl('');
       setNewMatContent('');
-      audioEngine.playSoftBell();
       if (showToast) showToast('Material Saved ✓', data.title, 'success');
     } catch (err) {
       alert(err.message);
@@ -481,7 +474,6 @@ export default function AdminPortalSection({
       setNewVidTitle('');
       setNewVidDesc('');
       setNewVidUrl('');
-      audioEngine.playSoftBell();
       if (showToast) showToast('Video Added ✓', data.title, 'success');
     } catch (err) {
       alert(err.message);
@@ -529,7 +521,6 @@ export default function AdminPortalSection({
         hasApiKey: Boolean(configApiKey),
         hasApiSecret: Boolean(configApiSecret)
       }));
-      audioEngine.playTempleBell();
       if (showToast) {
         showToast(
           lang === 'ta' ? 'லைவ்கிட் அமைப்புகள் சேமிக்கப்பட்டன ✓' : 'LiveKit Credentials Saved ✓',
@@ -565,7 +556,6 @@ export default function AdminPortalSection({
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    audioEngine.playSoftBell();
   };
 
   // -------------------------------------------------------------

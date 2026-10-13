@@ -152,14 +152,12 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
   }, [isTimerRunning, asanaTimer]);
 
   const handlePracticeAsana = (asana) => {
-    audioEngine.playMeditationTone();
     setActiveAsanaModal(asana);
     setAsanaTimer(60);
     setIsTimerRunning(true);
   };
 
   const handleViewAllClick = () => {
-    audioEngine.playMeditationTone();
     setShowAllModal(true);
   };
 
@@ -364,7 +362,6 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
                   onClick={() => {
                     setAsanaTimer(60);
                     setIsTimerRunning(false);
-                    audioEngine.playSoftBell();
                   }}
                   className="ya-btn ya-btn--soft px-2.5 py-1.5 rounded-full text-xs flex items-center gap-1 cursor-pointer"
                   title="Reset Timer"

@@ -43,20 +43,19 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
 
   const handleUpdateNow = async () => {
     setIsUpdating(true);
-    audioEngine.playTempleBell();
 
     try {
-      // 1. Clear Service Worker caches for fresh web code
+      // 1. Clear all Web and Service Worker caches
       if ('caches' in window) {
         const cacheNames = await caches.keys();
         await Promise.all(cacheNames.map(name => caches.delete(name)));
       }
 
-      // 2. Unregister service workers to force reload newest code
+      // 2. Unregister service workers to force reload newest web bundle
       if ('serviceWorker' in navigator) {
         const registrations = await navigator.serviceWorker.getRegistrations();
         for (const reg of registrations) {
-          await reg.update();
+          await reg.unregister();
         }
       }
 
@@ -65,20 +64,13 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
         localStorage.setItem('nithya_installed_version', updateInfo.version);
       }
 
-      // 4. If running in Android APK, provide direct APK download link
-      const isAndroidApp = typeof window !== 'undefined' && 
-        (window.location.protocol === 'capacitor:' || window.location.hostname === 'localhost');
-
-      if (isAndroidApp && updateInfo?.apkUrl) {
-        window.open(updateInfo.apkUrl, '_system');
-      }
-
+      // 4. Seamless in-place OTA live reload - no 404, no external download needed!
       setTimeout(() => {
-        window.location.reload(true);
-      }, 800);
+        window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+      }, 500);
     } catch (err) {
       console.error('Update error:', err);
-      window.location.reload(true);
+      window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
     }
   };
 

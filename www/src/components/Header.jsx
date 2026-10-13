@@ -10,7 +10,8 @@ export default function Header({
   setLang,
   user,
   onOpenNotifications,
-  onTestSound
+  onTestSound,
+  onOpenProfile
 }) {
   return (
     <header className="dashboard-top-header">
@@ -71,10 +72,14 @@ export default function Header({
 
         {/* User Pill */}
         <div 
-          className="header-user-badge"
+          className="header-user-badge cursor-pointer"
           onClick={() => {
-            const el = document.querySelector('.profile-dashboard-card');
-            if (el) el.scrollIntoView({ behavior: 'smooth' });
+            if (onOpenProfile) {
+              onOpenProfile();
+            } else {
+              const el = document.querySelector('.profile-dashboard-card');
+              if (el) el.scrollIntoView({ behavior: 'smooth' });
+            }
           }}
           title="View / Edit Profile"
           role="button"

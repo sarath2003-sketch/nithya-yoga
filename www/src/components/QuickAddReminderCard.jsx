@@ -260,7 +260,6 @@ export default function QuickAddReminderCard({ onAddReminder, lang = 'en' }) {
                   setSound(e.target.value);
                   setCustomAudioName('');
                   setCustomAudioUrl('');
-                  audioEngine.playSoundByName(e.target.value);
                 }
               }}
             >

@@ -21,6 +21,7 @@ import ActiveAlarmModal from './components/ActiveAlarmModal';
 import StudentJoinModal from './components/StudentJoinModal';
 import StudentDashboard from './components/StudentDashboard';
 import InAppUpdateBanner from './components/InAppUpdateBanner';
+import { ArrowLeft } from 'lucide-react';
 
 import { 
   loadStorage, 
@@ -269,6 +270,19 @@ export default function App() {
     setActiveAlarm(null);
   };
 
+  // Navigate and scroll to member profile card
+  const handleOpenProfile = () => {
+    setCurrentTab('home');
+    setTimeout(() => {
+      const el = document.querySelector('.profile-dashboard-card');
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+        el.classList.add('ring-2', 'ring-violet-500', 'transition-all');
+        setTimeout(() => el.classList.remove('ring-2', 'ring-violet-500'), 2000);
+      }
+    }, 100);
+  };
+
   // URL query parameter (?live=cls-1 or ?room=...) listener
   useEffect(() => {
     try {
@@ -278,13 +292,25 @@ export default function App() {
         const found = classes.find(c => c.id === liveId) || classes[0];
         if (found) setActiveClass(found);
         setCurrentTab('live');
-        const session = loadStorage('nithya_student_session', null);
-        if (!session) {
-          setShowStudentJoinModal(true);
+
+        // Check if current user is Trainer / Admin Leader
+        const isTrainer = Boolean(
+          localStorage.getItem('nithya_admin_token') || 
+          localStorage.getItem('nithya_trainer_token') ||
+          user?.role === 'trainer' || 
+          user?.role === 'instructor' || 
+          user?.isInstructor === true
+        );
+
+        if (!isTrainer) {
+          const session = loadStorage('nithya_student_session', null);
+          if (!session) {
+            setShowStudentJoinModal(true);
+          }
         }
       }
     } catch (_) {}
-  }, [classes]);
+  }, [classes, user]);
 
   const handleTestSound = () => {
     audioEngine.playMeditationTone();
@@ -353,7 +379,6 @@ export default function App() {
 
   const handleAddReminder = (newReminder) => {
     setReminders(prev => [newReminder, ...prev]);
-    audioEngine.playSoundByName(newReminder.sound || 'Soft Bell');
     showToast(
       lang === 'ta' ? 'நினைவூட்டல் சேர்க்கப்பட்டது ✓' : 'Reminder Saved ✓',
       `${newReminder.title} (${newReminder.time})`,
@@ -369,7 +394,6 @@ export default function App() {
       }
       return [remData, ...prev];
     });
-    audioEngine.playSoundByName(remData.sound || 'Soft Bell');
     showToast(
       lang === 'ta' ? 'நினைவூட்டல் புதுப்பிக்கப்பட்டது ✓' : 'Reminder Updated ✓',
       remData.title,
@@ -386,7 +410,6 @@ export default function App() {
     setReminders(prev => prev.map(r => {
       if (r.id === id) {
         const nextState = !r.completed;
-        if (nextState) audioEngine.playSoftBell();
         return { ...r, completed: nextState };
       }
       return r;
@@ -496,21 +519,23 @@ export default function App() {
             user={user}
             onOpenNotifications={handleTestSound}
             onTestSound={handleTestSound}
+            onOpenProfile={handleOpenProfile}
           />
 
           {currentTab === 'student' ? (
             <main className="dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal">
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <button 
                   type="button" 
-                  className="ya-btn ya-btn--soft text-xs cursor-pointer"
+                  className="btn-back-dashboard-modern"
                   onClick={() => setCurrentTab('home')}
                 >
-                  ← {lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}
+                  <ArrowLeft size={14} className="back-arrow-icon" />
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}</span>
                 </button>
-                <span className="text-muted">/</span>
-                <span className="font-bold text-sm text-heading">
-                  {lang === 'ta' ? 'மாணவர் போர்ட்டல்' : 'Student Learning Portal'}
+                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                  🎓 {lang === 'ta' ? 'மாணவர் போர்ட்டல்' : 'Student Learning Portal'}
                 </span>
               </div>
               <StudentDashboard
@@ -535,17 +560,18 @@ export default function App() {
             </main>
           ) : currentTab === 'admin' ? (
             <main className="dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal">
-              <div className="flex items-center gap-2 mb-4">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <button 
                   type="button" 
-                  className="ya-btn ya-btn--soft text-xs cursor-pointer"
+                  className="btn-back-dashboard-modern"
                   onClick={() => setCurrentTab('home')}
                 >
-                  ← {lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}
+                  <ArrowLeft size={14} className="back-arrow-icon" />
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}</span>
                 </button>
-                <span className="text-muted">/</span>
-                <span className="font-bold text-sm text-heading">
-                  {lang === 'ta' ? 'நிர்வாகி கட்டுப்பாட்டு அறை' : 'Instructor & Admin Portal'}
+                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                  🛡️ {lang === 'ta' ? 'நிர்வாகி கட்டுப்பாட்டு அறை' : 'Instructor & Admin Portal'}
                 </span>
               </div>
               <AdminPortalSection
@@ -559,24 +585,29 @@ export default function App() {
             </main>
           ) : currentTab === 'live' ? (
             <main className="dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal">
-              {/* Breadcrumb & Switcher Bar */}
-              <div className="live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2">
-                <div className="flex items-center gap-2">
+              {/* Luxury Studio Frame Header & Switcher */}
+              <div className="live-studio-premium-frame mb-4">
+                <div className="flex items-center gap-3 flex-wrap">
                   <button 
                     type="button" 
-                    className="ya-btn ya-btn--soft text-xs"
+                    className="btn-back-dashboard-modern"
                     onClick={() => setCurrentTab('home')}
                   >
-                    ← {lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}
+                    <ArrowLeft size={14} className="back-arrow-icon" />
+                    <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}</span>
                   </button>
-                  <span className="text-muted">/</span>
-                  <span className="font-bold text-sm text-heading">
-                    {lang === 'ta' ? 'நேரலை யோகா வகுப்பறை (LiveKit HD)' : 'Live Yoga Class Studio (LiveKit HD)'}
-                  </span>
+                  <div className="h-4 w-px bg-white/20 hidden sm:block"></div>
+                  <div className="flex items-center gap-2">
+                    <span className="live-indicator-dot animate-pulse"></span>
+                    <span className="font-black text-sm tracking-wide text-white">
+                      {lang === 'ta' ? 'நேரலை யோகா வகுப்பறை' : 'Live Yoga Studio'}
+                    </span>
+                    <span className="badge-private-hd">HD WebRTC</span>
+                  </div>
                 </div>
 
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-muted font-medium">
+                <div className="flex items-center gap-2 ml-auto">
+                  <span className="text-xs text-white/70 font-semibold hidden sm:inline">
                     {lang === 'ta' ? 'வகுப்பு:' : 'Class:'}
                   </span>
                   <select
@@ -585,7 +616,7 @@ export default function App() {
                       const found = classes.find(c => c.id === e.target.value);
                       if (found) setActiveClass(found);
                     }}
-                    className="text-xs px-2.5 py-1.5 rounded-lg border bg-card text-heading font-semibold"
+                    className="studio-class-dropdown"
                   >
                     {classes.map(c => (
                       <option key={c.id} value={c.id}>

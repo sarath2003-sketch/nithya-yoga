@@ -42,7 +42,6 @@ export default function InviteRegistrationModal({
       try {
         const data = await apiFetch(`/api/invites/${encodeURIComponent(inviteToken)}`);
         setClassInfo(data.class);
-        audioEngine.playMeditationTone();
       } catch (err) {
         setError(err.message);
       } finally {
@@ -72,7 +71,6 @@ export default function InviteRegistrationModal({
       // Save member token
       localStorage.setItem('nithya_auth_token', data.token);
       localStorage.setItem('nithya_member', JSON.stringify(data.member));
-      audioEngine.playTempleBell();
 
       if (onRegistrationSuccess) {
         onRegistrationSuccess({
@@ -84,7 +82,6 @@ export default function InviteRegistrationModal({
       }
     } catch (err) {
       setSubmitError(err.message);
-      audioEngine.playSoundByName('Soft Bell');
     } finally {
       setSubmitting(false);
     }

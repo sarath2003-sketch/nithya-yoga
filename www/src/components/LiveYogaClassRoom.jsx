@@ -259,16 +259,20 @@ export default function LiveYogaClassRoom({
   const [spotlightParticipantId, setSpotlightParticipantId] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Role: Instructor or Student - strictly checks trainer tokens or explicit role
+  // Role: Instructor (Leader) or Student - strictly checks trainer tokens or explicit role
+  const studentSession = loadStorage('nithya_student_session', null);
   const canChooseInstructor = Boolean(
-    localStorage.getItem('nithya_admin_token') || 
-    localStorage.getItem('nithya_trainer_token') ||
-    user?.role === 'trainer' || 
-    user?.role === 'instructor' || 
-    user?.isInstructor === true
+    !studentSession && (
+      localStorage.getItem('nithya_admin_token') || 
+      localStorage.getItem('nithya_trainer_token') ||
+      user?.role === 'trainer' || 
+      user?.role === 'instructor' || 
+      user?.isInstructor === true
+    )
   );
 
   const [isInstructorRole, setIsInstructorRole] = useState(() => {
+    if (studentSession) return false;
     return canChooseInstructor;
   });
   const [classEndedNotice, setClassEndedNotice] = useState(false);
@@ -345,11 +349,53 @@ export default function LiveYogaClassRoom({
       });
   }, []);
 
+  // Real-time cross-tab & cross-window sync channel
+  useEffect(() => {
+    let bc = null;
+    try {
+      if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+        bc = new BroadcastChannel('nithya_live_class_channel');
+        bc.onmessage = (event) => {
+          const msg = event.data;
+          if (!msg) return;
+
+          if (msg.type === 'student_joined' && msg.student) {
+            setConnectedStudentsList(prev => {
+              const updated = [msg.student, ...prev.filter(p => p.phone !== msg.student.phone && p.name !== msg.student.name)];
+              saveStorage('nithya_live_participants', updated);
+              return updated;
+            });
+          } else if (msg.type === 'class-ended') {
+            setClassEndedNotice(true);
+          } else if (msg.type === 'chat' && msg.text) {
+            setChatMessages(prev => [
+              ...prev,
+              {
+                id: `msg-${Date.now()}-${Math.random()}`,
+                sender: msg.sender || 'Peer',
+                text: msg.text,
+                time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                isSystem: false
+              }
+            ]);
+          } else if (msg.type === 'raise-hand' && msg.identity) {
+            setRaisedHands(prev => new Set(prev).add(msg.identity));
+          }
+        };
+      }
+    } catch (_) {}
+
+    return () => {
+      if (bc) {
+        try { bc.close(); } catch (_) {}
+      }
+    };
+  }, []);
+
   // Connect to Live Room (LiveKit server if available, otherwise Resilient NITHYA WebRTC Studio)
   const connectToRoom = useCallback(async () => {
     setConnectionState('connecting');
     setErrorMessage('');
-    audioEngine.playGentleChime();
 
     const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : 'nithya-live-studio').toLowerCase().replace(/[^a-z0-9_-]/g, '-');
     const studentInfo = loadStorage('nithya_student_session', null);
@@ -390,7 +436,6 @@ export default function LiveYogaClassRoom({
             setConnectionState('connected');
             setStudioMode('livekit');
             setParticipants(Array.from(liveRoom.remoteParticipants.values()));
-            audioEngine.playTempleBell();
 
             const memberToken = localStorage.getItem('nithya_auth_token');
             if (memberToken) {
@@ -448,13 +493,10 @@ export default function LiveYogaClassRoom({
                     isSystem: false
                   }
                 ]);
-                audioEngine.playSoftBell();
               } else if (dataObj.type === 'raise-hand') {
                 setRaisedHands(prev => new Set(prev).add(participant.identity));
-                audioEngine.playMeditationTone();
               } else if (dataObj.type === 'class-ended') {
                 setClassEndedNotice(true);
-                audioEngine.playTempleBell();
               }
             } catch (_) {}
           });
@@ -488,7 +530,6 @@ export default function LiveYogaClassRoom({
         setLocalStream(stream);
         setStudioMode('webrtc');
         setConnectionState('connected');
-        audioEngine.playTempleBell();
 
         // Register participant in live roster
         if (!isInstructorRole) {
@@ -504,6 +545,13 @@ export default function LiveYogaClassRoom({
             const updated = [newStudent, ...existing.filter(p => p.phone !== newStudent.phone)];
             saveStorage('nithya_live_participants', updated);
             setConnectedStudentsList(updated);
+
+            // Broadcast to any other open window (e.g. instructor screen)
+            if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+              const bc = new BroadcastChannel('nithya_live_class_channel');
+              bc.postMessage({ type: 'student_joined', student: newStudent });
+              setTimeout(() => { try { bc.close(); } catch (_) {} }, 200);
+            }
           } catch (_) {}
         }
       } catch (fallbackErr) {
@@ -609,7 +657,14 @@ export default function LiveYogaClassRoom({
         });
       }, 5000);
     }
-    audioEngine.playMeditationTone();
+
+    try {
+      if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+        const bc = new BroadcastChannel('nithya_live_class_channel');
+        bc.postMessage({ type: 'raise-hand', identity: participantName });
+        setTimeout(() => { try { bc.close(); } catch (_) {} }, 100);
+      }
+    } catch (_) {}
   };
 
   // Send in-room chat message via LiveKit Data Channel or WebRTC
@@ -629,6 +684,18 @@ export default function LiveYogaClassRoom({
       }
     }
 
+    try {
+      if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+        const bc = new BroadcastChannel('nithya_live_class_channel');
+        bc.postMessage({
+          type: 'chat',
+          text: chatInput.trim(),
+          sender: user?.name || (isInstructorRole ? 'Instructor' : 'Student')
+        });
+        setTimeout(() => { try { bc.close(); } catch (_) {} }, 100);
+      }
+    } catch (_) {}
+
     setChatMessages(prev => [
       ...prev,
       {
@@ -640,13 +707,10 @@ export default function LiveYogaClassRoom({
       }
     ]);
     setChatInput('');
-    audioEngine.playSoftBell();
   };
 
   // Leave Class
   const handleLeave = () => {
-    audioEngine.playGentleChime();
-
     // Server-backed attendance leave
     const memberToken = localStorage.getItem('nithya_auth_token');
     if (memberToken) {
@@ -682,7 +746,13 @@ export default function LiveYogaClassRoom({
       : 'Are you sure you want to end this yoga class for all participants?';
     if (!window.confirm(confirmMsg)) return;
 
-    audioEngine.playTempleBell();
+    try {
+      if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
+        const bc = new BroadcastChannel('nithya_live_class_channel');
+        bc.postMessage({ type: 'class-ended' });
+        setTimeout(() => { try { bc.close(); } catch (_) {} }, 100);
+      }
+    } catch (_) {}
 
     // 1. Broadcast end-class packet to all connected students
     if (room?.localParticipant) {
@@ -725,7 +795,6 @@ export default function LiveYogaClassRoom({
   // Verify and Record Attendance (Phase 6: 70% threshold rule)
   const handleVerifyAttendance = (forcedPresent = false) => {
     setHasAttendanceRecorded(true);
-    audioEngine.playTempleBell();
     const durationMins = Math.max(1, Math.round(sessionSeconds / 60));
     const isPresent = forcedPresent || currentAttendancePct >= 70;
     const finalPct = forcedPresent ? Math.max(currentAttendancePct, 75) : currentAttendancePct;
@@ -783,7 +852,6 @@ export default function LiveYogaClassRoom({
       navigator.clipboard.writeText(url).then(() => {
         setCopiedLink(true);
         setTimeout(() => setCopiedLink(false), 2500);
-        audioEngine.playSoftBell();
       }).catch(() => {
         prompt('Copy class link:', url);
       });
@@ -805,12 +873,10 @@ export default function LiveYogaClassRoom({
   const handleSimulateNetworkDrop = () => {
     setIsSimulatingDisconnect(true);
     setConnectionState('connecting');
-    audioEngine.playSoftBell();
     setTimeout(() => {
       setIsSimulatingDisconnect(false);
       setConnectionState('connected');
       setReconnectCount(prev => prev + 1);
-      audioEngine.playTempleBell();
     }, 1200);
   };
 
@@ -882,10 +948,14 @@ export default function LiveYogaClassRoom({
   };
 
   // Determine spotlighted participant & resilient local presence
+  const studentInfoForPresence = loadStorage('nithya_student_session', null);
   const localWebrtcParticipant = {
-    identity: isInstructorRole ? 'instructor-local' : (user?.id || 'student-local'),
-    name: user?.name || (isInstructorRole ? 'NITHYA Master' : 'Yoga Practitioner'),
+    identity: isInstructorRole ? 'instructor-local' : (studentInfoForPresence?.phone || user?.id || 'student-local'),
+    name: isInstructorRole 
+      ? (user?.name || 'NITHYA Master') 
+      : (studentInfoForPresence?.name || user?.name || 'Yoga Student'),
     role: isInstructorRole ? 'instructor' : 'student',
+    phone: studentInfoForPresence?.phone || user?.phone || '',
     stream: localStream,
     isLocal: true,
     isInstructor: isInstructorRole
@@ -904,9 +974,20 @@ export default function LiveYogaClassRoom({
       }))
     : [];
 
+  const instructorPeer = !isInstructorRole ? [{
+    identity: 'instructor-lead',
+    name: activeClass?.instructor || 'NITHYA Master (Leader)',
+    role: 'instructor',
+    isInstructor: true,
+    isLocal: false,
+    stream: null
+  }] : [];
+
   const allParticipants = room
     ? [room.localParticipant, ...participants]
-    : (localStream ? [localWebrtcParticipant, ...simulatedPeers.filter(p => p.name !== localWebrtcParticipant.name)] : (simulatedPeers.length ? simulatedPeers : [localWebrtcParticipant]));
+    : (localStream 
+        ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter(p => p.name !== localWebrtcParticipant.name)] 
+        : (simulatedPeers.length ? [...instructorPeer, ...simulatedPeers] : [...instructorPeer, localWebrtcParticipant]));
 
   const spotlightParticipant = spotlightParticipantId
     ? allParticipants.find(p => p.identity === spotlightParticipantId)

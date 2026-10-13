@@ -23881,12 +23881,30 @@
     }
   });
 
+  // node_modules/lucide-react/dist/esm/icons/arrow-left.mjs
+  var __iconData, ArrowLeft;
+  var init_arrow_left = __esm({
+    "node_modules/lucide-react/dist/esm/icons/arrow-left.mjs"() {
+      init_createLucideIcon();
+      __iconData = {
+        name: "arrow-left",
+        size: 24,
+        node: [
+          ["path", { d: "m12 19-7-7 7-7", key: "1l729n" }],
+          ["path", { d: "M19 12H5", key: "x3x0zl" }]
+        ]
+      };
+      __iconData.node;
+      ArrowLeft = createLucideIcon(__iconData);
+    }
+  });
+
   // node_modules/lucide-react/dist/esm/icons/award.mjs
-  var __iconData, Award;
+  var __iconData2, Award;
   var init_award = __esm({
     "node_modules/lucide-react/dist/esm/icons/award.mjs"() {
       init_createLucideIcon();
-      __iconData = {
+      __iconData2 = {
         name: "award",
         size: 24,
         node: [
@@ -23900,17 +23918,17 @@
           ["circle", { cx: "12", cy: "8", r: "6", key: "1vp47v" }]
         ]
       };
-      __iconData.node;
-      Award = createLucideIcon(__iconData);
+      __iconData2.node;
+      Award = createLucideIcon(__iconData2);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/bell-ring.mjs
-  var __iconData2, BellRing;
+  var __iconData3, BellRing;
   var init_bell_ring = __esm({
     "node_modules/lucide-react/dist/esm/icons/bell-ring.mjs"() {
       init_createLucideIcon();
-      __iconData2 = {
+      __iconData3 = {
         name: "bell-ring",
         size: 24,
         node: [
@@ -23926,17 +23944,17 @@
           ["path", { d: "M4 2C2.8 3.7 2 5.7 2 8", key: "tap9e0" }]
         ]
       };
-      __iconData2.node;
-      BellRing = createLucideIcon(__iconData2);
+      __iconData3.node;
+      BellRing = createLucideIcon(__iconData3);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/bell.mjs
-  var __iconData3, Bell;
+  var __iconData4, Bell;
   var init_bell = __esm({
     "node_modules/lucide-react/dist/esm/icons/bell.mjs"() {
       init_createLucideIcon();
-      __iconData3 = {
+      __iconData4 = {
         name: "bell",
         size: 24,
         node: [
@@ -23950,17 +23968,17 @@
           ]
         ]
       };
-      __iconData3.node;
-      Bell = createLucideIcon(__iconData3);
+      __iconData4.node;
+      Bell = createLucideIcon(__iconData4);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/book-open.mjs
-  var __iconData4, BookOpen;
+  var __iconData5, BookOpen;
   var init_book_open = __esm({
     "node_modules/lucide-react/dist/esm/icons/book-open.mjs"() {
       init_createLucideIcon();
-      __iconData4 = {
+      __iconData5 = {
         name: "book-open",
         size: 24,
         node: [
@@ -23974,17 +23992,17 @@
           ]
         ]
       };
-      __iconData4.node;
-      BookOpen = createLucideIcon(__iconData4);
+      __iconData5.node;
+      BookOpen = createLucideIcon(__iconData5);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/calendar.mjs
-  var __iconData5, Calendar;
+  var __iconData6, Calendar;
   var init_calendar = __esm({
     "node_modules/lucide-react/dist/esm/icons/calendar.mjs"() {
       init_createLucideIcon();
-      __iconData5 = {
+      __iconData6 = {
         name: "calendar",
         size: 24,
         node: [
@@ -23994,17 +24012,17 @@
           ["path", { d: "M3 9h18", key: "1pudct" }]
         ]
       };
-      __iconData5.node;
-      Calendar = createLucideIcon(__iconData5);
+      __iconData6.node;
+      Calendar = createLucideIcon(__iconData6);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/camera.mjs
-  var __iconData6, Camera;
+  var __iconData7, Camera;
   var init_camera = __esm({
     "node_modules/lucide-react/dist/esm/icons/camera.mjs"() {
       init_createLucideIcon();
-      __iconData6 = {
+      __iconData7 = {
         name: "camera",
         size: 24,
         node: [
@@ -24018,47 +24036,47 @@
           ["circle", { cx: "12", cy: "13", r: "3", key: "1vg3eu" }]
         ]
       };
-      __iconData6.node;
-      Camera = createLucideIcon(__iconData6);
+      __iconData7.node;
+      Camera = createLucideIcon(__iconData7);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/check.mjs
-  var __iconData7, Check;
+  var __iconData8, Check;
   var init_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/check.mjs"() {
       init_createLucideIcon();
-      __iconData7 = {
+      __iconData8 = {
         name: "check",
         size: 24,
         node: [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]
       };
-      __iconData7.node;
-      Check = createLucideIcon(__iconData7);
+      __iconData8.node;
+      Check = createLucideIcon(__iconData8);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/chevron-right.mjs
-  var __iconData8, ChevronRight;
+  var __iconData9, ChevronRight;
   var init_chevron_right = __esm({
     "node_modules/lucide-react/dist/esm/icons/chevron-right.mjs"() {
       init_createLucideIcon();
-      __iconData8 = {
+      __iconData9 = {
         name: "chevron-right",
         size: 24,
         node: [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]]
       };
-      __iconData8.node;
-      ChevronRight = createLucideIcon(__iconData8);
+      __iconData9.node;
+      ChevronRight = createLucideIcon(__iconData9);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/circle-alert.mjs
-  var __iconData9, CircleAlert;
+  var __iconData10, CircleAlert;
   var init_circle_alert = __esm({
     "node_modules/lucide-react/dist/esm/icons/circle-alert.mjs"() {
       init_createLucideIcon();
-      __iconData9 = {
+      __iconData10 = {
         name: "circle-alert",
         size: 24,
         node: [
@@ -24068,17 +24086,17 @@
         ],
         aliases: ["alert-circle"]
       };
-      __iconData9.node;
-      CircleAlert = createLucideIcon(__iconData9);
+      __iconData10.node;
+      CircleAlert = createLucideIcon(__iconData10);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/circle-check-big.mjs
-  var __iconData10, CircleCheckBig;
+  var __iconData11, CircleCheckBig;
   var init_circle_check_big = __esm({
     "node_modules/lucide-react/dist/esm/icons/circle-check-big.mjs"() {
       init_createLucideIcon();
-      __iconData10 = {
+      __iconData11 = {
         name: "circle-check-big",
         size: 24,
         node: [
@@ -24087,17 +24105,17 @@
         ],
         aliases: ["check-circle"]
       };
-      __iconData10.node;
-      CircleCheckBig = createLucideIcon(__iconData10);
+      __iconData11.node;
+      CircleCheckBig = createLucideIcon(__iconData11);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/circle-check.mjs
-  var __iconData11, CircleCheck;
+  var __iconData12, CircleCheck;
   var init_circle_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/circle-check.mjs"() {
       init_createLucideIcon();
-      __iconData11 = {
+      __iconData12 = {
         name: "circle-check",
         size: 24,
         node: [
@@ -24106,17 +24124,17 @@
         ],
         aliases: ["check-circle-2"]
       };
-      __iconData11.node;
-      CircleCheck = createLucideIcon(__iconData11);
+      __iconData12.node;
+      CircleCheck = createLucideIcon(__iconData12);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/clock.mjs
-  var __iconData12, Clock;
+  var __iconData13, Clock;
   var init_clock = __esm({
     "node_modules/lucide-react/dist/esm/icons/clock.mjs"() {
       init_createLucideIcon();
-      __iconData12 = {
+      __iconData13 = {
         name: "clock",
         size: 24,
         node: [
@@ -24124,17 +24142,17 @@
           ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }]
         ]
       };
-      __iconData12.node;
-      Clock = createLucideIcon(__iconData12);
+      __iconData13.node;
+      Clock = createLucideIcon(__iconData13);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/copy.mjs
-  var __iconData13, Copy;
+  var __iconData14, Copy;
   var init_copy = __esm({
     "node_modules/lucide-react/dist/esm/icons/copy.mjs"() {
       init_createLucideIcon();
-      __iconData13 = {
+      __iconData14 = {
         name: "copy",
         size: 24,
         node: [
@@ -24142,17 +24160,17 @@
           ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
         ]
       };
-      __iconData13.node;
-      Copy = createLucideIcon(__iconData13);
+      __iconData14.node;
+      Copy = createLucideIcon(__iconData14);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/crown.mjs
-  var __iconData14, Crown;
+  var __iconData15, Crown;
   var init_crown = __esm({
     "node_modules/lucide-react/dist/esm/icons/crown.mjs"() {
       init_createLucideIcon();
-      __iconData14 = {
+      __iconData15 = {
         name: "crown",
         size: 24,
         node: [
@@ -24166,17 +24184,17 @@
           ["path", { d: "M5 21h14", key: "11awu3" }]
         ]
       };
-      __iconData14.node;
-      Crown = createLucideIcon(__iconData14);
+      __iconData15.node;
+      Crown = createLucideIcon(__iconData15);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/download.mjs
-  var __iconData15, Download;
+  var __iconData16, Download;
   var init_download = __esm({
     "node_modules/lucide-react/dist/esm/icons/download.mjs"() {
       init_createLucideIcon();
-      __iconData15 = {
+      __iconData16 = {
         name: "download",
         size: 24,
         node: [
@@ -24185,17 +24203,17 @@
           ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
         ]
       };
-      __iconData15.node;
-      Download = createLucideIcon(__iconData15);
+      __iconData16.node;
+      Download = createLucideIcon(__iconData16);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/external-link.mjs
-  var __iconData16, ExternalLink;
+  var __iconData17, ExternalLink;
   var init_external_link = __esm({
     "node_modules/lucide-react/dist/esm/icons/external-link.mjs"() {
       init_createLucideIcon();
-      __iconData16 = {
+      __iconData17 = {
         name: "external-link",
         size: 24,
         node: [
@@ -24204,17 +24222,17 @@
           ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
         ]
       };
-      __iconData16.node;
-      ExternalLink = createLucideIcon(__iconData16);
+      __iconData17.node;
+      ExternalLink = createLucideIcon(__iconData17);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/eye.mjs
-  var __iconData17, Eye;
+  var __iconData18, Eye;
   var init_eye = __esm({
     "node_modules/lucide-react/dist/esm/icons/eye.mjs"() {
       init_createLucideIcon();
-      __iconData17 = {
+      __iconData18 = {
         name: "eye",
         size: 24,
         node: [
@@ -24228,17 +24246,17 @@
           ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
         ]
       };
-      __iconData17.node;
-      Eye = createLucideIcon(__iconData17);
+      __iconData18.node;
+      Eye = createLucideIcon(__iconData18);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/file-text.mjs
-  var __iconData18, FileText;
+  var __iconData19, FileText;
   var init_file_text = __esm({
     "node_modules/lucide-react/dist/esm/icons/file-text.mjs"() {
       init_createLucideIcon();
-      __iconData18 = {
+      __iconData19 = {
         name: "file-text",
         size: 24,
         node: [
@@ -24255,17 +24273,17 @@
           ["path", { d: "M16 17H8", key: "z1uh3a" }]
         ]
       };
-      __iconData18.node;
-      FileText = createLucideIcon(__iconData18);
+      __iconData19.node;
+      FileText = createLucideIcon(__iconData19);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/flame.mjs
-  var __iconData19, Flame;
+  var __iconData20, Flame;
   var init_flame = __esm({
     "node_modules/lucide-react/dist/esm/icons/flame.mjs"() {
       init_createLucideIcon();
-      __iconData19 = {
+      __iconData20 = {
         name: "flame",
         size: 24,
         node: [
@@ -24278,17 +24296,17 @@
           ]
         ]
       };
-      __iconData19.node;
-      Flame = createLucideIcon(__iconData19);
+      __iconData20.node;
+      Flame = createLucideIcon(__iconData20);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/flower-2.mjs
-  var __iconData20, Flower2;
+  var __iconData21, Flower2;
   var init_flower_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/flower-2.mjs"() {
       init_createLucideIcon();
-      __iconData20 = {
+      __iconData21 = {
         name: "flower-2",
         size: 24,
         node: [
@@ -24305,17 +24323,17 @@
           ["path", { d: "M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z", key: "ufn41s" }]
         ]
       };
-      __iconData20.node;
-      Flower2 = createLucideIcon(__iconData20);
+      __iconData21.node;
+      Flower2 = createLucideIcon(__iconData21);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/globe.mjs
-  var __iconData21, Globe;
+  var __iconData22, Globe;
   var init_globe = __esm({
     "node_modules/lucide-react/dist/esm/icons/globe.mjs"() {
       init_createLucideIcon();
-      __iconData21 = {
+      __iconData22 = {
         name: "globe",
         size: 24,
         node: [
@@ -24324,17 +24342,17 @@
           ["path", { d: "M2 12h20", key: "9i4pu4" }]
         ]
       };
-      __iconData21.node;
-      Globe = createLucideIcon(__iconData21);
+      __iconData22.node;
+      Globe = createLucideIcon(__iconData22);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/graduation-cap.mjs
-  var __iconData22, GraduationCap;
+  var __iconData23, GraduationCap;
   var init_graduation_cap = __esm({
     "node_modules/lucide-react/dist/esm/icons/graduation-cap.mjs"() {
       init_createLucideIcon();
-      __iconData22 = {
+      __iconData23 = {
         name: "graduation-cap",
         size: 24,
         node: [
@@ -24349,17 +24367,17 @@
           ["path", { d: "M6 12.5V16a6 3 0 0 0 12 0v-3.5", key: "1r8lef" }]
         ]
       };
-      __iconData22.node;
-      GraduationCap = createLucideIcon(__iconData22);
+      __iconData23.node;
+      GraduationCap = createLucideIcon(__iconData23);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/hand.mjs
-  var __iconData23, Hand;
+  var __iconData24, Hand;
   var init_hand = __esm({
     "node_modules/lucide-react/dist/esm/icons/hand.mjs"() {
       init_createLucideIcon();
-      __iconData23 = {
+      __iconData24 = {
         name: "hand",
         size: 24,
         node: [
@@ -24375,17 +24393,17 @@
           ]
         ]
       };
-      __iconData23.node;
-      Hand = createLucideIcon(__iconData23);
+      __iconData24.node;
+      Hand = createLucideIcon(__iconData24);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/headphones.mjs
-  var __iconData24, Headphones;
+  var __iconData25, Headphones;
   var init_headphones = __esm({
     "node_modules/lucide-react/dist/esm/icons/headphones.mjs"() {
       init_createLucideIcon();
-      __iconData24 = {
+      __iconData25 = {
         name: "headphones",
         size: 24,
         node: [
@@ -24398,17 +24416,17 @@
           ]
         ]
       };
-      __iconData24.node;
-      Headphones = createLucideIcon(__iconData24);
+      __iconData25.node;
+      Headphones = createLucideIcon(__iconData25);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/house.mjs
-  var __iconData25, House;
+  var __iconData26, House;
   var init_house = __esm({
     "node_modules/lucide-react/dist/esm/icons/house.mjs"() {
       init_createLucideIcon();
-      __iconData25 = {
+      __iconData26 = {
         name: "house",
         size: 24,
         node: [
@@ -24423,17 +24441,17 @@
         ],
         aliases: ["home"]
       };
-      __iconData25.node;
-      House = createLucideIcon(__iconData25);
+      __iconData26.node;
+      House = createLucideIcon(__iconData26);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/key.mjs
-  var __iconData26, Key;
+  var __iconData27, Key;
   var init_key = __esm({
     "node_modules/lucide-react/dist/esm/icons/key.mjs"() {
       init_createLucideIcon();
-      __iconData26 = {
+      __iconData27 = {
         name: "key",
         size: 24,
         node: [
@@ -24445,17 +24463,17 @@
           ["circle", { cx: "15.5", cy: "7.5", r: "5.5", key: "4wxmhb" }]
         ]
       };
-      __iconData26.node;
-      Key = createLucideIcon(__iconData26);
+      __iconData27.node;
+      Key = createLucideIcon(__iconData27);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/layers.mjs
-  var __iconData27, Layers;
+  var __iconData28, Layers;
   var init_layers = __esm({
     "node_modules/lucide-react/dist/esm/icons/layers.mjs"() {
       init_createLucideIcon();
-      __iconData27 = {
+      __iconData28 = {
         name: "layers",
         size: 24,
         node: [
@@ -24483,17 +24501,17 @@
         ],
         aliases: ["layers-3"]
       };
-      __iconData27.node;
-      Layers = createLucideIcon(__iconData27);
+      __iconData28.node;
+      Layers = createLucideIcon(__iconData28);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/link.mjs
-  var __iconData28, Link;
+  var __iconData29, Link;
   var init_link = __esm({
     "node_modules/lucide-react/dist/esm/icons/link.mjs"() {
       init_createLucideIcon();
-      __iconData28 = {
+      __iconData29 = {
         name: "link",
         size: 24,
         node: [
@@ -24501,17 +24519,17 @@
           ["path", { d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71", key: "19qd67" }]
         ]
       };
-      __iconData28.node;
-      Link = createLucideIcon(__iconData28);
+      __iconData29.node;
+      Link = createLucideIcon(__iconData29);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/log-out.mjs
-  var __iconData29, LogOut;
+  var __iconData30, LogOut;
   var init_log_out = __esm({
     "node_modules/lucide-react/dist/esm/icons/log-out.mjs"() {
       init_createLucideIcon();
-      __iconData29 = {
+      __iconData30 = {
         name: "log-out",
         size: 24,
         node: [
@@ -24520,17 +24538,17 @@
           ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
         ]
       };
-      __iconData29.node;
-      LogOut = createLucideIcon(__iconData29);
+      __iconData30.node;
+      LogOut = createLucideIcon(__iconData30);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mail.mjs
-  var __iconData30, Mail;
+  var __iconData31, Mail;
   var init_mail = __esm({
     "node_modules/lucide-react/dist/esm/icons/mail.mjs"() {
       init_createLucideIcon();
-      __iconData30 = {
+      __iconData31 = {
         name: "mail",
         size: 24,
         node: [
@@ -24538,17 +24556,17 @@
           ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
         ]
       };
-      __iconData30.node;
-      Mail = createLucideIcon(__iconData30);
+      __iconData31.node;
+      Mail = createLucideIcon(__iconData31);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/maximize-2.mjs
-  var __iconData31, Maximize2;
+  var __iconData32, Maximize2;
   var init_maximize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/maximize-2.mjs"() {
       init_createLucideIcon();
-      __iconData31 = {
+      __iconData32 = {
         name: "maximize-2",
         size: 24,
         node: [
@@ -24558,17 +24576,17 @@
           ["path", { d: "M9 21H3v-6", key: "wtvkvv" }]
         ]
       };
-      __iconData31.node;
-      Maximize2 = createLucideIcon(__iconData31);
+      __iconData32.node;
+      Maximize2 = createLucideIcon(__iconData32);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/message-square.mjs
-  var __iconData32, MessageSquare;
+  var __iconData33, MessageSquare;
   var init_message_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/message-square.mjs"() {
       init_createLucideIcon();
-      __iconData32 = {
+      __iconData33 = {
         name: "message-square",
         size: 24,
         node: [
@@ -24581,17 +24599,17 @@
           ]
         ]
       };
-      __iconData32.node;
-      MessageSquare = createLucideIcon(__iconData32);
+      __iconData33.node;
+      MessageSquare = createLucideIcon(__iconData33);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic-off.mjs
-  var __iconData33, MicOff;
+  var __iconData34, MicOff;
   var init_mic_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic-off.mjs"() {
       init_createLucideIcon();
-      __iconData33 = {
+      __iconData34 = {
         name: "mic-off",
         size: 24,
         node: [
@@ -24603,17 +24621,17 @@
           ["path", { d: "M9 9v3a3 3 0 0 0 5.12 2.12", key: "r2i35w" }]
         ]
       };
-      __iconData33.node;
-      MicOff = createLucideIcon(__iconData33);
+      __iconData34.node;
+      MicOff = createLucideIcon(__iconData34);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic.mjs
-  var __iconData34, Mic;
+  var __iconData35, Mic;
   var init_mic = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic.mjs"() {
       init_createLucideIcon();
-      __iconData34 = {
+      __iconData35 = {
         name: "mic",
         size: 24,
         node: [
@@ -24622,17 +24640,17 @@
           ["rect", { x: "9", y: "2", width: "6", height: "13", rx: "3", key: "s6n7sd" }]
         ]
       };
-      __iconData34.node;
-      Mic = createLucideIcon(__iconData34);
+      __iconData35.node;
+      Mic = createLucideIcon(__iconData35);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/minimize-2.mjs
-  var __iconData35, Minimize2;
+  var __iconData36, Minimize2;
   var init_minimize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/minimize-2.mjs"() {
       init_createLucideIcon();
-      __iconData35 = {
+      __iconData36 = {
         name: "minimize-2",
         size: 24,
         node: [
@@ -24642,17 +24660,17 @@
           ["path", { d: "M4 14h6v6", key: "rmj7iw" }]
         ]
       };
-      __iconData35.node;
-      Minimize2 = createLucideIcon(__iconData35);
+      __iconData36.node;
+      Minimize2 = createLucideIcon(__iconData36);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/music.mjs
-  var __iconData36, Music;
+  var __iconData37, Music;
   var init_music = __esm({
     "node_modules/lucide-react/dist/esm/icons/music.mjs"() {
       init_createLucideIcon();
-      __iconData36 = {
+      __iconData37 = {
         name: "music",
         size: 24,
         node: [
@@ -24661,17 +24679,17 @@
           ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
         ]
       };
-      __iconData36.node;
-      Music = createLucideIcon(__iconData36);
+      __iconData37.node;
+      Music = createLucideIcon(__iconData37);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pause.mjs
-  var __iconData37, Pause;
+  var __iconData38, Pause;
   var init_pause = __esm({
     "node_modules/lucide-react/dist/esm/icons/pause.mjs"() {
       init_createLucideIcon();
-      __iconData37 = {
+      __iconData38 = {
         name: "pause",
         size: 24,
         node: [
@@ -24679,17 +24697,17 @@
           ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
         ]
       };
-      __iconData37.node;
-      Pause = createLucideIcon(__iconData37);
+      __iconData38.node;
+      Pause = createLucideIcon(__iconData38);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pen-line.mjs
-  var __iconData38, PenLine;
+  var __iconData39, PenLine;
   var init_pen_line = __esm({
     "node_modules/lucide-react/dist/esm/icons/pen-line.mjs"() {
       init_createLucideIcon();
-      __iconData38 = {
+      __iconData39 = {
         name: "pen-line",
         size: 24,
         node: [
@@ -24704,17 +24722,17 @@
         ],
         aliases: ["edit-3"]
       };
-      __iconData38.node;
-      PenLine = createLucideIcon(__iconData38);
+      __iconData39.node;
+      PenLine = createLucideIcon(__iconData39);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone-off.mjs
-  var __iconData39, PhoneOff;
+  var __iconData40, PhoneOff;
   var init_phone_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone-off.mjs"() {
       init_createLucideIcon();
-      __iconData39 = {
+      __iconData40 = {
         name: "phone-off",
         size: 24,
         node: [
@@ -24735,17 +24753,17 @@
           ]
         ]
       };
-      __iconData39.node;
-      PhoneOff = createLucideIcon(__iconData39);
+      __iconData40.node;
+      PhoneOff = createLucideIcon(__iconData40);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone.mjs
-  var __iconData40, Phone;
+  var __iconData41, Phone;
   var init_phone = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone.mjs"() {
       init_createLucideIcon();
-      __iconData40 = {
+      __iconData41 = {
         name: "phone",
         size: 24,
         node: [
@@ -24758,17 +24776,17 @@
           ]
         ]
       };
-      __iconData40.node;
-      Phone = createLucideIcon(__iconData40);
+      __iconData41.node;
+      Phone = createLucideIcon(__iconData41);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/play.mjs
-  var __iconData41, Play;
+  var __iconData42, Play;
   var init_play = __esm({
     "node_modules/lucide-react/dist/esm/icons/play.mjs"() {
       init_createLucideIcon();
-      __iconData41 = {
+      __iconData42 = {
         name: "play",
         size: 24,
         node: [
@@ -24781,17 +24799,17 @@
           ]
         ]
       };
-      __iconData41.node;
-      Play = createLucideIcon(__iconData41);
+      __iconData42.node;
+      Play = createLucideIcon(__iconData42);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/plus.mjs
-  var __iconData42, Plus;
+  var __iconData43, Plus;
   var init_plus = __esm({
     "node_modules/lucide-react/dist/esm/icons/plus.mjs"() {
       init_createLucideIcon();
-      __iconData42 = {
+      __iconData43 = {
         name: "plus",
         size: 24,
         node: [
@@ -24799,17 +24817,17 @@
           ["path", { d: "M12 5v14", key: "s699le" }]
         ]
       };
-      __iconData42.node;
-      Plus = createLucideIcon(__iconData42);
+      __iconData43.node;
+      Plus = createLucideIcon(__iconData43);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/radio.mjs
-  var __iconData43, Radio;
+  var __iconData44, Radio;
   var init_radio = __esm({
     "node_modules/lucide-react/dist/esm/icons/radio.mjs"() {
       init_createLucideIcon();
-      __iconData43 = {
+      __iconData44 = {
         name: "radio",
         size: 24,
         node: [
@@ -24820,17 +24838,17 @@
           ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
         ]
       };
-      __iconData43.node;
-      Radio = createLucideIcon(__iconData43);
+      __iconData44.node;
+      Radio = createLucideIcon(__iconData44);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs
-  var __iconData44, RefreshCw;
+  var __iconData45, RefreshCw;
   var init_refresh_cw = __esm({
     "node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs"() {
       init_createLucideIcon();
-      __iconData44 = {
+      __iconData45 = {
         name: "refresh-cw",
         size: 24,
         node: [
@@ -24840,17 +24858,17 @@
           ["path", { d: "M8 16H3v5", key: "1cv678" }]
         ]
       };
-      __iconData44.node;
-      RefreshCw = createLucideIcon(__iconData44);
+      __iconData45.node;
+      RefreshCw = createLucideIcon(__iconData45);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/repeat.mjs
-  var __iconData45, Repeat;
+  var __iconData46, Repeat;
   var init_repeat = __esm({
     "node_modules/lucide-react/dist/esm/icons/repeat.mjs"() {
       init_createLucideIcon();
-      __iconData45 = {
+      __iconData46 = {
         name: "repeat",
         size: 24,
         node: [
@@ -24860,17 +24878,17 @@
           ["path", { d: "M21 13v1a4 4 0 0 1-4 4H3", key: "1rx37r" }]
         ]
       };
-      __iconData45.node;
-      Repeat = createLucideIcon(__iconData45);
+      __iconData46.node;
+      Repeat = createLucideIcon(__iconData46);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs
-  var __iconData46, RotateCcw;
+  var __iconData47, RotateCcw;
   var init_rotate_ccw = __esm({
     "node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs"() {
       init_createLucideIcon();
-      __iconData46 = {
+      __iconData47 = {
         name: "rotate-ccw",
         size: 24,
         node: [
@@ -24878,17 +24896,17 @@
           ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
         ]
       };
-      __iconData46.node;
-      RotateCcw = createLucideIcon(__iconData46);
+      __iconData47.node;
+      RotateCcw = createLucideIcon(__iconData47);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/save.mjs
-  var __iconData47, Save;
+  var __iconData48, Save;
   var init_save = __esm({
     "node_modules/lucide-react/dist/esm/icons/save.mjs"() {
       init_createLucideIcon();
-      __iconData47 = {
+      __iconData48 = {
         name: "save",
         size: 24,
         node: [
@@ -24903,17 +24921,17 @@
           ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
         ]
       };
-      __iconData47.node;
-      Save = createLucideIcon(__iconData47);
+      __iconData48.node;
+      Save = createLucideIcon(__iconData48);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/search.mjs
-  var __iconData48, Search;
+  var __iconData49, Search;
   var init_search = __esm({
     "node_modules/lucide-react/dist/esm/icons/search.mjs"() {
       init_createLucideIcon();
-      __iconData48 = {
+      __iconData49 = {
         name: "search",
         size: 24,
         node: [
@@ -24921,17 +24939,17 @@
           ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
         ]
       };
-      __iconData48.node;
-      Search = createLucideIcon(__iconData48);
+      __iconData49.node;
+      Search = createLucideIcon(__iconData49);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/send.mjs
-  var __iconData49, Send;
+  var __iconData50, Send;
   var init_send = __esm({
     "node_modules/lucide-react/dist/esm/icons/send.mjs"() {
       init_createLucideIcon();
-      __iconData49 = {
+      __iconData50 = {
         name: "send",
         size: 24,
         node: [
@@ -24945,17 +24963,17 @@
           ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
         ]
       };
-      __iconData49.node;
-      Send = createLucideIcon(__iconData49);
+      __iconData50.node;
+      Send = createLucideIcon(__iconData50);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/settings.mjs
-  var __iconData50, Settings;
+  var __iconData51, Settings;
   var init_settings = __esm({
     "node_modules/lucide-react/dist/esm/icons/settings.mjs"() {
       init_createLucideIcon();
-      __iconData50 = {
+      __iconData51 = {
         name: "settings",
         size: 24,
         node: [
@@ -24969,17 +24987,17 @@
           ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
         ]
       };
-      __iconData50.node;
-      Settings = createLucideIcon(__iconData50);
+      __iconData51.node;
+      Settings = createLucideIcon(__iconData51);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/share-2.mjs
-  var __iconData51, Share2;
+  var __iconData52, Share2;
   var init_share_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/share-2.mjs"() {
       init_createLucideIcon();
-      __iconData51 = {
+      __iconData52 = {
         name: "share-2",
         size: 24,
         node: [
@@ -24990,17 +25008,17 @@
           ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49", key: "1n3mei" }]
         ]
       };
-      __iconData51.node;
-      Share2 = createLucideIcon(__iconData51);
+      __iconData52.node;
+      Share2 = createLucideIcon(__iconData52);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/shield-check.mjs
-  var __iconData52, ShieldCheck;
+  var __iconData53, ShieldCheck;
   var init_shield_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/shield-check.mjs"() {
       init_createLucideIcon();
-      __iconData52 = {
+      __iconData53 = {
         name: "shield-check",
         size: 24,
         node: [
@@ -25014,17 +25032,17 @@
           ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
         ]
       };
-      __iconData52.node;
-      ShieldCheck = createLucideIcon(__iconData52);
+      __iconData53.node;
+      ShieldCheck = createLucideIcon(__iconData53);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/skip-back.mjs
-  var __iconData53, SkipBack;
+  var __iconData54, SkipBack;
   var init_skip_back = __esm({
     "node_modules/lucide-react/dist/esm/icons/skip-back.mjs"() {
       init_createLucideIcon();
-      __iconData53 = {
+      __iconData54 = {
         name: "skip-back",
         size: 24,
         node: [
@@ -25038,17 +25056,17 @@
           ["path", { d: "M3 20V4", key: "1ptbpl" }]
         ]
       };
-      __iconData53.node;
-      SkipBack = createLucideIcon(__iconData53);
+      __iconData54.node;
+      SkipBack = createLucideIcon(__iconData54);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/skip-forward.mjs
-  var __iconData54, SkipForward;
+  var __iconData55, SkipForward;
   var init_skip_forward = __esm({
     "node_modules/lucide-react/dist/esm/icons/skip-forward.mjs"() {
       init_createLucideIcon();
-      __iconData54 = {
+      __iconData55 = {
         name: "skip-forward",
         size: 24,
         node: [
@@ -25062,17 +25080,17 @@
           ]
         ]
       };
-      __iconData54.node;
-      SkipForward = createLucideIcon(__iconData54);
+      __iconData55.node;
+      SkipForward = createLucideIcon(__iconData55);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/sparkles.mjs
-  var __iconData55, Sparkles;
+  var __iconData56, Sparkles;
   var init_sparkles = __esm({
     "node_modules/lucide-react/dist/esm/icons/sparkles.mjs"() {
       init_createLucideIcon();
-      __iconData55 = {
+      __iconData56 = {
         name: "sparkles",
         size: 24,
         node: [
@@ -25089,32 +25107,32 @@
         ],
         aliases: ["stars"]
       };
-      __iconData55.node;
-      Sparkles = createLucideIcon(__iconData55);
+      __iconData56.node;
+      Sparkles = createLucideIcon(__iconData56);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/square.mjs
-  var __iconData56, Square;
+  var __iconData57, Square;
   var init_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/square.mjs"() {
       init_createLucideIcon();
-      __iconData56 = {
+      __iconData57 = {
         name: "square",
         size: 24,
         node: [["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]]
       };
-      __iconData56.node;
-      Square = createLucideIcon(__iconData56);
+      __iconData57.node;
+      Square = createLucideIcon(__iconData57);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/star.mjs
-  var __iconData57, Star;
+  var __iconData58, Star;
   var init_star = __esm({
     "node_modules/lucide-react/dist/esm/icons/star.mjs"() {
       init_createLucideIcon();
-      __iconData57 = {
+      __iconData58 = {
         name: "star",
         size: 24,
         node: [
@@ -25127,17 +25145,17 @@
           ]
         ]
       };
-      __iconData57.node;
-      Star = createLucideIcon(__iconData57);
+      __iconData58.node;
+      Star = createLucideIcon(__iconData58);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/tag.mjs
-  var __iconData58, Tag;
+  var __iconData59, Tag;
   var init_tag = __esm({
     "node_modules/lucide-react/dist/esm/icons/tag.mjs"() {
       init_createLucideIcon();
-      __iconData58 = {
+      __iconData59 = {
         name: "tag",
         size: 24,
         node: [
@@ -25151,17 +25169,17 @@
           ["circle", { cx: "7.5", cy: "7.5", r: ".5", fill: "currentColor", key: "kqv944" }]
         ]
       };
-      __iconData58.node;
-      Tag = createLucideIcon(__iconData58);
+      __iconData59.node;
+      Tag = createLucideIcon(__iconData59);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trash.mjs
-  var __iconData59, Trash;
+  var __iconData60, Trash;
   var init_trash = __esm({
     "node_modules/lucide-react/dist/esm/icons/trash.mjs"() {
       init_createLucideIcon();
-      __iconData59 = {
+      __iconData60 = {
         name: "trash",
         size: 24,
         node: [
@@ -25173,17 +25191,17 @@
         ],
         aliases: ["trash-2"]
       };
-      __iconData59.node;
-      Trash = createLucideIcon(__iconData59);
+      __iconData60.node;
+      Trash = createLucideIcon(__iconData60);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trending-up.mjs
-  var __iconData60, TrendingUp;
+  var __iconData61, TrendingUp;
   var init_trending_up = __esm({
     "node_modules/lucide-react/dist/esm/icons/trending-up.mjs"() {
       init_createLucideIcon();
-      __iconData60 = {
+      __iconData61 = {
         name: "trending-up",
         size: 24,
         node: [
@@ -25191,17 +25209,17 @@
           ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
         ]
       };
-      __iconData60.node;
-      TrendingUp = createLucideIcon(__iconData60);
+      __iconData61.node;
+      TrendingUp = createLucideIcon(__iconData61);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/upload.mjs
-  var __iconData61, Upload;
+  var __iconData62, Upload;
   var init_upload = __esm({
     "node_modules/lucide-react/dist/esm/icons/upload.mjs"() {
       init_createLucideIcon();
-      __iconData61 = {
+      __iconData62 = {
         name: "upload",
         size: 24,
         node: [
@@ -25210,17 +25228,17 @@
           ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
         ]
       };
-      __iconData61.node;
-      Upload = createLucideIcon(__iconData61);
+      __iconData62.node;
+      Upload = createLucideIcon(__iconData62);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/user.mjs
-  var __iconData62, User;
+  var __iconData63, User;
   var init_user = __esm({
     "node_modules/lucide-react/dist/esm/icons/user.mjs"() {
       init_createLucideIcon();
-      __iconData62 = {
+      __iconData63 = {
         name: "user",
         size: 24,
         node: [
@@ -25228,17 +25246,17 @@
           ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
         ]
       };
-      __iconData62.node;
-      User = createLucideIcon(__iconData62);
+      __iconData63.node;
+      User = createLucideIcon(__iconData63);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/users.mjs
-  var __iconData63, Users;
+  var __iconData64, Users;
   var init_users = __esm({
     "node_modules/lucide-react/dist/esm/icons/users.mjs"() {
       init_createLucideIcon();
-      __iconData63 = {
+      __iconData64 = {
         name: "users",
         size: 24,
         node: [
@@ -25248,17 +25266,17 @@
           ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
         ]
       };
-      __iconData63.node;
-      Users = createLucideIcon(__iconData63);
+      __iconData64.node;
+      Users = createLucideIcon(__iconData64);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video-off.mjs
-  var __iconData64, VideoOff;
+  var __iconData65, VideoOff;
   var init_video_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/video-off.mjs"() {
       init_createLucideIcon();
-      __iconData64 = {
+      __iconData65 = {
         name: "video-off",
         size: 24,
         node: [
@@ -25270,17 +25288,17 @@
           ["path", { d: "m2 2 20 20", key: "1ooewy" }]
         ]
       };
-      __iconData64.node;
-      VideoOff = createLucideIcon(__iconData64);
+      __iconData65.node;
+      VideoOff = createLucideIcon(__iconData65);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video.mjs
-  var __iconData65, Video;
+  var __iconData66, Video;
   var init_video = __esm({
     "node_modules/lucide-react/dist/esm/icons/video.mjs"() {
       init_createLucideIcon();
-      __iconData65 = {
+      __iconData66 = {
         name: "video",
         size: 24,
         node: [
@@ -25294,17 +25312,17 @@
           ["rect", { x: "2", y: "6", width: "14", height: "12", rx: "2", key: "158x01" }]
         ]
       };
-      __iconData65.node;
-      Video = createLucideIcon(__iconData65);
+      __iconData66.node;
+      Video = createLucideIcon(__iconData66);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/volume-2.mjs
-  var __iconData66, Volume2;
+  var __iconData67, Volume2;
   var init_volume_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/volume-2.mjs"() {
       init_createLucideIcon();
-      __iconData66 = {
+      __iconData67 = {
         name: "volume-2",
         size: 24,
         node: [
@@ -25319,17 +25337,17 @@
           ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
         ]
       };
-      __iconData66.node;
-      Volume2 = createLucideIcon(__iconData66);
+      __iconData67.node;
+      Volume2 = createLucideIcon(__iconData67);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/wind.mjs
-  var __iconData67, Wind;
+  var __iconData68, Wind;
   var init_wind = __esm({
     "node_modules/lucide-react/dist/esm/icons/wind.mjs"() {
       init_createLucideIcon();
-      __iconData67 = {
+      __iconData68 = {
         name: "wind",
         size: 24,
         node: [
@@ -25338,17 +25356,17 @@
           ["path", { d: "M9.8 4.4A2 2 0 1 1 11 8H2", key: "75valh" }]
         ]
       };
-      __iconData67.node;
-      Wind = createLucideIcon(__iconData67);
+      __iconData68.node;
+      Wind = createLucideIcon(__iconData68);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/x.mjs
-  var __iconData68, X;
+  var __iconData69, X;
   var init_x = __esm({
     "node_modules/lucide-react/dist/esm/icons/x.mjs"() {
       init_createLucideIcon();
-      __iconData68 = {
+      __iconData69 = {
         name: "x",
         size: 24,
         node: [
@@ -25356,8 +25374,8 @@
           ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
         ]
       };
-      __iconData68.node;
-      X = createLucideIcon(__iconData68);
+      __iconData69.node;
+      X = createLucideIcon(__iconData69);
     }
   });
 
@@ -25373,6 +25391,7 @@
       init_pen_line();
       init_sparkles();
       init_trash();
+      init_arrow_left();
       init_award();
       init_bell_ring();
       init_bell();
@@ -25632,7 +25651,8 @@
     setLang,
     user: user2,
     onOpenNotifications,
-    onTestSound
+    onTestSound,
+    onOpenProfile
   }) {
     return /* @__PURE__ */ import_react7.default.createElement("header", { className: "dashboard-top-header" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-mobile-brand-wrap", onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }) }, /* @__PURE__ */ import_react7.default.createElement("img", { src: "assets/images/logo.png", alt: "Nithya Yoga", className: "header-mobile-logo-img" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "header-mobile-title" }, "NITHYA")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-search-wrapper" }, /* @__PURE__ */ import_react7.default.createElement(Search, { size: 16, className: "search-icon-left" }), /* @__PURE__ */ import_react7.default.createElement(
       "input",
@@ -25675,10 +25695,14 @@
     ), /* @__PURE__ */ import_react7.default.createElement(
       "div",
       {
-        className: "header-user-badge",
+        className: "header-user-badge cursor-pointer",
         onClick: () => {
-          const el = document.querySelector(".profile-dashboard-card");
-          if (el) el.scrollIntoView({ behavior: "smooth" });
+          if (onOpenProfile) {
+            onOpenProfile();
+          } else {
+            const el = document.querySelector(".profile-dashboard-card");
+            if (el) el.scrollIntoView({ behavior: "smooth" });
+          }
         },
         title: "View / Edit Profile",
         role: "button",
@@ -26439,13 +26463,11 @@
       return () => clearInterval(interval);
     }, [isTimerRunning, asanaTimer]);
     const handlePracticeAsana = (asana) => {
-      audioEngine.playMeditationTone();
       setActiveAsanaModal(asana);
       setAsanaTimer(60);
       setIsTimerRunning(true);
     };
     const handleViewAllClick = () => {
-      audioEngine.playMeditationTone();
       setShowAllModal(true);
     };
     return /* @__PURE__ */ import_react10.default.createElement("div", { className: "dashboard-card yoga-classes-card" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "card-header-row flex items-center justify-between pb-2 border-b border-subtle" }, /* @__PURE__ */ import_react10.default.createElement("h3", { className: "card-title-main flex items-center gap-2 m-0 text-base font-bold" }, /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 24 }), /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE & \u0B86\u0B9A\u0BA9 \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BBF" : "Yoga Classes & Asanas")), /* @__PURE__ */ import_react10.default.createElement(
@@ -26534,7 +26556,6 @@
         onClick: () => {
           setAsanaTimer(60);
           setIsTimerRunning(false);
-          audioEngine.playSoftBell();
         },
         className: "ya-btn ya-btn--soft px-2.5 py-1.5 rounded-full text-xs flex items-center gap-1 cursor-pointer",
         title: "Reset Timer"
@@ -58747,10 +58768,12 @@
     const [layoutMode, setLayoutMode] = (0, import_react11.useState)("spotlight");
     const [spotlightParticipantId, setSpotlightParticipantId] = (0, import_react11.useState)(null);
     const [isFullscreen, setIsFullscreen] = (0, import_react11.useState)(false);
+    const studentSession = loadStorage("nithya_student_session", null);
     const canChooseInstructor = Boolean(
-      localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") || user2?.role === "trainer" || user2?.role === "instructor" || user2?.isInstructor === true
+      !studentSession && (localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") || user2?.role === "trainer" || user2?.role === "instructor" || user2?.isInstructor === true)
     );
     const [isInstructorRole, setIsInstructorRole] = (0, import_react11.useState)(() => {
+      if (studentSession) return false;
       return canChooseInstructor;
     });
     const [classEndedNotice, setClassEndedNotice] = (0, import_react11.useState)(false);
@@ -58811,13 +58834,55 @@
         console.warn("Backend LiveKit status check:", err.message);
       });
     }, []);
+    (0, import_react11.useEffect)(() => {
+      let bc = null;
+      try {
+        if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+          bc = new BroadcastChannel("nithya_live_class_channel");
+          bc.onmessage = (event) => {
+            const msg = event.data;
+            if (!msg) return;
+            if (msg.type === "student_joined" && msg.student) {
+              setConnectedStudentsList((prev) => {
+                const updated = [msg.student, ...prev.filter((p) => p.phone !== msg.student.phone && p.name !== msg.student.name)];
+                saveStorage("nithya_live_participants", updated);
+                return updated;
+              });
+            } else if (msg.type === "class-ended") {
+              setClassEndedNotice(true);
+            } else if (msg.type === "chat" && msg.text) {
+              setChatMessages((prev) => [
+                ...prev,
+                {
+                  id: `msg-${Date.now()}-${Math.random()}`,
+                  sender: msg.sender || "Peer",
+                  text: msg.text,
+                  time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                  isSystem: false
+                }
+              ]);
+            } else if (msg.type === "raise-hand" && msg.identity) {
+              setRaisedHands((prev) => new Set(prev).add(msg.identity));
+            }
+          };
+        }
+      } catch (_2) {
+      }
+      return () => {
+        if (bc) {
+          try {
+            bc.close();
+          } catch (_2) {
+          }
+        }
+      };
+    }, []);
     const connectToRoom = (0, import_react11.useCallback)(async () => {
       setConnectionState("connecting");
       setErrorMessage("");
-      audioEngine.playGentleChime();
       const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : "nithya-live-studio").toLowerCase().replace(/[^a-z0-9_-]/g, "-");
       const studentInfo = loadStorage("nithya_student_session", null);
-      const participantName = (studentInfo?.name || user2?.name || (isInstructorRole ? "NITHYA Master" : "Yoga Practitioner")).trim();
+      const participantName2 = (studentInfo?.name || user2?.name || (isInstructorRole ? "NITHYA Master" : "Yoga Practitioner")).trim();
       let connectedViaLiveKit = false;
       const hasBackend = Boolean(getApiBaseUrl()) || typeof window !== "undefined" && window.location.hostname === "localhost";
       if (hasBackend) {
@@ -58832,7 +58897,7 @@
             headers: reqHeaders,
             body: JSON.stringify({
               roomName,
-              participantName,
+              participantName: participantName2,
               classId: activeClass?.id
             })
           });
@@ -58848,7 +58913,6 @@
               setConnectionState("connected");
               setStudioMode("livekit");
               setParticipants(Array.from(liveRoom.remoteParticipants.values()));
-              audioEngine.playTempleBell();
               const memberToken = localStorage.getItem("nithya_auth_token");
               if (memberToken) {
                 apiFetch("/api/attendance/join", {
@@ -58899,13 +58963,10 @@
                       isSystem: false
                     }
                   ]);
-                  audioEngine.playSoftBell();
                 } else if (dataObj.type === "raise-hand") {
                   setRaisedHands((prev) => new Set(prev).add(participant.identity));
-                  audioEngine.playMeditationTone();
                 } else if (dataObj.type === "class-ended") {
                   setClassEndedNotice(true);
-                  audioEngine.playTempleBell();
                 }
               } catch (_2) {
               }
@@ -58938,11 +58999,10 @@
           setLocalStream(stream);
           setStudioMode("webrtc");
           setConnectionState("connected");
-          audioEngine.playTempleBell();
           if (!isInstructorRole) {
             const newStudent = {
               id: `p-${Date.now()}`,
-              name: participantName,
+              name: participantName2,
               phone: studentInfo?.phone || user2?.phone || "N/A",
               role: "Student",
               joinedAt: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
@@ -58952,6 +59012,16 @@
               const updated = [newStudent, ...existing.filter((p) => p.phone !== newStudent.phone)];
               saveStorage("nithya_live_participants", updated);
               setConnectedStudentsList(updated);
+              if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+                const bc = new BroadcastChannel("nithya_live_class_channel");
+                bc.postMessage({ type: "student_joined", student: newStudent });
+                setTimeout(() => {
+                  try {
+                    bc.close();
+                  } catch (_2) {
+                  }
+                }, 200);
+              }
             } catch (_2) {
             }
           }
@@ -59054,7 +59124,19 @@
           });
         }, 5e3);
       }
-      audioEngine.playMeditationTone();
+      try {
+        if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+          const bc = new BroadcastChannel("nithya_live_class_channel");
+          bc.postMessage({ type: "raise-hand", identity: participantName });
+          setTimeout(() => {
+            try {
+              bc.close();
+            } catch (_2) {
+            }
+          }, 100);
+        }
+      } catch (_2) {
+      }
     };
     const handleSendChatMessage = (e2) => {
       e2.preventDefault();
@@ -59070,6 +59152,23 @@
           console.error("Chat error:", e3);
         }
       }
+      try {
+        if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+          const bc = new BroadcastChannel("nithya_live_class_channel");
+          bc.postMessage({
+            type: "chat",
+            text: chatInput.trim(),
+            sender: user2?.name || (isInstructorRole ? "Instructor" : "Student")
+          });
+          setTimeout(() => {
+            try {
+              bc.close();
+            } catch (_2) {
+            }
+          }, 100);
+        }
+      } catch (_2) {
+      }
       setChatMessages((prev) => [
         ...prev,
         {
@@ -59081,10 +59180,8 @@
         }
       ]);
       setChatInput("");
-      audioEngine.playSoftBell();
     };
     const handleLeave = () => {
-      audioEngine.playGentleChime();
       const memberToken = localStorage.getItem("nithya_auth_token");
       if (memberToken) {
         apiFetch("/api/attendance/leave", {
@@ -59115,7 +59212,19 @@
     const handleEndClassForAll = async () => {
       const confirmMsg = lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF \u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BBE?" : "Are you sure you want to end this yoga class for all participants?";
       if (!window.confirm(confirmMsg)) return;
-      audioEngine.playTempleBell();
+      try {
+        if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+          const bc = new BroadcastChannel("nithya_live_class_channel");
+          bc.postMessage({ type: "class-ended" });
+          setTimeout(() => {
+            try {
+              bc.close();
+            } catch (_2) {
+            }
+          }, 100);
+        }
+      } catch (_2) {
+      }
       if (room?.localParticipant) {
         try {
           const payload = new TextEncoder().encode(JSON.stringify({ type: "class-ended" }));
@@ -59148,7 +59257,6 @@
     const currentAttendancePct = Math.min(100, Math.round(sessionSeconds / (classDurationMins * 60) * 100));
     const handleVerifyAttendance = (forcedPresent = false) => {
       setHasAttendanceRecorded(true);
-      audioEngine.playTempleBell();
       const durationMins = Math.max(1, Math.round(sessionSeconds / 60));
       const isPresent = forcedPresent || currentAttendancePct >= 70;
       const finalPct = forcedPresent ? Math.max(currentAttendancePct, 75) : currentAttendancePct;
@@ -59199,7 +59307,6 @@
         navigator.clipboard.writeText(url).then(() => {
           setCopiedLink(true);
           setTimeout(() => setCopiedLink(false), 2500);
-          audioEngine.playSoftBell();
         }).catch(() => {
           prompt("Copy class link:", url);
         });
@@ -59223,12 +59330,10 @@ ${url}`;
     const handleSimulateNetworkDrop = () => {
       setIsSimulatingDisconnect(true);
       setConnectionState("connecting");
-      audioEngine.playSoftBell();
       setTimeout(() => {
         setIsSimulatingDisconnect(false);
         setConnectionState("connected");
         setReconnectCount((prev) => prev + 1);
-        audioEngine.playTempleBell();
       }, 1200);
     };
     const handleTestBackend = async () => {
@@ -59289,10 +59394,12 @@ ${url}`;
         setIsFullscreen(false);
       }
     };
+    const studentInfoForPresence = loadStorage("nithya_student_session", null);
     const localWebrtcParticipant = {
-      identity: isInstructorRole ? "instructor-local" : user2?.id || "student-local",
-      name: user2?.name || (isInstructorRole ? "NITHYA Master" : "Yoga Practitioner"),
+      identity: isInstructorRole ? "instructor-local" : studentInfoForPresence?.phone || user2?.id || "student-local",
+      name: isInstructorRole ? user2?.name || "NITHYA Master" : studentInfoForPresence?.name || user2?.name || "Yoga Student",
       role: isInstructorRole ? "instructor" : "student",
+      phone: studentInfoForPresence?.phone || user2?.phone || "",
       stream: localStream,
       isLocal: true,
       isInstructor: isInstructorRole
@@ -59307,7 +59414,15 @@ ${url}`;
       isLocal: false,
       isInstructor: false
     })) : [];
-    const allParticipants = room ? [room.localParticipant, ...participants] : localStream ? [localWebrtcParticipant, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : simulatedPeers.length ? simulatedPeers : [localWebrtcParticipant];
+    const instructorPeer = !isInstructorRole ? [{
+      identity: "instructor-lead",
+      name: activeClass?.instructor || "NITHYA Master (Leader)",
+      role: "instructor",
+      isInstructor: true,
+      isLocal: false,
+      stream: null
+    }] : [];
+    const allParticipants = room ? [room.localParticipant, ...participants] : localStream ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : simulatedPeers.length ? [...instructorPeer, ...simulatedPeers] : [...instructorPeer, localWebrtcParticipant];
     const spotlightParticipant = spotlightParticipantId ? allParticipants.find((p) => p.identity === spotlightParticipantId) : allParticipants.find((p) => p.metadata?.includes("instructor") || p.isInstructor || p.role === "instructor" || p.name?.toLowerCase().includes("master")) || allParticipants[0];
     const otherParticipants = allParticipants.filter((p) => p?.identity !== spotlightParticipant?.identity);
     return /* @__PURE__ */ import_react11.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-studio-header" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-left-title-cluster" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-status-pill-indicator" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `live-pulse-dot ${connectionState === "connected" ? "active-green" : "connecting-amber"}` }), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-pill-text" }, connectionState === "connected" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB" : "LiveKit WebRTC HD" : lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "class-title-meta" }, /* @__PURE__ */ import_react11.default.createElement("h3", { className: "live-class-heading" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-instructor-subtitle" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Led by", " ", /* @__PURE__ */ import_react11.default.createElement("strong", null, activeClass?.instructor || "NITHYA Master")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-right-tools" }, canChooseInstructor ? /* @__PURE__ */ import_react11.default.createElement(
@@ -59840,7 +59955,6 @@ Verified WebRTC Attendance Session`;
     };
     const handleLaunchGoogleMeet = () => {
       setIsSessionActive(true);
-      audioEngine.playGentleChime();
       const meetUrl = activeClass?.meetUrl || "https://meet.google.com/new";
       window.open(meetUrl, "_blank", "noopener,noreferrer");
     };
@@ -59849,7 +59963,6 @@ Verified WebRTC Attendance Session`;
       navigator.clipboard.writeText(link).then(() => {
         setCopiedLink(true);
         setTimeout(() => setCopiedLink(false), 2500);
-        audioEngine.playSoftBell();
       }).catch(() => {
         prompt("Copy class link:", link);
       });
@@ -59865,7 +59978,6 @@ Click to join: ${link}`
     };
     const handleVerifyAttendance = () => {
       setAttendanceVerified(true);
-      audioEngine.playTempleBell();
       const minutesSpent = Math.max(1, Math.round(sessionSeconds / 60));
       const studentName = localStorage.getItem("nithya_student_name") || "Yoga Practitioner";
       if (onRecordAttendance) {
@@ -60300,7 +60412,6 @@ Click to join: ${link}`
             setSound(e2.target.value);
             setCustomAudioName("");
             setCustomAudioUrl("");
-            audioEngine.playSoundByName(e2.target.value);
           }
         }
       },
@@ -61153,7 +61264,6 @@ Click to join: ${link}`
         if (res.ok) {
           const data = await res.json();
           setRemoteUpdate(data);
-          audioEngine.playSoftBell();
         }
       } catch (e2) {
         console.warn("Update check failed:", e2);
@@ -61163,7 +61273,6 @@ Click to join: ${link}`
     };
     const handleTriggerUpdate = async () => {
       setIsUpdatingApp(true);
-      audioEngine.playTempleBell();
       try {
         if ("caches" in window) {
           const cacheNames = await caches.keys();
@@ -61172,14 +61281,17 @@ Click to join: ${link}`
         if ("serviceWorker" in navigator) {
           const regs = await navigator.serviceWorker.getRegistrations();
           for (const reg of regs) {
-            await reg.update();
+            await reg.unregister();
           }
         }
+        if (remoteUpdate?.version) {
+          localStorage.setItem("nithya_installed_version", remoteUpdate.version);
+        }
         setTimeout(() => {
-          window.location.reload(true);
-        }, 700);
+          window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+        }, 500);
       } catch (_2) {
-        window.location.reload(true);
+        window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
       }
     };
     const handleClearCache = async () => {
@@ -61187,9 +61299,8 @@ Click to join: ${link}`
         const keys = await caches.keys();
         await Promise.all(keys.map((k) => caches.delete(k)));
       }
-      audioEngine.playSoftBell();
       alert(lang === "ta" ? "\u0B95\u0BC7\u0B9A\u0BCD \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Web Cache Cleared Successfully!");
-      window.location.reload(true);
+      window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
     };
     import_react18.default.useEffect(() => {
       if (user2) {
@@ -61323,18 +61434,17 @@ Click to join: ${link}`
           onClick: handleTriggerUpdate,
           disabled: isUpdatingApp
         },
-        /* @__PURE__ */ import_react18.default.createElement(Download, { size: 13, className: isUpdatingApp ? "animate-bounce" : "" }),
+        /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 13, className: isUpdatingApp ? "animate-spin" : "" }),
         /* @__PURE__ */ import_react18.default.createElement("span", null, isUpdatingApp ? lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B86\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating..." : lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0BA8\u0BB5\u0BCD (Update Now)" : "Update Now")
       ), /* @__PURE__ */ import_react18.default.createElement(
-        "a",
+        "button",
         {
-          href: "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk",
-          target: "_blank",
-          rel: "noopener noreferrer",
+          type: "button",
+          onClick: handleClearCache,
           className: "ya-btn text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold border border-subtle bg-card text-heading hover:bg-subtle/50 ml-auto"
         },
-        /* @__PURE__ */ import_react18.default.createElement(Download, { size: 13 }),
-        /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0B9F\u0BBF APK \u0B9F\u0BB5\u0BC1\u0BA9\u0BCD\u0BB2\u0BCB\u0B9F\u0BCD" : "Direct APK Download")
+        /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 13 }),
+        /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA4\u0BCD\u0BA4\u0BB2\u0BCD" : "Live Sync")
       ))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-3.5 rounded-xl border border-subtle bg-card flex items-center justify-between" }, /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-xs text-heading block" }, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0B95\u0BC7\u0B9A\u0BCD (Cache) \u0BB0\u0BC0\u0B9A\u0BC6\u0B9F\u0BCD" : "Reset Web Cache"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted" }, lang === "ta" ? "\u0B9A\u0BAE\u0BC0\u0BAA\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0B9F\u0BA9\u0B9F\u0BBF\u0BAF\u0BBE\u0B95\u0BAA\u0BCD \u0BAA\u0BC6\u0BB1" : "Fetch freshest assets immediately")), /* @__PURE__ */ import_react18.default.createElement(
         "button",
         {
@@ -61684,7 +61794,6 @@ Click to join: ${link}`
               setSound(e2.target.value);
               setCustomAudioName("");
               setCustomAudioUrl("");
-              audioEngine.playSoundByName(e2.target.value);
             }
           }
         },
@@ -61921,7 +62030,7 @@ Click to join: ${link}`
         });
         setAdminToken(data.token);
         localStorage.setItem("nithya_admin_token", data.token);
-        audioEngine.playTempleBell();
+        localStorage.removeItem("nithya_student_session");
         if (showToast) {
           showToast(
             lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0BA9\u0BA4\u0BC1 \u2713" : "Trainer Login Successful \u2713",
@@ -61931,7 +62040,6 @@ Click to join: ${link}`
         }
       } catch (err) {
         setLoginError(err.message);
-        audioEngine.playSoundByName("Soft Bell");
       } finally {
         setLoginLoading(false);
       }
@@ -61939,7 +62047,6 @@ Click to join: ${link}`
     const handleLogout = () => {
       setAdminToken("");
       localStorage.removeItem("nithya_admin_token");
-      audioEngine.playGentleChime();
       if (showToast) {
         showToast(
           lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BBF\u0BA9\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Logged Out",
@@ -61967,7 +62074,6 @@ Click to join: ${link}`
         });
         setClassesList((prev) => [data, ...prev]);
         setNewTitle("");
-        audioEngine.playMeditationTone();
         if (showToast) {
           showToast(
             lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Yoga Class Created \u2713",
@@ -61983,12 +62089,12 @@ Click to join: ${link}`
     };
     const handleStartClass = async (cls) => {
       try {
+        localStorage.removeItem("nithya_student_session");
         await apiFetch(`/api/trainer/classes/${cls.id}/start`, {
           method: "PUT",
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
         setClassesList((prev) => prev.map((c) => c.id === cls.id ? { ...c, status: "live" } : c));
-        audioEngine.playTempleBell();
         if (showToast) {
           showToast(
             lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 (Live) \u{1F534}" : "Class Started Live \u{1F534}",
@@ -62013,7 +62119,6 @@ Click to join: ${link}`
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
         setClassesList((prev) => prev.map((c) => c.id === cls.id ? { ...c, status: "ended" } : c));
-        audioEngine.playGentleChime();
         if (showToast) {
           showToast(
             lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1\u0BAA\u0BC6\u0BB1\u0BCD\u0BB1\u0BA4\u0BC1 \u2713" : "Class Ended for All Participants \u2713",
@@ -62048,7 +62153,6 @@ Click to join: ${link}`
         });
         const resolvedUrl = data.token ? getProductionLiveUrl(classId, { invite: data.token }) : data.inviteUrl || getProductionLiveUrl(classId);
         setInviteUrls((prev) => ({ ...prev, [classId]: resolvedUrl }));
-        audioEngine.playSoftBell();
         if (showToast) {
           showToast(
             lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u{1F517}" : "Invite Link Generated \u{1F517}",
@@ -62064,7 +62168,6 @@ Click to join: ${link}`
       navigator.clipboard.writeText(url).then(() => {
         setCopiedId(classId);
         setTimeout(() => setCopiedId(null), 2500);
-        audioEngine.playSoftBell();
         if (showToast) {
           showToast(
             lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Copied to Clipboard \u2713",
@@ -62113,7 +62216,6 @@ ${liveUrl}`;
         setNewMatDesc("");
         setNewMatUrl("");
         setNewMatContent("");
-        audioEngine.playSoftBell();
         if (showToast) showToast("Material Saved \u2713", data.title, "success");
       } catch (err) {
         alert(err.message);
@@ -62158,7 +62260,6 @@ ${liveUrl}`;
         setNewVidTitle("");
         setNewVidDesc("");
         setNewVidUrl("");
-        audioEngine.playSoftBell();
         if (showToast) showToast("Video Added \u2713", data.title, "success");
       } catch (err) {
         alert(err.message);
@@ -62202,7 +62303,6 @@ ${liveUrl}`;
           hasApiKey: Boolean(configApiKey),
           hasApiSecret: Boolean(configApiSecret)
         }));
-        audioEngine.playTempleBell();
         if (showToast) {
           showToast(
             lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA9 \u2713" : "LiveKit Credentials Saved \u2713",
@@ -62235,7 +62335,6 @@ ${liveUrl}`;
       document.body.appendChild(link);
       link.click();
       document.body.removeChild(link);
-      audioEngine.playSoftBell();
     };
     if (!adminToken) {
       return /* @__PURE__ */ import_react22.default.createElement("div", { className: "dashboard-card admin-login-card max-w-lg mx-auto my-6 p-6 rounded-2xl border border-subtle bg-card shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "card-header-block text-center pb-4 border-b border-subtle" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "inline-flex p-3 rounded-2xl bg-primary/10 text-primary mb-3" }, /* @__PURE__ */ import_react22.default.createElement(ShieldCheck, { size: 32 })), /* @__PURE__ */ import_react22.default.createElement("h2", { className: "text-xl font-bold text-heading m-0" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD & \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "NITHYA Yoga Trainer Portal"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "text-xs text-muted mt-1 max-w-sm mx-auto" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95, \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0BB1\u0BCD\u0BB1 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAF\u0BC8\u0B95\u0BCD \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0B95\u0BCD\u0B95 \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Secure instructor dashboard to schedule classes, stream live, upload notes & manage student attendance.")), loginError && /* @__PURE__ */ import_react22.default.createElement("div", { className: "alert-box-error flex items-center gap-2 p-3 my-4 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs" }, /* @__PURE__ */ import_react22.default.createElement(CircleAlert, { size: 16 }), /* @__PURE__ */ import_react22.default.createElement("span", null, loginError)), /* @__PURE__ */ import_react22.default.createElement("form", { onSubmit: handleLogin, className: "flex flex-col gap-4 mt-4" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "text-xs font-bold text-heading" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B88\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD (Trainer Email)" : "Trainer Email"), /* @__PURE__ */ import_react22.default.createElement(
@@ -62676,7 +62775,6 @@ ${liveUrl}`;
         try {
           const data = await apiFetch(`/api/invites/${encodeURIComponent(inviteToken)}`);
           setClassInfo(data.class);
-          audioEngine.playMeditationTone();
         } catch (err) {
           setError(err.message);
         } finally {
@@ -62701,7 +62799,6 @@ ${liveUrl}`;
         });
         localStorage.setItem("nithya_auth_token", data.token);
         localStorage.setItem("nithya_member", JSON.stringify(data.member));
-        audioEngine.playTempleBell();
         if (onRegistrationSuccess) {
           onRegistrationSuccess({
             token: data.token,
@@ -62712,7 +62809,6 @@ ${liveUrl}`;
         }
       } catch (err) {
         setSubmitError(err.message);
-        audioEngine.playSoundByName("Soft Bell");
       } finally {
         setSubmitting(false);
       }
@@ -62934,10 +63030,44 @@ ${liveUrl}`;
       try {
         localStorage.setItem("nithya_student_name", cleanName);
         localStorage.setItem("nithya_student_phone", cleanPhone);
-        const classId = activeClass?.id || "cls-1";
-        let resData = null;
+        localStorage.removeItem("nithya_admin_token");
+        localStorage.removeItem("nithya_trainer_token");
+        const studentSession = {
+          name: cleanName,
+          phone: cleanPhone,
+          role: "student",
+          joinedAt: (/* @__PURE__ */ new Date()).toISOString()
+        };
+        localStorage.setItem("nithya_student_session", JSON.stringify(studentSession));
+        const newParticipant = {
+          id: `p-${Date.now()}`,
+          name: cleanName,
+          phone: cleanPhone,
+          role: "Student",
+          joinedAt: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+        };
         try {
-          resData = await apiFetch("/api/student/validate-join", {
+          const existing = JSON.parse(localStorage.getItem("nithya_live_participants") || "[]");
+          const updated = [newParticipant, ...existing.filter((p) => p.phone !== cleanPhone)];
+          localStorage.setItem("nithya_live_participants", JSON.stringify(updated));
+        } catch (_2) {
+        }
+        try {
+          if (typeof window !== "undefined" && "BroadcastChannel" in window) {
+            const bc = new BroadcastChannel("nithya_live_class_channel");
+            bc.postMessage({ type: "student_joined", student: newParticipant });
+            setTimeout(() => {
+              try {
+                bc.close();
+              } catch (_2) {
+              }
+            }, 150);
+          }
+        } catch (_2) {
+        }
+        try {
+          const classId = activeClass?.id || "cls-1";
+          apiFetch("/api/student/validate-join", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -62945,45 +63075,18 @@ ${liveUrl}`;
               name: cleanName,
               phone: cleanPhone
             })
+          }).then((data) => {
+            if (data?.token) localStorage.setItem("nithya_auth_token", data.token);
+          }).catch(() => {
           });
-        } catch (err) {
-          console.warn("Backend validation fallback to local:", err.message);
+        } catch (_2) {
         }
-        if (resData) {
-          if (resData.allowed === false && resData.reason === "ended") {
-            setClassStatus("ended");
-            setStatusMessage(resData.message || (lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "This yoga class has ended."));
-            setIsValidated(true);
-            return;
-          }
-          if (resData.status) {
-            setClassStatus(resData.status);
-          }
-          if (resData.token) {
-            localStorage.setItem("nithya_auth_token", resData.token);
-          }
-        } else {
-          setClassStatus(activeClass?.status || "live");
-        }
-        setIsValidated(true);
-        audioEngine.playSoftBell();
+        onJoin(studentSession);
       } catch (e3) {
-        setError(e3.message || "Validation error");
+        setError(e3.message || "Error joining class");
       } finally {
         setIsValidating(false);
       }
-    };
-    const handleJoinConfirmed = () => {
-      const cleanName = name.trim();
-      const cleanPhone = phone.replace(/[^\d+]/g, "");
-      const studentSession = {
-        name: cleanName,
-        phone: cleanPhone,
-        joinedAt: (/* @__PURE__ */ new Date()).toISOString()
-      };
-      localStorage.setItem("nithya_student_session", JSON.stringify(studentSession));
-      audioEngine.playTempleBell();
-      onJoin(studentSession);
     };
     return /* @__PURE__ */ import_react25.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal", onClick: onClose }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "modal-bottom-sheet max-w-md mx-auto", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react25.default.createElement("div", { className: "modal-header-bar flex items-center justify-between pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary" }, /* @__PURE__ */ import_react25.default.createElement(Radio, { size: 16, className: "text-primary animate-pulse" })), /* @__PURE__ */ import_react25.default.createElement("div", null, /* @__PURE__ */ import_react25.default.createElement("h3", { className: "modal-title-bold text-base font-bold text-heading" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 & \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Student Live Yoga Registration"), /* @__PURE__ */ import_react25.default.createElement("p", { className: "text-[11px] text-muted" }, activeClass?.title || activeClass?.name || "Hatha Yoga", " \u2022 ", activeClass?.instructor || "NITHYA Master"))), /* @__PURE__ */ import_react25.default.createElement(
       "button",
@@ -63036,7 +63139,7 @@ ${liveUrl}`;
         disabled: isValidating,
         className: "btn-modal-save w-2/3 py-2 text-xs rounded-xl bg-primary text-white font-bold flex items-center justify-center gap-1.5 shadow-md hover:opacity-95 cursor-pointer disabled:opacity-60"
       },
-      isValidating ? /* @__PURE__ */ import_react25.default.createElement(import_react25.default.Fragment, null, /* @__PURE__ */ import_react25.default.createElement(RefreshCw, { size: 13, className: "animate-spin" }), /* @__PURE__ */ import_react25.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Validating...")) : /* @__PURE__ */ import_react25.default.createElement(import_react25.default.Fragment, null, /* @__PURE__ */ import_react25.default.createElement(CircleCheck, { size: 14 }), /* @__PURE__ */ import_react25.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0BA4\u0BCD\u0BA4\u0BC1 \u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0B95 \u2713" : "Validate & Continue \u2713"))
+      isValidating ? /* @__PURE__ */ import_react25.default.createElement(import_react25.default.Fragment, null, /* @__PURE__ */ import_react25.default.createElement(RefreshCw, { size: 13, className: "animate-spin" }), /* @__PURE__ */ import_react25.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")) : /* @__PURE__ */ import_react25.default.createElement(import_react25.default.Fragment, null, /* @__PURE__ */ import_react25.default.createElement(Radio, { size: 14, className: "text-white animate-pulse" }), /* @__PURE__ */ import_react25.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95 \u{1F9D8}\u200D\u2640\uFE0F" : "Register & Enter Live Class \u{1F9D8}\u200D\u2640\uFE0F"))
     ))) : classStatus === "ended" ? (
       /* Notice: Class has ended */
       /* @__PURE__ */ import_react25.default.createElement("div", { className: "flex flex-col items-center text-center gap-3 py-4" }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center" }, /* @__PURE__ */ import_react25.default.createElement(Clock, { size: 24 })), /* @__PURE__ */ import_react25.default.createElement("h4", { className: "text-base font-bold text-heading" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Yoga Class Ended"), /* @__PURE__ */ import_react25.default.createElement("p", { className: "text-xs text-muted max-w-xs" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0BB2\u0BCD \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1. \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0B95\u0BCD \u0B95\u0BBE\u0BA3\u0BB5\u0BC1\u0BAE\u0BCD." : "This live session has already concluded. You can watch recorded yoga flows or view class notes."), /* @__PURE__ */ import_react25.default.createElement("div", { className: "flex gap-2 w-full mt-2" }, /* @__PURE__ */ import_react25.default.createElement(
@@ -63372,7 +63475,6 @@ ${liveUrl}`;
     };
     const handleUpdateNow = async () => {
       setIsUpdating(true);
-      audioEngine.playTempleBell();
       try {
         if ("caches" in window) {
           const cacheNames = await caches.keys();
@@ -63381,22 +63483,18 @@ ${liveUrl}`;
         if ("serviceWorker" in navigator) {
           const registrations = await navigator.serviceWorker.getRegistrations();
           for (const reg of registrations) {
-            await reg.update();
+            await reg.unregister();
           }
         }
         if (updateInfo?.version) {
           localStorage.setItem("nithya_installed_version", updateInfo.version);
         }
-        const isAndroidApp = typeof window !== "undefined" && (window.location.protocol === "capacitor:" || window.location.hostname === "localhost");
-        if (isAndroidApp && updateInfo?.apkUrl) {
-          window.open(updateInfo.apkUrl, "_system");
-        }
         setTimeout(() => {
-          window.location.reload(true);
-        }, 800);
+          window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+        }, 500);
       } catch (err) {
         console.error("Update error:", err);
-        window.location.reload(true);
+        window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
       }
     };
     if (!updateInfo || dismissed) return null;
@@ -63635,6 +63733,17 @@ ${liveUrl}`;
       );
       setActiveAlarm(null);
     };
+    const handleOpenProfile = () => {
+      setCurrentTab("home");
+      setTimeout(() => {
+        const el = document.querySelector(".profile-dashboard-card");
+        if (el) {
+          el.scrollIntoView({ behavior: "smooth" });
+          el.classList.add("ring-2", "ring-violet-500", "transition-all");
+          setTimeout(() => el.classList.remove("ring-2", "ring-violet-500"), 2e3);
+        }
+      }, 100);
+    };
     (0, import_react28.useEffect)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
@@ -63643,14 +63752,19 @@ ${liveUrl}`;
           const found = classes.find((c) => c.id === liveId) || classes[0];
           if (found) setActiveClass(found);
           setCurrentTab("live");
-          const session = loadStorage("nithya_student_session", null);
-          if (!session) {
-            setShowStudentJoinModal(true);
+          const isTrainer = Boolean(
+            localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") || user2?.role === "trainer" || user2?.role === "instructor" || user2?.isInstructor === true
+          );
+          if (!isTrainer) {
+            const session = loadStorage("nithya_student_session", null);
+            if (!session) {
+              setShowStudentJoinModal(true);
+            }
           }
         }
       } catch (_2) {
       }
-    }, [classes]);
+    }, [classes, user2]);
     const handleTestSound = () => {
       audioEngine.playMeditationTone();
       if (typeof window !== "undefined" && "Notification" in window) {
@@ -63712,7 +63826,6 @@ ${liveUrl}`;
     };
     const handleAddReminder = (newReminder) => {
       setReminders((prev) => [newReminder, ...prev]);
-      audioEngine.playSoundByName(newReminder.sound || "Soft Bell");
       showToast(
         lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Reminder Saved \u2713",
         `${newReminder.title} (${newReminder.time})`,
@@ -63727,7 +63840,6 @@ ${liveUrl}`;
         }
         return [remData, ...prev];
       });
-      audioEngine.playSoundByName(remData.sound || "Soft Bell");
       showToast(
         lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Reminder Updated \u2713",
         remData.title,
@@ -63742,7 +63854,6 @@ ${liveUrl}`;
       setReminders((prev) => prev.map((r) => {
         if (r.id === id) {
           const nextState = !r.completed;
-          if (nextState) audioEngine.playSoftBell();
           return { ...r, completed: nextState };
         }
         return r;
@@ -63834,18 +63945,19 @@ ${liveUrl}`;
         setLang,
         user: user2,
         onOpenNotifications: handleTestSound,
-        onTestSound: handleTestSound
+        onTestSound: handleTestSound,
+        onOpenProfile: handleOpenProfile
       }
-    ), currentTab === "student" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react28.default.createElement(
+    ), currentTab === "student" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-btn--soft text-xs cursor-pointer",
+        className: "btn-back-dashboard-modern",
         onClick: () => setCurrentTab("home")
       },
-      "\u2190 ",
-      lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F393} ", lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react28.default.createElement(
       StudentDashboard,
       {
         user: user2,
@@ -63866,16 +63978,16 @@ ${liveUrl}`;
         },
         lang
       }
-    )) : currentTab === "admin" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "admin" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-btn--soft text-xs cursor-pointer",
+        className: "btn-back-dashboard-modern",
         onClick: () => setCurrentTab("home")
       },
-      "\u2190 ",
-      lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F6E1}\uFE0F ", lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react28.default.createElement(
       AdminPortalSection,
       {
         onLaunchInstructorStudio: (cls) => {
@@ -63885,16 +63997,16 @@ ${liveUrl}`;
         showToast,
         lang
       }
-    )) : currentTab === "live" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "live" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-btn--soft text-xs",
+        className: "btn-back-dashboard-modern",
         onClick: () => setCurrentTab("home")
       },
-      "\u2190 ",
-      lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 (LiveKit HD)" : "Live Yoga Class Studio (LiveKit HD)")), /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-white/20 hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "live-indicator-dot animate-pulse" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-black text-sm tracking-wide text-white" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Studio"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "badge-private-hd" }, "HD WebRTC"))), /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2 ml-auto" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-xs text-white/70 font-semibold hidden sm:inline" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react28.default.createElement(
       "select",
       {
         value: activeClass?.id,
@@ -63902,7 +64014,7 @@ ${liveUrl}`;
           const found = classes.find((c) => c.id === e2.target.value);
           if (found) setActiveClass(found);
         },
-        className: "text-xs px-2.5 py-1.5 rounded-lg border bg-card text-heading font-semibold"
+        className: "studio-class-dropdown"
       },
       classes.map((c) => /* @__PURE__ */ import_react28.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
     ))), /* @__PURE__ */ import_react28.default.createElement(
@@ -64103,6 +64215,7 @@ ${liveUrl}`;
       init_StudentJoinModal();
       init_StudentDashboard();
       init_InAppUpdateBanner();
+      init_lucide_react();
       init_storage();
       init_audioEngine();
     }
@@ -64183,6 +64296,7 @@ lucide-react/dist/esm/shared/src/utils/hasA11yProp.mjs:
 lucide-react/dist/esm/context.mjs:
 lucide-react/dist/esm/Icon.mjs:
 lucide-react/dist/esm/createLucideIcon.mjs:
+lucide-react/dist/esm/icons/arrow-left.mjs:
 lucide-react/dist/esm/icons/award.mjs:
 lucide-react/dist/esm/icons/bell-ring.mjs:
 lucide-react/dist/esm/icons/bell.mjs:

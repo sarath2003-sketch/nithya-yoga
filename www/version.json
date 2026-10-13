@@ -3,8 +3,8 @@
   "versionCode": 2,
   "releaseDate": "2026-10-14",
   "title": "NITHYA Yoga v1.1 Update",
-  "titleTa": "நித்யா யோகா v1.1 புதிய அப்டேட்",
-  "notes": "Safe-area status bar spacing, official app launcher icon, live public class sharing link, and reminder alarms.",
-  "notesTa": "மொபைல் ஸ்கிரீன் ஸ்டேட்டஸ் பார் சீரமைப்பு, ஆப் லோகோ மாற்றம், நேரலை வகுப்பு பப்ளிக் லிங்க் மற்றும் ரிமைண்டர் அலாரம்.",
-  "apkUrl": "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
+  "titleTa": "நித்யா யோகா v1.1 புதிய நேரலை அப்டேட்",
+  "notes": "Seamless in-app OTA live sync, silenced casual sounds, direct student joining via link, and luxury studio controls.",
+  "notesTa": "நேரடி தானியங்கி ஆப் அப்டேட், தேவையில்லாத சத்தங்கள் நீக்கம், லிங்க் மூலம் மாணவர்கள் உடனடி இணைப்பு, மற்றும் உயர்தர ஸ்டுடியோ.",
+  "updateType": "ota_sync"
 }

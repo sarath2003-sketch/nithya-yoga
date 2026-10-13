@@ -3676,4 +3676,133 @@ input, select, textarea {
   color: #E2E8F0;
 }
 
+/* ==========================================================================
+   MODERN "BACK TO DASHBOARD" PILL & LUXURY STUDIO FRAME
+   ========================================================================== */
+.btn-back-dashboard-modern {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  color: var(--text-main);
+  background: var(--bg-card);
+  border: 1.5px solid var(--border-light);
+  box-shadow: 0 4px 14px -2px rgba(91, 68, 230, 0.12);
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn-back-dashboard-modern:hover {
+  transform: translateX(-3px);
+  border-color: var(--primary-purple);
+  background: linear-gradient(135deg, rgba(91, 68, 230, 0.08) 0%, rgba(139, 92, 246, 0.12) 100%);
+  color: var(--primary-purple);
+  box-shadow: 0 6px 20px -2px rgba(91, 68, 230, 0.22);
+}
+
+.btn-back-dashboard-modern:active {
+  transform: scale(0.96);
+}
+
+.btn-back-dashboard-modern .back-arrow-icon {
+  color: var(--primary-purple);
+  transition: transform 0.2s ease;
+}
+
+.btn-back-dashboard-modern:hover .back-arrow-icon {
+  transform: translateX(-2px);
+}
+
+[data-theme="dark"] .btn-back-dashboard-modern {
+  background: rgba(30, 27, 75, 0.85);
+  border-color: rgba(139, 92, 246, 0.35);
+  color: #EDE9FE;
+  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="dark"] .btn-back-dashboard-modern:hover {
+  background: linear-gradient(135deg, rgba(91, 68, 230, 0.3) 0%, rgba(139, 92, 246, 0.35) 100%);
+  border-color: #A78BFA;
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .btn-back-dashboard-modern .back-arrow-icon {
+  color: #C4B5FD;
+}
+
+/* Luxury Studio Header Frame */
+.live-studio-premium-frame {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 12px 18px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #2E1065 0%, #1E1B4B 50%, #0F172A 100%);
+  border: 1.5px solid rgba(167, 139, 250, 0.35);
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.live-studio-premium-frame .btn-back-dashboard-modern {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  box-shadow: none;
+}
+
+.live-studio-premium-frame .btn-back-dashboard-modern:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: #A78BFA;
+  color: #FFFFFF;
+}
+
+.live-studio-premium-frame .btn-back-dashboard-modern .back-arrow-icon {
+  color: #FBBF24;
+}
+
+.live-indicator-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 9999px;
+  background-color: #EF4444;
+  box-shadow: 0 0 10px #EF4444;
+}
+
+.badge-private-hd {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 9999px;
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34D399;
+}
+
+.studio-class-dropdown {
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 7px 12px;
+  border-radius: 12px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1.5px solid rgba(167, 139, 250, 0.4);
+  color: #FFFFFF;
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.studio-class-dropdown:focus {
+  border-color: #FBBF24;
+}
+
 

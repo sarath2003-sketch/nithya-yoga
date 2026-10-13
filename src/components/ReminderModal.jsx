@@ -318,7 +318,6 @@ export default function ReminderModal({
                     setSound(e.target.value);
                     setCustomAudioName('');
                     setCustomAudioUrl('');
-                    audioEngine.playSoundByName(e.target.value);
                   }
                 }}
               >

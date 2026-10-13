@@ -19,6 +19,7 @@ import AdminPortalSection from './components/AdminPortalSection';
 import InviteRegistrationModal from './components/InviteRegistrationModal';
 import ActiveAlarmModal from './components/ActiveAlarmModal';
 import StudentJoinModal from './components/StudentJoinModal';
+import StudentDashboard from './components/StudentDashboard';
 
 import { 
   loadStorage, 
@@ -222,10 +223,15 @@ export default function App() {
   };
 
   const handleDismissAlarm = () => {
+    audioEngine.stopAlarmSound();
+    if (activeAlarm && activeAlarm.repeat === 'Once') {
+      setReminders(prev => prev.map(r => r.id === activeAlarm.id ? { ...r, completed: true } : r));
+    }
     setActiveAlarm(null);
   };
 
   const handleSnoozeAlarm = () => {
+    audioEngine.stopAlarmSound();
     if (!activeAlarm) return;
     const now = new Date();
     now.setMinutes(now.getMinutes() + 5);
@@ -309,7 +315,7 @@ export default function App() {
 
   const handleTabChange = (tabId) => {
     setCurrentTab(tabId);
-    if (tabId === 'live' || tabId === 'live-classes') {
+    if (tabId === 'live' || tabId === 'live-classes' || tabId === 'student' || tabId === 'admin') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -477,7 +483,42 @@ export default function App() {
             onTestSound={handleTestSound}
           />
 
-          {currentTab === 'admin' ? (
+          {currentTab === 'student' ? (
+            <main className="dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal">
+              <div className="flex items-center gap-2 mb-4">
+                <button 
+                  type="button" 
+                  className="ya-btn ya-btn--soft text-xs cursor-pointer"
+                  onClick={() => setCurrentTab('home')}
+                >
+                  ← {lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}
+                </button>
+                <span className="text-muted">/</span>
+                <span className="font-bold text-sm text-heading">
+                  {lang === 'ta' ? 'மாணவர் போர்ட்டல்' : 'Student Learning Portal'}
+                </span>
+              </div>
+              <StudentDashboard
+                user={user}
+                classes={classes}
+                reminders={reminders}
+                onJoinLiveClass={(cls) => {
+                  if (cls) setActiveClass(cls);
+                  const session = loadStorage('nithya_student_session', null);
+                  if (!session) {
+                    setShowStudentJoinModal(true);
+                  } else {
+                    setCurrentTab('live');
+                  }
+                }}
+                onOpenReminderModal={() => {
+                  setEditingReminder(null);
+                  setIsReminderModalOpen(true);
+                }}
+                lang={lang}
+              />
+            </main>
+          ) : currentTab === 'admin' ? (
             <main className="dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal">
               <div className="flex items-center gap-2 mb-4">
                 <button 

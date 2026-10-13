@@ -1,6 +1,7 @@
 import React from 'react';
 import { 
   Home, 
+  GraduationCap,
   Flower2, 
   Video, 
   Bell, 
@@ -17,6 +18,7 @@ import LotusMark from './LotusMark';
 export default function Sidebar({ currentTab, setCurrentTab, lang = 'en' }) {
   const navItems = [
     { id: 'home', label: 'Home', labelTa: 'முகப்பு', icon: Home },
+    { id: 'student', label: 'Student Portal', labelTa: 'மாணவர் பகுதி', icon: GraduationCap },
     { id: 'classes', label: 'Yoga Classes', labelTa: 'யோகா வகுப்புகள்', icon: Flower2 },
     { id: 'live', label: 'Live Classes', labelTa: 'லைவ் வகுப்புகள்', icon: Video },
     { id: 'reminders', label: 'Reminders', labelTa: 'நினைவூட்டல்', icon: Bell },
@@ -24,7 +26,7 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en' }) {
     { id: 'attendance', label: 'Attendance', labelTa: 'வருகைப் பதிவு', icon: Calendar },
     { id: 'relaxation', label: 'Relaxation', labelTa: 'ரிலாக்சேஷன்', icon: Music },
     { id: 'profile', label: 'Profile', labelTa: 'சுயவிவரம்', icon: User },
-    { id: 'admin', label: 'Admin Portal', labelTa: 'நிர்வாகி பகுதி', icon: ShieldCheck },
+    { id: 'admin', label: 'Trainer Portal', labelTa: 'பயிற்றுநர் பகுதி', icon: ShieldCheck },
   ];
 
   return (

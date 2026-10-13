@@ -1,12 +1,12 @@
 import React from 'react';
-import { Home, Flower2, BellRing, Moon, User } from 'lucide-react';
+import { Home, GraduationCap, Flower2, BellRing, User } from 'lucide-react';
 
 export default function MobileBottomNav({ currentTab, setCurrentTab, lang }) {
   const bottomItems = [
     { id: 'home', labelEn: 'Home', labelTa: 'முகப்பு', icon: Home },
-    { id: 'yoga-classes', labelEn: 'Yoga', labelTa: 'யோகா', icon: Flower2 },
+    { id: 'student', labelEn: 'Student', labelTa: 'மாணவர்', icon: GraduationCap },
+    { id: 'yoga-classes', labelEn: 'Classes', labelTa: 'வகுப்புகள்', icon: Flower2 },
     { id: 'reminders', labelEn: 'Reminders', labelTa: 'நினைவூட்டல்', icon: BellRing },
-    { id: 'relaxation', labelEn: 'Relax', labelTa: 'தியானம்', icon: Moon },
     { id: 'profile', labelEn: 'Profile', labelTa: 'சுயவிவரம்', icon: User }
   ];
 

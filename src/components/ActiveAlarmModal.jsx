@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { Bell, Check, Clock, Volume2, X } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
+import { Bell, Check, Clock, Volume2, VolumeX, Square, RefreshCw } from 'lucide-react';
 import { ThreeDBell } from './ThreeDIcons';
 import { audioEngine } from '../utils/audioEngine';
 
@@ -11,13 +11,40 @@ export default function ActiveAlarmModal({
 }) {
   if (!alarm) return null;
 
+  const intervalRef = useRef(null);
+
   useEffect(() => {
     // Play reminder alert chime periodically while alarm modal is visible
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       audioEngine.playAlarmChime();
     }, 4500);
-    return () => clearInterval(interval);
+
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      audioEngine.stopAlarmSound();
+    };
   }, []);
+
+  const handleStopAndDismiss = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    audioEngine.stopAlarmSound();
+    if (onDismiss) onDismiss();
+  };
+
+  const handleStopAndSnooze = () => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+    audioEngine.stopAlarmSound();
+    if (onSnooze) onSnooze();
+  };
 
   return (
     <div className="modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4">
@@ -55,24 +82,37 @@ export default function ActiveAlarmModal({
           {alarm.messageTa || alarm.message || (lang === 'ta' ? 'உங்கள் ஆரோக்கியத்தைக் கவனிக்கவும் ❤️' : 'Take care of your health & wellness ❤️')}
         </p>
 
-        {/* Actions: Dismiss & Snooze */}
-        <div className="flex gap-2 w-full mt-1">
+        {/* Actions: Stop Alarm (Primary Red/Accent), Dismiss, Snooze */}
+        <div className="flex flex-col gap-2 w-full mt-1">
+          {/* Main STOP ALARM button */}
           <button
             type="button"
-            className="flex-1 py-2.5 text-xs font-semibold rounded-xl border border-subtle text-heading hover:bg-subtle transition-all cursor-pointer"
-            onClick={onSnooze}
+            className="w-full py-2.5 text-xs font-extrabold rounded-xl bg-red-600 text-white shadow-lg hover:bg-red-700 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95"
+            onClick={handleStopAndDismiss}
           >
-            {lang === 'ta' ? '5 நிமிடம் தள்ளிவை ⏱️' : 'Snooze (5 min) ⏱️'}
+            <Square size={13} fill="currentColor" />
+            <span>{lang === 'ta' ? 'மணியை நிறுத்து (STOP ALARM)' : 'STOP ALARM'}</span>
           </button>
 
-          <button
-            type="button"
-            className="flex-1 py-2.5 text-xs font-bold rounded-xl bg-primary text-white shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
-            onClick={onDismiss}
-          >
-            <Check size={14} />
-            <span>{lang === 'ta' ? 'நிறுத்து ✓' : 'Dismiss ✓'}</span>
-          </button>
+          <div className="flex gap-2 w-full">
+            <button
+              type="button"
+              className="flex-1 py-2 text-xs font-semibold rounded-xl border border-subtle text-heading hover:bg-subtle transition-all cursor-pointer flex items-center justify-center gap-1.5"
+              onClick={handleStopAndSnooze}
+            >
+              <RefreshCw size={12} />
+              <span>{lang === 'ta' ? '5 நிமிடம் தள்ளிவை' : 'Snooze (5 min)'}</span>
+            </button>
+
+            <button
+              type="button"
+              className="flex-1 py-2 text-xs font-bold rounded-xl bg-primary text-white shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer"
+              onClick={handleStopAndDismiss}
+            >
+              <Check size={14} />
+              <span>{lang === 'ta' ? 'முடிந்தது' : 'Dismiss'}</span>
+            </button>
+          </div>
         </div>
       </div>
     </div>

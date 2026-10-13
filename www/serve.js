@@ -73,7 +73,52 @@ CREATE TABLE IF NOT EXISTS attendance (
   status TEXT NOT NULL DEFAULT 'joined',
   UNIQUE(class_id, member_id)
 );
+
+CREATE TABLE IF NOT EXISTS materials (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  category TEXT NOT NULL DEFAULT 'Yoga',
+  description TEXT,
+  file_url TEXT,
+  content TEXT,
+  access_level TEXT DEFAULT 'all',
+  created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS videos (
+  id TEXT PRIMARY KEY,
+  title TEXT NOT NULL,
+  description TEXT,
+  video_url TEXT NOT NULL,
+  thumbnail_url TEXT,
+  duration_minutes INTEGER DEFAULT 30,
+  level TEXT DEFAULT 'All Levels',
+  category TEXT DEFAULT 'Vinyasa',
+  created_at TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS reminders (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL DEFAULT 'default_user',
+  title TEXT NOT NULL,
+  message TEXT,
+  time TEXT NOT NULL,
+  raw_time TEXT,
+  date TEXT,
+  repeat TEXT DEFAULT 'Daily',
+  sound TEXT DEFAULT 'Soft Bell',
+  enabled INTEGER DEFAULT 1,
+  created_at TEXT NOT NULL
+);
 `);
+
+// Schema migrations for existing classes table
+try {
+  db.exec(`ALTER TABLE classes ADD COLUMN status TEXT NOT NULL DEFAULT 'scheduled'`);
+} catch (_) {}
+try {
+  db.exec(`ALTER TABLE classes ADD COLUMN trainer_id TEXT DEFAULT 'admin'`);
+} catch (_) {}
 
 // Insert default starter classes if table is empty
 const classCount = db.prepare('SELECT COUNT(*) as count FROM classes').get().count;
@@ -85,6 +130,8 @@ if (classCount === 0) {
       starts_at: new Date(Date.now() + 3600000).toISOString(),
       duration_minutes: 60,
       room_name: 'nithya-hatha-flow',
+      status: 'scheduled',
+      trainer_id: 'admin',
       created_at: new Date().toISOString()
     },
     {
@@ -93,6 +140,8 @@ if (classCount === 0) {
       starts_at: new Date(Date.now() + 86400000).toISOString(),
       duration_minutes: 60,
       room_name: 'nithya-vinyasa-core',
+      status: 'scheduled',
+      trainer_id: 'admin',
       created_at: new Date().toISOString()
     },
     {
@@ -101,14 +150,34 @@ if (classCount === 0) {
       starts_at: new Date(Date.now() + 172800000).toISOString(),
       duration_minutes: 50,
       room_name: 'nithya-yin-meditation',
+      status: 'scheduled',
+      trainer_id: 'admin',
       created_at: new Date().toISOString()
     }
   ];
 
-  const insertClass = db.prepare('INSERT INTO classes VALUES (?, ?, ?, ?, ?, ?)');
+  const insertClass = db.prepare('INSERT INTO classes (id, title, starts_at, duration_minutes, room_name, status, trainer_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
   for (const c of defaultStarterClasses) {
-    insertClass.run(c.id, c.title, c.starts_at, c.duration_minutes, c.room_name, c.created_at);
+    insertClass.run(c.id, c.title, c.starts_at, c.duration_minutes, c.room_name, c.status, c.trainer_id, c.created_at);
   }
+}
+
+// Seed starter materials if table is empty
+const materialsCount = db.prepare('SELECT COUNT(*) as count FROM materials').get().count;
+if (materialsCount === 0) {
+  const insertMat = db.prepare('INSERT INTO materials VALUES (?, ?, ?, ?, ?, ?, ?, ?)');
+  insertMat.run('mat-1', 'Pranayama & Breathwork Guide', 'Breathing', 'Complete guide to Nadi Shodhana and Kapalabhati breathing techniques for nervous balance.', 'assets/docs/pranayama_guide.pdf', 'Pranayama breath regulation balances the autonomic nervous system and clears mental chatter.', 'all', new Date().toISOString());
+  insertMat.run('mat-2', 'Surya Namaskar Asana Sequences', 'Asana', '12 Step Sun Salutation illustrated breakdown with alignment notes and breath cues.', 'assets/docs/surya_namaskar.pdf', 'Step-by-step alignment and breath cues for classical Surya Namaskar (Sun Salutation).', 'all', new Date().toISOString());
+  insertMat.run('mat-3', 'Sattvic Nutrition & Mindful Diet', 'Diet', 'Ayurvedic dietary principles to increase prana, vitality, and mental calmness.', 'assets/docs/sattvic_diet.pdf', 'Sattvic eating principles for yoga practitioners: fresh, light, seasonal and pure nourishment.', 'all', new Date().toISOString());
+}
+
+// Seed starter videos if table is empty
+const videosCount = db.prepare('SELECT COUNT(*) as count FROM videos').get().count;
+if (videosCount === 0) {
+  const insertVid = db.prepare('INSERT INTO videos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)');
+  insertVid.run('vid-1', 'Morning Prana Flow (Full Session)', 'Awaken energy channels and release spinal tension with gentle standing flow.', 'https://www.youtube.com/embed/v7AYKMP6rOE', 'assets/images/class-thumb.jpg', 30, 'Beginner', 'Hatha', new Date().toISOString());
+  insertVid.run('vid-2', 'Vinyasa Core Strength & Alignment', 'Build deep core stamina and steady concentration through dynamic vinyasa flow.', 'https://www.youtube.com/embed/sTANio_2E0Q', 'assets/images/hero-yoga.jpg', 45, 'Intermediate', 'Vinyasa', new Date().toISOString());
+  insertVid.run('vid-3', 'Deep Yin Stillness & Hip Opening', 'Slow floor poses held for 3-5 minutes for fascial release and meditative peace.', 'https://www.youtube.com/embed/4C-gxOE0j7s', 'assets/images/chakra-meditation.jpg', 40, 'All Levels', 'Yin', new Date().toISOString());
 }
 
 const now = () => new Date().toISOString();
@@ -129,13 +198,15 @@ function auth(req, res, next) {
   }
 }
 
-// Admin only middleware: checks verified role in JWT payload
+// Admin / Trainer only middleware: checks verified role in JWT payload
 function adminOnly(req, res, next) {
-  if (req.actor?.role !== 'admin') {
-    return res.status(403).json({ error: 'Admin access required.' });
+  if (req.actor?.role !== 'admin' && req.actor?.role !== 'trainer') {
+    return res.status(403).json({ error: 'Trainer or Admin access required.' });
   }
   next();
 }
+
+const trainerOnly = adminOnly;
 
 // Optional Auth middleware (extracts actor if provided, but does not block)
 function optionalAuth(req, res, next) {
@@ -174,7 +245,7 @@ app.get('/api/health', (req, res) => {
 });
 
 // -------------------------------------------------------------
-// 2. ADMIN AUTHENTICATION
+// 2. TRAINER & ADMIN AUTHENTICATION
 // -------------------------------------------------------------
 app.post('/api/admin/login', async (req, res) => {
   const email = String(req.body?.email || '').trim().toLowerCase();
@@ -194,7 +265,6 @@ app.post('/api/admin/login', async (req, res) => {
   if (passwordHash) {
     isMatch = await bcrypt.compare(password, passwordHash);
   } else if (password === 'NithyaAdmin2026!') {
-    // Development fallback
     isMatch = true;
   }
 
@@ -217,9 +287,141 @@ app.post('/api/admin/login', async (req, res) => {
   });
 });
 
+app.post('/api/trainer/login', async (req, res) => {
+  const email = String(req.body?.email || '').trim().toLowerCase();
+  const password = String(req.body?.password || '');
+  const adminEmail = (process.env.ADMIN_EMAIL || 'admin@nithyayoga.com').trim().toLowerCase();
+  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Provide trainer email and password.' });
+  }
+
+  if (email !== adminEmail) {
+    return res.status(401).json({ error: 'Invalid trainer credentials.' });
+  }
+
+  let isMatch = false;
+  if (passwordHash) {
+    isMatch = await bcrypt.compare(password, passwordHash);
+  } else if (password === 'NithyaAdmin2026!') {
+    isMatch = true;
+  }
+
+  if (!isMatch) {
+    return res.status(401).json({ error: 'Invalid trainer credentials.' });
+  }
+
+  const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
+  const token = jwt.sign(
+    { role: 'trainer', email: adminEmail },
+    jwtSecret,
+    { expiresIn: '8h' }
+  );
+
+  res.json({
+    token,
+    role: 'trainer',
+    email: adminEmail,
+    expiresIn: '8h'
+  });
+});
+
 // -------------------------------------------------------------
-// 3. ADMIN: CLASSES MANAGEMENT
+// 3. STUDENT REGISTRATION & AUTHENTICATION
 // -------------------------------------------------------------
+app.post('/api/student/register', (req, res) => {
+  const name = String(req.body?.name || '').trim().replace(/\s+/g, ' ');
+  const phone = String(req.body?.phone || '').replace(/[^\d+]/g, '');
+  const email = String(req.body?.email || `${phone.replace(/\D/g, '')}@student.nithyayoga.com`).trim().toLowerCase();
+
+  if (name.length < 2) {
+    return res.status(400).json({ error: 'Please enter a valid full name (at least 2 characters).' });
+  }
+  if (phone.replace(/\D/g, '').length < 10) {
+    return res.status(400).json({ error: 'Please enter a valid 10-digit mobile number.' });
+  }
+
+  let member = db.prepare('SELECT * FROM members WHERE phone=? OR email=?').get(phone, email);
+  if (!member) {
+    const id = crypto.randomUUID();
+    db.prepare('INSERT INTO members VALUES (?, ?, ?, ?, ?)').run(id, name, email, phone, now());
+    member = db.prepare('SELECT * FROM members WHERE id=?').get(id);
+  } else if (member.name !== name) {
+    db.prepare('UPDATE members SET name=? WHERE id=?').run(name, member.id);
+    member = db.prepare('SELECT * FROM members WHERE id=?').get(member.id);
+  }
+
+  const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
+  const token = jwt.sign(
+    {
+      role: 'student',
+      studentId: member.id,
+      name: member.name,
+      phone: member.phone,
+      email: member.email
+    },
+    jwtSecret,
+    { expiresIn: '14d' }
+  );
+
+  res.status(201).json({
+    token,
+    role: 'student',
+    student: safeMember(member)
+  });
+});
+
+// -------------------------------------------------------------
+// 4. CLASSES & ROOMS MANAGEMENT
+// -------------------------------------------------------------
+// Public / Student: List all classes with live status
+app.get('/api/classes', (req, res) => {
+  const rows = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, trainer_id, created_at FROM classes ORDER BY starts_at DESC').all();
+  res.json(rows);
+});
+
+// Public: Get single class details
+app.get('/api/classes/:id', (req, res) => {
+  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, trainer_id, created_at FROM classes WHERE id=?').get(req.params.id);
+  if (!cls) {
+    return res.status(404).json({ error: 'Yoga class not found.' });
+  }
+  res.json(cls);
+});
+
+// Trainer / Admin: Create Live Class
+app.post('/api/trainer/classes', auth, trainerOnly, (req, res) => {
+  const title = String(req.body?.title || '').trim();
+  const startsAt = String(req.body?.startsAt || new Date().toISOString());
+  const duration = Number(req.body?.durationMinutes || 60);
+
+  if (!title || !Number.isFinite(Date.parse(startsAt)) || duration < 5 || duration > 240) {
+    return res.status(400).json({
+      error: 'Provide title, valid startsAt date/time (ISO), and duration between 5 and 240 minutes.'
+    });
+  }
+
+  const id = `cls-${crypto.randomUUID().slice(0, 8)}`;
+  const roomName = `nithya-${id}-${crypto.randomBytes(4).toString('hex')}`;
+  const createdAt = now();
+  const status = 'scheduled';
+
+  db.prepare('INSERT INTO classes (id, title, starts_at, duration_minutes, room_name, status, trainer_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(
+    id, title, startsAt, duration, roomName, status, 'trainer', createdAt
+  );
+
+  res.status(201).json({
+    id,
+    title,
+    startsAt,
+    durationMinutes: duration,
+    roomName,
+    status,
+    createdAt
+  });
+});
+
 app.post('/api/admin/classes', auth, adminOnly, (req, res) => {
   const title = String(req.body?.title || '').trim();
   const startsAt = String(req.body?.startsAt || '');
@@ -231,12 +433,13 @@ app.post('/api/admin/classes', auth, adminOnly, (req, res) => {
     });
   }
 
-  const id = crypto.randomUUID();
-  const roomName = `nithya-${id.replace(/-/g, '').slice(0, 20)}`;
+  const id = `cls-${crypto.randomUUID().slice(0, 8)}`;
+  const roomName = `nithya-${id}-${crypto.randomBytes(4).toString('hex')}`;
   const createdAt = now();
+  const status = 'scheduled';
 
-  db.prepare('INSERT INTO classes VALUES (?, ?, ?, ?, ?, ?)').run(
-    id, title, startsAt, duration, roomName, createdAt
+  db.prepare('INSERT INTO classes (id, title, starts_at, duration_minutes, room_name, status, trainer_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(
+    id, title, startsAt, duration, roomName, status, 'admin', createdAt
   );
 
   res.status(201).json({
@@ -245,19 +448,64 @@ app.post('/api/admin/classes', auth, adminOnly, (req, res) => {
     startsAt,
     durationMinutes: duration,
     roomName,
+    status,
     createdAt
   });
 });
 
 app.get('/api/admin/classes', auth, adminOnly, (req, res) => {
-  const rows = db.prepare('SELECT * FROM classes ORDER BY starts_at DESC').all();
+  const rows = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, trainer_id, created_at FROM classes ORDER BY starts_at DESC').all();
   res.json(rows);
 });
 
+// Trainer / Admin: Start Class (marks class 'live')
+app.put('/api/trainer/classes/:id/start', auth, trainerOnly, (req, res) => {
+  const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(req.params.id);
+  if (!cls) {
+    return res.status(404).json({ error: 'Class not found.' });
+  }
+
+  db.prepare('UPDATE classes SET status=\'live\' WHERE id=?').run(cls.id);
+  res.json({
+    ok: true,
+    classId: cls.id,
+    status: 'live',
+    roomName: cls.room_name,
+    message: 'Class has been started and is now Live!'
+  });
+});
+
+// Trainer / Admin: End Class (marks class 'ended' and terminates room session)
+app.put('/api/trainer/classes/:id/end', auth, trainerOnly, (req, res) => {
+  const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(req.params.id);
+  if (!cls) {
+    return res.status(404).json({ error: 'Class not found.' });
+  }
+
+  db.prepare('UPDATE classes SET status=\'ended\' WHERE id=?').run(cls.id);
+  res.json({
+    ok: true,
+    classId: cls.id,
+    status: 'ended',
+    message: 'Class has been ended for all participants.'
+  });
+});
+
+// Trainer / Admin: Delete Class
+app.delete('/api/trainer/classes/:id', auth, trainerOnly, (req, res) => {
+  const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(req.params.id);
+  if (!cls) {
+    return res.status(404).json({ error: 'Class not found.' });
+  }
+
+  db.prepare('DELETE FROM classes WHERE id=?').run(cls.id);
+  res.json({ ok: true, deletedId: cls.id });
+});
+
 // -------------------------------------------------------------
-// 4. ADMIN: INVITES MANAGEMENT
+// 5. INVITATIONS MANAGEMENT
 // -------------------------------------------------------------
-app.post('/api/admin/classes/:id/invites', auth, adminOnly, (req, res) => {
+app.post('/api/trainer/classes/:id/invites', auth, trainerOnly, (req, res) => {
   const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(req.params.id);
   if (!cls) {
     return res.status(404).json({ error: 'Class not found.' });
@@ -271,20 +519,44 @@ app.post('/api/admin/classes/:id/invites', auth, adminOnly, (req, res) => {
   );
 
   const frontendBase = (process.env.FRONTEND_URL || 'https://sarath2003-sketch.github.io/nithya-yoga/').replace(/\/?$/, '/');
-  const inviteUrl = `${frontendBase}?invite=${encodeURIComponent(token)}`;
+  const inviteUrl = `${frontendBase}?live=${encodeURIComponent(cls.id)}&invite=${encodeURIComponent(token)}`;
 
   res.status(201).json({
     inviteUrl,
     token,
     expiresAt,
     classId: cls.id,
-    classTitle: cls.title
+    classTitle: cls.title,
+    roomName: cls.room_name
   });
 });
 
-// -------------------------------------------------------------
-// 5. PUBLIC INVITE METADATA
-// -------------------------------------------------------------
+app.post('/api/admin/classes/:id/invites', auth, adminOnly, (req, res) => {
+  const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(req.params.id);
+  if (!cls) {
+    return res.status(404).json({ error: 'Class not found.' });
+  }
+
+  const token = crypto.randomBytes(32).toString('base64url');
+  const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString();
+
+  db.prepare('INSERT INTO invites VALUES (?, ?, ?, ?)').run(
+    hash(token), cls.id, expiresAt, now()
+  );
+
+  const frontendBase = (process.env.FRONTEND_URL || 'https://sarath2003-sketch.github.io/nithya-yoga/').replace(/\/?$/, '/');
+  const inviteUrl = `${frontendBase}?live=${encodeURIComponent(cls.id)}&invite=${encodeURIComponent(token)}`;
+
+  res.status(201).json({
+    inviteUrl,
+    token,
+    expiresAt,
+    classId: cls.id,
+    classTitle: cls.title,
+    roomName: cls.room_name
+  });
+});
+
 app.get('/api/invites/:token', (req, res) => {
   const tokenHash = hash(req.params.token);
   const invite = db.prepare('SELECT * FROM invites WHERE token_hash=?').get(tokenHash);
@@ -293,26 +565,88 @@ app.get('/api/invites/:token', (req, res) => {
     return res.status(404).json({ error: 'Invite link is invalid or has expired.' });
   }
 
-  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name FROM classes WHERE id=?').get(invite.class_id);
+  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status FROM classes WHERE id=?').get(invite.class_id);
   if (!cls) {
     return res.status(404).json({ error: 'Associated yoga class not found.' });
   }
 
   res.json({
     valid: true,
-    class: {
-      id: cls.id,
-      title: cls.title,
-      startsAt: cls.starts_at,
-      durationMinutes: cls.duration_minutes
-    },
+    class: cls,
     expiresAt: invite.expires_at
   });
 });
 
-// -------------------------------------------------------------
-// 6. MEMBER REGISTRATION VIA INVITE
-// -------------------------------------------------------------
+// Student Joining Validation Flow (6 Steps)
+app.post('/api/student/validate-join', (req, res) => {
+  const classId = String(req.body?.classId || '').trim();
+  const name = String(req.body?.name || '').trim().replace(/\s+/g, ' ');
+  const phone = String(req.body?.phone || '').replace(/[^\d+]/g, '');
+
+  if (!classId) {
+    return res.status(400).json({ allowed: false, error: 'Class ID is required.' });
+  }
+  if (name.length < 2) {
+    return res.status(400).json({ allowed: false, error: 'Full name must be at least 2 characters.' });
+  }
+  if (phone.replace(/\D/g, '').length < 10) {
+    return res.status(400).json({ allowed: false, error: 'Valid 10-digit mobile number required.' });
+  }
+
+  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status FROM classes WHERE id=?').get(classId);
+  if (!cls) {
+    return res.status(404).json({ allowed: false, error: 'Class not found or invalid link.' });
+  }
+
+  // Check if class has ended
+  if (cls.status === 'ended') {
+    return res.json({
+      allowed: false,
+      reason: 'ended',
+      class: cls,
+      message: 'This yoga class has already ended. Thank you for practicing with NITHYA Yoga.'
+    });
+  }
+
+  // Register / update student in members table
+  const email = `${phone.replace(/\D/g, '')}@student.nithyayoga.com`;
+  let member = db.prepare('SELECT * FROM members WHERE phone=? OR email=?').get(phone, email);
+  if (!member) {
+    const id = crypto.randomUUID();
+    db.prepare('INSERT INTO members VALUES (?, ?, ?, ?, ?)').run(id, name, email, phone, now());
+    member = db.prepare('SELECT * FROM members WHERE id=?').get(id);
+  } else if (member.name !== name) {
+    db.prepare('UPDATE members SET name=? WHERE id=?').run(name, member.id);
+    member = db.prepare('SELECT * FROM members WHERE id=?').get(member.id);
+  }
+
+  // Issue student session token
+  const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
+  const token = jwt.sign(
+    {
+      role: 'student',
+      studentId: member.id,
+      name: member.name,
+      phone: member.phone,
+      classId: cls.id
+    },
+    jwtSecret,
+    { expiresIn: '8h' }
+  );
+
+  // Return validation result
+  res.json({
+    allowed: true,
+    status: cls.status, // 'scheduled' or 'live'
+    class: cls,
+    student: safeMember(member),
+    token,
+    message: cls.status === 'scheduled' 
+      ? 'Details validated. The trainer has not started the class yet. Please wait.' 
+      : 'Details validated successfully. You can now join the live room!'
+  });
+});
+
 app.post('/api/members/register', (req, res) => {
   const inviteToken = String(req.body?.inviteToken || '').trim();
   const name = String(req.body?.name || '').trim().replace(/\s+/g, ' ');
@@ -369,7 +703,7 @@ app.post('/api/members/register', (req, res) => {
 });
 
 // -------------------------------------------------------------
-// 7. SECURE LIVEKIT ACCESS TOKEN GENERATION
+// 6. SECURE LIVEKIT ACCESS TOKEN GENERATION
 // -------------------------------------------------------------
 app.post('/api/livekit/token', optionalAuth, async (req, res) => {
   const apiKey = process.env.LIVEKIT_API_KEY;
@@ -385,46 +719,44 @@ app.post('/api/livekit/token', optionalAuth, async (req, res) => {
 
   let identity;
   let displayName;
-  let isAdmin = false;
+  let isTrainer = false;
   let roomName;
 
   const reqClassId = String(req.body?.classId || '').trim();
+  let cls = null;
+  if (reqClassId) {
+    cls = db.prepare('SELECT * FROM classes WHERE id=?').get(reqClassId);
+  }
 
-  // Case A: Authenticated actor (Admin or Registered Member)
+  // Check if class has already ended
+  if (cls && cls.status === 'ended') {
+    return res.status(400).json({ error: 'This yoga class has already ended by the trainer.' });
+  }
+
+  // Case A: Authenticated actor (Trainer / Admin or Registered Student)
   if (req.actor) {
-    if (req.actor.role === 'admin') {
-      isAdmin = true;
-      identity = `admin-${req.actor.email}`;
-      displayName = 'Yoga Instructor';
-
-      if (reqClassId) {
-        const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(reqClassId);
-        roomName = cls?.room_name || `nithya-${reqClassId}`;
-      } else {
-        roomName = (req.body?.roomName || 'nithya-live-studio').trim();
-      }
-    } else if (req.actor.role === 'member') {
-      const member = db.prepare('SELECT * FROM members WHERE id=?').get(req.actor.memberId);
-      if (!member) {
-        return res.status(401).json({ error: 'Registered member account not found.' });
-      }
-      identity = `member-${member.id}`;
-      displayName = member.name;
-
-      const targetClassId = reqClassId || req.actor.classId;
-      const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(targetClassId);
-      roomName = cls?.room_name || `nithya-${targetClassId}`;
+    if (req.actor.role === 'admin' || req.actor.role === 'trainer') {
+      isTrainer = true;
+      identity = `trainer-${req.actor.email || 'master'}-${crypto.randomBytes(2).toString('hex')}`;
+      displayName = 'NITHYA Yoga Instructor';
+      roomName = cls?.room_name || (req.body?.roomName || 'nithya-live-studio').trim();
+    } else if (req.actor.role === 'student' || req.actor.role === 'member') {
+      const studentId = req.actor.studentId || req.actor.memberId;
+      const member = db.prepare('SELECT * FROM members WHERE id=?').get(studentId);
+      identity = `student-${studentId || crypto.randomBytes(3).toString('hex')}`;
+      displayName = req.actor.name || member?.name || 'Student';
+      roomName = cls?.room_name || (req.body?.roomName || 'nithya-live-studio').trim();
     }
   }
 
-  // Case B: Public / Demo guest (never granted admin permissions)
+  // Case B: Public / Guest Student (strictly non-admin)
   if (!identity) {
-    const rawName = String(req.body?.participantName || 'Guest Student').trim();
+    const rawName = String(req.body?.participantName || 'Student Practitioner').trim();
     const cleanName = rawName.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 15) || 'student';
     identity = `guest-${cleanName}-${crypto.randomBytes(3).toString('hex')}`;
     displayName = rawName;
-    roomName = (req.body?.roomName || 'nithya-live-studio').trim();
-    isAdmin = false;
+    roomName = cls?.room_name || (req.body?.roomName || 'nithya-live-studio').trim();
+    isTrainer = false;
   }
 
   try {
@@ -433,8 +765,8 @@ app.post('/api/livekit/token', optionalAuth, async (req, res) => {
       name: displayName,
       ttl: '2h',
       metadata: JSON.stringify({
-        role: isAdmin ? 'instructor' : 'student',
-        isInstructor: isAdmin,
+        role: isTrainer ? 'instructor' : 'student',
+        isInstructor: isTrainer,
         joinedAt: now()
       })
     });
@@ -445,8 +777,8 @@ app.post('/api/livekit/token', optionalAuth, async (req, res) => {
       canPublish: true,
       canSubscribe: true,
       canPublishData: true,
-      roomAdmin: isAdmin,
-      roomRecord: isAdmin
+      roomAdmin: isTrainer,
+      roomRecord: isTrainer
     });
 
     const token = await at.toJwt();
@@ -457,8 +789,8 @@ app.post('/api/livekit/token', optionalAuth, async (req, res) => {
       roomName,
       participantName: displayName,
       identity,
-      role: isAdmin ? 'instructor' : 'student',
-      isAdmin
+      role: isTrainer ? 'instructor' : 'student',
+      isAdmin: isTrainer
     });
   } catch (err) {
     console.error('Error generating LiveKit token:', err);
@@ -467,87 +799,340 @@ app.post('/api/livekit/token', optionalAuth, async (req, res) => {
 });
 
 // -------------------------------------------------------------
-// 8. SERVER-BACKED ATTENDANCE
+// 7. YOGA MATERIALS & PDF NOTES
 // -------------------------------------------------------------
-app.post('/api/attendance/join', auth, (req, res) => {
-  if (req.actor.role !== 'member') {
-    return res.status(403).json({ error: 'Member attendance only.' });
+app.get('/api/materials', (req, res) => {
+  const rows = db.prepare('SELECT * FROM materials ORDER BY created_at DESC').all();
+  res.json(rows);
+});
+
+app.post('/api/trainer/materials', auth, trainerOnly, (req, res) => {
+  const title = String(req.body?.title || '').trim();
+  const category = String(req.body?.category || 'Yoga').trim();
+  const description = String(req.body?.description || '').trim();
+  const fileUrl = String(req.body?.fileUrl || '').trim();
+  const content = String(req.body?.content || '').trim();
+  const accessLevel = String(req.body?.accessLevel || 'all').trim();
+
+  if (!title) {
+    return res.status(400).json({ error: 'Title is required for yoga material.' });
   }
 
-  const classId = req.actor.classId || String(req.body?.classId || '');
-  const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(classId);
-  if (!cls) {
-    return res.status(404).json({ error: 'Class not found.' });
+  const id = `mat-${Date.now()}`;
+  const createdAt = now();
+
+  db.prepare('INSERT INTO materials VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(
+    id, title, category, description, fileUrl, content, accessLevel, createdAt
+  );
+
+  res.status(201).json({
+    id, title, category, description, fileUrl, content, accessLevel, createdAt
+  });
+});
+
+app.delete('/api/trainer/materials/:id', auth, trainerOnly, (req, res) => {
+  db.prepare('DELETE FROM materials WHERE id=?').run(req.params.id);
+  res.json({ ok: true, deletedId: req.params.id });
+});
+
+// -------------------------------------------------------------
+// 8. YOGA VIDEOS MANAGEMENT
+// -------------------------------------------------------------
+app.get('/api/videos', (req, res) => {
+  const rows = db.prepare('SELECT * FROM videos ORDER BY created_at DESC').all();
+  res.json(rows);
+});
+
+app.post('/api/trainer/videos', auth, trainerOnly, (req, res) => {
+  const title = String(req.body?.title || '').trim();
+  const description = String(req.body?.description || '').trim();
+  const videoUrl = String(req.body?.videoUrl || '').trim();
+  const thumbnailUrl = String(req.body?.thumbnailUrl || 'assets/images/class-thumb.jpg').trim();
+  const duration = Number(req.body?.durationMinutes || 30);
+  const level = String(req.body?.level || 'All Levels').trim();
+  const category = String(req.body?.category || 'Vinyasa').trim();
+
+  if (!title || !videoUrl) {
+    return res.status(400).json({ error: 'Title and Video URL are required.' });
   }
 
-  const id = crypto.randomUUID();
+  const id = `vid-${Date.now()}`;
+  const createdAt = now();
+
+  db.prepare('INSERT INTO videos VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(
+    id, title, description, videoUrl, thumbnailUrl, duration, level, category, createdAt
+  );
+
+  res.status(201).json({
+    id, title, description, videoUrl, thumbnailUrl, durationMinutes: duration, level, category, createdAt
+  });
+});
+
+app.delete('/api/trainer/videos/:id', auth, trainerOnly, (req, res) => {
+  db.prepare('DELETE FROM videos WHERE id=?').run(req.params.id);
+  res.json({ ok: true, deletedId: req.params.id });
+});
+
+// -------------------------------------------------------------
+// 9. REMINDERS PERSISTENCE
+// -------------------------------------------------------------
+app.get('/api/reminders', (req, res) => {
+  const rows = db.prepare('SELECT * FROM reminders ORDER BY created_at DESC').all();
+  res.json(rows.map(r => ({
+    ...r,
+    enabled: Boolean(r.enabled)
+  })));
+});
+
+app.post('/api/reminders', (req, res) => {
+  const id = String(req.body?.id || `rem-${Date.now()}`);
+  const title = String(req.body?.title || 'Yoga Reminder').trim();
+  const message = String(req.body?.message || '').trim();
+  const time = String(req.body?.time || '08:00 AM').trim();
+  const rawTime = String(req.body?.rawTime || '').trim();
+  const date = String(req.body?.date || '').trim();
+  const repeat = String(req.body?.repeat || 'Daily').trim();
+  const sound = String(req.body?.sound || 'Soft Bell').trim();
+  const enabled = req.body?.enabled !== false ? 1 : 0;
+  const createdAt = now();
+
+  db.prepare(`
+    INSERT INTO reminders (id, user_id, title, message, time, raw_time, date, repeat, sound, enabled, created_at)
+    VALUES (?, 'default_user', ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(id) DO UPDATE SET
+      title=excluded.title,
+      message=excluded.message,
+      time=excluded.time,
+      raw_time=excluded.raw_time,
+      date=excluded.date,
+      repeat=excluded.repeat,
+      sound=excluded.sound,
+      enabled=excluded.enabled
+  `).run(id, title, message, time, rawTime, date, repeat, sound, enabled, createdAt);
+
+  res.json({ ok: true, id, title, time });
+});
+
+app.delete('/api/reminders/:id', (req, res) => {
+  db.prepare('DELETE FROM reminders WHERE id=?').run(req.params.id);
+  res.json({ ok: true, deletedId: req.params.id });
+});
+
+// -------------------------------------------------------------
+// 10. ATTENDANCE TRACKING (70% THRESHOLD & PERSISTENCE)
+// -------------------------------------------------------------
+app.post('/api/attendance/log', (req, res) => {
+  const classId = String(req.body?.classId || 'cls-1').trim();
+  const studentName = String(req.body?.studentName || req.body?.name || 'Student Practitioner').trim();
+  const studentPhone = String(req.body?.studentPhone || req.body?.phone || 'N/A').trim();
+  const durationSeconds = Number(req.body?.durationSeconds || 0);
+
+  const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(classId) || { duration_minutes: 60, title: 'Hatha Yoga Flow' };
+  const targetSeconds = (cls.duration_minutes || 60) * 60;
+  const attendancePercent = Math.min(100, Math.round((durationSeconds * 100) / targetSeconds));
+  const isPresent = attendancePercent >= 70;
+  const status = isPresent ? 'Present (70%+)' : `Incomplete (${attendancePercent}%)`;
+
+  const memberId = studentPhone !== 'N/A' ? studentPhone : crypto.randomUUID();
+  const id = `att-${classId}-${studentPhone.replace(/\D/g, '') || Date.now()}`;
   const joinedAt = now();
 
   db.prepare(`
-    INSERT INTO attendance (id, class_id, member_id, joined_at, status)
-    VALUES (?, ?, ?, ?, 'joined')
+    INSERT INTO attendance (id, class_id, member_id, joined_at, left_at, duration_seconds, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
     ON CONFLICT(class_id, member_id) DO UPDATE SET
-      joined_at = excluded.joined_at,
-      left_at = NULL,
-      duration_seconds = NULL,
-      status = 'joined'
-  `).run(id, cls.id, req.actor.memberId, joinedAt);
+      duration_seconds = excluded.duration_seconds,
+      status = excluded.status,
+      left_at = excluded.left_at
+  `).run(id, classId, memberId, joinedAt, now(), durationSeconds, status);
 
   res.json({
     ok: true,
-    joinedAt,
-    classId: cls.id,
-    memberId: req.actor.memberId
+    classId,
+    studentName,
+    studentPhone,
+    durationSeconds,
+    attendancePercent,
+    status,
+    isPresent
   });
+});
+
+app.post('/api/attendance/join', auth, (req, res) => {
+  const classId = String(req.body?.classId || '').trim();
+  const memberId = req.actor?.memberId || req.actor?.studentId || req.actor?.email || 'student';
+  if (!classId) return res.status(400).json({ error: 'classId is required' });
+
+  const id = `att-${classId}-${memberId.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const existing = db.prepare('SELECT * FROM attendance WHERE id=?').get(id);
+
+  if (existing) {
+    db.prepare('UPDATE attendance SET joined_at=? WHERE id=?').run(now(), id);
+  } else {
+    db.prepare(`
+      INSERT INTO attendance (id, class_id, member_id, joined_at, duration_seconds, status)
+      VALUES (?, ?, ?, ?, 0, 'Incomplete (0%)')
+    `).run(id, classId, memberId, now());
+  }
+
+  res.json({ ok: true, attendanceId: id });
 });
 
 app.post('/api/attendance/leave', auth, (req, res) => {
-  if (req.actor.role !== 'member') {
-    return res.status(403).json({ error: 'Member attendance only.' });
-  }
+  const classId = String(req.body?.classId || '').trim();
+  const memberId = req.actor?.memberId || req.actor?.studentId || req.actor?.email || 'student';
+  if (!classId) return res.status(400).json({ error: 'classId is required' });
 
-  const classId = req.actor.classId || String(req.body?.classId || '');
-  const row = db.prepare('SELECT * FROM attendance WHERE class_id=? AND member_id=?')
-    .get(classId, req.actor.memberId);
-
-  if (!row || row.status !== 'joined') {
-    return res.status(400).json({ error: 'No active attendance session found to leave.' });
-  }
-
+  const id = `att-${classId}-${memberId.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const row = db.prepare('SELECT * FROM attendance WHERE id=?').get(id);
   const leftAt = now();
-  const durationSeconds = Math.max(0, Math.floor((Date.parse(leftAt) - Date.parse(row.joined_at)) / 1000));
+
+  let durationSeconds = 60;
+  if (row?.joined_at) {
+    const joinedMs = new Date(row.joined_at).getTime();
+    const leftMs = new Date(leftAt).getTime();
+    durationSeconds = Math.max(1, Math.round((leftMs - joinedMs) / 1000));
+  }
+
+  const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(classId) || { duration_minutes: 60 };
+  const targetSeconds = (cls.duration_minutes || 60) * 60;
+  const attendancePercent = Math.min(100, Math.round((durationSeconds * 100) / targetSeconds));
+  const isPresent = attendancePercent >= 70;
+  const status = isPresent ? 'Present (70%+)' : `Incomplete (${attendancePercent}%)`;
+
+  if (row) {
+    db.prepare(`
+      UPDATE attendance
+      SET left_at=?, duration_seconds=?, status=?
+      WHERE id=?
+    `).run(leftAt, durationSeconds, status, id);
+  } else {
+    db.prepare(`
+      INSERT INTO attendance (id, class_id, member_id, joined_at, left_at, duration_seconds, status)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `).run(id, classId, memberId, leftAt, leftAt, durationSeconds, status);
+  }
+
+  res.json({ ok: true, durationSeconds, status, attendancePercent });
+});
+
+app.post('/api/attendance', optionalAuth, (req, res) => {
+  const classId = String(req.body?.classId || 'cls-1').trim();
+  const studentName = String(req.body?.studentName || req.body?.name || req.actor?.name || 'Student Practitioner').trim();
+  const studentPhone = String(req.body?.studentPhone || req.body?.phone || req.actor?.phone || 'N/A').trim();
+  const durationSeconds = Number(req.body?.durationSeconds || 0);
+
+  const cls = db.prepare('SELECT * FROM classes WHERE id=?').get(classId) || { duration_minutes: 60, title: 'Hatha Yoga Flow' };
+  const targetSeconds = (cls.duration_minutes || 60) * 60;
+  const attendancePercent = Math.min(100, Math.round((durationSeconds * 100) / targetSeconds));
+  const isPresent = attendancePercent >= 70;
+  const status = isPresent ? 'Present (70%+)' : `Incomplete (${attendancePercent}%)`;
+
+  const memberId = req.actor?.memberId || req.actor?.studentId || (studentPhone !== 'N/A' ? studentPhone : crypto.randomUUID());
+  const id = `att-${classId}-${studentPhone.replace(/\D/g, '') || Date.now()}`;
+  const joinedAt = now();
 
   db.prepare(`
-    UPDATE attendance
-    SET left_at=?, duration_seconds=?, status='left'
-    WHERE class_id=? AND member_id=?
-  `).run(leftAt, durationSeconds, classId, req.actor.memberId);
+    INSERT INTO attendance (id, class_id, member_id, joined_at, left_at, duration_seconds, status)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    ON CONFLICT(class_id, member_id) DO UPDATE SET
+      duration_seconds = excluded.duration_seconds,
+      status = excluded.status,
+      left_at = excluded.left_at
+  `).run(id, classId, memberId, joinedAt, now(), durationSeconds, status);
 
   res.json({
     ok: true,
+    classId,
+    studentName,
+    studentPhone,
     durationSeconds,
-    durationMinutes: Math.round(durationSeconds / 60)
+    attendancePercent,
+    status,
+    isPresent
   });
 });
 
-app.get('/api/admin/attendance', auth, adminOnly, (req, res) => {
+app.get('/api/trainer/attendance', auth, trainerOnly, (req, res) => {
   const rows = db.prepare(`
-    SELECT a.class_id AS classId,
+    SELECT a.id,
+           a.class_id AS classId,
            c.title AS classTitle,
            c.duration_minutes AS classDurationMinutes,
-           m.name,
-           m.email,
-           m.phone,
+           COALESCE(m.name, a.member_id) AS studentName,
+           COALESCE(m.phone, a.member_id) AS studentPhone,
+           COALESCE(m.email, '') AS email,
            a.joined_at AS joinedAt,
            a.left_at AS leftAt,
            COALESCE(a.duration_seconds, 0) AS durationSeconds,
            MIN(100, ROUND(COALESCE(a.duration_seconds, 0) * 100.0 / (c.duration_minutes * 60))) AS attendancePercent,
            a.status
     FROM attendance a
-    JOIN members m ON m.id = a.member_id
+    LEFT JOIN members m ON m.id = a.member_id OR m.phone = a.member_id OR m.email = a.member_id
     JOIN classes c ON c.id = a.class_id
     ORDER BY a.joined_at DESC
   `).all();
+
+  res.json(rows);
+});
+
+app.get('/api/admin/attendance', auth, adminOnly, (req, res) => {
+  const rows = db.prepare(`
+    SELECT a.id,
+           a.class_id AS classId,
+           c.title AS classTitle,
+           c.duration_minutes AS classDurationMinutes,
+           COALESCE(m.name, a.member_id) AS studentName,
+           COALESCE(m.phone, a.member_id) AS studentPhone,
+           COALESCE(m.email, '') AS email,
+           a.joined_at AS joinedAt,
+           a.left_at AS leftAt,
+           COALESCE(a.duration_seconds, 0) AS durationSeconds,
+           MIN(100, ROUND(COALESCE(a.duration_seconds, 0) * 100.0 / (c.duration_minutes * 60))) AS attendancePercent,
+           a.status
+    FROM attendance a
+    LEFT JOIN members m ON m.id = a.member_id OR m.phone = a.member_id OR m.email = a.member_id
+    JOIN classes c ON c.id = a.class_id
+    ORDER BY a.joined_at DESC
+  `).all();
+
+  res.json(rows);
+});
+
+app.get('/api/student/attendance', (req, res) => {
+  const phone = String(req.query?.phone || '').trim();
+  let rows = [];
+  if (phone) {
+    rows = db.prepare(`
+      SELECT a.id,
+             a.class_id AS classId,
+             c.title AS classTitle,
+             c.duration_minutes AS classDurationMinutes,
+             a.joined_at AS joinedAt,
+             COALESCE(a.duration_seconds, 0) AS durationSeconds,
+             MIN(100, ROUND(COALESCE(a.duration_seconds, 0) * 100.0 / (c.duration_minutes * 60))) AS attendancePercent,
+             a.status
+      FROM attendance a
+      JOIN classes c ON c.id = a.class_id
+      WHERE a.member_id = ? OR a.member_id LIKE ?
+      ORDER BY a.joined_at DESC
+    `).all(phone, `%${phone}%`);
+  } else {
+    rows = db.prepare(`
+      SELECT a.id,
+             a.class_id AS classId,
+             c.title AS classTitle,
+             c.duration_minutes AS classDurationMinutes,
+             a.joined_at AS joinedAt,
+             COALESCE(a.duration_seconds, 0) AS durationSeconds,
+             MIN(100, ROUND(COALESCE(a.duration_seconds, 0) * 100.0 / (c.duration_minutes * 60))) AS attendancePercent,
+             a.status
+      FROM attendance a
+      JOIN classes c ON c.id = a.class_id
+      ORDER BY a.joined_at DESC
+      LIMIT 10
+    `).all();
+  }
 
   res.json(rows);
 });

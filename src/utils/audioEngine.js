@@ -5,6 +5,10 @@ class SoundEngine {
     this.volume = 0.85;
     this.activeAmbience = null;
     this.activeAudio = null;
+    this.activeAlarmOscillators = [];
+    this.activeAlarmGains = [];
+    this.activeAlarmTimeouts = [];
+    this.isAlarmRinging = false;
   }
 
   init() {
@@ -323,18 +327,21 @@ class SoundEngine {
     }
   }
 
-  // 5. Alarm Chime - Distinct Repeating Alert Chime for Reminders
+  // 5. Alarm Chime - Distinct Repeating Alert Chime for Reminders (Fully Tracked)
   playAlarmChime() {
     try {
       const ctx = this.init();
       if (!ctx) return;
+      this.isAlarmRinging = true;
       const now = ctx.currentTime;
+
       [0, 0.25, 0.50, 0.90, 1.15, 1.40].forEach((timeOffset, idx) => {
         const freq = (idx % 3 === 0) ? 659.25 : (idx % 3 === 1) ? 880 : 1318.51;
         const gain = ctx.createGain();
         gain.gain.setValueAtTime(this.volume * 0.9, now + timeOffset);
         gain.gain.exponentialRampToValueAtTime(0.0001, now + timeOffset + 0.42);
         gain.connect(ctx.destination);
+        this.activeAlarmGains.push(gain);
 
         const osc = ctx.createOscillator();
         osc.type = 'triangle';
@@ -342,10 +349,55 @@ class SoundEngine {
         osc.connect(gain);
         osc.start(now + timeOffset);
         osc.stop(now + timeOffset + 0.42);
+
+        this.activeAlarmOscillators.push(osc);
+
+        osc.onended = () => {
+          this.activeAlarmOscillators = this.activeAlarmOscillators.filter(o => o !== osc);
+          this.activeAlarmGains = this.activeAlarmGains.filter(g => g !== gain);
+          try { osc.disconnect(); } catch (_) {}
+          try { gain.disconnect(); } catch (_) {}
+        };
       });
     } catch (e) {
       console.warn('Alarm chime error:', e);
     }
+  }
+
+  // CRITICAL REQUIREMENT: Stop all alarm audio, pause elements, reset playback, cancel callbacks
+  stopAlarmSound() {
+    this.isAlarmRinging = false;
+
+    // 1. Stop and disconnect every active oscillator immediately
+    if (this.activeAlarmOscillators && this.activeAlarmOscillators.length > 0) {
+      this.activeAlarmOscillators.forEach(osc => {
+        try {
+          osc.stop();
+          osc.disconnect();
+        } catch (_) {}
+      });
+      this.activeAlarmOscillators = [];
+    }
+
+    // 2. Silence and disconnect all active gain nodes
+    if (this.activeAlarmGains && this.activeAlarmGains.length > 0) {
+      this.activeAlarmGains.forEach(gain => {
+        try {
+          if (this.ctx) gain.gain.setValueAtTime(0, this.ctx.currentTime);
+          gain.disconnect();
+        } catch (_) {}
+      });
+      this.activeAlarmGains = [];
+    }
+
+    // 3. Clear all pending timeouts
+    if (this.activeAlarmTimeouts && this.activeAlarmTimeouts.length > 0) {
+      this.activeAlarmTimeouts.forEach(tId => clearTimeout(tId));
+      this.activeAlarmTimeouts = [];
+    }
+
+    // 4. Pause and reset any active HTML5 audio element
+    this.stopAudioFile();
   }
 
   // Pre-unlock AudioContext on first touch / click across the app

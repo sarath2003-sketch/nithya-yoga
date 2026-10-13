@@ -259,10 +259,19 @@ export default function LiveYogaClassRoom({
   const [spotlightParticipantId, setSpotlightParticipantId] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Role: Instructor or Student
+  // Role: Instructor or Student - strictly checks trainer tokens or explicit role
+  const canChooseInstructor = Boolean(
+    localStorage.getItem('nithya_admin_token') || 
+    localStorage.getItem('nithya_trainer_token') ||
+    user?.role === 'trainer' || 
+    user?.role === 'instructor' || 
+    user?.isInstructor === true
+  );
+
   const [isInstructorRole, setIsInstructorRole] = useState(() => {
-    return user?.role === 'instructor' || user?.isInstructor === true || false;
+    return canChooseInstructor;
   });
+  const [classEndedNotice, setClassEndedNotice] = useState(false);
 
   // Local WebRTC media stream and mode
   const [localStream, setLocalStream] = useState(null);
@@ -443,6 +452,9 @@ export default function LiveYogaClassRoom({
               } else if (dataObj.type === 'raise-hand') {
                 setRaisedHands(prev => new Set(prev).add(participant.identity));
                 audioEngine.playMeditationTone();
+              } else if (dataObj.type === 'class-ended') {
+                setClassEndedNotice(true);
+                audioEngine.playTempleBell();
               }
             } catch (_) {}
           });
@@ -661,6 +673,50 @@ export default function LiveYogaClassRoom({
     setLocalStream(null);
     setConnectionState('disconnected');
     if (onLeaveClass) onLeaveClass();
+  };
+
+  // End Class For All Participants (Instructor Only)
+  const handleEndClassForAll = async () => {
+    const confirmMsg = lang === 'ta'
+      ? 'அனைத்து மாணவர்களுக்கும் இந்த வகுப்பை நிறைவு செய்ய விரும்புகிறீர்களா?'
+      : 'Are you sure you want to end this yoga class for all participants?';
+    if (!window.confirm(confirmMsg)) return;
+
+    audioEngine.playTempleBell();
+
+    // 1. Broadcast end-class packet to all connected students
+    if (room?.localParticipant) {
+      try {
+        const payload = new TextEncoder().encode(JSON.stringify({ type: 'class-ended' }));
+        room.localParticipant.publishData(payload, { reliable: true });
+      } catch (err) {
+        console.warn('Broadcast class-ended note:', err.message);
+      }
+    }
+
+    // 2. Call backend trainer end class endpoint
+    const trainerToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token');
+    const classId = activeClass?.id;
+    if (trainerToken && classId) {
+      try {
+        await apiFetch(`/api/trainer/classes/${classId}/end`, {
+          method: 'POST',
+          headers: { 'Authorization': `Bearer ${trainerToken}` }
+        });
+      } catch (apiErr) {
+        console.warn('Backend end class error:', apiErr.message);
+      }
+    }
+
+    // 3. Update localStorage classes status
+    try {
+      const stored = loadStorage('nithya_classes', []);
+      const updated = stored.map(c => c.id === classId ? { ...c, status: 'ended' } : c);
+      saveStorage('nithya_classes', updated);
+    } catch (_) {}
+
+    // 4. Terminate studio session and leave
+    handleLeave();
   };
 
   const classDurationMins = Number(activeClass?.duration) || 45;
@@ -882,20 +938,27 @@ export default function LiveYogaClassRoom({
 
         {/* Top Controls: Role selector, Timer, Settings */}
         <div className="header-right-tools">
-          {/* Role badge / switcher */}
-          <button
-            type="button"
-            className={`role-toggle-pill ${isInstructorRole ? 'as-instructor' : 'as-student'}`}
-            onClick={() => {
-              if (connectionState === 'idle' || connectionState === 'disconnected') {
-                setIsInstructorRole(!isInstructorRole);
-              }
-            }}
-            title={connectionState === 'connected' ? 'Role locked during call' : 'Switch instructor / student role'}
-          >
-            {isInstructorRole ? <Crown size={13} /> : <Users size={13} />}
-            <span>{isInstructorRole ? (lang === 'ta' ? 'பயிற்றுநர் முறை' : 'Instructor Mode') : (lang === 'ta' ? 'மாணவர் முறை' : 'Student Mode')}</span>
-          </button>
+          {/* Role badge / switcher - strictly checks trainer authorization */}
+          {canChooseInstructor ? (
+            <button
+              type="button"
+              className={`role-toggle-pill ${isInstructorRole ? 'as-instructor' : 'as-student'}`}
+              onClick={() => {
+                if (connectionState === 'idle' || connectionState === 'disconnected') {
+                  setIsInstructorRole(!isInstructorRole);
+                }
+              }}
+              title={connectionState === 'connected' ? 'Role locked during call' : 'Switch instructor / student role'}
+            >
+              {isInstructorRole ? <Crown size={13} /> : <Users size={13} />}
+              <span>{isInstructorRole ? (lang === 'ta' ? 'பயிற்றுநர் முறை' : 'Instructor Mode') : (lang === 'ta' ? 'மாணவர் முறை' : 'Student Mode')}</span>
+            </button>
+          ) : (
+            <div className="role-toggle-pill as-student cursor-default" title="Student Session">
+              <Users size={13} />
+              <span>{lang === 'ta' ? 'மாணவர் முறை' : 'Student Mode'}</span>
+            </div>
+          )}
 
           {/* Live Timer */}
           {connectionState === 'connected' && (
@@ -958,15 +1021,17 @@ export default function LiveYogaClassRoom({
             {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
           </button>
 
-          {/* Credentials / Config Button */}
-          <button
-            type="button"
-            className="header-icon-tool-btn ya-icon-btn"
-            onClick={() => setShowConfigModal(true)}
-            title="LiveKit Server Credentials"
-          >
-            <Settings size={16} />
-          </button>
+          {/* Credentials / Config Button (Trainer Only) */}
+          {isInstructorRole && (
+            <button
+              type="button"
+              className="header-icon-tool-btn ya-icon-btn"
+              onClick={() => setShowConfigModal(true)}
+              title="LiveKit Server Credentials"
+            >
+              <Settings size={16} />
+            </button>
+          )}
         </div>
       </div>
 
@@ -988,32 +1053,39 @@ export default function LiveYogaClassRoom({
                 : 'Real-time peer-to-peer WebRTC video & crystal-clear audio with your instructor and classmates.'}
             </p>
 
-            {/* Role Radio Picker */}
-            <div className="lobby-role-selector">
-              <button
-                type="button"
-                className={`role-card-btn ${!isInstructorRole ? 'selected' : ''}`}
-                onClick={() => setIsInstructorRole(false)}
-              >
-                <Users size={18} />
-                <div>
-                  <strong>{lang === 'ta' ? 'மாணவர் (Student)' : 'Student Practitioner'}</strong>
-                  <span>{lang === 'ta' ? 'வகுப்பில் பங்கேற்று ஆசனங்களைப் பயிற்சி செய்யுங்கள்' : 'Join class & follow instructor guidance'}</span>
-                </div>
-              </button>
+            {/* Role Radio Picker - only accessible with trainer credentials */}
+            {canChooseInstructor ? (
+              <div className="lobby-role-selector">
+                <button
+                  type="button"
+                  className={`role-card-btn ${!isInstructorRole ? 'selected' : ''}`}
+                  onClick={() => setIsInstructorRole(false)}
+                >
+                  <Users size={18} />
+                  <div>
+                    <strong>{lang === 'ta' ? 'மாணவர் (Student)' : 'Student Practitioner'}</strong>
+                    <span>{lang === 'ta' ? 'வகுப்பில் பங்கேற்று ஆசனங்களைப் பயிற்சி செய்யுங்கள்' : 'Join class & follow instructor guidance'}</span>
+                  </div>
+                </button>
 
-              <button
-                type="button"
-                className={`role-card-btn ${isInstructorRole ? 'selected' : ''}`}
-                onClick={() => setIsInstructorRole(true)}
-              >
-                <Crown size={18} />
-                <div>
-                  <strong>{lang === 'ta' ? 'யோகா பயிற்றுநர் (Instructor)' : 'Yoga Instructor / Host'}</strong>
-                  <span>{lang === 'ta' ? 'வகுப்பை வழிநடத்துங்கள் & மாணவர்களுக்கு வழிகாட்டுங்கள்' : 'Lead class, broadcast & moderate students'}</span>
-                </div>
-              </button>
-            </div>
+                <button
+                  type="button"
+                  className={`role-card-btn ${isInstructorRole ? 'selected' : ''}`}
+                  onClick={() => setIsInstructorRole(true)}
+                >
+                  <Crown size={18} />
+                  <div>
+                    <strong>{lang === 'ta' ? 'யோகா பயிற்றுநர் (Instructor)' : 'Yoga Instructor / Host'}</strong>
+                    <span>{lang === 'ta' ? 'வகுப்பை வழிநடத்துங்கள் & மாணவர்களுக்கு வழிகாட்டுங்கள்' : 'Lead class, broadcast & moderate students'}</span>
+                  </div>
+                </button>
+              </div>
+            ) : (
+              <div className="p-3 mb-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-semibold flex items-center justify-center gap-2">
+                <Users size={16} />
+                <span>{lang === 'ta' ? 'சரிபார்க்கப்பட்ட மாணவர் அமர்வு (Student Mode)' : 'Verified Student Practitioner Session'}</span>
+              </div>
+            )}
 
             {/* Quick Media Check */}
             <div className="lobby-media-preview-row">
@@ -1349,16 +1421,57 @@ export default function LiveYogaClassRoom({
             <span className="dock-label">{reconnectCount > 0 ? `Reconn (${reconnectCount})` : 'Drop/Reconn'}</span>
           </button>
 
-          {/* Red Leave Class Button */}
-          <button
-            type="button"
-            className="dock-control-btn leave-call-btn"
-            onClick={handleLeave}
-            title="Leave Class"
-          >
-            <PhoneOff size={18} />
-            <span className="dock-label">{lang === 'ta' ? 'வெளியேறு' : 'Leave'}</span>
-          </button>
+          {/* Trainer End Class for All vs Student Leave Class */}
+          {isInstructorRole ? (
+            <button
+              type="button"
+              className="dock-control-btn end-call-for-all-btn bg-rose-600/20 text-rose-500 hover:bg-rose-600 hover:text-white border border-rose-500/30"
+              onClick={handleEndClassForAll}
+              title={lang === 'ta' ? 'அனைவருக்கும் வகுப்பை முடி' : 'End Class for All'}
+            >
+              <PhoneOff size={18} />
+              <span className="dock-label">{lang === 'ta' ? 'வகுப்பை முடி' : 'End Class'}</span>
+            </button>
+          ) : (
+            <button
+              type="button"
+              className="dock-control-btn leave-call-btn"
+              onClick={handleLeave}
+              title={lang === 'ta' ? 'வெளியேறு' : 'Leave Class'}
+            >
+              <PhoneOff size={18} />
+              <span className="dock-label">{lang === 'ta' ? 'வெளியேறு' : 'Leave'}</span>
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Student View: Class Ended Notice Overlay */}
+      {classEndedNotice && (
+        <div className="livekit-modal-backdrop" style={{ zIndex: 9999 }}>
+          <div className="livekit-modal-card text-center p-6 max-w-md mx-auto ya-card bg-card border border-subtle shadow-2xl rounded-2xl" onClick={e => e.stopPropagation()}>
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+              <CheckCircle2 size={36} />
+            </div>
+            <h3 className="text-xl font-bold text-heading mb-2">
+              {lang === 'ta' ? 'யோகா வகுப்பு நிறைவடைந்தது 🙏' : 'Yoga Class Concluded 🙏'}
+            </h3>
+            <p className="text-xs text-muted mb-6 leading-relaxed">
+              {lang === 'ta'
+                ? 'பயிற்றுநர் இந்த நேரலை யோகா வகுப்பை நிறைவு செய்தார். இன்றைய பயிற்சிக்காக வாழ்த்துகள்! உங்கள் வருகை பதிவு செய்யப்பட்டது.'
+                : 'The instructor has concluded this live yoga session. Thank you for your practice today! Your attendance has been logged.'}
+            </p>
+            <button
+              type="button"
+              className="ya-btn ya-btn--primary w-full py-2.5 rounded-xl font-bold text-xs"
+              onClick={() => {
+                setClassEndedNotice(false);
+                handleLeave();
+              }}
+            >
+              {lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Return to Dashboard'}
+            </button>
+          </div>
         </div>
       )}
 

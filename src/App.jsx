@@ -20,6 +20,7 @@ import InviteRegistrationModal from './components/InviteRegistrationModal';
 import ActiveAlarmModal from './components/ActiveAlarmModal';
 import StudentJoinModal from './components/StudentJoinModal';
 import StudentDashboard from './components/StudentDashboard';
+import InAppUpdateBanner from './components/InAppUpdateBanner';
 
 import { 
   loadStorage, 
@@ -471,6 +472,9 @@ export default function App() {
 
   return (
     <div className="nithya-app-root yoga-advanced">
+      {/* Real-time In-App Remote Update Notification */}
+      <InAppUpdateBanner lang={lang} />
+
       <div className="app-main-layout">
         {/* Left Dark Sidebar with exact uploaded logo */}
         <Sidebar 

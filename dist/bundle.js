@@ -1096,7 +1096,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState16(initialState) {
+          function useState17(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1108,7 +1108,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect14(create, deps) {
+          function useEffect16(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1891,7 +1891,7 @@
           exports.useContext = useContext2;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect14;
+          exports.useEffect = useEffect16;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
@@ -1899,7 +1899,7 @@
           exports.useMemo = useMemo2;
           exports.useReducer = useReducer;
           exports.useRef = useRef8;
-          exports.useState = useState16;
+          exports.useState = useState17;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2395,9 +2395,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React25 = require_react();
+          var React26 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React25.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React26.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -4004,7 +4004,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React25.Children.forEach(props.children, function(child) {
+                  React26.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -61127,6 +61127,9 @@ Click to join: ${link}`
   function ProfileSection({ user: user2, onUpdateUser, lang = "en" }) {
     const [activeTab, setActiveTab] = (0, import_react18.useState)("Personal Info");
     const [isEditing, setIsEditing] = (0, import_react18.useState)(false);
+    const [remoteUpdate, setRemoteUpdate] = (0, import_react18.useState)(null);
+    const [isCheckingUpdate, setIsCheckingUpdate] = (0, import_react18.useState)(false);
+    const [isUpdatingApp, setIsUpdatingApp] = (0, import_react18.useState)(false);
     const [formData, setFormData] = (0, import_react18.useState)({
       name: user2?.name || "Yoga Member",
       email: user2?.email || "member@nithyayoga.com",
@@ -61136,6 +61139,58 @@ Click to join: ${link}`
       avatar: user2?.avatar || ""
     });
     const profileTabs = ["Personal Info", "Preferences", "Settings"];
+    (0, import_react18.useEffect)(() => {
+      if (activeTab === "Settings") {
+        handleCheckUpdates();
+      }
+    }, [activeTab]);
+    const handleCheckUpdates = async () => {
+      setIsCheckingUpdate(true);
+      try {
+        const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
+          cache: "no-store"
+        });
+        if (res.ok) {
+          const data = await res.json();
+          setRemoteUpdate(data);
+          audioEngine.playSoftBell();
+        }
+      } catch (e2) {
+        console.warn("Update check failed:", e2);
+      } finally {
+        setIsCheckingUpdate(false);
+      }
+    };
+    const handleTriggerUpdate = async () => {
+      setIsUpdatingApp(true);
+      audioEngine.playTempleBell();
+      try {
+        if ("caches" in window) {
+          const cacheNames = await caches.keys();
+          await Promise.all(cacheNames.map((name) => caches.delete(name)));
+        }
+        if ("serviceWorker" in navigator) {
+          const regs = await navigator.serviceWorker.getRegistrations();
+          for (const reg of regs) {
+            await reg.update();
+          }
+        }
+        setTimeout(() => {
+          window.location.reload(true);
+        }, 700);
+      } catch (_2) {
+        window.location.reload(true);
+      }
+    };
+    const handleClearCache = async () => {
+      if ("caches" in window) {
+        const keys = await caches.keys();
+        await Promise.all(keys.map((k) => caches.delete(k)));
+      }
+      audioEngine.playSoftBell();
+      alert(lang === "ta" ? "\u0B95\u0BC7\u0B9A\u0BCD \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Web Cache Cleared Successfully!");
+      window.location.reload(true);
+    };
     import_react18.default.useEffect(() => {
       if (user2) {
         setFormData((prev) => ({
@@ -61249,8 +61304,58 @@ Click to join: ${link}`
         onChange: (e2) => setFormData({ ...formData, goal: e2.target.value })
       }
     ))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-edit-actions-row" }, /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setIsEditing(false) }, lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel"), /* @__PURE__ */ import_react18.default.createElement("button", { type: "submit", className: "btn-modal-save" }, /* @__PURE__ */ import_react18.default.createElement(Check, { size: 14 }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Save Changes")))) : (
-      /* Profile Details & Quote Box Flex Row */
-      /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-content-split" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-details-list" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0BAA\u0BC6\u0BAF\u0BB0\u0BCD:" : "Name:"), /* @__PURE__ */ import_react18.default.createElement("strong", { className: "field-val-text" }, formData.name)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD:" : "Email:"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-val-text email-val" }, formData.email)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0BB5\u0BAF\u0BA4\u0BC1:" : "Age:"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-val-text" }, formData.age)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BC1:" : "Goal:"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-val-text" }, formData.goal)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1:" : "Joined:"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-val-text" }, formData.joined))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-quote-card-box" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "quote-lotus-wrap" }, /* @__PURE__ */ import_react18.default.createElement("svg", { viewBox: "0 0 24 24", className: "quote-lotus-icon" }, /* @__PURE__ */ import_react18.default.createElement("path", { d: "M12 2C12 2 15 7 15 11C15 12.7 13.7 14 12 14C10.3 14 9 12.7 9 11C9 7 12 2 12 2ZM6.5 7.5C6.5 7.5 10 10.5 10.5 13C11 15 9.5 16.5 7.5 16.5C5.5 16.5 4.5 14.5 4.5 13C4.5 10 6.5 7.5 6.5 7.5ZM17.5 7.5C17.5 7.5 19.5 10 19.5 13C19.5 14.5 18.5 16.5 16.5 16.5C14.5 16.5 13 15 13.5 13C14 10.5 17.5 7.5 17.5 7.5ZM12 15C13.5 15 18 16.5 19.5 19C19.5 19 16 20.5 12 20.5C8 20.5 4.5 19 4.5 19C6 16.5 10.5 15 12 15Z" }))), /* @__PURE__ */ import_react18.default.createElement("p", { className: "quote-mind-body" }, lang === "ta" ? '"\u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0BA9 \u0BAE\u0BA9\u0BAE\u0BC7 \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0BA9 \u0BB5\u0BBE\u0BB4\u0BCD\u0B95\u0BCD\u0B95\u0BC8\u0B95\u0BCD\u0B95\u0BC1 \u0BB5\u0BB4\u0BBF\u0BB5\u0B95\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD."' : '"A healthy mind leads to a happy life."')))
+      /* Tab Content Switching */
+      activeTab === "Settings" ? /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-settings-view flex flex-col gap-4 p-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col gap-3" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold" }, "\u{1F680}"), /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "text-xs font-black text-heading uppercase tracking-wide" }, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD" : "App Version & In-App Updates"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted font-medium" }, lang === "ta" ? "\u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1:" : "Installed Version:", " ", /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-heading" }, "v1.0.0")))), /* @__PURE__ */ import_react18.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, remoteUpdate?.version && remoteUpdate.version !== "1.0.0" ? lang === "ta" ? `\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 v${remoteUpdate.version} \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD!` : `New v${remoteUpdate.version} Ready!` : lang === "ta" ? "\u0BB2\u0BC7\u0B9F\u0BCD\u0B9F\u0BB8\u0BCD\u0B9F\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u2713" : "Latest Release \u2713")), remoteUpdate?.notesTa && /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-2.5 rounded-lg bg-card border border-subtle text-xs text-sub leading-relaxed" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "font-bold text-heading block mb-1" }, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD:" : "Update Notes:"), lang === "ta" ? remoteUpdate.notesTa : remoteUpdate.notes), /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2 flex-wrap pt-1" }, /* @__PURE__ */ import_react18.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold",
+          onClick: handleCheckUpdates,
+          disabled: isCheckingUpdate
+        },
+        /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 13, className: isCheckingUpdate ? "animate-spin" : "" }),
+        /* @__PURE__ */ import_react18.default.createElement("span", null, isCheckingUpdate ? lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Checking..." : lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD\u0B95\u0BB3\u0BC8\u0B9A\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD" : "Check for Updates")
+      ), /* @__PURE__ */ import_react18.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "ya-btn ya-btn--primary text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer font-black shadow-md shadow-primary/20",
+          onClick: handleTriggerUpdate,
+          disabled: isUpdatingApp
+        },
+        /* @__PURE__ */ import_react18.default.createElement(Download, { size: 13, className: isUpdatingApp ? "animate-bounce" : "" }),
+        /* @__PURE__ */ import_react18.default.createElement("span", null, isUpdatingApp ? lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B86\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating..." : lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0BA8\u0BB5\u0BCD (Update Now)" : "Update Now")
+      ), /* @__PURE__ */ import_react18.default.createElement(
+        "a",
+        {
+          href: "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk",
+          target: "_blank",
+          rel: "noopener noreferrer",
+          className: "ya-btn text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold border border-subtle bg-card text-heading hover:bg-subtle/50 ml-auto"
+        },
+        /* @__PURE__ */ import_react18.default.createElement(Download, { size: 13 }),
+        /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0B9F\u0BBF APK \u0B9F\u0BB5\u0BC1\u0BA9\u0BCD\u0BB2\u0BCB\u0B9F\u0BCD" : "Direct APK Download")
+      ))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-3.5 rounded-xl border border-subtle bg-card flex items-center justify-between" }, /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-xs text-heading block" }, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0B95\u0BC7\u0B9A\u0BCD (Cache) \u0BB0\u0BC0\u0B9A\u0BC6\u0B9F\u0BCD" : "Reset Web Cache"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted" }, lang === "ta" ? "\u0B9A\u0BAE\u0BC0\u0BAA\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0B9F\u0BA9\u0B9F\u0BBF\u0BAF\u0BBE\u0B95\u0BAA\u0BCD \u0BAA\u0BC6\u0BB1" : "Fetch freshest assets immediately")), /* @__PURE__ */ import_react18.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 cursor-pointer",
+          onClick: handleClearCache
+        },
+        lang === "ta" ? "\u0BB0\u0BC0\u0B9A\u0BC6\u0B9F\u0BCD" : "Clear"
+      )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-3.5 rounded-xl border border-subtle bg-card flex items-center justify-between" }, /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-xs text-heading block" }, lang === "ta" ? "\u0B85\u0BB2\u0BBE\u0BB0\u0BAE\u0BCD \u0B92\u0BB2\u0BBF \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Test Reminder Sound"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted" }, lang === "ta" ? "\u0B85\u0BB2\u0BBE\u0BB0\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0B95 \u0BB5\u0BC7\u0BB2\u0BC8 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BBE \u0B8E\u0BA9 \u0B9A\u0BCB\u0BA4\u0BBF\u0B95\u0BCD\u0B95" : "Check if bell chime rings clearly")), /* @__PURE__ */ import_react18.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 cursor-pointer text-primary",
+          onClick: () => audioEngine.playAlarmChime()
+        },
+        "\u{1F514} ",
+        lang === "ta" ? "\u0B92\u0BB2\u0BBF \u0B8E\u0BB4\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Play Bell"
+      )))) : activeTab === "Preferences" ? /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-preferences-view p-3 flex flex-col gap-3" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-3.5 rounded-xl border border-subtle bg-card flex items-center justify-between" }, /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-xs text-heading block" }, lang === "ta" ? "\u0BA4\u0BBE\u0BA9\u0BBF\u0BAF\u0B99\u0BCD\u0B95\u0BBF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1" : "Auto Update Notification"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BA8\u0BCD\u0BA4\u0BBE\u0BB2\u0BCD \u0BA4\u0BBF\u0BB0\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0B89\u0B9F\u0BA9\u0B9F\u0BBF\u0BAF\u0BBE\u0B95\u0BA4\u0BCD \u0BA4\u0BC6\u0BB0\u0BBF\u0BB5\u0BBF\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD" : "Notify when a new version is pushed to GitHub")), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-xs font-bold text-emerald-600 bg-emerald-500/10 px-2 py-0.5 rounded-full" }, lang === "ta" ? "\u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1" : "Enabled"))) : (
+        /* Profile Details & Quote Box Flex Row (Personal Info) */
+        /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-content-split" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-details-list" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0BAA\u0BC6\u0BAF\u0BB0\u0BCD:" : "Name:"), /* @__PURE__ */ import_react18.default.createElement("strong", { className: "field-val-text" }, formData.name)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD:" : "Email:"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-val-text email-val" }, formData.email)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0BB5\u0BAF\u0BA4\u0BC1:" : "Age:"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-val-text" }, formData.age)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BC1:" : "Goal:"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-val-text" }, formData.goal)), /* @__PURE__ */ import_react18.default.createElement("div", { className: "detail-field-row" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-key-label" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1:" : "Joined:"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "field-val-text" }, formData.joined))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-quote-card-box" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "quote-lotus-wrap" }, /* @__PURE__ */ import_react18.default.createElement("svg", { viewBox: "0 0 24 24", className: "quote-lotus-icon" }, /* @__PURE__ */ import_react18.default.createElement("path", { d: "M12 2C12 2 15 7 15 11C15 12.7 13.7 14 12 14C10.3 14 9 12.7 9 11C9 7 12 2 12 2ZM6.5 7.5C6.5 7.5 10 10.5 10.5 13C11 15 9.5 16.5 7.5 16.5C5.5 16.5 4.5 14.5 4.5 13C4.5 10 6.5 7.5 6.5 7.5ZM17.5 7.5C17.5 7.5 19.5 10 19.5 13C19.5 14.5 18.5 16.5 16.5 16.5C14.5 16.5 13 15 13.5 13C14 10.5 17.5 7.5 17.5 7.5ZM12 15C13.5 15 18 16.5 19.5 19C19.5 19 16 20.5 12 20.5C8 20.5 4.5 19 4.5 19C6 16.5 10.5 15 12 15Z" }))), /* @__PURE__ */ import_react18.default.createElement("p", { className: "quote-mind-body" }, lang === "ta" ? '"\u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0BA9 \u0BAE\u0BA9\u0BAE\u0BC7 \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0BA9 \u0BB5\u0BBE\u0BB4\u0BCD\u0B95\u0BCD\u0B95\u0BC8\u0B95\u0BCD\u0B95\u0BC1 \u0BB5\u0BB4\u0BBF\u0BB5\u0B95\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD."' : '"A healthy mind leads to a happy life."')))
+      )
     ));
   }
   var import_react18;
@@ -61258,6 +61363,7 @@ Click to join: ${link}`
     "src/components/ProfileSection.jsx"() {
       import_react18 = __toESM(require_react());
       init_lucide_react();
+      init_audioEngine();
     }
   });
 
@@ -63234,14 +63340,116 @@ ${liveUrl}`;
     }
   });
 
+  // src/components/InAppUpdateBanner.jsx
+  function InAppUpdateBanner({ lang = "en", onDismiss }) {
+    const [updateInfo, setUpdateInfo] = (0, import_react27.useState)(null);
+    const [isUpdating, setIsUpdating] = (0, import_react27.useState)(false);
+    const [isChecking, setIsChecking] = (0, import_react27.useState)(false);
+    const [dismissed, setDismissed] = (0, import_react27.useState)(false);
+    (0, import_react27.useEffect)(() => {
+      checkRemoteUpdate();
+    }, []);
+    const checkRemoteUpdate = async () => {
+      setIsChecking(true);
+      try {
+        const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
+          cache: "no-store"
+        });
+        if (res.ok) {
+          const data = await res.json();
+          const remoteVer = data.version || "1.0.0";
+          const remoteBuild = data.versionCode || 1;
+          const localVersion = localStorage.getItem("nithya_installed_version") || CURRENT_APP_VERSION;
+          if (remoteVer !== localVersion || remoteBuild > CURRENT_BUILD_NUMBER) {
+            setUpdateInfo(data);
+          }
+        }
+      } catch (err) {
+        console.warn("Could not check remote version:", err);
+      } finally {
+        setIsChecking(false);
+      }
+    };
+    const handleUpdateNow = async () => {
+      setIsUpdating(true);
+      audioEngine.playTempleBell();
+      try {
+        if ("caches" in window) {
+          const cacheNames = await caches.keys();
+          await Promise.all(cacheNames.map((name) => caches.delete(name)));
+        }
+        if ("serviceWorker" in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (const reg of registrations) {
+            await reg.update();
+          }
+        }
+        if (updateInfo?.version) {
+          localStorage.setItem("nithya_installed_version", updateInfo.version);
+        }
+        const isAndroidApp = typeof window !== "undefined" && (window.location.protocol === "capacitor:" || window.location.hostname === "localhost");
+        if (isAndroidApp && updateInfo?.apkUrl) {
+          window.open(updateInfo.apkUrl, "_system");
+        }
+        setTimeout(() => {
+          window.location.reload(true);
+        }, 800);
+      } catch (err) {
+        console.error("Update error:", err);
+        window.location.reload(true);
+      }
+    };
+    if (!updateInfo || dismissed) return null;
+    return /* @__PURE__ */ import_react27.default.createElement("div", { className: "in-app-update-floating-bar fixed top-3 left-1/2 -translate-x-1/2 z-[9999] w-[94%] max-w-lg shadow-2xl rounded-2xl p-3.5 bg-gradient-to-r from-violet-900/95 via-indigo-900/95 to-purple-900/95 border-2 border-violet-400/50 backdrop-blur-md text-white animate-bounce-subtle" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-start justify-between gap-3" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "w-9 h-9 rounded-xl bg-violet-500/30 border border-violet-300/40 flex items-center justify-center shrink-0" }, /* @__PURE__ */ import_react27.default.createElement(Sparkles, { size: 18, className: "text-amber-300 animate-pulse" })), /* @__PURE__ */ import_react27.default.createElement("div", null, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react27.default.createElement("span", { className: "text-xs font-black tracking-wider uppercase text-amber-300 bg-amber-400/20 px-2 py-0.5 rounded-full border border-amber-300/30" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD!" : "NEW UPDATE!"), /* @__PURE__ */ import_react27.default.createElement("span", { className: "text-xs font-bold text-violet-200" }, "v", updateInfo.version)), /* @__PURE__ */ import_react27.default.createElement("p", { className: "text-xs font-semibold text-white mt-1 leading-snug" }, lang === "ta" ? updateInfo.titleTa || updateInfo.notesTa : updateInfo.title || updateInfo.notes))), /* @__PURE__ */ import_react27.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          setDismissed(true);
+          if (onDismiss) onDismiss();
+        },
+        className: "text-white/60 hover:text-white p-1 rounded-lg shrink-0 cursor-pointer",
+        title: "Dismiss"
+      },
+      /* @__PURE__ */ import_react27.default.createElement(X, { size: 16 })
+    )), /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center justify-end gap-2 mt-3 pt-2.5 border-t border-white/10" }, /* @__PURE__ */ import_react27.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setDismissed(true),
+        className: "text-xs text-white/70 hover:text-white px-3 py-1.5 rounded-lg cursor-pointer"
+      },
+      lang === "ta" ? "\u0BAA\u0BBF\u0BB1\u0B95\u0BC1" : "Later"
+    ), /* @__PURE__ */ import_react27.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: handleUpdateNow,
+        disabled: isUpdating,
+        className: "text-xs font-black px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 flex items-center gap-1.5 shadow-lg shadow-amber-500/30 transition-transform active:scale-95 cursor-pointer"
+      },
+      isUpdating ? /* @__PURE__ */ import_react27.default.createElement(import_react27.default.Fragment, null, /* @__PURE__ */ import_react27.default.createElement(RefreshCw, { size: 13, className: "animate-spin" }), /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B86\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating...")) : /* @__PURE__ */ import_react27.default.createElement(import_react27.default.Fragment, null, /* @__PURE__ */ import_react27.default.createElement(Download, { size: 13 }), /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0BA8\u0BB5\u0BCD (Update Now)" : "Update Now"))
+    )));
+  }
+  var import_react27, CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER;
+  var init_InAppUpdateBanner = __esm({
+    "src/components/InAppUpdateBanner.jsx"() {
+      import_react27 = __toESM(require_react());
+      init_lucide_react();
+      init_audioEngine();
+      CURRENT_APP_VERSION = "1.0.0";
+      CURRENT_BUILD_NUMBER = 1;
+    }
+  });
+
   // src/App.jsx
   function App() {
-    const [currentTab, setCurrentTab] = (0, import_react27.useState)("home");
-    const [theme, setTheme] = (0, import_react27.useState)(() => loadStorage("nithya_theme", "light"));
-    const [lang, setLang] = (0, import_react27.useState)(() => loadStorage("nithya_lang", "en"));
-    const [searchQuery, setSearchQuery] = (0, import_react27.useState)("");
-    const [activeAlarm, setActiveAlarm] = (0, import_react27.useState)(null);
-    const [inviteToken, setInviteToken] = (0, import_react27.useState)(() => {
+    const [currentTab, setCurrentTab] = (0, import_react28.useState)("home");
+    const [theme, setTheme] = (0, import_react28.useState)(() => loadStorage("nithya_theme", "light"));
+    const [lang, setLang] = (0, import_react28.useState)(() => loadStorage("nithya_lang", "en"));
+    const [searchQuery, setSearchQuery] = (0, import_react28.useState)("");
+    const [activeAlarm, setActiveAlarm] = (0, import_react28.useState)(null);
+    const [inviteToken, setInviteToken] = (0, import_react28.useState)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
         return params.get("invite") || "";
@@ -63249,39 +63457,39 @@ ${liveUrl}`;
         return "";
       }
     });
-    const [studentSession, setStudentSession] = (0, import_react27.useState)(() => {
+    const [studentSession, setStudentSession] = (0, import_react28.useState)(() => {
       return loadStorage("nithya_student_session", null);
     });
-    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react27.useState)(false);
-    const [user2, setUser] = (0, import_react27.useState)(() => loadStorage("nithya_user", DEFAULT_USER));
-    const [reminders, setReminders] = (0, import_react27.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
-    const [classes, setClasses] = (0, import_react27.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
-    const [activeClass, setActiveClass] = (0, import_react27.useState)(() => classes[0] || DEFAULT_CLASSES[0]);
-    const [attendanceLogs, setAttendanceLogs] = (0, import_react27.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
-    const [toasts, setToasts] = (0, import_react27.useState)([]);
-    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react27.useState)(false);
-    const [editingReminder, setEditingReminder] = (0, import_react27.useState)(null);
-    (0, import_react27.useEffect)(() => {
+    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react28.useState)(false);
+    const [user2, setUser] = (0, import_react28.useState)(() => loadStorage("nithya_user", DEFAULT_USER));
+    const [reminders, setReminders] = (0, import_react28.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
+    const [classes, setClasses] = (0, import_react28.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
+    const [activeClass, setActiveClass] = (0, import_react28.useState)(() => classes[0] || DEFAULT_CLASSES[0]);
+    const [attendanceLogs, setAttendanceLogs] = (0, import_react28.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
+    const [toasts, setToasts] = (0, import_react28.useState)([]);
+    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react28.useState)(false);
+    const [editingReminder, setEditingReminder] = (0, import_react28.useState)(null);
+    (0, import_react28.useEffect)(() => {
       saveStorage("nithya_theme", theme);
       document.documentElement.setAttribute("data-theme", theme);
     }, [theme]);
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       saveStorage("nithya_lang", lang);
       document.documentElement.setAttribute("data-lang", lang);
     }, [lang]);
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       saveStorage("nithya_user", user2);
     }, [user2]);
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       saveStorage("nithya_reminders", reminders);
     }, [reminders]);
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       saveStorage("nithya_classes", classes);
     }, [classes]);
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       saveStorage("nithya_attendance", attendanceLogs);
     }, [attendanceLogs]);
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "default") {
         try {
           Notification.requestPermission().catch(() => {
@@ -63290,8 +63498,8 @@ ${liveUrl}`;
         }
       }
     }, []);
-    const firedRemindersRef = (0, import_react27.useRef)(/* @__PURE__ */ new Set());
-    (0, import_react27.useEffect)(() => {
+    const firedRemindersRef = (0, import_react28.useRef)(/* @__PURE__ */ new Set());
+    (0, import_react28.useEffect)(() => {
       const checkScheduledReminders = () => {
         const now = /* @__PURE__ */ new Date();
         const currentHours = now.getHours();
@@ -63427,7 +63635,7 @@ ${liveUrl}`;
       );
       setActiveAlarm(null);
     };
-    (0, import_react27.useEffect)(() => {
+    (0, import_react28.useEffect)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
         const liveId = params.get("live") || params.get("room");
@@ -63608,14 +63816,14 @@ ${liveUrl}`;
         remEl.scrollIntoView({ behavior: "smooth" });
       }
     };
-    return /* @__PURE__ */ import_react27.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react27.default.createElement(
+    return /* @__PURE__ */ import_react28.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, /* @__PURE__ */ import_react28.default.createElement(InAppUpdateBanner, { lang }), /* @__PURE__ */ import_react28.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react28.default.createElement(
       Sidebar,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react27.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react28.default.createElement(
       Header,
       {
         searchQuery,
@@ -63628,7 +63836,7 @@ ${liveUrl}`;
         onOpenNotifications: handleTestSound,
         onTestSound: handleTestSound
       }
-    ), currentTab === "student" ? /* @__PURE__ */ import_react27.default.createElement("main", { className: "dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react27.default.createElement(
+    ), currentTab === "student" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
@@ -63637,7 +63845,7 @@ ${liveUrl}`;
       },
       "\u2190 ",
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react27.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react27.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react28.default.createElement(
       StudentDashboard,
       {
         user: user2,
@@ -63658,7 +63866,7 @@ ${liveUrl}`;
         },
         lang
       }
-    )) : currentTab === "admin" ? /* @__PURE__ */ import_react27.default.createElement("main", { className: "dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react27.default.createElement(
+    )) : currentTab === "admin" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
@@ -63667,7 +63875,7 @@ ${liveUrl}`;
       },
       "\u2190 ",
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react27.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react27.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react28.default.createElement(
       AdminPortalSection,
       {
         onLaunchInstructorStudio: (cls) => {
@@ -63677,7 +63885,7 @@ ${liveUrl}`;
         showToast,
         lang
       }
-    )) : currentTab === "live" ? /* @__PURE__ */ import_react27.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react27.default.createElement(
+    )) : currentTab === "live" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
@@ -63686,7 +63894,7 @@ ${liveUrl}`;
       },
       "\u2190 ",
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react27.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react27.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 (LiveKit HD)" : "Live Yoga Class Studio (LiveKit HD)")), /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react27.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 (LiveKit HD)" : "Live Yoga Class Studio (LiveKit HD)")), /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react28.default.createElement(
       "select",
       {
         value: activeClass?.id,
@@ -63696,8 +63904,8 @@ ${liveUrl}`;
         },
         className: "text-xs px-2.5 py-1.5 rounded-lg border bg-card text-heading font-semibold"
       },
-      classes.map((c) => /* @__PURE__ */ import_react27.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
-    ))), /* @__PURE__ */ import_react27.default.createElement(
+      classes.map((c) => /* @__PURE__ */ import_react28.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
+    ))), /* @__PURE__ */ import_react28.default.createElement(
       LiveYogaClassRoom,
       {
         activeClass,
@@ -63713,7 +63921,7 @@ ${liveUrl}`;
         onRecordAttendance: handleRecordAttendance,
         lang
       }
-    )) : /* @__PURE__ */ import_react27.default.createElement("main", { className: "dashboard-content-grid-wrapper" }, /* @__PURE__ */ import_react27.default.createElement(
+    )) : /* @__PURE__ */ import_react28.default.createElement("main", { className: "dashboard-content-grid-wrapper" }, /* @__PURE__ */ import_react28.default.createElement(
       HeroSection,
       {
         user: user2,
@@ -63721,7 +63929,7 @@ ${liveUrl}`;
         onViewSchedule: handleViewSchedule,
         lang
       }
-    ), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement(
       SmartCareTimeline,
       {
         reminders,
@@ -63735,7 +63943,7 @@ ${liveUrl}`;
         },
         lang
       }
-    ), /* @__PURE__ */ import_react27.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react28.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -63744,7 +63952,7 @@ ${liveUrl}`;
         onShowAll: () => handleTabChange("classes"),
         lang
       }
-    )), /* @__PURE__ */ import_react27.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react27.default.createElement(
+    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react28.default.createElement(
       LiveClassStudio,
       {
         activeClass,
@@ -63754,49 +63962,49 @@ ${liveUrl}`;
         onOpenFullStudio: () => setCurrentTab("live"),
         lang
       }
-    )), /* @__PURE__ */ import_react27.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react27.default.createElement(
+    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react28.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement(
       PranayamaBreathingOrb,
       {
         lang
       }
-    ), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement(
       RelaxationZone,
       {
         lang
       }
-    ))), /* @__PURE__ */ import_react27.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "grid-col col-progress" }, /* @__PURE__ */ import_react27.default.createElement(
+    ))), /* @__PURE__ */ import_react28.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-progress" }, /* @__PURE__ */ import_react28.default.createElement(
       AttendanceProgressSection,
       {
         user: user2,
         attendanceLogs,
         lang
       }
-    )), /* @__PURE__ */ import_react27.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react27.default.createElement(
+    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react28.default.createElement(
       YogaNotesSection,
       {
         lang
       }
-    )), /* @__PURE__ */ import_react27.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react27.default.createElement(
+    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react28.default.createElement(
       ProfileSection,
       {
         user: user2,
         onUpdateUser: handleUpdateUser,
         lang
       }
-    )))))), /* @__PURE__ */ import_react27.default.createElement(
+    )))))), /* @__PURE__ */ import_react28.default.createElement(
       MobileBottomNav,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement(
       ReminderModal,
       {
         isOpen: isReminderModalOpen,
@@ -63809,7 +64017,7 @@ ${liveUrl}`;
         initialData: editingReminder,
         lang
       }
-    ), inviteToken && /* @__PURE__ */ import_react27.default.createElement(
+    ), inviteToken && /* @__PURE__ */ import_react28.default.createElement(
       InviteRegistrationModal,
       {
         inviteToken,
@@ -63835,7 +64043,7 @@ ${liveUrl}`;
         },
         lang
       }
-    ), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement(
       ActiveAlarmModal,
       {
         alarm: activeAlarm,
@@ -63843,7 +64051,7 @@ ${liveUrl}`;
         onSnooze: handleSnoozeAlarm,
         lang
       }
-    ), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement(
       StudentJoinModal,
       {
         isOpen: showStudentJoinModal,
@@ -63861,7 +64069,7 @@ ${liveUrl}`;
           );
         }
       }
-    ), /* @__PURE__ */ import_react27.default.createElement(
+    ), /* @__PURE__ */ import_react28.default.createElement(
       ToastContainer,
       {
         toasts,
@@ -63869,10 +64077,10 @@ ${liveUrl}`;
       }
     ));
   }
-  var import_react27;
+  var import_react28;
   var init_App = __esm({
     "src/App.jsx"() {
-      import_react27 = __toESM(require_react());
+      import_react28 = __toESM(require_react());
       init_Sidebar();
       init_Header();
       init_HeroSection();
@@ -63894,6 +64102,7 @@ ${liveUrl}`;
       init_ActiveAlarmModal();
       init_StudentJoinModal();
       init_StudentDashboard();
+      init_InAppUpdateBanner();
       init_storage();
       init_audioEngine();
     }
@@ -63902,13 +64111,13 @@ ${liveUrl}`;
   // src/index.jsx
   var require_index = __commonJS({
     "src/index.jsx"() {
-      var import_react28 = __toESM(require_react());
+      var import_react29 = __toESM(require_react());
       var import_client = __toESM(require_client());
       init_App();
       var container = document.getElementById("root");
       if (container) {
         const root = (0, import_client.createRoot)(container);
-        root.render(/* @__PURE__ */ import_react28.default.createElement(App, null));
+        root.render(/* @__PURE__ */ import_react29.default.createElement(App, null));
       }
     }
   });

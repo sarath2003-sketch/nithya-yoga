@@ -27,7 +27,8 @@ const filesToCopy = [
   'index.html',
   'manifest.json',
   'sw.js',
-  'serve.js'
+  'serve.js',
+  'version.json'
 ];
 
 for (const file of filesToCopy) {

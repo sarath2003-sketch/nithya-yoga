@@ -258,7 +258,25 @@ export const DEFAULT_ATTENDANCE_LOGS = [];
 export function loadStorage(key, fallback) {
   try {
     const item = localStorage.getItem(key);
-    return item ? JSON.parse(item) : fallback;
+    let val = item ? JSON.parse(item) : fallback;
+    if (key === 'nithya_classes' && Array.isArray(val)) {
+      val = val.map(c => {
+        let inst = c.instructor;
+        if (!inst || ['priya', 'anu', 'meena', 'lakshmi', 'sarah', 'karthik', 'divya', 'ravi'].includes(String(inst).toLowerCase())) {
+          inst = 'NITHYA Master';
+        }
+        return { ...c, instructor: inst };
+      });
+    }
+    if (key === 'nithya_user' && val && typeof val === 'object') {
+      if (val.name && ['sarah', 'priya'].includes(String(val.name).toLowerCase())) {
+        val.name = 'Yoga Member';
+      }
+      if (val.email && String(val.email).toLowerCase().includes('sarah')) {
+        val.email = 'member@nithyayoga.com';
+      }
+    }
+    return val;
   } catch (e) {
     return fallback;
   }

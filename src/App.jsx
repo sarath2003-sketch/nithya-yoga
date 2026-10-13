@@ -17,6 +17,8 @@ import ReminderModal from './components/ReminderModal';
 import LiveYogaClassRoom from './components/LiveYogaClassRoom';
 import AdminPortalSection from './components/AdminPortalSection';
 import InviteRegistrationModal from './components/InviteRegistrationModal';
+import ActiveAlarmModal from './components/ActiveAlarmModal';
+import StudentJoinModal from './components/StudentJoinModal';
 
 import { 
   loadStorage, 
@@ -35,6 +37,9 @@ export default function App() {
   const [lang, setLang] = useState(() => loadStorage('nithya_lang', 'en'));
   const [searchQuery, setSearchQuery] = useState('');
 
+  // Active in-app alarm trigger state
+  const [activeAlarm, setActiveAlarm] = useState(null);
+
   // Invite Token from URL search parameters (?invite=...)
   const [inviteToken, setInviteToken] = useState(() => {
     try {
@@ -44,6 +49,12 @@ export default function App() {
       return '';
     }
   });
+
+  // Client Session Details for Live Class: name + phone
+  const [studentSession, setStudentSession] = useState(() => {
+    return loadStorage('nithya_student_session', null);
+  });
+  const [showStudentJoinModal, setShowStudentJoinModal] = useState(false);
 
   // States
   const [user, setUser] = useState(() => loadStorage('nithya_user', DEFAULT_USER));
@@ -146,36 +157,48 @@ export default function App() {
 
         firedRemindersRef.current.add(fireKey);
 
-        // 1. Play audio chime
+        // 1. Play repeating alarm chime
         if (r.customAudioUrl) {
           audioEngine.playAudioFile(r.customAudioUrl);
         } else {
-          audioEngine.playSoundByName(r.sound || 'Soft Bell');
+          audioEngine.playAlarmChime();
         }
 
-        // 2. In-app toast notification
+        // 2. Set active in-app ringing alarm modal
+        setActiveAlarm(r);
+
+        // 3. In-app toast notification
         showToast(
           lang === 'ta' ? `🔔 நினைவூட்டல்: ${r.titleTa || r.title}` : `🔔 Reminder: ${r.title}`,
           lang === 'ta' ? (r.messageTa || r.message || 'உங்கள் ஆரோக்கியத்தைக் கவனிக்கவும்') : (r.message || 'Time for your healthy habit'),
           'success'
         );
 
-        // 3. Browser native notification / PWA notification
+        // 4. Browser / Mobile notification with service worker support (prevents Android Chrome illegal constructor)
+        const notifTitle = lang === 'ta' ? `NITHYA யோகா: ${r.titleTa || r.title}` : `NITHYA Yoga: ${r.title}`;
+        const notifBody = lang === 'ta' ? (r.messageTa || r.message || 'நினைவூட்டல் நேரம்!') : (r.message || 'Time for your healthy habit');
+
         if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
-          try {
-            const notification = new Notification(
-              lang === 'ta' ? `NITHYA யோகா: ${r.titleTa || r.title}` : `NITHYA Yoga: ${r.title}`,
-              {
-                body: lang === 'ta' ? (r.messageTa || r.message) : r.message,
+          if ('serviceWorker' in navigator && navigator.serviceWorker.ready) {
+            navigator.serviceWorker.ready.then(reg => {
+              reg.showNotification(notifTitle, {
+                body: notifBody,
                 icon: 'assets/images/logo.png',
                 badge: 'assets/images/logo.png',
-                tag: fireKey
-              }
-            );
-            notification.onclick = () => {
-              window.focus();
-            };
-          } catch (_) {}
+                vibrate: [250, 100, 250],
+                tag: fireKey,
+                renotify: true
+              });
+            }).catch(() => {
+              try {
+                new Notification(notifTitle, { body: notifBody, icon: 'assets/images/logo.png' });
+              } catch (_) {}
+            });
+          } else {
+            try {
+              new Notification(notifTitle, { body: notifBody, icon: 'assets/images/logo.png' });
+            } catch (_) {}
+          }
         }
       });
     };
@@ -197,6 +220,53 @@ export default function App() {
   const handleDismissToast = (id) => {
     setToasts(prev => prev.filter(t => t.id !== id));
   };
+
+  const handleDismissAlarm = () => {
+    setActiveAlarm(null);
+  };
+
+  const handleSnoozeAlarm = () => {
+    if (!activeAlarm) return;
+    const now = new Date();
+    now.setMinutes(now.getMinutes() + 5);
+    const snoozeHours = now.getHours();
+    const snoozeMinutes = now.getMinutes();
+    const snooze24 = `${String(snoozeHours).padStart(2, '0')}:${String(snoozeMinutes).padStart(2, '0')}`;
+    const period = snoozeHours >= 12 ? 'PM' : 'AM';
+    const hours12 = snoozeHours % 12 || 12;
+    const snooze12 = `${String(hours12).padStart(2, '0')}:${String(snoozeMinutes).padStart(2, '0')} ${period}`;
+
+    setReminders(prev => prev.map(r => {
+      if (r.id === activeAlarm.id) {
+        return { ...r, rawTime: snooze24, time: snooze12 };
+      }
+      return r;
+    }));
+
+    showToast(
+      lang === 'ta' ? 'நினைவூட்டல் 5 நிமிடம் தள்ளிவைக்கப்பட்டது ⏱️' : 'Reminder Snoozed for 5 minutes ⏱️',
+      `${activeAlarm.title} (${snooze12})`,
+      'info'
+    );
+    setActiveAlarm(null);
+  };
+
+  // URL query parameter (?live=cls-1 or ?room=...) listener
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const liveId = params.get('live') || params.get('room');
+      if (liveId) {
+        const found = classes.find(c => c.id === liveId) || classes[0];
+        if (found) setActiveClass(found);
+        setCurrentTab('live');
+        const session = loadStorage('nithya_student_session', null);
+        if (!session) {
+          setShowStudentJoinModal(true);
+        }
+      }
+    } catch (_) {}
+  }, [classes]);
 
   const handleTestSound = () => {
     audioEngine.playMeditationTone();
@@ -488,7 +558,7 @@ export default function App() {
             </main>
           ) : (
             <main className="dashboard-content-grid-wrapper">
-              {/* Row 1: Panoramic Hero Banner (Left) + Hello, Sarah Bento (Right) */}
+              {/* Row 1: Panoramic Hero Banner (Left) + User Profile Bento (Right) */}
               <HeroSection
                 user={user}
                 onJoinLive={() => handleJoinLive(activeClass)}
@@ -631,6 +701,32 @@ export default function App() {
           lang={lang}
         />
       )}
+
+      {/* In-App Active Alarm Modal (Pops up when scheduled reminder fires) */}
+      <ActiveAlarmModal
+        alarm={activeAlarm}
+        onDismiss={handleDismissAlarm}
+        onSnooze={handleSnoozeAlarm}
+        lang={lang}
+      />
+
+      {/* Student Join Modal (2 Fields: Name + Mobile Number before entering live yoga) */}
+      <StudentJoinModal
+        isOpen={showStudentJoinModal}
+        onClose={() => setShowStudentJoinModal(false)}
+        activeClass={activeClass}
+        lang={lang}
+        onJoin={(student) => {
+          setStudentSession(student);
+          setShowStudentJoinModal(false);
+          setCurrentTab('live');
+          showToast(
+            lang === 'ta' ? 'வகுப்பில் இணைந்தீர்கள் 🧘‍♀️' : 'Joined Live Session 🧘‍♀️',
+            `${student.name} • ${activeClass?.title || activeClass?.name}`,
+            'success'
+          );
+        }}
+      />
 
       {/* Toast Notification Tray */}
       <ToastContainer 

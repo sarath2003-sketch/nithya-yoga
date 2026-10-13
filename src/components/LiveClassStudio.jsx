@@ -42,7 +42,7 @@ export default function LiveClassStudio({
   // Teacher Class Scheduling State
   const [showScheduleModal, setShowScheduleModal] = useState(false);
   const [newClassTitle, setNewClassTitle] = useState('');
-  const [newClassInstructor, setNewClassInstructor] = useState('Priya');
+  const [newClassInstructor, setNewClassInstructor] = useState('NITHYA Master');
   const [newClassTime, setNewClassTime] = useState('07:00 AM');
   const [newClassDate, setNewClassDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [newMeetUrl, setNewMeetUrl] = useState('https://meet.google.com/new');
@@ -51,19 +51,45 @@ export default function LiveClassStudio({
   // Chat State
   const [chatInput, setChatInput] = useState('');
   const [messages, setMessages] = useState([
-    { id: 1, sender: 'Teacher Priya', text: 'Welcome everyone! Unroll your mat and sit comfortably. 🧘‍♀️', time: '10:20 AM' },
-    { id: 2, sender: 'Meena', text: 'Namaste teacher! Ready for class.', time: '10:24 AM' },
-    { id: 3, sender: 'You', text: 'Namaste! Audio & video working well.', time: '10:28 AM' }
+    { 
+      id: 1, 
+      sender: activeClass?.instructor || 'NITHYA Master', 
+      text: lang === 'ta' ? 'அனைவருக்கும் நல்வரவு! யோகா பாயை விரித்து அமரவும். 🧘‍♀️' : 'Welcome everyone! Unroll your mat and sit comfortably. 🧘‍♀️', 
+      time: 'Just now' 
+    }
   ]);
 
-  const participants = [
-    { id: 1, name: `${activeClass?.instructor || 'Priya'} (Instructor)`, role: 'Host', isHost: true },
-    { id: 2, name: 'You (Sarah)', role: 'Student' },
-    { id: 3, name: 'Meena', role: 'Student' },
-    { id: 4, name: 'Karthik', role: 'Student' },
-    { id: 5, name: 'Divya', role: 'Student' },
-    { id: 6, name: 'Ravi', role: 'Student' }
-  ];
+  const [copiedLink, setCopiedLink] = useState(false);
+
+  // Dynamic participants roster
+  const [participants, setParticipants] = useState(() => {
+    const host = { id: 1, name: `${activeClass?.instructor || 'NITHYA Master'} (${lang === 'ta' ? 'பயிற்றுநர்' : 'Instructor'})`, role: 'Host', isHost: true };
+    try {
+      const stored = localStorage.getItem('nithya_live_participants');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return [host, ...parsed];
+        }
+      }
+    } catch (_) {}
+    return [host];
+  });
+
+  // Listen for participant updates across tabs
+  useEffect(() => {
+    const handleStorage = (e) => {
+      if (e.key === 'nithya_live_participants') {
+        try {
+          const parsed = JSON.parse(e.newValue || '[]');
+          const host = { id: 1, name: `${activeClass?.instructor || 'NITHYA Master'} (${lang === 'ta' ? 'பயிற்றுநர்' : 'Instructor'})`, role: 'Host', isHost: true };
+          setParticipants([host, ...parsed]);
+        } catch (_) {}
+      }
+    };
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, [activeClass, lang]);
 
   // Timer effect for active session
   useEffect(() => {
@@ -92,21 +118,41 @@ export default function LiveClassStudio({
     window.open(meetUrl, '_blank', 'noopener,noreferrer');
   };
 
+  const handleCopyLiveLink = () => {
+    const link = `${window.location.origin}${window.location.pathname}?live=${activeClass?.id || 'cls-1'}`;
+    navigator.clipboard.writeText(link).then(() => {
+      setCopiedLink(true);
+      setTimeout(() => setCopiedLink(false), 2500);
+      audioEngine.playSoftBell();
+    }).catch(() => {});
+  };
+
+  const handleWhatsAppShare = () => {
+    const link = `${window.location.origin}${window.location.pathname}?live=${activeClass?.id || 'cls-1'}`;
+    const text = encodeURIComponent(
+      lang === 'ta'
+        ? `வணக்கம்! NITHYA யோகா நேரலை வகுப்பில் இணையுங்கள்: ${activeClass?.title || activeClass?.name || 'Live Class'}\nஇணைய இந்த லிங்க்கை கிளிக் செய்யவும்: ${link}`
+        : `Namaste! Join NITHYA Live Yoga Class: ${activeClass?.title || activeClass?.name || 'Live Class'}\nClick to join: ${link}`
+    );
+    window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  };
+
   const handleVerifyAttendance = () => {
     setAttendanceVerified(true);
     audioEngine.playTempleBell();
     const minutesSpent = Math.max(1, Math.round(sessionSeconds / 60));
+    const studentName = localStorage.getItem('nithya_student_name') || 'Yoga Practitioner';
     
     if (onRecordAttendance) {
       onRecordAttendance({
         id: `att-${Date.now()}`,
-        studentName: 'Sarah',
+        studentName,
         classId: activeClass?.id || 'cls-1',
         className: activeClass?.title || activeClass?.name || 'Hatha Yoga',
-        instructor: activeClass?.instructor || 'Priya',
+        instructor: activeClass?.instructor || 'NITHYA Master',
         date: new Date().toISOString().split('T')[0],
         durationMinutes: minutesSpent,
-        status: 'Verified',
+        status: minutesSpent >= 1 ? 'Verified (Present)' : 'Verified',
         timestamp: new Date().toISOString()
       });
     }
@@ -165,7 +211,7 @@ export default function LiveClassStudio({
         <LiveYogaClassRoom
           activeClass={activeClass}
           user={{
-            name: isTeacherMode ? (activeClass?.instructor || 'Priya') : 'Sarah',
+            name: isTeacherMode ? (activeClass?.instructor || 'NITHYA Master') : (user?.name || 'Yoga Member'),
             role: isTeacherMode ? 'instructor' : 'student'
           }}
           onLeaveClass={() => {
@@ -229,14 +275,14 @@ export default function LiveClassStudio({
         
         {/* Top-Right Timer */}
         <div className="video-timer-badge">
-          <span>{formatTimer(sessionSeconds || 1936)}</span>
+          <span>{formatTimer(sessionSeconds)}</span>
           <span className="red-record-dot">🔴</span>
         </div>
 
         {/* Top-Left Active Class Meta */}
         <div className="video-class-meta-overlay">
           <span className="class-name-tag">{activeClass?.title || activeClass?.name || 'Hatha Yoga'}</span>
-          <span className="class-teacher-tag">by {activeClass?.instructor || 'Priya'}</span>
+          <span className="class-teacher-tag">by {activeClass?.instructor || 'NITHYA Master'}</span>
         </div>
 
         {/* Center LiveKit Quick Launcher Button */}
@@ -255,6 +301,25 @@ export default function LiveClassStudio({
             <Radio size={16} />
             <span>{lang === 'ta' ? 'லைவ்கிட் HD ஸ்டுடியோவில் இணைக 🧘‍♀️' : 'Enter LiveKit HD Studio 🧘‍♀️'}</span>
           </button>
+
+          <div className="flex items-center gap-2 mt-2">
+            <button
+              type="button"
+              className="text-xs px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur flex items-center gap-1 cursor-pointer transition-all"
+              onClick={handleCopyLiveLink}
+              title="Copy Live Class Join Link"
+            >
+              <span>{copiedLink ? (lang === 'ta' ? '✓ நகலெடுக்கப்பட்டது' : '✓ Copied') : (lang === 'ta' ? '🔗 லிங்க் நகலெடு' : '🔗 Copy Link')}</span>
+            </button>
+            <button
+              type="button"
+              className="text-xs px-2.5 py-1 rounded-full bg-emerald-700/80 hover:bg-emerald-600 text-white backdrop-blur flex items-center gap-1 cursor-pointer transition-all"
+              onClick={handleWhatsAppShare}
+              title="Share Live Class via WhatsApp"
+            >
+              <span>📲 WhatsApp</span>
+            </button>
+          </div>
 
           <button
             type="button"
@@ -360,7 +425,6 @@ export default function LiveClassStudio({
                 <span className="online-green-indicator">●</span>
               </div>
             ))}
-            <div className="more-participants-label">+6 more</div>
           </div>
         </div>
 

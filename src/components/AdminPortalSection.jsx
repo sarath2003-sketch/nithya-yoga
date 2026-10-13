@@ -82,22 +82,48 @@ export default function AdminPortalSection({
     }
   };
 
-  // Fetch attendance report
+  // Fetch attendance report (combines server SQLite and local client logs)
   const fetchAttendance = async () => {
     if (!adminToken) return;
     setAttendanceLoading(true);
     try {
-      const data = await apiFetch('/api/admin/attendance', {
-        headers: { 'Authorization': `Bearer ${adminToken}` }
-      });
-      if (Array.isArray(data)) {
-        setAttendanceLogs(data);
+      let serverLogs = [];
+      try {
+        const data = await apiFetch('/api/admin/attendance', {
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        });
+        if (Array.isArray(data)) {
+          serverLogs = data;
+        }
+      } catch (err) {
+        if (err.status === 401 || err.status === 403) {
+          handleLogout();
+          return;
+        }
       }
+
+      // Also read local client-recorded logs from localStorage
+      let localLogs = [];
+      try {
+        const stored = localStorage.getItem('nithya_attendance_logs');
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          localLogs = parsed.map(l => ({
+            name: l.studentName || 'Student',
+            email: l.phone ? `+91 ${l.phone}` : 'App User',
+            phone: l.phone || 'N/A',
+            classTitle: l.className || 'Hatha Yoga Flow',
+            joinedAt: l.timestamp,
+            durationSeconds: (l.durationMinutes || 1) * 60,
+            attendancePercent: l.attendancePercent || (l.status?.includes('70') ? 85 : 45),
+            status: l.status?.includes('70') ? 'verified_70' : 'incomplete'
+          }));
+        }
+      } catch (_) {}
+
+      const combined = [...serverLogs, ...localLogs.filter(loc => !serverLogs.some(s => s.phone === loc.phone && s.classTitle === loc.classTitle))];
+      setAttendanceLogs(combined);
     } catch (err) {
-      if (err.status === 401 || err.status === 403) {
-        handleLogout();
-        return;
-      }
       console.error('Error fetching admin attendance:', err);
     } finally {
       setAttendanceLoading(false);
@@ -532,14 +558,30 @@ export default function AdminPortalSection({
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <button
+                            type="button"
+                            onClick={() => {
+                              const liveUrl = `${window.location.origin}${window.location.pathname}?live=${c.id}`;
+                              navigator.clipboard.writeText(liveUrl);
+                              setCopiedId(`live-${c.id}`);
+                              setTimeout(() => setCopiedId(null), 2500);
+                              if (showToast) showToast('Live Link Copied ✓', liveUrl, 'success');
+                            }}
+                            className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
+                            title="Direct student joining link with name & mobile check"
+                          >
+                            {copiedId === `live-${c.id}` ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} className="text-primary" />}
+                            <span>{copiedId === `live-${c.id}` ? 'Copied!' : (lang === 'ta' ? 'லைவ் லிங்க்' : 'Copy Live Link')}</span>
+                          </button>
+
                           <button
                             type="button"
                             onClick={() => handleGenerateInvite(c.id)}
                             className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
                           >
                             <Link size={13} className="text-primary" />
-                            <span>{lang === 'ta' ? 'அழைப்பு லிங்க் பெறுக' : 'Get Invite Link'}</span>
+                            <span>{lang === 'ta' ? 'அழைப்பு லிங்க்' : 'Invite Token'}</span>
                           </button>
 
                           {onLaunchInstructorStudio && (
@@ -549,7 +591,7 @@ export default function AdminPortalSection({
                               className="ya-btn ya-btn--primary text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
                             >
                               <Video size={13} />
-                              <span>{lang === 'ta' ? 'பயிற்றுநராக துவங்க' : 'Launch as Instructor'}</span>
+                              <span>{lang === 'ta' ? 'பயிற்றுநர் ஸ்டுடியோ' : 'Launch Studio'}</span>
                             </button>
                           )}
                         </div>

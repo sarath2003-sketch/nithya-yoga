@@ -5,8 +5,8 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
   const [activeTab, setActiveTab] = useState('Personal Info');
   const [isEditing, setIsEditing] = useState(false);
   const [formData, setFormData] = useState({
-    name: user?.name || 'Sarah',
-    email: user?.email || 'sarah@gmail.com',
+    name: user?.name || 'Yoga Member',
+    email: user?.email || 'member@nithyayoga.com',
     age: user?.age || 28,
     goal: user?.goal || 'Better Health & Peace',
     joined: user?.joined || 'Oct 1, 2026',

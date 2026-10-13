@@ -108,6 +108,9 @@ export async function apiFetch(endpoint, options = {}) {
     }
     const err = new Error(errorMessage);
     err.status = response.status;
+    if (response.status === 405 || response.status === 404) {
+      err.isStaticHost = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
+    }
     throw err;
   }
 

@@ -67,7 +67,7 @@ export default function HeroSection({
         </div>
       </div>
 
-      {/* Top Right: Hello, Sarah 2x2 Bento Card */}
+      {/* Top Right: User Profile Bento Card */}
       <div className="hero-user-stat-card">
         <div className="user-profile-header-mini">
           <div className="user-round-avatar">

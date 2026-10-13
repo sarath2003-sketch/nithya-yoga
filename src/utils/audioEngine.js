@@ -323,16 +323,51 @@ class SoundEngine {
     }
   }
 
-  resumeAudioFile() {
-    if (this.activeAudio) {
-      try {
-        this.activeAudio.play();
-      } catch (_) {}
+  // 5. Alarm Chime - Distinct Repeating Alert Chime for Reminders
+  playAlarmChime() {
+    try {
+      const ctx = this.init();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      [0, 0.25, 0.50, 0.90, 1.15, 1.40].forEach((timeOffset, idx) => {
+        const freq = (idx % 3 === 0) ? 659.25 : (idx % 3 === 1) ? 880 : 1318.51;
+        const gain = ctx.createGain();
+        gain.gain.setValueAtTime(this.volume * 0.9, now + timeOffset);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + timeOffset + 0.42);
+        gain.connect(ctx.destination);
+
+        const osc = ctx.createOscillator();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + timeOffset);
+        osc.connect(gain);
+        osc.start(now + timeOffset);
+        osc.stop(now + timeOffset + 0.42);
+      });
+    } catch (e) {
+      console.warn('Alarm chime error:', e);
+    }
+  }
+
+  // Pre-unlock AudioContext on first touch / click across the app
+  unlockAudio() {
+    const unlock = () => {
+      this.init();
+      if (typeof window !== 'undefined') {
+        window.removeEventListener('click', unlock);
+        window.removeEventListener('touchstart', unlock);
+        window.removeEventListener('keydown', unlock);
+      }
+    };
+    if (typeof window !== 'undefined') {
+      window.addEventListener('click', unlock, { once: true, passive: true });
+      window.addEventListener('touchstart', unlock, { once: true, passive: true });
+      window.addEventListener('keydown', unlock, { once: true, passive: true });
     }
   }
 }
 
 export const audioEngine = new SoundEngine();
+audioEngine.unlockAudio();
 
 export const BUILT_IN_SOUNDS = [
   { id: 'Soft Bell', name: 'Soft Bell', nameTa: 'மெல்லிய மணி', desc: 'Warm harmonic bell' },

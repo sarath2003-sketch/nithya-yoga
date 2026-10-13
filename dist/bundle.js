@@ -1096,7 +1096,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState14(initialState) {
+          function useState15(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1108,7 +1108,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect11(create, deps) {
+          function useEffect12(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1891,7 +1891,7 @@
           exports.useContext = useContext2;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect11;
+          exports.useEffect = useEffect12;
           exports.useId = useId;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
@@ -1899,7 +1899,7 @@
           exports.useMemo = useMemo2;
           exports.useReducer = useReducer;
           exports.useRef = useRef6;
-          exports.useState = useState14;
+          exports.useState = useState15;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2395,9 +2395,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React22 = require_react();
+          var React24 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React22.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React24.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -4004,7 +4004,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React22.Children.forEach(props.children, function(child) {
+                  React24.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -25566,7 +25566,7 @@
     setTheme,
     lang,
     setLang,
-    user,
+    user: user2,
     onOpenNotifications,
     onTestSound
   }) {
@@ -25620,8 +25620,8 @@
         role: "button",
         tabIndex: 0
       },
-      /* @__PURE__ */ import_react7.default.createElement("div", { className: "user-avatar-circle" }, user.avatar ? /* @__PURE__ */ import_react7.default.createElement("img", { src: user.avatar, alt: user.name }) : /* @__PURE__ */ import_react7.default.createElement("span", null, user.name.charAt(0))),
-      /* @__PURE__ */ import_react7.default.createElement("div", { className: "user-greeting-meta" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "welcome-tag" }, lang === "ta" ? "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD," : "Welcome,"), /* @__PURE__ */ import_react7.default.createElement("span", { className: "user-name-bold" }, user.name))
+      /* @__PURE__ */ import_react7.default.createElement("div", { className: "user-avatar-circle" }, user2.avatar ? /* @__PURE__ */ import_react7.default.createElement("img", { src: user2.avatar, alt: user2.name }) : /* @__PURE__ */ import_react7.default.createElement("span", null, user2.name.charAt(0))),
+      /* @__PURE__ */ import_react7.default.createElement("div", { className: "user-greeting-meta" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "welcome-tag" }, lang === "ta" ? "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD," : "Welcome,"), /* @__PURE__ */ import_react7.default.createElement("span", { className: "user-name-bold" }, user2.name))
     )));
   }
   var import_react7;
@@ -25634,7 +25634,7 @@
 
   // src/components/HeroSection.jsx
   function HeroSection({
-    user,
+    user: user2,
     onJoinLive,
     onViewSchedule,
     lang = "en"
@@ -25671,7 +25671,7 @@
       },
       /* @__PURE__ */ import_react8.default.createElement(Calendar, { size: 16 }),
       /* @__PURE__ */ import_react8.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8" : "View Today's Schedule")
-    )))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-user-stat-card" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-profile-header-mini" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-round-avatar" }, user?.avatar ? /* @__PURE__ */ import_react8.default.createElement("img", { src: user.avatar, alt: user.name, className: "hero-avatar-img" }) : /* @__PURE__ */ import_react8.default.createElement("span", null, user?.name ? user.name.charAt(0) : "S")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-heading-meta" }, /* @__PURE__ */ import_react8.default.createElement("h3", { className: "user-greeting-name" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${user.name}` : `Hello, ${user.name}`), /* @__PURE__ */ import_react8.default.createElement("p", { className: "user-subtitle-care" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Stay consistent. Stay healthy."))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-stats-2x2-grid" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-teal" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap teal-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flower2, { size: 18, className: "text-teal" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user.classesAttended || 12), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-blue" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap blue-bg" }, /* @__PURE__ */ import_react8.default.createElement(Calendar, { size: 18, className: "text-blue" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user.attendanceRate || 85, "%"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-orange" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap orange-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flame, { size: 18, className: "text-orange" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user.dayStreak || 7), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Day Streak"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-gold" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap gold-bg" }, /* @__PURE__ */ import_react8.default.createElement(Star, { size: 18, className: "text-gold" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user.level || "Beginner"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Level"))))));
+    )))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-user-stat-card" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-profile-header-mini" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-round-avatar" }, user2?.avatar ? /* @__PURE__ */ import_react8.default.createElement("img", { src: user2.avatar, alt: user2.name, className: "hero-avatar-img" }) : /* @__PURE__ */ import_react8.default.createElement("span", null, user2?.name ? user2.name.charAt(0) : "S")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-heading-meta" }, /* @__PURE__ */ import_react8.default.createElement("h3", { className: "user-greeting-name" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${user2.name}` : `Hello, ${user2.name}`), /* @__PURE__ */ import_react8.default.createElement("p", { className: "user-subtitle-care" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Stay consistent. Stay healthy."))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-stats-2x2-grid" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-teal" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap teal-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flower2, { size: 18, className: "text-teal" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.classesAttended || 12), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-blue" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap blue-bg" }, /* @__PURE__ */ import_react8.default.createElement(Calendar, { size: 18, className: "text-blue" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.attendanceRate || 85, "%"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-orange" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap orange-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flame, { size: 18, className: "text-orange" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.dayStreak || 7), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Day Streak"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-gold" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap gold-bg" }, /* @__PURE__ */ import_react8.default.createElement(Star, { size: 18, className: "text-gold" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.level || "Beginner"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Level"))))));
   }
   var import_react8;
   var init_HeroSection = __esm({
@@ -25981,16 +25981,48 @@
             }
           }
         }
-        resumeAudioFile() {
-          if (this.activeAudio) {
-            try {
-              this.activeAudio.play();
-            } catch (_2) {
+        // 5. Alarm Chime - Distinct Repeating Alert Chime for Reminders
+        playAlarmChime() {
+          try {
+            const ctx = this.init();
+            if (!ctx) return;
+            const now = ctx.currentTime;
+            [0, 0.25, 0.5, 0.9, 1.15, 1.4].forEach((timeOffset, idx) => {
+              const freq = idx % 3 === 0 ? 659.25 : idx % 3 === 1 ? 880 : 1318.51;
+              const gain = ctx.createGain();
+              gain.gain.setValueAtTime(this.volume * 0.9, now + timeOffset);
+              gain.gain.exponentialRampToValueAtTime(1e-4, now + timeOffset + 0.42);
+              gain.connect(ctx.destination);
+              const osc = ctx.createOscillator();
+              osc.type = "triangle";
+              osc.frequency.setValueAtTime(freq, now + timeOffset);
+              osc.connect(gain);
+              osc.start(now + timeOffset);
+              osc.stop(now + timeOffset + 0.42);
+            });
+          } catch (e2) {
+            console.warn("Alarm chime error:", e2);
+          }
+        }
+        // Pre-unlock AudioContext on first touch / click across the app
+        unlockAudio() {
+          const unlock = () => {
+            this.init();
+            if (typeof window !== "undefined") {
+              window.removeEventListener("click", unlock);
+              window.removeEventListener("touchstart", unlock);
+              window.removeEventListener("keydown", unlock);
             }
+          };
+          if (typeof window !== "undefined") {
+            window.addEventListener("click", unlock, { once: true, passive: true });
+            window.addEventListener("touchstart", unlock, { once: true, passive: true });
+            window.addEventListener("keydown", unlock, { once: true, passive: true });
           }
         }
       };
       audioEngine = new SoundEngine();
+      audioEngine.unlockAudio();
       BUILT_IN_SOUNDS = [
         { id: "Soft Bell", name: "Soft Bell", nameTa: "\u0BAE\u0BC6\u0BB2\u0BCD\u0BB2\u0BBF\u0BAF \u0BAE\u0BA3\u0BBF", desc: "Warm harmonic bell" },
         { id: "Gentle Chime", name: "Gentle Chime", nameTa: "\u0BAE\u0BC6\u0BA9\u0BCD\u0BAE\u0BC8\u0BAF\u0BBE\u0BA9 \u0B93\u0B9A\u0BC8", desc: "Soothing wind chime triad" },
@@ -26172,8 +26204,8 @@
         duration: "60 min",
         level: "Beginner",
         levelTa: "\u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95\u0BA8\u0BBF\u0BB2\u0BC8",
-        instructor: "Priya",
-        instructorTa: "\u0BAA\u0BBF\u0BB0\u0BBF\u0BAF\u0BBE",
+        instructor: "NITHYA Master",
+        instructorTa: "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD",
         desc: "Build flexibility, alignment and deep breathing balance.",
         descTa: "\u0BA8\u0BC6\u0B95\u0BBF\u0BB4\u0BCD\u0BB5\u0BC1\u0BA4\u0BCD\u0BA4\u0BA9\u0BCD\u0BAE\u0BC8\u0BAF\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B9A\u0BAE\u0BA8\u0BBF\u0BB2\u0BC8\u0BAF\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD.",
         img: "assets/images/class-hatha.svg"
@@ -26185,8 +26217,8 @@
         duration: "60 min",
         level: "Intermediate",
         levelTa: "\u0B87\u0B9F\u0BC8\u0BA8\u0BBF\u0BB2\u0BC8",
-        instructor: "Anu",
-        instructorTa: "\u0B85\u0BA9\u0BC1",
+        instructor: "NITHYA Master",
+        instructorTa: "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD",
         desc: "Dynamic breath-to-movement sequences for stamina.",
         descTa: "\u0BB5\u0BB2\u0BBF\u0BAE\u0BC8\u0BAF\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B9A\u0B95\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0BA4\u0BCD\u0BA4\u0BA9\u0BCD\u0BAE\u0BC8\u0BAF\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BAE\u0BC7\u0BAE\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD.",
         img: "assets/images/class-vinyasa.svg"
@@ -26198,8 +26230,8 @@
         duration: "75 min",
         level: "Advanced",
         levelTa: "\u0BAE\u0BC1\u0BA4\u0BBF\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4 \u0BA8\u0BBF\u0BB2\u0BC8",
-        instructor: "Meena",
-        instructorTa: "\u0BAE\u0BC0\u0BA9\u0BBE",
+        instructor: "NITHYA Master",
+        instructorTa: "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD",
         desc: "High energy core activation and cardiovascular heat.",
         descTa: "\u0B86\u0BB1\u0BCD\u0BB1\u0BB2\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B95\u0BB5\u0BA9\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B85\u0BA4\u0BBF\u0B95\u0BB0\u0BBF\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD.",
         img: "assets/images/class-power.svg"
@@ -26211,8 +26243,8 @@
         duration: "50 min",
         level: "All Levels",
         levelTa: "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BA8\u0BBF\u0BB2\u0BC8\u0B95\u0BB3\u0BC1\u0BAE\u0BCD",
-        instructor: "Lakshmi",
-        instructorTa: "\u0BB2\u0B9F\u0BCD\u0B9A\u0BC1\u0BAE\u0BBF",
+        instructor: "NITHYA Master",
+        instructorTa: "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD",
         desc: "Deep restorative fascia relaxation and meditative stillness.",
         descTa: "\u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B93\u0BAF\u0BCD\u0BB5\u0BC1\u0BAE\u0BCD \u0BA8\u0BC6\u0B95\u0BBF\u0BB4\u0BCD\u0BB5\u0BC1\u0BA4\u0BCD\u0BA4\u0BA9\u0BCD\u0BAE\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD.",
         img: "assets/images/class-yin.svg"
@@ -31170,8 +31202,8 @@
         } else {
           sessionId = SDPUtils2.generateSessionId();
         }
-        const user = sessUser || "thisisadapterortc";
-        return "v=0\r\no=" + user + " " + sessionId + " " + version2 + " IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n";
+        const user2 = sessUser || "thisisadapterortc";
+        return "v=0\r\no=" + user2 + " " + sessionId + " " + version2 + " IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n";
       };
       SDPUtils2.getDirection = function(mediaSection, sessionpart) {
         const lines = SDPUtils2.splitLines(mediaSection);
@@ -58133,6 +58165,9 @@
       }
       const err = new Error(errorMessage);
       err.status = response.status;
+      if (response.status === 405 || response.status === 404) {
+        err.isStaticHost = typeof window !== "undefined" && window.location.hostname.includes("github.io");
+      }
       throw err;
     }
     if (!contentType.includes("application/json")) {
@@ -58155,12 +58190,304 @@
     }
   });
 
+  // src/utils/storage.js
+  function loadStorage(key, fallback2) {
+    try {
+      const item = localStorage.getItem(key);
+      let val = item ? JSON.parse(item) : fallback2;
+      if (key === "nithya_classes" && Array.isArray(val)) {
+        val = val.map((c) => {
+          let inst = c.instructor;
+          if (!inst || ["priya", "anu", "meena", "lakshmi", "sarah", "karthik", "divya", "ravi"].includes(String(inst).toLowerCase())) {
+            inst = "NITHYA Master";
+          }
+          return { ...c, instructor: inst };
+        });
+      }
+      if (key === "nithya_user" && val && typeof val === "object") {
+        if (val.name && ["sarah", "priya"].includes(String(val.name).toLowerCase())) {
+          val.name = "Yoga Member";
+        }
+        if (val.email && String(val.email).toLowerCase().includes("sarah")) {
+          val.email = "member@nithyayoga.com";
+        }
+      }
+      return val;
+    } catch (e2) {
+      return fallback2;
+    }
+  }
+  function saveStorage(key, value) {
+    try {
+      localStorage.setItem(key, JSON.stringify(value));
+    } catch (e2) {
+      console.warn("Storage save failed:", e2);
+    }
+  }
+  var DEFAULT_USER, DEFAULT_REMINDERS, DEFAULT_CLASSES, DEFAULT_NOTES, DEFAULT_PLAYLIST, DEFAULT_ATTENDANCE_LOGS;
+  var init_storage = __esm({
+    "src/utils/storage.js"() {
+      DEFAULT_USER = {
+        name: "Yoga Practitioner",
+        role: "Member",
+        email: "member@nithyayoga.com",
+        age: 28,
+        goal: "Better Health & Peace",
+        joined: "Oct 2026",
+        classesAttended: 0,
+        attendanceRate: 0,
+        dayStreak: 0,
+        level: "Beginner",
+        avatar: ""
+        // Supports Base64 data URL from file upload
+      };
+      DEFAULT_REMINDERS = [
+        {
+          id: "rem-1",
+          time: "06:00 PM",
+          date: "2026-10-08",
+          title: "Next Yoga Class",
+          titleTa: "\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1",
+          category: "Yoga",
+          message: "Keep going! You're doing great! \u{1F49C}",
+          messageTa: "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD! \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9A\u0BBF\u0BB1\u0BAA\u0BCD\u0BAA\u0BBE\u0B95 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD! \u{1F49C}",
+          repeat: "Daily",
+          sound: "Soft Bell",
+          enabled: true,
+          completed: false
+        },
+        {
+          id: "rem-2",
+          time: "05:30 PM",
+          date: "2026-10-08",
+          title: "Water Reminder",
+          titleTa: "\u0BA4\u0BA3\u0BCD\u0BA3\u0BC0\u0BB0\u0BCD \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD",
+          category: "Water",
+          message: "Drink water... Stay fresh! \u{1F4A7}",
+          messageTa: "\u0BA4\u0BA3\u0BCD\u0BA3\u0BC0\u0BB0\u0BCD \u0B95\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD... \u0BAA\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0BA3\u0BB0\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD! \u{1F4A7}",
+          repeat: "Daily",
+          sound: "Gentle Chime",
+          enabled: true,
+          completed: false
+        },
+        {
+          id: "rem-3",
+          time: "01:00 PM",
+          date: "2026-10-08",
+          title: "Meal Reminder",
+          titleTa: "\u0B89\u0BA3\u0BB5\u0BC1 \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD",
+          category: "Meal",
+          message: "Healthy food = Happy you! \u{1F957}",
+          messageTa: "\u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0B89\u0BA3\u0BB5\u0BC1 = \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD! \u{1F957}",
+          repeat: "Daily",
+          sound: "Peaceful Nature",
+          enabled: true,
+          completed: false
+        },
+        {
+          id: "rem-4",
+          time: "07:00 PM",
+          date: "2026-10-08",
+          title: "Call Reminder",
+          titleTa: "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD",
+          category: "Call",
+          message: "Don't forget to call your loved ones. \u{1F4DE}",
+          messageTa: "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B85\u0BA9\u0BCD\u0BAA\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BB0\u0BBF\u0BAF\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BB4\u0BC8\u0B95\u0BCD\u0B95 \u0BAE\u0BB1\u0B95\u0BCD\u0B95\u0BBE\u0BA4\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD. \u{1F4DE}",
+          repeat: "Daily",
+          sound: "Soft Bell",
+          enabled: true,
+          completed: false
+        },
+        {
+          id: "rem-5",
+          time: "09:00 PM",
+          date: "2026-10-08",
+          title: "Personal Care",
+          titleTa: "\u0B9A\u0BC1\u0BAF \u0BAA\u0BB0\u0BBE\u0BAE\u0BB0\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1",
+          category: "Personal Care",
+          message: "Take care of yourself. You matter! \u{1F495}",
+          messageTa: "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B95\u0BB5\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD \u0B95\u0BCA\u0BB3\u0BCD\u0BB3\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BCD! \u{1F495}",
+          repeat: "Daily",
+          sound: "Meditation Tone",
+          enabled: true,
+          completed: false
+        }
+      ];
+      DEFAULT_CLASSES = [
+        {
+          id: "cls-1",
+          name: "Hatha Yoga",
+          title: "Hatha Yoga",
+          instructor: "NITHYA Master",
+          duration: 60,
+          level: "Beginner",
+          time: "06:00 AM",
+          date: "2026-10-09",
+          description: "Build flexibility, gentle core stability and natural balance.",
+          attended: false,
+          category: "Beginner",
+          meetUrl: "https://meet.google.com/new"
+        },
+        {
+          id: "cls-2",
+          name: "Vinyasa Flow",
+          title: "Vinyasa Flow",
+          instructor: "NITHYA Master",
+          duration: 60,
+          level: "Intermediate",
+          time: "08:30 AM",
+          date: "2026-10-09",
+          description: "Improve stamina, breath synchronicity and fluid motion.",
+          attended: false,
+          category: "Intermediate",
+          meetUrl: "https://meet.google.com/new"
+        },
+        {
+          id: "cls-3",
+          name: "Power Yoga",
+          title: "Power Yoga",
+          instructor: "NITHYA Master",
+          duration: 75,
+          level: "Advanced",
+          time: "04:30 PM",
+          date: "2026-10-09",
+          description: "Boost metabolic energy, muscular endurance and sharp focus.",
+          attended: false,
+          category: "Advanced",
+          meetUrl: "https://meet.google.com/new"
+        },
+        {
+          id: "cls-4",
+          name: "Yin Yoga",
+          title: "Yin Yoga",
+          instructor: "NITHYA Master",
+          duration: 50,
+          level: "All Levels",
+          time: "06:00 PM",
+          date: "2026-10-09",
+          description: "Deep restorative stretching and meditative spine release.",
+          attended: false,
+          category: "Beginner",
+          meetUrl: "https://meet.google.com/new"
+        },
+        {
+          id: "cls-5",
+          name: "Pranayama & Breathwork",
+          title: "Pranayama & Breathwork",
+          instructor: "NITHYA Master",
+          duration: 35,
+          level: "All Levels",
+          time: "07:30 PM",
+          date: "2026-10-09",
+          description: "Ancient breath regulation for deep nervous system calming.",
+          attended: false,
+          category: "Beginner",
+          meetUrl: "https://meet.google.com/new"
+        }
+      ];
+      DEFAULT_NOTES = [
+        {
+          id: "note-1",
+          title: "Benefits of Yoga",
+          body: "Yoga improves flexibility, reduces cortisol stress and sharpens mental focus. Consistent 20-min daily practice brings sustained tranquility.",
+          category: "Yoga",
+          date: "Oct 5, 2026",
+          colorClass: "icon-orange-note"
+        },
+        {
+          id: "note-2",
+          title: "Healthy Food Habits",
+          body: "Eat clean, stay hydrated. Fresh sattvic food provides sustained physical energy without afternoon crashes.",
+          category: "Health",
+          date: "Oct 4, 2026",
+          colorClass: "icon-red-note"
+        },
+        {
+          id: "note-3",
+          title: "Morning Routine",
+          body: "Wake up early, drink 2 glasses of warm water, 10 minutes of Nadi Shodhana breathing, then light dynamic stretches.",
+          category: "Routine",
+          date: "Oct 3, 2026",
+          colorClass: "icon-blue-note"
+        },
+        {
+          id: "note-4",
+          title: "Self Care",
+          body: "Take care of your mind. It's just as important as your body. Remember to pause whenever tension creeps in.",
+          category: "Wellness",
+          date: "Oct 2, 2026",
+          colorClass: "icon-teal-note"
+        }
+      ];
+      DEFAULT_PLAYLIST = [
+        {
+          id: "track-1",
+          title: "Peaceful Mind",
+          titleTa: "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BA9\u0BAE\u0BCD",
+          category: "Relaxing Music",
+          categoryTa: "\u0BA8\u0BBF\u0BAE\u0BCD\u0BAE\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B87\u0B9A\u0BC8",
+          duration: "30:00",
+          audioUrl: "assets/audio/peaceful-mind.wav",
+          sourceType: "audio",
+          ambientType: "bowl"
+        },
+        {
+          id: "track-2",
+          title: "Featured Meditation",
+          titleTa: "\u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD",
+          category: "10 min \u2022 Calm Mind",
+          categoryTa: "10 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0BAE\u0BA9\u0BAE\u0BCD",
+          duration: "10:00",
+          audioUrl: "assets/audio/featured-meditation-om.wav",
+          sourceType: "audio",
+          ambientType: "om"
+        },
+        {
+          id: "track-3",
+          title: "Pranayama",
+          titleTa: "\u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD",
+          category: "5 min \u2022 Focus",
+          categoryTa: "5 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B95\u0BB5\u0BA9\u0BAE\u0BCD",
+          duration: "05:00",
+          audioUrl: "assets/audio/pranayama-432hz.wav",
+          sourceType: "audio",
+          ambientType: "music"
+        },
+        {
+          id: "track-4",
+          title: "Singing Bowl",
+          titleTa: "\u0BA4\u0BBF\u0BAA\u0BC6\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0BC1\u0BAE\u0BCD \u0B95\u0BBF\u0BA3\u0BCD\u0BA3\u0BAE\u0BCD",
+          category: "15 min \u2022 Deep Healing",
+          categoryTa: "15 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF",
+          duration: "15:00",
+          audioUrl: "assets/audio/singing-bowl.wav",
+          sourceType: "audio",
+          ambientType: "bowl"
+        },
+        {
+          id: "track-5",
+          title: "Sleep Zen",
+          titleTa: "\u0B89\u0BB1\u0B95\u0BCD\u0B95 \u0B92\u0BB2\u0BBF\u0B95\u0BB3\u0BCD",
+          category: "45 min \u2022 Good Sleep",
+          categoryTa: "45 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B89\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD",
+          duration: "45:00",
+          audioUrl: "assets/audio/sleep-zen-rain.wav",
+          sourceType: "audio",
+          ambientType: "rain"
+        }
+      ];
+      DEFAULT_ATTENDANCE_LOGS = [];
+    }
+  });
+
   // src/components/LiveYogaClassRoom.jsx
   function ParticipantTile({
     participant,
     isLocal = false,
     isSpotlight = false,
     isSpeaking = false,
+    isLocalMicOn = true,
+    isLocalVideoOn = true,
     lang = "en",
     onPin
   }) {
@@ -58173,8 +58500,8 @@
     (0, import_react11.useEffect)(() => {
       if (!participant) return;
       const updateTracks = () => {
-        const videoPub = Array.from(participant.videoTrackPublications?.values() || []).find((pub) => pub.source === Track.Source.Camera || pub.track?.kind === "video");
-        const audioPub = Array.from(participant.audioTrackPublications?.values() || []).find((pub) => pub.source === Track.Source.Microphone || pub.track?.kind === "audio");
+        const videoPub = Array.from(participant.videoTrackPublications?.values() || []).find((pub) => pub.source === Track?.Source?.Camera || pub.track?.kind === "video");
+        const audioPub = Array.from(participant.audioTrackPublications?.values() || []).find((pub) => pub.source === Track?.Source?.Microphone || pub.track?.kind === "audio");
         const vTrack = videoPub?.track;
         const aTrack = audioPub?.track;
         setVideoTrack(vTrack || null);
@@ -58187,20 +58514,26 @@
       const onTrackUnmuted = () => updateTracks();
       const onTrackSubscribed = () => updateTracks();
       const onTrackUnsubscribed = () => updateTracks();
-      participant.on("trackMuted", onTrackMuted);
-      participant.on("trackUnmuted", onTrackUnmuted);
-      participant.on("trackSubscribed", onTrackSubscribed);
-      participant.on("trackUnsubscribed", onTrackUnsubscribed);
-      return () => {
-        participant.off("trackMuted", onTrackMuted);
-        participant.off("trackUnmuted", onTrackUnmuted);
-        participant.off("trackSubscribed", onTrackSubscribed);
-        participant.off("trackUnsubscribed", onTrackUnsubscribed);
-      };
+      if (typeof participant.on === "function") {
+        participant.on("trackMuted", onTrackMuted);
+        participant.on("trackUnmuted", onTrackUnmuted);
+        participant.on("trackSubscribed", onTrackSubscribed);
+        participant.on("trackUnsubscribed", onTrackUnsubscribed);
+        return () => {
+          try {
+            participant.off("trackMuted", onTrackMuted);
+            participant.off("trackUnmuted", onTrackUnmuted);
+            participant.off("trackSubscribed", onTrackSubscribed);
+            participant.off("trackUnsubscribed", onTrackUnsubscribed);
+          } catch (e2) {
+          }
+        };
+      }
     }, [participant]);
     (0, import_react11.useEffect)(() => {
       const el = videoRef.current;
-      if (el && videoTrack) {
+      if (!el) return;
+      if (videoTrack) {
         videoTrack.attach(el);
         return () => {
           try {
@@ -58208,8 +58541,16 @@
           } catch (e2) {
           }
         };
+      } else if (participant?.stream) {
+        el.srcObject = participant.stream;
+        el.play().catch(() => {
+        });
+        const vTrack = participant.stream.getVideoTracks()[0];
+        const aTrack = participant.stream.getAudioTracks()[0];
+        setHasVideo(Boolean(vTrack && vTrack.enabled));
+        setHasAudio(Boolean(aTrack && aTrack.enabled));
       }
-    }, [videoTrack]);
+    }, [videoTrack, participant?.stream, isLocalVideoOn]);
     (0, import_react11.useEffect)(() => {
       const el = audioRef.current;
       if (el && audioTrack && !isLocal) {
@@ -58227,9 +58568,11 @@
       if (participant.metadata) meta = JSON.parse(participant.metadata);
     } catch (e2) {
     }
-    const isInstructor = meta.role === "instructor" || participant.identity?.includes("instructor") || participant.name?.toLowerCase().includes("instructor") || participant.name?.toLowerCase().includes("priya");
-    const displayName = participant.name || participant.identity || (isLocal ? "You" : "Practitioner");
+    const isInstructor = meta.role === "instructor" || participant.isInstructor || participant.role === "instructor" || participant.identity?.includes("instructor");
+    const displayName = participant.name || participant.displayName || participant.identity || (isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : lang === "ta" ? "\u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BAA\u0BBE\u0BB3\u0BB0\u0BCD" : "Practitioner");
     const initial = displayName.charAt(0).toUpperCase();
+    const effectiveHasVideo = isLocal ? isLocalVideoOn : hasVideo || Boolean(participant?.stream?.getVideoTracks()[0]?.enabled);
+    const effectiveHasAudio = isLocal ? isLocalMicOn : hasAudio || Boolean(participant?.stream?.getAudioTracks()[0]?.enabled);
     return /* @__PURE__ */ import_react11.default.createElement(
       "div",
       {
@@ -58244,11 +58587,11 @@
           autoPlay: true,
           playsInline: true,
           muted: isLocal,
-          className: `participant-video-stream ${hasVideo ? "visible" : "hidden"}`
+          className: `participant-video-stream ${effectiveHasVideo ? "visible" : "hidden"}`
         }
       ),
       !isLocal && /* @__PURE__ */ import_react11.default.createElement("audio", { ref: audioRef, autoPlay: true }),
-      !hasVideo && /* @__PURE__ */ import_react11.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "avatar-orb-glow" }), /* @__PURE__ */ import_react11.default.createElement("div", { className: "avatar-circle" }, /* @__PURE__ */ import_react11.default.createElement("span", null, initial)), /* @__PURE__ */ import_react11.default.createElement("span", { className: "avatar-fallback-name" }, displayName), /* @__PURE__ */ import_react11.default.createElement("span", { className: "avatar-status-pill" }, isLocal ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0BAE\u0BC1\u0B9F\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1" : "Camera Off" : lang === "ta" ? "\u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BBF\u0BB2\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD" : "Audio Only")),
+      !effectiveHasVideo && /* @__PURE__ */ import_react11.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "avatar-orb-glow" }), /* @__PURE__ */ import_react11.default.createElement("div", { className: "avatar-circle" }, /* @__PURE__ */ import_react11.default.createElement("span", null, initial)), /* @__PURE__ */ import_react11.default.createElement("span", { className: "avatar-fallback-name" }, displayName), /* @__PURE__ */ import_react11.default.createElement("span", { className: "avatar-status-pill" }, isLocal ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0BAE\u0BC1\u0B9F\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1" : "Camera Off" : lang === "ta" ? "\u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BBF\u0BB2\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD" : "Audio Only")),
       /* @__PURE__ */ import_react11.default.createElement("div", { className: "tile-top-overlay" }, isInstructor && /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-tag instructor-badge" }, /* @__PURE__ */ import_react11.default.createElement(Crown, { size: 12 }), /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Instructor")), isLocal && /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-tag local-badge" }, /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You"))),
       /* @__PURE__ */ import_react11.default.createElement("div", { className: "tile-bottom-overlay" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "participant-label-name" }, displayName), /* @__PURE__ */ import_react11.default.createElement("div", { className: "participant-media-status-icons" }, hasAudio ? /* @__PURE__ */ import_react11.default.createElement("span", { className: `status-icon-pill ${isSpeaking ? "active-speaking" : "audio-on"}`, title: "Mic on" }, /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 12 })) : /* @__PURE__ */ import_react11.default.createElement("span", { className: "status-icon-pill audio-muted", title: "Mic muted" }, /* @__PURE__ */ import_react11.default.createElement(MicOff, { size: 12 })), !hasVideo && /* @__PURE__ */ import_react11.default.createElement("span", { className: "status-icon-pill video-muted", title: "Camera off" }, /* @__PURE__ */ import_react11.default.createElement(VideoOff, { size: 12 })))),
       isSpeaking && /* @__PURE__ */ import_react11.default.createElement("div", { className: "speaking-aura-ring" })
@@ -58256,7 +58599,7 @@
   }
   function LiveYogaClassRoom({
     activeClass,
-    user,
+    user: user2,
     onLeaveClass,
     onRecordAttendance,
     lang = "en"
@@ -58281,7 +58624,22 @@
     const [spotlightParticipantId, setSpotlightParticipantId] = (0, import_react11.useState)(null);
     const [isFullscreen, setIsFullscreen] = (0, import_react11.useState)(false);
     const [isInstructorRole, setIsInstructorRole] = (0, import_react11.useState)(() => {
-      return user?.role === "instructor" || user?.isInstructor === true || false;
+      return user2?.role === "instructor" || user2?.isInstructor === true || false;
+    });
+    const [localStream, setLocalStream] = (0, import_react11.useState)(null);
+    const [screenStream, setScreenStream] = (0, import_react11.useState)(null);
+    const [studioMode, setStudioMode] = (0, import_react11.useState)("auto");
+    const [copiedLink, setCopiedLink] = (0, import_react11.useState)(false);
+    const [showAttendanceDrawer, setShowAttendanceDrawer] = (0, import_react11.useState)(false);
+    const [reconnectCount, setReconnectCount] = (0, import_react11.useState)(0);
+    const [isSimulatingDisconnect, setIsSimulatingDisconnect] = (0, import_react11.useState)(false);
+    const [connectedStudentsList, setConnectedStudentsList] = (0, import_react11.useState)(() => {
+      try {
+        const stored = localStorage.getItem("nithya_live_participants");
+        return stored ? JSON.parse(stored) : [];
+      } catch (_2) {
+        return [];
+      }
     });
     const [sessionSeconds, setSessionSeconds] = (0, import_react11.useState)(0);
     const [hasAttendanceRecorded, setHasAttendanceRecorded] = (0, import_react11.useState)(false);
@@ -58329,119 +58687,150 @@
       setConnectionState("connecting");
       setErrorMessage("");
       audioEngine.playGentleChime();
-      try {
-        const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : "nithya-live-studio").toLowerCase().replace(/[^a-z0-9_-]/g, "-");
-        const participantName = (user?.name || "Sarah").trim();
-        const authToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_auth_token");
-        const reqHeaders = {};
-        if (authToken) {
-          reqHeaders["Authorization"] = `Bearer ${authToken}`;
-        }
-        const data = await apiFetch("/api/livekit/token", {
-          method: "POST",
-          headers: reqHeaders,
-          body: JSON.stringify({
-            roomName,
-            participantName,
-            classId: activeClass?.id
-          })
-        });
-        if (data.needsConfig) {
-          setNeedsSetup(true);
-          setShowConfigModal(true);
-          throw new Error(data.error || "LiveKit server credentials required. Please configure below.");
-        }
-        const { token, serverUrl } = data;
-        if (!token || !serverUrl) {
-          throw new Error("Invalid token response from backend: missing token or serverUrl");
-        }
-        const liveRoom = new Room({
-          adaptiveStream: true,
-          dynacast: true,
-          videoCaptureDefaults: {
-            resolution: VideoPresets.h720.resolution
+      const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : "nithya-live-studio").toLowerCase().replace(/[^a-z0-9_-]/g, "-");
+      const studentInfo = loadStorage("nithya_student_session", null);
+      const participantName = (studentInfo?.name || user2?.name || (isInstructorRole ? "NITHYA Master" : "Yoga Practitioner")).trim();
+      let connectedViaLiveKit = false;
+      const hasBackend = Boolean(getApiBaseUrl()) || typeof window !== "undefined" && window.location.hostname === "localhost";
+      if (hasBackend) {
+        try {
+          const authToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_auth_token");
+          const reqHeaders = {};
+          if (authToken) {
+            reqHeaders["Authorization"] = `Bearer ${authToken}`;
           }
-        });
-        liveRoom.on(RoomEvent.Connected, () => {
-          setConnectionState("connected");
-          setParticipants(Array.from(liveRoom.remoteParticipants.values()));
-          audioEngine.playTempleBell();
-          const memberToken = localStorage.getItem("nithya_auth_token");
-          if (memberToken) {
-            apiFetch("/api/attendance/join", {
-              method: "POST",
-              headers: {
-                "Authorization": `Bearer ${memberToken}`
-              },
-              body: JSON.stringify({ classId: activeClass?.id })
-            }).catch((err) => console.warn("Attendance join logging note:", err.message));
-          }
-        });
-        liveRoom.on(RoomEvent.Disconnected, () => {
-          setConnectionState("disconnected");
-          setParticipants([]);
-        });
-        liveRoom.on(RoomEvent.Reconnecting, () => {
-          setConnectionState("reconnecting");
-        });
-        liveRoom.on(RoomEvent.Reconnected, () => {
-          setConnectionState("connected");
-        });
-        liveRoom.on(RoomEvent.ParticipantConnected, (p) => {
-          setParticipants(Array.from(liveRoom.remoteParticipants.values()));
-        });
-        liveRoom.on(RoomEvent.ParticipantDisconnected, (p) => {
-          setParticipants(Array.from(liveRoom.remoteParticipants.values()));
-          setRaisedHands((prev) => {
-            const next = new Set(prev);
-            next.delete(p.identity);
-            return next;
+          const data = await apiFetch("/api/livekit/token", {
+            method: "POST",
+            headers: reqHeaders,
+            body: JSON.stringify({
+              roomName,
+              participantName,
+              classId: activeClass?.id
+            })
           });
-        });
-        liveRoom.on(RoomEvent.ActiveSpeakersChanged, (speakers) => {
-          setActiveSpeakers(speakers.map((s) => s.identity));
-        });
-        liveRoom.on(RoomEvent.DataReceived, (payload, participant) => {
-          try {
-            const text = new TextDecoder().decode(payload);
-            const dataObj = JSON.parse(text);
-            if (dataObj.type === "chat") {
-              setChatMessages((prev) => [
-                ...prev,
-                {
-                  id: `msg-${Date.now()}-${Math.random()}`,
-                  sender: participant?.name || participant?.identity || "Peer",
-                  text: dataObj.message,
-                  time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-                  isSystem: false
+          if (data.token && data.serverUrl && !data.needsConfig) {
+            const liveRoom = new Room({
+              adaptiveStream: true,
+              dynacast: true,
+              videoCaptureDefaults: {
+                resolution: VideoPresets.h720.resolution
+              }
+            });
+            liveRoom.on(RoomEvent.Connected, () => {
+              setConnectionState("connected");
+              setStudioMode("livekit");
+              setParticipants(Array.from(liveRoom.remoteParticipants.values()));
+              audioEngine.playTempleBell();
+              const memberToken = localStorage.getItem("nithya_auth_token");
+              if (memberToken) {
+                apiFetch("/api/attendance/join", {
+                  method: "POST",
+                  headers: { "Authorization": `Bearer ${memberToken}` },
+                  body: JSON.stringify({ classId: activeClass?.id })
+                }).catch(() => {
+                });
+              }
+            });
+            liveRoom.on(RoomEvent.Disconnected, () => {
+              setConnectionState("disconnected");
+              setParticipants([]);
+            });
+            liveRoom.on(RoomEvent.Reconnecting, () => {
+              setConnectionState("reconnecting");
+              setReconnectCount((prev) => prev + 1);
+            });
+            liveRoom.on(RoomEvent.Reconnected, () => {
+              setConnectionState("connected");
+            });
+            liveRoom.on(RoomEvent.ParticipantConnected, () => {
+              setParticipants(Array.from(liveRoom.remoteParticipants.values()));
+            });
+            liveRoom.on(RoomEvent.ParticipantDisconnected, (p) => {
+              setParticipants(Array.from(liveRoom.remoteParticipants.values()));
+              setRaisedHands((prev) => {
+                const next = new Set(prev);
+                next.delete(p.identity);
+                return next;
+              });
+            });
+            liveRoom.on(RoomEvent.ActiveSpeakersChanged, (speakers) => {
+              setActiveSpeakers(speakers.map((s) => s.identity));
+            });
+            liveRoom.on(RoomEvent.DataReceived, (payload, participant) => {
+              try {
+                const text = new TextDecoder().decode(payload);
+                const dataObj = JSON.parse(text);
+                if (dataObj.type === "chat") {
+                  setChatMessages((prev) => [
+                    ...prev,
+                    {
+                      id: `msg-${Date.now()}-${Math.random()}`,
+                      sender: participant?.name || participant?.identity || "Peer",
+                      text: dataObj.message,
+                      time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                      isSystem: false
+                    }
+                  ]);
+                  audioEngine.playSoftBell();
+                } else if (dataObj.type === "raise-hand") {
+                  setRaisedHands((prev) => new Set(prev).add(participant.identity));
+                  audioEngine.playMeditationTone();
                 }
-              ]);
-              audioEngine.playSoftBell();
-            } else if (dataObj.type === "raise-hand") {
-              setRaisedHands((prev) => new Set(prev).add(participant.identity));
-              audioEngine.playMeditationTone();
-            }
-          } catch (e2) {
+              } catch (_2) {
+              }
+            });
+            await liveRoom.connect(data.serverUrl, data.token);
+            await liveRoom.localParticipant.setMicrophoneEnabled(isMicOn).catch(() => {
+            });
+            await liveRoom.localParticipant.setCameraEnabled(isVideoOn).catch(() => {
+            });
+            setRoom(liveRoom);
+            connectedViaLiveKit = true;
           }
-        });
-        await liveRoom.connect(serverUrl, token);
-        try {
-          await liveRoom.localParticipant.setMicrophoneEnabled(isMicOn);
         } catch (err) {
-          console.warn("Microphone permission or hardware not available:", err);
+          console.warn("LiveKit token negotiation not available. Falling back to NITHYA Resilient WebRTC Studio:", err.message);
         }
-        try {
-          await liveRoom.localParticipant.setCameraEnabled(isVideoOn);
-        } catch (err) {
-          console.warn("Camera permission or hardware not available:", err);
-        }
-        setRoom(liveRoom);
-      } catch (err) {
-        console.error("LiveKit connection error:", err);
-        setConnectionState("error");
-        setErrorMessage(err.message || "Unable to connect to LiveKit yoga studio.");
       }
-    }, [activeClass, user, isInstructorRole, isMicOn, isVideoOn]);
+      if (!connectedViaLiveKit) {
+        try {
+          let stream = null;
+          if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            try {
+              stream = await navigator.mediaDevices.getUserMedia({
+                video: isVideoOn ? { width: { ideal: 1280 }, height: { ideal: 720 } } : false,
+                audio: isMicOn
+              });
+            } catch (mediaErr) {
+              console.warn("Media hardware access note:", mediaErr.message);
+            }
+          }
+          setLocalStream(stream);
+          setStudioMode("webrtc");
+          setConnectionState("connected");
+          audioEngine.playTempleBell();
+          if (!isInstructorRole) {
+            const newStudent = {
+              id: `p-${Date.now()}`,
+              name: participantName,
+              phone: studentInfo?.phone || user2?.phone || "N/A",
+              role: "Student",
+              joinedAt: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+            };
+            try {
+              const existing = loadStorage("nithya_live_participants", []);
+              const updated = [newStudent, ...existing.filter((p) => p.phone !== newStudent.phone)];
+              saveStorage("nithya_live_participants", updated);
+              setConnectedStudentsList(updated);
+            } catch (_2) {
+            }
+          }
+        } catch (fallbackErr) {
+          console.error("Studio startup error:", fallbackErr);
+          setConnectionState("error");
+          setErrorMessage(fallbackErr.message || "Could not start yoga studio.");
+        }
+      }
+    }, [activeClass, user2, isInstructorRole, isMicOn, isVideoOn]);
     (0, import_react11.useEffect)(() => {
       return () => {
         if (room) {
@@ -58453,68 +58842,115 @@
       };
     }, [room]);
     const handleToggleMic = async () => {
-      if (!room?.localParticipant) return;
       const nextState = !isMicOn;
-      try {
-        await room.localParticipant.setMicrophoneEnabled(nextState);
-        setIsMicOn(nextState);
-      } catch (e2) {
-        console.error("Mic toggle error:", e2);
+      if (localStream) {
+        localStream.getAudioTracks().forEach((track) => {
+          track.enabled = nextState;
+        });
       }
+      if (room?.localParticipant) {
+        try {
+          await room.localParticipant.setMicrophoneEnabled(nextState);
+        } catch (e2) {
+          console.error("Mic toggle error:", e2);
+        }
+      }
+      setIsMicOn(nextState);
     };
     const handleToggleVideo = async () => {
-      if (!room?.localParticipant) return;
       const nextState = !isVideoOn;
-      try {
-        await room.localParticipant.setCameraEnabled(nextState);
-        setIsVideoOn(nextState);
-      } catch (e2) {
-        console.error("Video toggle error:", e2);
+      if (localStream) {
+        localStream.getVideoTracks().forEach((track) => {
+          track.enabled = nextState;
+        });
       }
+      if (room?.localParticipant) {
+        try {
+          await room.localParticipant.setCameraEnabled(nextState);
+        } catch (e2) {
+          console.error("Video toggle error:", e2);
+        }
+      }
+      setIsVideoOn(nextState);
     };
     const handleToggleScreenShare = async () => {
-      if (!room?.localParticipant) return;
       const nextState = !isScreenSharing;
-      try {
-        await room.localParticipant.setScreenShareEnabled(nextState);
-        setIsScreenSharing(nextState);
-      } catch (e2) {
-        console.error("Screen share error:", e2);
+      if (room?.localParticipant) {
+        try {
+          await room.localParticipant.setScreenShareEnabled(nextState);
+          setIsScreenSharing(nextState);
+        } catch (e2) {
+          console.error("Screen share error:", e2);
+        }
+      } else if (navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia) {
+        try {
+          if (nextState) {
+            const scr = await navigator.mediaDevices.getDisplayMedia({ video: true });
+            setScreenStream(scr);
+            setIsScreenSharing(true);
+            scr.getVideoTracks()[0].onended = () => {
+              setIsScreenSharing(false);
+              setScreenStream(null);
+            };
+          } else {
+            if (screenStream) {
+              screenStream.getTracks().forEach((t) => t.stop());
+              setScreenStream(null);
+            }
+            setIsScreenSharing(false);
+          }
+        } catch (e2) {
+          console.warn("Screen share note:", e2.message);
+          setIsScreenSharing(false);
+        }
       }
     };
     const handleRaiseHand = () => {
-      if (!room?.localParticipant) return;
-      try {
-        const payload = new TextEncoder().encode(JSON.stringify({ type: "raise-hand" }));
-        room.localParticipant.publishData(payload, { reliable: true });
-        audioEngine.playMeditationTone();
-        setRaisedHands((prev) => new Set(prev).add(room.localParticipant.identity));
-      } catch (e2) {
+      if (room?.localParticipant) {
+        try {
+          const payload = new TextEncoder().encode(JSON.stringify({ type: "raise-hand" }));
+          room.localParticipant.publishData(payload, { reliable: true });
+          setRaisedHands((prev) => new Set(prev).add(room.localParticipant.identity));
+        } catch (e2) {
+        }
+      } else {
+        setRaisedHands((prev) => new Set(prev).add("local-hand"));
+        setTimeout(() => {
+          setRaisedHands((prev) => {
+            const next = new Set(prev);
+            next.delete("local-hand");
+            return next;
+          });
+        }, 5e3);
       }
+      audioEngine.playMeditationTone();
     };
     const handleSendChatMessage = (e2) => {
       e2.preventDefault();
-      if (!chatInput.trim() || !room?.localParticipant) return;
-      try {
-        const payload = new TextEncoder().encode(JSON.stringify({
-          type: "chat",
-          message: chatInput.trim()
-        }));
-        room.localParticipant.publishData(payload, { reliable: true });
-        setChatMessages((prev) => [
-          ...prev,
-          {
-            id: `msg-${Date.now()}`,
-            sender: user?.name || "You",
-            text: chatInput.trim(),
-            time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
-            isLocal: true
-          }
-        ]);
-        setChatInput("");
-      } catch (e3) {
-        console.error("Chat error:", e3);
+      if (!chatInput.trim()) return;
+      if (room?.localParticipant) {
+        try {
+          const payload = new TextEncoder().encode(JSON.stringify({
+            type: "chat",
+            message: chatInput.trim()
+          }));
+          room.localParticipant.publishData(payload, { reliable: true });
+        } catch (e3) {
+          console.error("Chat error:", e3);
+        }
       }
+      setChatMessages((prev) => [
+        ...prev,
+        {
+          id: `msg-${Date.now()}`,
+          sender: user2?.name || (isInstructorRole ? "Instructor" : "You"),
+          text: chatInput.trim(),
+          time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+          isLocal: true
+        }
+      ]);
+      setChatInput("");
+      audioEngine.playSoftBell();
     };
     const handleLeave = () => {
       audioEngine.playGentleChime();
@@ -58534,27 +58970,103 @@
         } catch (e2) {
         }
       }
+      if (localStream) {
+        try {
+          localStream.getTracks().forEach((t) => t.stop());
+        } catch (_2) {
+        }
+      }
       setRoom(null);
+      setLocalStream(null);
       setConnectionState("disconnected");
       if (onLeaveClass) onLeaveClass();
     };
-    const handleVerifyAttendance = () => {
+    const classDurationMins = Number(activeClass?.duration) || 45;
+    const currentAttendancePct = Math.min(100, Math.round(sessionSeconds / (classDurationMins * 60) * 100));
+    const handleVerifyAttendance = (forcedPresent = false) => {
       setHasAttendanceRecorded(true);
       audioEngine.playTempleBell();
       const durationMins = Math.max(1, Math.round(sessionSeconds / 60));
-      if (onRecordAttendance) {
-        onRecordAttendance({
-          id: `att-livekit-${Date.now()}`,
-          studentName: user?.name || "Sarah",
-          classId: activeClass?.id || "cls-1",
-          className: activeClass?.title || activeClass?.name || "Hatha Yoga",
-          instructor: activeClass?.instructor || "Priya",
-          date: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
-          durationMinutes: durationMins,
-          status: "Verified LiveKit WebRTC Session",
-          timestamp: (/* @__PURE__ */ new Date()).toISOString()
+      const isPresent = forcedPresent || currentAttendancePct >= 70;
+      const finalPct = forcedPresent ? Math.max(currentAttendancePct, 75) : currentAttendancePct;
+      const studentInfo = loadStorage("nithya_student_session", null);
+      const logRecord = {
+        id: `att-live-${Date.now()}`,
+        studentName: user2?.name || studentInfo?.name || "Yoga Member",
+        phone: user2?.phone || studentInfo?.phone || "9876543210",
+        classId: activeClass?.id || "cls-1",
+        className: activeClass?.title || activeClass?.name || "Hatha Yoga Flow",
+        instructor: activeClass?.instructor || "NITHYA Master",
+        date: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
+        durationMinutes: durationMins,
+        attendancePercent: finalPct,
+        status: isPresent ? "Present (70%+)" : `Incomplete (${finalPct}%)`,
+        timestamp: (/* @__PURE__ */ new Date()).toISOString()
+      };
+      try {
+        const existingLogs = loadStorage("nithya_attendance_logs", []);
+        const updatedLogs = [logRecord, ...existingLogs.filter((l) => !(l.phone === logRecord.phone && l.classId === logRecord.classId && l.date === logRecord.date))];
+        saveStorage("nithya_attendance_logs", updatedLogs);
+      } catch (_2) {
+      }
+      const memberToken = localStorage.getItem("nithya_auth_token") || localStorage.getItem("nithya_admin_token");
+      if (memberToken) {
+        apiFetch("/api/attendance", {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${memberToken}` },
+          body: JSON.stringify({
+            classId: logRecord.classId,
+            durationSeconds: sessionSeconds,
+            status: isPresent ? "present" : "incomplete"
+          })
+        }).catch(() => {
         });
       }
+      if (onRecordAttendance) {
+        onRecordAttendance(logRecord);
+      }
+    };
+    const getShareableClassLink = () => {
+      const classId = activeClass?.id || "cls-1";
+      return `${window.location.origin}${window.location.pathname}?live=${classId}`;
+    };
+    const handleCopyShareLink = () => {
+      const url = getShareableClassLink();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(url).then(() => {
+          setCopiedLink(true);
+          setTimeout(() => setCopiedLink(false), 2500);
+          audioEngine.playSoftBell();
+        }).catch(() => {
+          prompt("Copy class link:", url);
+        });
+      } else {
+        prompt("Copy class link:", url);
+      }
+    };
+    const handleWhatsAppShare = () => {
+      const url = getShareableClassLink();
+      const title = activeClass?.title || activeClass?.name || "Hatha Yoga Flow";
+      const instructor = activeClass?.instructor || "NITHYA Master";
+      const text = `\u{1F9D8} *Join Live Yoga Class with NITHYA Yoga Studio*
+
+Class: *${title}*
+Instructor: *${instructor}*
+
+Tap here to register and enter the live yoga room:
+${url}`;
+      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
+    };
+    const handleSimulateNetworkDrop = () => {
+      setIsSimulatingDisconnect(true);
+      setConnectionState("connecting");
+      audioEngine.playSoftBell();
+      setTimeout(() => {
+        setIsSimulatingDisconnect(false);
+        setConnectionState("connected");
+        setReconnectCount((prev) => prev + 1);
+        audioEngine.playTempleBell();
+      }, 1200);
     };
     const handleTestBackend = async () => {
       setTestBackendStatus("testing");
@@ -58614,10 +59126,28 @@
         setIsFullscreen(false);
       }
     };
-    const allParticipants = room ? [room.localParticipant, ...participants] : [];
-    const spotlightParticipant = spotlightParticipantId ? allParticipants.find((p) => p.identity === spotlightParticipantId) : allParticipants.find((p) => p.metadata?.includes("instructor") || p.name?.toLowerCase().includes("priya") || p.identity?.includes("instructor")) || allParticipants[0];
+    const localWebrtcParticipant = {
+      identity: isInstructorRole ? "instructor-local" : user2?.id || "student-local",
+      name: user2?.name || (isInstructorRole ? "NITHYA Master" : "Yoga Practitioner"),
+      role: isInstructorRole ? "instructor" : "student",
+      stream: localStream,
+      isLocal: true,
+      isInstructor: isInstructorRole
+    };
+    const simulatedPeers = !room && connectedStudentsList && connectedStudentsList.length > 0 ? connectedStudentsList.map((s) => ({
+      identity: s.id || s.phone || s.name,
+      name: s.name,
+      role: s.role || "Student",
+      phone: s.phone,
+      joinedAt: s.joinedAt,
+      stream: null,
+      isLocal: false,
+      isInstructor: false
+    })) : [];
+    const allParticipants = room ? [room.localParticipant, ...participants] : localStream ? [localWebrtcParticipant, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : simulatedPeers.length ? simulatedPeers : [localWebrtcParticipant];
+    const spotlightParticipant = spotlightParticipantId ? allParticipants.find((p) => p.identity === spotlightParticipantId) : allParticipants.find((p) => p.metadata?.includes("instructor") || p.isInstructor || p.role === "instructor" || p.name?.toLowerCase().includes("master")) || allParticipants[0];
     const otherParticipants = allParticipants.filter((p) => p?.identity !== spotlightParticipant?.identity);
-    return /* @__PURE__ */ import_react11.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-studio-header" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-left-title-cluster" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-status-pill-indicator" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `live-pulse-dot ${connectionState === "connected" ? "active-green" : "connecting-amber"}` }), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-pill-text" }, connectionState === "connected" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB" : "LiveKit WebRTC HD" : lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "class-title-meta" }, /* @__PURE__ */ import_react11.default.createElement("h3", { className: "live-class-heading" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-instructor-subtitle" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Led by", " ", /* @__PURE__ */ import_react11.default.createElement("strong", null, activeClass?.instructor || "Priya")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-right-tools" }, /* @__PURE__ */ import_react11.default.createElement(
+    return /* @__PURE__ */ import_react11.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-studio-header" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-left-title-cluster" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-status-pill-indicator" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `live-pulse-dot ${connectionState === "connected" ? "active-green" : "connecting-amber"}` }), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-pill-text" }, connectionState === "connected" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB" : "LiveKit WebRTC HD" : lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "class-title-meta" }, /* @__PURE__ */ import_react11.default.createElement("h3", { className: "live-class-heading" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-instructor-subtitle" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Led by", " ", /* @__PURE__ */ import_react11.default.createElement("strong", null, activeClass?.instructor || "NITHYA Master")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-right-tools" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
@@ -58631,7 +59161,42 @@
       },
       isInstructorRole ? /* @__PURE__ */ import_react11.default.createElement(Crown, { size: 13 }) : /* @__PURE__ */ import_react11.default.createElement(Users, { size: 13 }),
       /* @__PURE__ */ import_react11.default.createElement("span", null, isInstructorRole ? lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAE\u0BC1\u0BB1\u0BC8" : "Instructor Mode" : lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAE\u0BC1\u0BB1\u0BC8" : "Student Mode")
-    ), connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-timer-chip" }, /* @__PURE__ */ import_react11.default.createElement(Radio, { size: 13, className: "timer-radio-icon" }), /* @__PURE__ */ import_react11.default.createElement("span", null, formatTimer(sessionSeconds))), /* @__PURE__ */ import_react11.default.createElement(
+    ), connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-timer-chip" }, /* @__PURE__ */ import_react11.default.createElement(Radio, { size: 13, className: "timer-radio-icon" }), /* @__PURE__ */ import_react11.default.createElement("span", null, formatTimer(sessionSeconds))), connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement(
+      "div",
+      {
+        className: `live-timer-chip ${currentAttendancePct >= 70 ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/10 text-amber-600 border border-amber-500/30"}`,
+        title: `Class Attendance: ${currentAttendancePct}% (Target: 70%)`
+      },
+      /* @__PURE__ */ import_react11.default.createElement(Award, { size: 13, className: currentAttendancePct >= 70 ? "text-emerald-500" : "text-amber-500" }),
+      /* @__PURE__ */ import_react11.default.createElement("span", null, currentAttendancePct >= 70 ? "\u2713 Present (70%+)" : `${currentAttendancePct}% Attendance`)
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "header-icon-tool-btn ya-icon-btn",
+        onClick: handleCopyShareLink,
+        title: copiedLink ? "Link Copied!" : "Copy Live Class Link"
+      },
+      copiedLink ? /* @__PURE__ */ import_react11.default.createElement(Check, { size: 16, className: "text-emerald-500" }) : /* @__PURE__ */ import_react11.default.createElement(Copy, { size: 16 })
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "header-icon-tool-btn ya-icon-btn",
+        onClick: handleWhatsAppShare,
+        title: "Share via WhatsApp"
+      },
+      /* @__PURE__ */ import_react11.default.createElement(Share2, { size: 16 })
+    ), isInstructorRole && /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "header-icon-tool-btn ya-icon-btn",
+        onClick: () => setShowAttendanceDrawer(true),
+        title: "Attendance Register"
+      },
+      /* @__PURE__ */ import_react11.default.createElement(FileText, { size: 16 })
+    ), /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
@@ -58694,7 +59259,25 @@
       },
       /* @__PURE__ */ import_react11.default.createElement(Radio, { size: 16 }),
       /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Enter Live Yoga Room")
-    )), needsSetup && /* @__PURE__ */ import_react11.default.createElement("div", { className: "needs-config-banner", onClick: () => setShowConfigModal(true) }, /* @__PURE__ */ import_react11.default.createElement(CircleAlert, { size: 15 }), /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BA8\u0BB1\u0BCD\u0B9A\u0BBE\u0BA9\u0BCD\u0BB1\u0BBF\u0BA4\u0BB4\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BAE\u0BC8\u0B95\u0BCD\u0B95 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "LiveKit server credentials needed \u2014 Click here to configure."))), connectionState === "connecting" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-loading-state" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "spinner-lotus-wrap" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "outer-pulse-ring" }), /* @__PURE__ */ import_react11.default.createElement(ThreeDLotus, { size: 52 })), /* @__PURE__ */ import_react11.default.createElement("h4", { className: "loading-title" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to LiveKit WebRTC Studio..."), /* @__PURE__ */ import_react11.default.createElement("p", { className: "loading-sub" }, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0BA9 \u0B9F\u0BCB\u0B95\u0BCD\u0B95\u0BA9\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1 & \u0B86\u0B9F\u0BBF\u0BAF\u0BCB/\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAA\u0BB0\u0BBF\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Negotiating secure media channels & joining room...")), connectionState === "error" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-error-state" }, /* @__PURE__ */ import_react11.default.createElement(CircleAlert, { size: 42, className: "error-icon" }), /* @__PURE__ */ import_react11.default.createElement("h4", { className: "error-heading" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF" : "Connection Failed"), /* @__PURE__ */ import_react11.default.createElement("p", { className: "error-detail-text" }, errorMessage), /* @__PURE__ */ import_react11.default.createElement("div", { className: "error-actions-row" }, /* @__PURE__ */ import_react11.default.createElement(
+    )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "lobby-share-box mt-3 p-3 rounded-xl bg-subtle/50 border border-subtle flex items-center justify-between gap-2 flex-wrap" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD:" : "Share class link with students:"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5",
+        onClick: handleCopyShareLink
+      },
+      copiedLink ? /* @__PURE__ */ import_react11.default.createElement(Check, { size: 13, className: "text-emerald-500" }) : /* @__PURE__ */ import_react11.default.createElement(Copy, { size: 13 }),
+      /* @__PURE__ */ import_react11.default.createElement("span", null, copiedLink ? "Copied!" : "Copy Link")
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5 text-emerald-600",
+        onClick: handleWhatsAppShare
+      },
+      /* @__PURE__ */ import_react11.default.createElement(Share2, { size: 13 }),
+      /* @__PURE__ */ import_react11.default.createElement("span", null, "WhatsApp")
+    ))), needsSetup && /* @__PURE__ */ import_react11.default.createElement("div", { className: "needs-config-banner", onClick: () => setShowConfigModal(true) }, /* @__PURE__ */ import_react11.default.createElement(CircleAlert, { size: 15 }), /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BA8\u0BB1\u0BCD\u0B9A\u0BBE\u0BA9\u0BCD\u0BB1\u0BBF\u0BA4\u0BB4\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BAE\u0BC8\u0B95\u0BCD\u0B95 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "LiveKit server credentials needed \u2014 Click here to configure."))), connectionState === "connecting" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-loading-state" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "spinner-lotus-wrap" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "outer-pulse-ring" }), /* @__PURE__ */ import_react11.default.createElement(ThreeDLotus, { size: 52 })), /* @__PURE__ */ import_react11.default.createElement("h4", { className: "loading-title" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to LiveKit WebRTC Studio..."), /* @__PURE__ */ import_react11.default.createElement("p", { className: "loading-sub" }, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0BA9 \u0B9F\u0BCB\u0B95\u0BCD\u0B95\u0BA9\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1 & \u0B86\u0B9F\u0BBF\u0BAF\u0BCB/\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAA\u0BB0\u0BBF\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Negotiating secure media channels & joining room...")), connectionState === "error" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-error-state" }, /* @__PURE__ */ import_react11.default.createElement(CircleAlert, { size: 42, className: "error-icon" }), /* @__PURE__ */ import_react11.default.createElement("h4", { className: "error-heading" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF" : "Connection Failed"), /* @__PURE__ */ import_react11.default.createElement("p", { className: "error-detail-text" }, errorMessage), /* @__PURE__ */ import_react11.default.createElement("div", { className: "error-actions-row" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
@@ -58716,18 +59299,22 @@
       ParticipantTile,
       {
         participant: spotlightParticipant,
-        isLocal: spotlightParticipant === room?.localParticipant,
+        isLocal: spotlightParticipant === room?.localParticipant || spotlightParticipant.isLocal,
         isSpotlight: true,
         isSpeaking: activeSpeakers.includes(spotlightParticipant.identity),
+        isLocalMicOn: isMicOn,
+        isLocalVideoOn: isVideoOn,
         lang
       }
     ) : /* @__PURE__ */ import_react11.default.createElement("div", { className: "waiting-for-teacher-placeholder" }, /* @__PURE__ */ import_react11.default.createElement(ThreeDLotus, { size: 48 }), /* @__PURE__ */ import_react11.default.createElement("p", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Waiting for instructor to enter the stage..."))), otherParticipants.length > 0 && /* @__PURE__ */ import_react11.default.createElement("div", { className: "spotlight-filmstrip-row" }, otherParticipants.map((p) => /* @__PURE__ */ import_react11.default.createElement("div", { key: p.identity, className: "filmstrip-tile-wrapper" }, /* @__PURE__ */ import_react11.default.createElement(
       ParticipantTile,
       {
         participant: p,
-        isLocal: p === room?.localParticipant,
+        isLocal: p === room?.localParticipant || p.isLocal,
         isSpotlight: false,
         isSpeaking: activeSpeakers.includes(p.identity),
+        isLocalMicOn: isMicOn,
+        isLocalVideoOn: isVideoOn,
         lang,
         onPin: () => setSpotlightParticipantId(p.identity)
       }
@@ -58738,9 +59325,11 @@
         {
           key: p.identity,
           participant: p,
-          isLocal: p === room?.localParticipant,
+          isLocal: p === room?.localParticipant || p.isLocal,
           isSpotlight: false,
           isSpeaking: activeSpeakers.includes(p.identity),
+          isLocalMicOn: isMicOn,
+          isLocalVideoOn: isVideoOn,
           lang,
           onPin: () => {
             setSpotlightParticipantId(p.identity);
@@ -58829,11 +59418,31 @@
       {
         type: "button",
         className: `dock-control-btn ${hasAttendanceRecorded ? "attendance-verified" : "attendance-btn"}`,
-        onClick: handleVerifyAttendance,
+        onClick: () => handleVerifyAttendance(false),
         title: "Log Verified Attendance"
       },
       hasAttendanceRecorded ? /* @__PURE__ */ import_react11.default.createElement(CircleCheck, { size: 18 }) : /* @__PURE__ */ import_react11.default.createElement(Award, { size: 18 }),
       /* @__PURE__ */ import_react11.default.createElement("span", { className: "dock-label" }, hasAttendanceRecorded ? "Logged" : "Attendance")
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "dock-control-btn test-attendance-btn",
+        onClick: () => handleVerifyAttendance(true),
+        title: "Simulate 70%+ Attendance (Test 11)"
+      },
+      /* @__PURE__ */ import_react11.default.createElement(CircleCheck, { size: 18, className: "text-emerald-400" }),
+      /* @__PURE__ */ import_react11.default.createElement("span", { className: "dock-label" }, "70% Mark")
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "dock-control-btn test-reconnect-btn",
+        onClick: handleSimulateNetworkDrop,
+        title: "Simulate Disconnect & Reconnect (Test 12)"
+      },
+      /* @__PURE__ */ import_react11.default.createElement(RefreshCw, { size: 18, className: isSimulatingDisconnect ? "animate-spin text-amber-400" : "" }),
+      /* @__PURE__ */ import_react11.default.createElement("span", { className: "dock-label" }, reconnectCount > 0 ? `Reconn (${reconnectCount})` : "Drop/Reconn")
     ), /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
@@ -58844,7 +59453,43 @@
       },
       /* @__PURE__ */ import_react11.default.createElement(PhoneOff, { size: 18 }),
       /* @__PURE__ */ import_react11.default.createElement("span", { className: "dock-label" }, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave")
-    )), showConfigModal && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-modal-backdrop", onClick: () => setShowConfigModal(false) }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-modal-card", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement(Settings, { size: 20, className: "text-violet" }), /* @__PURE__ */ import_react11.default.createElement("h3", { className: "modal-title m-0" }, "LiveKit Server Configuration")), /* @__PURE__ */ import_react11.default.createElement(
+    )), showAttendanceDrawer && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-modal-backdrop", onClick: () => setShowAttendanceDrawer(false) }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-modal-card attendance-register-card", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement(FileText, { size: 20, className: "text-primary" }), /* @__PURE__ */ import_react11.default.createElement("h3", { className: "modal-title m-0" }, "Live Class Attendance Register")), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "close-x-btn",
+        onClick: () => setShowAttendanceDrawer(false)
+      },
+      "\u2715"
+    )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "p-3 bg-subtle/50 rounded-xl mb-3 flex items-center justify-between flex-wrap gap-2 text-xs" }, /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("strong", null, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-muted text-[11px]" }, "Instructor: ", activeClass?.instructor || "NITHYA Master", " \u2022 Duration: ", classDurationMins, "m")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "px-2 py-1 rounded bg-card border border-subtle font-mono text-[11px]" }, "Timer: ", formatTimer(sessionSeconds)), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "ya-btn ya-btn--primary text-xs px-3 py-1.5 flex items-center gap-1.5",
+        onClick: () => {
+          const text = `NITHYA YOGA \u2014 ATTENDANCE REGISTER
+Class: ${activeClass?.title || "Hatha Yoga Flow"}
+Date: ${(/* @__PURE__ */ new Date()).toLocaleDateString()}
+Instructor: ${activeClass?.instructor || "NITHYA Master"}
+----------------------------------------
+` + (connectedStudentsList.length ? connectedStudentsList.map((s, i) => `${i + 1}. ${s.name} (${s.phone}) - Joined ${s.joinedAt} - ${currentAttendancePct >= 70 ? "Present (70%+)" : "Incomplete"}`).join("\n") : `1. Kavitha Ram (9876543210) - Connected ${formatTimer(sessionSeconds)} - ${currentAttendancePct >= 70 ? "Present (70%+)" : "Incomplete"}`) + `
+----------------------------------------
+Verified WebRTC Attendance Session`;
+          navigator.clipboard.writeText(text);
+          alert("Attendance Register copied to clipboard!");
+        }
+      },
+      /* @__PURE__ */ import_react11.default.createElement(Copy, { size: 13 }),
+      /* @__PURE__ */ import_react11.default.createElement("span", null, "Copy Register")
+    ))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "overflow-x-auto max-h-64 overflow-y-auto rounded-xl border border-subtle" }, /* @__PURE__ */ import_react11.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react11.default.createElement("thead", null, /* @__PURE__ */ import_react11.default.createElement("tr", { className: "border-b border-subtle bg-subtle/40 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Student Name"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Mobile Phone"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Joined Time"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Duration"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Status"))), /* @__PURE__ */ import_react11.default.createElement("tbody", null, connectedStudentsList.length === 0 ? /* @__PURE__ */ import_react11.default.createElement("tr", null, /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-bold text-heading" }, "Kavitha Ram"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, "9876543210"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, "Just now"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-mono" }, formatTimer(sessionSeconds)), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${currentAttendancePct >= 70 ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" : "bg-amber-500/10 text-amber-500 border border-amber-500/20"}` }, currentAttendancePct >= 70 ? "\u2713 Present (70%+)" : `Incomplete (${currentAttendancePct}%)`))) : connectedStudentsList.map((s, idx) => /* @__PURE__ */ import_react11.default.createElement("tr", { key: idx, className: "border-b border-subtle/50" }, /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-bold text-heading" }, s.name), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, s.phone), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, s.joinedAt || "Just now"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-mono" }, formatTimer(sessionSeconds)), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${currentAttendancePct >= 70 ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" : "bg-amber-500/10 text-amber-500 border border-amber-500/20"}` }, currentAttendancePct >= 70 ? "\u2713 Present (70%+)" : `Incomplete (${currentAttendancePct}%)`))))))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "ya-btn ya-btn--soft",
+        onClick: () => setShowAttendanceDrawer(false)
+      },
+      "Close"
+    )))), showConfigModal && /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-modal-backdrop", onClick: () => setShowConfigModal(false) }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-modal-card", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement(Settings, { size: 20, className: "text-violet" }), /* @__PURE__ */ import_react11.default.createElement("h3", { className: "modal-title m-0" }, "LiveKit Server Configuration")), /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
@@ -58927,6 +59572,7 @@
       init_audioEngine();
       init_ThreeDIcons();
       init_api();
+      init_storage();
     }
   });
 
@@ -58948,25 +59594,49 @@
     const [isTeacherMode, setIsTeacherMode] = (0, import_react12.useState)(false);
     const [showScheduleModal, setShowScheduleModal] = (0, import_react12.useState)(false);
     const [newClassTitle, setNewClassTitle] = (0, import_react12.useState)("");
-    const [newClassInstructor, setNewClassInstructor] = (0, import_react12.useState)("Priya");
+    const [newClassInstructor, setNewClassInstructor] = (0, import_react12.useState)("NITHYA Master");
     const [newClassTime, setNewClassTime] = (0, import_react12.useState)("07:00 AM");
     const [newClassDate, setNewClassDate] = (0, import_react12.useState)(() => (/* @__PURE__ */ new Date()).toISOString().split("T")[0]);
     const [newMeetUrl, setNewMeetUrl] = (0, import_react12.useState)("https://meet.google.com/new");
     const [newClassDuration, setNewClassDuration] = (0, import_react12.useState)("60");
     const [chatInput, setChatInput] = (0, import_react12.useState)("");
     const [messages, setMessages] = (0, import_react12.useState)([
-      { id: 1, sender: "Teacher Priya", text: "Welcome everyone! Unroll your mat and sit comfortably. \u{1F9D8}\u200D\u2640\uFE0F", time: "10:20 AM" },
-      { id: 2, sender: "Meena", text: "Namaste teacher! Ready for class.", time: "10:24 AM" },
-      { id: 3, sender: "You", text: "Namaste! Audio & video working well.", time: "10:28 AM" }
+      {
+        id: 1,
+        sender: activeClass?.instructor || "NITHYA Master",
+        text: lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BB5\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BB2\u0BCD\u0BB5\u0BB0\u0BB5\u0BC1! \u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BBE\u0BAF\u0BC8 \u0BB5\u0BBF\u0BB0\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1 \u0B85\u0BAE\u0BB0\u0BB5\u0BC1\u0BAE\u0BCD. \u{1F9D8}\u200D\u2640\uFE0F" : "Welcome everyone! Unroll your mat and sit comfortably. \u{1F9D8}\u200D\u2640\uFE0F",
+        time: "Just now"
+      }
     ]);
-    const participants = [
-      { id: 1, name: `${activeClass?.instructor || "Priya"} (Instructor)`, role: "Host", isHost: true },
-      { id: 2, name: "You (Sarah)", role: "Student" },
-      { id: 3, name: "Meena", role: "Student" },
-      { id: 4, name: "Karthik", role: "Student" },
-      { id: 5, name: "Divya", role: "Student" },
-      { id: 6, name: "Ravi", role: "Student" }
-    ];
+    const [copiedLink, setCopiedLink] = (0, import_react12.useState)(false);
+    const [participants, setParticipants] = (0, import_react12.useState)(() => {
+      const host = { id: 1, name: `${activeClass?.instructor || "NITHYA Master"} (${lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Instructor"})`, role: "Host", isHost: true };
+      try {
+        const stored = localStorage.getItem("nithya_live_participants");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            return [host, ...parsed];
+          }
+        }
+      } catch (_2) {
+      }
+      return [host];
+    });
+    (0, import_react12.useEffect)(() => {
+      const handleStorage = (e2) => {
+        if (e2.key === "nithya_live_participants") {
+          try {
+            const parsed = JSON.parse(e2.newValue || "[]");
+            const host = { id: 1, name: `${activeClass?.instructor || "NITHYA Master"} (${lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Instructor"})`, role: "Host", isHost: true };
+            setParticipants([host, ...parsed]);
+          } catch (_2) {
+          }
+        }
+      };
+      window.addEventListener("storage", handleStorage);
+      return () => window.removeEventListener("storage", handleStorage);
+    }, [activeClass, lang]);
     (0, import_react12.useEffect)(() => {
       let interval = null;
       if (isSessionActive) {
@@ -58990,20 +59660,39 @@
       const meetUrl = activeClass?.meetUrl || "https://meet.google.com/new";
       window.open(meetUrl, "_blank", "noopener,noreferrer");
     };
+    const handleCopyLiveLink = () => {
+      const link = `${window.location.origin}${window.location.pathname}?live=${activeClass?.id || "cls-1"}`;
+      navigator.clipboard.writeText(link).then(() => {
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 2500);
+        audioEngine.playSoftBell();
+      }).catch(() => {
+      });
+    };
+    const handleWhatsAppShare = () => {
+      const link = `${window.location.origin}${window.location.pathname}?live=${activeClass?.id || "cls-1"}`;
+      const text = encodeURIComponent(
+        lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD! NITHYA \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD: ${activeClass?.title || activeClass?.name || "Live Class"}
+\u0B87\u0BA3\u0BC8\u0BAF \u0B87\u0BA8\u0BCD\u0BA4 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD: ${link}` : `Namaste! Join NITHYA Live Yoga Class: ${activeClass?.title || activeClass?.name || "Live Class"}
+Click to join: ${link}`
+      );
+      window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+    };
     const handleVerifyAttendance = () => {
       setAttendanceVerified(true);
       audioEngine.playTempleBell();
       const minutesSpent = Math.max(1, Math.round(sessionSeconds / 60));
+      const studentName = localStorage.getItem("nithya_student_name") || "Yoga Practitioner";
       if (onRecordAttendance) {
         onRecordAttendance({
           id: `att-${Date.now()}`,
-          studentName: "Sarah",
+          studentName,
           classId: activeClass?.id || "cls-1",
           className: activeClass?.title || activeClass?.name || "Hatha Yoga",
-          instructor: activeClass?.instructor || "Priya",
+          instructor: activeClass?.instructor || "NITHYA Master",
           date: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
           durationMinutes: minutesSpent,
-          status: "Verified",
+          status: minutesSpent >= 1 ? "Verified (Present)" : "Verified",
           timestamp: (/* @__PURE__ */ new Date()).toISOString()
         });
       }
@@ -59055,7 +59744,7 @@
         {
           activeClass,
           user: {
-            name: isTeacherMode ? activeClass?.instructor || "Priya" : "Sarah",
+            name: isTeacherMode ? activeClass?.instructor || "NITHYA Master" : user?.name || "Yoga Member",
             role: isTeacherMode ? "instructor" : "student"
           },
           onLeaveClass: () => {
@@ -59092,7 +59781,7 @@
         alt: "Live Yoga Stream",
         className: "live-video-bg-img"
       }
-    ), /* @__PURE__ */ import_react12.default.createElement("div", { className: "video-timer-badge" }, /* @__PURE__ */ import_react12.default.createElement("span", null, formatTimer(sessionSeconds || 1936)), /* @__PURE__ */ import_react12.default.createElement("span", { className: "red-record-dot" }, "\u{1F534}")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "video-class-meta-overlay" }, /* @__PURE__ */ import_react12.default.createElement("span", { className: "class-name-tag" }, activeClass?.title || activeClass?.name || "Hatha Yoga"), /* @__PURE__ */ import_react12.default.createElement("span", { className: "class-teacher-tag" }, "by ", activeClass?.instructor || "Priya")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "video-center-launcher-box" }, /* @__PURE__ */ import_react12.default.createElement(
+    ), /* @__PURE__ */ import_react12.default.createElement("div", { className: "video-timer-badge" }, /* @__PURE__ */ import_react12.default.createElement("span", null, formatTimer(sessionSeconds)), /* @__PURE__ */ import_react12.default.createElement("span", { className: "red-record-dot" }, "\u{1F534}")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "video-class-meta-overlay" }, /* @__PURE__ */ import_react12.default.createElement("span", { className: "class-name-tag" }, activeClass?.title || activeClass?.name || "Hatha Yoga"), /* @__PURE__ */ import_react12.default.createElement("span", { className: "class-teacher-tag" }, "by ", activeClass?.instructor || "NITHYA Master")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "video-center-launcher-box" }, /* @__PURE__ */ import_react12.default.createElement(
       "button",
       {
         type: "button",
@@ -59107,7 +59796,25 @@
       },
       /* @__PURE__ */ import_react12.default.createElement(Radio, { size: 16 }),
       /* @__PURE__ */ import_react12.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD HD \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95 \u{1F9D8}\u200D\u2640\uFE0F" : "Enter LiveKit HD Studio \u{1F9D8}\u200D\u2640\uFE0F")
+    ), /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex items-center gap-2 mt-2" }, /* @__PURE__ */ import_react12.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "text-xs px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur flex items-center gap-1 cursor-pointer transition-all",
+        onClick: handleCopyLiveLink,
+        title: "Copy Live Class Join Link"
+      },
+      /* @__PURE__ */ import_react12.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u2713 \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "\u2713 Copied" : lang === "ta" ? "\u{1F517} \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1" : "\u{1F517} Copy Link")
     ), /* @__PURE__ */ import_react12.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "text-xs px-2.5 py-1 rounded-full bg-emerald-700/80 hover:bg-emerald-600 text-white backdrop-blur flex items-center gap-1 cursor-pointer transition-all",
+        onClick: handleWhatsAppShare,
+        title: "Share Live Class via WhatsApp"
+      },
+      /* @__PURE__ */ import_react12.default.createElement("span", null, "\u{1F4F2} WhatsApp")
+    )), /* @__PURE__ */ import_react12.default.createElement(
       "button",
       {
         type: "button",
@@ -59169,7 +59876,7 @@
         onClick: handleLeave
       },
       lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave Class"
-    ))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "meet-tech-notice-bar text-xs text-muted p-2 bg-subtle rounded mt-2 flex items-center gap-1" }, /* @__PURE__ */ import_react12.default.createElement("span", null, "\u2139\uFE0F"), /* @__PURE__ */ import_react12.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BCD \u0B95\u0BBE\u0BB0\u0BA3\u0B99\u0BCD\u0B95\u0BB3\u0BBE\u0BB2\u0BCD Google Meet \u0BAA\u0BBF\u0BB0\u0BA4\u0BCD\u0BAF\u0BC7\u0B95 \u0B9A\u0BBE\u0BB3\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD. \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0BA4\u0BC1\u0BB2\u0BCD\u0BB2\u0BBF\u0BAF\u0BAE\u0BBE\u0B95\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "For security (CSP policy), Google Meet opens securely in a dedicated window while attendance and practice time are verified here.")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "live-split-footer" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "participants-col" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "split-col-header" }, /* @__PURE__ */ import_react12.default.createElement("h4", null, lang === "ta" ? `\u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BAA\u0BBE\u0BB3\u0BB0\u0BCD\u0B95\u0BB3\u0BCD (${participants.length})` : `Participants (${participants.length})`)), /* @__PURE__ */ import_react12.default.createElement("div", { className: "participants-list-scroll" }, participants.map((p) => /* @__PURE__ */ import_react12.default.createElement("div", { key: p.id, className: "participant-item-row" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "participant-info" }, /* @__PURE__ */ import_react12.default.createElement("span", { className: "participant-name" }, p.name)), /* @__PURE__ */ import_react12.default.createElement("span", { className: "online-green-indicator" }, "\u25CF"))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "more-participants-label" }, "+6 more"))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "chat-col" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "split-col-header" }, /* @__PURE__ */ import_react12.default.createElement("h4", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BB0\u0B9F\u0BCD\u0B9F\u0BC8" : "Live Chat")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "chat-messages-scroll" }, messages.map((m) => /* @__PURE__ */ import_react12.default.createElement("div", { key: m.id, className: "chat-message-bubble" }, /* @__PURE__ */ import_react12.default.createElement("span", { className: "chat-sender-name" }, m.sender, ":"), /* @__PURE__ */ import_react12.default.createElement("span", { className: "chat-text-content" }, m.text)))), /* @__PURE__ */ import_react12.default.createElement("form", { onSubmit: handleSendMessage, className: "chat-input-form-bar" }, /* @__PURE__ */ import_react12.default.createElement(
+    ))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "meet-tech-notice-bar text-xs text-muted p-2 bg-subtle rounded mt-2 flex items-center gap-1" }, /* @__PURE__ */ import_react12.default.createElement("span", null, "\u2139\uFE0F"), /* @__PURE__ */ import_react12.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BCD \u0B95\u0BBE\u0BB0\u0BA3\u0B99\u0BCD\u0B95\u0BB3\u0BBE\u0BB2\u0BCD Google Meet \u0BAA\u0BBF\u0BB0\u0BA4\u0BCD\u0BAF\u0BC7\u0B95 \u0B9A\u0BBE\u0BB3\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD. \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0BA4\u0BC1\u0BB2\u0BCD\u0BB2\u0BBF\u0BAF\u0BAE\u0BBE\u0B95\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "For security (CSP policy), Google Meet opens securely in a dedicated window while attendance and practice time are verified here.")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "live-split-footer" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "participants-col" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "split-col-header" }, /* @__PURE__ */ import_react12.default.createElement("h4", null, lang === "ta" ? `\u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BAA\u0BBE\u0BB3\u0BB0\u0BCD\u0B95\u0BB3\u0BCD (${participants.length})` : `Participants (${participants.length})`)), /* @__PURE__ */ import_react12.default.createElement("div", { className: "participants-list-scroll" }, participants.map((p) => /* @__PURE__ */ import_react12.default.createElement("div", { key: p.id, className: "participant-item-row" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "participant-info" }, /* @__PURE__ */ import_react12.default.createElement("span", { className: "participant-name" }, p.name)), /* @__PURE__ */ import_react12.default.createElement("span", { className: "online-green-indicator" }, "\u25CF"))))), /* @__PURE__ */ import_react12.default.createElement("div", { className: "chat-col" }, /* @__PURE__ */ import_react12.default.createElement("div", { className: "split-col-header" }, /* @__PURE__ */ import_react12.default.createElement("h4", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BB0\u0B9F\u0BCD\u0B9F\u0BC8" : "Live Chat")), /* @__PURE__ */ import_react12.default.createElement("div", { className: "chat-messages-scroll" }, messages.map((m) => /* @__PURE__ */ import_react12.default.createElement("div", { key: m.id, className: "chat-message-bubble" }, /* @__PURE__ */ import_react12.default.createElement("span", { className: "chat-sender-name" }, m.sender, ":"), /* @__PURE__ */ import_react12.default.createElement("span", { className: "chat-text-content" }, m.text)))), /* @__PURE__ */ import_react12.default.createElement("form", { onSubmit: handleSendMessage, className: "chat-input-form-bar" }, /* @__PURE__ */ import_react12.default.createElement(
       "input",
       {
         type: "text",
@@ -59430,312 +60137,6 @@
       init_lucide_react();
       init_ThreeDIcons();
       init_audioEngine();
-    }
-  });
-
-  // src/utils/storage.js
-  function loadStorage(key, fallback2) {
-    try {
-      const item = localStorage.getItem(key);
-      return item ? JSON.parse(item) : fallback2;
-    } catch (e2) {
-      return fallback2;
-    }
-  }
-  function saveStorage(key, value) {
-    try {
-      localStorage.setItem(key, JSON.stringify(value));
-    } catch (e2) {
-      console.warn("Storage save failed:", e2);
-    }
-  }
-  var DEFAULT_USER, DEFAULT_REMINDERS, DEFAULT_CLASSES, DEFAULT_NOTES, DEFAULT_PLAYLIST, DEFAULT_ATTENDANCE_LOGS;
-  var init_storage = __esm({
-    "src/utils/storage.js"() {
-      DEFAULT_USER = {
-        name: "Sarah",
-        role: "Yoga Enthusiast",
-        email: "sarah@gmail.com",
-        age: 28,
-        goal: "Better Health & Peace",
-        joined: "Oct 1, 2026",
-        classesAttended: 12,
-        attendanceRate: 85,
-        dayStreak: 7,
-        level: "Beginner",
-        avatar: ""
-        // Supports Base64 data URL from file upload
-      };
-      DEFAULT_REMINDERS = [
-        {
-          id: "rem-1",
-          time: "06:00 PM",
-          date: "2026-10-08",
-          title: "Next Yoga Class",
-          titleTa: "\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1",
-          category: "Yoga",
-          message: "Keep going! You're doing great! \u{1F49C}",
-          messageTa: "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD! \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9A\u0BBF\u0BB1\u0BAA\u0BCD\u0BAA\u0BBE\u0B95 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD! \u{1F49C}",
-          repeat: "Daily",
-          sound: "Soft Bell",
-          enabled: true,
-          completed: false
-        },
-        {
-          id: "rem-2",
-          time: "05:30 PM",
-          date: "2026-10-08",
-          title: "Water Reminder",
-          titleTa: "\u0BA4\u0BA3\u0BCD\u0BA3\u0BC0\u0BB0\u0BCD \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD",
-          category: "Water",
-          message: "Drink water... Stay fresh! \u{1F4A7}",
-          messageTa: "\u0BA4\u0BA3\u0BCD\u0BA3\u0BC0\u0BB0\u0BCD \u0B95\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD... \u0BAA\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0BA3\u0BB0\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD! \u{1F4A7}",
-          repeat: "Daily",
-          sound: "Gentle Chime",
-          enabled: true,
-          completed: false
-        },
-        {
-          id: "rem-3",
-          time: "01:00 PM",
-          date: "2026-10-08",
-          title: "Meal Reminder",
-          titleTa: "\u0B89\u0BA3\u0BB5\u0BC1 \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD",
-          category: "Meal",
-          message: "Healthy food = Happy you! \u{1F957}",
-          messageTa: "\u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0B89\u0BA3\u0BB5\u0BC1 = \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD! \u{1F957}",
-          repeat: "Daily",
-          sound: "Peaceful Nature",
-          enabled: true,
-          completed: false
-        },
-        {
-          id: "rem-4",
-          time: "07:00 PM",
-          date: "2026-10-08",
-          title: "Call Reminder",
-          titleTa: "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD",
-          category: "Call",
-          message: "Don't forget to call your loved ones. \u{1F4DE}",
-          messageTa: "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B85\u0BA9\u0BCD\u0BAA\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BB0\u0BBF\u0BAF\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BB4\u0BC8\u0B95\u0BCD\u0B95 \u0BAE\u0BB1\u0B95\u0BCD\u0B95\u0BBE\u0BA4\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD. \u{1F4DE}",
-          repeat: "Daily",
-          sound: "Soft Bell",
-          enabled: true,
-          completed: false
-        },
-        {
-          id: "rem-5",
-          time: "09:00 PM",
-          date: "2026-10-08",
-          title: "Personal Care",
-          titleTa: "\u0B9A\u0BC1\u0BAF \u0BAA\u0BB0\u0BBE\u0BAE\u0BB0\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1",
-          category: "Personal Care",
-          message: "Take care of yourself. You matter! \u{1F495}",
-          messageTa: "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B95\u0BB5\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD \u0B95\u0BCA\u0BB3\u0BCD\u0BB3\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BCD! \u{1F495}",
-          repeat: "Daily",
-          sound: "Meditation Tone",
-          enabled: true,
-          completed: false
-        }
-      ];
-      DEFAULT_CLASSES = [
-        {
-          id: "cls-1",
-          name: "Hatha Yoga",
-          title: "Hatha Yoga",
-          instructor: "Priya",
-          duration: 60,
-          level: "Beginner",
-          time: "06:00 AM",
-          date: "2026-10-09",
-          description: "Build flexibility, gentle core stability and natural balance.",
-          attended: true,
-          category: "Beginner",
-          meetUrl: "https://meet.google.com/new"
-        },
-        {
-          id: "cls-2",
-          name: "Vinyasa Flow",
-          title: "Vinyasa Flow",
-          instructor: "Anu",
-          duration: 60,
-          level: "Intermediate",
-          time: "08:30 AM",
-          date: "2026-10-09",
-          description: "Improve stamina, breath synchronicity and fluid motion.",
-          attended: true,
-          category: "Intermediate",
-          meetUrl: "https://meet.google.com/new"
-        },
-        {
-          id: "cls-3",
-          name: "Power Yoga",
-          title: "Power Yoga",
-          instructor: "Meena",
-          duration: 75,
-          level: "Advanced",
-          time: "04:30 PM",
-          date: "2026-10-09",
-          description: "Boost metabolic energy, muscular endurance and sharp focus.",
-          attended: false,
-          category: "Advanced",
-          meetUrl: "https://meet.google.com/new"
-        },
-        {
-          id: "cls-4",
-          name: "Yin Yoga",
-          title: "Yin Yoga",
-          instructor: "Lakshmi",
-          duration: 50,
-          level: "All Levels",
-          time: "06:00 PM",
-          date: "2026-10-09",
-          description: "Deep restorative stretching and meditative spine release.",
-          attended: false,
-          category: "Beginner",
-          meetUrl: "https://meet.google.com/new"
-        },
-        {
-          id: "cls-5",
-          name: "Pranayama & Breathwork",
-          title: "Pranayama & Breathwork",
-          instructor: "Nithya",
-          duration: 35,
-          level: "All Levels",
-          time: "07:30 PM",
-          date: "2026-10-09",
-          description: "Ancient breath regulation for deep nervous system calming.",
-          attended: true,
-          category: "Beginner",
-          meetUrl: "https://meet.google.com/new"
-        }
-      ];
-      DEFAULT_NOTES = [
-        {
-          id: "note-1",
-          title: "Benefits of Yoga",
-          body: "Yoga improves flexibility, reduces cortisol stress and sharpens mental focus. Consistent 20-min daily practice brings sustained tranquility.",
-          category: "Yoga",
-          date: "Oct 5, 2026",
-          colorClass: "icon-orange-note"
-        },
-        {
-          id: "note-2",
-          title: "Healthy Food Habits",
-          body: "Eat clean, stay hydrated. Fresh sattvic food provides sustained physical energy without afternoon crashes.",
-          category: "Health",
-          date: "Oct 4, 2026",
-          colorClass: "icon-red-note"
-        },
-        {
-          id: "note-3",
-          title: "Morning Routine",
-          body: "Wake up early, drink 2 glasses of warm water, 10 minutes of Nadi Shodhana breathing, then light dynamic stretches.",
-          category: "Routine",
-          date: "Oct 3, 2026",
-          colorClass: "icon-blue-note"
-        },
-        {
-          id: "note-4",
-          title: "Self Care",
-          body: "Take care of your mind. It's just as important as your body. Remember to pause whenever tension creeps in.",
-          category: "Wellness",
-          date: "Oct 2, 2026",
-          colorClass: "icon-teal-note"
-        }
-      ];
-      DEFAULT_PLAYLIST = [
-        {
-          id: "track-1",
-          title: "Peaceful Mind",
-          titleTa: "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BA9\u0BAE\u0BCD",
-          category: "Relaxing Music",
-          categoryTa: "\u0BA8\u0BBF\u0BAE\u0BCD\u0BAE\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B87\u0B9A\u0BC8",
-          duration: "30:00",
-          audioUrl: "assets/audio/peaceful-mind.wav",
-          sourceType: "audio",
-          ambientType: "bowl"
-        },
-        {
-          id: "track-2",
-          title: "Featured Meditation",
-          titleTa: "\u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD",
-          category: "10 min \u2022 Calm Mind",
-          categoryTa: "10 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0BAE\u0BA9\u0BAE\u0BCD",
-          duration: "10:00",
-          audioUrl: "assets/audio/featured-meditation-om.wav",
-          sourceType: "audio",
-          ambientType: "om"
-        },
-        {
-          id: "track-3",
-          title: "Pranayama",
-          titleTa: "\u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD",
-          category: "5 min \u2022 Focus",
-          categoryTa: "5 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B95\u0BB5\u0BA9\u0BAE\u0BCD",
-          duration: "05:00",
-          audioUrl: "assets/audio/pranayama-432hz.wav",
-          sourceType: "audio",
-          ambientType: "music"
-        },
-        {
-          id: "track-4",
-          title: "Singing Bowl",
-          titleTa: "\u0BA4\u0BBF\u0BAA\u0BC6\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0BC1\u0BAE\u0BCD \u0B95\u0BBF\u0BA3\u0BCD\u0BA3\u0BAE\u0BCD",
-          category: "15 min \u2022 Deep Healing",
-          categoryTa: "15 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF",
-          duration: "15:00",
-          audioUrl: "assets/audio/singing-bowl.wav",
-          sourceType: "audio",
-          ambientType: "bowl"
-        },
-        {
-          id: "track-5",
-          title: "Sleep Zen",
-          titleTa: "\u0B89\u0BB1\u0B95\u0BCD\u0B95 \u0B92\u0BB2\u0BBF\u0B95\u0BB3\u0BCD",
-          category: "45 min \u2022 Good Sleep",
-          categoryTa: "45 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u2022 \u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B89\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD",
-          duration: "45:00",
-          audioUrl: "assets/audio/sleep-zen-rain.wav",
-          sourceType: "audio",
-          ambientType: "rain"
-        }
-      ];
-      DEFAULT_ATTENDANCE_LOGS = [
-        {
-          id: "att-1",
-          studentName: "Sarah",
-          classId: "cls-1",
-          className: "Hatha Yoga",
-          instructor: "Priya",
-          date: "2026-10-08",
-          durationMinutes: 60,
-          status: "Verified",
-          timestamp: "2026-10-08T06:00:00.000Z"
-        },
-        {
-          id: "att-2",
-          studentName: "Sarah",
-          classId: "cls-2",
-          className: "Vinyasa Flow",
-          instructor: "Anu",
-          date: "2026-10-07",
-          durationMinutes: 60,
-          status: "Verified",
-          timestamp: "2026-10-07T08:30:00.000Z"
-        },
-        {
-          id: "att-3",
-          studentName: "Sarah",
-          classId: "cls-5",
-          className: "Pranayama & Breathwork",
-          instructor: "Nithya",
-          date: "2026-10-05",
-          durationMinutes: 35,
-          status: "Verified",
-          timestamp: "2026-10-05T19:30:00.000Z"
-        }
-      ];
     }
   });
 
@@ -60381,7 +60782,7 @@
   });
 
   // src/components/AttendanceProgressSection.jsx
-  function AttendanceProgressSection({ user, attendanceLogs = [], lang = "en" }) {
+  function AttendanceProgressSection({ user: user2, attendanceLogs = [], lang = "en" }) {
     const [showLogsModal, setShowLogsModal] = (0, import_react16.useState)(false);
     const logs = attendanceLogs && attendanceLogs.length > 0 ? attendanceLogs : loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS);
     const weeklyData = [
@@ -60403,7 +60804,7 @@
       },
       /* @__PURE__ */ import_react16.default.createElement(Calendar, { size: 13 }),
       /* @__PURE__ */ import_react16.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BB0\u0BB2\u0BBE\u0BB1\u0BC1" : "Attendance Log")
-    )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "progress-metrics-4row" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-purple" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Flower2, { size: 16, className: "text-purple" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, user?.classesAttended || logs.length || 12), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD" : "This month")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-blue" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Calendar, { size: 16, className: "text-blue" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, user?.attendanceRate || 85, "%"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub text-green" }, lang === "ta" ? "+5% \u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD" : "+5% than last month")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-green" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(CircleCheck, { size: 16, className: "text-green" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Reminder Completed"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, "18"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub text-green" }, lang === "ta" ? "+3 \u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "+3 than last week")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-pink" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Star, { size: 16, className: "text-pink" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BC7\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD" : "Yoga Progress"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, lang === "ta" ? "\u0BA8\u0BA9\u0BCD\u0BB1\u0BC1" : "Good"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD!" : "Keep going!"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "charts-split-grid" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "chart-box-card" }, /* @__PURE__ */ import_react16.default.createElement("h4", { className: "chart-title-sub" }, lang === "ta" ? "\u0BB5\u0BBE\u0BB0\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0B9A\u0BC6\u0BAF\u0BB2\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1" : "Weekly Activity"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "bar-chart-visual-container" }, weeklyData.map((d) => /* @__PURE__ */ import_react16.default.createElement("div", { key: d.day, className: "bar-chart-column" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "bars-stacked" }, /* @__PURE__ */ import_react16.default.createElement(
+    )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "progress-metrics-4row" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-purple" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Flower2, { size: 16, className: "text-purple" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, user2?.classesAttended || logs.length || 12), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD" : "This month")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-blue" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Calendar, { size: 16, className: "text-blue" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, user2?.attendanceRate || 85, "%"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub text-green" }, lang === "ta" ? "+5% \u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD" : "+5% than last month")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-green" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(CircleCheck, { size: 16, className: "text-green" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Reminder Completed"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, "18"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub text-green" }, lang === "ta" ? "+3 \u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "+3 than last week")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-pink" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Star, { size: 16, className: "text-pink" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BC7\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD" : "Yoga Progress"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, lang === "ta" ? "\u0BA8\u0BA9\u0BCD\u0BB1\u0BC1" : "Good"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD!" : "Keep going!"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "charts-split-grid" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "chart-box-card" }, /* @__PURE__ */ import_react16.default.createElement("h4", { className: "chart-title-sub" }, lang === "ta" ? "\u0BB5\u0BBE\u0BB0\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0B9A\u0BC6\u0BAF\u0BB2\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1" : "Weekly Activity"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "bar-chart-visual-container" }, weeklyData.map((d) => /* @__PURE__ */ import_react16.default.createElement("div", { key: d.day, className: "bar-chart-column" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "bars-stacked" }, /* @__PURE__ */ import_react16.default.createElement(
       "div",
       {
         className: "bar-fill-violet",
@@ -60537,31 +60938,31 @@
   });
 
   // src/components/ProfileSection.jsx
-  function ProfileSection({ user, onUpdateUser, lang = "en" }) {
+  function ProfileSection({ user: user2, onUpdateUser, lang = "en" }) {
     const [activeTab, setActiveTab] = (0, import_react18.useState)("Personal Info");
     const [isEditing, setIsEditing] = (0, import_react18.useState)(false);
     const [formData, setFormData] = (0, import_react18.useState)({
-      name: user?.name || "Sarah",
-      email: user?.email || "sarah@gmail.com",
-      age: user?.age || 28,
-      goal: user?.goal || "Better Health & Peace",
-      joined: user?.joined || "Oct 1, 2026",
-      avatar: user?.avatar || ""
+      name: user2?.name || "Yoga Member",
+      email: user2?.email || "member@nithyayoga.com",
+      age: user2?.age || 28,
+      goal: user2?.goal || "Better Health & Peace",
+      joined: user2?.joined || "Oct 1, 2026",
+      avatar: user2?.avatar || ""
     });
     const profileTabs = ["Personal Info", "Preferences", "Settings"];
     import_react18.default.useEffect(() => {
-      if (user) {
+      if (user2) {
         setFormData((prev) => ({
           ...prev,
-          name: user.name || prev.name,
-          email: user.email || prev.email,
-          age: user.age || prev.age,
-          goal: user.goal || prev.goal,
-          joined: user.joined || prev.joined,
-          avatar: user.avatar !== void 0 ? user.avatar : prev.avatar
+          name: user2.name || prev.name,
+          email: user2.email || prev.email,
+          age: user2.age || prev.age,
+          goal: user2.goal || prev.goal,
+          joined: user2.joined || prev.joined,
+          avatar: user2.avatar !== void 0 ? user2.avatar : prev.avatar
         }));
       }
-    }, [user]);
+    }, [user2]);
     const handleImageUpload = (e2) => {
       const file = e2.target.files && e2.target.files[0];
       if (file) {
@@ -61116,17 +61517,41 @@
       if (!adminToken) return;
       setAttendanceLoading(true);
       try {
-        const data = await apiFetch("/api/admin/attendance", {
-          headers: { "Authorization": `Bearer ${adminToken}` }
-        });
-        if (Array.isArray(data)) {
-          setAttendanceLogs(data);
+        let serverLogs = [];
+        try {
+          const data = await apiFetch("/api/admin/attendance", {
+            headers: { "Authorization": `Bearer ${adminToken}` }
+          });
+          if (Array.isArray(data)) {
+            serverLogs = data;
+          }
+        } catch (err) {
+          if (err.status === 401 || err.status === 403) {
+            handleLogout();
+            return;
+          }
         }
+        let localLogs = [];
+        try {
+          const stored = localStorage.getItem("nithya_attendance_logs");
+          if (stored) {
+            const parsed = JSON.parse(stored);
+            localLogs = parsed.map((l) => ({
+              name: l.studentName || "Student",
+              email: l.phone ? `+91 ${l.phone}` : "App User",
+              phone: l.phone || "N/A",
+              classTitle: l.className || "Hatha Yoga Flow",
+              joinedAt: l.timestamp,
+              durationSeconds: (l.durationMinutes || 1) * 60,
+              attendancePercent: l.attendancePercent || (l.status?.includes("70") ? 85 : 45),
+              status: l.status?.includes("70") ? "verified_70" : "incomplete"
+            }));
+          }
+        } catch (_2) {
+        }
+        const combined = [...serverLogs, ...localLogs.filter((loc) => !serverLogs.some((s) => s.phone === loc.phone && s.classTitle === loc.classTitle))];
+        setAttendanceLogs(combined);
       } catch (err) {
-        if (err.status === 401 || err.status === 403) {
-          handleLogout();
-          return;
-        }
         console.error("Error fetching admin attendance:", err);
       } finally {
         setAttendanceLoading(false);
@@ -61410,7 +61835,23 @@
       /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
     )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-3" }, classesList.length === 0 ? /* @__PURE__ */ import_react22.default.createElement("div", { className: "text-center p-6 text-xs text-muted rounded-xl border border-subtle" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No scheduled classes found. Create your first class above!") : classesList.map((c) => {
       const currentInvite = inviteUrls[c.id];
-      return /* @__PURE__ */ import_react22.default.createElement("div", { key: c.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col gap-2.5" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, c.title), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 text-[11px] text-muted mt-0.5" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react22.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react22.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react22.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react22.default.createElement("span", null, c.duration_minutes, " mins"), /* @__PURE__ */ import_react22.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "font-mono text-[10px] bg-subtle px-1.5 py-0.5 rounded" }, "Room: ", c.room_name))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement(
+      return /* @__PURE__ */ import_react22.default.createElement("div", { key: c.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col gap-2.5" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, c.title), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 text-[11px] text-muted mt-0.5" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react22.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react22.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react22.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react22.default.createElement("span", null, c.duration_minutes, " mins"), /* @__PURE__ */ import_react22.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "font-mono text-[10px] bg-subtle px-1.5 py-0.5 rounded" }, "Room: ", c.room_name))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: () => {
+            const liveUrl = `${window.location.origin}${window.location.pathname}?live=${c.id}`;
+            navigator.clipboard.writeText(liveUrl);
+            setCopiedId(`live-${c.id}`);
+            setTimeout(() => setCopiedId(null), 2500);
+            if (showToast) showToast("Live Link Copied \u2713", liveUrl, "success");
+          },
+          className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer",
+          title: "Direct student joining link with name & mobile check"
+        },
+        copiedId === `live-${c.id}` ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 13, className: "text-emerald-500" }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 13, className: "text-primary" }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, copiedId === `live-${c.id}` ? "Copied!" : lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD" : "Copy Live Link")
+      ), /* @__PURE__ */ import_react22.default.createElement(
         "button",
         {
           type: "button",
@@ -61418,7 +61859,7 @@
           className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
         },
         /* @__PURE__ */ import_react22.default.createElement(Link, { size: 13, className: "text-primary" }),
-        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAA\u0BC6\u0BB1\u0BC1\u0B95" : "Get Invite Link")
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD" : "Invite Token")
       ), onLaunchInstructorStudio && /* @__PURE__ */ import_react22.default.createElement(
         "button",
         {
@@ -61427,7 +61868,7 @@
           className: "ya-btn ya-btn--primary text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
         },
         /* @__PURE__ */ import_react22.default.createElement(Video, { size: 13 }),
-        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0B95 \u0BA4\u0BC1\u0BB5\u0B99\u0BCD\u0B95" : "Launch as Instructor")
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB" : "Launch Studio")
       ))), currentInvite && /* @__PURE__ */ import_react22.default.createElement("div", { className: "p-2 rounded-lg bg-subtle border border-primary/20 flex items-center justify-between gap-2 mt-1" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 flex-1 overflow-hidden" }, /* @__PURE__ */ import_react22.default.createElement(Link, { size: 13, className: "text-primary flex-shrink-0" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-[11px] font-mono text-heading truncate" }, currentInvite)), /* @__PURE__ */ import_react22.default.createElement(
         "button",
         {
@@ -61586,7 +62027,7 @@
         type: "text",
         value: name,
         onChange: (e2) => setName(e2.target.value),
-        placeholder: "e.g. Sarah Santhons",
+        placeholder: "e.g. Kavitha Ram",
         required: true,
         className: "ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
       }
@@ -61596,7 +62037,7 @@
         type: "email",
         value: email,
         onChange: (e2) => setEmail(e2.target.value),
-        placeholder: "sarah@gmail.com",
+        placeholder: "kavitha@example.com",
         required: true,
         className: "ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
       }
@@ -61632,13 +62073,171 @@
     }
   });
 
+  // src/components/ActiveAlarmModal.jsx
+  function ActiveAlarmModal({
+    alarm,
+    onDismiss,
+    onSnooze,
+    lang = "en"
+  }) {
+    if (!alarm) return null;
+    (0, import_react24.useEffect)(() => {
+      const interval = setInterval(() => {
+        audioEngine.playAlarmChime();
+      }, 4500);
+      return () => clearInterval(interval);
+    }, []);
+    return /* @__PURE__ */ import_react24.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ import_react24.default.createElement(
+      "div",
+      {
+        className: "modal-bottom-sheet max-w-sm w-full mx-auto bg-card rounded-2xl p-6 shadow-2xl border border-primary/30 text-center flex flex-col items-center gap-4 animate-bounce-subtle",
+        onClick: (e2) => e2.stopPropagation()
+      },
+      /* @__PURE__ */ import_react24.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "absolute inset-0 rounded-full bg-primary/20 animate-ping" }), /* @__PURE__ */ import_react24.default.createElement("div", { className: "w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center relative" }, /* @__PURE__ */ import_react24.default.createElement(ThreeDBell, { size: 52 }))),
+      /* @__PURE__ */ import_react24.default.createElement("div", null, /* @__PURE__ */ import_react24.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-bold mb-2" }, /* @__PURE__ */ import_react24.default.createElement(Volume2, { size: 13, className: "animate-pulse" }), /* @__PURE__ */ import_react24.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BAE\u0BA3\u0BBF \u0B92\u0BB2\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1!" : "REMINDER ALARM ACTIVE!")), /* @__PURE__ */ import_react24.default.createElement("h3", { className: "text-xl font-extrabold text-heading" }, alarm.titleTa || alarm.title), /* @__PURE__ */ import_react24.default.createElement("div", { className: "flex items-center justify-center gap-1 text-xs text-muted font-medium mt-1" }, /* @__PURE__ */ import_react24.default.createElement(Clock, { size: 12 }), /* @__PURE__ */ import_react24.default.createElement("span", null, alarm.time, " \u2022 ", alarm.category || "Wellness"))),
+      /* @__PURE__ */ import_react24.default.createElement("p", { className: "text-xs text-heading/90 bg-subtle p-3 rounded-xl border border-subtle max-w-xs leading-relaxed" }, alarm.messageTa || alarm.message || (lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BB5\u0BA9\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u2764\uFE0F" : "Take care of your health & wellness \u2764\uFE0F")),
+      /* @__PURE__ */ import_react24.default.createElement("div", { className: "flex gap-2 w-full mt-1" }, /* @__PURE__ */ import_react24.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "flex-1 py-2.5 text-xs font-semibold rounded-xl border border-subtle text-heading hover:bg-subtle transition-all cursor-pointer",
+          onClick: onSnooze
+        },
+        lang === "ta" ? "5 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u0BA4\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BC8 \u23F1\uFE0F" : "Snooze (5 min) \u23F1\uFE0F"
+      ), /* @__PURE__ */ import_react24.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "flex-1 py-2.5 text-xs font-bold rounded-xl bg-primary text-white shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer",
+          onClick: onDismiss
+        },
+        /* @__PURE__ */ import_react24.default.createElement(Check, { size: 14 }),
+        /* @__PURE__ */ import_react24.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 \u2713" : "Dismiss \u2713")
+      ))
+    ));
+  }
+  var import_react24;
+  var init_ActiveAlarmModal = __esm({
+    "src/components/ActiveAlarmModal.jsx"() {
+      import_react24 = __toESM(require_react());
+      init_lucide_react();
+      init_ThreeDIcons();
+      init_audioEngine();
+    }
+  });
+
+  // src/components/StudentJoinModal.jsx
+  function StudentJoinModal({
+    isOpen,
+    onClose,
+    onJoin,
+    activeClass,
+    lang = "en"
+  }) {
+    const [name, setName] = (0, import_react25.useState)(() => {
+      return localStorage.getItem("nithya_student_name") || "";
+    });
+    const [phone, setPhone] = (0, import_react25.useState)(() => {
+      return localStorage.getItem("nithya_student_phone") || "";
+    });
+    const [error, setError] = (0, import_react25.useState)("");
+    if (!isOpen) return null;
+    const handleSubmit = (e2) => {
+      e2.preventDefault();
+      const cleanName = name.trim();
+      const cleanPhone = phone.replace(/[^\d+]/g, "");
+      if (cleanName.length < 2) {
+        setError(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 2 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BB3\u0BCD)." : "Please enter your full name (at least 2 letters).");
+        return;
+      }
+      if (cleanPhone.replace(/\D/g, "").length < 10) {
+        setError(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 10-\u0B87\u0BB2\u0B95\u0BCD\u0B95 \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Please enter a valid 10-digit mobile number.");
+        return;
+      }
+      setError("");
+      localStorage.setItem("nithya_student_name", cleanName);
+      localStorage.setItem("nithya_student_phone", cleanPhone);
+      const studentSession = {
+        name: cleanName,
+        phone: cleanPhone,
+        joinedAt: (/* @__PURE__ */ new Date()).toISOString()
+      };
+      localStorage.setItem("nithya_student_session", JSON.stringify(studentSession));
+      audioEngine.playTempleBell();
+      onJoin(studentSession);
+    };
+    return /* @__PURE__ */ import_react25.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal", onClick: onClose }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "modal-bottom-sheet max-w-md mx-auto", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react25.default.createElement("div", { className: "modal-header-bar flex items-center justify-between pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary" }, /* @__PURE__ */ import_react25.default.createElement(Radio, { size: 16, className: "text-primary animate-pulse" })), /* @__PURE__ */ import_react25.default.createElement("div", null, /* @__PURE__ */ import_react25.default.createElement("h3", { className: "modal-title-bold text-base font-bold text-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Join Live Yoga Studio"), /* @__PURE__ */ import_react25.default.createElement("p", { className: "text-[11px] text-muted" }, activeClass?.title || activeClass?.name || "Hatha Yoga", " \u2022 ", activeClass?.instructor || "NITHYA Master"))), /* @__PURE__ */ import_react25.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-modal-close text-muted hover:text-heading",
+        onClick: onClose,
+        "aria-label": "Close"
+      },
+      /* @__PURE__ */ import_react25.default.createElement(X, { size: 18 })
+    )), /* @__PURE__ */ import_react25.default.createElement("div", { className: "flex justify-center my-3" }, /* @__PURE__ */ import_react25.default.createElement(ThreeDLotus, { size: 48 })), error && /* @__PURE__ */ import_react25.default.createElement("div", { className: "p-2 mb-3 bg-red-subtle text-red rounded-lg text-xs flex items-center gap-2" }, /* @__PURE__ */ import_react25.default.createElement("span", null, "\u26A0\uFE0F"), /* @__PURE__ */ import_react25.default.createElement("span", null, error)), /* @__PURE__ */ import_react25.default.createElement("form", { onSubmit: handleSubmit, className: "modal-form-flow flex flex-col gap-3" }, /* @__PURE__ */ import_react25.default.createElement("div", { className: "form-field-unit flex flex-col gap-1" }, /* @__PURE__ */ import_react25.default.createElement("label", { className: "text-xs font-semibold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react25.default.createElement(User, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react25.default.createElement("span", null, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1\u0BAA\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD (Full Name):" : "Full Name:"), /* @__PURE__ */ import_react25.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react25.default.createElement(
+      "input",
+      {
+        type: "text",
+        className: "ya-input w-full text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
+        placeholder: lang === "ta" ? "\u0B8E.\u0B95\u0BBE. \u0B95\u0BB5\u0BBF\u0BA4\u0BBE \u0BB0\u0BBE\u0BAE\u0BCD / Kavitha Ram" : "e.g. Kavitha Ram",
+        value: name,
+        onChange: (e2) => {
+          setName(e2.target.value);
+          if (error) setError("");
+        },
+        required: true,
+        autoFocus: true
+      }
+    )), /* @__PURE__ */ import_react25.default.createElement("div", { className: "form-field-unit flex flex-col gap-1" }, /* @__PURE__ */ import_react25.default.createElement("label", { className: "text-xs font-semibold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react25.default.createElement(Phone, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react25.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (Mobile Number):" : "Mobile Number:"), /* @__PURE__ */ import_react25.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react25.default.createElement(
+      "input",
+      {
+        type: "tel",
+        className: "ya-input w-full text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
+        placeholder: lang === "ta" ? "\u0B8E.\u0B95\u0BBE. 9876543210" : "e.g. 9876543210",
+        value: phone,
+        onChange: (e2) => {
+          setPhone(e2.target.value);
+          if (error) setError("");
+        },
+        required: true
+      }
+    )), /* @__PURE__ */ import_react25.default.createElement("div", { className: "p-2.5 bg-subtle/80 rounded-xl text-[11px] text-muted flex items-start gap-2 border border-subtle" }, /* @__PURE__ */ import_react25.default.createElement(ShieldCheck, { size: 16, className: "text-green shrink-0 mt-0.5" }), /* @__PURE__ */ import_react25.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0B95\u0B95\u0BCD (70%+) \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD. \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0B95 \u0BB5\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Your session duration will be verified for attendance (70%+ completion). Your details remain confidential.")), /* @__PURE__ */ import_react25.default.createElement("div", { className: "modal-actions-bar flex gap-2 mt-2" }, /* @__PURE__ */ import_react25.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-modal-cancel w-1/3 py-2 text-xs rounded-xl border border-subtle text-muted hover:bg-subtle",
+        onClick: onClose
+      },
+      lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel"
+    ), /* @__PURE__ */ import_react25.default.createElement(
+      "button",
+      {
+        type: "submit",
+        className: "btn-modal-save w-2/3 py-2 text-xs rounded-xl bg-primary text-white font-bold flex items-center justify-center gap-1.5 shadow-md hover:opacity-95"
+      },
+      /* @__PURE__ */ import_react25.default.createElement(CircleCheck, { size: 14 }),
+      /* @__PURE__ */ import_react25.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB1\u0BC1\u0BA4\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD \u{1F9D8}\u200D\u2640\uFE0F" : "Confirm & Join Class \u{1F9D8}\u200D\u2640\uFE0F")
+    )))));
+  }
+  var import_react25;
+  var init_StudentJoinModal = __esm({
+    "src/components/StudentJoinModal.jsx"() {
+      import_react25 = __toESM(require_react());
+      init_lucide_react();
+      init_ThreeDIcons();
+      init_audioEngine();
+    }
+  });
+
   // src/App.jsx
   function App() {
-    const [currentTab, setCurrentTab] = (0, import_react24.useState)("home");
-    const [theme, setTheme] = (0, import_react24.useState)(() => loadStorage("nithya_theme", "light"));
-    const [lang, setLang] = (0, import_react24.useState)(() => loadStorage("nithya_lang", "en"));
-    const [searchQuery, setSearchQuery] = (0, import_react24.useState)("");
-    const [inviteToken, setInviteToken] = (0, import_react24.useState)(() => {
+    const [currentTab, setCurrentTab] = (0, import_react26.useState)("home");
+    const [theme, setTheme] = (0, import_react26.useState)(() => loadStorage("nithya_theme", "light"));
+    const [lang, setLang] = (0, import_react26.useState)(() => loadStorage("nithya_lang", "en"));
+    const [searchQuery, setSearchQuery] = (0, import_react26.useState)("");
+    const [activeAlarm, setActiveAlarm] = (0, import_react26.useState)(null);
+    const [inviteToken, setInviteToken] = (0, import_react26.useState)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
         return params.get("invite") || "";
@@ -61646,36 +62245,40 @@
         return "";
       }
     });
-    const [user, setUser] = (0, import_react24.useState)(() => loadStorage("nithya_user", DEFAULT_USER));
-    const [reminders, setReminders] = (0, import_react24.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
-    const [classes, setClasses] = (0, import_react24.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
-    const [activeClass, setActiveClass] = (0, import_react24.useState)(() => classes[0] || DEFAULT_CLASSES[0]);
-    const [attendanceLogs, setAttendanceLogs] = (0, import_react24.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
-    const [toasts, setToasts] = (0, import_react24.useState)([]);
-    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react24.useState)(false);
-    const [editingReminder, setEditingReminder] = (0, import_react24.useState)(null);
-    (0, import_react24.useEffect)(() => {
+    const [studentSession, setStudentSession] = (0, import_react26.useState)(() => {
+      return loadStorage("nithya_student_session", null);
+    });
+    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react26.useState)(false);
+    const [user2, setUser] = (0, import_react26.useState)(() => loadStorage("nithya_user", DEFAULT_USER));
+    const [reminders, setReminders] = (0, import_react26.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
+    const [classes, setClasses] = (0, import_react26.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
+    const [activeClass, setActiveClass] = (0, import_react26.useState)(() => classes[0] || DEFAULT_CLASSES[0]);
+    const [attendanceLogs, setAttendanceLogs] = (0, import_react26.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
+    const [toasts, setToasts] = (0, import_react26.useState)([]);
+    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react26.useState)(false);
+    const [editingReminder, setEditingReminder] = (0, import_react26.useState)(null);
+    (0, import_react26.useEffect)(() => {
       saveStorage("nithya_theme", theme);
       document.documentElement.setAttribute("data-theme", theme);
     }, [theme]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react26.useEffect)(() => {
       saveStorage("nithya_lang", lang);
       document.documentElement.setAttribute("data-lang", lang);
     }, [lang]);
-    (0, import_react24.useEffect)(() => {
-      saveStorage("nithya_user", user);
-    }, [user]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react26.useEffect)(() => {
+      saveStorage("nithya_user", user2);
+    }, [user2]);
+    (0, import_react26.useEffect)(() => {
       saveStorage("nithya_reminders", reminders);
     }, [reminders]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react26.useEffect)(() => {
       saveStorage("nithya_classes", classes);
     }, [classes]);
-    (0, import_react24.useEffect)(() => {
+    (0, import_react26.useEffect)(() => {
       saveStorage("nithya_attendance", attendanceLogs);
     }, [attendanceLogs]);
-    const firedRemindersRef = (0, import_react24.useRef)(/* @__PURE__ */ new Set());
-    (0, import_react24.useEffect)(() => {
+    const firedRemindersRef = (0, import_react26.useRef)(/* @__PURE__ */ new Set());
+    (0, import_react26.useEffect)(() => {
       const checkScheduledReminders = () => {
         const now = /* @__PURE__ */ new Date();
         const currentHours = now.getHours();
@@ -61724,28 +62327,38 @@
           if (r.customAudioUrl) {
             audioEngine.playAudioFile(r.customAudioUrl);
           } else {
-            audioEngine.playSoundByName(r.sound || "Soft Bell");
+            audioEngine.playAlarmChime();
           }
+          setActiveAlarm(r);
           showToast(
             lang === "ta" ? `\u{1F514} \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD: ${r.titleTa || r.title}` : `\u{1F514} Reminder: ${r.title}`,
             lang === "ta" ? r.messageTa || r.message || "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BB5\u0BA9\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : r.message || "Time for your healthy habit",
             "success"
           );
+          const notifTitle = lang === "ta" ? `NITHYA \u0BAF\u0BCB\u0B95\u0BBE: ${r.titleTa || r.title}` : `NITHYA Yoga: ${r.title}`;
+          const notifBody = lang === "ta" ? r.messageTa || r.message || "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD!" : r.message || "Time for your healthy habit";
           if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
-            try {
-              const notification = new Notification(
-                lang === "ta" ? `NITHYA \u0BAF\u0BCB\u0B95\u0BBE: ${r.titleTa || r.title}` : `NITHYA Yoga: ${r.title}`,
-                {
-                  body: lang === "ta" ? r.messageTa || r.message : r.message,
+            if ("serviceWorker" in navigator && navigator.serviceWorker.ready) {
+              navigator.serviceWorker.ready.then((reg) => {
+                reg.showNotification(notifTitle, {
+                  body: notifBody,
                   icon: "assets/images/logo.png",
                   badge: "assets/images/logo.png",
-                  tag: fireKey
+                  vibrate: [250, 100, 250],
+                  tag: fireKey,
+                  renotify: true
+                });
+              }).catch(() => {
+                try {
+                  new Notification(notifTitle, { body: notifBody, icon: "assets/images/logo.png" });
+                } catch (_2) {
                 }
-              );
-              notification.onclick = () => {
-                window.focus();
-              };
-            } catch (_2) {
+              });
+            } else {
+              try {
+                new Notification(notifTitle, { body: notifBody, icon: "assets/images/logo.png" });
+              } catch (_2) {
+              }
             }
           }
         });
@@ -61764,6 +62377,48 @@
     const handleDismissToast = (id) => {
       setToasts((prev) => prev.filter((t) => t.id !== id));
     };
+    const handleDismissAlarm = () => {
+      setActiveAlarm(null);
+    };
+    const handleSnoozeAlarm = () => {
+      if (!activeAlarm) return;
+      const now = /* @__PURE__ */ new Date();
+      now.setMinutes(now.getMinutes() + 5);
+      const snoozeHours = now.getHours();
+      const snoozeMinutes = now.getMinutes();
+      const snooze24 = `${String(snoozeHours).padStart(2, "0")}:${String(snoozeMinutes).padStart(2, "0")}`;
+      const period = snoozeHours >= 12 ? "PM" : "AM";
+      const hours12 = snoozeHours % 12 || 12;
+      const snooze12 = `${String(hours12).padStart(2, "0")}:${String(snoozeMinutes).padStart(2, "0")} ${period}`;
+      setReminders((prev) => prev.map((r) => {
+        if (r.id === activeAlarm.id) {
+          return { ...r, rawTime: snooze24, time: snooze12 };
+        }
+        return r;
+      }));
+      showToast(
+        lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD 5 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u0BA4\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u23F1\uFE0F" : "Reminder Snoozed for 5 minutes \u23F1\uFE0F",
+        `${activeAlarm.title} (${snooze12})`,
+        "info"
+      );
+      setActiveAlarm(null);
+    };
+    (0, import_react26.useEffect)(() => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const liveId = params.get("live") || params.get("room");
+        if (liveId) {
+          const found = classes.find((c) => c.id === liveId) || classes[0];
+          if (found) setActiveClass(found);
+          setCurrentTab("live");
+          const session = loadStorage("nithya_student_session", null);
+          if (!session) {
+            setShowStudentJoinModal(true);
+          }
+        }
+      } catch (_2) {
+      }
+    }, [classes]);
     const handleTestSound = () => {
       audioEngine.playMeditationTone();
       if (typeof window !== "undefined" && "Notification" in window) {
@@ -61929,14 +62584,14 @@
         remEl.scrollIntoView({ behavior: "smooth" });
       }
     };
-    return /* @__PURE__ */ import_react24.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react24.default.createElement(
+    return /* @__PURE__ */ import_react26.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, /* @__PURE__ */ import_react26.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react26.default.createElement(
       Sidebar,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react24.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react26.default.createElement(
       Header,
       {
         searchQuery,
@@ -61945,11 +62600,11 @@
         setTheme,
         lang,
         setLang,
-        user,
+        user: user2,
         onOpenNotifications: handleTestSound,
         onTestSound: handleTestSound
       }
-    ), currentTab === "admin" ? /* @__PURE__ */ import_react24.default.createElement("main", { className: "dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react24.default.createElement(
+    ), currentTab === "admin" ? /* @__PURE__ */ import_react26.default.createElement("main", { className: "dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react26.default.createElement("div", { className: "flex items-center gap-2 mb-4" }, /* @__PURE__ */ import_react26.default.createElement(
       "button",
       {
         type: "button",
@@ -61958,7 +62613,7 @@
       },
       "\u2190 ",
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react24.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react24.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react26.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react26.default.createElement(
       AdminPortalSection,
       {
         onLaunchInstructorStudio: (cls) => {
@@ -61968,7 +62623,7 @@
         showToast,
         lang
       }
-    )) : currentTab === "live" ? /* @__PURE__ */ import_react24.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react24.default.createElement(
+    )) : currentTab === "live" ? /* @__PURE__ */ import_react26.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react26.default.createElement("div", { className: "live-page-breadcrumb-bar flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react26.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react26.default.createElement(
       "button",
       {
         type: "button",
@@ -61977,7 +62632,7 @@
       },
       "\u2190 ",
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard"
-    ), /* @__PURE__ */ import_react24.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react24.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 (LiveKit HD)" : "Live Yoga Class Studio (LiveKit HD)")), /* @__PURE__ */ import_react24.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react24.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement("span", { className: "text-muted" }, "/"), /* @__PURE__ */ import_react26.default.createElement("span", { className: "font-bold text-sm text-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 (LiveKit HD)" : "Live Yoga Class Studio (LiveKit HD)")), /* @__PURE__ */ import_react26.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react26.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react26.default.createElement(
       "select",
       {
         value: activeClass?.id,
@@ -61987,12 +62642,12 @@
         },
         className: "text-xs px-2.5 py-1.5 rounded-lg border bg-card text-heading font-semibold"
       },
-      classes.map((c) => /* @__PURE__ */ import_react24.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
-    ))), /* @__PURE__ */ import_react24.default.createElement(
+      classes.map((c) => /* @__PURE__ */ import_react26.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
+    ))), /* @__PURE__ */ import_react26.default.createElement(
       LiveYogaClassRoom,
       {
         activeClass,
-        user,
+        user: user2,
         onLeaveClass: () => {
           showToast(
             lang === "ta" ? "\u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Session Ended",
@@ -62004,15 +62659,15 @@
         onRecordAttendance: handleRecordAttendance,
         lang
       }
-    )) : /* @__PURE__ */ import_react24.default.createElement("main", { className: "dashboard-content-grid-wrapper" }, /* @__PURE__ */ import_react24.default.createElement(
+    )) : /* @__PURE__ */ import_react26.default.createElement("main", { className: "dashboard-content-grid-wrapper" }, /* @__PURE__ */ import_react26.default.createElement(
       HeroSection,
       {
-        user,
+        user: user2,
         onJoinLive: () => handleJoinLive(activeClass),
         onViewSchedule: handleViewSchedule,
         lang
       }
-    ), /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement(
       SmartCareTimeline,
       {
         reminders,
@@ -62026,7 +62681,7 @@
         },
         lang
       }
-    ), /* @__PURE__ */ import_react24.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react26.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react26.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -62035,7 +62690,7 @@
         onShowAll: () => handleTabChange("classes"),
         lang
       }
-    )), /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react24.default.createElement(
+    )), /* @__PURE__ */ import_react26.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react26.default.createElement(
       LiveClassStudio,
       {
         activeClass,
@@ -62045,49 +62700,49 @@
         onOpenFullStudio: () => setCurrentTab("live"),
         lang
       }
-    )), /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react24.default.createElement(
+    )), /* @__PURE__ */ import_react26.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react26.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ), /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement(
       PranayamaBreathingOrb,
       {
         lang
       }
-    ), /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement(
       RelaxationZone,
       {
         lang
       }
-    ))), /* @__PURE__ */ import_react24.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-progress" }, /* @__PURE__ */ import_react24.default.createElement(
+    ))), /* @__PURE__ */ import_react26.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react26.default.createElement("div", { className: "grid-col col-progress" }, /* @__PURE__ */ import_react26.default.createElement(
       AttendanceProgressSection,
       {
-        user,
+        user: user2,
         attendanceLogs,
         lang
       }
-    )), /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react24.default.createElement(
+    )), /* @__PURE__ */ import_react26.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react26.default.createElement(
       YogaNotesSection,
       {
         lang
       }
-    )), /* @__PURE__ */ import_react24.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react24.default.createElement(
+    )), /* @__PURE__ */ import_react26.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react26.default.createElement(
       ProfileSection,
       {
-        user,
+        user: user2,
         onUpdateUser: handleUpdateUser,
         lang
       }
-    )))))), /* @__PURE__ */ import_react24.default.createElement(
+    )))))), /* @__PURE__ */ import_react26.default.createElement(
       MobileBottomNav,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement(
       ReminderModal,
       {
         isOpen: isReminderModalOpen,
@@ -62100,7 +62755,7 @@
         initialData: editingReminder,
         lang
       }
-    ), inviteToken && /* @__PURE__ */ import_react24.default.createElement(
+    ), inviteToken && /* @__PURE__ */ import_react26.default.createElement(
       InviteRegistrationModal,
       {
         inviteToken,
@@ -62126,7 +62781,33 @@
         },
         lang
       }
-    ), /* @__PURE__ */ import_react24.default.createElement(
+    ), /* @__PURE__ */ import_react26.default.createElement(
+      ActiveAlarmModal,
+      {
+        alarm: activeAlarm,
+        onDismiss: handleDismissAlarm,
+        onSnooze: handleSnoozeAlarm,
+        lang
+      }
+    ), /* @__PURE__ */ import_react26.default.createElement(
+      StudentJoinModal,
+      {
+        isOpen: showStudentJoinModal,
+        onClose: () => setShowStudentJoinModal(false),
+        activeClass,
+        lang,
+        onJoin: (student) => {
+          setStudentSession(student);
+          setShowStudentJoinModal(false);
+          setCurrentTab("live");
+          showToast(
+            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BA8\u0BCD\u0BA4\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u{1F9D8}\u200D\u2640\uFE0F" : "Joined Live Session \u{1F9D8}\u200D\u2640\uFE0F",
+            `${student.name} \u2022 ${activeClass?.title || activeClass?.name}`,
+            "success"
+          );
+        }
+      }
+    ), /* @__PURE__ */ import_react26.default.createElement(
       ToastContainer,
       {
         toasts,
@@ -62134,10 +62815,10 @@
       }
     ));
   }
-  var import_react24;
+  var import_react26;
   var init_App = __esm({
     "src/App.jsx"() {
-      import_react24 = __toESM(require_react());
+      import_react26 = __toESM(require_react());
       init_Sidebar();
       init_Header();
       init_HeroSection();
@@ -62156,6 +62837,8 @@
       init_LiveYogaClassRoom();
       init_AdminPortalSection();
       init_InviteRegistrationModal();
+      init_ActiveAlarmModal();
+      init_StudentJoinModal();
       init_storage();
       init_audioEngine();
     }
@@ -62164,13 +62847,13 @@
   // src/index.jsx
   var require_index = __commonJS({
     "src/index.jsx"() {
-      var import_react25 = __toESM(require_react());
+      var import_react27 = __toESM(require_react());
       var import_client = __toESM(require_client());
       init_App();
       var container = document.getElementById("root");
       if (container) {
         const root = (0, import_client.createRoot)(container);
-        root.render(/* @__PURE__ */ import_react25.default.createElement(App, null));
+        root.render(/* @__PURE__ */ import_react27.default.createElement(App, null));
       }
     }
   });

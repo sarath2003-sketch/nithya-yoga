@@ -181,7 +181,7 @@ export default function InviteRegistrationModal({
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Sarah Santhons"
+                  placeholder="e.g. Kavitha Ram"
                   required
                   className="ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
                 />
@@ -196,7 +196,7 @@ export default function InviteRegistrationModal({
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="sarah@gmail.com"
+                  placeholder="kavitha@example.com"
                   required
                   className="ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
                 />

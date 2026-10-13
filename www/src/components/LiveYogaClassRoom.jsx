@@ -34,7 +34,8 @@ import {
   Crown,
   Copy,
   Check,
-  FileText
+  FileText,
+  Download
 } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus, ThreeDBell, ThreeDHeart } from './ThreeDIcons';
@@ -259,22 +260,31 @@ export default function LiveYogaClassRoom({
   const [spotlightParticipantId, setSpotlightParticipantId] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
-  // Role: Instructor (Leader) or Student - strictly checks trainer tokens or explicit role
-  const studentSession = loadStorage('nithya_student_session', null);
-  const canChooseInstructor = Boolean(
-    !studentSession && (
-      localStorage.getItem('nithya_admin_token') || 
-      localStorage.getItem('nithya_trainer_token') ||
-      user?.role === 'trainer' || 
-      user?.role === 'instructor' || 
-      user?.isInstructor === true
-    )
-  );
-
+  // Role: 👑 NITHYA Master (Leader / Host) by default!
+  // Only Student if explicitly requested via URL (?join=student, ?invite=...) or toggled
   const [isInstructorRole, setIsInstructorRole] = useState(() => {
-    if (studentSession) return false;
-    return canChooseInstructor;
+    try {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite'))) {
+        return false;
+      }
+      const activeRole = localStorage.getItem('nithya_active_role');
+      if (activeRole === 'student') return false;
+    } catch (_) {}
+    return true; // 👑 Default: NITHYA Master (Instructor)
   });
+
+  const handleToggleRole = () => {
+    const nextRole = !isInstructorRole;
+    setIsInstructorRole(nextRole);
+    try {
+      localStorage.setItem('nithya_active_role', nextRole ? 'instructor' : 'student');
+      if (nextRole) {
+        localStorage.removeItem('nithya_student_session');
+        localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
+      }
+    } catch (_) {}
+  };
   const [classEndedNotice, setClassEndedNotice] = useState(false);
 
   // Local WebRTC media stream and mode
@@ -839,10 +849,10 @@ export default function LiveYogaClassRoom({
     }
   };
 
-  // Generate shareable live class link (uses production URL when in mobile app or localhost)
+  // Generate shareable live class link (uses production URL with student parameter)
   const getShareableClassLink = () => {
     const classId = activeClass?.id || 'cls-1';
-    return getProductionLiveUrl(classId);
+    return getProductionLiveUrl(classId, { join: 'student' });
   };
 
   // Phase 4: Copy link with feedback
@@ -985,13 +995,17 @@ export default function LiveYogaClassRoom({
 
   const allParticipants = room
     ? [room.localParticipant, ...participants]
-    : (localStream 
-        ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter(p => p.name !== localWebrtcParticipant.name)] 
-        : (simulatedPeers.length ? [...instructorPeer, ...simulatedPeers] : [...instructorPeer, localWebrtcParticipant]));
+    : (isInstructorRole
+        ? (localStream ? [localWebrtcParticipant, ...simulatedPeers.filter(p => p.name !== localWebrtcParticipant.name)] : [localWebrtcParticipant, ...simulatedPeers])
+        : (localStream 
+            ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter(p => p.name !== localWebrtcParticipant.name)] 
+            : [...instructorPeer, localWebrtcParticipant, ...simulatedPeers]));
 
-  const spotlightParticipant = spotlightParticipantId
-    ? allParticipants.find(p => p.identity === spotlightParticipantId)
-    : (allParticipants.find(p => p.metadata?.includes('instructor') || p.isInstructor || p.role === 'instructor' || p.name?.toLowerCase().includes('master')) || allParticipants[0]);
+  const spotlightParticipant = isInstructorRole
+    ? localWebrtcParticipant
+    : (spotlightParticipantId
+        ? allParticipants.find(p => p.identity === spotlightParticipantId)
+        : (allParticipants.find(p => p.isInstructor) || allParticipants[0]));
 
   const otherParticipants = allParticipants.filter(p => p?.identity !== spotlightParticipant?.identity);
 
@@ -1019,26 +1033,32 @@ export default function LiveYogaClassRoom({
 
         {/* Top Controls: Role selector, Timer, Settings */}
         <div className="header-right-tools">
-          {/* Role badge / switcher - strictly checks trainer authorization */}
-          {canChooseInstructor ? (
-            <button
-              type="button"
-              className={`role-toggle-pill ${isInstructorRole ? 'as-instructor' : 'as-student'}`}
-              onClick={() => {
-                if (connectionState === 'idle' || connectionState === 'disconnected') {
-                  setIsInstructorRole(!isInstructorRole);
-                }
-              }}
-              title={connectionState === 'connected' ? 'Role locked during call' : 'Switch instructor / student role'}
+          {/* Interactive Role Switcher Pill - Always clickable to toggle between NITHYA Master and Student */}
+          <button
+            type="button"
+            className={`role-toggle-pill ${isInstructorRole ? 'as-instructor' : 'as-student'}`}
+            onClick={handleToggleRole}
+            title={lang === 'ta' ? 'பயிற்றுநர் / மாணவர் பயன்முறையை மாற்றுக' : 'Switch Instructor / Student Mode'}
+          >
+            {isInstructorRole ? <Crown size={14} className="text-amber-400" /> : <Users size={14} className="text-emerald-400" />}
+            <span className="font-bold">
+              {isInstructorRole 
+                ? (lang === 'ta' ? '👑 நித்யா மாஸ்டர் (பயிற்றுநர்)' : '👑 NITHYA Master (Host)') 
+                : (lang === 'ta' ? '👥 மாணவர் முறை (Student)' : '👥 Student Mode')}
+            </span>
+            <span className="role-change-arrow ml-1 text-xs opacity-70">⮂</span>
+          </button>
+
+          {!isInstructorRole && (
+            <a
+              href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
+              download="NITHYA-Yoga-v1.0.apk"
+              className="role-toggle-pill as-download-apk text-violet"
+              title={lang === 'ta' ? 'மொபைல் ஆப் (APK) டவுன்லோட்' : 'Download Android App (APK)'}
             >
-              {isInstructorRole ? <Crown size={13} /> : <Users size={13} />}
-              <span>{isInstructorRole ? (lang === 'ta' ? 'பயிற்றுநர் முறை' : 'Instructor Mode') : (lang === 'ta' ? 'மாணவர் முறை' : 'Student Mode')}</span>
-            </button>
-          ) : (
-            <div className="role-toggle-pill as-student cursor-default" title="Student Session">
-              <Users size={13} />
-              <span>{lang === 'ta' ? 'மாணவர் முறை' : 'Student Mode'}</span>
-            </div>
+              <Download size={13} />
+              <span>{lang === 'ta' ? 'ஆப் டவுன்லோட்' : 'Download App'}</span>
+            </a>
           )}
 
           {/* Live Timer */}
@@ -1134,39 +1154,44 @@ export default function LiveYogaClassRoom({
                 : 'Real-time peer-to-peer WebRTC video & crystal-clear audio with your instructor and classmates.'}
             </p>
 
-            {/* Role Radio Picker - only accessible with trainer credentials */}
-            {canChooseInstructor ? (
-              <div className="lobby-role-selector">
-                <button
-                  type="button"
-                  className={`role-card-btn ${!isInstructorRole ? 'selected' : ''}`}
-                  onClick={() => setIsInstructorRole(false)}
-                >
-                  <Users size={18} />
-                  <div>
-                    <strong>{lang === 'ta' ? 'மாணவர் (Student)' : 'Student Practitioner'}</strong>
-                    <span>{lang === 'ta' ? 'வகுப்பில் பங்கேற்று ஆசனங்களைப் பயிற்சி செய்யுங்கள்' : 'Join class & follow instructor guidance'}</span>
-                  </div>
-                </button>
+            {/* Role Radio Picker - Always available for effortless selection */}
+            <div className="lobby-role-selector">
+              <button
+                type="button"
+                className={`role-card-btn ${isInstructorRole ? 'selected' : ''}`}
+                onClick={() => {
+                  setIsInstructorRole(true);
+                  try {
+                    localStorage.setItem('nithya_active_role', 'instructor');
+                    localStorage.removeItem('nithya_student_session');
+                    localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
+                  } catch (_) {}
+                }}
+              >
+                <Crown size={20} className="text-amber-400" />
+                <div>
+                  <strong>{lang === 'ta' ? '👑 நித்யா மாஸ்டர் (பயிற்றுநர்)' : '👑 NITHYA Master (Instructor / Host)'}</strong>
+                  <span>{lang === 'ta' ? 'வகுப்பைத் தொடங்குங்கள் & மாணவர்களுக்கு நேரலையில் வழிகாட்டுங்கள்' : 'Lead class, broadcast live camera & manage attendance'}</span>
+                </div>
+              </button>
 
-                <button
-                  type="button"
-                  className={`role-card-btn ${isInstructorRole ? 'selected' : ''}`}
-                  onClick={() => setIsInstructorRole(true)}
-                >
-                  <Crown size={18} />
-                  <div>
-                    <strong>{lang === 'ta' ? 'யோகா பயிற்றுநர் (Instructor)' : 'Yoga Instructor / Host'}</strong>
-                    <span>{lang === 'ta' ? 'வகுப்பை வழிநடத்துங்கள் & மாணவர்களுக்கு வழிகாட்டுங்கள்' : 'Lead class, broadcast & moderate students'}</span>
-                  </div>
-                </button>
-              </div>
-            ) : (
-              <div className="p-3 mb-4 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-700 dark:text-emerald-400 text-xs font-semibold flex items-center justify-center gap-2">
-                <Users size={16} />
-                <span>{lang === 'ta' ? 'சரிபார்க்கப்பட்ட மாணவர் அமர்வு (Student Mode)' : 'Verified Student Practitioner Session'}</span>
-              </div>
-            )}
+              <button
+                type="button"
+                className={`role-card-btn ${!isInstructorRole ? 'selected' : ''}`}
+                onClick={() => {
+                  setIsInstructorRole(false);
+                  try {
+                    localStorage.setItem('nithya_active_role', 'student');
+                  } catch (_) {}
+                }}
+              >
+                <Users size={20} className="text-emerald-400" />
+                <div>
+                  <strong>{lang === 'ta' ? '👥 மாணவர் முறை (Student Mode)' : '👥 Student Practitioner'}</strong>
+                  <span>{lang === 'ta' ? 'வகுப்பில் பங்கேற்று ஆசனங்களைப் பயிற்சி செய்யுங்கள்' : 'Join class & follow instructor guidance'}</span>
+                </div>
+              </button>
+            </div>
 
             {/* Quick Media Check */}
             <div className="lobby-media-preview-row">

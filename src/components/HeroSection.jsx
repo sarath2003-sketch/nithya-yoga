@@ -43,7 +43,11 @@ export default function HeroSection({
               <span className="btn-play-circle" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Play size={11} fill="currentColor" />
               </span>
-              <span>{lang === 'ta' ? 'லைவ் வகுப்பில் இணைக' : 'Join Live Class'}</span>
+              <span>
+                {user?.role === 'trainer' || user?.isInstructor
+                  ? (lang === 'ta' ? '👑 நேரலை வகுப்பைத் தொடங்கு' : '👑 Start Live Class')
+                  : (lang === 'ta' ? 'லைவ் வகுப்பில் இணைக' : 'Join Live Class')}
+              </span>
             </button>
 
             <button 
@@ -65,7 +69,7 @@ export default function HeroSection({
             {user?.avatar ? (
               <img src={user.avatar} alt={user.name} className="hero-avatar-img" />
             ) : (
-              <span>{user?.name ? user.name.charAt(0) : 'S'}</span>
+              <span>{user?.name ? user.name.charAt(0) : 'N'}</span>
             )}
           </div>
           <div className="user-heading-meta">
@@ -73,7 +77,9 @@ export default function HeroSection({
               {lang === 'ta' ? `வணக்கம், ${user.name}` : `Hello, ${user.name}`}
             </h3>
             <p className="user-subtitle-care">
-              {lang === 'ta' ? 'தொடர்ந்து இருங்கள். ஆரோக்கியமாக இருங்கள்.' : 'Stay consistent. Stay healthy.'}
+              {user?.role === 'trainer' || user?.isInstructor
+                ? (lang === 'ta' ? '👑 நித்யா மாஸ்டர் • தலைமைப் பயிற்றுநர்' : '👑 Master Instructor • Lead Guide')
+                : (lang === 'ta' ? 'தொடர்ந்து இருங்கள். ஆரோக்கியமாக இருங்கள்.' : 'Stay consistent. Stay healthy.')}
             </p>
           </div>
         </div>

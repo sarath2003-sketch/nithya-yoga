@@ -59,8 +59,24 @@ export default function App() {
   });
   const [showStudentJoinModal, setShowStudentJoinModal] = useState(false);
 
-  // States
-  const [user, setUser] = useState(() => loadStorage('nithya_user', DEFAULT_USER));
+  // States - Default app owner is 👑 NITHYA Master (Instructor / Admin)
+  const [user, setUser] = useState(() => {
+    const stored = loadStorage('nithya_user', null);
+    if (!stored || stored.name === 'Yoga Practitioner' || stored.role === 'Member') {
+      const defaultInstructor = {
+        ...DEFAULT_USER,
+        name: 'NITHYA Master',
+        role: 'trainer',
+        isInstructor: true
+      };
+      saveStorage('nithya_user', defaultInstructor);
+      try {
+        localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
+      } catch (_) {}
+      return defaultInstructor;
+    }
+    return stored;
+  });
   const [reminders, setReminders] = useState(() => loadStorage('nithya_reminders', DEFAULT_REMINDERS));
   const [classes, setClasses] = useState(() => loadStorage('nithya_classes', DEFAULT_CLASSES));
   const [activeClass, setActiveClass] = useState(() => classes[0] || DEFAULT_CLASSES[0]);
@@ -283,34 +299,34 @@ export default function App() {
     }, 100);
   };
 
-  // URL query parameter (?live=cls-1 or ?room=...) listener
+  // URL query parameter (?live=cls-1 or ?room=... or ?join=student) listener
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
       const liveId = params.get('live') || params.get('room');
-      if (liveId) {
-        const found = classes.find(c => c.id === liveId) || classes[0];
-        if (found) setActiveClass(found);
+      const isStudentInvite = params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite'));
+
+      if (liveId || isStudentInvite) {
+        if (liveId) {
+          const found = classes.find(c => c.id === liveId) || classes[0];
+          if (found) setActiveClass(found);
+        }
         setCurrentTab('live');
 
-        // Check if current user is Trainer / Admin Leader
-        const isTrainer = Boolean(
-          localStorage.getItem('nithya_admin_token') || 
-          localStorage.getItem('nithya_trainer_token') ||
-          user?.role === 'trainer' || 
-          user?.role === 'instructor' || 
-          user?.isInstructor === true
-        );
-
-        if (!isTrainer) {
+        if (isStudentInvite) {
+          localStorage.setItem('nithya_active_role', 'student');
           const session = loadStorage('nithya_student_session', null);
           if (!session) {
             setShowStudentJoinModal(true);
           }
+        } else {
+          // Default: NITHYA Master entering their studio
+          localStorage.setItem('nithya_active_role', 'instructor');
+          setShowStudentJoinModal(false);
         }
       }
     } catch (_) {}
-  }, [classes, user]);
+  }, [classes]);
 
   const handleTestSound = () => {
     audioEngine.playMeditationTone();

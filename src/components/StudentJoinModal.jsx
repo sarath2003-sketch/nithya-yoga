@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, User, Phone, Radio, ShieldCheck, Sparkles, CheckCircle2, AlertCircle, Clock, RefreshCw, Check } from 'lucide-react';
+import { X, User, Phone, Radio, ShieldCheck, Sparkles, CheckCircle2, AlertCircle, Clock, RefreshCw, Check, Download } from 'lucide-react';
 import { ThreeDLotus } from './ThreeDIcons';
 import { audioEngine } from '../utils/audioEngine';
 import { apiFetch } from '../utils/api';
@@ -264,6 +264,21 @@ export default function StudentJoinModal({
                   </>
                 )}
               </button>
+            </div>
+
+            {/* Direct App APK Download banner for mobile users */}
+            <div className="pt-2 border-t border-subtle/50 text-center">
+              <span className="text-[11px] text-muted block mb-1">
+                {lang === 'ta' ? 'ஆண்ட்ராய்டு மொபைலில் ஆப்பாகப் பயன்படுத்த விரும்புகிறீர்களா?' : 'Prefer using the Android mobile app?'}
+              </span>
+              <a
+                href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
+                download="NITHYA-Yoga-v1.0.apk"
+                className="w-full py-2 px-3 rounded-xl border border-primary/30 bg-primary/5 text-primary text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-primary/10 transition-all"
+              >
+                <Download size={13} />
+                <span>{lang === 'ta' ? '📲 NITHYA Yoga ஆப் (APK) டவுன்லோட்' : '📲 Download NITHYA Yoga App (APK)'}</span>
+              </a>
             </div>
           </form>
         ) : classStatus === 'ended' ? (

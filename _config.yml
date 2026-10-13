@@ -1,0 +1,7 @@
+# GitHub Pages Configuration
+theme: []
+exclude:
+  - node_modules
+  - .agents
+  - android
+  - scripts

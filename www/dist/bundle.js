@@ -63447,21 +63447,20 @@ ${liveUrl}`;
   function InAppUpdateBanner({ lang = "en", onDismiss }) {
     const [updateInfo, setUpdateInfo] = (0, import_react27.useState)(null);
     const [isUpdating, setIsUpdating] = (0, import_react27.useState)(false);
-    const [isChecking, setIsChecking] = (0, import_react27.useState)(false);
+    const [updateDone, setUpdateDone] = (0, import_react27.useState)(false);
     const [dismissed, setDismissed] = (0, import_react27.useState)(false);
     (0, import_react27.useEffect)(() => {
       checkRemoteUpdate();
     }, []);
     const checkRemoteUpdate = async () => {
-      setIsChecking(true);
       try {
         const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
           cache: "no-store"
         });
         if (res.ok) {
           const data = await res.json();
-          const remoteVer = data.version || "1.0.0";
-          const remoteBuild = data.versionCode || 1;
+          const remoteVer = data.version || "1.1.0";
+          const remoteBuild = data.versionCode || 2;
           const localVersion = localStorage.getItem("nithya_installed_version") || CURRENT_APP_VERSION;
           if (remoteVer !== localVersion || remoteBuild > CURRENT_BUILD_NUMBER) {
             setUpdateInfo(data);
@@ -63469,8 +63468,6 @@ ${liveUrl}`;
         }
       } catch (err) {
         console.warn("Could not check remote version:", err);
-      } finally {
-        setIsChecking(false);
       }
     };
     const handleUpdateNow = async () => {
@@ -63489,52 +63486,67 @@ ${liveUrl}`;
         if (updateInfo?.version) {
           localStorage.setItem("nithya_installed_version", updateInfo.version);
         }
+        setUpdateDone(true);
         setTimeout(() => {
           window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
-        }, 500);
+        }, 700);
       } catch (err) {
         console.error("Update error:", err);
         window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
       }
     };
     if (!updateInfo || dismissed) return null;
-    return /* @__PURE__ */ import_react27.default.createElement("div", { className: "in-app-update-floating-bar fixed top-3 left-1/2 -translate-x-1/2 z-[9999] w-[94%] max-w-lg shadow-2xl rounded-2xl p-3.5 bg-gradient-to-r from-violet-900/95 via-indigo-900/95 to-purple-900/95 border-2 border-violet-400/50 backdrop-blur-md text-white animate-bounce-subtle" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-start justify-between gap-3" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "w-9 h-9 rounded-xl bg-violet-500/30 border border-violet-300/40 flex items-center justify-center shrink-0" }, /* @__PURE__ */ import_react27.default.createElement(Sparkles, { size: 18, className: "text-amber-300 animate-pulse" })), /* @__PURE__ */ import_react27.default.createElement("div", null, /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react27.default.createElement("span", { className: "text-xs font-black tracking-wider uppercase text-amber-300 bg-amber-400/20 px-2 py-0.5 rounded-full border border-amber-300/30" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD!" : "NEW UPDATE!"), /* @__PURE__ */ import_react27.default.createElement("span", { className: "text-xs font-bold text-violet-200" }, "v", updateInfo.version)), /* @__PURE__ */ import_react27.default.createElement("p", { className: "text-xs font-semibold text-white mt-1 leading-snug" }, lang === "ta" ? updateInfo.titleTa || updateInfo.notesTa : updateInfo.title || updateInfo.notes))), /* @__PURE__ */ import_react27.default.createElement(
+    return /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-modal-backdrop-scrim ya-reveal", onClick: () => setDismissed(true) }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-modal-centered-card", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-modal-top-bar" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-badge-pill" }, /* @__PURE__ */ import_react27.default.createElement(Sparkles, { size: 14, className: "badge-sparkle-icon" }), /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 v" + updateInfo.version : "NEW UPDATE v" + updateInfo.version)), /* @__PURE__ */ import_react27.default.createElement(
       "button",
       {
         type: "button",
+        className: "update-close-round-btn",
         onClick: () => {
           setDismissed(true);
           if (onDismiss) onDismiss();
         },
-        className: "text-white/60 hover:text-white p-1 rounded-lg shrink-0 cursor-pointer",
-        title: "Dismiss"
+        title: lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close"
       },
       /* @__PURE__ */ import_react27.default.createElement(X, { size: 16 })
-    )), /* @__PURE__ */ import_react27.default.createElement("div", { className: "flex items-center justify-end gap-2 mt-3 pt-2.5 border-t border-white/10" }, /* @__PURE__ */ import_react27.default.createElement(
+    )), /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-hero-icon-container" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-lotus-glow-circle" }, /* @__PURE__ */ import_react27.default.createElement(ThreeDLotus, { size: 52 }))), /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-text-content" }, /* @__PURE__ */ import_react27.default.createElement("h2", { className: "update-modal-heading" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD!" : "NITHYA Yoga New Update!"), /* @__PURE__ */ import_react27.default.createElement("p", { className: "update-modal-subtitle" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC8 \u0BAE\u0BC7\u0BB2\u0BC1\u0BAE\u0BCD \u0B9A\u0BBF\u0BB1\u0BAA\u0BCD\u0BAA\u0BBE\u0B95\u0BCD\u0B95 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAE\u0BC7\u0BAE\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1\u0B95\u0BB3\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BB3\u0BA9." : "Exciting enhancements and performance fixes are ready for you.")), /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-highlights-box" }, /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-feature-item" }, /* @__PURE__ */ import_react27.default.createElement("span", { className: "feature-item-icon" }, "\u{1F515}"), /* @__PURE__ */ import_react27.default.createElement("div", { className: "feature-item-text" }, /* @__PURE__ */ import_react27.default.createElement("strong", null, lang === "ta" ? "\u0B85\u0BB2\u0BBE\u0BB0\u0BAE\u0BCD \u0B9A\u0BA4\u0BCD\u0BA4\u0BAE\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD" : "Silenced Click Sounds"), /* @__PURE__ */ import_react27.default.createElement("p", null, lang === "ta" ? "\u0BA4\u0BC7\u0BB5\u0BC8\u0BAF\u0BB1\u0BCD\u0BB1 \u0BAA\u0B9F\u0BCD\u0B9F\u0BA9\u0BCD \u0B9A\u0BA4\u0BCD\u0BA4\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1, \u0B85\u0BB2\u0BBE\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BA9\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BC7 \u0B92\u0BB2\u0BBF\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD." : "Unwanted button sounds silenced. Chimes only when real alarms fire."))), /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-feature-item" }, /* @__PURE__ */ import_react27.default.createElement("span", { className: "feature-item-icon" }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react27.default.createElement("div", { className: "feature-item-text" }, /* @__PURE__ */ import_react27.default.createElement("strong", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Instant Student Live Class"), /* @__PURE__ */ import_react27.default.createElement("p", null, lang === "ta" ? "\u0BA8\u0BA3\u0BCD\u0BAA\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD, \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA9\u0BCD\u0B9F\u0BB0\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0B87\u0BA3\u0BC8\u0BAF\u0BB2\u0BBE\u0BAE\u0BCD." : "Friends join directly via link by entering name & mobile number."))), /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-feature-item" }, /* @__PURE__ */ import_react27.default.createElement("span", { className: "feature-item-icon" }, "\u26A1"), /* @__PURE__ */ import_react27.default.createElement("div", { className: "feature-item-text" }, /* @__PURE__ */ import_react27.default.createElement("strong", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BA4\u0BBE\u0BA9\u0BBF\u0BAF\u0B99\u0BCD\u0B95\u0BBF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD" : "Instant OTA Live Updates"), /* @__PURE__ */ import_react27.default.createElement("p", null, lang === "ta" ? "404 \u0BAA\u0BBF\u0BB4\u0BC8\u0B95\u0BB3\u0BCD \u0B87\u0BA9\u0BCD\u0BB1\u0BBF \u0B86\u0BAA\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BC7\u0BAF\u0BC7 \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B86\u0B95\u0BC1\u0BAE\u0BCD." : "Seamless in-app refresh with zero 404 errors.")))), /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-actions-footer" }, /* @__PURE__ */ import_react27.default.createElement(
       "button",
       {
         type: "button",
-        onClick: () => setDismissed(true),
-        className: "text-xs text-white/70 hover:text-white px-3 py-1.5 rounded-lg cursor-pointer"
+        className: "update-btn-primary",
+        onClick: handleUpdateNow,
+        disabled: isUpdating
       },
-      lang === "ta" ? "\u0BAA\u0BBF\u0BB1\u0B95\u0BC1" : "Later"
+      isUpdating ? /* @__PURE__ */ import_react27.default.createElement(import_react27.default.Fragment, null, /* @__PURE__ */ import_react27.default.createElement(RefreshCw, { size: 16, className: "animate-spin" }), /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating in-place...")) : updateDone ? /* @__PURE__ */ import_react27.default.createElement(import_react27.default.Fragment, null, /* @__PURE__ */ import_react27.default.createElement(CircleCheck, { size: 16, className: "text-emerald-300" }), /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1! \u2713" : "Updated Successfully! \u2713")) : /* @__PURE__ */ import_react27.default.createElement(import_react27.default.Fragment, null, /* @__PURE__ */ import_react27.default.createElement(RefreshCw, { size: 16 }), /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD (Update Now)" : "Update Now (Live Sync)"))
+    ), /* @__PURE__ */ import_react27.default.createElement("div", { className: "update-secondary-row" }, /* @__PURE__ */ import_react27.default.createElement(
+      "a",
+      {
+        href: "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk",
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "update-btn-apk-download",
+        download: "NITHYA-Yoga-v1.0.apk"
+      },
+      /* @__PURE__ */ import_react27.default.createElement(Download, { size: 13 }),
+      /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "APK \u0B9F\u0BB5\u0BC1\u0BA9\u0BCD\u0BB2\u0BCB\u0B9F\u0BCD" : "Download APK")
     ), /* @__PURE__ */ import_react27.default.createElement(
       "button",
       {
         type: "button",
-        onClick: handleUpdateNow,
-        disabled: isUpdating,
-        className: "text-xs font-black px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 text-slate-950 flex items-center gap-1.5 shadow-lg shadow-amber-500/30 transition-transform active:scale-95 cursor-pointer"
+        className: "update-btn-dismiss",
+        onClick: () => {
+          setDismissed(true);
+          if (onDismiss) onDismiss();
+        }
       },
-      isUpdating ? /* @__PURE__ */ import_react27.default.createElement(import_react27.default.Fragment, null, /* @__PURE__ */ import_react27.default.createElement(RefreshCw, { size: 13, className: "animate-spin" }), /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B86\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating...")) : /* @__PURE__ */ import_react27.default.createElement(import_react27.default.Fragment, null, /* @__PURE__ */ import_react27.default.createElement(Download, { size: 13 }), /* @__PURE__ */ import_react27.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0BA8\u0BB5\u0BCD (Update Now)" : "Update Now"))
-    )));
+      lang === "ta" ? "\u0BAA\u0BBF\u0BB1\u0B95\u0BC1" : "Later"
+    )))));
   }
   var import_react27, CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER;
   var init_InAppUpdateBanner = __esm({
     "src/components/InAppUpdateBanner.jsx"() {
       import_react27 = __toESM(require_react());
       init_lucide_react();
-      init_audioEngine();
+      init_ThreeDIcons();
       CURRENT_APP_VERSION = "1.0.0";
       CURRENT_BUILD_NUMBER = 1;
     }

@@ -6,5 +6,6 @@
   "titleTa": "நித்யா யோகா v1.1 புதிய நேரலை அப்டேட்",
   "notes": "Seamless in-app OTA live sync, silenced casual sounds, direct student joining via link, and luxury studio controls.",
   "notesTa": "நேரடி தானியங்கி ஆப் அப்டேட், தேவையில்லாத சத்தங்கள் நீக்கம், லிங்க் மூலம் மாணவர்கள் உடனடி இணைப்பு, மற்றும் உயர்தர ஸ்டுடியோ.",
-  "updateType": "ota_sync"
+  "updateType": "ota_sync",
+  "apkUrl": "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
 }

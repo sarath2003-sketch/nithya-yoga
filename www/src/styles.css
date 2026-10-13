@@ -3805,4 +3805,238 @@ input, select, textarea {
   border-color: #FBBF24;
 }
 
+/* ==========================================================================
+   CENTERED LUXURY IN-APP UPDATE MODAL POPUP
+   ========================================================================== */
+.update-modal-backdrop-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  background: rgba(10, 15, 30, 0.78);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  overflow-y: auto;
+  animation: yaFadeIn 0.25s ease-out;
+}
+
+.update-modal-centered-card {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  border-radius: 28px;
+  padding: 24px 22px 20px;
+  background: linear-gradient(145deg, #1E1B4B 0%, #2E1065 40%, #0F172A 100%);
+  border: 2px solid rgba(167, 139, 250, 0.45);
+  box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.7), 0 0 40px rgba(139, 92, 246, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  text-align: center;
+  animation: yaModalPopIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.update-modal-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.update-badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 9999px;
+  background: rgba(245, 158, 11, 0.2);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  color: #FCD34D;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.update-badge-pill .badge-sparkle-icon {
+  color: #F59E0B;
+}
+
+.update-close-round-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.update-close-round-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  transform: scale(1.05);
+}
+
+.update-hero-icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.update-lotus-glow-circle {
+  width: 76px;
+  height: 76px;
+  border-radius: 24px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.3) 0%, rgba(91, 68, 230, 0.1) 70%);
+  border: 1.5px solid rgba(167, 139, 250, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 25px rgba(139, 92, 246, 0.4);
+}
+
+.update-text-content {
+  margin-bottom: 16px;
+}
+
+.update-modal-heading {
+  font-size: 1.25rem;
+  font-weight: 900;
+  margin: 0 0 6px;
+  color: #FFFFFF;
+  letter-spacing: -0.01em;
+}
+
+.update-modal-subtitle {
+  font-size: 0.8rem;
+  color: #C4B5FD;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.update-highlights-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 14px;
+  border-radius: 18px;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(139, 92, 246, 0.25);
+  margin-bottom: 18px;
+  text-align: left;
+}
+
+.update-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.update-feature-item .feature-item-icon {
+  font-size: 1.15rem;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.update-feature-item .feature-item-text strong {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 800;
+  color: #F8FAFC;
+  margin-bottom: 2px;
+}
+
+.update-feature-item .feature-item-text p {
+  font-size: 0.72rem;
+  color: #94A3B8;
+  margin: 0;
+  line-height: 1.35;
+}
+
+.update-actions-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.update-btn-primary {
+  width: 100%;
+  padding: 13px 20px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #F59E0B 0%, #D97706 50%, #B45309 100%);
+  border: none;
+  color: #0F172A;
+  font-size: 0.9rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 10px 25px -4px rgba(245, 158, 11, 0.4), 0 0 20px rgba(245, 158, 11, 0.25);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.update-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px -4px rgba(245, 158, 11, 0.5);
+}
+
+.update-btn-primary:active {
+  transform: scale(0.98);
+}
+
+.update-secondary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.update-btn-apk-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #E2E8F0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.update-btn-apk-download:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+}
+
+.update-btn-dismiss {
+  padding: 8px 14px;
+  border-radius: 12px;
+  background: transparent;
+  border: none;
+  color: #94A3B8;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.update-btn-dismiss:hover {
+  color: #F8FAFC;
+}
+
+
 

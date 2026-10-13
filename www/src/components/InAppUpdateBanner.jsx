@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Download, RefreshCw, Sparkles, X, CheckCircle2 } from 'lucide-react';
 import { ThreeDLotus } from './ThreeDIcons';
 
-export const CURRENT_APP_VERSION = '1.0.0';
-export const CURRENT_BUILD_NUMBER = 1;
+export const CURRENT_APP_VERSION = '1.1.0';
+export const CURRENT_BUILD_NUMBER = 2;
 
 export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
   const [updateInfo, setUpdateInfo] = useState(null);
@@ -25,9 +25,15 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
         const remoteVer = data.version || '1.1.0';
         const remoteBuild = data.versionCode || 2;
         const localVersion = localStorage.getItem('nithya_installed_version') || CURRENT_APP_VERSION;
+        const localBuild = parseInt(localStorage.getItem('nithya_installed_build') || CURRENT_BUILD_NUMBER.toString(), 10);
         
-        if (remoteVer !== localVersion || remoteBuild > CURRENT_BUILD_NUMBER) {
+        // Show update modal only if remote build is strictly greater than local build OR remote version is higher
+        const isNewer = (remoteBuild > localBuild) || (remoteVer !== localVersion && remoteBuild > CURRENT_BUILD_NUMBER);
+        
+        if (isNewer) {
           setUpdateInfo(data);
+        } else {
+          setUpdateInfo(null);
         }
       }
     } catch (err) {

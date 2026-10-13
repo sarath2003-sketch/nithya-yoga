@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { User, Edit3, Flower2, Mail, Calendar, Target, Heart, Camera, Check, X, Trash2, RefreshCw, Download } from 'lucide-react';
+import { User, Edit3, Flower2, Mail, Calendar, Target, Heart, Camera, Check, X, Trash2, RefreshCw, Download, Sparkles } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
+import { CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER } from './InAppUpdateBanner';
 
 export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
   const [activeTab, setActiveTab] = useState('Personal Info');
@@ -272,13 +273,13 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
                       {lang === 'ta' ? 'ஆப் பதிப்பு & நேரடி அப்டேட்' : 'App Version & In-App Updates'}
                     </h4>
                     <span className="text-[11px] text-muted font-medium">
-                      {lang === 'ta' ? 'தற்போதைய பதிப்பு:' : 'Installed Version:'} <strong className="text-heading">v1.0.0</strong>
+                      {lang === 'ta' ? 'தற்போதைய பதிப்பு:' : 'Installed Version:'} <strong className="text-heading">v{CURRENT_APP_VERSION}</strong>
                     </span>
                   </div>
                 </div>
 
                 <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
-                  {remoteUpdate?.version && remoteUpdate.version !== '1.0.0'
+                  {remoteUpdate?.version && (remoteUpdate.versionCode > CURRENT_BUILD_NUMBER || remoteUpdate.version !== CURRENT_APP_VERSION)
                     ? (lang === 'ta' ? `புதிய பதிப்பு v${remoteUpdate.version} தயார்!` : `New v${remoteUpdate.version} Ready!`)
                     : (lang === 'ta' ? 'லேட்டஸ்ட் பதிப்பு ✓' : 'Latest Release ✓')}
                 </span>
@@ -321,6 +322,18 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
                       : (lang === 'ta' ? 'அப்டேட் நவ் (Update Now)' : 'Update Now')}
                   </span>
                 </button>
+
+                <a
+                  href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-violet hover:bg-subtle/70"
+                  download="NITHYA-Yoga-v1.0.apk"
+                  title={lang === 'ta' ? 'நேரடியாக APK டவுன்லோட் செய்க' : 'Download Full APK'}
+                >
+                  <Download size={13} />
+                  <span>{lang === 'ta' ? 'APK டவுன்லோட்' : 'Download APK'}</span>
+                </a>
 
                 <button
                   type="button"

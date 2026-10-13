@@ -63152,8 +63152,8 @@ ${liveUrl}`;
     const [statusMessage, setStatusMessage] = (0, import_react26.useState)("");
     const [error, setError] = (0, import_react26.useState)("");
     const pollTimerRef = (0, import_react26.useRef)(null);
-    if (!isOpen) return null;
     (0, import_react26.useEffect)(() => {
+      if (!isOpen) return;
       const classId = activeClass?.id || "cls-1";
       const checkClassState = async () => {
         try {
@@ -63176,7 +63176,8 @@ ${liveUrl}`;
       return () => {
         if (pollTimerRef.current) clearInterval(pollTimerRef.current);
       };
-    }, [isValidated, classStatus, activeClass?.id, lang]);
+    }, [isOpen, isValidated, classStatus, activeClass?.id, lang]);
+    if (!isOpen) return null;
     const handleValidate = async (e2) => {
       e2.preventDefault();
       const cleanName = name.trim();

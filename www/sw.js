@@ -11,7 +11,7 @@
  * - Client messaging for smooth update notification
  */
 
-const CACHE_VERSION = 'v3.3.0';
+const CACHE_VERSION = 'v3.4.0';
 const PRECACHE_NAME = `nithya-yoga-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE_NAME = `nithya-yoga-runtime-${CACHE_VERSION}`;
 

@@ -24,10 +24,9 @@ export default function StudentJoinModal({
   const [error, setError] = useState('');
   const pollTimerRef = useRef(null);
 
-  if (!isOpen) return null;
-
   // Poll class status while in waiting screen
   useEffect(() => {
+    if (!isOpen) return;
     const classId = activeClass?.id || 'cls-1';
     const checkClassState = async () => {
       try {
@@ -52,7 +51,9 @@ export default function StudentJoinModal({
     return () => {
       if (pollTimerRef.current) clearInterval(pollTimerRef.current);
     };
-  }, [isValidated, classStatus, activeClass?.id, lang]);
+  }, [isOpen, isValidated, classStatus, activeClass?.id, lang]);
+
+  if (!isOpen) return null;
 
   // Submit Name & Mobile Number and directly join the live class as Student
   const handleValidate = async (e) => {

@@ -7,5 +7,12 @@
     "androidScheme": "https",
     "url": "https://sarath2003-sketch.github.io/nithya-yoga/",
     "cleartext": true
+  },
+  "plugins": {
+    "LocalNotifications": {
+      "smallIcon": "ic_launcher",
+      "iconColor": "#7c3aed",
+      "sound": "beep.wav"
+    }
   }
 }

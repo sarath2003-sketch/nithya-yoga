@@ -33,6 +33,12 @@ import {
   DEFAULT_ATTENDANCE_LOGS 
 } from './utils/storage';
 import { audioEngine } from './utils/audioEngine';
+import { 
+  initNotificationSystem, 
+  syncAllRemindersWithSystem, 
+  triggerImmediateSystemNotification, 
+  requestSystemNotificationPermission 
+} from './utils/notificationScheduler';
 
 export default function App() {
   const [currentTab, setCurrentTab] = useState('home');
@@ -113,7 +119,8 @@ export default function App() {
 
   useEffect(() => {
     saveStorage('nithya_reminders', reminders);
-  }, [reminders]);
+    syncAllRemindersWithSystem(reminders, lang);
+  }, [reminders, lang]);
 
   useEffect(() => {
     saveStorage('nithya_classes', classes);
@@ -123,11 +130,9 @@ export default function App() {
     saveStorage('nithya_attendance', attendanceLogs);
   }, [attendanceLogs]);
 
-  // Pre-request notification permission on mount
+  // Initialize native Android notification channel and pre-request permission on mount
   useEffect(() => {
-    if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'default') {
-      try { Notification.requestPermission().catch(() => {}); } catch (_) {}
-    }
+    initNotificationSystem();
   }, []);
 
   // Active reminder scheduler loop - checks device clock & triggers alarms without duplicates
@@ -211,32 +216,8 @@ export default function App() {
           'success'
         );
 
-        // 4. Browser / Mobile notification with service worker support (prevents Android Chrome illegal constructor)
-        const notifTitle = lang === 'ta' ? `NITHYA யோகா: ${r.titleTa || r.title}` : `NITHYA Yoga: ${r.title}`;
-        const notifBody = lang === 'ta' ? (r.messageTa || r.message || 'நினைவூட்டல் நேரம்!') : (r.message || 'Time for your healthy habit');
-
-        if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
-          if ('serviceWorker' in navigator && navigator.serviceWorker.ready) {
-            navigator.serviceWorker.ready.then(reg => {
-              reg.showNotification(notifTitle, {
-                body: notifBody,
-                icon: 'assets/images/logo.png',
-                badge: 'assets/images/logo.png',
-                vibrate: [250, 100, 250],
-                tag: fireKey,
-                renotify: true
-              });
-            }).catch(() => {
-              try {
-                new Notification(notifTitle, { body: notifBody, icon: 'assets/images/logo.png' });
-              } catch (_) {}
-            });
-          } else {
-            try {
-              new Notification(notifTitle, { body: notifBody, icon: 'assets/images/logo.png' });
-            } catch (_) {}
-          }
-        }
+        // 4. Trigger system notification outside app (Android Status Bar, Lock Screen & Web Notification)
+        triggerImmediateSystemNotification(r, lang);
       });
     };
 
@@ -335,41 +316,47 @@ export default function App() {
     } catch (_) {}
   }, [classes]);
 
-  const handleTestSound = () => {
+  const handleTestSound = async () => {
     audioEngine.playMeditationTone();
 
-    // Check & request browser notification permission with clear guidance
-    if (typeof window !== 'undefined' && 'Notification' in window) {
-      if (Notification.permission === 'default') {
-        Notification.requestPermission().then(permission => {
-          if (permission === 'granted') {
-            showToast(
-              lang === 'ta' ? 'அறிவிப்பு அனுமதி வழங்கப்பட்டது ✓' : 'Notification Permission Granted ✓',
-              lang === 'ta' ? 'நினைவூட்டல்கள் சரியான நேரத்தில் திரையில் தோன்றும்.' : 'Reminders will alert you with chime & notifications.',
-              'success'
-            );
-          } else {
-            showToast(
-              lang === 'ta' ? 'உலவி அறிவிப்பு தடுக்கப்பட்டுள்ளது ⚠️' : 'Browser Notifications Blocked ⚠️',
-              lang === 'ta' ? 'உலவி அமைப்புகளில் அனுமதி வழங்கவும். உள்ளமைக்கப்பட்ட ஒலி இயங்கும்.' : 'Please allow notifications in browser address bar. In-app audio will still chime.',
-              'warning'
-            );
-          }
-        });
-        return;
-      } else if (Notification.permission === 'denied') {
-        showToast(
-          lang === 'ta' ? 'உலவி அறிவிப்பு தடுக்கப்பட்டுள்ளது ⚠️' : 'Browser Notifications Blocked ⚠️',
-          lang === 'ta' ? 'உலவி URL பாரில் கிளிக் செய்து அனுமதியை இயக்கவும். பயன்பாட்டில் ஒலி இயங்கும்.' : 'Notifications blocked in browser settings. Active page chime will still ring.',
-          'warning'
-        );
-        return;
-      }
-    }
+    // Check & request system notification permission
+    await requestSystemNotificationPermission();
+
+    const sample = reminders[0] || {
+      id: 'test-sound-1',
+      title: 'Yoga Practice',
+      titleTa: 'யோகா பயிற்சி',
+      message: 'Time for your healthy yoga habit! 💜',
+      messageTa: 'யோகா பயிற்சி நேரம்! உங்கள் உடலையும் மனதையும் அமைதிப்படுத்துங்கள் 💜'
+    };
+    await triggerImmediateSystemNotification(sample, lang);
 
     showToast(
-      lang === 'ta' ? 'அறிவிப்பு ஒலி சரிபார்க்கப்பட்டது 🔔' : 'Notification chime verified 🔔',
-      lang === 'ta' ? 'தியான ஒலி இயங்கியது' : 'Meditation Tone played successfully',
+      lang === 'ta' ? 'அறிவிப்பு ஒலி & கணினி அறிவிப்பு சரிபார்க்கப்பட்டது 🔔' : 'Notification chime & system alert verified 🔔',
+      lang === 'ta' ? 'மொபைல் ஸ்டேட்டஸ் பாரில் (Notification Bar) அறிவிப்பு வந்துள்ளதா எனப் பார்க்கவும்.' : 'Check your device status bar / lock screen outside the app.',
+      'success'
+    );
+  };
+
+  const handleTestSystemNotification = async () => {
+    audioEngine.playAlarmChime();
+    await requestSystemNotificationPermission();
+
+    const activeRem = reminders.find(r => r.enabled !== false && !r.completed) || reminders[0] || {
+      id: 'test-system-notif',
+      title: 'Yoga Reminder',
+      titleTa: 'யோகா நினைவூட்டல்',
+      message: 'Time for mindful practice! 💜',
+      messageTa: 'யோகா பயிற்சி நேரம்! உங்கள் உடலையும் மனதையும் அமைதிப்படுத்துங்கள் 💜'
+    };
+
+    await triggerImmediateSystemNotification(activeRem, lang);
+
+    showToast(
+      lang === 'ta' ? '🔔 கணினி அறிவிப்பு அனுப்பப்பட்டது!' : '🔔 System Notification Sent!',
+      lang === 'ta' 
+        ? 'ஆப்பிற்கு வெளியே உங்கள் மொபைல் நோட்டிபிகேஷன் பார் (Status Bar) மற்றும் லாக் ஸ்கிரீனைப் பார்க்கவும்.' 
+        : 'Notification sent! Check your device status bar / lock screen outside the app.',
       'success'
     );
   };
@@ -683,6 +670,7 @@ export default function App() {
                 onToggleEnable={handleToggleEnable}
                 onDeleteReminder={handleDeleteReminder}
                 onEditReminder={handleEditReminder}
+                onTestSystemNotification={handleTestSystemNotification}
                 onShowAll={() => {
                   setEditingReminder(null);
                   setIsReminderModalOpen(true);

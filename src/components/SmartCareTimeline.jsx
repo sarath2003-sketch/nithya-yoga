@@ -26,6 +26,7 @@ export default function SmartCareTimeline({
   onToggleEnable,
   onDeleteReminder,
   onEditReminder,
+  onTestSystemNotification,
   onShowAll,
   lang = 'en'
 }) {
@@ -129,14 +130,28 @@ export default function SmartCareTimeline({
           </div>
         </div>
 
-        <button 
-          type="button" 
-          className="link-view-all modern-pill-action text-xs font-semibold px-3 py-1.5 rounded-full bg-subtle hover-accent cursor-pointer flex items-center gap-1" 
-          onClick={onShowAll}
-        >
-          <span>{lang === 'ta' ? 'அனைத்தும் பார்க்க' : 'Manage All'}</span>
-          <span>→</span>
-        </button>
+        <div className="flex items-center gap-2">
+          {onTestSystemNotification && (
+            <button
+              type="button"
+              className="test-system-notif-btn modern-pill-action text-xs font-semibold px-3 py-1.5 rounded-full bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-300 border border-violet-500/30 cursor-pointer flex items-center gap-1.5 transition-all shadow-sm"
+              onClick={onTestSystemNotification}
+              title={lang === 'ta' ? 'மொபைல் திரை மற்றும் ஸ்டேட்டஸ் பாரில் தோன்றும் அறிவிப்பை உடனே சோதிக்க' : 'Test system notification outside app'}
+            >
+              <Bell size={13} className="text-violet-500 animate-pulse" />
+              <span>{lang === 'ta' ? 'அறிவிப்பைச் சோதி' : 'Test Alert'}</span>
+            </button>
+          )}
+
+          <button 
+            type="button" 
+            className="link-view-all modern-pill-action text-xs font-semibold px-3 py-1.5 rounded-full bg-subtle hover-accent cursor-pointer flex items-center gap-1" 
+            onClick={onShowAll}
+          >
+            <span>{lang === 'ta' ? 'அனைத்தும் பார்க்க' : 'Manage All'}</span>
+            <span>→</span>
+          </button>
+        </div>
       </div>
 
       {/* 5 Cards Row with 3D Badges */}

@@ -20,6 +20,10 @@
       throw mod = 0, e2;
     }
   };
+  var __export = (target, all) => {
+    for (var name in all)
+      __defProp(target, name, { get: all[name], enumerable: true });
+  };
   var __copyProps = (to, from, except, desc) => {
     if (from && typeof from === "object" || typeof from === "function") {
       for (let key of __getOwnPropNames(from))
@@ -483,7 +487,7 @@
               }
             }
           }
-          var ReactElement = function(type, key, ref, self, source, owner, props) {
+          var ReactElement = function(type, key, ref, self2, source, owner, props) {
             var element = {
               // This tag allows us to uniquely identify this as a React Element
               $$typeof: REACT_ELEMENT_TYPE,
@@ -507,7 +511,7 @@
                 configurable: false,
                 enumerable: false,
                 writable: false,
-                value: self
+                value: self2
               });
               Object.defineProperty(element, "_source", {
                 configurable: false,
@@ -527,7 +531,7 @@
             var props = {};
             var key = null;
             var ref = null;
-            var self = null;
+            var self2 = null;
             var source = null;
             if (config != null) {
               if (hasValidRef(config)) {
@@ -542,7 +546,7 @@
                 }
                 key = "" + config.key;
               }
-              self = config.__self === void 0 ? null : config.__self;
+              self2 = config.__self === void 0 ? null : config.__self;
               source = config.__source === void 0 ? null : config.__source;
               for (propName in config) {
                 if (hasOwnProperty.call(config, propName) && !RESERVED_PROPS.hasOwnProperty(propName)) {
@@ -584,7 +588,7 @@
                 }
               }
             }
-            return ReactElement(type, key, ref, self, source, ReactCurrentOwner.current, props);
+            return ReactElement(type, key, ref, self2, source, ReactCurrentOwner.current, props);
           }
           function cloneAndReplaceKey(oldElement, newKey) {
             var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
@@ -598,7 +602,7 @@
             var props = assign({}, element.props);
             var key = element.key;
             var ref = element.ref;
-            var self = element._self;
+            var self2 = element._self;
             var source = element._source;
             var owner = element._owner;
             if (config != null) {
@@ -636,14 +640,14 @@
               }
               props.children = childArray;
             }
-            return ReactElement(element.type, key, ref, self, source, owner, props);
+            return ReactElement(element.type, key, ref, self2, source, owner, props);
           }
           function isValidElement(object) {
             return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
           }
           var SEPARATOR = ".";
           var SUBSEPARATOR = ":";
-          function escape(key) {
+          function escape2(key) {
             var escapeRegex = /[=:]/g;
             var escaperLookup = {
               "=": "=0",
@@ -664,7 +668,7 @@
               {
                 checkKeyStringCoercion(element.key);
               }
-              return escape("" + element.key);
+              return escape2("" + element.key);
             }
             return index.toString(36);
           }
@@ -26168,6 +26172,7 @@
     onToggleEnable,
     onDeleteReminder,
     onEditReminder,
+    onTestSystemNotification,
     onShowAll,
     lang = "en"
   }) {
@@ -26251,7 +26256,17 @@
       e2.stopPropagation();
       audioEngine.playSoundByName(sound || "Soft Bell");
     };
-    return /* @__PURE__ */ import_react9.default.createElement("section", { className: "dashboard-section today-reminders-section" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "section-title-bar flex justify-between items-center mb-3" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react9.default.createElement(ThreeDBell, { size: 28 }), /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("h3", { className: "section-heading-with-icon m-0 font-bold text-base" }, /* @__PURE__ */ import_react9.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BB8\u0BCD\u0BAE\u0BBE\u0BB0\u0BCD\u0B9F\u0BCD \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD" : "Today's Smart Reminders")), /* @__PURE__ */ import_react9.default.createElement("span", { className: "text-xs text-muted" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0BB5\u0BB4\u0B95\u0BCD\u0B95\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Mindful reminders with 3D audio chimes"))), /* @__PURE__ */ import_react9.default.createElement(
+    return /* @__PURE__ */ import_react9.default.createElement("section", { className: "dashboard-section today-reminders-section" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "section-title-bar flex justify-between items-center mb-3" }, /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react9.default.createElement(ThreeDBell, { size: 28 }), /* @__PURE__ */ import_react9.default.createElement("div", null, /* @__PURE__ */ import_react9.default.createElement("h3", { className: "section-heading-with-icon m-0 font-bold text-base" }, /* @__PURE__ */ import_react9.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BB8\u0BCD\u0BAE\u0BBE\u0BB0\u0BCD\u0B9F\u0BCD \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD" : "Today's Smart Reminders")), /* @__PURE__ */ import_react9.default.createElement("span", { className: "text-xs text-muted" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0BB5\u0BB4\u0B95\u0BCD\u0B95\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Mindful reminders with 3D audio chimes"))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "flex items-center gap-2" }, onTestSystemNotification && /* @__PURE__ */ import_react9.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "test-system-notif-btn modern-pill-action text-xs font-semibold px-3 py-1.5 rounded-full bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-300 border border-violet-500/30 cursor-pointer flex items-center gap-1.5 transition-all shadow-sm",
+        onClick: onTestSystemNotification,
+        title: lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0BA4\u0BBF\u0BB0\u0BC8 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB8\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD\u0B9F\u0BB8\u0BCD \u0BAA\u0BBE\u0BB0\u0BBF\u0BB2\u0BCD \u0BA4\u0BCB\u0BA9\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0B9F\u0BA9\u0BC7 \u0B9A\u0BCB\u0BA4\u0BBF\u0B95\u0BCD\u0B95" : "Test system notification outside app"
+      },
+      /* @__PURE__ */ import_react9.default.createElement(Bell, { size: 13, className: "text-violet-500 animate-pulse" }),
+      /* @__PURE__ */ import_react9.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC8\u0B9A\u0BCD \u0B9A\u0BCB\u0BA4\u0BBF" : "Test Alert")
+    ), /* @__PURE__ */ import_react9.default.createElement(
       "button",
       {
         type: "button",
@@ -26260,7 +26275,7 @@
       },
       /* @__PURE__ */ import_react9.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Manage All"),
       /* @__PURE__ */ import_react9.default.createElement("span", null, "\u2192")
-    )), /* @__PURE__ */ import_react9.default.createElement("div", { className: "reminders-carousel-row" }, allCards.map((card) => /* @__PURE__ */ import_react9.default.createElement(
+    ))), /* @__PURE__ */ import_react9.default.createElement("div", { className: "reminders-carousel-row" }, allCards.map((card) => /* @__PURE__ */ import_react9.default.createElement(
       "div",
       {
         key: card.id,
@@ -28776,7 +28791,7 @@
           return realMethod(methodName) || enableLoggingWhenConsoleArrives.apply(this, arguments);
         }
         function Logger(name, factory) {
-          var self = this;
+          var self2 = this;
           var inheritedLevel;
           var defaultLevel;
           var userLevel;
@@ -28817,7 +28832,7 @@
               } catch (ignore) {
               }
             }
-            if (self.levels[storedLevel] === void 0) {
+            if (self2.levels[storedLevel] === void 0) {
               storedLevel = void 0;
             }
             return storedLevel;
@@ -28835,17 +28850,17 @@
           }
           function normalizeLevel(input) {
             var level = input;
-            if (typeof level === "string" && self.levels[level.toUpperCase()] !== void 0) {
-              level = self.levels[level.toUpperCase()];
+            if (typeof level === "string" && self2.levels[level.toUpperCase()] !== void 0) {
+              level = self2.levels[level.toUpperCase()];
             }
-            if (typeof level === "number" && level >= 0 && level <= self.levels.SILENT) {
+            if (typeof level === "number" && level >= 0 && level <= self2.levels.SILENT) {
               return level;
             } else {
               throw new TypeError("log.setLevel() called with invalid level: " + input);
             }
           }
-          self.name = name;
-          self.levels = {
+          self2.name = name;
+          self2.levels = {
             "TRACE": 0,
             "DEBUG": 1,
             "INFO": 2,
@@ -28853,8 +28868,8 @@
             "ERROR": 4,
             "SILENT": 5
           };
-          self.methodFactory = factory || defaultMethodFactory;
-          self.getLevel = function() {
+          self2.methodFactory = factory || defaultMethodFactory;
+          self2.getLevel = function() {
             if (userLevel != null) {
               return userLevel;
             } else if (defaultLevel != null) {
@@ -28863,36 +28878,36 @@
               return inheritedLevel;
             }
           };
-          self.setLevel = function(level, persist) {
+          self2.setLevel = function(level, persist) {
             userLevel = normalizeLevel(level);
             if (persist !== false) {
               persistLevelIfPossible(userLevel);
             }
-            return replaceLoggingMethods.call(self);
+            return replaceLoggingMethods.call(self2);
           };
-          self.setDefaultLevel = function(level) {
+          self2.setDefaultLevel = function(level) {
             defaultLevel = normalizeLevel(level);
             if (!getPersistedLevel()) {
-              self.setLevel(level, false);
+              self2.setLevel(level, false);
             }
           };
-          self.resetLevel = function() {
+          self2.resetLevel = function() {
             userLevel = null;
             clearPersistedLevel();
-            replaceLoggingMethods.call(self);
+            replaceLoggingMethods.call(self2);
           };
-          self.enableAll = function(persist) {
-            self.setLevel(self.levels.TRACE, persist);
+          self2.enableAll = function(persist) {
+            self2.setLevel(self2.levels.TRACE, persist);
           };
-          self.disableAll = function(persist) {
-            self.setLevel(self.levels.SILENT, persist);
+          self2.disableAll = function(persist) {
+            self2.setLevel(self2.levels.SILENT, persist);
           };
-          self.rebuild = function() {
-            if (defaultLogger !== self) {
+          self2.rebuild = function() {
+            if (defaultLogger !== self2) {
               inheritedLevel = normalizeLevel(defaultLogger.getLevel());
             }
-            replaceLoggingMethods.call(self);
-            if (defaultLogger === self) {
+            replaceLoggingMethods.call(self2);
+            if (defaultLogger === self2) {
               for (var childName in _loggersByName) {
                 _loggersByName[childName].rebuild();
               }
@@ -28903,7 +28918,7 @@
           if (initialLevel != null) {
             userLevel = normalizeLevel(initialLevel);
           }
-          replaceLoggingMethods.call(self);
+          replaceLoggingMethods.call(self2);
         }
         defaultLogger = new Logger();
         defaultLogger.getLogger = function getLogger2(name) {
@@ -56223,11 +56238,11 @@
             if (_Room.cleanupRegistry) {
               const roomRef = new WeakRef(this);
               onDeviceChange = () => {
-                const self = roomRef.deref();
-                if (!self) {
+                const self2 = roomRef.deref();
+                if (!self2) {
                   return;
                 }
-                self.handleDeviceChange();
+                self2.handleDeviceChange();
               };
               _Room.cleanupRegistry.register(this, () => {
                 cleanupController.abort();
@@ -63617,6 +63632,1018 @@ ${liveUrl}`;
     }
   });
 
+  // node_modules/@capacitor/core/dist/index.js
+  var ExceptionCode, CapacitorException, getPlatformId, createCapacitor, initCapacitorGlobal, Capacitor, registerPlugin, WebPlugin, encode, decode, CapacitorCookiesPluginWeb, CapacitorCookies, readBlobAsBase64, normalizeHttpHeaders, buildUrlParams, buildRequestInit, CapacitorHttpPluginWeb, CapacitorHttp, SystemBarsStyle, SystemBarType, SystemBarsPluginWeb, SystemBars;
+  var init_dist = __esm({
+    "node_modules/@capacitor/core/dist/index.js"() {
+      (function(ExceptionCode2) {
+        ExceptionCode2["Unimplemented"] = "UNIMPLEMENTED";
+        ExceptionCode2["Unavailable"] = "UNAVAILABLE";
+      })(ExceptionCode || (ExceptionCode = {}));
+      CapacitorException = class extends Error {
+        constructor(message, code, data) {
+          super(message);
+          this.message = message;
+          this.code = code;
+          this.data = data;
+        }
+      };
+      getPlatformId = (win) => {
+        var _a2, _b2;
+        if (win === null || win === void 0 ? void 0 : win.androidBridge) {
+          return "android";
+        } else if ((_b2 = (_a2 = win === null || win === void 0 ? void 0 : win.webkit) === null || _a2 === void 0 ? void 0 : _a2.messageHandlers) === null || _b2 === void 0 ? void 0 : _b2.bridge) {
+          return "ios";
+        } else {
+          return "web";
+        }
+      };
+      createCapacitor = (win) => {
+        const capCustomPlatform = win.CapacitorCustomPlatform || null;
+        const cap = win.Capacitor || {};
+        const Plugins = cap.Plugins = cap.Plugins || {};
+        const getPlatform = () => {
+          return capCustomPlatform !== null ? capCustomPlatform.name : getPlatformId(win);
+        };
+        const isNativePlatform = () => getPlatform() !== "web";
+        const isPluginAvailable = (pluginName) => {
+          const plugin = registeredPlugins.get(pluginName);
+          if (plugin === null || plugin === void 0 ? void 0 : plugin.platforms.has(getPlatform())) {
+            return true;
+          }
+          if (getPluginHeader(pluginName)) {
+            return true;
+          }
+          return false;
+        };
+        const getPluginHeader = (pluginName) => {
+          var _a2;
+          return (_a2 = cap.PluginHeaders) === null || _a2 === void 0 ? void 0 : _a2.find((h2) => h2.name === pluginName);
+        };
+        const handleError = (err) => win.console.error(err);
+        const registeredPlugins = /* @__PURE__ */ new Map();
+        const registerPlugin2 = (pluginName, jsImplementations = {}) => {
+          const registeredPlugin = registeredPlugins.get(pluginName);
+          if (registeredPlugin) {
+            console.warn(`Capacitor plugin "${pluginName}" already registered. Cannot register plugins twice.`);
+            return registeredPlugin.proxy;
+          }
+          const platform = getPlatform();
+          const pluginHeader = getPluginHeader(pluginName);
+          let jsImplementation;
+          const loadPluginImplementation = async () => {
+            if (!jsImplementation && platform in jsImplementations) {
+              jsImplementation = typeof jsImplementations[platform] === "function" ? jsImplementation = await jsImplementations[platform]() : jsImplementation = jsImplementations[platform];
+            } else if (capCustomPlatform !== null && !jsImplementation && "web" in jsImplementations) {
+              jsImplementation = typeof jsImplementations["web"] === "function" ? jsImplementation = await jsImplementations["web"]() : jsImplementation = jsImplementations["web"];
+            }
+            return jsImplementation;
+          };
+          const createPluginMethod = (impl, prop) => {
+            var _a2, _b2;
+            if (pluginHeader) {
+              const methodHeader = pluginHeader === null || pluginHeader === void 0 ? void 0 : pluginHeader.methods.find((m) => prop === m.name);
+              if (methodHeader) {
+                if (methodHeader.rtype === "promise") {
+                  return (options) => cap.nativePromise(pluginName, prop.toString(), options);
+                } else {
+                  return (options, callback) => cap.nativeCallback(pluginName, prop.toString(), options, callback);
+                }
+              } else if (impl) {
+                return (_a2 = impl[prop]) === null || _a2 === void 0 ? void 0 : _a2.bind(impl);
+              }
+            } else if (impl) {
+              return (_b2 = impl[prop]) === null || _b2 === void 0 ? void 0 : _b2.bind(impl);
+            } else {
+              throw new CapacitorException(`"${pluginName}" plugin is not implemented on ${platform}`, ExceptionCode.Unimplemented);
+            }
+          };
+          const createPluginMethodWrapper = (prop) => {
+            let remove;
+            const wrapper = (...args) => {
+              const p = loadPluginImplementation().then((impl) => {
+                const fn = createPluginMethod(impl, prop);
+                if (fn) {
+                  const p2 = fn(...args);
+                  remove = p2 === null || p2 === void 0 ? void 0 : p2.remove;
+                  return p2;
+                } else {
+                  throw new CapacitorException(`"${pluginName}.${prop}()" is not implemented on ${platform}`, ExceptionCode.Unimplemented);
+                }
+              });
+              if (prop === "addListener") {
+                p.remove = async () => remove();
+              }
+              return p;
+            };
+            wrapper.toString = () => `${prop.toString()}() { [capacitor code] }`;
+            Object.defineProperty(wrapper, "name", {
+              value: prop,
+              writable: false,
+              configurable: false
+            });
+            return wrapper;
+          };
+          const addListener = createPluginMethodWrapper("addListener");
+          const removeListener = createPluginMethodWrapper("removeListener");
+          const addListenerNative = (eventName, callback) => {
+            const call = addListener({ eventName }, callback);
+            const remove = async () => {
+              const callbackId = await call;
+              removeListener({
+                eventName,
+                callbackId
+              }, callback);
+            };
+            const p = new Promise((resolve) => call.then(() => resolve({ remove })));
+            p.remove = async () => {
+              console.warn(`Using addListener() without 'await' is deprecated.`);
+              await remove();
+            };
+            return p;
+          };
+          const proxy = new Proxy({}, {
+            get(_2, prop) {
+              switch (prop) {
+                // https://github.com/facebook/react/issues/20030
+                case "$$typeof":
+                  return void 0;
+                case "toJSON":
+                  return () => ({});
+                case "addListener":
+                  return pluginHeader ? addListenerNative : addListener;
+                case "removeListener":
+                  return removeListener;
+                default:
+                  return createPluginMethodWrapper(prop);
+              }
+            }
+          });
+          Plugins[pluginName] = proxy;
+          registeredPlugins.set(pluginName, {
+            name: pluginName,
+            proxy,
+            platforms: /* @__PURE__ */ new Set([...Object.keys(jsImplementations), ...pluginHeader ? [platform] : []])
+          });
+          return proxy;
+        };
+        if (!cap.convertFileSrc) {
+          cap.convertFileSrc = (filePath) => filePath;
+        }
+        cap.getPlatform = getPlatform;
+        cap.handleError = handleError;
+        cap.isNativePlatform = isNativePlatform;
+        cap.isPluginAvailable = isPluginAvailable;
+        cap.registerPlugin = registerPlugin2;
+        cap.Exception = CapacitorException;
+        cap.DEBUG = !!cap.DEBUG;
+        cap.isLoggingEnabled = !!cap.isLoggingEnabled;
+        return cap;
+      };
+      initCapacitorGlobal = (win) => win.Capacitor = createCapacitor(win);
+      Capacitor = /* @__PURE__ */ initCapacitorGlobal(typeof globalThis !== "undefined" ? globalThis : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : {});
+      registerPlugin = Capacitor.registerPlugin;
+      WebPlugin = class {
+        constructor() {
+          this.listeners = {};
+          this.retainedEventArguments = {};
+          this.windowListeners = {};
+        }
+        addListener(eventName, listenerFunc) {
+          let firstListener = false;
+          const listeners = this.listeners[eventName];
+          if (!listeners) {
+            this.listeners[eventName] = [];
+            firstListener = true;
+          }
+          this.listeners[eventName].push(listenerFunc);
+          const windowListener = this.windowListeners[eventName];
+          if (windowListener && !windowListener.registered) {
+            this.addWindowListener(windowListener);
+          }
+          if (firstListener) {
+            this.sendRetainedArgumentsForEvent(eventName);
+          }
+          const remove = async () => this.removeListener(eventName, listenerFunc);
+          const p = Promise.resolve({ remove });
+          return p;
+        }
+        async removeAllListeners() {
+          this.listeners = {};
+          for (const listener in this.windowListeners) {
+            this.removeWindowListener(this.windowListeners[listener]);
+          }
+          this.windowListeners = {};
+        }
+        notifyListeners(eventName, data, retainUntilConsumed) {
+          const listeners = this.listeners[eventName];
+          if (!listeners) {
+            if (retainUntilConsumed) {
+              let args = this.retainedEventArguments[eventName];
+              if (!args) {
+                args = [];
+              }
+              args.push(data);
+              this.retainedEventArguments[eventName] = args;
+            }
+            return;
+          }
+          listeners.forEach((listener) => listener(data));
+        }
+        hasListeners(eventName) {
+          var _a2;
+          return !!((_a2 = this.listeners[eventName]) === null || _a2 === void 0 ? void 0 : _a2.length);
+        }
+        registerWindowListener(windowEventName, pluginEventName) {
+          this.windowListeners[pluginEventName] = {
+            registered: false,
+            windowEventName,
+            pluginEventName,
+            handler: (event) => {
+              this.notifyListeners(pluginEventName, event);
+            }
+          };
+        }
+        unimplemented(msg = "not implemented") {
+          return new Capacitor.Exception(msg, ExceptionCode.Unimplemented);
+        }
+        unavailable(msg = "not available") {
+          return new Capacitor.Exception(msg, ExceptionCode.Unavailable);
+        }
+        async removeListener(eventName, listenerFunc) {
+          const listeners = this.listeners[eventName];
+          if (!listeners) {
+            return;
+          }
+          const index = listeners.indexOf(listenerFunc);
+          if (index !== -1) {
+            this.listeners[eventName].splice(index, 1);
+          }
+          if (!this.listeners[eventName].length) {
+            this.removeWindowListener(this.windowListeners[eventName]);
+          }
+        }
+        addWindowListener(handle) {
+          window.addEventListener(handle.windowEventName, handle.handler);
+          handle.registered = true;
+        }
+        removeWindowListener(handle) {
+          if (!handle) {
+            return;
+          }
+          window.removeEventListener(handle.windowEventName, handle.handler);
+          handle.registered = false;
+        }
+        sendRetainedArgumentsForEvent(eventName) {
+          const args = this.retainedEventArguments[eventName];
+          if (!args) {
+            return;
+          }
+          delete this.retainedEventArguments[eventName];
+          args.forEach((arg) => {
+            this.notifyListeners(eventName, arg);
+          });
+        }
+      };
+      encode = (str) => encodeURIComponent(str).replace(/%(2[346B]|5E|60|7C)/g, decodeURIComponent).replace(/[()]/g, escape);
+      decode = (str) => str.replace(/(%[\dA-F]{2})+/gi, decodeURIComponent);
+      CapacitorCookiesPluginWeb = class extends WebPlugin {
+        async getCookies() {
+          const cookies = document.cookie;
+          const cookieMap = {};
+          cookies.split(";").forEach((cookie) => {
+            if (cookie.length <= 0)
+              return;
+            let [key, value] = cookie.replace(/=/, "CAP_COOKIE").split("CAP_COOKIE");
+            key = decode(key).trim();
+            value = decode(value).trim();
+            cookieMap[key] = value;
+          });
+          return cookieMap;
+        }
+        async setCookie(options) {
+          try {
+            const encodedKey = encode(options.key);
+            const encodedValue = encode(options.value);
+            const expires = options.expires ? `; expires=${options.expires.replace("expires=", "")}` : "";
+            const path = (options.path || "/").replace("path=", "");
+            const domain = options.url != null && options.url.length > 0 ? `domain=${options.url}` : "";
+            document.cookie = `${encodedKey}=${encodedValue || ""}${expires}; path=${path}; ${domain};`;
+          } catch (error) {
+            return Promise.reject(error);
+          }
+        }
+        async deleteCookie(options) {
+          try {
+            document.cookie = `${options.key}=; Max-Age=0`;
+          } catch (error) {
+            return Promise.reject(error);
+          }
+        }
+        async clearCookies() {
+          try {
+            const cookies = document.cookie.split(";") || [];
+            for (const cookie of cookies) {
+              document.cookie = cookie.replace(/^ +/, "").replace(/=.*/, `=;expires=${(/* @__PURE__ */ new Date()).toUTCString()};path=/`);
+            }
+          } catch (error) {
+            return Promise.reject(error);
+          }
+        }
+        async clearAllCookies() {
+          try {
+            await this.clearCookies();
+          } catch (error) {
+            return Promise.reject(error);
+          }
+        }
+      };
+      CapacitorCookies = registerPlugin("CapacitorCookies", {
+        web: () => new CapacitorCookiesPluginWeb()
+      });
+      readBlobAsBase64 = async (blob) => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.onload = () => {
+          const base64String = reader.result;
+          resolve(base64String.indexOf(",") >= 0 ? base64String.split(",")[1] : base64String);
+        };
+        reader.onerror = (error) => reject(error);
+        reader.readAsDataURL(blob);
+      });
+      normalizeHttpHeaders = (headers = {}) => {
+        const originalKeys = Object.keys(headers);
+        const loweredKeys = Object.keys(headers).map((k) => k.toLocaleLowerCase());
+        const normalized = loweredKeys.reduce((acc, key, index) => {
+          acc[key] = headers[originalKeys[index]];
+          return acc;
+        }, {});
+        return normalized;
+      };
+      buildUrlParams = (params, shouldEncode = true) => {
+        if (!params)
+          return null;
+        const output = Object.entries(params).reduce((accumulator, entry) => {
+          const [key, value] = entry;
+          let encodedValue;
+          let item;
+          if (Array.isArray(value)) {
+            item = "";
+            value.forEach((str) => {
+              encodedValue = shouldEncode ? encodeURIComponent(str) : str;
+              item += `${key}=${encodedValue}&`;
+            });
+            item.slice(0, -1);
+          } else {
+            encodedValue = shouldEncode ? encodeURIComponent(value) : value;
+            item = `${key}=${encodedValue}`;
+          }
+          return `${accumulator}&${item}`;
+        }, "");
+        return output.substr(1);
+      };
+      buildRequestInit = (options, extra = {}) => {
+        const output = Object.assign({ method: options.method || "GET", headers: options.headers }, extra);
+        const headers = normalizeHttpHeaders(options.headers);
+        const type = headers["content-type"] || "";
+        if (typeof options.data === "string") {
+          output.body = options.data;
+        } else if (type.includes("application/x-www-form-urlencoded")) {
+          const params = new URLSearchParams();
+          for (const [key, value] of Object.entries(options.data || {})) {
+            params.set(key, value);
+          }
+          output.body = params.toString();
+        } else if (type.includes("multipart/form-data") || options.data instanceof FormData) {
+          const form = new FormData();
+          if (options.data instanceof FormData) {
+            options.data.forEach((value, key) => {
+              form.append(key, value);
+            });
+          } else {
+            for (const key of Object.keys(options.data)) {
+              form.append(key, options.data[key]);
+            }
+          }
+          output.body = form;
+          const headers2 = new Headers(output.headers);
+          headers2.delete("content-type");
+          output.headers = headers2;
+        } else if (type.includes("application/json") || typeof options.data === "object") {
+          output.body = JSON.stringify(options.data);
+        }
+        return output;
+      };
+      CapacitorHttpPluginWeb = class extends WebPlugin {
+        /**
+         * Perform an Http request given a set of options
+         * @param options Options to build the HTTP request
+         */
+        async request(options) {
+          const requestInit = buildRequestInit(options, options.webFetchExtra);
+          const urlParams = buildUrlParams(options.params, options.shouldEncodeUrlParams);
+          const url = urlParams ? `${options.url}?${urlParams}` : options.url;
+          const response = await fetch(url, requestInit);
+          const contentType = response.headers.get("content-type") || "";
+          let { responseType = "text" } = response.ok ? options : {};
+          if (contentType.includes("application/json")) {
+            responseType = "json";
+          }
+          let data;
+          let blob;
+          switch (responseType) {
+            case "arraybuffer":
+            case "blob":
+              blob = await response.blob();
+              data = await readBlobAsBase64(blob);
+              break;
+            case "json":
+              data = await response.json();
+              break;
+            case "document":
+            case "text":
+            default:
+              data = await response.text();
+          }
+          const headers = {};
+          response.headers.forEach((value, key) => {
+            headers[key] = value;
+          });
+          return {
+            data,
+            headers,
+            status: response.status,
+            url: response.url
+          };
+        }
+        /**
+         * Perform an Http GET request given a set of options
+         * @param options Options to build the HTTP request
+         */
+        async get(options) {
+          return this.request(Object.assign(Object.assign({}, options), { method: "GET" }));
+        }
+        /**
+         * Perform an Http POST request given a set of options
+         * @param options Options to build the HTTP request
+         */
+        async post(options) {
+          return this.request(Object.assign(Object.assign({}, options), { method: "POST" }));
+        }
+        /**
+         * Perform an Http PUT request given a set of options
+         * @param options Options to build the HTTP request
+         */
+        async put(options) {
+          return this.request(Object.assign(Object.assign({}, options), { method: "PUT" }));
+        }
+        /**
+         * Perform an Http PATCH request given a set of options
+         * @param options Options to build the HTTP request
+         */
+        async patch(options) {
+          return this.request(Object.assign(Object.assign({}, options), { method: "PATCH" }));
+        }
+        /**
+         * Perform an Http DELETE request given a set of options
+         * @param options Options to build the HTTP request
+         */
+        async delete(options) {
+          return this.request(Object.assign(Object.assign({}, options), { method: "DELETE" }));
+        }
+      };
+      CapacitorHttp = registerPlugin("CapacitorHttp", {
+        web: () => new CapacitorHttpPluginWeb()
+      });
+      (function(SystemBarsStyle2) {
+        SystemBarsStyle2["Dark"] = "DARK";
+        SystemBarsStyle2["Light"] = "LIGHT";
+        SystemBarsStyle2["Default"] = "DEFAULT";
+      })(SystemBarsStyle || (SystemBarsStyle = {}));
+      (function(SystemBarType2) {
+        SystemBarType2["StatusBar"] = "StatusBar";
+        SystemBarType2["NavigationBar"] = "NavigationBar";
+      })(SystemBarType || (SystemBarType = {}));
+      SystemBarsPluginWeb = class extends WebPlugin {
+        async setStyle() {
+          this.unavailable("not available for web");
+        }
+        async setAnimation() {
+          this.unavailable("not available for web");
+        }
+        async show() {
+          this.unavailable("not available for web");
+        }
+        async hide() {
+          this.unavailable("not available for web");
+        }
+      };
+      SystemBars = registerPlugin("SystemBars", {
+        web: () => new SystemBarsPluginWeb()
+      });
+    }
+  });
+
+  // node_modules/@capacitor/local-notifications/dist/esm/definitions.js
+  var Weekday;
+  var init_definitions = __esm({
+    "node_modules/@capacitor/local-notifications/dist/esm/definitions.js"() {
+      (function(Weekday2) {
+        Weekday2[Weekday2["Sunday"] = 1] = "Sunday";
+        Weekday2[Weekday2["Monday"] = 2] = "Monday";
+        Weekday2[Weekday2["Tuesday"] = 3] = "Tuesday";
+        Weekday2[Weekday2["Wednesday"] = 4] = "Wednesday";
+        Weekday2[Weekday2["Thursday"] = 5] = "Thursday";
+        Weekday2[Weekday2["Friday"] = 6] = "Friday";
+        Weekday2[Weekday2["Saturday"] = 7] = "Saturday";
+      })(Weekday || (Weekday = {}));
+    }
+  });
+
+  // node_modules/@capacitor/local-notifications/dist/esm/web.js
+  var web_exports = {};
+  __export(web_exports, {
+    LocalNotificationsWeb: () => LocalNotificationsWeb
+  });
+  var LocalNotificationsWeb;
+  var init_web = __esm({
+    "node_modules/@capacitor/local-notifications/dist/esm/web.js"() {
+      init_dist();
+      LocalNotificationsWeb = class extends WebPlugin {
+        constructor() {
+          super(...arguments);
+          this.pending = [];
+          this.deliveredNotifications = [];
+          this.hasNotificationSupport = () => {
+            if (!("Notification" in window) || !Notification.requestPermission) {
+              return false;
+            }
+            if (Notification.permission !== "granted") {
+              try {
+                new Notification("");
+              } catch (e2) {
+                if (e2 instanceof Error && e2.name === "TypeError") {
+                  return false;
+                }
+              }
+            }
+            return true;
+          };
+        }
+        async getDeliveredNotifications() {
+          const deliveredSchemas = [];
+          for (const notification of this.deliveredNotifications) {
+            const deliveredSchema = {
+              title: notification.title,
+              id: parseInt(notification.tag),
+              body: notification.body
+            };
+            deliveredSchemas.push(deliveredSchema);
+          }
+          return {
+            notifications: deliveredSchemas
+          };
+        }
+        async removeDeliveredNotifications(delivered) {
+          for (const toRemove of delivered.notifications) {
+            const found = this.deliveredNotifications.find((n) => n.tag === String(toRemove.id));
+            found === null || found === void 0 ? void 0 : found.close();
+            this.deliveredNotifications = this.deliveredNotifications.filter(() => !found);
+          }
+        }
+        async removeDeliveredNotificationsById(options) {
+          for (const id of options.ids) {
+            const found = this.deliveredNotifications.find((n) => n.tag === String(id));
+            found === null || found === void 0 ? void 0 : found.close();
+            this.deliveredNotifications = this.deliveredNotifications.filter((n) => n !== found);
+          }
+        }
+        async removeAllDeliveredNotifications() {
+          for (const notification of this.deliveredNotifications) {
+            notification.close();
+          }
+          this.deliveredNotifications = [];
+        }
+        async getByIds(options) {
+          const ids = options.ids.map((id) => String(id));
+          const scheduled = this.pending.filter((n) => ids.includes(String(n.id)));
+          const delivered = this.deliveredNotifications.filter((n) => ids.includes(n.tag)).map((n) => this.deliveredToSchema(n));
+          return { notifications: [...scheduled, ...delivered] };
+        }
+        async getAll(options) {
+          const scheduled = [...this.pending];
+          const delivered = this.deliveredNotifications.map((n) => this.deliveredToSchema(n));
+          if ((options === null || options === void 0 ? void 0 : options.state) === "SCHEDULED") {
+            return { notifications: scheduled };
+          }
+          if ((options === null || options === void 0 ? void 0 : options.state) === "TRIGGERED") {
+            return { notifications: delivered };
+          }
+          return { notifications: [...scheduled, ...delivered] };
+        }
+        deliveredToSchema(notification) {
+          return {
+            title: notification.title,
+            id: parseInt(notification.tag),
+            body: notification.body
+          };
+        }
+        async createChannel() {
+          throw this.unimplemented("Not implemented on web.");
+        }
+        async deleteChannel() {
+          throw this.unimplemented("Not implemented on web.");
+        }
+        async listChannels() {
+          throw this.unimplemented("Not implemented on web.");
+        }
+        async schedule(options) {
+          if (!this.hasNotificationSupport()) {
+            throw this.unavailable("Notifications not supported in this browser.");
+          }
+          for (const notification of options.notifications) {
+            this.sendNotification(notification);
+          }
+          return {
+            notifications: options.notifications.map((notification) => ({
+              id: notification.id
+            }))
+          };
+        }
+        async update(options) {
+          if (!this.hasNotificationSupport()) {
+            throw this.unavailable("Notifications not supported in this browser.");
+          }
+          const updated = [];
+          for (const notification of options.notifications) {
+            const index = this.pending.findIndex((n) => n.id === notification.id);
+            if (index === -1) {
+              continue;
+            }
+            this.pending.splice(index, 1);
+            this.sendNotification(notification);
+            updated.push(notification);
+          }
+          return {
+            notifications: updated.map((notification) => ({ id: notification.id }))
+          };
+        }
+        async getPending() {
+          return {
+            notifications: this.pending
+          };
+        }
+        async cancelAll() {
+          this.pending = [];
+        }
+        async registerActionTypes() {
+          throw this.unimplemented("Not implemented on web.");
+        }
+        async cancel(pending) {
+          this.pending = this.pending.filter((notification) => !pending.notifications.find((n) => n.id === notification.id));
+        }
+        async areEnabled() {
+          const { display } = await this.checkPermissions();
+          return {
+            value: display === "granted"
+          };
+        }
+        async changeExactNotificationSetting() {
+          throw this.unimplemented("Not implemented on web.");
+        }
+        async checkExactNotificationSetting() {
+          throw this.unimplemented("Not implemented on web.");
+        }
+        async requestPermissions() {
+          if (!this.hasNotificationSupport()) {
+            throw this.unavailable("Notifications not supported in this browser.");
+          }
+          const display = this.transformNotificationPermission(await Notification.requestPermission());
+          return { display };
+        }
+        async checkPermissions() {
+          if (!this.hasNotificationSupport()) {
+            throw this.unavailable("Notifications not supported in this browser.");
+          }
+          const display = this.transformNotificationPermission(Notification.permission);
+          return { display };
+        }
+        transformNotificationPermission(permission) {
+          switch (permission) {
+            case "granted":
+              return "granted";
+            case "denied":
+              return "denied";
+            default:
+              return "prompt";
+          }
+        }
+        sendPending() {
+          var _a2;
+          const toRemove = [];
+          const now = (/* @__PURE__ */ new Date()).getTime();
+          for (const notification of this.pending) {
+            if (((_a2 = notification.schedule) === null || _a2 === void 0 ? void 0 : _a2.at) && notification.schedule.at.getTime() <= now) {
+              this.buildNotification(notification);
+              toRemove.push(notification);
+            }
+          }
+          this.pending = this.pending.filter((notification) => !toRemove.find((n) => n === notification));
+        }
+        sendNotification(notification) {
+          var _a2;
+          if ((_a2 = notification.schedule) === null || _a2 === void 0 ? void 0 : _a2.at) {
+            const diff = notification.schedule.at.getTime() - (/* @__PURE__ */ new Date()).getTime();
+            this.pending.push(notification);
+            setTimeout(() => {
+              this.sendPending();
+            }, diff);
+            return;
+          }
+          this.buildNotification(notification);
+        }
+        buildNotification(notification) {
+          const localNotification = new Notification(notification.title, {
+            body: notification.body,
+            tag: String(notification.id)
+          });
+          localNotification.addEventListener("click", this.onClick.bind(this, notification), false);
+          localNotification.addEventListener("show", this.onShow.bind(this, notification), false);
+          localNotification.addEventListener("close", () => {
+            this.deliveredNotifications = this.deliveredNotifications.filter(() => !this);
+          }, false);
+          this.deliveredNotifications.push(localNotification);
+          return localNotification;
+        }
+        onClick(notification) {
+          const data = {
+            actionId: "tap",
+            notification
+          };
+          this.notifyListeners("localNotificationActionPerformed", data);
+        }
+        onShow(notification) {
+          this.notifyListeners("localNotificationReceived", notification);
+        }
+      };
+    }
+  });
+
+  // node_modules/@capacitor/local-notifications/dist/esm/index.js
+  var LocalNotifications;
+  var init_esm = __esm({
+    "node_modules/@capacitor/local-notifications/dist/esm/index.js"() {
+      init_dist();
+      init_definitions();
+      LocalNotifications = registerPlugin("LocalNotifications", {
+        web: () => Promise.resolve().then(() => (init_web(), web_exports)).then((m) => new m.LocalNotificationsWeb())
+      });
+    }
+  });
+
+  // src/utils/notificationScheduler.js
+  function getNotificationId(reminderId) {
+    if (!reminderId) return 1001;
+    if (typeof reminderId === "number") return Math.abs(reminderId) % 2147483647;
+    let hash = 0;
+    for (let i = 0; i < reminderId.length; i++) {
+      hash = (hash << 5) - hash + reminderId.charCodeAt(i);
+      hash |= 0;
+    }
+    return Math.abs(hash) % 2147483640 + 1;
+  }
+  function parseTimeString(timeStr, rawTime) {
+    if (rawTime && rawTime.includes(":")) {
+      const parts = rawTime.trim().split(":");
+      return {
+        hours: parseInt(parts[0], 10) || 0,
+        minutes: parseInt(parts[1], 10) || 0
+      };
+    }
+    if (!timeStr) return { hours: 8, minutes: 0 };
+    const str = timeStr.trim();
+    if (str.toUpperCase().includes("AM") || str.toUpperCase().includes("PM")) {
+      const parts = str.split(/\s+/);
+      const [hStr2, mStr2] = (parts[0] || "08:00").split(":");
+      let h2 = parseInt(hStr2, 10) || 0;
+      const m = parseInt(mStr2 || "0", 10) || 0;
+      const isPM = (parts[1] || "").toUpperCase() === "PM";
+      if (isPM && h2 < 12) h2 += 12;
+      if (!isPM && h2 === 12) h2 = 0;
+      return { hours: h2, minutes: m };
+    }
+    const [hStr, mStr] = str.split(":");
+    return {
+      hours: parseInt(hStr, 10) || 0,
+      minutes: parseInt(mStr, 10) || 0
+    };
+  }
+  function calculateNextTriggerDate(hours, minutes, specificDateStr = null) {
+    const now = /* @__PURE__ */ new Date();
+    const target = /* @__PURE__ */ new Date();
+    if (specificDateStr) {
+      const [y, m, d] = specificDateStr.split("-").map(Number);
+      if (y && m && d) {
+        target.setFullYear(y, m - 1, d);
+      }
+    }
+    target.setHours(hours, minutes, 0, 0);
+    if (!specificDateStr && target.getTime() <= now.getTime()) {
+      target.setDate(target.getDate() + 1);
+    }
+    return target;
+  }
+  async function initNotificationSystem() {
+    const isNative = Capacitor.isNativePlatform();
+    if (isNative) {
+      try {
+        await LocalNotifications.createChannel({
+          id: CHANNEL_ID,
+          name: CHANNEL_NAME,
+          description: "Daily yoga practice & mindful habit alerts",
+          importance: 5,
+          // IMPORTANCE_HIGH (banner + heads-up + sound)
+          visibility: 1,
+          // VISIBILITY_PUBLIC (shows on lock screen)
+          sound: "beep.wav",
+          vibration: true,
+          lights: true,
+          lightColor: "#7c3aed"
+        });
+        const permStatus = await LocalNotifications.checkPermissions();
+        if (permStatus.display !== "granted") {
+          await LocalNotifications.requestPermissions();
+        }
+        LocalNotifications.removeAllListeners();
+        LocalNotifications.addListener("localNotificationActionPerformed", (notificationAction) => {
+          console.log("[Notification] Action performed outside app:", notificationAction);
+          try {
+            if (typeof window !== "undefined") {
+              window.focus();
+            }
+          } catch (_2) {
+          }
+        });
+      } catch (err) {
+        console.warn("[Notification] Native init error:", err);
+      }
+    } else {
+      try {
+        if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "default") {
+          Notification.requestPermission().catch(() => {
+          });
+        }
+      } catch (_2) {
+      }
+    }
+  }
+  async function requestSystemNotificationPermission() {
+    if (Capacitor.isNativePlatform()) {
+      try {
+        const res = await LocalNotifications.requestPermissions();
+        return res.display === "granted";
+      } catch (e2) {
+        console.warn("[Notification] requestPermissions native error:", e2);
+        return false;
+      }
+    }
+    if (typeof window !== "undefined" && "Notification" in window) {
+      try {
+        const res = await Notification.requestPermission();
+        return res === "granted";
+      } catch (e2) {
+        return false;
+      }
+    }
+    return false;
+  }
+  async function syncAllRemindersWithSystem(reminders, lang = "en") {
+    if (!reminders || !Array.isArray(reminders)) return;
+    const isNative = Capacitor.isNativePlatform();
+    if (!isNative) return;
+    try {
+      const pending = await LocalNotifications.getPending();
+      const activeEnabledIds = new Set(
+        reminders.filter((r) => r.enabled !== false && !r.completed).map((r) => getNotificationId(r.id))
+      );
+      const toCancel = (pending.notifications || []).filter((p) => !activeEnabledIds.has(p.id)).map((p) => ({ id: p.id }));
+      if (toCancel.length > 0) {
+        await LocalNotifications.cancel({ notifications: toCancel });
+      }
+      const notificationsToSchedule = [];
+      for (const r of reminders) {
+        if (r.enabled === false || r.completed) continue;
+        const notifId = getNotificationId(r.id);
+        const { hours, minutes } = parseTimeString(r.time, r.rawTime);
+        const targetDate = calculateNextTriggerDate(
+          hours,
+          minutes,
+          r.repeat === "Once" ? r.date : null
+        );
+        const title = lang === "ta" ? `\u{1F9D8}\u200D\u2640\uFE0F NITHYA \u0BAF\u0BCB\u0B95\u0BBE: ${r.titleTa || r.title}` : `\u{1F9D8}\u200D\u2640\uFE0F NITHYA Yoga: ${r.title}`;
+        const body = lang === "ta" ? r.messageTa || r.message || "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD! \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BB5\u0BA9\u0BBF\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u{1F49C}" : r.message || "Time for your healthy yoga habit! \u{1F49C}";
+        const scheduleConfig = {
+          at: targetDate,
+          allowWhileIdle: true
+          // Wakes up device in Android Doze mode
+        };
+        if (r.repeat === "Daily") {
+          scheduleConfig.repeats = true;
+          scheduleConfig.every = "day";
+        } else if (r.repeat === "Weekly") {
+          scheduleConfig.repeats = true;
+          scheduleConfig.every = "week";
+        }
+        notificationsToSchedule.push({
+          id: notifId,
+          title,
+          body,
+          channelId: CHANNEL_ID,
+          smallIcon: "ic_launcher",
+          iconColor: "#7c3aed",
+          sound: "beep.wav",
+          extra: {
+            reminderId: r.id,
+            title: r.title,
+            category: r.category
+          },
+          schedule: scheduleConfig
+        });
+      }
+      if (notificationsToSchedule.length > 0) {
+        await LocalNotifications.schedule({ notifications: notificationsToSchedule });
+        console.log(`[Notification] Successfully scheduled ${notificationsToSchedule.length} native alarms with Android OS.`);
+      }
+    } catch (err) {
+      console.warn("[Notification] Failed to sync reminders with Android OS:", err);
+    }
+  }
+  async function triggerImmediateSystemNotification(reminder, lang = "en") {
+    if (!reminder) return;
+    const notifId = (Date.now() + Math.floor(Math.random() * 1e3)) % 2147483640 + 1;
+    const title = lang === "ta" ? `\u{1F514} NITHYA \u0BAF\u0BCB\u0B95\u0BBE: ${reminder.titleTa || reminder.title}` : `\u{1F514} NITHYA Yoga: ${reminder.title}`;
+    const body = lang === "ta" ? reminder.messageTa || reminder.message || "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD! \u{1F49C}" : reminder.message || "Time for your healthy habit! \u{1F49C}";
+    if (Capacitor.isNativePlatform()) {
+      try {
+        await LocalNotifications.schedule({
+          notifications: [
+            {
+              id: notifId,
+              title,
+              body,
+              channelId: CHANNEL_ID,
+              smallIcon: "ic_launcher",
+              iconColor: "#7c3aed",
+              sound: "beep.wav",
+              schedule: {
+                at: new Date(Date.now() + 200),
+                allowWhileIdle: true
+              },
+              extra: {
+                reminderId: reminder.id
+              }
+            }
+          ]
+        });
+        return;
+      } catch (e2) {
+        console.warn("[Notification] Native immediate schedule error:", e2);
+      }
+    }
+    if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
+      if ("serviceWorker" in navigator && navigator.serviceWorker.ready) {
+        navigator.serviceWorker.ready.then((reg) => {
+          reg.showNotification(title, {
+            body,
+            icon: "assets/images/logo.png",
+            badge: "assets/images/logo.png",
+            vibrate: [300, 150, 300],
+            tag: `rem-${reminder.id}-${Date.now()}`,
+            renotify: true
+          });
+        }).catch(() => {
+          try {
+            new Notification(title, { body, icon: "assets/images/logo.png" });
+          } catch (_2) {
+          }
+        });
+      } else {
+        try {
+          new Notification(title, { body, icon: "assets/images/logo.png" });
+        } catch (_2) {
+        }
+      }
+    }
+  }
+  var CHANNEL_ID, CHANNEL_NAME;
+  var init_notificationScheduler = __esm({
+    "src/utils/notificationScheduler.js"() {
+      init_dist();
+      init_esm();
+      CHANNEL_ID = "nithya_yoga_reminders";
+      CHANNEL_NAME = "NITHYA Yoga Reminders";
+    }
+  });
+
   // src/App.jsx
   function App() {
     const [currentTab, setCurrentTab] = (0, import_react28.useState)("home");
@@ -63675,7 +64702,8 @@ ${liveUrl}`;
     }, [user2]);
     (0, import_react28.useEffect)(() => {
       saveStorage("nithya_reminders", reminders);
-    }, [reminders]);
+      syncAllRemindersWithSystem(reminders, lang);
+    }, [reminders, lang]);
     (0, import_react28.useEffect)(() => {
       saveStorage("nithya_classes", classes);
     }, [classes]);
@@ -63683,13 +64711,7 @@ ${liveUrl}`;
       saveStorage("nithya_attendance", attendanceLogs);
     }, [attendanceLogs]);
     (0, import_react28.useEffect)(() => {
-      if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "default") {
-        try {
-          Notification.requestPermission().catch(() => {
-          });
-        } catch (_2) {
-        }
-      }
+      initNotificationSystem();
     }, []);
     const firedRemindersRef = (0, import_react28.useRef)(/* @__PURE__ */ new Set());
     (0, import_react28.useEffect)(() => {
@@ -63755,32 +64777,7 @@ ${liveUrl}`;
             lang === "ta" ? r.messageTa || r.message || "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BB5\u0BA9\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : r.message || "Time for your healthy habit",
             "success"
           );
-          const notifTitle = lang === "ta" ? `NITHYA \u0BAF\u0BCB\u0B95\u0BBE: ${r.titleTa || r.title}` : `NITHYA Yoga: ${r.title}`;
-          const notifBody = lang === "ta" ? r.messageTa || r.message || "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD!" : r.message || "Time for your healthy habit";
-          if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
-            if ("serviceWorker" in navigator && navigator.serviceWorker.ready) {
-              navigator.serviceWorker.ready.then((reg) => {
-                reg.showNotification(notifTitle, {
-                  body: notifBody,
-                  icon: "assets/images/logo.png",
-                  badge: "assets/images/logo.png",
-                  vibrate: [250, 100, 250],
-                  tag: fireKey,
-                  renotify: true
-                });
-              }).catch(() => {
-                try {
-                  new Notification(notifTitle, { body: notifBody, icon: "assets/images/logo.png" });
-                } catch (_2) {
-                }
-              });
-            } else {
-              try {
-                new Notification(notifTitle, { body: notifBody, icon: "assets/images/logo.png" });
-              } catch (_2) {
-              }
-            }
-          }
+          triggerImmediateSystemNotification(r, lang);
         });
       };
       checkScheduledReminders();
@@ -63864,38 +64861,37 @@ ${liveUrl}`;
       } catch (_2) {
       }
     }, [classes]);
-    const handleTestSound = () => {
+    const handleTestSound = async () => {
       audioEngine.playMeditationTone();
-      if (typeof window !== "undefined" && "Notification" in window) {
-        if (Notification.permission === "default") {
-          Notification.requestPermission().then((permission) => {
-            if (permission === "granted") {
-              showToast(
-                lang === "ta" ? "\u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0BB5\u0BB4\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Notification Permission Granted \u2713",
-                lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA8\u0BC7\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB0\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0BA4\u0BCB\u0BA9\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD." : "Reminders will alert you with chime & notifications.",
-                "success"
-              );
-            } else {
-              showToast(
-                lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1 \u26A0\uFE0F" : "Browser Notifications Blocked \u26A0\uFE0F",
-                lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BBF\u0BB2\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0BB5\u0BB4\u0B99\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD. \u0B89\u0BB3\u0BCD\u0BB3\u0BAE\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0B92\u0BB2\u0BBF \u0B87\u0BAF\u0B99\u0BCD\u0B95\u0BC1\u0BAE\u0BCD." : "Please allow notifications in browser address bar. In-app audio will still chime.",
-                "warning"
-              );
-            }
-          });
-          return;
-        } else if (Notification.permission === "denied") {
-          showToast(
-            lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1 \u26A0\uFE0F" : "Browser Notifications Blocked \u26A0\uFE0F",
-            lang === "ta" ? "\u0B89\u0BB2\u0BB5\u0BBF URL \u0BAA\u0BBE\u0BB0\u0BBF\u0BB2\u0BCD \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF\u0BAF\u0BC8 \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD. \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BBF\u0BB2\u0BCD \u0B92\u0BB2\u0BBF \u0B87\u0BAF\u0B99\u0BCD\u0B95\u0BC1\u0BAE\u0BCD." : "Notifications blocked in browser settings. Active page chime will still ring.",
-            "warning"
-          );
-          return;
-        }
-      }
+      await requestSystemNotificationPermission();
+      const sample = reminders[0] || {
+        id: "test-sound-1",
+        title: "Yoga Practice",
+        titleTa: "\u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF",
+        message: "Time for your healthy yoga habit! \u{1F49C}",
+        messageTa: "\u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD! \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B89\u0B9F\u0BB2\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BAE\u0BA9\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u{1F49C}"
+      };
+      await triggerImmediateSystemNotification(sample, lang);
       showToast(
-        lang === "ta" ? "\u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0B92\u0BB2\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u{1F514}" : "Notification chime verified \u{1F514}",
-        lang === "ta" ? "\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B92\u0BB2\u0BBF \u0B87\u0BAF\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1" : "Meditation Tone played successfully",
+        lang === "ta" ? "\u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0B92\u0BB2\u0BBF & \u0B95\u0BA3\u0BBF\u0BA9\u0BBF \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u{1F514}" : "Notification chime & system alert verified \u{1F514}",
+        lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0BB8\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD\u0B9F\u0BB8\u0BCD \u0BAA\u0BBE\u0BB0\u0BBF\u0BB2\u0BCD (Notification Bar) \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB5\u0BA8\u0BCD\u0BA4\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE \u0B8E\u0BA9\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Check your device status bar / lock screen outside the app.",
+        "success"
+      );
+    };
+    const handleTestSystemNotification = async () => {
+      audioEngine.playAlarmChime();
+      await requestSystemNotificationPermission();
+      const activeRem = reminders.find((r) => r.enabled !== false && !r.completed) || reminders[0] || {
+        id: "test-system-notif",
+        title: "Yoga Reminder",
+        titleTa: "\u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD",
+        message: "Time for mindful practice! \u{1F49C}",
+        messageTa: "\u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD! \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B89\u0B9F\u0BB2\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BAE\u0BA9\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u{1F49C}"
+      };
+      await triggerImmediateSystemNotification(activeRem, lang);
+      showToast(
+        lang === "ta" ? "\u{1F514} \u0B95\u0BA3\u0BBF\u0BA9\u0BBF \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "\u{1F514} System Notification Sent!",
+        lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1 \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0BA8\u0BCB\u0B9F\u0BCD\u0B9F\u0BBF\u0BAA\u0BBF\u0B95\u0BC7\u0BB7\u0BA9\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD (Status Bar) \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB2\u0BBE\u0B95\u0BCD \u0BB8\u0BCD\u0B95\u0BBF\u0BB0\u0BC0\u0BA9\u0BC8\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Notification sent! Check your device status bar / lock screen outside the app.",
         "success"
       );
     };
@@ -64148,6 +65144,7 @@ ${liveUrl}`;
         onToggleEnable: handleToggleEnable,
         onDeleteReminder: handleDeleteReminder,
         onEditReminder: handleEditReminder,
+        onTestSystemNotification: handleTestSystemNotification,
         onShowAll: () => {
           setEditingReminder(null);
           setIsReminderModalOpen(true);
@@ -64317,6 +65314,7 @@ ${liveUrl}`;
       init_lucide_react();
       init_storage();
       init_audioEngine();
+      init_notificationScheduler();
     }
   });
 
@@ -64471,5 +65469,8 @@ lucide-react/dist/esm/lucide-react.mjs:
    * This source code is licensed under the ISC license.
    * See the LICENSE file in the root directory of this source tree.
    *)
+
+@capacitor/core/dist/index.js:
+  (*! Capacitor: https://capacitorjs.com/ - MIT License *)
 */
 //# sourceMappingURL=bundle.js.map

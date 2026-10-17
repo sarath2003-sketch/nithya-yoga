@@ -53,6 +53,12 @@ async function runTests() {
     assert.strictEqual(detail.course_name, first.course_name);
   });
 
+  // Reset test class state for clean repeatability
+  const Database = require('better-sqlite3');
+  const testDb = new Database(path.join(__dirname, '..', 'nithya-yoga.sqlite'));
+  testDb.prepare("UPDATE classes SET status='scheduled' WHERE id='cls-1'").run();
+  testDb.prepare("DELETE FROM live_sessions WHERE class_id='cls-1'").run();
+
   // TEST 3: Student Registration & Validation Endpoint (Role Enforcement)
   await test('3. Student Join Validation & Token Generation', async () => {
     const res = await fetch(`${BASE_URL}/api/student/validate-join`, {

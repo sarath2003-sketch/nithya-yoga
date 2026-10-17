@@ -160,7 +160,7 @@ function ParticipantTile({
   } catch (e) {}
 
   const isInstructor = meta.role === 'instructor' || participant.isInstructor || participant.role === 'instructor' || participant.identity?.includes('instructor');
-  const displayName = participant.name || participant.displayName || participant.identity || (isLocal ? (lang === 'ta' ? 'நீங்கள்' : 'You') : (lang === 'ta' ? 'பங்கேற்பாளர்' : 'Practitioner'));
+  const displayName = participant.name || participant.displayName || participant.identity || (isLocal ? (lang === 'ta' ? 'நீங்கள்' : 'You') : (lang === 'ta' ? 'மாணவர்' : 'Student'));
   const initial = displayName.charAt(0).toUpperCase();
 
   const effectiveHasVideo = isLocal ? isLocalVideoOn : (hasVideo || Boolean(participant?.stream?.getVideoTracks()[0]?.enabled));
@@ -296,7 +296,8 @@ export default function LiveYogaClassRoom({
   const [courseName, setCourseName] = useState(() => activeClass?.courseName || activeClass?.course_name || 'Morning Yoga Flow');
   const [teacherOnline, setTeacherOnline] = useState(true);
   const [teacherGraceRemaining, setTeacherGraceRemaining] = useState(null);
-  const [backendActiveCount, setBackendActiveCount] = useState(1);
+  const [backendActiveCount, setBackendActiveCount] = useState(0);
+  const [backendStudentCount, setBackendStudentCount] = useState(0);
 
   // Role: Teacher if authenticated token or trainer role; Student otherwise (strict role separation)
   const [isInstructorRole, setIsInstructorRole] = useState(() => {
@@ -357,14 +358,8 @@ export default function LiveYogaClassRoom({
   const [showAttendanceDrawer, setShowAttendanceDrawer] = useState(false);
   const [reconnectCount, setReconnectCount] = useState(0);
   const [isSimulatingDisconnect, setIsSimulatingDisconnect] = useState(false);
-  const [connectedStudentsList, setConnectedStudentsList] = useState(() => {
-    try {
-      const stored = localStorage.getItem('nithya_live_participants');
-      return stored ? JSON.parse(stored) : [];
-    } catch (_) {
-      return [];
-    }
-  });
+  // Pure live state: strictly genuine students, no dummy data
+  const [connectedStudentsList, setConnectedStudentsList] = useState([]);
 
   // Class session timer
   const [sessionSeconds, setSessionSeconds] = useState(0);
@@ -469,6 +464,9 @@ export default function LiveYogaClassRoom({
   // Ensure active class is marked 'live' on backend when instructor enters room
   useEffect(() => {
     if (isInstructorRole && activeClass?.id) {
+      try {
+        localStorage.removeItem('nithya_live_participants');
+      } catch (_) {}
       const trainerToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token') || 'nithya_master_active';
       apiFetch(`/api/trainer/classes/${activeClass.id}/start`, {
         method: 'POST',
@@ -482,14 +480,22 @@ export default function LiveYogaClassRoom({
     if (connectionState !== 'connected') return;
 
     const classId = activeClass?.id || 'cls-1';
-    const studentInfo = loadStorage('nithya_student_session', null);
+    const rawStudentInfo = loadStorage('nithya_student_session', null);
+    const isValidStudent = rawStudentInfo && rawStudentInfo.name && rawStudentInfo.phone && rawStudentInfo.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawStudentInfo.name);
+    const studentInfo = isValidStudent ? rawStudentInfo : null;
+
+    // Strict validation: Unregistered visitors must never heartbeat or count as active student
+    if (!isInstructorRole && !studentInfo) {
+      return;
+    }
+
     const currentTabId = tabIdRef.current;
     const participantId = isInstructorRole 
       ? 'instructor-primary' 
-      : (studentInfo?.phone || user?.phone || user?.id || `student-${currentTabId}`);
+      : studentInfo.phone.replace(/\D/g, '');
     const name = isInstructorRole 
       ? (activeClass?.instructor || 'NITHYA Master') 
-      : (studentInfo?.name || user?.name || 'Yoga Student');
+      : studentInfo.name;
     const role = isInstructorRole ? 'instructor' : 'student';
 
     const sendHeartbeat = async () => {
@@ -502,6 +508,7 @@ export default function LiveYogaClassRoom({
             participantId,
             identity: `${role}:${participantId}`,
             name,
+            phone: isInstructorRole ? '' : studentInfo.phone,
             role,
             tabId: currentTabId
           })
@@ -515,8 +522,13 @@ export default function LiveYogaClassRoom({
             return;
           }
           if (Array.isArray(res.activeParticipants)) {
-            const studentsOnly = res.activeParticipants.filter(p => p.role !== 'instructor');
+            const studentsOnly = res.activeParticipants.filter(p => p.role === 'student' && !String(p.identity || '').startsWith('instructor'));
             setConnectedStudentsList(studentsOnly);
+          }
+          if (typeof res.studentCount === 'number') {
+            setBackendStudentCount(res.studentCount);
+          } else if (Array.isArray(res.activeParticipants)) {
+            setBackendStudentCount(res.activeParticipants.filter(p => p.role === 'student').length);
           }
           if (typeof res.activeCount === 'number') {
             setBackendActiveCount(res.activeCount);
@@ -1234,16 +1246,18 @@ export default function LiveYogaClassRoom({
   };
 
   const simulatedPeers = (!room && connectedStudentsList && connectedStudentsList.length > 0)
-    ? connectedStudentsList.map(s => ({
-        identity: s.id || s.phone || s.name,
-        name: s.name,
-        role: s.role || 'Student',
-        phone: s.phone,
-        joinedAt: s.joinedAt,
-        stream: null,
-        isLocal: false,
-        isInstructor: false
-      }))
+    ? connectedStudentsList
+        .filter(s => s && s.role !== 'instructor' && !String(s.identity || '').startsWith('instructor') && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(s.name))
+        .map(s => ({
+          identity: s.identity || s.id || s.phone || s.name,
+          name: s.name,
+          role: 'student',
+          phone: s.phone,
+          joinedAt: s.joinedAt,
+          stream: null,
+          isLocal: false,
+          isInstructor: false
+        }))
     : [];
 
   const instructorPeer = !isInstructorRole ? [{
@@ -1270,6 +1284,15 @@ export default function LiveYogaClassRoom({
         : (allParticipants.find(p => p.isInstructor) || allParticipants[0]));
 
   const otherParticipants = allParticipants.filter(p => p?.identity !== spotlightParticipant?.identity);
+
+  // Student count calculation: strictly genuine students only, excluding instructor
+  const realStudentsList = connectedStudentsList.filter(s => 
+    s && s.role !== 'instructor' && !String(s.identity || '').startsWith('instructor') && s.identity !== 'instructor-lead' && s.identity !== 'instructor-local'
+  );
+
+  const currentStudentCount = isInstructorRole
+    ? Math.max(realStudentsList.length, backendStudentCount)
+    : Math.max(1, realStudentsList.length, backendStudentCount);
 
   return (
     <div className={`livekit-yoga-studio-container ${isFullscreen ? 'fullscreen-mode' : ''}`} ref={containerRef}>
@@ -1307,10 +1330,13 @@ export default function LiveYogaClassRoom({
                 setShowParticipantsDrawer(!showParticipantsDrawer);
                 setShowChat(false);
               }}
-              title="Participants Roster"
+              title={lang === 'ta' ? `மாணவர்கள் எண்ணிக்கை: ${currentStudentCount}` : `Students count: ${currentStudentCount}`}
             >
               <Users size={14} className="text-sky-400" />
-              <span className="font-bold">{Math.max(allParticipants.length, backendActiveCount)}</span>
+              <span className="font-bold">{currentStudentCount}</span>
+              <span className="text-[11px] font-normal opacity-80 hidden sm:inline">
+                {lang === 'ta' ? 'மாணவர்கள்' : (currentStudentCount === 1 ? 'Student' : 'Students')}
+              </span>
             </button>
           )}
 
@@ -1723,7 +1749,7 @@ export default function LiveYogaClassRoom({
                 <div className="chat-drawer-header">
                   <div className="flex items-center gap-2">
                     <Users size={16} className="text-sky-400" />
-                    <strong>{lang === 'ta' ? `பங்கேற்பாளர்கள் (${Math.max(allParticipants.length, backendActiveCount)})` : `Participants (${Math.max(allParticipants.length, backendActiveCount)})`}</strong>
+                    <strong>{lang === 'ta' ? `பங்கேற்பாளர்கள் (மாணவர்கள்: ${currentStudentCount})` : `Class Participants (${currentStudentCount} ${currentStudentCount === 1 ? 'student' : 'students'})`}</strong>
                   </div>
                   <button
                     type="button"
@@ -1762,12 +1788,12 @@ export default function LiveYogaClassRoom({
                   <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1 mt-2">
                     {lang === 'ta' ? 'மாணவர்கள்' : 'Students'}
                   </div>
-                  {otherParticipants.length === 0 ? (
+                  {otherParticipants.filter(p => !p.isInstructor && p.role !== 'instructor' && !String(p.identity || '').startsWith('instructor')).length === 0 ? (
                     <div className="text-center py-6 text-slate-500 text-xs">
-                      {lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை' : 'No other students connected yet'}
+                      {lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை (0)' : 'No students connected yet (0 students)'}
                     </div>
                   ) : (
-                    otherParticipants.map((p, idx) => (
+                    otherParticipants.filter(p => !p.isInstructor && p.role !== 'instructor' && !String(p.identity || '').startsWith('instructor')).map((p, idx) => (
                       <div key={p.identity || idx} className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
                         <div className="flex items-center gap-2">
                           <div className="w-8 h-8 rounded-full bg-violet-600/30 text-violet-300 font-bold flex items-center justify-center text-xs">
@@ -2027,8 +2053,8 @@ export default function LiveYogaClassRoom({
                   onClick={() => {
                     const text = `NITHYA YOGA — ATTENDANCE REGISTER\nClass: ${activeClass?.title || 'Hatha Yoga Flow'}\nDate: ${new Date().toLocaleDateString()}\nInstructor: ${activeClass?.instructor || 'NITHYA Master'}\n----------------------------------------\n` +
                       (connectedStudentsList.length
-                        ? connectedStudentsList.map((s, i) => `${i + 1}. ${s.name} (${s.phone}) - Joined ${s.joinedAt} - ${currentAttendancePct >= 70 ? 'Present (70%+)' : 'Incomplete'}`).join('\n')
-                        : `1. Kavitha Ram (9876543210) - Connected ${formatTimer(sessionSeconds)} - ${currentAttendancePct >= 70 ? 'Present (70%+)' : 'Incomplete'}`) +
+                        ? connectedStudentsList.map((s, i) => `${i + 1}. ${s.name} (${s.phone}) - Joined ${s.joinedAt || 'Active'} - ${currentAttendancePct >= 70 ? 'Present (70%+)' : 'Incomplete'}`).join('\n')
+                        : (lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை (0 மாணவர்கள்)' : 'No students joined yet (0 students)')) +
                       `\n----------------------------------------\nVerified WebRTC Attendance Session`;
                     navigator.clipboard.writeText(text);
                     alert('Attendance Register copied to clipboard!');
@@ -2054,18 +2080,8 @@ export default function LiveYogaClassRoom({
                 <tbody>
                   {connectedStudentsList.length === 0 ? (
                     <tr>
-                      <td className="p-2 font-bold text-heading">Kavitha Ram</td>
-                      <td className="p-2 text-muted">9876543210</td>
-                      <td className="p-2 text-muted">Just now</td>
-                      <td className="p-2 font-mono">{formatTimer(sessionSeconds)}</td>
-                      <td className="p-2">
-                        <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                          currentAttendancePct >= 70
-                            ? 'bg-emerald-500/10 text-emerald-500 border border-emerald-500/20'
-                            : 'bg-amber-500/10 text-amber-500 border border-amber-500/20'
-                        }`}>
-                          {currentAttendancePct >= 70 ? '✓ Present (70%+)' : `Incomplete (${currentAttendancePct}%)`}
-                        </span>
+                      <td colSpan={5} className="p-6 text-center text-xs text-muted">
+                        {lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை (0 மாணவர்கள்)' : 'No students joined yet (0 active students)'}
                       </td>
                     </tr>
                   ) : (

@@ -71,7 +71,8 @@ export default function LiveClassStudio({
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return [host, ...parsed];
+          const validStudents = parsed.filter(p => p && p.name && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(p.name));
+          return [host, ...validStudents];
         }
       }
     } catch (_) {}
@@ -140,9 +141,10 @@ export default function LiveClassStudio({
   };
 
   const handleVerifyAttendance = () => {
-    setAttendanceVerified(true);
-    const minutesSpent = Math.max(1, Math.round(sessionSeconds / 60));
-    const studentName = localStorage.getItem('nithya_student_name') || 'Yoga Practitioner';
+    const studentSession = (() => {
+      try { return JSON.parse(localStorage.getItem('nithya_student_session') || '{}'); } catch (_) { return {}; }
+    })();
+    const studentName = studentSession.name || localStorage.getItem('nithya_student_name') || 'Student';
     
     if (onRecordAttendance) {
       onRecordAttendance({

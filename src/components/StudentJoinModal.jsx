@@ -90,16 +90,16 @@ export default function StudentJoinModal({
       localStorage.setItem('nithya_student_session', JSON.stringify(studentSession));
 
       const newParticipant = {
-        id: `p-${Date.now()}`,
+        id: `p-${cleanPhone.replace(/\D/g, '')}`,
         name: cleanName,
         phone: cleanPhone,
-        role: 'Student',
+        role: 'student',
         joinedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       };
 
       try {
         const existing = JSON.parse(localStorage.getItem('nithya_live_participants') || '[]');
-        const updated = [newParticipant, ...existing.filter(p => p.phone !== cleanPhone)];
+        const updated = [newParticipant, ...existing.filter(p => (p.phone || '').replace(/\D/g, '') !== cleanPhone.replace(/\D/g, ''))];
         localStorage.setItem('nithya_live_participants', JSON.stringify(updated));
       } catch (_) {}
 

@@ -132,6 +132,7 @@ CREATE TABLE IF NOT EXISTS live_sessions (
   identity TEXT NOT NULL,
   name TEXT NOT NULL,
   role TEXT NOT NULL DEFAULT 'student',
+  phone TEXT,
   tab_id TEXT,
   status TEXT NOT NULL DEFAULT 'active',
   last_heartbeat TEXT NOT NULL,
@@ -140,6 +141,9 @@ CREATE TABLE IF NOT EXISTS live_sessions (
   UNIQUE(class_id, identity)
 );
 `);
+try {
+  db.exec(`ALTER TABLE live_sessions ADD COLUMN phone TEXT`);
+} catch (_) {}
 
 // Backfill course names on existing starter classes if missing
 try {
@@ -511,8 +515,8 @@ const handleStartClassEndpoint = (req, res) => {
   }
 
   db.prepare("UPDATE classes SET status='live' WHERE id=?").run(cls.id);
-  // Clear any old ended sessions for this class to start fresh
-  db.prepare("DELETE FROM live_sessions WHERE class_id=? AND status='ended'").run(cls.id);
+  // Clear any old or stale sessions for this class to start fresh with strictly 0 students
+  db.prepare("DELETE FROM live_sessions WHERE class_id=?").run(cls.id);
 
   res.json({
     ok: true,
@@ -881,9 +885,10 @@ const HEARTBEAT_DISCONNECT_MS = 50 * 1000; // 50s missed heartbeats marks discon
 app.post('/api/live/heartbeat', optionalAuth, (req, res) => {
   const classId = String(req.body?.classId || '').trim();
   const identity = String(req.body?.identity || '').trim();
-  const name = String(req.body?.name || 'Practitioner').trim();
+  const name = String(req.body?.name || 'Student').trim();
   let requestedRole = String(req.body?.role || 'student').trim().toLowerCase();
   const tabId = String(req.body?.tabId || '').trim();
+  const phone = String(req.body?.phone || req.actor?.phone || '').trim();
 
   if (!classId || !identity) {
     return res.status(400).json({ error: 'classId and identity required.' });
@@ -909,14 +914,14 @@ app.post('/api/live/heartbeat', optionalAuth, (req, res) => {
   if (existing) {
     db.prepare(`
       UPDATE live_sessions 
-      SET participant_id=?, name=?, role=?, tab_id=?, status='active', last_heartbeat=?, disconnected_at=NULL
+      SET participant_id=?, name=?, role=?, phone=COALESCE(NULLIF(?, ''), phone), tab_id=?, status='active', last_heartbeat=?, disconnected_at=NULL
       WHERE id=?
-    `).run(participantId, name, role, tabId, currentTime, existing.id);
+    `).run(participantId, name, role, phone, tabId, currentTime, existing.id);
   } else {
     db.prepare(`
-      INSERT INTO live_sessions (id, class_id, participant_id, identity, name, role, tab_id, status, last_heartbeat, disconnected_at, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?, 'active', ?, NULL, ?)
-    `).run(sessionId, classId, participantId, identity, name, role, tabId, currentTime, currentTime);
+      INSERT INTO live_sessions (id, class_id, participant_id, identity, name, role, phone, tab_id, status, last_heartbeat, disconnected_at, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'active', ?, NULL, ?)
+    `).run(sessionId, classId, participantId, identity, name, role, phone, tabId, currentTime, currentTime);
   }
 
   // If verified teacher sends heartbeat, ensure class status is live
@@ -946,11 +951,13 @@ app.post('/api/live/heartbeat', optionalAuth, (req, res) => {
 
   // Active participants list
   const activeParticipants = db.prepare(`
-    SELECT identity, name, role, status, last_heartbeat, created_at
+    SELECT identity, participant_id, name, role, COALESCE(phone, participant_id) as phone, status, last_heartbeat, created_at
     FROM live_sessions
     WHERE class_id=? AND status='active'
     ORDER BY role DESC, created_at ASC
   `).all(classId);
+
+  const studentCount = activeParticipants.filter(p => p.role === 'student').length;
 
   res.json({
     ok: true,
@@ -959,6 +966,7 @@ app.post('/api/live/heartbeat', optionalAuth, (req, res) => {
     classTitle: cls.title,
     classStatus: cls.status,
     activeCount: activeParticipants.length,
+    studentCount,
     activeParticipants,
     teacherConnected,
     teacherGraceRemainingSeconds
@@ -1003,13 +1011,14 @@ app.post('/api/live/leave', optionalAuth, (req, res) => {
 app.get('/api/live/sessions/:classId', (req, res) => {
   const classId = req.params.classId;
   const sessions = db.prepare(`
-    SELECT identity, name, role, status, last_heartbeat, created_at
+    SELECT identity, participant_id, name, role, COALESCE(phone, participant_id) as phone, status, last_heartbeat, created_at
     FROM live_sessions
-    WHERE class_id=? AND status != 'ended'
+    WHERE class_id=? AND status = 'active'
     ORDER BY role DESC, created_at ASC
   `).all(classId);
 
   const cls = db.prepare('SELECT id, title, COALESCE(course_name, title) as course_name, status FROM classes WHERE id=?').get(classId);
+  const studentCount = sessions.filter(p => p.role === 'student').length;
 
   if (req.query.full === 'true') {
     return res.json({
@@ -1017,6 +1026,8 @@ app.get('/api/live/sessions/:classId', (req, res) => {
       courseName: cls?.course_name || 'Hatha Yoga',
       classTitle: cls?.title || 'Live Yoga Class',
       classStatus: cls?.status || 'live',
+      activeCount: sessions.length,
+      studentCount,
       participants: sessions
     });
   }

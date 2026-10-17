@@ -58800,7 +58800,7 @@
     } catch (e2) {
     }
     const isInstructor = meta.role === "instructor" || participant.isInstructor || participant.role === "instructor" || participant.identity?.includes("instructor");
-    const displayName = participant.name || participant.displayName || participant.identity || (isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : lang === "ta" ? "\u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BAA\u0BBE\u0BB3\u0BB0\u0BCD" : "Practitioner");
+    const displayName = participant.name || participant.displayName || participant.identity || (isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Student");
     const initial = displayName.charAt(0).toUpperCase();
     const effectiveHasVideo = isLocal ? isLocalVideoOn : hasVideo || Boolean(participant?.stream?.getVideoTracks()[0]?.enabled);
     const effectiveHasAudio = isLocal ? isLocalMicOn : hasAudio || Boolean(participant?.stream?.getAudioTracks()[0]?.enabled);
@@ -58874,7 +58874,8 @@
     const [courseName, setCourseName] = (0, import_react11.useState)(() => activeClass?.courseName || activeClass?.course_name || "Morning Yoga Flow");
     const [teacherOnline, setTeacherOnline] = (0, import_react11.useState)(true);
     const [teacherGraceRemaining, setTeacherGraceRemaining] = (0, import_react11.useState)(null);
-    const [backendActiveCount, setBackendActiveCount] = (0, import_react11.useState)(1);
+    const [backendActiveCount, setBackendActiveCount] = (0, import_react11.useState)(0);
+    const [backendStudentCount, setBackendStudentCount] = (0, import_react11.useState)(0);
     const [isInstructorRole, setIsInstructorRole] = (0, import_react11.useState)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
@@ -58933,14 +58934,7 @@
     const [showAttendanceDrawer, setShowAttendanceDrawer] = (0, import_react11.useState)(false);
     const [reconnectCount, setReconnectCount] = (0, import_react11.useState)(0);
     const [isSimulatingDisconnect, setIsSimulatingDisconnect] = (0, import_react11.useState)(false);
-    const [connectedStudentsList, setConnectedStudentsList] = (0, import_react11.useState)(() => {
-      try {
-        const stored = localStorage.getItem("nithya_live_participants");
-        return stored ? JSON.parse(stored) : [];
-      } catch (_2) {
-        return [];
-      }
-    });
+    const [connectedStudentsList, setConnectedStudentsList] = (0, import_react11.useState)([]);
     const [sessionSeconds, setSessionSeconds] = (0, import_react11.useState)(0);
     const [hasAttendanceRecorded, setHasAttendanceRecorded] = (0, import_react11.useState)(false);
     const [showChat, setShowChat] = (0, import_react11.useState)(false);
@@ -59030,6 +59024,10 @@
     }, [isInstructorRole]);
     (0, import_react11.useEffect)(() => {
       if (isInstructorRole && activeClass?.id) {
+        try {
+          localStorage.removeItem("nithya_live_participants");
+        } catch (_2) {
+        }
         const trainerToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") || "nithya_master_active";
         apiFetch2(`/api/trainer/classes/${activeClass.id}/start`, {
           method: "POST",
@@ -59041,10 +59039,15 @@
     (0, import_react11.useEffect)(() => {
       if (connectionState !== "connected") return;
       const classId = activeClass?.id || "cls-1";
-      const studentInfo = loadStorage("nithya_student_session", null);
+      const rawStudentInfo = loadStorage("nithya_student_session", null);
+      const isValidStudent = rawStudentInfo && rawStudentInfo.name && rawStudentInfo.phone && rawStudentInfo.phone.replace(/\D/g, "").length >= 10 && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(rawStudentInfo.name);
+      const studentInfo = isValidStudent ? rawStudentInfo : null;
+      if (!isInstructorRole && !studentInfo) {
+        return;
+      }
       const currentTabId = tabIdRef.current;
-      const participantId = isInstructorRole ? "instructor-primary" : studentInfo?.phone || user2?.phone || user2?.id || `student-${currentTabId}`;
-      const name = isInstructorRole ? activeClass?.instructor || "NITHYA Master" : studentInfo?.name || user2?.name || "Yoga Student";
+      const participantId = isInstructorRole ? "instructor-primary" : studentInfo.phone.replace(/\D/g, "");
+      const name = isInstructorRole ? activeClass?.instructor || "NITHYA Master" : studentInfo.name;
       const role = isInstructorRole ? "instructor" : "student";
       const sendHeartbeat = async () => {
         try {
@@ -59056,6 +59059,7 @@
               participantId,
               identity: `${role}:${participantId}`,
               name,
+              phone: isInstructorRole ? "" : studentInfo.phone,
               role,
               tabId: currentTabId
             })
@@ -59067,8 +59071,13 @@
               return;
             }
             if (Array.isArray(res.activeParticipants)) {
-              const studentsOnly = res.activeParticipants.filter((p) => p.role !== "instructor");
+              const studentsOnly = res.activeParticipants.filter((p) => p.role === "student" && !String(p.identity || "").startsWith("instructor"));
               setConnectedStudentsList(studentsOnly);
+            }
+            if (typeof res.studentCount === "number") {
+              setBackendStudentCount(res.studentCount);
+            } else if (Array.isArray(res.activeParticipants)) {
+              setBackendStudentCount(res.activeParticipants.filter((p) => p.role === "student").length);
             }
             if (typeof res.activeCount === "number") {
               setBackendActiveCount(res.activeCount);
@@ -59719,10 +59728,10 @@ ${url}`;
       isLocal: true,
       isInstructor: isInstructorRole
     };
-    const simulatedPeers = !room && connectedStudentsList && connectedStudentsList.length > 0 ? connectedStudentsList.map((s) => ({
-      identity: s.id || s.phone || s.name,
+    const simulatedPeers = !room && connectedStudentsList && connectedStudentsList.length > 0 ? connectedStudentsList.filter((s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(s.name)).map((s) => ({
+      identity: s.identity || s.id || s.phone || s.name,
       name: s.name,
-      role: s.role || "Student",
+      role: "student",
       phone: s.phone,
       joinedAt: s.joinedAt,
       stream: null,
@@ -59740,6 +59749,10 @@ ${url}`;
     const allParticipants = room ? [room.localParticipant, ...participants] : isInstructorRole ? localStream ? [localWebrtcParticipant, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : [localWebrtcParticipant, ...simulatedPeers] : localStream ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : [...instructorPeer, localWebrtcParticipant, ...simulatedPeers];
     const spotlightParticipant = isInstructorRole ? localWebrtcParticipant : spotlightParticipantId ? allParticipants.find((p) => p.identity === spotlightParticipantId) : allParticipants.find((p) => p.isInstructor) || allParticipants[0];
     const otherParticipants = allParticipants.filter((p) => p?.identity !== spotlightParticipant?.identity);
+    const realStudentsList = connectedStudentsList.filter(
+      (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && s.identity !== "instructor-lead" && s.identity !== "instructor-local"
+    );
+    const currentStudentCount = isInstructorRole ? Math.max(realStudentsList.length, backendStudentCount) : Math.max(1, realStudentsList.length, backendStudentCount);
     return /* @__PURE__ */ import_react11.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-studio-header" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-left-title-cluster" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-status-pill-indicator" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `live-pulse-dot ${connectionState === "connected" ? "active-green" : "connecting-amber"}` }), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-pill-text" }, connectionState === "connected" ? "LIVE" : lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "class-title-meta flex flex-col" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "inline-block px-2.5 py-0.5 mb-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-[11px] font-bold uppercase tracking-wider w-fit" }, courseName || activeClass?.courseName || activeClass?.course_name || "Morning Yoga Flow"), /* @__PURE__ */ import_react11.default.createElement("h3", { className: "live-class-heading m-0 text-base font-bold text-white flex items-center gap-2" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-instructor-subtitle text-xs text-slate-400" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Led by", " ", /* @__PURE__ */ import_react11.default.createElement("strong", { className: "text-slate-200" }, activeClass?.instructor || "NITHYA Master")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-right-tools" }, connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
@@ -59749,10 +59762,11 @@ ${url}`;
           setShowParticipantsDrawer(!showParticipantsDrawer);
           setShowChat(false);
         },
-        title: "Participants Roster"
+        title: lang === "ta" ? `\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8: ${currentStudentCount}` : `Students count: ${currentStudentCount}`
       },
       /* @__PURE__ */ import_react11.default.createElement(Users, { size: 14, className: "text-sky-400" }),
-      /* @__PURE__ */ import_react11.default.createElement("span", { className: "font-bold" }, Math.max(allParticipants.length, backendActiveCount))
+      /* @__PURE__ */ import_react11.default.createElement("span", { className: "font-bold" }, currentStudentCount),
+      /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-[11px] font-normal opacity-80 hidden sm:inline" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : currentStudentCount === 1 ? "Student" : "Students")
     ), /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
@@ -59983,7 +59997,7 @@ ${url}`;
         value: chatInput,
         onChange: (e2) => setChatInput(e2.target.value)
       }
-    ), /* @__PURE__ */ import_react11.default.createElement("button", { type: "submit", className: "chat-send-btn", "aria-label": "Send" }, /* @__PURE__ */ import_react11.default.createElement(Send, { size: 15 })))), showParticipantsDrawer && /* @__PURE__ */ import_react11.default.createElement("aside", { className: "meet-people-drawer" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "chat-drawer-header" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement(Users, { size: 16, className: "text-sky-400" }), /* @__PURE__ */ import_react11.default.createElement("strong", null, lang === "ta" ? `\u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BAA\u0BBE\u0BB3\u0BB0\u0BCD\u0B95\u0BB3\u0BCD (${Math.max(allParticipants.length, backendActiveCount)})` : `Participants (${Math.max(allParticipants.length, backendActiveCount)})`)), /* @__PURE__ */ import_react11.default.createElement(
+    ), /* @__PURE__ */ import_react11.default.createElement("button", { type: "submit", className: "chat-send-btn", "aria-label": "Send" }, /* @__PURE__ */ import_react11.default.createElement(Send, { size: 15 })))), showParticipantsDrawer && /* @__PURE__ */ import_react11.default.createElement("aside", { className: "meet-people-drawer" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "chat-drawer-header" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement(Users, { size: 16, className: "text-sky-400" }), /* @__PURE__ */ import_react11.default.createElement("strong", null, lang === "ta" ? `\u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BAA\u0BBE\u0BB3\u0BB0\u0BCD\u0B95\u0BB3\u0BCD (\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD: ${currentStudentCount})` : `Class Participants (${currentStudentCount} ${currentStudentCount === 1 ? "student" : "students"})`)), /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
@@ -59991,7 +60005,7 @@ ${url}`;
         onClick: () => setShowParticipantsDrawer(false)
       },
       "\u2715"
-    )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "p-3 overflow-y-auto flex-1 flex flex-col gap-2" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Host / Teacher"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "p-2.5 rounded-xl bg-white/5 border border-amber-500/30 flex items-center justify-between" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "w-8 h-8 rounded-full bg-amber-500/20 text-amber-300 font-bold flex items-center justify-center text-xs" }, "\u{1F451}"), /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-xs font-bold text-white flex items-center gap-1" }, /* @__PURE__ */ import_react11.default.createElement("span", null, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-[10px] text-amber-400 bg-amber-500/15 px-1.5 py-0.2 rounded font-semibold" }, "Host")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-[10px] text-emerald-400 flex items-center gap-1" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react11.default.createElement("span", null, teacherOnline ? "Online" : "Reconnecting...")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-1 text-slate-300 text-xs" }, isInstructorRole ? isMicOn ? /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 14, className: "text-emerald-400" }) : /* @__PURE__ */ import_react11.default.createElement(MicOff, { size: 14, className: "text-rose-400" }) : /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 14, className: "text-emerald-400" }))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1 mt-2" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Students"), otherParticipants.length === 0 ? /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-center py-6 text-slate-500 text-xs" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BBE\u0BB0\u0BC1\u0BAE\u0BCD \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8" : "No other students connected yet") : otherParticipants.map((p, idx) => /* @__PURE__ */ import_react11.default.createElement("div", { key: p.identity || idx, className: "p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "w-8 h-8 rounded-full bg-violet-600/30 text-violet-300 font-bold flex items-center justify-center text-xs" }, (p.name || "S").charAt(0).toUpperCase()), /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-xs font-semibold text-white" }, p.name || "Student"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-[10px] text-slate-400" }, p.phone || (p.isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : "Online")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-1.5" }, p.isLocal ? isMicOn ? /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 13, className: "text-emerald-400" }) : /* @__PURE__ */ import_react11.default.createElement(MicOff, { size: 13, className: "text-rose-400" }) : /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 13, className: "text-slate-400" })))))))), connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "meet-floating-dock-container" }, /* @__PURE__ */ import_react11.default.createElement(
+    )), /* @__PURE__ */ import_react11.default.createElement("div", { className: "p-3 overflow-y-auto flex-1 flex flex-col gap-2" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Host / Teacher"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "p-2.5 rounded-xl bg-white/5 border border-amber-500/30 flex items-center justify-between" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "w-8 h-8 rounded-full bg-amber-500/20 text-amber-300 font-bold flex items-center justify-center text-xs" }, "\u{1F451}"), /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-xs font-bold text-white flex items-center gap-1" }, /* @__PURE__ */ import_react11.default.createElement("span", null, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "text-[10px] text-amber-400 bg-amber-500/15 px-1.5 py-0.2 rounded font-semibold" }, "Host")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-[10px] text-emerald-400 flex items-center gap-1" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react11.default.createElement("span", null, teacherOnline ? "Online" : "Reconnecting...")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-1 text-slate-300 text-xs" }, isInstructorRole ? isMicOn ? /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 14, className: "text-emerald-400" }) : /* @__PURE__ */ import_react11.default.createElement(MicOff, { size: 14, className: "text-rose-400" }) : /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 14, className: "text-emerald-400" }))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1 mt-2" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Students"), otherParticipants.filter((p) => !p.isInstructor && p.role !== "instructor" && !String(p.identity || "").startsWith("instructor")).length === 0 ? /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-center py-6 text-slate-500 text-xs" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BBE\u0BB0\u0BC1\u0BAE\u0BCD \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 (0)" : "No students connected yet (0 students)") : otherParticipants.filter((p) => !p.isInstructor && p.role !== "instructor" && !String(p.identity || "").startsWith("instructor")).map((p, idx) => /* @__PURE__ */ import_react11.default.createElement("div", { key: p.identity || idx, className: "p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "w-8 h-8 rounded-full bg-violet-600/30 text-violet-300 font-bold flex items-center justify-center text-xs" }, (p.name || "S").charAt(0).toUpperCase()), /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-xs font-semibold text-white" }, p.name || "Student"), /* @__PURE__ */ import_react11.default.createElement("div", { className: "text-[10px] text-slate-400" }, p.phone || (p.isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : "Online")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-1.5" }, p.isLocal ? isMicOn ? /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 13, className: "text-emerald-400" }) : /* @__PURE__ */ import_react11.default.createElement(MicOff, { size: 13, className: "text-rose-400" }) : /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 13, className: "text-slate-400" })))))))), connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "meet-floating-dock-container" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
@@ -60157,7 +60171,7 @@ Class: ${activeClass?.title || "Hatha Yoga Flow"}
 Date: ${(/* @__PURE__ */ new Date()).toLocaleDateString()}
 Instructor: ${activeClass?.instructor || "NITHYA Master"}
 ----------------------------------------
-` + (connectedStudentsList.length ? connectedStudentsList.map((s, i) => `${i + 1}. ${s.name} (${s.phone}) - Joined ${s.joinedAt} - ${currentAttendancePct >= 70 ? "Present (70%+)" : "Incomplete"}`).join("\n") : `1. Kavitha Ram (9876543210) - Connected ${formatTimer(sessionSeconds)} - ${currentAttendancePct >= 70 ? "Present (70%+)" : "Incomplete"}`) + `
+` + (connectedStudentsList.length ? connectedStudentsList.map((s, i) => `${i + 1}. ${s.name} (${s.phone}) - Joined ${s.joinedAt || "Active"} - ${currentAttendancePct >= 70 ? "Present (70%+)" : "Incomplete"}`).join("\n") : lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BBE\u0BB0\u0BC1\u0BAE\u0BCD \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 (0 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD)" : "No students joined yet (0 students)") + `
 ----------------------------------------
 Verified WebRTC Attendance Session`;
           navigator.clipboard.writeText(text);
@@ -60166,7 +60180,7 @@ Verified WebRTC Attendance Session`;
       },
       /* @__PURE__ */ import_react11.default.createElement(Copy, { size: 13 }),
       /* @__PURE__ */ import_react11.default.createElement("span", null, "Copy Register")
-    ))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "overflow-x-auto max-h-64 overflow-y-auto rounded-xl border border-subtle" }, /* @__PURE__ */ import_react11.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react11.default.createElement("thead", null, /* @__PURE__ */ import_react11.default.createElement("tr", { className: "border-b border-subtle bg-subtle/40 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Student Name"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Mobile Phone"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Joined Time"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Duration"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Status"))), /* @__PURE__ */ import_react11.default.createElement("tbody", null, connectedStudentsList.length === 0 ? /* @__PURE__ */ import_react11.default.createElement("tr", null, /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-bold text-heading" }, "Kavitha Ram"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, "9876543210"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, "Just now"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-mono" }, formatTimer(sessionSeconds)), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${currentAttendancePct >= 70 ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" : "bg-amber-500/10 text-amber-500 border border-amber-500/20"}` }, currentAttendancePct >= 70 ? "\u2713 Present (70%+)" : `Incomplete (${currentAttendancePct}%)`))) : connectedStudentsList.map((s, idx) => /* @__PURE__ */ import_react11.default.createElement("tr", { key: idx, className: "border-b border-subtle/50" }, /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-bold text-heading" }, s.name), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, s.phone), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, s.joinedAt || "Just now"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-mono" }, formatTimer(sessionSeconds)), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${currentAttendancePct >= 70 ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" : "bg-amber-500/10 text-amber-500 border border-amber-500/20"}` }, currentAttendancePct >= 70 ? "\u2713 Present (70%+)" : `Incomplete (${currentAttendancePct}%)`))))))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react11.default.createElement(
+    ))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "overflow-x-auto max-h-64 overflow-y-auto rounded-xl border border-subtle" }, /* @__PURE__ */ import_react11.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react11.default.createElement("thead", null, /* @__PURE__ */ import_react11.default.createElement("tr", { className: "border-b border-subtle bg-subtle/40 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Student Name"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Mobile Phone"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Joined Time"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Duration"), /* @__PURE__ */ import_react11.default.createElement("th", { className: "p-2" }, "Status"))), /* @__PURE__ */ import_react11.default.createElement("tbody", null, connectedStudentsList.length === 0 ? /* @__PURE__ */ import_react11.default.createElement("tr", null, /* @__PURE__ */ import_react11.default.createElement("td", { colSpan: 5, className: "p-6 text-center text-xs text-muted" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BBE\u0BB0\u0BC1\u0BAE\u0BCD \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 (0 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD)" : "No students joined yet (0 active students)")) : connectedStudentsList.map((s, idx) => /* @__PURE__ */ import_react11.default.createElement("tr", { key: idx, className: "border-b border-subtle/50" }, /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-bold text-heading" }, s.name), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, s.phone), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 text-muted" }, s.joinedAt || "Just now"), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2 font-mono" }, formatTimer(sessionSeconds)), /* @__PURE__ */ import_react11.default.createElement("td", { className: "p-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${currentAttendancePct >= 70 ? "bg-emerald-500/10 text-emerald-500 border border-emerald-500/20" : "bg-amber-500/10 text-amber-500 border border-amber-500/20"}` }, currentAttendancePct >= 70 ? "\u2713 Present (70%+)" : `Incomplete (${currentAttendancePct}%)`))))))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
         type: "button",
@@ -60302,7 +60316,8 @@ Verified WebRTC Attendance Session`;
         if (stored) {
           const parsed = JSON.parse(stored);
           if (Array.isArray(parsed) && parsed.length > 0) {
-            return [host, ...parsed];
+            const validStudents = parsed.filter((p) => p && p.name && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(p.name));
+            return [host, ...validStudents];
           }
         }
       } catch (_2) {
@@ -60364,9 +60379,14 @@ Click to join: ${link}`
       window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
     };
     const handleVerifyAttendance = () => {
-      setAttendanceVerified(true);
-      const minutesSpent = Math.max(1, Math.round(sessionSeconds / 60));
-      const studentName = localStorage.getItem("nithya_student_name") || "Yoga Practitioner";
+      const studentSession = (() => {
+        try {
+          return JSON.parse(localStorage.getItem("nithya_student_session") || "{}");
+        } catch (_2) {
+          return {};
+        }
+      })();
+      const studentName = studentSession.name || localStorage.getItem("nithya_student_name") || "Student";
       if (onRecordAttendance) {
         onRecordAttendance({
           id: `att-${Date.now()}`,
@@ -63697,15 +63717,15 @@ ${liveUrl}`;
         };
         localStorage.setItem("nithya_student_session", JSON.stringify(studentSession));
         const newParticipant = {
-          id: `p-${Date.now()}`,
+          id: `p-${cleanPhone.replace(/\D/g, "")}`,
           name: cleanName,
           phone: cleanPhone,
-          role: "Student",
+          role: "student",
           joinedAt: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
         };
         try {
           const existing = JSON.parse(localStorage.getItem("nithya_live_participants") || "[]");
-          const updated = [newParticipant, ...existing.filter((p) => p.phone !== cleanPhone)];
+          const updated = [newParticipant, ...existing.filter((p) => (p.phone || "").replace(/\D/g, "") !== cleanPhone.replace(/\D/g, ""))];
           localStorage.setItem("nithya_live_participants", JSON.stringify(updated));
         } catch (_2) {
         }
@@ -65416,13 +65436,21 @@ ${liveUrl}`;
               });
             }
           }
-          setCurrentTab("live");
-          const session = loadStorage("nithya_student_session", null);
+          const rawSession = loadStorage("nithya_student_session", null);
+          const isValidSession = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, "").length >= 10 && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(rawSession.name);
+          const session = isValidSession ? rawSession : null;
+          if (!isValidSession) {
+            try {
+              localStorage.removeItem("nithya_student_session");
+            } catch (_2) {
+            }
+          }
           const activeRole = localStorage.getItem("nithya_active_role");
           const isTrainerMode = !isStudentExplicit && activeRole !== "student" && hasTeacherToken && user2?.role === "trainer";
           if (isTrainerMode) {
             localStorage.setItem("nithya_active_role", "instructor");
             setShowStudentJoinModal(false);
+            setCurrentTab("live");
           } else {
             localStorage.setItem("nithya_active_role", "student");
             if (!session) {
@@ -65436,6 +65464,7 @@ ${liveUrl}`;
                 isInstructor: false
               }));
               setShowStudentJoinModal(false);
+              setCurrentTab("live");
             }
           }
         }
@@ -65589,13 +65618,21 @@ ${liveUrl}`;
     };
     const handleJoinLive = (cls) => {
       if (cls) setActiveClass(cls);
-      setCurrentTab("live");
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      showToast(
-        lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u{1F9D8}\u200D\u2640\uFE0F" : "Joined Live Yoga Studio \u{1F9D8}\u200D\u2640\uFE0F",
-        `${cls ? cls.title || cls.name : activeClass.name} \u2022 ${cls ? cls.instructor : activeClass.instructor}`,
-        "success"
-      );
+      const hasTeacherToken = Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
+      const isTrainer = hasTeacherToken && user2?.role === "trainer";
+      if (isTrainer) {
+        setCurrentTab("live");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        const rawSession = loadStorage("nithya_student_session", null);
+        const isValid = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, "").length >= 10 && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(rawSession.name);
+        if (!isValid) {
+          setShowStudentJoinModal(true);
+        } else {
+          setCurrentTab("live");
+          window.scrollTo({ top: 0, behavior: "smooth" });
+        }
+      }
     };
     const handleTriggerAppUpdate = async () => {
       showToast(

@@ -374,19 +374,27 @@ export default function App() {
               });
           }
         }
-        setCurrentTab('live');
-
         // Check if user is instructor or student:
-        const session = loadStorage('nithya_student_session', null);
+        const rawSession = loadStorage('nithya_student_session', null);
+        const isValidSession = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
+        const session = isValidSession ? rawSession : null;
+        if (!isValidSession) {
+          try {
+            localStorage.removeItem('nithya_student_session');
+          } catch (_) {}
+        }
+
         const activeRole = localStorage.getItem('nithya_active_role');
         const isTrainerMode = !isStudentExplicit && activeRole !== 'student' && hasTeacherToken && user?.role === 'trainer';
 
         if (isTrainerMode) {
           localStorage.setItem('nithya_active_role', 'instructor');
           setShowStudentJoinModal(false);
+          setCurrentTab('live');
         } else {
           localStorage.setItem('nithya_active_role', 'student');
           if (!session) {
+            // Keep on current tab and prompt registration modal so LiveYogaClassRoom does not mount early
             setShowStudentJoinModal(true);
           } else {
             setUser(prev => ({
@@ -397,6 +405,7 @@ export default function App() {
               isInstructor: false
             }));
             setShowStudentJoinModal(false);
+            setCurrentTab('live');
           }
         }
       }
@@ -574,13 +583,21 @@ export default function App() {
 
   const handleJoinLive = (cls) => {
     if (cls) setActiveClass(cls);
-    setCurrentTab('live');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    showToast(
-      lang === 'ta' ? 'லைவ் ஸ்டுடியோ இணைக்கப்பட்டது 🧘‍♀️' : 'Joined Live Yoga Studio 🧘‍♀️',
-      `${cls ? cls.title || cls.name : activeClass.name} • ${cls ? cls.instructor : activeClass.instructor}`,
-      'success'
-    );
+    const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
+    const isTrainer = hasTeacherToken && user?.role === 'trainer';
+    if (isTrainer) {
+      setCurrentTab('live');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      const rawSession = loadStorage('nithya_student_session', null);
+      const isValid = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
+      if (!isValid) {
+        setShowStudentJoinModal(true);
+      } else {
+        setCurrentTab('live');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
   };
 
   const handleTriggerAppUpdate = async () => {

@@ -61318,26 +61318,6 @@ Click to join: ${link}`
         console.warn("Could not check remote version:", err);
       }
     };
-    const triggerApkDownload = (url) => {
-      const downloadTarget = url || updateInfo?.apkUrl || "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk";
-      try {
-        window.open(downloadTarget, "_system");
-      } catch (_2) {
-      }
-      try {
-        const a = document.createElement("a");
-        a.href = downloadTarget;
-        a.download = "NITHYA-Yoga-v1.0.apk";
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-          if (a.parentNode) document.body.removeChild(a);
-        }, 500);
-      } catch (_2) {
-      }
-    };
     const handleUpdateNow = async () => {
       setIsUpdating(true);
       try {
@@ -61389,13 +61369,16 @@ Click to join: ${link}`
         onClick: handleUpdateNow,
         disabled: isUpdating
       },
-      isUpdating ? /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 16, className: "animate-spin" }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating in-place...")) : updateDone ? /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(CircleCheck, { size: 16, className: "text-emerald-300" }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1! \u2713" : "Updated Successfully! \u2713")) : /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 16 }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD (Update Now)" : "Update Now (Live Sync)"))
-    ), /* @__PURE__ */ import_react18.default.createElement("div", { className: "update-secondary-row" }, /* @__PURE__ */ import_react18.default.createElement(
+      isUpdating ? /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 16, className: "animate-spin" }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating in-place...")) : updateDone ? /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(CircleCheck, { size: 16, className: "text-emerald-300" }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1! \u2713" : "Download Started in Chrome! \u2713")) : /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 16 }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD (Update Now)" : "Update Now (Live Sync)"))
+    ), updateDone && /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-600 font-semibold text-center my-1" }, lang === "ta" ? "\u2713 \u0B95\u0BC1\u0BB0\u0BCB\u0BAE\u0BBF\u0BB2\u0BCD APK \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1. \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1\u0BAE\u0BCD Notification-\u0B90 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 Install \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "\u2713 APK download started in Chrome. Once finished, tap the notification to Install."), /* @__PURE__ */ import_react18.default.createElement("div", { className: "update-secondary-row" }, /* @__PURE__ */ import_react18.default.createElement(
       "button",
       {
         type: "button",
         className: "update-btn-apk-download cursor-pointer flex items-center gap-1.5",
-        onClick: () => triggerApkDownload(updateInfo?.apkUrl)
+        onClick: () => {
+          setUpdateDone(true);
+          triggerApkDownload(updateInfo?.apkUrl);
+        }
       },
       /* @__PURE__ */ import_react18.default.createElement(Download, { size: 13 }),
       /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BC1\u0BB0\u0BCB\u0BAE\u0BBF\u0BB2\u0BCD APK \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BC1" : "Download APK in Chrome")
@@ -61412,7 +61395,7 @@ Click to join: ${link}`
       lang === "ta" ? "\u0BAA\u0BBF\u0BB1\u0B95\u0BC1" : "Later"
     )))));
   }
-  var import_react18, CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER;
+  var import_react18, CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER, triggerApkDownload;
   var init_InAppUpdateBanner = __esm({
     "src/components/InAppUpdateBanner.jsx"() {
       import_react18 = __toESM(require_react());
@@ -61420,11 +61403,45 @@ Click to join: ${link}`
       init_ThreeDIcons();
       CURRENT_APP_VERSION = "1.2.0";
       CURRENT_BUILD_NUMBER = 3;
+      triggerApkDownload = (url) => {
+        const downloadTarget = url || "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk";
+        if (typeof window !== "undefined" && window.AndroidNativeUpdater) {
+          try {
+            if (typeof window.AndroidNativeUpdater.openInChrome === "function") {
+              window.AndroidNativeUpdater.openInChrome(downloadTarget);
+              return true;
+            }
+          } catch (e2) {
+            console.warn("Native bridge openInChrome failed:", e2);
+          }
+        }
+        try {
+          if (typeof window !== "undefined" && window.open) {
+            window.open(downloadTarget, "_system");
+          }
+        } catch (_2) {
+        }
+        try {
+          const a = document.createElement("a");
+          a.href = downloadTarget;
+          a.download = "NITHYA-Yoga-v1.0.apk";
+          a.target = "_blank";
+          a.rel = "noopener noreferrer";
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => {
+            if (a.parentNode) document.body.removeChild(a);
+          }, 500);
+        } catch (_2) {
+          window.location.href = downloadTarget;
+        }
+        return true;
+      };
     }
   });
 
   // src/components/ProfileSection.jsx
-  function ProfileSection({ user: user2, onUpdateUser, lang = "en" }) {
+  function ProfileSection({ user: user2, onUpdateUser, showToast, lang = "en" }) {
     const [activeTab, setActiveTab] = (0, import_react19.useState)("Personal Info");
     const [isEditing, setIsEditing] = (0, import_react19.useState)(false);
     const [remoteUpdate, setRemoteUpdate] = (0, import_react19.useState)(null);
@@ -61480,27 +61497,20 @@ Click to join: ${link}`
             localStorage.setItem("nithya_installed_build", remoteUpdate.versionCode.toString());
           }
         }
-        try {
-          window.open(apkDownloadUrl, "_system");
-        } catch (_2) {
+        triggerApkDownload(apkDownloadUrl);
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0B95\u0BC1\u0BB0\u0BCB\u0BAE\u0BBF\u0BB2\u0BCD APK \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1 \u2713" : "APK Download Started in Chrome \u2713",
+            lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1\u0BAE\u0BCD Notification-\u0B90 \u0BA4\u0BBF\u0BB1\u0BA8\u0BCD\u0BA4\u0BC1 Install \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Open Downloads notification once complete to Install.",
+            "success"
+          );
         }
-        const a = document.createElement("a");
-        a.href = apkDownloadUrl;
-        a.download = "NITHYA-Yoga-v1.0.apk";
-        a.target = "_blank";
-        a.rel = "noopener noreferrer";
-        document.body.appendChild(a);
-        a.click();
-        setTimeout(() => {
-          if (a.parentNode) document.body.removeChild(a);
-        }, 500);
       } catch (_2) {
-        try {
-          window.open(apkDownloadUrl, "_system");
-        } catch (e2) {
-        }
+        triggerApkDownload(apkDownloadUrl);
       } finally {
-        setIsUpdatingApp(false);
+        setTimeout(() => {
+          setIsUpdatingApp(false);
+        }, 1e3);
       }
     };
     const handleClearCache = async () => {
@@ -61508,8 +61518,29 @@ Click to join: ${link}`
         const keys = await caches.keys();
         await Promise.all(keys.map((k) => caches.delete(k)));
       }
-      alert(lang === "ta" ? "\u0B95\u0BC7\u0B9A\u0BCD \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Web Cache Cleared Successfully!");
-      window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+      if ("serviceWorker" in navigator) {
+        const regs = await navigator.serviceWorker.getRegistrations();
+        for (const reg of regs) {
+          await reg.unregister();
+        }
+      }
+      if (showToast) {
+        showToast(
+          lang === "ta" ? "\u0B95\u0BC7\u0B9A\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Cache Cleared \u2713",
+          lang === "ta" ? "\u0B9A\u0BAE\u0BC0\u0BAA\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BA9\u0BCD\u0BB1\u0BA9..." : "Refreshing latest assets...",
+          "info"
+        );
+      }
+      setTimeout(() => {
+        if (typeof window !== "undefined") {
+          const isCapacitorOrLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "capacitor:" || window.location.protocol === "file:";
+          if (isCapacitorOrLocal) {
+            window.location.reload();
+          } else {
+            window.location.replace(`${window.location.origin}${window.location.pathname}?live_sync=${Date.now()}`);
+          }
+        }
+      }, 500);
     };
     import_react19.default.useEffect(() => {
       if (user2) {
@@ -61623,7 +61654,7 @@ Click to join: ${link}`
         value: formData.goal,
         onChange: (e2) => setFormData({ ...formData, goal: e2.target.value })
       }
-    ))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "profile-edit-actions-row" }, /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setIsEditing(false) }, lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel"), /* @__PURE__ */ import_react19.default.createElement("button", { type: "submit", className: "btn-modal-save" }, /* @__PURE__ */ import_react19.default.createElement(Check, { size: 14 }), /* @__PURE__ */ import_react19.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Save Changes")))) : (
+    ))), /* @__PURE__ */ import_react19.default.createElement("div", { className: "profile-edit-actions-row" }, /* @__PURE__ */ import_react19.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setIsEditing(false) }, lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel"), /* @__PURE__ */ import_react19.default.createElement("button", { type: "submit", className: "btn-modal-save" }, /* @__PURE__ */ import_react19.default.createElement(Check, { size: 14 }), /* @__PURE__ */ import_react19.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD (Submit)" : "Save / Submit")))) : (
       /* Tab Content Switching */
       activeTab === "Settings" ? /* @__PURE__ */ import_react19.default.createElement("div", { className: "profile-settings-view flex flex-col gap-4 p-2" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col gap-3" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react19.default.createElement("div", { className: "w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold" }, "\u{1F680}"), /* @__PURE__ */ import_react19.default.createElement("div", null, /* @__PURE__ */ import_react19.default.createElement("h4", { className: "text-xs font-black text-heading uppercase tracking-wide" }, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD" : "App Version & In-App Updates"), /* @__PURE__ */ import_react19.default.createElement("span", { className: "text-[11px] text-muted font-medium" }, lang === "ta" ? "\u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1:" : "Installed Version:", " ", /* @__PURE__ */ import_react19.default.createElement("strong", { className: "text-heading" }, "v", CURRENT_APP_VERSION)))), /* @__PURE__ */ import_react19.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, remoteUpdate?.version && (remoteUpdate.versionCode > CURRENT_BUILD_NUMBER || remoteUpdate.version !== CURRENT_APP_VERSION) ? lang === "ta" ? `\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 v${remoteUpdate.version} \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD!` : `New v${remoteUpdate.version} Ready!` : lang === "ta" ? "\u0BB2\u0BC7\u0B9F\u0BCD\u0B9F\u0BB8\u0BCD\u0B9F\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u2713" : "Latest Release \u2713")), remoteUpdate?.notesTa && /* @__PURE__ */ import_react19.default.createElement("div", { className: "p-2.5 rounded-lg bg-card border border-subtle text-xs text-sub leading-relaxed" }, /* @__PURE__ */ import_react19.default.createElement("span", { className: "font-bold text-heading block mb-1" }, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD:" : "Update Notes:"), lang === "ta" ? remoteUpdate.notesTa : remoteUpdate.notes), /* @__PURE__ */ import_react19.default.createElement("div", { className: "flex items-center gap-2 flex-wrap pt-1" }, /* @__PURE__ */ import_react19.default.createElement(
         "button",
@@ -61646,13 +61677,20 @@ Click to join: ${link}`
         /* @__PURE__ */ import_react19.default.createElement(RefreshCw, { size: 13, className: isUpdatingApp ? "animate-spin" : "" }),
         /* @__PURE__ */ import_react19.default.createElement("span", null, isUpdatingApp ? lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B86\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating..." : lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0BA8\u0BB5\u0BCD (Update Now)" : "Update Now")
       ), /* @__PURE__ */ import_react19.default.createElement(
-        "a",
+        "button",
         {
-          href: "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk",
-          target: "_blank",
-          rel: "noopener noreferrer",
+          type: "button",
           className: "ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-violet hover:bg-subtle/70",
-          download: "NITHYA-Yoga-v1.0.apk",
+          onClick: () => {
+            triggerApkDownload(remoteUpdate?.apkUrl);
+            if (showToast) {
+              showToast(
+                lang === "ta" ? "\u0B95\u0BC1\u0BB0\u0BCB\u0BAE\u0BBF\u0BB2\u0BCD APK \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1 \u2713" : "APK Download Started in Chrome \u2713",
+                lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1\u0BAE\u0BCD Notification-\u0B90 \u0BA4\u0BBF\u0BB1\u0BA8\u0BCD\u0BA4\u0BC1 Install \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Open Downloads notification once complete to Install.",
+                "success"
+              );
+            }
+          },
           title: lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 APK \u0B9F\u0BB5\u0BC1\u0BA9\u0BCD\u0BB2\u0BCB\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0B95" : "Download Full APK"
         },
         /* @__PURE__ */ import_react19.default.createElement(Download, { size: 13 }),
@@ -65251,6 +65289,7 @@ ${liveUrl}`;
       {
         user: user2,
         onUpdateUser: handleUpdateUser,
+        showToast,
         lang
       }
     )))))), /* @__PURE__ */ import_react28.default.createElement(

@@ -743,6 +743,7 @@ export default function App() {
                 <ProfileSection
                   user={user}
                   onUpdateUser={handleUpdateUser}
+                  showToast={showToast}
                   lang={lang}
                 />
               </div>

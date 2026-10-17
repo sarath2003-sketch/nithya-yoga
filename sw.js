@@ -99,6 +99,11 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  // RULE B2: Strictly bypass version.json and APK files (always fetch fresh, never cache 22MB binaries)
+  if (url.pathname.endsWith('version.json') || url.pathname.endsWith('.apk')) {
+    return;
+  }
+
   // RULE C: Navigation Requests (HTML / SPA page transitions)
   // Strategy: Network-First with fallback to cached index.html for complete offline support
   if (request.mode === 'navigate') {

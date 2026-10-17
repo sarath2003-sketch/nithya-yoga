@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { User, Edit3, Flower2, Mail, Calendar, Target, Heart, Camera, Check, X, Trash2, RefreshCw, Download, Sparkles } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
-import { CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER } from './InAppUpdateBanner';
+import { CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER, triggerApkDownload } from './InAppUpdateBanner';
 
-export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
+export default function ProfileSection({ user, onUpdateUser, showToast, lang = 'en' }) {
   const [activeTab, setActiveTab] = useState('Personal Info');
   const [isEditing, setIsEditing] = useState(false);
   const [remoteUpdate, setRemoteUpdate] = useState(null);
@@ -64,28 +64,22 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
           localStorage.setItem('nithya_installed_build', remoteUpdate.versionCode.toString());
         }
       }
-      // Open in Chrome / system browser
-      try {
-        window.open(apkDownloadUrl, '_system');
-      } catch (_) {}
+      // Trigger Chrome APK download via Android Native Bridge & external intent
+      triggerApkDownload(apkDownloadUrl);
 
-      // Anchor download trigger
-      const a = document.createElement('a');
-      a.href = apkDownloadUrl;
-      a.download = 'NITHYA-Yoga-v1.0.apk';
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        if (a.parentNode) document.body.removeChild(a);
-      }, 500);
+      if (showToast) {
+        showToast(
+          lang === 'ta' ? 'குரோமில் APK பதிவிறக்கம் தொடங்கியது ✓' : 'APK Download Started in Chrome ✓',
+          lang === 'ta' ? 'பதிவிறக்கம் முடிந்ததும் Notification-ஐ திறந்து Install செய்யவும்.' : 'Open Downloads notification once complete to Install.',
+          'success'
+        );
+      }
     } catch (_) {
-      try {
-        window.open(apkDownloadUrl, '_system');
-      } catch (e) {}
+      triggerApkDownload(apkDownloadUrl);
     } finally {
-      setIsUpdatingApp(false);
+      setTimeout(() => {
+        setIsUpdatingApp(false);
+      }, 1000);
     }
   };
 
@@ -94,8 +88,33 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
       const keys = await caches.keys();
       await Promise.all(keys.map(k => caches.delete(k)));
     }
-    alert(lang === 'ta' ? 'கேச் வெற்றிகரமாக நீக்கப்பட்டது!' : 'Web Cache Cleared Successfully!');
-    window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+    if ('serviceWorker' in navigator) {
+      const regs = await navigator.serviceWorker.getRegistrations();
+      for (const reg of regs) {
+        await reg.unregister();
+      }
+    }
+    if (showToast) {
+      showToast(
+        lang === 'ta' ? 'கேச் நீக்கப்பட்டது ✓' : 'Cache Cleared ✓',
+        lang === 'ta' ? 'சமீபத்திய மாற்றங்கள் புதுப்பிக்கப்படுகின்றன...' : 'Refreshing latest assets...',
+        'info'
+      );
+    }
+    setTimeout(() => {
+      if (typeof window !== 'undefined') {
+        const isCapacitorOrLocal = 
+          window.location.hostname === 'localhost' ||
+          window.location.hostname === '127.0.0.1' ||
+          window.location.protocol === 'capacitor:' ||
+          window.location.protocol === 'file:';
+        if (isCapacitorOrLocal) {
+          window.location.reload();
+        } else {
+          window.location.replace(`${window.location.origin}${window.location.pathname}?live_sync=${Date.now()}`);
+        }
+      }
+    }, 500);
   };
 
   // Keep form data synced if prop changes
@@ -274,7 +293,7 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
             </button>
             <button type="submit" className="btn-modal-save">
               <Check size={14} />
-              <span>{lang === 'ta' ? 'சேமிக்கவும்' : 'Save Changes'}</span>
+              <span>{lang === 'ta' ? 'சேமிக்கவும் (Submit)' : 'Save / Submit'}</span>
             </button>
           </div>
         </form>
@@ -344,17 +363,24 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
                   </span>
                 </button>
 
-                <a
-                  href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
                   className="ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-violet hover:bg-subtle/70"
-                  download="NITHYA-Yoga-v1.0.apk"
+                  onClick={() => {
+                    triggerApkDownload(remoteUpdate?.apkUrl);
+                    if (showToast) {
+                      showToast(
+                        lang === 'ta' ? 'குரோமில் APK பதிவிறக்கம் தொடங்கியது ✓' : 'APK Download Started in Chrome ✓',
+                        lang === 'ta' ? 'பதிவிறக்கம் முடிந்ததும் Notification-ஐ திறந்து Install செய்யவும்.' : 'Open Downloads notification once complete to Install.',
+                        'success'
+                      );
+                    }
+                  }}
                   title={lang === 'ta' ? 'நேரடியாக APK டவுன்லோட் செய்க' : 'Download Full APK'}
                 >
                   <Download size={13} />
                   <span>{lang === 'ta' ? 'APK டவுன்லோட்' : 'Download APK'}</span>
-                </a>
+                </button>
 
                 <button
                   type="button"

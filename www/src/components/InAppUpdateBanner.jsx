@@ -5,6 +5,46 @@ import { ThreeDLotus } from './ThreeDIcons';
 export const CURRENT_APP_VERSION = '1.2.0';
 export const CURRENT_BUILD_NUMBER = 3;
 
+export const triggerApkDownload = (url) => {
+  const downloadTarget = url || 'https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk';
+  
+  // 1. Direct Android Native Updater Bridge (instant Chrome activity intent via OS)
+  if (typeof window !== 'undefined' && window.AndroidNativeUpdater) {
+    try {
+      if (typeof window.AndroidNativeUpdater.openInChrome === 'function') {
+        window.AndroidNativeUpdater.openInChrome(downloadTarget);
+        return true;
+      }
+    } catch (e) {
+      console.warn('Native bridge openInChrome failed:', e);
+    }
+  }
+
+  // 2. Capacitor / System Browser Intent
+  try {
+    if (typeof window !== 'undefined' && window.open) {
+      window.open(downloadTarget, '_system');
+    }
+  } catch (_) {}
+
+  // 3. DOM link click fallback
+  try {
+    const a = document.createElement('a');
+    a.href = downloadTarget;
+    a.download = 'NITHYA-Yoga-v1.0.apk';
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    document.body.appendChild(a);
+    a.click();
+    setTimeout(() => {
+      if (a.parentNode) document.body.removeChild(a);
+    }, 500);
+  } catch (_) {
+    window.location.href = downloadTarget;
+  }
+  return true;
+};
+
 export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
   const [updateInfo, setUpdateInfo] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
@@ -39,29 +79,6 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
     } catch (err) {
       console.warn('Could not check remote version:', err);
     }
-  };
-
-  const triggerApkDownload = (url) => {
-    const downloadTarget = url || updateInfo?.apkUrl || 'https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk';
-    
-    // 1. Android Capacitor / System Browser Intent
-    try {
-      window.open(downloadTarget, '_system');
-    } catch (_) {}
-
-    // 2. DOM link click fallback
-    try {
-      const a = document.createElement('a');
-      a.href = downloadTarget;
-      a.download = 'NITHYA-Yoga-v1.0.apk';
-      a.target = '_blank';
-      a.rel = 'noopener noreferrer';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => {
-        if (a.parentNode) document.body.removeChild(a);
-      }, 500);
-    } catch (_) {}
   };
 
   const handleUpdateNow = async () => {
@@ -189,7 +206,7 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
             ) : updateDone ? (
               <>
                 <CheckCircle2 size={16} className="text-emerald-300" />
-                <span>{lang === 'ta' ? 'அப்டேட் முடிந்தது! ✓' : 'Updated Successfully! ✓'}</span>
+                <span>{lang === 'ta' ? 'பதிவிறக்கம் தொடங்கப்பட்டது! ✓' : 'Download Started in Chrome! ✓'}</span>
               </>
             ) : (
               <>
@@ -199,11 +216,22 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
             )}
           </button>
 
+          {updateDone && (
+            <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-xs text-emerald-600 font-semibold text-center my-1">
+              {lang === 'ta' 
+                ? '✓ குரோமில் APK பதிவிறக்கம் தொடங்கப்பட்டது. பதிவிறக்கம் முடிந்ததும் Notification-ஐ கிளிக் செய்து Install செய்யவும்.' 
+                : '✓ APK download started in Chrome. Once finished, tap the notification to Install.'}
+            </div>
+          )}
+
           <div className="update-secondary-row">
             <button
               type="button"
               className="update-btn-apk-download cursor-pointer flex items-center gap-1.5"
-              onClick={() => triggerApkDownload(updateInfo?.apkUrl)}
+              onClick={() => {
+                setUpdateDone(true);
+                triggerApkDownload(updateInfo?.apkUrl);
+              }}
             >
               <Download size={13} />
               <span>{lang === 'ta' ? 'குரோமில் APK பதிவிறக்கு' : 'Download APK in Chrome'}</span>

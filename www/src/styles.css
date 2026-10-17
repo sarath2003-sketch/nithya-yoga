@@ -4193,3 +4193,25 @@ input, select, textarea {
 .role-toggle-pill:hover .role-change-arrow {
   transform: rotate(180deg);
 }
+
+/* Profile Inline Edit Form Styles */
+.profile-edit-form-block {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 16px;
+  margin-top: 10px;
+}
+
+.profile-edit-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+}

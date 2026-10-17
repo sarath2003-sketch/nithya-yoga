@@ -64539,6 +64539,9 @@ ${liveUrl}`;
           minutes,
           r.repeat === "Once" ? r.date : null
         );
+        if (r.repeat === "Once" && targetDate.getTime() <= Date.now()) {
+          continue;
+        }
         const title = lang === "ta" ? `\u{1F9D8}\u200D\u2640\uFE0F NITHYA \u0BAF\u0BCB\u0B95\u0BBE: ${r.titleTa || r.title}` : `\u{1F9D8}\u200D\u2640\uFE0F NITHYA Yoga: ${r.title}`;
         const body = lang === "ta" ? r.messageTa || r.message || "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD! \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BB5\u0BA9\u0BBF\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u{1F49C}" : r.message || "Time for your healthy yoga habit! \u{1F49C}";
         const scheduleConfig = {

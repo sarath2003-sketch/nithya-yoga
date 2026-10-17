@@ -44,9 +44,13 @@
   --shadow-card: 0 4px 20px -2px rgba(100, 116, 139, 0.07), 0 1px 3px rgba(100, 116, 139, 0.03);
   --shadow-card-hover: 0 10px 28px -4px rgba(100, 116, 139, 0.12);
 
-  /* Typography */
+  /* Typography: Inter (body UI text), Poppins (headings), Noto Sans Tamil (Tamil text) */
   --font-family: 'Inter', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  --font-heading: 'Inter', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-heading: 'Poppins', 'Inter', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
 }
 
 /* Tamil font optimization when data-lang="ta" */
@@ -57,6 +61,16 @@
 [data-lang="ta"] textarea,
 [data-lang="ta"] select {
   font-family: 'Noto Sans Tamil', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+}
+
+[data-lang="ta"] h1,
+[data-lang="ta"] h2,
+[data-lang="ta"] h3,
+[data-lang="ta"] h4,
+[data-lang="ta"] h5,
+[data-lang="ta"] h6,
+[data-lang="ta"] .font-heading {
+  font-family: 'Noto Sans Tamil', 'Poppins', sans-serif !important;
 }
 
 /* Dark Mode Palette Overrides */

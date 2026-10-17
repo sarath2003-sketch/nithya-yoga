@@ -15,9 +15,11 @@ function copyRecursive(src, dest) {
   if (stat.isDirectory()) {
     if (!fs.existsSync(dest)) fs.mkdirSync(dest, { recursive: true });
     for (const child of fs.readdirSync(src)) {
+      if (child.endsWith('.apk') || child.endsWith('.zip') || child.endsWith('.map')) continue;
       copyRecursive(path.join(src, child), path.join(dest, child));
     }
   } else {
+    if (src.endsWith('.apk') || src.endsWith('.zip') || src.endsWith('.map')) return;
     fs.copyFileSync(src, dest);
   }
 }

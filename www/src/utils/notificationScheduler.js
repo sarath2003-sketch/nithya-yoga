@@ -187,6 +187,11 @@ export async function syncAllRemindersWithSystem(reminders, lang = 'en') {
         r.repeat === 'Once' ? r.date : null
       );
 
+      // Skip expired one-time reminders
+      if (r.repeat === 'Once' && targetDate.getTime() <= Date.now()) {
+        continue;
+      }
+
       const title = lang === 'ta'
         ? `🧘‍♀️ NITHYA யோகா: ${r.titleTa || r.title}`
         : `🧘‍♀️ NITHYA Yoga: ${r.title}`;

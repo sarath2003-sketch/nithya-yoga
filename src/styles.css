@@ -22,7 +22,10 @@
   --text-sub: #64748B;
   --text-muted: #94A3B8;
 
-  /* Accent Tones */
+  /* Primary & Brand Accent Tones */
+  --primary: #7C3AED;
+  --primary-dark: #6D28D9;
+  --primary-light: #EDE9FE;
   --primary-purple: #5B44E6;
   --primary-purple-hover: #4B33D4;
   --primary-purple-light: #EEF0FF;
@@ -34,9 +37,12 @@
   --accent-green: #16A34A;
   --accent-pink: #E11D48;
 
-  /* Borders & Shadows */
+  /* Borders, Surfaces & Shadows */
+  --border-color: #E2E8F0;
   --border-light: #E2E8F0;
   --border-card: #E5E9F2;
+  --bg-subtle: #F1F5F9;
+  --bg-hover: #E2E8F0;
   --radius-sm: 8px;
   --radius-md: 14px;
   --radius-lg: 18px;
@@ -75,6 +81,9 @@ h1, h2, h3, h4, h5, h6, .font-heading {
 
 /* Dark Mode Palette Overrides */
 [data-theme="dark"] {
+  --primary: #8B5CF6;
+  --primary-dark: #7C3AED;
+  --primary-light: rgba(139, 92, 246, 0.15);
   --bg-app: #0B0D1B;
   --bg-card: #15182E;
   --bg-card-subtle: #1D223F;
@@ -82,8 +91,11 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   --text-heading: #FFFFFF;
   --text-sub: #94A3B8;
   --text-muted: #64748B;
+  --border-color: #2A3158;
   --border-light: #2A3158;
   --border-card: #252B4E;
+  --bg-subtle: #1D223F;
+  --bg-hover: #252B4E;
   --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.4);
 }
 
@@ -3606,21 +3618,93 @@ input, select, textarea {
 .btn-modal-save {
   padding: 10px 22px;
   border-radius: 9999px;
-  border: none;
-  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-  color: #FFFFFF;
+  border: none !important;
+  background-color: #7C3AED !important;
+  background: linear-gradient(135deg, #7C3AED, #6D28D9) !important;
+  color: #FFFFFF !important;
   font-weight: 800;
   font-size: 0.85rem;
   cursor: pointer;
-  box-shadow: 0 4px 14px rgba(108, 92, 231, 0.35);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4) !important;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 .btn-modal-save:hover {
+  background: linear-gradient(135deg, #6D28D9, #5B21B6) !important;
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(108, 92, 231, 0.45);
+  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.5) !important;
 }
 .btn-modal-save:active {
   transform: scale(0.96);
+}
+
+/* Global button & form utilities */
+.ya-btn,
+.ya-btn--primary {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  min-height: 40px !important;
+  padding: 0.65rem 1.25rem !important;
+  border-radius: 9999px !important;
+  border: none !important;
+  color: #FFFFFF !important;
+  background-color: #7C3AED !important;
+  background: linear-gradient(135deg, #7C3AED, #5B44E6) !important;
+  font-weight: 800 !important;
+  font-size: 0.85rem !important;
+  cursor: pointer !important;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35) !important;
+  transition: all 0.2s ease !important;
+}
+.ya-btn:hover,
+.ya-btn--primary:hover {
+  background: linear-gradient(135deg, #6D28D9, #4B33D4) !important;
+  transform: translateY(-1px) !important;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45) !important;
+}
+
+.bg-primary {
+  background-color: var(--primary) !important;
+}
+.bg-primary\/10 {
+  background-color: rgba(124, 58, 237, 0.1) !important;
+}
+.bg-primary\/15 {
+  background-color: rgba(124, 58, 237, 0.15) !important;
+}
+.bg-primary\/20 {
+  background-color: rgba(124, 58, 237, 0.2) !important;
+}
+.text-primary {
+  color: var(--primary) !important;
+}
+.border-primary {
+  border-color: var(--primary) !important;
+}
+.bg-card {
+  background-color: var(--bg-card) !important;
+}
+.border-subtle {
+  border-color: var(--border-color) !important;
+}
+.bg-subtle {
+  background-color: var(--bg-subtle) !important;
+}
+.text-heading {
+  color: var(--text-heading) !important;
+}
+.text-muted {
+  color: var(--text-muted) !important;
+}
+.ya-input {
+  border: 1px solid var(--border-color) !important;
+  background: var(--bg-card) !important;
+  color: var(--text-heading) !important;
 }
 
 .btn-modal-delete {

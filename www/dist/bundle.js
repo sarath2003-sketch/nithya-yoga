@@ -61303,8 +61303,8 @@ Click to join: ${link}`
         });
         if (res.ok) {
           const data = await res.json();
-          const remoteVer = data.version || "1.1.0";
-          const remoteBuild = data.versionCode || 2;
+          const remoteVer = data.version || "1.2.0";
+          const remoteBuild = data.versionCode || 3;
           const localVersion = localStorage.getItem("nithya_installed_version") || CURRENT_APP_VERSION;
           const localBuild = parseInt(localStorage.getItem("nithya_installed_build") || CURRENT_BUILD_NUMBER.toString(), 10);
           const isNewer = remoteBuild > localBuild || remoteVer !== localVersion && remoteBuild > CURRENT_BUILD_NUMBER;
@@ -61316,6 +61316,26 @@ Click to join: ${link}`
         }
       } catch (err) {
         console.warn("Could not check remote version:", err);
+      }
+    };
+    const triggerApkDownload = (url) => {
+      const downloadTarget = url || updateInfo?.apkUrl || "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk";
+      try {
+        window.open(downloadTarget, "_system");
+      } catch (_2) {
+      }
+      try {
+        const a = document.createElement("a");
+        a.href = downloadTarget;
+        a.download = "NITHYA-Yoga-v1.0.apk";
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(() => {
+          if (a.parentNode) document.body.removeChild(a);
+        }, 500);
+      } catch (_2) {
       }
     };
     const handleUpdateNow = async () => {
@@ -61333,14 +61353,19 @@ Click to join: ${link}`
         }
         if (updateInfo?.version) {
           localStorage.setItem("nithya_installed_version", updateInfo.version);
+          if (updateInfo?.versionCode) {
+            localStorage.setItem("nithya_installed_build", updateInfo.versionCode.toString());
+          }
         }
         setUpdateDone(true);
+        triggerApkDownload(updateInfo?.apkUrl);
         setTimeout(() => {
-          window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
-        }, 700);
+          setIsUpdating(false);
+        }, 1500);
       } catch (err) {
         console.error("Update error:", err);
-        window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+        triggerApkDownload(updateInfo?.apkUrl);
+        setIsUpdating(false);
       }
     };
     if (!updateInfo || dismissed) return null;
@@ -61366,16 +61391,14 @@ Click to join: ${link}`
       },
       isUpdating ? /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 16, className: "animate-spin" }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Updating in-place...")) : updateDone ? /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(CircleCheck, { size: 16, className: "text-emerald-300" }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1! \u2713" : "Updated Successfully! \u2713")) : /* @__PURE__ */ import_react18.default.createElement(import_react18.default.Fragment, null, /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 16 }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD (Update Now)" : "Update Now (Live Sync)"))
     ), /* @__PURE__ */ import_react18.default.createElement("div", { className: "update-secondary-row" }, /* @__PURE__ */ import_react18.default.createElement(
-      "a",
+      "button",
       {
-        href: "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk",
-        target: "_blank",
-        rel: "noopener noreferrer",
-        className: "update-btn-apk-download",
-        download: "NITHYA-Yoga-v1.0.apk"
+        type: "button",
+        className: "update-btn-apk-download cursor-pointer flex items-center gap-1.5",
+        onClick: () => triggerApkDownload(updateInfo?.apkUrl)
       },
       /* @__PURE__ */ import_react18.default.createElement(Download, { size: 13 }),
-      /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "APK \u0B9F\u0BB5\u0BC1\u0BA9\u0BCD\u0BB2\u0BCB\u0B9F\u0BCD" : "Download APK")
+      /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BC1\u0BB0\u0BCB\u0BAE\u0BBF\u0BB2\u0BCD APK \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BC1" : "Download APK in Chrome")
     ), /* @__PURE__ */ import_react18.default.createElement(
       "button",
       {
@@ -61395,8 +61418,8 @@ Click to join: ${link}`
       import_react18 = __toESM(require_react());
       init_lucide_react();
       init_ThreeDIcons();
-      CURRENT_APP_VERSION = "1.1.0";
-      CURRENT_BUILD_NUMBER = 2;
+      CURRENT_APP_VERSION = "1.2.0";
+      CURRENT_BUILD_NUMBER = 3;
     }
   });
 
@@ -61439,6 +61462,7 @@ Click to join: ${link}`
     };
     const handleTriggerUpdate = async () => {
       setIsUpdatingApp(true);
+      const apkDownloadUrl = remoteUpdate?.apkUrl || "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk";
       try {
         if ("caches" in window) {
           const cacheNames = await caches.keys();
@@ -61452,12 +61476,31 @@ Click to join: ${link}`
         }
         if (remoteUpdate?.version) {
           localStorage.setItem("nithya_installed_version", remoteUpdate.version);
+          if (remoteUpdate?.versionCode) {
+            localStorage.setItem("nithya_installed_build", remoteUpdate.versionCode.toString());
+          }
         }
+        try {
+          window.open(apkDownloadUrl, "_system");
+        } catch (_2) {
+        }
+        const a = document.createElement("a");
+        a.href = apkDownloadUrl;
+        a.download = "NITHYA-Yoga-v1.0.apk";
+        a.target = "_blank";
+        a.rel = "noopener noreferrer";
+        document.body.appendChild(a);
+        a.click();
         setTimeout(() => {
-          window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+          if (a.parentNode) document.body.removeChild(a);
         }, 500);
       } catch (_2) {
-        window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+        try {
+          window.open(apkDownloadUrl, "_system");
+        } catch (e2) {
+        }
+      } finally {
+        setIsUpdatingApp(false);
       }
     };
     const handleClearCache = async () => {
@@ -61825,12 +61868,14 @@ Click to join: ${link}`
       onSave({
         id: initialData?.id || `rem-${Date.now()}`,
         title: title.trim(),
+        titleTa: lang === "ta" ? title.trim() : initialData?.titleTa || title.trim(),
         category,
         date,
         time: formattedTime,
         rawTime: time,
         repeat,
         message: message.trim() || getDefaultMessage(category),
+        messageTa: lang === "ta" ? message.trim() || getDefaultMessage(category) : initialData?.messageTa || message.trim() || getDefaultMessage(category),
         sound: customAudioName || sound,
         customAudioUrl: customAudioUrl || void 0,
         enabled,

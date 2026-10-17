@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Download, RefreshCw, Sparkles, X, CheckCircle2 } from 'lucide-react';
 import { ThreeDLotus } from './ThreeDIcons';
 
-export const CURRENT_APP_VERSION = '1.1.0';
-export const CURRENT_BUILD_NUMBER = 2;
+export const CURRENT_APP_VERSION = '1.2.0';
+export const CURRENT_BUILD_NUMBER = 3;
 
 export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
   const [updateInfo, setUpdateInfo] = useState(null);
@@ -22,12 +22,12 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
       });
       if (res.ok) {
         const data = await res.json();
-        const remoteVer = data.version || '1.1.0';
-        const remoteBuild = data.versionCode || 2;
+        const remoteVer = data.version || '1.2.0';
+        const remoteBuild = data.versionCode || 3;
         const localVersion = localStorage.getItem('nithya_installed_version') || CURRENT_APP_VERSION;
         const localBuild = parseInt(localStorage.getItem('nithya_installed_build') || CURRENT_BUILD_NUMBER.toString(), 10);
         
-        // Show update modal only if remote build is strictly greater than local build OR remote version is higher
+        // Show update modal if remote build is higher
         const isNewer = (remoteBuild > localBuild) || (remoteVer !== localVersion && remoteBuild > CURRENT_BUILD_NUMBER);
         
         if (isNewer) {
@@ -39,6 +39,29 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
     } catch (err) {
       console.warn('Could not check remote version:', err);
     }
+  };
+
+  const triggerApkDownload = (url) => {
+    const downloadTarget = url || updateInfo?.apkUrl || 'https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk';
+    
+    // 1. Android Capacitor / System Browser Intent
+    try {
+      window.open(downloadTarget, '_system');
+    } catch (_) {}
+
+    // 2. DOM link click fallback
+    try {
+      const a = document.createElement('a');
+      a.href = downloadTarget;
+      a.download = 'NITHYA-Yoga-v1.0.apk';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        if (a.parentNode) document.body.removeChild(a);
+      }, 500);
+    } catch (_) {}
   };
 
   const handleUpdateNow = async () => {
@@ -59,16 +82,23 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
 
       if (updateInfo?.version) {
         localStorage.setItem('nithya_installed_version', updateInfo.version);
+        if (updateInfo?.versionCode) {
+          localStorage.setItem('nithya_installed_build', updateInfo.versionCode.toString());
+        }
       }
 
       setUpdateDone(true);
 
+      // Trigger instant APK download in Chrome
+      triggerApkDownload(updateInfo?.apkUrl);
+
       setTimeout(() => {
-        window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
-      }, 700);
+        setIsUpdating(false);
+      }, 1500);
     } catch (err) {
       console.error('Update error:', err);
-      window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+      triggerApkDownload(updateInfo?.apkUrl);
+      setIsUpdating(false);
     }
   };
 
@@ -170,16 +200,14 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
           </button>
 
           <div className="update-secondary-row">
-            <a
-              href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="update-btn-apk-download"
-              download="NITHYA-Yoga-v1.0.apk"
+            <button
+              type="button"
+              className="update-btn-apk-download cursor-pointer flex items-center gap-1.5"
+              onClick={() => triggerApkDownload(updateInfo?.apkUrl)}
             >
               <Download size={13} />
-              <span>{lang === 'ta' ? 'APK டவுன்லோட்' : 'Download APK'}</span>
-            </a>
+              <span>{lang === 'ta' ? 'குரோமில் APK பதிவிறக்கு' : 'Download APK in Chrome'}</span>
+            </button>
 
             <button
               type="button"

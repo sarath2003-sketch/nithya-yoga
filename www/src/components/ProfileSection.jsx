@@ -46,6 +46,7 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
 
   const handleTriggerUpdate = async () => {
     setIsUpdatingApp(true);
+    const apkDownloadUrl = remoteUpdate?.apkUrl || 'https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk';
     try {
       if ('caches' in window) {
         const cacheNames = await caches.keys();
@@ -59,12 +60,32 @@ export default function ProfileSection({ user, onUpdateUser, lang = 'en' }) {
       }
       if (remoteUpdate?.version) {
         localStorage.setItem('nithya_installed_version', remoteUpdate.version);
+        if (remoteUpdate?.versionCode) {
+          localStorage.setItem('nithya_installed_build', remoteUpdate.versionCode.toString());
+        }
       }
+      // Open in Chrome / system browser
+      try {
+        window.open(apkDownloadUrl, '_system');
+      } catch (_) {}
+
+      // Anchor download trigger
+      const a = document.createElement('a');
+      a.href = apkDownloadUrl;
+      a.download = 'NITHYA-Yoga-v1.0.apk';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+      document.body.appendChild(a);
+      a.click();
       setTimeout(() => {
-        window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+        if (a.parentNode) document.body.removeChild(a);
       }, 500);
     } catch (_) {
-      window.location.replace(`https://sarath2003-sketch.github.io/nithya-yoga/?live_sync=${Date.now()}`);
+      try {
+        window.open(apkDownloadUrl, '_system');
+      } catch (e) {}
+    } finally {
+      setIsUpdatingApp(false);
     }
   };
 

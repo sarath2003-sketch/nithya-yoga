@@ -163,6 +163,9 @@ export function getProductionLiveUrl(classId = 'cls-1', extraParams = {}) {
 
   const url = new URL(originBase.startsWith('http') ? originBase : PRODUCTION_BASE);
   url.searchParams.set('live', classId);
+  if (!('join' in extraParams) && !('role' in extraParams)) {
+    url.searchParams.set('join', 'student');
+  }
 
   Object.entries(extraParams).forEach(([k, v]) => {
     if (v) url.searchParams.set(k, v);

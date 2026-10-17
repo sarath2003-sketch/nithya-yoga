@@ -148,11 +148,14 @@ export default function StudentJoinModal({
               <Radio size={16} className="text-primary animate-pulse" />
             </div>
             <div>
+              <span className="inline-block px-2 py-0.5 mb-0.5 rounded-full bg-primary/15 text-primary text-[10px] font-bold tracking-wide uppercase">
+                {activeClass?.courseName || activeClass?.course_name || 'Morning Yoga Flow'}
+              </span>
               <h3 className="modal-title-bold text-base font-bold text-heading">
                 {lang === 'ta' ? 'மாணவர் பதிவு & நேரலை வகுப்பு' : 'Student Live Yoga Registration'}
               </h3>
               <p className="text-[11px] text-muted">
-                {activeClass?.title || activeClass?.name || 'Hatha Yoga'} • {activeClass?.instructor || 'NITHYA Master'}
+                {activeClass?.title || activeClass?.name || 'Hatha Yoga Flow'} • {activeClass?.instructor || 'NITHYA Master'}
               </p>
             </div>
           </div>

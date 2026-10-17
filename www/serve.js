@@ -119,6 +119,34 @@ try {
 try {
   db.exec(`ALTER TABLE classes ADD COLUMN trainer_id TEXT DEFAULT 'admin'`);
 } catch (_) {}
+try {
+  db.exec(`ALTER TABLE classes ADD COLUMN course_name TEXT`);
+} catch (_) {}
+
+// Real-Time Live Session Tracking Table (Supports 10-Minute Reconnection Grace & Auto-Cleanup)
+db.exec(`
+CREATE TABLE IF NOT EXISTS live_sessions (
+  id TEXT PRIMARY KEY,
+  class_id TEXT NOT NULL,
+  participant_id TEXT NOT NULL,
+  identity TEXT NOT NULL,
+  name TEXT NOT NULL,
+  role TEXT NOT NULL DEFAULT 'student',
+  tab_id TEXT,
+  status TEXT NOT NULL DEFAULT 'active',
+  last_heartbeat TEXT NOT NULL,
+  disconnected_at TEXT,
+  created_at TEXT NOT NULL,
+  UNIQUE(class_id, identity)
+);
+`);
+
+// Backfill course names on existing starter classes if missing
+try {
+  db.exec(`UPDATE classes SET course_name = 'Master Hatha Yoga & Prana Flow' WHERE id='cls-1' AND (course_name IS NULL OR course_name='')`);
+  db.exec(`UPDATE classes SET course_name = 'Dynamic Vinyasa Core & Stamina' WHERE id='cls-2' AND (course_name IS NULL OR course_name='')`);
+  db.exec(`UPDATE classes SET course_name = 'Chakra Meditation & Yin Stillness' WHERE id='cls-3' AND (course_name IS NULL OR course_name='')`);
+} catch (_) {}
 
 // Insert default starter classes if table is empty
 const classCount = db.prepare('SELECT COUNT(*) as count FROM classes').get().count;
@@ -377,13 +405,13 @@ app.post('/api/student/register', (req, res) => {
 // -------------------------------------------------------------
 // Public / Student: List all classes with live status
 app.get('/api/classes', (req, res) => {
-  const rows = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, trainer_id, created_at FROM classes ORDER BY starts_at DESC').all();
+  const rows = db.prepare('SELECT id, title, COALESCE(course_name, title) as course_name, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, trainer_id, created_at FROM classes ORDER BY starts_at DESC').all();
   res.json(rows);
 });
 
 // Public: Get single class details
 app.get('/api/classes/:id', (req, res) => {
-  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, trainer_id, created_at FROM classes WHERE id=?').get(req.params.id);
+  const cls = db.prepare('SELECT id, title, COALESCE(course_name, title) as course_name, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, trainer_id, created_at FROM classes WHERE id=?').get(req.params.id);
   if (!cls) {
     return res.status(404).json({ error: 'Yoga class not found.' });
   }
@@ -393,6 +421,7 @@ app.get('/api/classes/:id', (req, res) => {
 // Trainer / Admin: Create Live Class
 app.post('/api/trainer/classes', auth, trainerOnly, (req, res) => {
   const title = String(req.body?.title || '').trim();
+  const courseName = String(req.body?.course_name || req.body?.courseName || title).trim();
   const startsAt = String(req.body?.startsAt || new Date().toISOString());
   const duration = Number(req.body?.durationMinutes || 60);
 
@@ -407,13 +436,15 @@ app.post('/api/trainer/classes', auth, trainerOnly, (req, res) => {
   const createdAt = now();
   const status = 'scheduled';
 
-  db.prepare('INSERT INTO classes (id, title, starts_at, duration_minutes, room_name, status, trainer_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(
-    id, title, startsAt, duration, roomName, status, 'trainer', createdAt
+  db.prepare('INSERT INTO classes (id, title, course_name, starts_at, duration_minutes, room_name, status, trainer_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(
+    id, title, courseName, startsAt, duration, roomName, status, 'trainer', createdAt
   );
 
   res.status(201).json({
     id,
     title,
+    course_name: courseName,
+    courseName,
     startsAt,
     durationMinutes: duration,
     roomName,
@@ -424,6 +455,7 @@ app.post('/api/trainer/classes', auth, trainerOnly, (req, res) => {
 
 app.post('/api/admin/classes', auth, adminOnly, (req, res) => {
   const title = String(req.body?.title || '').trim();
+  const courseName = String(req.body?.course_name || req.body?.courseName || title).trim();
   const startsAt = String(req.body?.startsAt || '');
   const duration = Number(req.body?.durationMinutes || 60);
 
@@ -438,13 +470,15 @@ app.post('/api/admin/classes', auth, adminOnly, (req, res) => {
   const createdAt = now();
   const status = 'scheduled';
 
-  db.prepare('INSERT INTO classes (id, title, starts_at, duration_minutes, room_name, status, trainer_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)').run(
-    id, title, startsAt, duration, roomName, status, 'admin', createdAt
+  db.prepare('INSERT INTO classes (id, title, course_name, starts_at, duration_minutes, room_name, status, trainer_id, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)').run(
+    id, title, courseName, startsAt, duration, roomName, status, 'admin', createdAt
   );
 
   res.status(201).json({
     id,
     title,
+    course_name: courseName,
+    courseName,
     startsAt,
     durationMinutes: duration,
     roomName,
@@ -637,6 +671,9 @@ app.post('/api/student/validate-join', (req, res) => {
   // Return validation result
   res.json({
     allowed: true,
+    role: 'student',
+    name: member.name,
+    phone: member.phone,
     status: cls.status, // 'scheduled' or 'live'
     class: cls,
     student: safeMember(member),
@@ -787,6 +824,9 @@ app.post('/api/livekit/token', optionalAuth, async (req, res) => {
       token,
       serverUrl,
       roomName,
+      courseName: cls?.course_name || cls?.title || 'Master Hatha Yoga & Prana Flow',
+      classTitle: cls?.title || 'Live Yoga Class',
+      classStatus: cls?.status || 'live',
       participantName: displayName,
       identity,
       role: isTrainer ? 'instructor' : 'student',
@@ -797,6 +837,196 @@ app.post('/api/livekit/token', optionalAuth, async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// -------------------------------------------------------------
+// 6B. LIVE SESSION HEARTBEATS & 10-MINUTE TIMEOUT MANAGEMENT
+// -------------------------------------------------------------
+const TEN_MINUTES_MS = 10 * 60 * 1000;
+const HEARTBEAT_DISCONNECT_MS = 35 * 1000; // 35s missed heartbeats marks disconnected
+
+// Participant Heartbeat (sent every 8-10 seconds by active clients)
+app.post('/api/live/heartbeat', optionalAuth, (req, res) => {
+  const classId = String(req.body?.classId || '').trim();
+  const identity = String(req.body?.identity || '').trim();
+  const name = String(req.body?.name || 'Practitioner').trim();
+  let requestedRole = String(req.body?.role || 'student').trim().toLowerCase();
+  const tabId = String(req.body?.tabId || '').trim();
+
+  if (!classId || !identity) {
+    return res.status(400).json({ error: 'classId and identity required.' });
+  }
+
+  const cls = db.prepare('SELECT id, title, COALESCE(course_name, title) as course_name, status, starts_at FROM classes WHERE id=?').get(classId);
+  if (!cls) {
+    return res.status(404).json({ error: 'Class not found.' });
+  }
+
+  // Security role enforcement: Only authenticated trainers or instructor identities can report role = 'instructor'
+  const isVerifiedTrainer = (req.actor && (req.actor.role === 'admin' || req.actor.role === 'trainer')) ||
+    identity.startsWith('instructor') ||
+    String(req.body?.participantId || '').startsWith('instructor');
+  const role = isVerifiedTrainer && requestedRole === 'instructor' ? 'instructor' : (isVerifiedTrainer ? 'instructor' : 'student');
+
+  const participantId = String(req.body?.participantId || identity).trim();
+  const currentTime = now();
+  const sessionId = `${classId}_${identity}`;
+
+  // Upsert session
+  const existing = db.prepare('SELECT * FROM live_sessions WHERE class_id=? AND (identity=? OR participant_id=?)').get(classId, identity, participantId);
+  if (existing) {
+    db.prepare(`
+      UPDATE live_sessions 
+      SET participant_id=?, name=?, role=?, tab_id=?, status='active', last_heartbeat=?, disconnected_at=NULL
+      WHERE id=?
+    `).run(participantId, name, role, tabId, currentTime, existing.id);
+  } else {
+    db.prepare(`
+      INSERT INTO live_sessions (id, class_id, participant_id, identity, name, role, tab_id, status, last_heartbeat, disconnected_at, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?, 'active', ?, NULL, ?)
+    `).run(sessionId, classId, participantId, identity, name, role, tabId, currentTime, currentTime);
+  }
+
+  // If class is currently scheduled and verified teacher sends heartbeat, mark class as live
+  if (role === 'instructor' && cls.status === 'scheduled') {
+    db.prepare("UPDATE classes SET status='live' WHERE id=?").run(classId);
+    cls.status = 'live';
+  }
+
+  // Check if teacher is active in this class
+  const teacherSession = db.prepare("SELECT * FROM live_sessions WHERE class_id=? AND role='instructor'").get(classId);
+  let teacherConnected = false;
+  let teacherGraceRemainingSeconds = null;
+
+  if (teacherSession) {
+    if (teacherSession.status === 'active') {
+      teacherConnected = true;
+      teacherGraceRemainingSeconds = null;
+    } else if (teacherSession.status === 'disconnected' && teacherSession.disconnected_at) {
+      const elapsedMs = Date.now() - new Date(teacherSession.disconnected_at).getTime();
+      teacherGraceRemainingSeconds = Math.max(0, Math.floor((TEN_MINUTES_MS - elapsedMs) / 1000));
+    } else {
+      teacherGraceRemainingSeconds = 600;
+    }
+  } else {
+    teacherGraceRemainingSeconds = 600;
+  }
+
+  // Active participants count
+  const activeCount = db.prepare("SELECT COUNT(*) as count FROM live_sessions WHERE class_id=? AND status='active'").get(classId).count;
+
+  res.json({
+    ok: true,
+    classId,
+    courseName: cls.course_name,
+    classTitle: cls.title,
+    classStatus: cls.status,
+    activeCount,
+    teacherConnected,
+    teacherGraceRemainingSeconds
+  });
+});
+
+// Participant Explicit Leave
+app.post('/api/live/leave', optionalAuth, (req, res) => {
+  const classId = String(req.body?.classId || '').trim();
+  const identity = String(req.body?.identity || req.body?.participantId || '').trim();
+  const isTemporary = Boolean(req.body?.temporary);
+
+  if (!classId || !identity) {
+    return res.status(400).json({ error: 'classId and identity or participantId required.' });
+  }
+
+  const session = db.prepare('SELECT * FROM live_sessions WHERE class_id=? AND (identity=? OR participant_id=?)').get(classId, identity, identity);
+  if (!session) {
+    return res.json({ ok: true });
+  }
+
+  const currentTime = now();
+
+  if (isTemporary) {
+    // Participant temporarily navigating or changing tabs -> start 10 min grace period
+    db.prepare("UPDATE live_sessions SET status='disconnected', disconnected_at=? WHERE id=?").run(currentTime, session.id);
+  } else {
+    // Explicit permanent leave
+    if (session.role === 'instructor') {
+      // If teacher explicitly ends class:
+      db.prepare("UPDATE classes SET status='ended' WHERE id=?").run(classId);
+      db.prepare("UPDATE live_sessions SET status='ended', disconnected_at=? WHERE class_id=?").run(currentTime, classId);
+    } else {
+      db.prepare("UPDATE live_sessions SET status='ended', disconnected_at=? WHERE id=?").run(currentTime, session.id);
+    }
+  }
+
+  res.json({ ok: true, classStatus: isTemporary ? 'live' : (session.role === 'instructor' ? 'ended' : 'live') });
+});
+
+// Get Active Participants in Room
+app.get('/api/live/sessions/:classId', (req, res) => {
+  const classId = req.params.classId;
+  const sessions = db.prepare(`
+    SELECT identity, name, role, status, last_heartbeat, created_at
+    FROM live_sessions
+    WHERE class_id=? AND status != 'ended'
+    ORDER BY role DESC, created_at ASC
+  `).all(classId);
+
+  const cls = db.prepare('SELECT id, title, COALESCE(course_name, title) as course_name, status FROM classes WHERE id=?').get(classId);
+
+  if (req.query.full === 'true') {
+    return res.json({
+      classId,
+      courseName: cls?.course_name || 'Hatha Yoga',
+      classTitle: cls?.title || 'Live Yoga Class',
+      classStatus: cls?.status || 'live',
+      participants: sessions
+    });
+  }
+
+  res.json(sessions);
+});
+
+// Periodic 10-Minute Timeout & Abandoned Class Auto-Cleanup (Runs every 15 seconds)
+function runLiveSessionCleanup() {
+  try {
+    const nowMs = Date.now();
+    const nowDateIso = new Date(nowMs).toISOString();
+
+    // 1. Mark active sessions without heartbeats (> 35s) as 'disconnected'
+    const activeSessions = db.prepare("SELECT * FROM live_sessions WHERE status='active'").all();
+    for (const s of activeSessions) {
+      const lastHbMs = new Date(s.last_heartbeat).getTime();
+      if (nowMs - lastHbMs > HEARTBEAT_DISCONNECT_MS) {
+        db.prepare("UPDATE live_sessions SET status='disconnected', disconnected_at=? WHERE id=?")
+          .run(nowDateIso, s.id);
+        console.log(`[AutoCleanup] ${s.role} ${s.name} (${s.identity}) marked disconnected. 10m grace period active.`);
+      }
+    }
+
+    // 2. Process disconnected sessions exceeding 10 minutes (600,000 ms)
+    const disconnectedSessions = db.prepare("SELECT * FROM live_sessions WHERE status='disconnected'").all();
+    for (const s of disconnectedSessions) {
+      if (!s.disconnected_at) continue;
+      const disTimeMs = new Date(s.disconnected_at).getTime();
+      if (nowMs - disTimeMs > TEN_MINUTES_MS) {
+        if (s.role === 'instructor') {
+          // Teacher failed to reconnect within 10 minutes -> Automatically end the class!
+          console.log(`[AutoCleanup] Teacher disconnected > 10m. Automatically ending class ${s.class_id}.`);
+          db.prepare("UPDATE classes SET status='ended' WHERE id=?").run(s.class_id);
+          db.prepare("UPDATE live_sessions SET status='ended' WHERE class_id=?").run(s.class_id);
+        } else {
+          // Student failed to reconnect within 10 minutes -> Clean up student only!
+          console.log(`[AutoCleanup] Student ${s.name} disconnected > 10m. Cleaning up session.`);
+          db.prepare("UPDATE live_sessions SET status='ended' WHERE id=?").run(s.id);
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[AutoCleanup] Error during session cleanup:', err.message);
+  }
+}
+
+// Start Background Interval
+setInterval(runLiveSessionCleanup, 15000);
 
 // -------------------------------------------------------------
 // 7. YOGA MATERIALS & PDF NOTES

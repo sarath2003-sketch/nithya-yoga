@@ -42,6 +42,7 @@ export default function LiveClassStudio({
   
   // Teacher Class Scheduling State
   const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [newCourseName, setNewCourseName] = useState('Morning Yoga Flow');
   const [newClassTitle, setNewClassTitle] = useState('');
   const [newClassInstructor, setNewClassInstructor] = useState('NITHYA Master');
   const [newClassTime, setNewClassTime] = useState('07:00 AM');
@@ -182,6 +183,8 @@ export default function LiveClassStudio({
       id: `cls-${Date.now()}`,
       name: newClassTitle.trim(),
       title: newClassTitle.trim(),
+      courseName: newCourseName.trim(),
+      course_name: newCourseName.trim(),
       instructor: newClassInstructor.trim(),
       duration: parseInt(newClassDuration, 10) || 60,
       level: 'All Levels',
@@ -281,8 +284,11 @@ export default function LiveClassStudio({
 
         {/* Top-Left Active Class Meta */}
         <div className="video-class-meta-overlay">
-          <span className="class-name-tag">{activeClass?.title || activeClass?.name || 'Hatha Yoga'}</span>
-          <span className="class-teacher-tag">by {activeClass?.instructor || 'NITHYA Master'}</span>
+          <span className="class-course-tag inline-block px-2 py-0.5 mb-1 rounded-full bg-violet-500/30 text-violet-200 border border-violet-400/40 text-[10px] font-bold uppercase tracking-wider backdrop-blur">
+            {activeClass?.courseName || activeClass?.course_name || 'Morning Yoga Flow'}
+          </span>
+          <span className="class-name-tag block font-bold text-sm text-white">{activeClass?.title || activeClass?.name || 'Hatha Yoga Flow'}</span>
+          <span className="class-teacher-tag text-xs text-white/80">by {activeClass?.instructor || 'NITHYA Master'}</span>
         </div>
 
         {/* Center LiveKit Quick Launcher Button */}
@@ -470,6 +476,21 @@ export default function LiveClassStudio({
             </div>
 
             <form onSubmit={handleScheduleSubmit} className="modal-form-flow">
+              <div className="form-field-unit">
+                <label>{lang === 'ta' ? 'பாடத்திட்டம் / பயிற்சி வகை (Course Name):' : 'Course Name:'}</label>
+                <select
+                  className="form-input"
+                  value={newCourseName}
+                  onChange={(e) => setNewCourseName(e.target.value)}
+                >
+                  <option value="Morning Yoga Flow">Morning Yoga Flow</option>
+                  <option value="Pranayama & Meditation">Pranayama & Meditation</option>
+                  <option value="Ashtanga Yoga Basics">Ashtanga Yoga Basics</option>
+                  <option value="Evening Relaxation Yoga">Evening Relaxation Yoga</option>
+                  <option value="Stress Relief Yoga">Stress Relief Yoga</option>
+                </select>
+              </div>
+
               <div className="form-field-unit">
                 <label>{lang === 'ta' ? 'வகுப்பு தலைப்பு:' : 'Class Title:'}</label>
                 <input 

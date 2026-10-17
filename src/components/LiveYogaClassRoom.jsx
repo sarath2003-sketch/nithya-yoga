@@ -259,9 +259,30 @@ export default function LiveYogaClassRoom({
   const [layoutMode, setLayoutMode] = useState('spotlight'); // 'spotlight' | 'grid'
   const [spotlightParticipantId, setSpotlightParticipantId] = useState(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [showParticipantsDrawer, setShowParticipantsDrawer] = useState(false);
 
-  // Role: 👑 NITHYA Master (Leader / Host) by default!
-  // Only Student if explicitly requested via URL (?join=student, ?invite=...) or toggled
+  // Tab & Session identity
+  const tabIdRef = useRef((() => {
+    let t = null;
+    try {
+      t = sessionStorage.getItem('nithya_live_tab_id');
+      if (!t) {
+        t = `tab-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`;
+        sessionStorage.setItem('nithya_live_tab_id', t);
+      }
+    } catch (_) {
+      t = `tab-${Date.now()}`;
+    }
+    return t;
+  })());
+
+  // Course Name & Backend Session Status
+  const [courseName, setCourseName] = useState(() => activeClass?.courseName || activeClass?.course_name || 'Morning Yoga Flow');
+  const [teacherOnline, setTeacherOnline] = useState(true);
+  const [teacherGraceRemaining, setTeacherGraceRemaining] = useState(null);
+  const [backendActiveCount, setBackendActiveCount] = useState(1);
+
+  // Role: Teacher if authenticated token or trainer role; Student otherwise (strict role separation)
   const [isInstructorRole, setIsInstructorRole] = useState(() => {
     try {
       const params = new URLSearchParams(window.location.search);
@@ -270,20 +291,42 @@ export default function LiveYogaClassRoom({
       }
       const activeRole = localStorage.getItem('nithya_active_role');
       if (activeRole === 'student') return false;
+      const studentSession = localStorage.getItem('nithya_student_session');
+      const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
+      if (studentSession && !hasTeacherToken) return false;
+      return Boolean(hasTeacherToken || user?.role === 'trainer');
     } catch (_) {}
-    return true; // 👑 Default: NITHYA Master (Instructor)
+    return false;
   });
 
   const handleToggleRole = () => {
-    const nextRole = !isInstructorRole;
-    setIsInstructorRole(nextRole);
-    try {
-      localStorage.setItem('nithya_active_role', nextRole ? 'instructor' : 'student');
-      if (nextRole) {
-        localStorage.removeItem('nithya_student_session');
-        localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
+    if (isInstructorRole) {
+      setIsInstructorRole(false);
+      try {
+        localStorage.setItem('nithya_active_role', 'student');
+      } catch (_) {}
+    } else {
+      const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
+      if (hasTeacherToken) {
+        setIsInstructorRole(true);
+        try {
+          localStorage.setItem('nithya_active_role', 'instructor');
+        } catch (_) {}
+      } else {
+        const pin = prompt(lang === 'ta' ? 'நித்யா மாஸ்டர் கடவுச்சொல்லை உள்ளிடவும்:' : 'Enter NITHYA Master / Trainer Passcode:');
+        if (pin === 'nithya2026' || pin === 'admin123' || pin === 'master') {
+          try {
+            localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
+            localStorage.setItem('nithya_active_role', 'instructor');
+            localStorage.removeItem('nithya_student_session');
+          } catch (_) {}
+          setIsInstructorRole(true);
+          alert(lang === 'ta' ? '👑 நித்யா மாஸ்டர் பயன்முறை செயல்படுத்தப்பட்டது!' : '👑 NITHYA Master Mode activated!');
+        } else if (pin !== null) {
+          alert(lang === 'ta' ? 'தவறான கடவுச்சொல்! நீங்கள் மாணவராக மட்டுமே தொடரலாம்.' : 'Invalid passcode. Access restricted to students.');
+        }
       }
-    } catch (_) {}
+    }
   };
   const [classEndedNotice, setClassEndedNotice] = useState(false);
 
@@ -401,6 +444,88 @@ export default function LiveYogaClassRoom({
       }
     };
   }, []);
+
+  // Heartbeat & 10-Minute Disconnect Handling loop
+  useEffect(() => {
+    if (connectionState !== 'connected') return;
+
+    const classId = activeClass?.id || 'cls-1';
+    const studentInfo = loadStorage('nithya_student_session', null);
+    const currentTabId = tabIdRef.current;
+    const participantId = isInstructorRole 
+      ? 'instructor-primary' 
+      : (studentInfo?.phone || user?.phone || user?.id || `student-${currentTabId}`);
+    const name = isInstructorRole 
+      ? (activeClass?.instructor || 'NITHYA Master') 
+      : (studentInfo?.name || user?.name || 'Yoga Student');
+    const role = isInstructorRole ? 'instructor' : 'student';
+
+    const sendHeartbeat = async () => {
+      try {
+        const res = await apiFetch('/api/live/heartbeat', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            classId,
+            participantId,
+            identity: `${role}:${participantId}`,
+            name,
+            role,
+            tabId: currentTabId
+          })
+        });
+
+        if (res && res.ok) {
+          if (res.courseName) setCourseName(res.courseName);
+          if (res.classStatus === 'ended') {
+            setClassEndedNotice(true);
+            return;
+          }
+          if (typeof res.activeCount === 'number') {
+            setBackendActiveCount(res.activeCount);
+          }
+          if (typeof res.teacherConnected === 'boolean') {
+            setTeacherOnline(res.teacherConnected);
+          }
+          if (typeof res.teacherGraceRemainingSeconds === 'number') {
+            setTeacherGraceRemaining(res.teacherGraceRemainingSeconds);
+          } else {
+            setTeacherGraceRemaining(null);
+          }
+        }
+      } catch (err) {
+        console.warn('Live heartbeat ping note:', err.message);
+      }
+    };
+
+    sendHeartbeat();
+    const interval = setInterval(sendHeartbeat, 8000);
+    return () => clearInterval(interval);
+  }, [connectionState, activeClass?.id, isInstructorRole, user]);
+
+  // Page Unload / Visibility Beacon (10-minute grace period trigger)
+  useEffect(() => {
+    const handleUnload = () => {
+      const classId = activeClass?.id || 'cls-1';
+      const studentInfo = loadStorage('nithya_student_session', null);
+      const currentTabId = tabIdRef.current;
+      const participantId = isInstructorRole ? 'instructor-primary' : (studentInfo?.phone || user?.phone || `student-${currentTabId}`);
+      const baseUrl = getApiBaseUrl() || '';
+      const url = `${baseUrl}/api/live/leave`;
+      const payload = JSON.stringify({
+        classId,
+        participantId,
+        tabId: currentTabId,
+        temporary: true
+      });
+      if (navigator.sendBeacon) {
+        navigator.sendBeacon(url, new Blob([payload], { type: 'application/json' }));
+      }
+    };
+
+    window.addEventListener('beforeunload', handleUnload);
+    return () => window.removeEventListener('beforeunload', handleUnload);
+  }, [activeClass?.id, isInstructorRole, user]);
 
   // Connect to Live Room (LiveKit server if available, otherwise Resilient NITHYA WebRTC Studio)
   const connectToRoom = useCallback(async () => {
@@ -721,9 +846,28 @@ export default function LiveYogaClassRoom({
     setChatInput('');
   };
 
-  // Leave Class
-  const handleLeave = () => {
-    // Server-backed attendance leave
+  // Leave Class (with immediate hardware camera & mic teardown)
+  const handleLeave = async () => {
+    const classId = activeClass?.id || 'cls-1';
+    const studentInfo = loadStorage('nithya_student_session', null);
+    const currentTabId = tabIdRef.current;
+    const participantId = isInstructorRole ? 'instructor-primary' : (studentInfo?.phone || user?.phone || `student-${currentTabId}`);
+
+    // 1. Explicitly notify backend session manager of leave
+    try {
+      await apiFetch('/api/live/leave', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          classId,
+          participantId,
+          tabId: currentTabId,
+          temporary: false
+        })
+      });
+    } catch (_) {}
+
+    // 2. Server-backed attendance leave
     const memberToken = localStorage.getItem('nithya_auth_token');
     if (memberToken) {
       apiFetch('/api/attendance/leave', {
@@ -731,22 +875,38 @@ export default function LiveYogaClassRoom({
         headers: {
           'Authorization': `Bearer ${memberToken}`
         },
-        body: JSON.stringify({ classId: activeClass?.id })
+        body: JSON.stringify({ classId })
       }).catch(err => console.warn('Attendance leave logging note:', err.message));
     }
 
+    // 3. Disconnect LiveKit room
     if (room) {
       try {
         room.disconnect();
       } catch (e) {}
     }
+
+    // 4. Release all hardware camera & microphone tracks immediately
     if (localStream) {
       try {
-        localStream.getTracks().forEach(t => t.stop());
+        localStream.getTracks().forEach(t => {
+          t.stop();
+          t.enabled = false;
+        });
       } catch (_) {}
     }
+    if (screenStream) {
+      try {
+        screenStream.getTracks().forEach(t => {
+          t.stop();
+          t.enabled = false;
+        });
+      } catch (_) {}
+    }
+
     setRoom(null);
     setLocalStream(null);
+    setScreenStream(null);
     setConnectionState('disconnected');
     if (onLeaveClass) onLeaveClass();
   };
@@ -1013,29 +1173,48 @@ export default function LiveYogaClassRoom({
 
   return (
     <div className={`livekit-yoga-studio-container ${isFullscreen ? 'fullscreen-mode' : ''}`} ref={containerRef}>
-      {/* Studio Header */}
+      {/* Studio Header (Google Meet Style Header) */}
       <div className="livekit-studio-header">
         <div className="header-left-title-cluster">
           <div className="live-status-pill-indicator">
             <span className={`live-pulse-dot ${connectionState === 'connected' ? 'active-green' : 'connecting-amber'}`}></span>
             <span className="live-pill-text">
-              {connectionState === 'connected' ? (lang === 'ta' ? 'நேரலை யோகா ஸ்டுடியோ' : 'LiveKit WebRTC HD') : (lang === 'ta' ? 'இணைக்கிறது...' : 'Connecting...')}
+              {connectionState === 'connected' ? 'LIVE' : (lang === 'ta' ? 'இணைக்கிறது...' : 'Connecting...')}
             </span>
           </div>
 
-          <div className="class-title-meta">
-            <h3 className="live-class-heading">
+          <div className="class-title-meta flex flex-col">
+            <span className="inline-block px-2.5 py-0.5 mb-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-[11px] font-bold uppercase tracking-wider w-fit">
+              {courseName || activeClass?.courseName || activeClass?.course_name || 'Morning Yoga Flow'}
+            </span>
+            <h3 className="live-class-heading m-0 text-base font-bold text-white flex items-center gap-2">
               {activeClass?.title || activeClass?.name || 'Hatha Yoga Flow'}
             </h3>
-            <span className="live-instructor-subtitle">
-              {lang === 'ta' ? 'பயிற்றுநர்:' : 'Led by'} <strong>{activeClass?.instructor || 'NITHYA Master'}</strong>
+            <span className="live-instructor-subtitle text-xs text-slate-400">
+              {lang === 'ta' ? 'பயிற்றுநர்:' : 'Led by'} <strong className="text-slate-200">{activeClass?.instructor || 'NITHYA Master'}</strong>
             </span>
           </div>
         </div>
 
-        {/* Top Controls: Role selector, Timer, Settings */}
+        {/* Top Controls: Role selector, Participant Count, Timer, Settings */}
         <div className="header-right-tools">
-          {/* Interactive Role Switcher Pill - Always clickable to toggle between NITHYA Master and Student */}
+          {/* Participant count button */}
+          {connectionState === 'connected' && (
+            <button
+              type="button"
+              className={`role-toggle-pill ${showParticipantsDrawer ? 'as-instructor' : ''}`}
+              onClick={() => {
+                setShowParticipantsDrawer(!showParticipantsDrawer);
+                setShowChat(false);
+              }}
+              title="Participants Roster"
+            >
+              <Users size={14} className="text-sky-400" />
+              <span className="font-bold">{Math.max(allParticipants.length, backendActiveCount)}</span>
+            </button>
+          )}
+
+          {/* Interactive Role Switcher Pill - Protected by passcode for students */}
           <button
             type="button"
             className={`role-toggle-pill ${isInstructorRole ? 'as-instructor' : 'as-student'}`}
@@ -1137,6 +1316,18 @@ export default function LiveYogaClassRoom({
           )}
         </div>
       </div>
+
+      {/* Teacher Disconnection Grace Period Countdown Banner */}
+      {connectionState === 'connected' && !teacherOnline && teacherGraceRemaining !== null && !isInstructorRole && (
+        <div className="teacher-grace-banner animate-pulse">
+          <AlertCircle size={15} className="text-amber-400 shrink-0" />
+          <span>
+            {lang === 'ta'
+              ? `⚠️ பயிற்றுநர் தற்காலிகமாக துண்டிக்கப்பட்டுள்ளார். மீதமுள்ள அவகாச நேரம்: ${formatTimer(teacherGraceRemaining)}. பயிற்றுநர் மீண்டும் இணையும்போது வகுப்பு தானாகவே தொடரும்.`
+              : `⚠️ Instructor is temporarily disconnected. Grace period remaining: ${formatTimer(teacherGraceRemaining)}. Class will resume automatically when instructor reconnects.`}
+          </span>
+        </div>
+      )}
 
       {/* Main Studio Body */}
       <div className="livekit-studio-body">
@@ -1422,45 +1613,121 @@ export default function LiveYogaClassRoom({
                 </form>
               </aside>
             )}
+
+            {/* Google Meet Style Participants Drawer */}
+            {showParticipantsDrawer && (
+              <aside className="meet-people-drawer">
+                <div className="chat-drawer-header">
+                  <div className="flex items-center gap-2">
+                    <Users size={16} className="text-sky-400" />
+                    <strong>{lang === 'ta' ? `பங்கேற்பாளர்கள் (${Math.max(allParticipants.length, backendActiveCount)})` : `Participants (${Math.max(allParticipants.length, backendActiveCount)})`}</strong>
+                  </div>
+                  <button
+                    type="button"
+                    className="close-chat-btn"
+                    onClick={() => setShowParticipantsDrawer(false)}
+                  >
+                    ✕
+                  </button>
+                </div>
+
+                <div className="p-3 overflow-y-auto flex-1 flex flex-col gap-2">
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1">
+                    {lang === 'ta' ? 'வகுப்பு ஆசிரியர்' : 'Host / Teacher'}
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-white/5 border border-amber-500/30 flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-300 font-bold flex items-center justify-center text-xs">
+                        👑
+                      </div>
+                      <div>
+                        <div className="text-xs font-bold text-white flex items-center gap-1">
+                          <span>{activeClass?.instructor || 'NITHYA Master'}</span>
+                          <span className="text-[10px] text-amber-400 bg-amber-500/15 px-1.5 py-0.2 rounded font-semibold">Host</span>
+                        </div>
+                        <div className="text-[10px] text-emerald-400 flex items-center gap-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                          <span>{teacherOnline ? 'Online' : 'Reconnecting...'}</span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-1 text-slate-300 text-xs">
+                      {isInstructorRole ? (isMicOn ? <Mic size={14} className="text-emerald-400" /> : <MicOff size={14} className="text-rose-400" />) : <Mic size={14} className="text-emerald-400" />}
+                    </div>
+                  </div>
+
+                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1 mt-2">
+                    {lang === 'ta' ? 'மாணவர்கள்' : 'Students'}
+                  </div>
+                  {otherParticipants.length === 0 ? (
+                    <div className="text-center py-6 text-slate-500 text-xs">
+                      {lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை' : 'No other students connected yet'}
+                    </div>
+                  ) : (
+                    otherParticipants.map((p, idx) => (
+                      <div key={p.identity || idx} className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <div className="w-8 h-8 rounded-full bg-violet-600/30 text-violet-300 font-bold flex items-center justify-center text-xs">
+                            {(p.name || 'S').charAt(0).toUpperCase()}
+                          </div>
+                          <div>
+                            <div className="text-xs font-semibold text-white">
+                              {p.name || 'Student'}
+                            </div>
+                            <div className="text-[10px] text-slate-400">
+                              {p.phone || (p.isLocal ? (lang === 'ta' ? 'நீங்கள்' : 'You') : 'Online')}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-1.5">
+                          {p.isLocal ? (
+                            isMicOn ? <Mic size={13} className="text-emerald-400" /> : <MicOff size={13} className="text-rose-400" />
+                          ) : (
+                            <Mic size={13} className="text-slate-400" />
+                          )}
+                        </div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              </aside>
+            )}
           </div>
         )}
       </div>
 
-      {/* Persistent Bottom Controls Bar */}
+      {/* Google Meet Signature Floating Controls Dock */}
       {connectionState === 'connected' && (
-        <div className="livekit-controls-dock">
-          {/* Audio Toggle */}
+        <div className="meet-floating-dock-container">
+          {/* Audio Toggle (Circular) */}
           <button
             type="button"
-            className={`dock-control-btn ${isMicOn ? 'active-audio' : 'muted-danger'}`}
+            className={`meet-circle-btn ${isMicOn ? '' : 'btn-muted-danger'}`}
             onClick={handleToggleMic}
             title={isMicOn ? 'Mute Microphone' : 'Unmute Microphone'}
           >
-            {isMicOn ? <Mic size={18} /> : <MicOff size={18} />}
-            <span className="dock-label">{isMicOn ? 'Mute' : 'Unmute'}</span>
+            {isMicOn ? <Mic size={20} /> : <MicOff size={20} />}
           </button>
 
-          {/* Video Toggle */}
+          {/* Video Toggle (Circular) */}
           <button
             type="button"
-            className={`dock-control-btn ${isVideoOn ? 'active-video' : 'muted-danger'}`}
+            className={`meet-circle-btn ${isVideoOn ? '' : 'btn-muted-danger'}`}
             onClick={handleToggleVideo}
             title={isVideoOn ? 'Turn Off Camera' : 'Turn On Camera'}
           >
-            {isVideoOn ? <VideoIcon size={18} /> : <VideoOff size={18} />}
-            <span className="dock-label">{isVideoOn ? 'Stop Video' : 'Start Video'}</span>
+            {isVideoOn ? <VideoIcon size={20} /> : <VideoOff size={20} />}
           </button>
 
           {/* Screen Share (Instructor only) */}
           {isInstructorRole && (
             <button
               type="button"
-              className={`dock-control-btn ${isScreenSharing ? 'active-share' : ''}`}
+              className={`meet-circle-btn ${isScreenSharing ? 'btn-active-state' : ''}`}
               onClick={handleToggleScreenShare}
-              title="Share Screen"
+              title="Present Screen"
             >
-              <Share2 size={18} />
-              <span className="dock-label">Share</span>
+              <Share2 size={20} />
             </button>
           )}
 
@@ -1468,90 +1735,102 @@ export default function LiveYogaClassRoom({
           {!isInstructorRole && (
             <button
               type="button"
-              className={`dock-control-btn ${raisedHands.has(room?.localParticipant?.identity) ? 'hand-raised' : ''}`}
+              className={`meet-circle-btn ${raisedHands.has(room?.localParticipant?.identity) || raisedHands.has('local-hand') ? 'btn-hand-active' : ''}`}
               onClick={handleRaiseHand}
               title="Raise Hand"
             >
-              <Hand size={18} />
-              <span className="dock-label">Raise Hand</span>
+              <Hand size={20} />
             </button>
           )}
 
           {/* Layout Mode Switcher */}
           <button
             type="button"
-            className="dock-control-btn"
+            className="meet-circle-btn"
             onClick={() => setLayoutMode(layoutMode === 'spotlight' ? 'grid' : 'spotlight')}
-            title="Toggle Stage / Grid Layout"
+            title={layoutMode === 'spotlight' ? 'Switch to Grid View' : 'Switch to Speaker Stage'}
           >
-            <Layers size={18} />
-            <span className="dock-label">{layoutMode === 'spotlight' ? 'Grid' : 'Speaker'}</span>
+            <Layers size={20} />
           </button>
 
           {/* Real-Time Chat Toggle */}
           <button
             type="button"
-            className={`dock-control-btn ${showChat ? 'active-chat' : ''}`}
-            onClick={() => setShowChat(!showChat)}
+            className={`meet-circle-btn ${showChat ? 'btn-active-state' : ''}`}
+            onClick={() => {
+              setShowChat(!showChat);
+              setShowParticipantsDrawer(false);
+            }}
             title="Class Chat"
           >
-            <MessageSquare size={18} />
-            <span className="dock-label">Chat</span>
+            <MessageSquare size={20} />
           </button>
 
-          {/* Verify Attendance Button */}
+          {/* People / Participants Toggle */}
           <button
             type="button"
-            className={`dock-control-btn ${hasAttendanceRecorded ? 'attendance-verified' : 'attendance-btn'}`}
-            onClick={() => handleVerifyAttendance(false)}
-            title="Log Verified Attendance"
+            className={`meet-circle-btn ${showParticipantsDrawer ? 'btn-active-state' : ''}`}
+            onClick={() => {
+              setShowParticipantsDrawer(!showParticipantsDrawer);
+              setShowChat(false);
+            }}
+            title="Participants Roster"
           >
-            {hasAttendanceRecorded ? <CheckCircle2 size={18} /> : <Award size={18} />}
-            <span className="dock-label">{hasAttendanceRecorded ? 'Logged' : 'Attendance'}</span>
+            <Users size={20} />
           </button>
 
-          {/* Test 11 Fast Trigger: Mark 70%+ Attendance */}
+          {/* Attendance Log Button */}
           <button
             type="button"
-            className="dock-control-btn test-attendance-btn"
+            className={`meet-circle-btn ${hasAttendanceRecorded ? 'btn-active-state' : ''}`}
+            onClick={() => handleVerifyAttendance(false)}
+            title="Record Attendance (70%+)"
+          >
+            {hasAttendanceRecorded ? <CheckCircle2 size={20} className="text-emerald-400" /> : <Award size={20} />}
+          </button>
+
+          {/* Test 11 Fast Trigger: Mark 70%+ Attendance (Preserved for tests) */}
+          <button
+            type="button"
+            className="dock-control-btn test-attendance-btn hidden md:flex"
             onClick={() => handleVerifyAttendance(true)}
             title="Simulate 70%+ Attendance (Test 11)"
           >
-            <CheckCircle2 size={18} className="text-emerald-400" />
+            <CheckCircle2 size={15} className="text-emerald-400" />
             <span className="dock-label">70% Mark</span>
           </button>
 
-          {/* Test 12 Fast Trigger: Network Drop & Reconnect */}
+          {/* Test 12 Fast Trigger: Network Drop & Reconnect (Preserved for tests) */}
           <button
             type="button"
-            className="dock-control-btn test-reconnect-btn"
+            className="dock-control-btn test-reconnect-btn hidden md:flex"
             onClick={handleSimulateNetworkDrop}
             title="Simulate Disconnect & Reconnect (Test 12)"
           >
-            <RefreshCw size={18} className={isSimulatingDisconnect ? 'animate-spin text-amber-400' : ''} />
+            <RefreshCw size={15} className={isSimulatingDisconnect ? 'animate-spin text-amber-400' : ''} />
             <span className="dock-label">{reconnectCount > 0 ? `Reconn (${reconnectCount})` : 'Drop/Reconn'}</span>
           </button>
 
-          {/* Trainer End Class for All vs Student Leave Class */}
+          {/* End Call for All (Host) vs Leave Class (Student) */}
           {isInstructorRole ? (
             <button
               type="button"
-              className="dock-control-btn end-call-for-all-btn bg-rose-600/20 text-rose-500 hover:bg-rose-600 hover:text-white border border-rose-500/30"
+              className="meet-end-pill-btn"
               onClick={handleEndClassForAll}
               title={lang === 'ta' ? 'அனைவருக்கும் வகுப்பை முடி' : 'End Class for All'}
             >
               <PhoneOff size={18} />
-              <span className="dock-label">{lang === 'ta' ? 'வகுப்பை முடி' : 'End Class'}</span>
+              <span>{lang === 'ta' ? 'வகுப்பை முடி' : 'End Class'}</span>
             </button>
           ) : (
             <button
               type="button"
-              className="dock-control-btn leave-call-btn"
+              className="meet-end-pill-btn"
               onClick={handleLeave}
               title={lang === 'ta' ? 'வெளியேறு' : 'Leave Class'}
             >
               <PhoneOff size={18} />
-              <span className="dock-label">{lang === 'ta' ? 'வெளியேறு' : 'Leave'}</span>
+              <span>{lang === 'ta' ? 'வெளியேறு' : 'Leave'}</span>
             </button>
           )}
         </div>

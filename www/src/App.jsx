@@ -292,23 +292,25 @@ export default function App() {
     try {
       const params = new URLSearchParams(window.location.search);
       const liveId = params.get('live') || params.get('room');
-      const isStudentInvite = params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite'));
+      const isStudentExplicit = params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite'));
+      const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
 
-      if (liveId || isStudentInvite) {
+      if (liveId || isStudentExplicit) {
         if (liveId) {
           const found = classes.find(c => c.id === liveId) || classes[0];
           if (found) setActiveClass(found);
         }
         setCurrentTab('live');
 
-        if (isStudentInvite) {
+        // If explicitly student OR user has no teacher auth token:
+        if (isStudentExplicit || !hasTeacherToken) {
           localStorage.setItem('nithya_active_role', 'student');
           const session = loadStorage('nithya_student_session', null);
           if (!session) {
             setShowStudentJoinModal(true);
           }
         } else {
-          // Default: NITHYA Master entering their studio
+          // Authenticated NITHYA Master entering their studio
           localStorage.setItem('nithya_active_role', 'instructor');
           setShowStudentJoinModal(false);
         }

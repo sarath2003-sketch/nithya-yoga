@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Bell, Sparkles, Moon, Sun, Globe } from 'lucide-react';
+import { Search, Bell, Sparkles, Moon, Sun, Globe, RefreshCw } from 'lucide-react';
 
 export default function Header({
   searchQuery,
@@ -11,7 +11,8 @@ export default function Header({
   user,
   onOpenNotifications,
   onTestSound,
-  onOpenProfile
+  onOpenProfile,
+  onQuickUpdate
 }) {
   return (
     <header className="dashboard-top-header">
@@ -38,6 +39,17 @@ export default function Header({
 
       {/* Header Actions */}
       <div className="header-tools-cluster">
+        {/* Quick App Update / Refresh Tool */}
+        <button
+          type="button"
+          className="header-tool-btn header-update-pill cursor-pointer"
+          onClick={onQuickUpdate}
+          title={lang === 'ta' ? 'ஆப் புதுப்பிப்பு (Update / Sync App)' : 'Update / Sync App'}
+        >
+          <RefreshCw size={14} className="header-update-icon text-primary" />
+          <span className="update-text-short hidden sm:inline font-bold text-xs">{lang === 'ta' ? 'அப்டேட்' : 'Update'}</span>
+        </button>
+
         {/* Language Switcher */}
         <button
           type="button"

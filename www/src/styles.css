@@ -415,6 +415,37 @@ input, select, textarea {
   font-weight: 700;
 }
 
+.header-update-pill {
+  width: auto;
+  border-radius: 20px;
+  padding: 0 10px;
+  gap: 6px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  border-color: rgba(99, 102, 241, 0.35);
+  background: rgba(99, 102, 241, 0.08);
+  color: var(--primary);
+}
+
+.header-update-pill:hover {
+  background: rgba(99, 102, 241, 0.16);
+  border-color: var(--primary);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.header-update-pill:active {
+  transform: scale(0.96);
+}
+
+.header-update-pill .header-update-icon {
+  transition: transform 0.4s ease;
+}
+
+.header-update-pill:hover .header-update-icon {
+  transform: rotate(180deg);
+}
+
 .red-notification-dot {
   position: absolute;
   top: 8px;
@@ -2237,7 +2268,8 @@ input, select, textarea {
     width: 34px;
     height: 34px;
   }
-  .lang-pill-btn {
+  .lang-pill-btn,
+  .header-update-pill {
     height: 34px;
     padding: 0 8px;
     font-size: 0.72rem;

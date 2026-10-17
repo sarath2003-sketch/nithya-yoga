@@ -65,8 +65,34 @@ export default function App() {
   });
   const [showStudentJoinModal, setShowStudentJoinModal] = useState(false);
 
-  // States - Default app owner is 👑 NITHYA Master (Instructor / Admin)
+  // States - Default app owner is 👑 NITHYA Master (Instructor / Admin), or student when joining via student link
   const [user, setUser] = useState(() => {
+    try {
+      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+      const isStudentQuery = params && (params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('live')));
+      const activeRole = typeof localStorage !== 'undefined' ? localStorage.getItem('nithya_active_role') : null;
+      const studentSession = loadStorage('nithya_student_session', null);
+      
+      // If arriving via live link or explicitly in student mode, initialize as student
+      if (isStudentQuery || activeRole === 'student' || (studentSession && !localStorage.getItem('nithya_admin_token'))) {
+        if (studentSession) {
+          return {
+            ...DEFAULT_USER,
+            name: studentSession.name || 'Yoga Student',
+            phone: studentSession.phone || '',
+            role: 'student',
+            isInstructor: false
+          };
+        }
+        return {
+          ...DEFAULT_USER,
+          name: 'Yoga Student',
+          role: 'student',
+          isInstructor: false
+        };
+      }
+    } catch (_) {}
+
     const stored = loadStorage('nithya_user', null);
     const isLegacyOrNotTrainer = !stored || 
       stored.name === 'Yoga Practitioner' || 
@@ -311,7 +337,7 @@ export default function App() {
                     name: backendCls.title,
                     courseName: backendCls.course_name,
                     course_name: backendCls.course_name,
-                    room_name: backendCls.room_name || `yoga-${backendCls.id}`,
+                    room_name: backendCls.room_name || (backendCls.id.startsWith('nithya-') ? backendCls.id : `nithya-${backendCls.id}`),
                     status: backendCls.status || 'live',
                     duration: backendCls.duration_minutes || 60,
                     instructor: 'NITHYA Master'
@@ -325,7 +351,7 @@ export default function App() {
                     title: 'Live Yoga Class',
                     name: 'Live Yoga Class',
                     courseName: 'Live Yoga Flow',
-                    room_name: liveId.startsWith('nithya-') ? liveId : `yoga-${liveId}`,
+                    room_name: liveId.startsWith('nithya-') ? liveId : `nithya-${liveId}`,
                     status: 'live',
                     duration: 60,
                     instructor: 'NITHYA Master'
@@ -339,7 +365,7 @@ export default function App() {
                   title: 'Live Yoga Class',
                   name: 'Live Yoga Class',
                   courseName: 'Live Yoga Flow',
-                  room_name: liveId.startsWith('nithya-') ? liveId : `yoga-${liveId}`,
+                  room_name: liveId.startsWith('nithya-') ? liveId : `nithya-${liveId}`,
                   status: 'live',
                   duration: 60,
                   instructor: 'NITHYA Master'
@@ -350,18 +376,28 @@ export default function App() {
         }
         setCurrentTab('live');
 
-        // If explicitly student OR user has no teacher auth token:
-        if (isStudentExplicit || !hasTeacherToken) {
-          localStorage.setItem('nithya_active_role', 'student');
-          const session = loadStorage('nithya_student_session', null);
-          const studentName = localStorage.getItem('nithya_student_name');
-          if (!session && !studentName) {
-            setShowStudentJoinModal(true);
-          }
-        } else {
-          // Authenticated NITHYA Master entering their studio
+        // Check if user is instructor or student:
+        const session = loadStorage('nithya_student_session', null);
+        const activeRole = localStorage.getItem('nithya_active_role');
+        const isTrainerMode = !isStudentExplicit && activeRole !== 'student' && hasTeacherToken && user?.role === 'trainer';
+
+        if (isTrainerMode) {
           localStorage.setItem('nithya_active_role', 'instructor');
           setShowStudentJoinModal(false);
+        } else {
+          localStorage.setItem('nithya_active_role', 'student');
+          if (!session) {
+            setShowStudentJoinModal(true);
+          } else {
+            setUser(prev => ({
+              ...prev,
+              name: session.name,
+              phone: session.phone,
+              role: 'student',
+              isInstructor: false
+            }));
+            setShowStudentJoinModal(false);
+          }
         }
       }
     } catch (_) {}
@@ -547,6 +583,47 @@ export default function App() {
     );
   };
 
+  const handleTriggerAppUpdate = async () => {
+    showToast(
+      lang === 'ta' ? '🔄 ஆப் புதுப்பிக்கப்படுகிறது...' : '🔄 Updating app & syncing...',
+      lang === 'ta' ? 'புதிய பதிப்பு மாற்றங்கள் செயல்படுத்தப்படுகின்றன...' : 'Refreshing latest code and assets...',
+      'info'
+    );
+    try {
+      if ('caches' in window) {
+        const cacheNames = await caches.keys();
+        await Promise.all(cacheNames.map(name => caches.delete(name)));
+      }
+      if ('serviceWorker' in navigator) {
+        const registrations = await navigator.serviceWorker.getRegistrations();
+        for (const reg of registrations) {
+          await reg.unregister();
+        }
+      }
+      if (typeof window !== 'undefined' && window.AndroidNativeUpdater) {
+        try {
+          window.AndroidNativeUpdater.openInChrome('https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk');
+        } catch (_) {}
+      }
+      setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          const isCapacitorOrLocal = 
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.protocol === 'capacitor:' ||
+            window.location.protocol === 'file:';
+          if (isCapacitorOrLocal) {
+            window.location.reload();
+          } else {
+            window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
+          }
+        }
+      }, 700);
+    } catch (_) {
+      window.location.reload();
+    }
+  };
+
   const handleViewSchedule = () => {
     const remEl = document.querySelector('.today-reminders-section');
     if (remEl) {
@@ -581,6 +658,7 @@ export default function App() {
             onOpenNotifications={handleViewSchedule}
             onTestSound={handleViewSchedule}
             onOpenProfile={handleOpenProfile}
+            onQuickUpdate={handleTriggerAppUpdate}
           />
 
           {currentTab === 'student' ? (
@@ -868,6 +946,19 @@ export default function App() {
         lang={lang}
         onJoin={(student) => {
           setStudentSession(student);
+          setUser(prev => ({
+            ...prev,
+            name: student.name,
+            phone: student.phone,
+            role: 'student',
+            isInstructor: false
+          }));
+          try {
+            localStorage.setItem('nithya_active_role', 'student');
+            localStorage.setItem('nithya_student_session', JSON.stringify(student));
+            localStorage.removeItem('nithya_admin_token');
+            localStorage.removeItem('nithya_trainer_token');
+          } catch (_) {}
           setShowStudentJoinModal(false);
           setCurrentTab('live');
           showToast(

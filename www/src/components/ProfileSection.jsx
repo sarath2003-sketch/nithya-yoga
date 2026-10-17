@@ -30,12 +30,30 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
   const handleCheckUpdates = async () => {
     setIsCheckingUpdate(true);
     try {
-      const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
-        cache: 'no-store'
-      });
-      if (res.ok) {
-        const data = await res.json();
+      let data = null;
+      // 1. Try local / current domain version.json
+      try {
+        const localRes = await fetch(`./version.json?t=${Date.now()}`, { cache: 'no-store' });
+        if (localRes.ok) data = await localRes.json();
+      } catch (_) {}
+
+      // 2. Fallback to production GitHub Pages version.json
+      if (!data) {
+        const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
+          cache: 'no-store'
+        });
+        if (res.ok) data = await res.json();
+      }
+
+      if (data) {
         setRemoteUpdate(data);
+        if (showToast) {
+          showToast(
+            lang === 'ta' ? 'அப்டேட் சரிபார்க்கப்பட்டது ✓' : 'Update Check Completed ✓',
+            lang === 'ta' ? `கிடைக்கக்கூடிய பதிப்பு: v${data.version}` : `Available Version: v${data.version}`,
+            'info'
+          );
+        }
       }
     } catch (e) {
       console.warn('Update check failed:', e);
@@ -69,13 +87,30 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
 
       if (showToast) {
         showToast(
-          lang === 'ta' ? 'குரோமில் APK பதிவிறக்கம் தொடங்கியது ✓' : 'APK Download Started in Chrome ✓',
-          lang === 'ta' ? 'பதிவிறக்கம் முடிந்ததும் Notification-ஐ திறந்து Install செய்யவும்.' : 'Open Downloads notification once complete to Install.',
+          lang === 'ta' ? 'ஆப் புதுப்பிக்கப்பட்டு மறுதொடக்கம் செய்யப்படுகிறது ✓' : 'App Updated & Refreshing ✓',
+          lang === 'ta' ? 'புதிய மாற்றங்கள் பயன்படுத்தப்படுகின்றன...' : 'Applying latest improvements...',
           'success'
         );
       }
+
+      // Automatically reload/refresh to apply the update immediately on screen!
+      setTimeout(() => {
+        if (typeof window !== 'undefined') {
+          const isCapacitorOrLocal = 
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.protocol === 'capacitor:' ||
+            window.location.protocol === 'file:';
+          if (isCapacitorOrLocal) {
+            window.location.reload();
+          } else {
+            window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
+          }
+        }
+      }, 700);
     } catch (_) {
       triggerApkDownload(apkDownloadUrl);
+      setTimeout(() => window.location.reload(), 700);
     } finally {
       setTimeout(() => {
         setIsUpdatingApp(false);

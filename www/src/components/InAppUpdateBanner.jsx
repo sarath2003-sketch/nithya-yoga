@@ -57,11 +57,22 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
 
   const checkRemoteUpdate = async () => {
     try {
-      const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
-        cache: 'no-store'
-      });
-      if (res.ok) {
-        const data = await res.json();
+      let data = null;
+      // 1. Try local / current domain version.json
+      try {
+        const localRes = await fetch(`./version.json?t=${Date.now()}`, { cache: 'no-store' });
+        if (localRes.ok) data = await localRes.json();
+      } catch (_) {}
+
+      // 2. Fallback to production GitHub Pages version.json
+      if (!data) {
+        const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
+          cache: 'no-store'
+        });
+        if (res.ok) data = await res.json();
+      }
+
+      if (data) {
         const remoteVer = data.version || '1.2.0';
         const remoteBuild = data.versionCode || 3;
         const localVersion = localStorage.getItem('nithya_installed_version') || CURRENT_APP_VERSION;
@@ -106,16 +117,32 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
 
       setUpdateDone(true);
 
-      // Trigger instant APK download in Chrome
+      // Trigger instant APK download if native Android
       triggerApkDownload(updateInfo?.apkUrl);
 
+      // Automatically refresh to apply latest code on the screen!
       setTimeout(() => {
-        setIsUpdating(false);
-      }, 1500);
+        if (typeof window !== 'undefined') {
+          const isCapacitorOrLocal = 
+            window.location.hostname === 'localhost' ||
+            window.location.hostname === '127.0.0.1' ||
+            window.location.protocol === 'capacitor:' ||
+            window.location.protocol === 'file:';
+          if (isCapacitorOrLocal) {
+            window.location.reload();
+          } else {
+            window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
+          }
+        }
+      }, 900);
     } catch (err) {
       console.error('Update error:', err);
       triggerApkDownload(updateInfo?.apkUrl);
-      setIsUpdating(false);
+      setTimeout(() => window.location.reload(), 900);
+    } finally {
+      setTimeout(() => {
+        setIsUpdating(false);
+      }, 1500);
     }
   };
 

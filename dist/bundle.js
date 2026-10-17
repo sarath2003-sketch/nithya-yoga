@@ -25702,7 +25702,8 @@
     user: user2,
     onOpenNotifications,
     onTestSound,
-    onOpenProfile
+    onOpenProfile,
+    onQuickUpdate
   }) {
     return /* @__PURE__ */ import_react7.default.createElement("header", { className: "dashboard-top-header" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-mobile-brand-wrap", onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }) }, /* @__PURE__ */ import_react7.default.createElement("img", { src: "assets/images/logo.png", alt: "Nithya Yoga", className: "header-mobile-logo-img" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "header-mobile-title" }, "NITHYA")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-search-wrapper" }, /* @__PURE__ */ import_react7.default.createElement(Search, { size: 16, className: "search-icon-left" }), /* @__PURE__ */ import_react7.default.createElement(
       "input",
@@ -25714,6 +25715,16 @@
         onChange: (e2) => setSearchQuery(e2.target.value)
       }
     ), /* @__PURE__ */ import_react7.default.createElement("button", { type: "button", className: "search-submit-btn", "aria-label": "Search" }, /* @__PURE__ */ import_react7.default.createElement(Search, { size: 14 }))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-tools-cluster" }, /* @__PURE__ */ import_react7.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "header-tool-btn header-update-pill cursor-pointer",
+        onClick: onQuickUpdate,
+        title: lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 (Update / Sync App)" : "Update / Sync App"
+      },
+      /* @__PURE__ */ import_react7.default.createElement(RefreshCw, { size: 14, className: "header-update-icon text-primary" }),
+      /* @__PURE__ */ import_react7.default.createElement("span", { className: "update-text-short hidden sm:inline font-bold text-xs" }, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD" : "Update")
+    ), /* @__PURE__ */ import_react7.default.createElement(
       "button",
       {
         type: "button",
@@ -58873,9 +58884,9 @@
         const activeRole = localStorage.getItem("nithya_active_role");
         if (activeRole === "student") return false;
         const studentSession = localStorage.getItem("nithya_student_session");
+        if (studentSession) return false;
         const hasTeacherToken = Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
-        if (studentSession && !hasTeacherToken) return false;
-        return Boolean(hasTeacherToken || user2?.role === "trainer");
+        return Boolean(hasTeacherToken && user2?.role === "trainer");
       } catch (_2) {
       }
       return false;
@@ -59103,14 +59114,14 @@
     const connectToRoom = (0, import_react11.useCallback)(async () => {
       setConnectionState("connecting");
       setErrorMessage("");
-      const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : "nithya-live-studio").toLowerCase().replace(/[^a-z0-9_-]/g, "-");
+      const roomName = (activeClass?.room_name || activeClass?.roomName || (activeClass?.id ? activeClass.id.startsWith("nithya-") ? activeClass.id : `nithya-${activeClass.id}` : "nithya-live-studio")).toLowerCase().replace(/[^a-z0-9_-]/g, "-");
       const studentInfo = loadStorage("nithya_student_session", null);
       const participantName2 = (isInstructorRole ? "NITHYA Master" : studentInfo?.name || (user2?.name && user2.name !== "Kavitha Ram" && user2.name !== "Yoga Practitioner" && user2.name !== "NITHYA Master" ? user2.name : "Yoga Student")).trim();
       let connectedViaLiveKit = false;
       const hasBackend = Boolean(getApiBaseUrl()) || typeof window !== "undefined" && window.location.hostname === "localhost";
       if (hasBackend) {
         try {
-          const authToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_auth_token");
+          const authToken = isInstructorRole ? localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") : localStorage.getItem("nithya_auth_token");
           const reqHeaders = {};
           if (authToken) {
             reqHeaders["Authorization"] = `Bearer ${authToken}`;
@@ -59121,7 +59132,8 @@
             body: JSON.stringify({
               roomName,
               participantName: participantName2,
-              classId: activeClass?.id
+              classId: activeClass?.id,
+              isInstructor: isInstructorRole
             })
           });
           if (data.token && data.serverUrl && !data.needsConfig) {
@@ -61634,11 +61646,19 @@ Click to join: ${link}`
     }, []);
     const checkRemoteUpdate = async () => {
       try {
-        const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
-          cache: "no-store"
-        });
-        if (res.ok) {
-          const data = await res.json();
+        let data = null;
+        try {
+          const localRes = await fetch(`./version.json?t=${Date.now()}`, { cache: "no-store" });
+          if (localRes.ok) data = await localRes.json();
+        } catch (_2) {
+        }
+        if (!data) {
+          const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
+            cache: "no-store"
+          });
+          if (res.ok) data = await res.json();
+        }
+        if (data) {
           const remoteVer = data.version || "1.2.0";
           const remoteBuild = data.versionCode || 3;
           const localVersion = localStorage.getItem("nithya_installed_version") || CURRENT_APP_VERSION;
@@ -61676,12 +61696,23 @@ Click to join: ${link}`
         setUpdateDone(true);
         triggerApkDownload(updateInfo?.apkUrl);
         setTimeout(() => {
-          setIsUpdating(false);
-        }, 1500);
+          if (typeof window !== "undefined") {
+            const isCapacitorOrLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "capacitor:" || window.location.protocol === "file:";
+            if (isCapacitorOrLocal) {
+              window.location.reload();
+            } else {
+              window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
+            }
+          }
+        }, 900);
       } catch (err) {
         console.error("Update error:", err);
         triggerApkDownload(updateInfo?.apkUrl);
-        setIsUpdating(false);
+        setTimeout(() => window.location.reload(), 900);
+      } finally {
+        setTimeout(() => {
+          setIsUpdating(false);
+        }, 1500);
       }
     };
     if (!updateInfo || dismissed) return null;
@@ -61800,12 +61831,27 @@ Click to join: ${link}`
     const handleCheckUpdates = async () => {
       setIsCheckingUpdate(true);
       try {
-        const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
-          cache: "no-store"
-        });
-        if (res.ok) {
-          const data = await res.json();
+        let data = null;
+        try {
+          const localRes = await fetch(`./version.json?t=${Date.now()}`, { cache: "no-store" });
+          if (localRes.ok) data = await localRes.json();
+        } catch (_2) {
+        }
+        if (!data) {
+          const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
+            cache: "no-store"
+          });
+          if (res.ok) data = await res.json();
+        }
+        if (data) {
           setRemoteUpdate(data);
+          if (showToast) {
+            showToast(
+              lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Update Check Completed \u2713",
+              lang === "ta" ? `\u0B95\u0BBF\u0B9F\u0BC8\u0B95\u0BCD\u0B95\u0B95\u0BCD\u0B95\u0BC2\u0B9F\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1: v${data.version}` : `Available Version: v${data.version}`,
+              "info"
+            );
+          }
         }
       } catch (e2) {
         console.warn("Update check failed:", e2);
@@ -61836,13 +61882,24 @@ Click to join: ${link}`
         triggerApkDownload(apkDownloadUrl);
         if (showToast) {
           showToast(
-            lang === "ta" ? "\u0B95\u0BC1\u0BB0\u0BCB\u0BAE\u0BBF\u0BB2\u0BCD APK \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1 \u2713" : "APK Download Started in Chrome \u2713",
-            lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1\u0BAE\u0BCD Notification-\u0B90 \u0BA4\u0BBF\u0BB1\u0BA8\u0BCD\u0BA4\u0BC1 Install \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Open Downloads notification once complete to Install.",
+            lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1 \u0BAE\u0BB1\u0BC1\u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1 \u2713" : "App Updated & Refreshing \u2713",
+            lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BA9\u0BCD\u0BB1\u0BA9..." : "Applying latest improvements...",
             "success"
           );
         }
+        setTimeout(() => {
+          if (typeof window !== "undefined") {
+            const isCapacitorOrLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "capacitor:" || window.location.protocol === "file:";
+            if (isCapacitorOrLocal) {
+              window.location.reload();
+            } else {
+              window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
+            }
+          }
+        }, 700);
       } catch (_2) {
         triggerApkDownload(apkDownloadUrl);
+        setTimeout(() => window.location.reload(), 700);
       } finally {
         setTimeout(() => {
           setIsUpdatingApp(false);
@@ -65107,6 +65164,30 @@ ${liveUrl}`;
     });
     const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react28.useState)(false);
     const [user2, setUser] = (0, import_react28.useState)(() => {
+      try {
+        const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
+        const isStudentQuery = params && (params.get("join") === "student" || params.get("role") === "student" || Boolean(params.get("live")));
+        const activeRole = typeof localStorage !== "undefined" ? localStorage.getItem("nithya_active_role") : null;
+        const studentSession2 = loadStorage("nithya_student_session", null);
+        if (isStudentQuery || activeRole === "student" || studentSession2 && !localStorage.getItem("nithya_admin_token")) {
+          if (studentSession2) {
+            return {
+              ...DEFAULT_USER,
+              name: studentSession2.name || "Yoga Student",
+              phone: studentSession2.phone || "",
+              role: "student",
+              isInstructor: false
+            };
+          }
+          return {
+            ...DEFAULT_USER,
+            name: "Yoga Student",
+            role: "student",
+            isInstructor: false
+          };
+        }
+      } catch (_2) {
+      }
       const stored = loadStorage("nithya_user", null);
       const isLegacyOrNotTrainer = !stored || stored.name === "Yoga Practitioner" || stored.name === "Kavitha Ram" || stored.role === "Member" || stored.role === "Verified Member" || stored.role !== "trainer";
       if (isLegacyOrNotTrainer) {
@@ -65299,7 +65380,7 @@ ${liveUrl}`;
                     name: backendCls.title,
                     courseName: backendCls.course_name,
                     course_name: backendCls.course_name,
-                    room_name: backendCls.room_name || `yoga-${backendCls.id}`,
+                    room_name: backendCls.room_name || (backendCls.id.startsWith("nithya-") ? backendCls.id : `nithya-${backendCls.id}`),
                     status: backendCls.status || "live",
                     duration: backendCls.duration_minutes || 60,
                     instructor: "NITHYA Master"
@@ -65312,7 +65393,7 @@ ${liveUrl}`;
                     title: "Live Yoga Class",
                     name: "Live Yoga Class",
                     courseName: "Live Yoga Flow",
-                    room_name: liveId.startsWith("nithya-") ? liveId : `yoga-${liveId}`,
+                    room_name: liveId.startsWith("nithya-") ? liveId : `nithya-${liveId}`,
                     status: "live",
                     duration: 60,
                     instructor: "NITHYA Master"
@@ -65325,7 +65406,7 @@ ${liveUrl}`;
                   title: "Live Yoga Class",
                   name: "Live Yoga Class",
                   courseName: "Live Yoga Flow",
-                  room_name: liveId.startsWith("nithya-") ? liveId : `yoga-${liveId}`,
+                  room_name: liveId.startsWith("nithya-") ? liveId : `nithya-${liveId}`,
                   status: "live",
                   duration: 60,
                   instructor: "NITHYA Master"
@@ -65335,16 +65416,26 @@ ${liveUrl}`;
             }
           }
           setCurrentTab("live");
-          if (isStudentExplicit || !hasTeacherToken) {
-            localStorage.setItem("nithya_active_role", "student");
-            const session = loadStorage("nithya_student_session", null);
-            const studentName = localStorage.getItem("nithya_student_name");
-            if (!session && !studentName) {
-              setShowStudentJoinModal(true);
-            }
-          } else {
+          const session = loadStorage("nithya_student_session", null);
+          const activeRole = localStorage.getItem("nithya_active_role");
+          const isTrainerMode = !isStudentExplicit && activeRole !== "student" && hasTeacherToken && user2?.role === "trainer";
+          if (isTrainerMode) {
             localStorage.setItem("nithya_active_role", "instructor");
             setShowStudentJoinModal(false);
+          } else {
+            localStorage.setItem("nithya_active_role", "student");
+            if (!session) {
+              setShowStudentJoinModal(true);
+            } else {
+              setUser((prev) => ({
+                ...prev,
+                name: session.name,
+                phone: session.phone,
+                role: "student",
+                isInstructor: false
+              }));
+              setShowStudentJoinModal(false);
+            }
           }
         }
       } catch (_2) {
@@ -65505,6 +65596,43 @@ ${liveUrl}`;
         "success"
       );
     };
+    const handleTriggerAppUpdate = async () => {
+      showToast(
+        lang === "ta" ? "\u{1F504} \u0B86\u0BAA\u0BCD \u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "\u{1F504} Updating app & syncing...",
+        lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9A\u0BC6\u0BAF\u0BB2\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BA9\u0BCD\u0BB1\u0BA9..." : "Refreshing latest code and assets...",
+        "info"
+      );
+      try {
+        if ("caches" in window) {
+          const cacheNames = await caches.keys();
+          await Promise.all(cacheNames.map((name) => caches.delete(name)));
+        }
+        if ("serviceWorker" in navigator) {
+          const registrations = await navigator.serviceWorker.getRegistrations();
+          for (const reg of registrations) {
+            await reg.unregister();
+          }
+        }
+        if (typeof window !== "undefined" && window.AndroidNativeUpdater) {
+          try {
+            window.AndroidNativeUpdater.openInChrome("https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk");
+          } catch (_2) {
+          }
+        }
+        setTimeout(() => {
+          if (typeof window !== "undefined") {
+            const isCapacitorOrLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "capacitor:" || window.location.protocol === "file:";
+            if (isCapacitorOrLocal) {
+              window.location.reload();
+            } else {
+              window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
+            }
+          }
+        }, 700);
+      } catch (_2) {
+        window.location.reload();
+      }
+    };
     const handleViewSchedule = () => {
       const remEl = document.querySelector(".today-reminders-section");
       if (remEl) {
@@ -65530,7 +65658,8 @@ ${liveUrl}`;
         user: user2,
         onOpenNotifications: handleViewSchedule,
         onTestSound: handleViewSchedule,
-        onOpenProfile: handleOpenProfile
+        onOpenProfile: handleOpenProfile,
+        onQuickUpdate: handleTriggerAppUpdate
       }
     ), currentTab === "student" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
@@ -65758,6 +65887,20 @@ ${liveUrl}`;
         lang,
         onJoin: (student) => {
           setStudentSession(student);
+          setUser((prev) => ({
+            ...prev,
+            name: student.name,
+            phone: student.phone,
+            role: "student",
+            isInstructor: false
+          }));
+          try {
+            localStorage.setItem("nithya_active_role", "student");
+            localStorage.setItem("nithya_student_session", JSON.stringify(student));
+            localStorage.removeItem("nithya_admin_token");
+            localStorage.removeItem("nithya_trainer_token");
+          } catch (_2) {
+          }
           setShowStudentJoinModal(false);
           setCurrentTab("live");
           showToast(

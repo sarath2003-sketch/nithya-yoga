@@ -308,9 +308,9 @@ export default function LiveYogaClassRoom({
       const activeRole = localStorage.getItem('nithya_active_role');
       if (activeRole === 'student') return false;
       const studentSession = localStorage.getItem('nithya_student_session');
+      if (studentSession) return false;
       const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
-      if (studentSession && !hasTeacherToken) return false;
-      return Boolean(hasTeacherToken || user?.role === 'trainer');
+      return Boolean(hasTeacherToken && user?.role === 'trainer');
     } catch (_) {}
     return false;
   });
@@ -569,7 +569,7 @@ export default function LiveYogaClassRoom({
     setConnectionState('connecting');
     setErrorMessage('');
 
-    const roomName = (activeClass?.id ? `yoga-${activeClass.id}` : 'nithya-live-studio').toLowerCase().replace(/[^a-z0-9_-]/g, '-');
+    const roomName = (activeClass?.room_name || activeClass?.roomName || (activeClass?.id ? (activeClass.id.startsWith('nithya-') ? activeClass.id : `nithya-${activeClass.id}`) : 'nithya-live-studio')).toLowerCase().replace(/[^a-z0-9_-]/g, '-');
     const studentInfo = loadStorage('nithya_student_session', null);
     const participantName = (isInstructorRole 
       ? 'NITHYA Master' 
@@ -581,7 +581,9 @@ export default function LiveYogaClassRoom({
     // Attempt LiveKit token negotiation only when a backend server is reachable
     if (hasBackend) {
       try {
-        const authToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_auth_token');
+        const authToken = isInstructorRole
+          ? (localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'))
+          : localStorage.getItem('nithya_auth_token');
         const reqHeaders = {};
         if (authToken) {
           reqHeaders['Authorization'] = `Bearer ${authToken}`;
@@ -593,7 +595,8 @@ export default function LiveYogaClassRoom({
           body: JSON.stringify({
             roomName,
             participantName,
-            classId: activeClass?.id
+            classId: activeClass?.id,
+            isInstructor: isInstructorRole
           })
         });
 

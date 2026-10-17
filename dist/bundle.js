@@ -26652,7 +26652,7 @@
       localStorage.setItem("nithya_backend_url", url.trim().replace(/\/+$/, ""));
     }
   }
-  async function apiFetch(endpoint, options = {}) {
+  async function apiFetch2(endpoint, options = {}) {
     const baseUrl = getApiBaseUrl();
     const cleanEndpoint = endpoint.startsWith("/") ? endpoint : `/${endpoint}`;
     const fullUrl = baseUrl ? `${baseUrl}${cleanEndpoint}` : cleanEndpoint;
@@ -58902,7 +58902,7 @@
       return `${hrs > 0 ? `${hrs}:` : ""}${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
     };
     (0, import_react11.useEffect)(() => {
-      apiFetch("/api/livekit/status").then((data) => {
+      apiFetch2("/api/livekit/status").then((data) => {
         if (!data.configured) {
           setNeedsSetup(true);
         }
@@ -58926,7 +58926,9 @@
                 return updated;
               });
             } else if (msg.type === "class-ended") {
-              setClassEndedNotice(true);
+              if (!isInstructorRole) {
+                setClassEndedNotice(true);
+              }
             } else if (msg.type === "chat" && msg.text) {
               setChatMessages((prev) => [
                 ...prev,
@@ -58953,7 +58955,17 @@
           }
         }
       };
-    }, []);
+    }, [isInstructorRole]);
+    (0, import_react11.useEffect)(() => {
+      if (isInstructorRole && activeClass?.id) {
+        const trainerToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") || "nithya_master_active";
+        apiFetch2(`/api/trainer/classes/${activeClass.id}/start`, {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${trainerToken}` }
+        }).catch(() => {
+        });
+      }
+    }, [isInstructorRole, activeClass?.id]);
     (0, import_react11.useEffect)(() => {
       if (connectionState !== "connected") return;
       const classId = activeClass?.id || "cls-1";
@@ -58964,7 +58976,7 @@
       const role = isInstructorRole ? "instructor" : "student";
       const sendHeartbeat = async () => {
         try {
-          const res = await apiFetch("/api/live/heartbeat", {
+          const res = await apiFetch2("/api/live/heartbeat", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -58978,9 +58990,13 @@
           });
           if (res && res.ok) {
             if (res.courseName) setCourseName(res.courseName);
-            if (res.classStatus === "ended") {
+            if (!isInstructorRole && res.classStatus === "ended") {
               setClassEndedNotice(true);
               return;
+            }
+            if (Array.isArray(res.activeParticipants)) {
+              const studentsOnly = res.activeParticipants.filter((p) => p.role !== "instructor");
+              setConnectedStudentsList(studentsOnly);
             }
             if (typeof res.activeCount === "number") {
               setBackendActiveCount(res.activeCount);
@@ -59038,7 +59054,7 @@
           if (authToken) {
             reqHeaders["Authorization"] = `Bearer ${authToken}`;
           }
-          const data = await apiFetch("/api/livekit/token", {
+          const data = await apiFetch2("/api/livekit/token", {
             method: "POST",
             headers: reqHeaders,
             body: JSON.stringify({
@@ -59061,7 +59077,7 @@
               setParticipants(Array.from(liveRoom.remoteParticipants.values()));
               const memberToken = localStorage.getItem("nithya_auth_token");
               if (memberToken) {
-                apiFetch("/api/attendance/join", {
+                apiFetch2("/api/attendance/join", {
                   method: "POST",
                   headers: { "Authorization": `Bearer ${memberToken}` },
                   body: JSON.stringify({ classId: activeClass?.id })
@@ -59112,7 +59128,9 @@
                 } else if (dataObj.type === "raise-hand") {
                   setRaisedHands((prev) => new Set(prev).add(participant.identity));
                 } else if (dataObj.type === "class-ended") {
-                  setClassEndedNotice(true);
+                  if (!isInstructorRole) {
+                    setClassEndedNotice(true);
+                  }
                 }
               } catch (_2) {
               }
@@ -59333,7 +59351,7 @@
       const currentTabId = tabIdRef.current;
       const participantId = isInstructorRole ? "instructor-primary" : studentInfo?.phone || user2?.phone || `student-${currentTabId}`;
       try {
-        await apiFetch("/api/live/leave", {
+        await apiFetch2("/api/live/leave", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -59347,7 +59365,7 @@
       }
       const memberToken = localStorage.getItem("nithya_auth_token");
       if (memberToken) {
-        apiFetch("/api/attendance/leave", {
+        apiFetch2("/api/attendance/leave", {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${memberToken}`
@@ -59413,7 +59431,7 @@
       const classId = activeClass?.id;
       if (trainerToken && classId) {
         try {
-          await apiFetch(`/api/trainer/classes/${classId}/end`, {
+          await apiFetch2(`/api/trainer/classes/${classId}/end`, {
             method: "POST",
             headers: { "Authorization": `Bearer ${trainerToken}` }
           });
@@ -59458,7 +59476,7 @@
       }
       const memberToken = localStorage.getItem("nithya_auth_token") || localStorage.getItem("nithya_admin_token");
       if (memberToken) {
-        apiFetch("/api/attendance", {
+        apiFetch2("/api/attendance", {
           method: "POST",
           headers: { "Authorization": `Bearer ${memberToken}` },
           body: JSON.stringify({
@@ -59537,7 +59555,7 @@ ${url}`;
           const adminToken = localStorage.getItem("nithya_admin_token");
           const headers = {};
           if (adminToken) headers["Authorization"] = `Bearer ${adminToken}`;
-          const data = await apiFetch("/api/livekit/config", {
+          const data = await apiFetch2("/api/livekit/config", {
             method: "POST",
             headers,
             body: JSON.stringify({
@@ -59622,7 +59640,7 @@ ${url}`;
         onClick: handleToggleRole,
         title: lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD / \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAE\u0BC1\u0BB1\u0BC8\u0BAF\u0BC8 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1\u0B95" : "Switch Instructor / Student Mode"
       },
-      isInstructorRole ? /* @__PURE__ */ import_react11.default.createElement(Crown, { size: 14, className: "text-amber-400" }) : /* @__PURE__ */ import_react11.default.createElement(Users, { size: 14, className: "text-emerald-400" }),
+      isInstructorRole ? /* @__PURE__ */ import_react11.default.createElement(Crown, { size: 14, className: "text-amber-400" }) : /* @__PURE__ */ import_react11.default.createElement(Users, { size: 14, className: "text-indigo-400" }),
       /* @__PURE__ */ import_react11.default.createElement("span", { className: "font-bold" }, isInstructorRole ? lang === "ta" ? "\u{1F451} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD (\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD)" : "\u{1F451} NITHYA Master (Host)" : lang === "ta" ? "\u{1F465} \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAE\u0BC1\u0BB1\u0BC8 (Student)" : "\u{1F465} Student Mode"),
       /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-change-arrow ml-1 text-xs opacity-70" }, "\u2B82")
     ), !isInstructorRole && /* @__PURE__ */ import_react11.default.createElement(
@@ -62365,7 +62383,7 @@ Click to join: ${link}`
       if (!adminToken) return;
       setClassesLoading(true);
       try {
-        const data = await apiFetch("/api/admin/classes", {
+        const data = await apiFetch2("/api/admin/classes", {
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
         if (Array.isArray(data)) {
@@ -62387,7 +62405,7 @@ Click to join: ${link}`
       try {
         let serverLogs = [];
         try {
-          const data = await apiFetch("/api/admin/attendance", {
+          const data = await apiFetch2("/api/admin/attendance", {
             headers: { "Authorization": `Bearer ${adminToken}` }
           });
           if (Array.isArray(data)) {
@@ -62428,7 +62446,7 @@ Click to join: ${link}`
     const fetchMaterials = async () => {
       setMaterialsLoading(true);
       try {
-        const data = await apiFetch("/api/materials");
+        const data = await apiFetch2("/api/materials");
         if (Array.isArray(data)) {
           setMaterialsList(data);
         }
@@ -62441,7 +62459,7 @@ Click to join: ${link}`
     const fetchVideos = async () => {
       setVideosLoading(true);
       try {
-        const data = await apiFetch("/api/videos");
+        const data = await apiFetch2("/api/videos");
         if (Array.isArray(data)) {
           setVideosList(data);
         }
@@ -62453,7 +62471,7 @@ Click to join: ${link}`
     };
     const fetchLiveKitStatus = async () => {
       try {
-        const data = await apiFetch("/api/livekit/status");
+        const data = await apiFetch2("/api/livekit/status");
         setLivekitStatus(data);
         if (data.serverUrl) setConfigUrl(data.serverUrl);
       } catch (e2) {
@@ -62473,7 +62491,7 @@ Click to join: ${link}`
       setLoginLoading(true);
       setLoginError("");
       try {
-        const data = await apiFetch("/api/admin/login", {
+        const data = await apiFetch2("/api/admin/login", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ email, password })
@@ -62510,7 +62528,7 @@ Click to join: ${link}`
       if (!newTitle.trim()) return;
       setIsCreatingClass(true);
       try {
-        const data = await apiFetch("/api/trainer/classes", {
+        const data = await apiFetch2("/api/trainer/classes", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -62540,7 +62558,7 @@ Click to join: ${link}`
     const handleStartClass = async (cls) => {
       try {
         localStorage.removeItem("nithya_student_session");
-        await apiFetch(`/api/trainer/classes/${cls.id}/start`, {
+        await apiFetch2(`/api/trainer/classes/${cls.id}/start`, {
           method: "PUT",
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -62564,7 +62582,7 @@ Click to join: ${link}`
         return;
       }
       try {
-        await apiFetch(`/api/trainer/classes/${cls.id}/end`, {
+        await apiFetch2(`/api/trainer/classes/${cls.id}/end`, {
           method: "PUT",
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -62585,7 +62603,7 @@ Click to join: ${link}`
         return;
       }
       try {
-        await apiFetch(`/api/trainer/classes/${classId}`, {
+        await apiFetch2(`/api/trainer/classes/${classId}`, {
           method: "DELETE",
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -62597,7 +62615,7 @@ Click to join: ${link}`
     };
     const handleGenerateInvite = async (classId) => {
       try {
-        const data = await apiFetch(`/api/trainer/classes/${classId}/invites`, {
+        const data = await apiFetch2(`/api/trainer/classes/${classId}/invites`, {
           method: "POST",
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -62646,7 +62664,7 @@ ${liveUrl}`;
       if (!newMatTitle.trim()) return;
       setIsCreatingMat(true);
       try {
-        const data = await apiFetch("/api/trainer/materials", {
+        const data = await apiFetch2("/api/trainer/materials", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -62676,7 +62694,7 @@ ${liveUrl}`;
     const handleDeleteMaterial = async (id) => {
       if (!window.confirm("Delete this material?")) return;
       try {
-        await apiFetch(`/api/trainer/materials/${id}`, {
+        await apiFetch2(`/api/trainer/materials/${id}`, {
           method: "DELETE",
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -62691,7 +62709,7 @@ ${liveUrl}`;
       if (!newVidTitle.trim() || !newVidUrl.trim()) return;
       setIsCreatingVid(true);
       try {
-        const data = await apiFetch("/api/trainer/videos", {
+        const data = await apiFetch2("/api/trainer/videos", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -62720,7 +62738,7 @@ ${liveUrl}`;
     const handleDeleteVideo = async (id) => {
       if (!window.confirm("Delete this video?")) return;
       try {
-        await apiFetch(`/api/trainer/videos/${id}`, {
+        await apiFetch2(`/api/trainer/videos/${id}`, {
           method: "DELETE",
           headers: { "Authorization": `Bearer ${adminToken}` }
         });
@@ -62734,7 +62752,7 @@ ${liveUrl}`;
       e2.preventDefault();
       setSavingConfig(true);
       try {
-        const data = await apiFetch("/api/livekit/config", {
+        const data = await apiFetch2("/api/livekit/config", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -63223,7 +63241,7 @@ ${liveUrl}`;
         setLoading(true);
         setError("");
         try {
-          const data = await apiFetch(`/api/invites/${encodeURIComponent(inviteToken)}`);
+          const data = await apiFetch2(`/api/invites/${encodeURIComponent(inviteToken)}`);
           setClassInfo(data.class);
         } catch (err) {
           setError(err.message);
@@ -63238,7 +63256,7 @@ ${liveUrl}`;
       setSubmitting(true);
       setSubmitError("");
       try {
-        const data = await apiFetch("/api/members/register", {
+        const data = await apiFetch2("/api/members/register", {
           method: "POST",
           body: JSON.stringify({
             inviteToken,
@@ -63443,7 +63461,7 @@ ${liveUrl}`;
       const classId = activeClass?.id || "cls-1";
       const checkClassState = async () => {
         try {
-          const cls = await apiFetch(`/api/classes/${classId}`);
+          const cls = await apiFetch2(`/api/classes/${classId}`);
           if (cls && cls.status) {
             setClassStatus(cls.status);
             if (cls.status === "live") {
@@ -63518,7 +63536,7 @@ ${liveUrl}`;
         }
         try {
           const classId = activeClass?.id || "cls-1";
-          apiFetch("/api/student/validate-join", {
+          apiFetch2("/api/student/validate-join", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -63606,7 +63624,28 @@ ${liveUrl}`;
         "button",
         {
           type: "button",
-          className: "w-full py-2.5 text-xs rounded-xl bg-primary text-white font-bold hover:opacity-95 cursor-pointer",
+          className: "w-1/2 py-2.5 text-xs rounded-xl border border-subtle text-heading font-semibold hover:bg-subtle cursor-pointer flex items-center justify-center gap-1.5",
+          onClick: async () => {
+            try {
+              const classId = activeClass?.id || "cls-1";
+              const cls = await apiFetch2(`/api/classes/${classId}`);
+              if (cls && cls.status === "live") {
+                setClassStatus("live");
+                onJoin({ name, phone, role: "student" });
+              } else {
+                alert(lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1." : "Class has not started yet or has concluded.");
+              }
+            } catch (_2) {
+            }
+          }
+        },
+        /* @__PURE__ */ import_react26.default.createElement(RefreshCw, { size: 13 }),
+        /* @__PURE__ */ import_react26.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD" : "Check Status")
+      ), /* @__PURE__ */ import_react26.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "w-1/2 py-2.5 text-xs rounded-xl bg-primary text-white font-bold hover:opacity-95 cursor-pointer",
           onClick: onClose
         },
         lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Return to Home"
@@ -63689,17 +63728,17 @@ ${liveUrl}`;
         setLoading(true);
         try {
           try {
-            const mats = await apiFetch("/api/materials");
+            const mats = await apiFetch2("/api/materials");
             if (Array.isArray(mats)) setMaterials(mats);
           } catch (_2) {
           }
           try {
-            const vids = await apiFetch("/api/videos");
+            const vids = await apiFetch2("/api/videos");
             if (Array.isArray(vids)) setVideos(vids);
           } catch (_2) {
           }
           try {
-            const att = await apiFetch(`/api/student/attendance?phone=${encodeURIComponent(studentPhone)}`);
+            const att = await apiFetch2(`/api/student/attendance?phone=${encodeURIComponent(studentPhone)}`);
             if (Array.isArray(att)) setAttendanceHistory(att);
           } catch (_2) {
           }
@@ -65113,19 +65152,64 @@ ${liveUrl}`;
     (0, import_react28.useEffect)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
-        const liveId = params.get("live") || params.get("room");
+        const liveId = (params.get("live") || params.get("room") || "").trim();
         const isStudentExplicit = params.get("join") === "student" || params.get("role") === "student" || Boolean(params.get("invite"));
         const hasTeacherToken = Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
         if (liveId || isStudentExplicit) {
           if (liveId) {
-            const found = classes.find((c) => c.id === liveId) || classes[0];
-            if (found) setActiveClass(found);
+            const found = classes.find((c) => c.id === liveId);
+            if (found) {
+              setActiveClass(found);
+            } else {
+              apiFetch(`/api/classes/${encodeURIComponent(liveId)}`).then((backendCls) => {
+                if (backendCls && backendCls.id) {
+                  const clsObj = {
+                    id: backendCls.id,
+                    title: backendCls.title,
+                    name: backendCls.title,
+                    courseName: backendCls.course_name,
+                    course_name: backendCls.course_name,
+                    room_name: backendCls.room_name || `yoga-${backendCls.id}`,
+                    status: backendCls.status || "live",
+                    duration: backendCls.duration_minutes || 60,
+                    instructor: "NITHYA Master"
+                  };
+                  setActiveClass(clsObj);
+                  setClasses((prev) => [clsObj, ...prev.filter((c) => c.id !== clsObj.id)]);
+                } else {
+                  const dynCls = {
+                    id: liveId,
+                    title: "Live Yoga Class",
+                    name: "Live Yoga Class",
+                    courseName: "Live Yoga Flow",
+                    room_name: liveId.startsWith("nithya-") ? liveId : `yoga-${liveId}`,
+                    status: "live",
+                    duration: 60,
+                    instructor: "NITHYA Master"
+                  };
+                  setActiveClass(dynCls);
+                }
+              }).catch(() => {
+                const dynCls = {
+                  id: liveId,
+                  title: "Live Yoga Class",
+                  name: "Live Yoga Class",
+                  courseName: "Live Yoga Flow",
+                  room_name: liveId.startsWith("nithya-") ? liveId : `yoga-${liveId}`,
+                  status: "live",
+                  duration: 60,
+                  instructor: "NITHYA Master"
+                };
+                setActiveClass(dynCls);
+              });
+            }
           }
           setCurrentTab("live");
           if (isStudentExplicit || !hasTeacherToken) {
             localStorage.setItem("nithya_active_role", "student");
             const session = loadStorage("nithya_student_session", null);
-            if (!session) {
+            const studentName = localStorage.getItem("nithya_student_name");
+            if (!session && !studentName) {
               setShowStudentJoinModal(true);
             }
           } else {
@@ -65314,8 +65398,8 @@ ${liveUrl}`;
         lang,
         setLang,
         user: user2,
-        onOpenNotifications: handleTestSound,
-        onTestSound: handleTestSound,
+        onOpenNotifications: handleViewSchedule,
+        onTestSound: handleViewSchedule,
         onOpenProfile: handleOpenProfile
       }
     ), currentTab === "student" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(

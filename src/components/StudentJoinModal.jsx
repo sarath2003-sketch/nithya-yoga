@@ -302,7 +302,26 @@ export default function StudentJoinModal({
             <div className="flex gap-2 w-full mt-2">
               <button
                 type="button"
-                className="w-full py-2.5 text-xs rounded-xl bg-primary text-white font-bold hover:opacity-95 cursor-pointer"
+                className="w-1/2 py-2.5 text-xs rounded-xl border border-subtle text-heading font-semibold hover:bg-subtle cursor-pointer flex items-center justify-center gap-1.5"
+                onClick={async () => {
+                  try {
+                    const classId = activeClass?.id || 'cls-1';
+                    const cls = await apiFetch(`/api/classes/${classId}`);
+                    if (cls && cls.status === 'live') {
+                      setClassStatus('live');
+                      onJoin({ name, phone, role: 'student' });
+                    } else {
+                      alert(lang === 'ta' ? 'வகுப்பு இன்னும் தொடங்கப்படவில்லை அல்லது நிறைவடைந்துள்ளது.' : 'Class has not started yet or has concluded.');
+                    }
+                  } catch (_) {}
+                }}
+              >
+                <RefreshCw size={13} />
+                <span>{lang === 'ta' ? 'மீண்டும் சரிபார்' : 'Check Status'}</span>
+              </button>
+              <button
+                type="button"
+                className="w-1/2 py-2.5 text-xs rounded-xl bg-primary text-white font-bold hover:opacity-95 cursor-pointer"
                 onClick={onClose}
               >
                 {lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Return to Home'}

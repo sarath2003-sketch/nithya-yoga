@@ -291,14 +291,62 @@ export default function App() {
   useEffect(() => {
     try {
       const params = new URLSearchParams(window.location.search);
-      const liveId = params.get('live') || params.get('room');
+      const liveId = (params.get('live') || params.get('room') || '').trim();
       const isStudentExplicit = params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite'));
       const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
 
       if (liveId || isStudentExplicit) {
         if (liveId) {
-          const found = classes.find(c => c.id === liveId) || classes[0];
-          if (found) setActiveClass(found);
+          const found = classes.find(c => c.id === liveId);
+          if (found) {
+            setActiveClass(found);
+          } else {
+            // Fetch exact class from backend; do NOT fall back to classes[0]
+            apiFetch(`/api/classes/${encodeURIComponent(liveId)}`)
+              .then(backendCls => {
+                if (backendCls && backendCls.id) {
+                  const clsObj = {
+                    id: backendCls.id,
+                    title: backendCls.title,
+                    name: backendCls.title,
+                    courseName: backendCls.course_name,
+                    course_name: backendCls.course_name,
+                    room_name: backendCls.room_name || `yoga-${backendCls.id}`,
+                    status: backendCls.status || 'live',
+                    duration: backendCls.duration_minutes || 60,
+                    instructor: 'NITHYA Master'
+                  };
+                  setActiveClass(clsObj);
+                  setClasses(prev => [clsObj, ...prev.filter(c => c.id !== clsObj.id)]);
+                } else {
+                  // Fallback: create dynamic activeClass with exact specified ID
+                  const dynCls = {
+                    id: liveId,
+                    title: 'Live Yoga Class',
+                    name: 'Live Yoga Class',
+                    courseName: 'Live Yoga Flow',
+                    room_name: liveId.startsWith('nithya-') ? liveId : `yoga-${liveId}`,
+                    status: 'live',
+                    duration: 60,
+                    instructor: 'NITHYA Master'
+                  };
+                  setActiveClass(dynCls);
+                }
+              })
+              .catch(() => {
+                const dynCls = {
+                  id: liveId,
+                  title: 'Live Yoga Class',
+                  name: 'Live Yoga Class',
+                  courseName: 'Live Yoga Flow',
+                  room_name: liveId.startsWith('nithya-') ? liveId : `yoga-${liveId}`,
+                  status: 'live',
+                  duration: 60,
+                  instructor: 'NITHYA Master'
+                };
+                setActiveClass(dynCls);
+              });
+          }
         }
         setCurrentTab('live');
 
@@ -306,7 +354,8 @@ export default function App() {
         if (isStudentExplicit || !hasTeacherToken) {
           localStorage.setItem('nithya_active_role', 'student');
           const session = loadStorage('nithya_student_session', null);
-          if (!session) {
+          const studentName = localStorage.getItem('nithya_student_name');
+          if (!session && !studentName) {
             setShowStudentJoinModal(true);
           }
         } else {
@@ -529,8 +578,8 @@ export default function App() {
             lang={lang}
             setLang={setLang}
             user={user}
-            onOpenNotifications={handleTestSound}
-            onTestSound={handleTestSound}
+            onOpenNotifications={handleViewSchedule}
+            onTestSound={handleViewSchedule}
             onOpenProfile={handleOpenProfile}
           />
 

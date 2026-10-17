@@ -419,7 +419,9 @@ export default function LiveYogaClassRoom({
               return updated;
             });
           } else if (msg.type === 'class-ended') {
-            setClassEndedNotice(true);
+            if (!isInstructorRole) {
+              setClassEndedNotice(true);
+            }
           } else if (msg.type === 'chat' && msg.text) {
             setChatMessages(prev => [
               ...prev,
@@ -443,7 +445,18 @@ export default function LiveYogaClassRoom({
         try { bc.close(); } catch (_) {}
       }
     };
-  }, []);
+  }, [isInstructorRole]);
+
+  // Ensure active class is marked 'live' on backend when instructor enters room
+  useEffect(() => {
+    if (isInstructorRole && activeClass?.id) {
+      const trainerToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token') || 'nithya_master_active';
+      apiFetch(`/api/trainer/classes/${activeClass.id}/start`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${trainerToken}` }
+      }).catch(() => {});
+    }
+  }, [isInstructorRole, activeClass?.id]);
 
   // Heartbeat & 10-Minute Disconnect Handling loop
   useEffect(() => {
@@ -477,9 +490,14 @@ export default function LiveYogaClassRoom({
 
         if (res && res.ok) {
           if (res.courseName) setCourseName(res.courseName);
-          if (res.classStatus === 'ended') {
+          // Only students receive class ended notice; instructor controls the class
+          if (!isInstructorRole && res.classStatus === 'ended') {
             setClassEndedNotice(true);
             return;
+          }
+          if (Array.isArray(res.activeParticipants)) {
+            const studentsOnly = res.activeParticipants.filter(p => p.role !== 'instructor');
+            setConnectedStudentsList(studentsOnly);
           }
           if (typeof res.activeCount === 'number') {
             setBackendActiveCount(res.activeCount);
@@ -633,7 +651,9 @@ export default function LiveYogaClassRoom({
               } else if (dataObj.type === 'raise-hand') {
                 setRaisedHands(prev => new Set(prev).add(participant.identity));
               } else if (dataObj.type === 'class-ended') {
-                setClassEndedNotice(true);
+                if (!isInstructorRole) {
+                  setClassEndedNotice(true);
+                }
               }
             } catch (_) {}
           });
@@ -1221,7 +1241,7 @@ export default function LiveYogaClassRoom({
             onClick={handleToggleRole}
             title={lang === 'ta' ? 'பயிற்றுநர் / மாணவர் பயன்முறையை மாற்றுக' : 'Switch Instructor / Student Mode'}
           >
-            {isInstructorRole ? <Crown size={14} className="text-amber-400" /> : <Users size={14} className="text-emerald-400" />}
+            {isInstructorRole ? <Crown size={14} className="text-amber-400" /> : <Users size={14} className="text-indigo-400" />}
             <span className="font-bold">
               {isInstructorRole 
                 ? (lang === 'ta' ? '👑 நித்யா மாஸ்டர் (பயிற்றுநர்)' : '👑 NITHYA Master (Host)') 

@@ -64,3 +64,6 @@ data/
 
 # Playwright CLI output (may contain credentials)
 .playwright-cli/
+dist/screenshots/
+www/dist/screenshots/
+

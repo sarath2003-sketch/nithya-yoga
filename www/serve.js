@@ -633,7 +633,7 @@ app.get('/api/invites/:token', (req, res) => {
 });
 
 // Student Joining Validation Flow (6 Steps)
-app.post('/api/student/validate-join', (req, res) => {
+app.post(['/api/student/validate-join', '/api/live/join-student'], (req, res) => {
   const classId = String(req.body?.classId || '').trim();
   const name = String(req.body?.name || '').trim().replace(/\s+/g, ' ');
   const phone = String(req.body?.phone || '').replace(/[^\d+]/g, '');

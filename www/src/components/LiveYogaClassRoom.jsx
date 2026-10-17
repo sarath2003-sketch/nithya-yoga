@@ -35,7 +35,9 @@ import {
   Copy,
   Check,
   FileText,
-  Download
+  Download,
+  FlipHorizontal,
+  SwitchCamera
 } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus, ThreeDBell, ThreeDHeart } from './ThreeDIcons';
@@ -50,6 +52,7 @@ function ParticipantTile({
   isSpeaking = false,
   isLocalMicOn = true,
   isLocalVideoOn = true,
+  isMirrored = true,
   lang = 'en',
   onPin
 }) {
@@ -110,6 +113,16 @@ function ParticipantTile({
     const el = videoRef.current;
     if (!el) return;
 
+    // Enforce inline playback and muted state to eliminate Android Chromium tap-to-play overlay
+    el.muted = Boolean(isLocal);
+    el.defaultMuted = Boolean(isLocal);
+    el.playsInline = true;
+    try {
+      el.setAttribute('playsinline', '');
+      el.setAttribute('webkit-playsinline', 'true');
+      el.setAttribute('x5-playsinline', 'true');
+    } catch (e) {}
+
     if (videoTrack) {
       videoTrack.attach(el);
       return () => {
@@ -125,7 +138,7 @@ function ParticipantTile({
       setHasVideo(Boolean(vTrack && vTrack.enabled));
       setHasAudio(Boolean(aTrack && aTrack.enabled));
     }
-  }, [videoTrack, participant?.stream, isLocalVideoOn]);
+  }, [videoTrack, participant?.stream, isLocalVideoOn, isLocal]);
 
   // Attach audio for remote participants to DOM
   useEffect(() => {
@@ -159,13 +172,16 @@ function ParticipantTile({
       onClick={onPin}
       title={isSpotlight ? undefined : `Click to spotlight ${displayName}`}
     >
-      {/* Video element */}
+      {/* Video element - completely hidden when video is off to prevent Android WebView play overlay */}
       <video
         ref={videoRef}
         autoPlay
         playsInline
+        webkit-playsinline="true"
+        x5-playsinline="true"
         muted={isLocal} // Avoid local echo
-        className={`participant-video-stream ${effectiveHasVideo ? 'visible' : 'hidden'}`}
+        className={`participant-video-stream ${effectiveHasVideo ? 'visible' : 'hidden'} ${isLocal && isMirrored ? 'is-mirrored' : ''}`}
+        style={{ display: effectiveHasVideo ? 'block' : 'none' }}
       />
 
       {/* Hidden audio element for remote stream */}
@@ -206,7 +222,7 @@ function ParticipantTile({
           {displayName}
         </span>
         <div className="participant-media-status-icons">
-          {hasAudio ? (
+          {effectiveHasAudio ? (
             <span className={`status-icon-pill ${isSpeaking ? 'active-speaking' : 'audio-on'}`} title="Mic on">
               <Mic size={12} />
             </span>
@@ -215,7 +231,7 @@ function ParticipantTile({
               <MicOff size={12} />
             </span>
           )}
-          {!hasVideo && (
+          {!effectiveHasVideo && (
             <span className="status-icon-pill video-muted" title="Camera off">
               <VideoOff size={12} />
             </span>
@@ -334,6 +350,9 @@ export default function LiveYogaClassRoom({
   const [localStream, setLocalStream] = useState(null);
   const [screenStream, setScreenStream] = useState(null);
   const [studioMode, setStudioMode] = useState('auto'); // 'livekit' | 'webrtc'
+  // Camera Mirroring & Facing Mode State (Natural mirror default for selfie yoga view)
+  const [isMirrored, setIsMirrored] = useState(true);
+  const [cameraFacing, setCameraFacing] = useState('user'); // 'user' (front) | 'environment' (back)
   const [copiedLink, setCopiedLink] = useState(false);
   const [showAttendanceDrawer, setShowAttendanceDrawer] = useState(false);
   const [reconnectCount, setReconnectCount] = useState(0);
@@ -660,7 +679,7 @@ export default function LiveYogaClassRoom({
 
           await liveRoom.connect(data.serverUrl, data.token);
           await liveRoom.localParticipant.setMicrophoneEnabled(isMicOn).catch(() => {});
-          await liveRoom.localParticipant.setCameraEnabled(isVideoOn).catch(() => {});
+          await liveRoom.localParticipant.setCameraEnabled(isVideoOn, { facingMode: cameraFacing }).catch(() => {});
           setRoom(liveRoom);
           connectedViaLiveKit = true;
         }
@@ -676,7 +695,7 @@ export default function LiveYogaClassRoom({
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           try {
             stream = await navigator.mediaDevices.getUserMedia({
-              video: isVideoOn ? { width: { ideal: 1280 }, height: { ideal: 720 } } : false,
+              video: isVideoOn ? { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: { ideal: cameraFacing } } : false,
               audio: isMicOn
             });
           } catch (mediaErr) {
@@ -754,12 +773,70 @@ export default function LiveYogaClassRoom({
     }
     if (room?.localParticipant) {
       try {
-        await room.localParticipant.setCameraEnabled(nextState);
+        await room.localParticipant.setCameraEnabled(nextState, { facingMode: cameraFacing });
       } catch (e) {
         console.error('Video toggle error:', e);
       }
     }
     setIsVideoOn(nextState);
+  };
+
+  // Toggle Camera Mirroring (கண்ணாடி வியூ: ஆன்/ஆஃப் - Natural Studio Reflection)
+  const handleToggleMirror = () => {
+    setIsMirrored(prev => !prev);
+  };
+
+  // Switch between Front (Selfie) and Rear (Back) Camera (முன்/பின் கேமரா மாற்று)
+  const handleSwitchCamera = async () => {
+    const nextFacing = cameraFacing === 'user' ? 'environment' : 'user';
+    setCameraFacing(nextFacing);
+
+    // Front camera is mirrored by default; back camera is natural unmirrored
+    if (nextFacing === 'environment') {
+      setIsMirrored(false);
+    } else {
+      setIsMirrored(true);
+    }
+
+    // 1. If using LiveKit local participant
+    if (room?.localParticipant) {
+      try {
+        await room.localParticipant.setCameraEnabled(false);
+        if (isVideoOn) {
+          await room.localParticipant.setCameraEnabled(true, {
+            facingMode: nextFacing
+          });
+        }
+      } catch (err) {
+        console.warn('[LiveKit] Switch camera warning:', err);
+      }
+    }
+
+    // 2. If using WebRTC fallback localStream
+    if (localStream) {
+      try {
+        localStream.getVideoTracks().forEach(t => t.stop());
+        if (isVideoOn && navigator.mediaDevices?.getUserMedia) {
+          const newStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              facingMode: { ideal: nextFacing },
+              width: { ideal: 1280 },
+              height: { ideal: 720 }
+            },
+            audio: false
+          });
+          const newVTrack = newStream.getVideoTracks()[0];
+          if (newVTrack) {
+            const oldVTrack = localStream.getVideoTracks()[0];
+            if (oldVTrack) localStream.removeTrack(oldVTrack);
+            localStream.addTrack(newVTrack);
+            setLocalStream(new MediaStream(localStream.getTracks()));
+          }
+        }
+      } catch (err) {
+        console.warn('[WebRTC] Switch camera fallback error:', err);
+      }
+    }
   };
 
   // Handle Screen Share (Instructor)
@@ -1538,6 +1615,7 @@ export default function LiveYogaClassRoom({
                         isSpeaking={activeSpeakers.includes(spotlightParticipant.identity)}
                         isLocalMicOn={isMicOn}
                         isLocalVideoOn={isVideoOn}
+                        isMirrored={isMirrored}
                         lang={lang}
                       />
                     ) : (
@@ -1560,6 +1638,7 @@ export default function LiveYogaClassRoom({
                             isSpeaking={activeSpeakers.includes(p.identity)}
                             isLocalMicOn={isMicOn}
                             isLocalVideoOn={isVideoOn}
+                            isMirrored={isMirrored}
                             lang={lang}
                             onPin={() => setSpotlightParticipantId(p.identity)}
                           />
@@ -1580,6 +1659,7 @@ export default function LiveYogaClassRoom({
                       isSpeaking={activeSpeakers.includes(p.identity)}
                       isLocalMicOn={isMicOn}
                       isLocalVideoOn={isVideoOn}
+                      isMirrored={isMirrored}
                       lang={lang}
                       onPin={() => {
                         setSpotlightParticipantId(p.identity);
@@ -1734,9 +1814,33 @@ export default function LiveYogaClassRoom({
             type="button"
             className={`meet-circle-btn ${isVideoOn ? '' : 'btn-muted-danger'}`}
             onClick={handleToggleVideo}
-            title={isVideoOn ? 'Turn Off Camera' : 'Turn On Camera'}
+            title={isVideoOn ? (lang === 'ta' ? 'கேமராவை அணைக்கவும்' : 'Turn Off Camera') : (lang === 'ta' ? 'கேமராவை இயக்கவும்' : 'Turn On Camera')}
           >
             {isVideoOn ? <VideoIcon size={20} /> : <VideoOff size={20} />}
+          </button>
+
+          {/* Flip / Switch Camera Button (Front / Rear) */}
+          <button
+            type="button"
+            className="meet-circle-btn switch-camera-btn"
+            onClick={handleSwitchCamera}
+            title={cameraFacing === 'user' 
+              ? (lang === 'ta' ? 'பின் கேமராவுக்கு மாற்று (Back Camera)' : 'Switch to Back Camera') 
+              : (lang === 'ta' ? 'முன் கேமராவுக்கு மாற்று (Front Camera)' : 'Switch to Front Camera')}
+          >
+            <SwitchCamera size={20} />
+          </button>
+
+          {/* Mirror View Toggle Button (Natural Studio Mirror Reflection) */}
+          <button
+            type="button"
+            className={`meet-circle-btn mirror-toggle-btn ${isMirrored ? 'btn-active-state' : ''}`}
+            onClick={handleToggleMirror}
+            title={isMirrored 
+              ? (lang === 'ta' ? 'மிரர் வியூ: ஆன் (இயற்கை கண்ணாடி வடிவம்)' : 'Mirror View: ON (Natural Mirror)') 
+              : (lang === 'ta' ? 'மிரர் வியூ: ஆஃப்' : 'Mirror View: OFF')}
+          >
+            <FlipHorizontal size={20} />
           </button>
 
           {/* Screen Share (Instructor only) */}

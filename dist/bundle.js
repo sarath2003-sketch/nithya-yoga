@@ -25116,27 +25116,50 @@
     }
   });
 
+  // node_modules/lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs
+  var __iconData57, SquareCenterlineDashedHorizontal;
+  var init_square_centerline_dashed_horizontal = __esm({
+    "node_modules/lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs"() {
+      init_createLucideIcon();
+      __iconData57 = {
+        name: "square-centerline-dashed-horizontal",
+        size: 24,
+        node: [
+          ["path", { d: "M8 3H5a2 2 0 0 0-2 2v14c0 1.1.9 2 2 2h3", key: "1i73f7" }],
+          ["path", { d: "M16 3h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-3", key: "saxlbk" }],
+          ["path", { d: "M12 20v2", key: "1lh1kg" }],
+          ["path", { d: "M12 14v2", key: "8jcxud" }],
+          ["path", { d: "M12 8v2", key: "1woqiv" }],
+          ["path", { d: "M12 2v2", key: "tus03m" }]
+        ],
+        aliases: ["flip-horizontal"]
+      };
+      __iconData57.node;
+      SquareCenterlineDashedHorizontal = createLucideIcon(__iconData57);
+    }
+  });
+
   // node_modules/lucide-react/dist/esm/icons/square.mjs
-  var __iconData57, Square;
+  var __iconData58, Square;
   var init_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/square.mjs"() {
       init_createLucideIcon();
-      __iconData57 = {
+      __iconData58 = {
         name: "square",
         size: 24,
         node: [["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]]
       };
-      __iconData57.node;
-      Square = createLucideIcon(__iconData57);
+      __iconData58.node;
+      Square = createLucideIcon(__iconData58);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/star.mjs
-  var __iconData58, Star;
+  var __iconData59, Star;
   var init_star = __esm({
     "node_modules/lucide-react/dist/esm/icons/star.mjs"() {
       init_createLucideIcon();
-      __iconData58 = {
+      __iconData59 = {
         name: "star",
         size: 24,
         node: [
@@ -25149,17 +25172,38 @@
           ]
         ]
       };
-      __iconData58.node;
-      Star = createLucideIcon(__iconData58);
+      __iconData59.node;
+      Star = createLucideIcon(__iconData59);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/switch-camera.mjs
+  var __iconData60, SwitchCamera;
+  var init_switch_camera = __esm({
+    "node_modules/lucide-react/dist/esm/icons/switch-camera.mjs"() {
+      init_createLucideIcon();
+      __iconData60 = {
+        name: "switch-camera",
+        size: 24,
+        node: [
+          ["path", { d: "M11 19H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h5", key: "mtk2lu" }],
+          ["path", { d: "M13 5h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-5", key: "120jsl" }],
+          ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }],
+          ["path", { d: "m18 22-3-3 3-3", key: "kgdoj7" }],
+          ["path", { d: "m6 2 3 3-3 3", key: "1fnbkv" }]
+        ]
+      };
+      __iconData60.node;
+      SwitchCamera = createLucideIcon(__iconData60);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/tag.mjs
-  var __iconData59, Tag;
+  var __iconData61, Tag;
   var init_tag = __esm({
     "node_modules/lucide-react/dist/esm/icons/tag.mjs"() {
       init_createLucideIcon();
-      __iconData59 = {
+      __iconData61 = {
         name: "tag",
         size: 24,
         node: [
@@ -25173,17 +25217,17 @@
           ["circle", { cx: "7.5", cy: "7.5", r: ".5", fill: "currentColor", key: "kqv944" }]
         ]
       };
-      __iconData59.node;
-      Tag = createLucideIcon(__iconData59);
+      __iconData61.node;
+      Tag = createLucideIcon(__iconData61);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trash.mjs
-  var __iconData60, Trash;
+  var __iconData62, Trash;
   var init_trash = __esm({
     "node_modules/lucide-react/dist/esm/icons/trash.mjs"() {
       init_createLucideIcon();
-      __iconData60 = {
+      __iconData62 = {
         name: "trash",
         size: 24,
         node: [
@@ -25195,17 +25239,17 @@
         ],
         aliases: ["trash-2"]
       };
-      __iconData60.node;
-      Trash = createLucideIcon(__iconData60);
+      __iconData62.node;
+      Trash = createLucideIcon(__iconData62);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trending-up.mjs
-  var __iconData61, TrendingUp;
+  var __iconData63, TrendingUp;
   var init_trending_up = __esm({
     "node_modules/lucide-react/dist/esm/icons/trending-up.mjs"() {
       init_createLucideIcon();
-      __iconData61 = {
+      __iconData63 = {
         name: "trending-up",
         size: 24,
         node: [
@@ -25213,17 +25257,17 @@
           ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
         ]
       };
-      __iconData61.node;
-      TrendingUp = createLucideIcon(__iconData61);
+      __iconData63.node;
+      TrendingUp = createLucideIcon(__iconData63);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/upload.mjs
-  var __iconData62, Upload;
+  var __iconData64, Upload;
   var init_upload = __esm({
     "node_modules/lucide-react/dist/esm/icons/upload.mjs"() {
       init_createLucideIcon();
-      __iconData62 = {
+      __iconData64 = {
         name: "upload",
         size: 24,
         node: [
@@ -25232,17 +25276,17 @@
           ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
         ]
       };
-      __iconData62.node;
-      Upload = createLucideIcon(__iconData62);
+      __iconData64.node;
+      Upload = createLucideIcon(__iconData64);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/user.mjs
-  var __iconData63, User;
+  var __iconData65, User;
   var init_user = __esm({
     "node_modules/lucide-react/dist/esm/icons/user.mjs"() {
       init_createLucideIcon();
-      __iconData63 = {
+      __iconData65 = {
         name: "user",
         size: 24,
         node: [
@@ -25250,17 +25294,17 @@
           ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
         ]
       };
-      __iconData63.node;
-      User = createLucideIcon(__iconData63);
+      __iconData65.node;
+      User = createLucideIcon(__iconData65);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/users.mjs
-  var __iconData64, Users;
+  var __iconData66, Users;
   var init_users = __esm({
     "node_modules/lucide-react/dist/esm/icons/users.mjs"() {
       init_createLucideIcon();
-      __iconData64 = {
+      __iconData66 = {
         name: "users",
         size: 24,
         node: [
@@ -25270,17 +25314,17 @@
           ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
         ]
       };
-      __iconData64.node;
-      Users = createLucideIcon(__iconData64);
+      __iconData66.node;
+      Users = createLucideIcon(__iconData66);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video-off.mjs
-  var __iconData65, VideoOff;
+  var __iconData67, VideoOff;
   var init_video_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/video-off.mjs"() {
       init_createLucideIcon();
-      __iconData65 = {
+      __iconData67 = {
         name: "video-off",
         size: 24,
         node: [
@@ -25292,17 +25336,17 @@
           ["path", { d: "m2 2 20 20", key: "1ooewy" }]
         ]
       };
-      __iconData65.node;
-      VideoOff = createLucideIcon(__iconData65);
+      __iconData67.node;
+      VideoOff = createLucideIcon(__iconData67);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video.mjs
-  var __iconData66, Video;
+  var __iconData68, Video;
   var init_video = __esm({
     "node_modules/lucide-react/dist/esm/icons/video.mjs"() {
       init_createLucideIcon();
-      __iconData66 = {
+      __iconData68 = {
         name: "video",
         size: 24,
         node: [
@@ -25316,17 +25360,17 @@
           ["rect", { x: "2", y: "6", width: "14", height: "12", rx: "2", key: "158x01" }]
         ]
       };
-      __iconData66.node;
-      Video = createLucideIcon(__iconData66);
+      __iconData68.node;
+      Video = createLucideIcon(__iconData68);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/volume-2.mjs
-  var __iconData67, Volume2;
+  var __iconData69, Volume2;
   var init_volume_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/volume-2.mjs"() {
       init_createLucideIcon();
-      __iconData67 = {
+      __iconData69 = {
         name: "volume-2",
         size: 24,
         node: [
@@ -25341,17 +25385,17 @@
           ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
         ]
       };
-      __iconData67.node;
-      Volume2 = createLucideIcon(__iconData67);
+      __iconData69.node;
+      Volume2 = createLucideIcon(__iconData69);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/wind.mjs
-  var __iconData68, Wind;
+  var __iconData70, Wind;
   var init_wind = __esm({
     "node_modules/lucide-react/dist/esm/icons/wind.mjs"() {
       init_createLucideIcon();
-      __iconData68 = {
+      __iconData70 = {
         name: "wind",
         size: 24,
         node: [
@@ -25360,17 +25404,17 @@
           ["path", { d: "M9.8 4.4A2 2 0 1 1 11 8H2", key: "75valh" }]
         ]
       };
-      __iconData68.node;
-      Wind = createLucideIcon(__iconData68);
+      __iconData70.node;
+      Wind = createLucideIcon(__iconData70);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/x.mjs
-  var __iconData69, X;
+  var __iconData71, X;
   var init_x = __esm({
     "node_modules/lucide-react/dist/esm/icons/x.mjs"() {
       init_createLucideIcon();
-      __iconData69 = {
+      __iconData71 = {
         name: "x",
         size: 24,
         node: [
@@ -25378,8 +25422,8 @@
           ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
         ]
       };
-      __iconData69.node;
-      X = createLucideIcon(__iconData69);
+      __iconData71.node;
+      X = createLucideIcon(__iconData71);
     }
   });
 
@@ -25394,6 +25438,7 @@
       init_layers();
       init_pen_line();
       init_sparkles();
+      init_square_centerline_dashed_horizontal();
       init_trash();
       init_arrow_left();
       init_award();
@@ -25446,6 +25491,7 @@
       init_skip_forward();
       init_square();
       init_star();
+      init_switch_camera();
       init_tag();
       init_trending_up();
       init_upload();
@@ -58652,6 +58698,7 @@
     isSpeaking = false,
     isLocalMicOn = true,
     isLocalVideoOn = true,
+    isMirrored = true,
     lang = "en",
     onPin
   }) {
@@ -58697,6 +58744,15 @@
     (0, import_react11.useEffect)(() => {
       const el = videoRef.current;
       if (!el) return;
+      el.muted = Boolean(isLocal);
+      el.defaultMuted = Boolean(isLocal);
+      el.playsInline = true;
+      try {
+        el.setAttribute("playsinline", "");
+        el.setAttribute("webkit-playsinline", "true");
+        el.setAttribute("x5-playsinline", "true");
+      } catch (e2) {
+      }
       if (videoTrack) {
         videoTrack.attach(el);
         return () => {
@@ -58714,7 +58770,7 @@
         setHasVideo(Boolean(vTrack && vTrack.enabled));
         setHasAudio(Boolean(aTrack && aTrack.enabled));
       }
-    }, [videoTrack, participant?.stream, isLocalVideoOn]);
+    }, [videoTrack, participant?.stream, isLocalVideoOn, isLocal]);
     (0, import_react11.useEffect)(() => {
       const el = audioRef.current;
       if (el && audioTrack && !isLocal) {
@@ -58750,14 +58806,17 @@
           ref: videoRef,
           autoPlay: true,
           playsInline: true,
+          "webkit-playsinline": "true",
+          "x5-playsinline": "true",
           muted: isLocal,
-          className: `participant-video-stream ${effectiveHasVideo ? "visible" : "hidden"}`
+          className: `participant-video-stream ${effectiveHasVideo ? "visible" : "hidden"} ${isLocal && isMirrored ? "is-mirrored" : ""}`,
+          style: { display: effectiveHasVideo ? "block" : "none" }
         }
       ),
       !isLocal && /* @__PURE__ */ import_react11.default.createElement("audio", { ref: audioRef, autoPlay: true }),
       !effectiveHasVideo && /* @__PURE__ */ import_react11.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "avatar-orb-glow" }), /* @__PURE__ */ import_react11.default.createElement("div", { className: "avatar-circle" }, /* @__PURE__ */ import_react11.default.createElement("span", null, initial)), /* @__PURE__ */ import_react11.default.createElement("span", { className: "avatar-fallback-name" }, displayName), /* @__PURE__ */ import_react11.default.createElement("span", { className: "avatar-status-pill" }, isLocal ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0BAE\u0BC1\u0B9F\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1" : "Camera Off" : lang === "ta" ? "\u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BBF\u0BB2\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD" : "Audio Only")),
       /* @__PURE__ */ import_react11.default.createElement("div", { className: "tile-top-overlay" }, isInstructor && /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-tag instructor-badge" }, /* @__PURE__ */ import_react11.default.createElement(Crown, { size: 12 }), /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Instructor")), isLocal && /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-tag local-badge" }, /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You"))),
-      /* @__PURE__ */ import_react11.default.createElement("div", { className: "tile-bottom-overlay" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "participant-label-name" }, displayName), /* @__PURE__ */ import_react11.default.createElement("div", { className: "participant-media-status-icons" }, hasAudio ? /* @__PURE__ */ import_react11.default.createElement("span", { className: `status-icon-pill ${isSpeaking ? "active-speaking" : "audio-on"}`, title: "Mic on" }, /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 12 })) : /* @__PURE__ */ import_react11.default.createElement("span", { className: "status-icon-pill audio-muted", title: "Mic muted" }, /* @__PURE__ */ import_react11.default.createElement(MicOff, { size: 12 })), !hasVideo && /* @__PURE__ */ import_react11.default.createElement("span", { className: "status-icon-pill video-muted", title: "Camera off" }, /* @__PURE__ */ import_react11.default.createElement(VideoOff, { size: 12 })))),
+      /* @__PURE__ */ import_react11.default.createElement("div", { className: "tile-bottom-overlay" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "participant-label-name" }, displayName), /* @__PURE__ */ import_react11.default.createElement("div", { className: "participant-media-status-icons" }, effectiveHasAudio ? /* @__PURE__ */ import_react11.default.createElement("span", { className: `status-icon-pill ${isSpeaking ? "active-speaking" : "audio-on"}`, title: "Mic on" }, /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 12 })) : /* @__PURE__ */ import_react11.default.createElement("span", { className: "status-icon-pill audio-muted", title: "Mic muted" }, /* @__PURE__ */ import_react11.default.createElement(MicOff, { size: 12 })), !effectiveHasVideo && /* @__PURE__ */ import_react11.default.createElement("span", { className: "status-icon-pill video-muted", title: "Camera off" }, /* @__PURE__ */ import_react11.default.createElement(VideoOff, { size: 12 })))),
       isSpeaking && /* @__PURE__ */ import_react11.default.createElement("div", { className: "speaking-aura-ring" })
     );
   }
@@ -58857,6 +58916,8 @@
     const [localStream, setLocalStream] = (0, import_react11.useState)(null);
     const [screenStream, setScreenStream] = (0, import_react11.useState)(null);
     const [studioMode, setStudioMode] = (0, import_react11.useState)("auto");
+    const [isMirrored, setIsMirrored] = (0, import_react11.useState)(true);
+    const [cameraFacing, setCameraFacing] = (0, import_react11.useState)("user");
     const [copiedLink, setCopiedLink] = (0, import_react11.useState)(false);
     const [showAttendanceDrawer, setShowAttendanceDrawer] = (0, import_react11.useState)(false);
     const [reconnectCount, setReconnectCount] = (0, import_react11.useState)(0);
@@ -59138,7 +59199,7 @@
             await liveRoom.connect(data.serverUrl, data.token);
             await liveRoom.localParticipant.setMicrophoneEnabled(isMicOn).catch(() => {
             });
-            await liveRoom.localParticipant.setCameraEnabled(isVideoOn).catch(() => {
+            await liveRoom.localParticipant.setCameraEnabled(isVideoOn, { facingMode: cameraFacing }).catch(() => {
             });
             setRoom(liveRoom);
             connectedViaLiveKit = true;
@@ -59153,7 +59214,7 @@
           if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
             try {
               stream = await navigator.mediaDevices.getUserMedia({
-                video: isVideoOn ? { width: { ideal: 1280 }, height: { ideal: 720 } } : false,
+                video: isVideoOn ? { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: { ideal: cameraFacing } } : false,
                 audio: isMicOn
               });
             } catch (mediaErr) {
@@ -59231,12 +59292,60 @@
       }
       if (room?.localParticipant) {
         try {
-          await room.localParticipant.setCameraEnabled(nextState);
+          await room.localParticipant.setCameraEnabled(nextState, { facingMode: cameraFacing });
         } catch (e2) {
           console.error("Video toggle error:", e2);
         }
       }
       setIsVideoOn(nextState);
+    };
+    const handleToggleMirror = () => {
+      setIsMirrored((prev) => !prev);
+    };
+    const handleSwitchCamera = async () => {
+      const nextFacing = cameraFacing === "user" ? "environment" : "user";
+      setCameraFacing(nextFacing);
+      if (nextFacing === "environment") {
+        setIsMirrored(false);
+      } else {
+        setIsMirrored(true);
+      }
+      if (room?.localParticipant) {
+        try {
+          await room.localParticipant.setCameraEnabled(false);
+          if (isVideoOn) {
+            await room.localParticipant.setCameraEnabled(true, {
+              facingMode: nextFacing
+            });
+          }
+        } catch (err) {
+          console.warn("[LiveKit] Switch camera warning:", err);
+        }
+      }
+      if (localStream) {
+        try {
+          localStream.getVideoTracks().forEach((t) => t.stop());
+          if (isVideoOn && navigator.mediaDevices?.getUserMedia) {
+            const newStream = await navigator.mediaDevices.getUserMedia({
+              video: {
+                facingMode: { ideal: nextFacing },
+                width: { ideal: 1280 },
+                height: { ideal: 720 }
+              },
+              audio: false
+            });
+            const newVTrack = newStream.getVideoTracks()[0];
+            if (newVTrack) {
+              const oldVTrack = localStream.getVideoTracks()[0];
+              if (oldVTrack) localStream.removeTrack(oldVTrack);
+              localStream.addTrack(newVTrack);
+              setLocalStream(new MediaStream(localStream.getTracks()));
+            }
+          }
+        } catch (err) {
+          console.warn("[WebRTC] Switch camera fallback error:", err);
+        }
+      }
     };
     const handleToggleScreenShare = async () => {
       const nextState = !isScreenSharing;
@@ -59810,6 +59919,7 @@ ${url}`;
         isSpeaking: activeSpeakers.includes(spotlightParticipant.identity),
         isLocalMicOn: isMicOn,
         isLocalVideoOn: isVideoOn,
+        isMirrored,
         lang
       }
     ) : /* @__PURE__ */ import_react11.default.createElement("div", { className: "waiting-for-teacher-placeholder" }, /* @__PURE__ */ import_react11.default.createElement(ThreeDLotus, { size: 48 }), /* @__PURE__ */ import_react11.default.createElement("p", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Waiting for instructor to enter the stage..."))), otherParticipants.length > 0 && /* @__PURE__ */ import_react11.default.createElement("div", { className: "spotlight-filmstrip-row" }, otherParticipants.map((p) => /* @__PURE__ */ import_react11.default.createElement("div", { key: p.identity, className: "filmstrip-tile-wrapper" }, /* @__PURE__ */ import_react11.default.createElement(
@@ -59821,6 +59931,7 @@ ${url}`;
         isSpeaking: activeSpeakers.includes(p.identity),
         isLocalMicOn: isMicOn,
         isLocalVideoOn: isVideoOn,
+        isMirrored,
         lang,
         onPin: () => setSpotlightParticipantId(p.identity)
       }
@@ -59836,6 +59947,7 @@ ${url}`;
           isSpeaking: activeSpeakers.includes(p.identity),
           isLocalMicOn: isMicOn,
           isLocalVideoOn: isVideoOn,
+          isMirrored,
           lang,
           onPin: () => {
             setSpotlightParticipantId(p.identity);
@@ -59882,9 +59994,27 @@ ${url}`;
         type: "button",
         className: `meet-circle-btn ${isVideoOn ? "" : "btn-muted-danger"}`,
         onClick: handleToggleVideo,
-        title: isVideoOn ? "Turn Off Camera" : "Turn On Camera"
+        title: isVideoOn ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC8 \u0B85\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Turn Off Camera" : lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC8 \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Turn On Camera"
       },
       isVideoOn ? /* @__PURE__ */ import_react11.default.createElement(Video, { size: 20 }) : /* @__PURE__ */ import_react11.default.createElement(VideoOff, { size: 20 })
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "meet-circle-btn switch-camera-btn",
+        onClick: handleSwitchCamera,
+        title: cameraFacing === "user" ? lang === "ta" ? "\u0BAA\u0BBF\u0BA9\u0BCD \u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1 (Back Camera)" : "Switch to Back Camera" : lang === "ta" ? "\u0BAE\u0BC1\u0BA9\u0BCD \u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1 (Front Camera)" : "Switch to Front Camera"
+      },
+      /* @__PURE__ */ import_react11.default.createElement(SwitchCamera, { size: 20 })
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `meet-circle-btn mirror-toggle-btn ${isMirrored ? "btn-active-state" : ""}`,
+        onClick: handleToggleMirror,
+        title: isMirrored ? lang === "ta" ? "\u0BAE\u0BBF\u0BB0\u0BB0\u0BCD \u0BB5\u0BBF\u0BAF\u0BC2: \u0B86\u0BA9\u0BCD (\u0B87\u0BAF\u0BB1\u0BCD\u0B95\u0BC8 \u0B95\u0BA3\u0BCD\u0BA3\u0BBE\u0B9F\u0BBF \u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BCD)" : "Mirror View: ON (Natural Mirror)" : lang === "ta" ? "\u0BAE\u0BBF\u0BB0\u0BB0\u0BCD \u0BB5\u0BBF\u0BAF\u0BC2: \u0B86\u0B83\u0BAA\u0BCD" : "Mirror View: OFF"
+      },
+      /* @__PURE__ */ import_react11.default.createElement(SquareCenterlineDashedHorizontal, { size: 20 })
     ), isInstructorRole && /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
@@ -65809,8 +65939,10 @@ lucide-react/dist/esm/icons/shield-check.mjs:
 lucide-react/dist/esm/icons/skip-back.mjs:
 lucide-react/dist/esm/icons/skip-forward.mjs:
 lucide-react/dist/esm/icons/sparkles.mjs:
+lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs:
 lucide-react/dist/esm/icons/square.mjs:
 lucide-react/dist/esm/icons/star.mjs:
+lucide-react/dist/esm/icons/switch-camera.mjs:
 lucide-react/dist/esm/icons/tag.mjs:
 lucide-react/dist/esm/icons/trash.mjs:
 lucide-react/dist/esm/icons/trending-up.mjs:

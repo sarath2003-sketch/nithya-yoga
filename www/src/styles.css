@@ -4223,3 +4223,24 @@ input, select, textarea {
   padding-top: 12px;
   border-top: 1px solid var(--border-color);
 }
+
+/* Video Mirroring for Yoga Practice & WebKit Media Controls Suppression */
+.participant-video-stream.is-mirrored {
+  transform: scaleX(-1) !important;
+  -webkit-transform: scaleX(-1) !important;
+}
+
+video::-webkit-media-controls,
+video::-webkit-media-controls-start-playback-button,
+video::-webkit-media-controls-play-button,
+video::-webkit-media-controls-overlay-play-button,
+video::-webkit-media-controls-enclosure {
+  display: none !important;
+  -webkit-appearance: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+

@@ -62150,7 +62150,8 @@ Click to join: ${link}`
           title: "Dismiss"
         },
         /* @__PURE__ */ import_react20.default.createElement(X, { size: 14 })
-      )
+      ),
+      /* @__PURE__ */ import_react20.default.createElement("div", { className: "toast-progress-bar" })
     )));
   }
   var import_react20;
@@ -62172,14 +62173,14 @@ Click to join: ${link}`
     ];
     return /* @__PURE__ */ import_react21.default.createElement("nav", { className: "mobile-bottom-nav" }, bottomItems.map((item) => {
       const Icon2 = item.icon;
-      const isActive = currentTab === item.id || item.id === "yoga-classes" && currentTab === "live-classes";
+      const isActive = currentTab === item.id || item.id === "yoga-classes" && (currentTab === "classes" || currentTab === "live" || currentTab === "yoga-classes" || currentTab === "live-classes");
       return /* @__PURE__ */ import_react21.default.createElement(
         "button",
         {
           key: item.id,
           type: "button",
           className: `mobile-nav-btn ${isActive ? "active" : ""}`,
-          onClick: () => setCurrentTab(item.id)
+          onClick: () => setCurrentTab(item.id === "yoga-classes" ? "classes" : item.id)
         },
         /* @__PURE__ */ import_react21.default.createElement("div", { className: "icon-glow-container" }, /* @__PURE__ */ import_react21.default.createElement(Icon2, { size: 20 })),
         /* @__PURE__ */ import_react21.default.createElement("span", { className: "mobile-nav-label" }, lang === "ta" ? item.labelTa : item.labelEn)

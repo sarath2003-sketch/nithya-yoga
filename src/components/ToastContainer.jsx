@@ -30,6 +30,7 @@ export default function ToastContainer({ toasts, onDismiss }) {
           >
             <X size={14} />
           </button>
+          <div className="toast-progress-bar"></div>
         </div>
       ))}
     </div>

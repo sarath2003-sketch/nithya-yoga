@@ -50,6 +50,14 @@
   --shadow-card: 0 4px 20px -2px rgba(100, 116, 139, 0.07), 0 1px 3px rgba(100, 116, 139, 0.03);
   --shadow-card-hover: 0 10px 28px -4px rgba(100, 116, 139, 0.12);
 
+  /* Modern Spring Physics Curves (Emil Kowalski & Modern Web Guidelines) */
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.25, 1, 0.5, 1);
+  --duration-fast: 160ms;
+  --duration-normal: 260ms;
+  --duration-slow: 400ms;
+
   /* Typography: Inter (body UI text), Poppins (headings), Noto Sans Tamil (Tamil text) */
   --font-family: 'Inter', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   --font-heading: 'Poppins', 'Inter', 'Noto Sans Tamil', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -124,11 +132,52 @@ body {
   width: 100%;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 button {
   font-family: inherit;
   cursor: pointer;
   border: none;
   background: none;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  transition: transform 0.2s var(--ease-spring), box-shadow 0.2s var(--ease-spring), opacity 0.2s ease;
+}
+
+button:active,
+.ya-btn:active,
+.header-tool-btn:active,
+.btn-hero-primary:active,
+.btn-hero-secondary:active,
+.btn-join-live-pill:active,
+.btn-save-reminder-main:active,
+.btn-modal-save:active,
+.filter-pill-btn:active,
+.pill-mini-btn:active {
+  transform: scale(0.97) !important;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Reduced motion compliance */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 input, select, textarea {
@@ -240,20 +289,28 @@ input, select, textarea {
   color: var(--sidebar-text);
   font-size: 0.9rem;
   font-weight: 600;
-  transition: all 0.2s ease;
+  transition: transform 0.22s var(--ease-spring), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
   text-align: left;
   width: 100%;
+  position: relative;
+  will-change: transform;
 }
 
 .sidebar-menu-item:hover {
   background: var(--sidebar-hover);
   color: #FFFFFF;
+  transform: translateX(4px);
+}
+
+.sidebar-menu-item:active {
+  transform: translateX(2px) scale(0.98);
 }
 
 .sidebar-menu-item.active {
   background: var(--sidebar-active-bg);
   color: #FFFFFF;
   box-shadow: var(--sidebar-active-shadow);
+  transform: none;
 }
 
 .menu-icon {
@@ -366,19 +423,36 @@ input, select, textarea {
   background: var(--bg-card-subtle);
   font-size: 0.88rem;
   color: var(--text-main);
-  transition: all 0.2s ease;
+  transition: all 0.25s var(--ease-spring);
 }
 
 .header-search-input:focus {
-  border-color: var(--primary-purple);
-  box-shadow: 0 0 0 3px rgba(91, 68, 230, 0.1);
-  background: #FFFFFF;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.16);
+  background: var(--bg-card);
+}
+
+[data-theme="dark"] .header-search-input:focus {
+  background: var(--bg-card-subtle);
+  color: #FFFFFF;
+}
+
+.header-search-wrapper:focus-within .search-icon-left {
+  color: var(--primary);
+  transform: scale(1.1);
+  transition: all 0.2s ease;
 }
 
 .search-submit-btn {
   position: absolute;
   right: 14px;
   color: var(--text-muted);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.search-submit-btn:hover {
+  color: var(--primary);
+  transform: scale(1.1);
 }
 
 .header-tools-cluster {
@@ -398,12 +472,19 @@ input, select, textarea {
   background: var(--bg-card);
   color: var(--text-sub);
   position: relative;
-  transition: all 0.2s ease;
+  transition: transform 0.22s var(--ease-spring), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
 }
 
 .header-tool-btn:hover {
   background: var(--bg-card-subtle);
-  color: var(--text-main);
+  color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.header-tool-btn:active {
+  transform: scale(0.92);
 }
 
 .lang-pill-btn {
@@ -517,11 +598,14 @@ input, select, textarea {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s var(--ease-spring), border-color 0.2s ease;
+  will-change: transform;
 }
 
 .dashboard-card:hover {
+  transform: translateY(-3px);
   box-shadow: var(--shadow-card-hover);
+  border-color: rgba(124, 58, 237, 0.25);
 }
 
 .card-header-row {
@@ -898,13 +982,18 @@ input, select, textarea {
   gap: 12px;
   border: 1px solid transparent;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: transform 0.28s var(--ease-spring), box-shadow 0.28s var(--ease-spring), border-color 0.2s ease;
   position: relative;
+  will-change: transform;
 }
 
 .reminder-pastel-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.reminder-pastel-card:active {
+  transform: translateY(-1px) scale(0.98);
 }
 
 .reminder-pastel-card.care-card-purple {
@@ -946,6 +1035,11 @@ input, select, textarea {
   align-items: center;
   justify-content: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: transform 0.28s var(--ease-spring);
+}
+
+.reminder-pastel-card:hover .card-top-icon-badge {
+  transform: scale(1.12) rotate(4deg);
 }
 
 .icon-care-purple { color: #8B5CF6; }
@@ -1062,7 +1156,14 @@ input, select, textarea {
 .class-row-item:hover {
   background: #FFFFFF;
   border-color: var(--primary-purple);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.12);
+}
+
+[data-theme="dark"] .class-row-item:hover {
+  background: var(--bg-card);
+  border-color: var(--primary-purple);
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.22);
 }
 
 .class-thumb-wrap {
@@ -1077,6 +1178,11 @@ input, select, textarea {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform var(--duration-normal) var(--ease-spring);
+}
+
+.class-row-item:hover .class-thumb-img {
+  transform: scale(1.08);
 }
 
 .class-meta-center {
@@ -2754,10 +2860,39 @@ input, select, textarea {
   color: var(--text-muted);
   font-size: 0.72rem;
   font-weight: 600;
+  padding: 4px 8px;
+  border-radius: 12px;
+  transition: color var(--duration-fast) var(--ease-spring), transform var(--duration-fast) var(--ease-spring);
+}
+
+.mobile-nav-btn .icon-glow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  transition: all var(--duration-normal) var(--ease-spring);
+}
+
+.mobile-nav-btn:hover .icon-glow-container {
+  background: rgba(139, 92, 246, 0.08);
+  transform: translateY(-2px);
 }
 
 .mobile-nav-btn.active {
   color: var(--primary-purple);
+}
+
+.mobile-nav-btn.active .icon-glow-container {
+  background: rgba(139, 92, 246, 0.12);
+  color: var(--primary-purple);
+  transform: translateY(-2px) scale(1.08);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.22);
+}
+
+.mobile-nav-btn:active {
+  transform: scale(0.92) !important;
 }
 
 .highlight-glow {
@@ -4275,4 +4410,249 @@ video::-webkit-media-controls-enclosure {
   width: 0 !important;
   height: 0 !important;
 }
+
+/* ==========================================================================
+   GitHub Anime Reference Inspired Micro-Interactions & Modern Motion
+   (Clean, Calibrated for Professional Yoga & Wellness Aesthetics)
+   ========================================================================== */
+
+/* 1. Modal Backdrop & Spring Entry */
+.ya-modal-overlay {
+  animation: modalFadeIn 0.25s ease-out both;
+}
+
+.ya-modal-content {
+  animation: modalSpringUp 0.35s var(--ease-spring) both;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalSpringUp {
+  from {
+    opacity: 0;
+    transform: scale(0.94) translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 2. Floating Toast System with Countdown Progress Bar */
+.toast-floating-tray {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 360px;
+  width: calc(100% - 40px);
+  pointer-events: none;
+}
+
+.toast-notification-unit {
+  pointer-events: auto;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px 16px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  animation: toastSlideIn 0.35s var(--ease-spring) both;
+}
+
+.toast-notification-unit.success {
+  border-left: 4px solid #10B981;
+}
+
+.toast-notification-unit.error {
+  border-left: 4px solid #EF4444;
+}
+
+[data-theme="dark"] .toast-notification-unit {
+  background: rgba(30, 41, 59, 0.94);
+  border-color: rgba(51, 65, 85, 0.85);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+}
+
+.toast-icon-wrap {
+  flex-shrink: 0;
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toast-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-copy strong {
+  display: block;
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.toast-copy p {
+  font-size: 0.78rem;
+  color: var(--text-sub);
+  margin: 0;
+  line-height: 1.35;
+  overflow-wrap: break-word;
+}
+
+.toast-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  flex-shrink: 0;
+}
+
+.toast-close-btn:hover {
+  color: var(--text-heading);
+  background: rgba(0, 0, 0, 0.06);
+}
+
+[data-theme="dark"] .toast-close-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.toast-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--primary-purple, #8B5CF6);
+  border-radius: 0 0 0 14px;
+  animation: toastProgress 4s linear forwards;
+}
+
+.toast-notification-unit.error .toast-progress-bar {
+  background: #EF4444;
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes toastProgress {
+  from { width: 100%; }
+  to { width: 0%; }
+}
+
+/* 3. Form Validation Micro-Shake on Error */
+@keyframes fieldShake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-5px); }
+  40%, 80% { transform: translateX(5px); }
+}
+
+.input-shake-error {
+  animation: fieldShake 0.4s ease-in-out both;
+  border-color: #EF4444 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.22) !important;
+}
+
+/* 4. Loading Shimmer Sweep */
+@keyframes shimmerSweep {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(90deg, rgba(226, 232, 240, 0.5) 25%, rgba(241, 245, 249, 0.9) 37%, rgba(226, 232, 240, 0.5) 63%);
+  background-size: 200% 100%;
+  animation: shimmerSweep 1.6s ease-in-out infinite;
+}
+
+[data-theme="dark"] .skeleton-shimmer {
+  background: linear-gradient(90deg, rgba(51, 65, 85, 0.5) 25%, rgba(71, 85, 105, 0.9) 37%, rgba(51, 65, 85, 0.5) 63%);
+  background-size: 200% 100%;
+}
+
+/* 5. Live Classroom Active Speaker Aura & Glowing Status Pulse */
+@keyframes auraBreath {
+  0%, 100% {
+    box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.6), 0 0 14px rgba(16, 185, 129, 0.25);
+  }
+  50% {
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.9), 0 0 22px rgba(16, 185, 129, 0.45);
+  }
+}
+
+.active-speaker-aura {
+  border-color: #10B981 !important;
+  animation: auraBreath 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
+}
+
+@keyframes pulseBeacon {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+.live-beacon-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #EF4444;
+  display: inline-block;
+  animation: pulseBeacon 1.8s infinite;
+}
+
+/* 6. Section & Page Smooth Slide-Up Transitions */
+@keyframes sectionSlideUpFade {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section-fade-in {
+  animation: sectionSlideUpFade 0.4s var(--ease-spring) both;
+}
+
 

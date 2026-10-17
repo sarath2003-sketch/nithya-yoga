@@ -15,14 +15,14 @@ export default function MobileBottomNav({ currentTab, setCurrentTab, lang }) {
       {bottomItems.map(item => {
         const Icon = item.icon;
         const isActive = currentTab === item.id || 
-          (item.id === 'yoga-classes' && currentTab === 'live-classes');
+          (item.id === 'yoga-classes' && (currentTab === 'classes' || currentTab === 'live' || currentTab === 'yoga-classes' || currentTab === 'live-classes'));
         
         return (
           <button
             key={item.id}
             type="button"
             className={`mobile-nav-btn ${isActive ? 'active' : ''}`}
-            onClick={() => setCurrentTab(item.id)}
+            onClick={() => setCurrentTab(item.id === 'yoga-classes' ? 'classes' : item.id)}
           >
             <div className="icon-glow-container">
               <Icon size={20} />

@@ -1,11 +1,11 @@
 {
-  "version": "1.2.0",
-  "versionCode": 3,
-  "releaseDate": "2026-10-17",
-  "title": "NITHYA Yoga v1.2 Release",
-  "titleTa": "நித்யா யோகா v1.2 புதிய அப்டேட்",
-  "notes": "Reliable native background alarms, high-contrast visible buttons, and direct Chrome APK download.",
-  "notesTa": "பின்னணி நினைவூட்டல் அலாரங்கள், தெளிவான பட்டன்கள், மற்றும் குரோமில் நேரடி APK பதிவிறக்கம்.",
+  "version": "1.2.1",
+  "versionCode": 4,
+  "releaseDate": "2026-10-18",
+  "title": "NITHYA Yoga v1.2.1 Release",
+  "titleTa": "நித்யா யோகா v1.2.1 புதிய அப்டேட்",
+  "notes": "Figma-quality floating mobile navigation dock, pure live room with 0 fake participants, and instant update sync.",
+  "notesTa": "ஃபிக்மா நவீன மிதக்கும் மொபைல் நேவிகேஷன் பார், நேரலை வகுப்பில் டூப்ளிகேட் நபர் நீக்கம், மற்றும் உடனடி கேச் அப்டேட்.",
   "updateType": "ota_sync",
   "apkUrl": "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
 }

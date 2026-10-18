@@ -2304,8 +2304,9 @@ input, select, textarea {
   .app-sidebar-nav {
     display: none !important;
   }
+  .mobile-bottom-nav-container,
   .mobile-bottom-nav {
-    display: flex;
+    display: flex !important;
   }
   .header-mobile-brand-wrap {
     display: flex;
@@ -2831,68 +2832,199 @@ input, select, textarea {
 }
 
 /* ==========================================================================
-   Mobile Bottom Navigation & Toasts
+   Figma-Quality Floating Mobile Bottom Navigation Dock
    ========================================================================== */
+.mobile-bottom-nav-container,
 .mobile-bottom-nav {
   display: none;
   position: fixed;
-  bottom: 0;
+  bottom: calc(12px + env(safe-area-inset-bottom, 0px));
   left: 0;
   right: 0;
-  z-index: 100;
-  background: #FFFFFF;
-  border-top: 1px solid var(--border-light);
-  padding: 8px 12px calc(8px + env(safe-area-inset-bottom));
+  z-index: 999;
+  padding: 0 16px;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.mobile-bottom-nav-dock {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
   justify-content: space-around;
-  box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 440px;
+  padding: 6px 8px;
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.90);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 16px 36px -6px rgba(91, 68, 230, 0.20), 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-[data-theme="dark"] .mobile-bottom-nav {
-  background: var(--bg-card);
-  border-top-color: var(--border-light);
+[data-theme="dark"] .mobile-bottom-nav-dock {
+  background: rgba(20, 16, 38, 0.90);
+  border-color: rgba(255, 255, 255, 0.10);
+  box-shadow: 0 20px 42px -6px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(139, 92, 246, 0.20) inset;
 }
 
+.mobile-dock-item,
 .mobile-nav-btn {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 3px;
-  color: var(--text-muted);
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 4px 8px;
-  border-radius: 12px;
+  padding: 6px 8px;
+  border-radius: 20px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted, #64748b);
+  cursor: pointer;
+  text-decoration: none;
+  flex: 1;
+  min-width: 0;
   transition: color var(--duration-fast) var(--ease-spring), transform var(--duration-fast) var(--ease-spring);
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
+.mobile-dock-item:active,
+.mobile-nav-btn:active {
+  transform: scale(0.90) !important;
+}
+
+.mobile-dock-item .active-pill-backdrop {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(167, 139, 250, 0.22));
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  z-index: 0;
+  animation: pillSpringIn 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="dark"] .mobile-dock-item .active-pill-backdrop {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.25), rgba(167, 139, 250, 0.15));
+  border-color: rgba(167, 139, 250, 0.35);
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.25);
+}
+
+.dock-icon-wrapper,
 .mobile-nav-btn .icon-glow-container {
+  position: relative;
+  z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 32px;
   height: 32px;
-  border-radius: 10px;
-  transition: all var(--duration-normal) var(--ease-spring);
+  border-radius: 12px;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+.mobile-dock-item:hover .dock-icon-wrapper,
 .mobile-nav-btn:hover .icon-glow-container {
   background: rgba(139, 92, 246, 0.08);
   transform: translateY(-2px);
 }
 
+.mobile-dock-item.active,
 .mobile-nav-btn.active {
-  color: var(--primary-purple);
+  color: var(--primary-purple, #7c3aed);
+  font-weight: 700;
 }
 
+.mobile-dock-item.active .dock-icon-wrapper,
 .mobile-nav-btn.active .icon-glow-container {
-  background: rgba(139, 92, 246, 0.12);
-  color: var(--primary-purple);
-  transform: translateY(-2px) scale(1.08);
-  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.22);
+  color: var(--primary-purple, #7c3aed);
+  transform: translateY(-2px) scale(1.12);
+  filter: drop-shadow(0 2px 8px rgba(124, 58, 237, 0.35));
 }
 
-.mobile-nav-btn:active {
-  transform: scale(0.92) !important;
+[data-theme="dark"] .mobile-dock-item.active,
+[data-theme="dark"] .mobile-nav-btn.active {
+  color: #c4b5fd;
+}
+
+[data-theme="dark"] .mobile-dock-item.active .dock-icon-wrapper,
+[data-theme="dark"] .mobile-nav-btn.active .icon-glow-container {
+  color: #d8b4fe;
+  filter: drop-shadow(0 2px 10px rgba(167, 139, 250, 0.5));
+}
+
+.dock-label-text,
+.mobile-nav-label {
+  position: relative;
+  z-index: 1;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  transition: color 0.2s ease;
+}
+
+.dock-active-indicator-dot {
+  position: absolute;
+  bottom: 2px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--primary-purple, #7c3aed);
+  box-shadow: 0 0 8px rgba(124, 58, 237, 0.8);
+  animation: activeDotPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+[data-theme="dark"] .dock-active-indicator-dot {
+  background: #c4b5fd;
+  box-shadow: 0 0 8px #c4b5fd;
+}
+
+.dock-live-ping {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  width: 8px;
+  height: 8px;
+  display: flex;
+}
+
+.dock-live-ping-pulse {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #10b981;
+  animation: ping 1.4s cubic-bezier(0, 0, 0.2, 1) infinite;
+  opacity: 0.75;
+}
+
+.dock-live-ping-dot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #059669;
+}
+
+@keyframes pillSpringIn {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes activeDotPop {
+  0% { transform: scale(0); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
 }
 
 .highlight-glow {

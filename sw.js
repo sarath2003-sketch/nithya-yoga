@@ -11,7 +11,7 @@
  * - Client messaging for smooth update notification
  */
 
-const CACHE_VERSION = 'v3.4.0';
+const CACHE_VERSION = 'v3.5.0';
 const PRECACHE_NAME = `nithya-yoga-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE_NAME = `nithya-yoga-runtime-${CACHE_VERSION}`;
 
@@ -128,7 +128,35 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // RULE D: Static Assets (JS, CSS, Images, Fonts, Audio, Icons)
+  // RULE D1: Core Application Scripts & Stylesheets (bundle.js, styles.css, yoga-ui.css, yoga-ui.js)
+  // Strategy: Network-First with Cache Fallback (Guarantees instant updates upon deployment)
+  const isCoreCode = url.pathname.includes('bundle.js') || 
+                     url.pathname.includes('styles.css') || 
+                     url.pathname.includes('yoga-ui.css') || 
+                     url.pathname.includes('yoga-ui.js');
+
+  if (isCoreCode) {
+    event.respondWith(
+      fetch(request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200) {
+            const responseClone = networkResponse.clone();
+            caches.open(RUNTIME_CACHE_NAME).then((cache) => {
+              cache.put(request, responseClone);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(async () => {
+          const cached = await caches.match(request);
+          if (cached) return cached;
+          return new Response('Offline and core asset not cached', { status: 503 });
+        })
+    );
+    return;
+  }
+
+  // RULE D2: Other Static Assets (Images, Fonts, Audio, Icons)
   // Strategy: Stale-While-Revalidate (Instant load from cache, silent background refresh)
   event.respondWith(
     caches.match(request).then((cachedResponse) => {
@@ -179,6 +207,10 @@ self.addEventListener('message', (event) => {
     self.skipWaiting();
   } else if (event.data.type === 'CLIENTS_CLAIM') {
     self.clients.claim();
+  } else if (event.data.type === 'CLEAR_CACHE') {
+    caches.keys().then((cacheNames) => {
+      return Promise.all(cacheNames.map((name) => caches.delete(name)));
+    });
   } else if (event.data.type === 'GET_VERSION') {
     if (event.ports && event.ports[0]) {
       event.ports[0].postMessage({ version: CACHE_VERSION });

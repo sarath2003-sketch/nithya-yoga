@@ -59028,6 +59028,8 @@
           localStorage.removeItem("nithya_live_participants");
         } catch (_2) {
         }
+        setConnectedStudentsList([]);
+        setBackendStudentCount(0);
         const trainerToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") || "nithya_master_active";
         apiFetch2(`/api/trainer/classes/${activeClass.id}/start`, {
           method: "POST",
@@ -59746,9 +59748,11 @@ ${url}`;
       isLocal: false,
       stream: null
     }] : [];
-    const allParticipants = room ? [room.localParticipant, ...participants] : isInstructorRole ? localStream ? [localWebrtcParticipant, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : [localWebrtcParticipant, ...simulatedPeers] : localStream ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : [...instructorPeer, localWebrtcParticipant, ...simulatedPeers];
+    const allParticipants = room ? [room.localParticipant, ...participants.filter((p) => p && p.role !== "instructor" && !String(p.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(p.name))] : isInstructorRole ? localStream ? [localWebrtcParticipant, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : [localWebrtcParticipant, ...simulatedPeers] : localStream ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : [...instructorPeer, localWebrtcParticipant, ...simulatedPeers];
     const spotlightParticipant = isInstructorRole ? localWebrtcParticipant : spotlightParticipantId ? allParticipants.find((p) => p.identity === spotlightParticipantId) : allParticipants.find((p) => p.isInstructor) || allParticipants[0];
-    const otherParticipants = allParticipants.filter((p) => p?.identity !== spotlightParticipant?.identity);
+    const otherParticipants = isInstructorRole ? allParticipants.filter(
+      (p) => p && p.identity !== spotlightParticipant?.identity && p.name !== spotlightParticipant?.name && p.role !== "instructor" && !p.isInstructor && !String(p.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master"].includes(p.name)
+    ) : allParticipants.filter((p) => p?.identity !== spotlightParticipant?.identity);
     const realStudentsList = connectedStudentsList.filter(
       (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && s.identity !== "instructor-lead" && s.identity !== "instructor-local"
     );
@@ -61713,6 +61717,10 @@ Click to join: ${link}`
             localStorage.setItem("nithya_installed_build", updateInfo.versionCode.toString());
           }
         }
+        try {
+          localStorage.removeItem("nithya_live_participants");
+        } catch (_2) {
+        }
         setUpdateDone(true);
         triggerApkDownload(updateInfo?.apkUrl);
         setTimeout(() => {
@@ -61788,8 +61796,8 @@ Click to join: ${link}`
       import_react18 = __toESM(require_react());
       init_lucide_react();
       init_ThreeDIcons();
-      CURRENT_APP_VERSION = "1.2.0";
-      CURRENT_BUILD_NUMBER = 3;
+      CURRENT_APP_VERSION = "1.2.1";
+      CURRENT_BUILD_NUMBER = 4;
       triggerApkDownload = (url) => {
         const downloadTarget = url || "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk";
         if (typeof window !== "undefined" && window.AndroidNativeUpdater) {
@@ -62191,21 +62199,26 @@ Click to join: ${link}`
       { id: "reminders", labelEn: "Reminders", labelTa: "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD", icon: BellRing },
       { id: "profile", labelEn: "Profile", labelTa: "\u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD", icon: User }
     ];
-    return /* @__PURE__ */ import_react21.default.createElement("nav", { className: "mobile-bottom-nav" }, bottomItems.map((item) => {
+    return /* @__PURE__ */ import_react21.default.createElement("nav", { className: "mobile-bottom-nav-container mobile-bottom-nav", "aria-label": "Mobile Navigation Dock" }, /* @__PURE__ */ import_react21.default.createElement("div", { className: "mobile-bottom-nav-dock" }, bottomItems.map((item) => {
       const Icon2 = item.icon;
+      const isLiveTab = currentTab === "live";
       const isActive = currentTab === item.id || item.id === "yoga-classes" && (currentTab === "classes" || currentTab === "live" || currentTab === "yoga-classes" || currentTab === "live-classes");
       return /* @__PURE__ */ import_react21.default.createElement(
         "button",
         {
           key: item.id,
           type: "button",
-          className: `mobile-nav-btn ${isActive ? "active" : ""}`,
-          onClick: () => setCurrentTab(item.id === "yoga-classes" ? "classes" : item.id)
+          className: `mobile-dock-item mobile-nav-btn ${isActive ? "active" : ""}`,
+          onClick: () => setCurrentTab(item.id === "yoga-classes" ? "classes" : item.id),
+          "aria-label": lang === "ta" ? item.labelTa : item.labelEn,
+          "aria-selected": isActive
         },
-        /* @__PURE__ */ import_react21.default.createElement("div", { className: "icon-glow-container" }, /* @__PURE__ */ import_react21.default.createElement(Icon2, { size: 20 })),
-        /* @__PURE__ */ import_react21.default.createElement("span", { className: "mobile-nav-label" }, lang === "ta" ? item.labelTa : item.labelEn)
+        isActive && /* @__PURE__ */ import_react21.default.createElement("span", { className: "active-pill-backdrop" }),
+        /* @__PURE__ */ import_react21.default.createElement("div", { className: "dock-icon-wrapper icon-glow-container" }, /* @__PURE__ */ import_react21.default.createElement(Icon2, { size: 20, className: "dock-icon" }), item.id === "yoga-classes" && isLiveTab && /* @__PURE__ */ import_react21.default.createElement("span", { className: "dock-live-ping", title: "Live class active" }, /* @__PURE__ */ import_react21.default.createElement("span", { className: "dock-live-ping-pulse" }), /* @__PURE__ */ import_react21.default.createElement("span", { className: "dock-live-ping-dot" }))),
+        /* @__PURE__ */ import_react21.default.createElement("span", { className: "dock-label-text mobile-nav-label" }, lang === "ta" ? item.labelTa : item.labelEn),
+        isActive && /* @__PURE__ */ import_react21.default.createElement("span", { className: "dock-active-indicator-dot" })
       );
-    }));
+    })));
   }
   var import_react21;
   var init_MobileBottomNav = __esm({

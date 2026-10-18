@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Download, RefreshCw, Sparkles, X, CheckCircle2 } from 'lucide-react';
 import { ThreeDLotus } from './ThreeDIcons';
 
-export const CURRENT_APP_VERSION = '1.2.0';
-export const CURRENT_BUILD_NUMBER = 3;
+export const CURRENT_APP_VERSION = '1.2.1';
+export const CURRENT_BUILD_NUMBER = 4;
 
 export const triggerApkDownload = (url) => {
   const downloadTarget = url || 'https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk';
@@ -114,6 +114,9 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
           localStorage.setItem('nithya_installed_build', updateInfo.versionCode.toString());
         }
       }
+      try {
+        localStorage.removeItem('nithya_live_participants');
+      } catch (_) {}
 
       setUpdateDone(true);
 

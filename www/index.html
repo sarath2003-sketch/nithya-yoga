@@ -39,23 +39,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Core Design System CSS -->
-  <link rel="stylesheet" href="./src/styles.css?v=3.4.0">
-  <link rel="stylesheet" href="./assets/yoga-ui.css?v=3.4.0">
+  <link rel="stylesheet" href="./src/styles.css?v=3.5.0">
+  <link rel="stylesheet" href="./assets/yoga-ui.css?v=3.5.0">
 </head>
 <body>
   <div id="root"></div>
 
   <!-- React 18 Application Bundle -->
-  <script src="./dist/bundle.js?v=3.4.0"></script>
-  <script src="./assets/yoga-ui.js?v=3.4.0" defer></script>
+  <script src="./dist/bundle.js?v=3.5.0"></script>
+  <script src="./assets/yoga-ui.js?v=3.5.0" defer></script>
 
   <!-- Production Service Worker Registration with Lifecycle & Update Listeners -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js', { scope: './' })
+        navigator.serviceWorker.register('./sw.js?v=3.5.0', { scope: './' })
           .then((registration) => {
             console.log('[PWA] ServiceWorker active on scope:', registration.scope);
+
+            // Immediate check on load
+            registration.update().catch(() => {});
 
             // Listen for waiting updates
             registration.addEventListener('updatefound', () => {
@@ -71,21 +74,22 @@
               }
             });
 
-            // Check for updates periodically every hour
+            // Check for updates periodically every 15 minutes
             setInterval(() => {
               registration.update().catch(() => {});
-            }, 60 * 60 * 1000);
+            }, 15 * 60 * 1000);
           })
           .catch((err) => {
             console.warn('[PWA] ServiceWorker registration notice:', err);
           });
 
-        // Reload smoothly when new controller takes over
+        // Reload smoothly when new controller takes over to load latest bundle immediately
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
           if (!refreshing) {
             refreshing = true;
-            console.log('[PWA] Controller changed; fresh assets active.');
+            console.log('[PWA] Controller changed; reloading to activate fresh assets.');
+            window.location.reload();
           }
         });
       });

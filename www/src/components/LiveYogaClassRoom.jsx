@@ -467,6 +467,8 @@ export default function LiveYogaClassRoom({
       try {
         localStorage.removeItem('nithya_live_participants');
       } catch (_) {}
+      setConnectedStudentsList([]);
+      setBackendStudentCount(0);
       const trainerToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token') || 'nithya_master_active';
       apiFetch(`/api/trainer/classes/${activeClass.id}/start`, {
         method: 'POST',
@@ -1270,7 +1272,7 @@ export default function LiveYogaClassRoom({
   }] : [];
 
   const allParticipants = room
-    ? [room.localParticipant, ...participants]
+    ? [room.localParticipant, ...participants.filter(p => p && p.role !== 'instructor' && !String(p.identity || '').startsWith('instructor') && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(p.name))]
     : (isInstructorRole
         ? (localStream ? [localWebrtcParticipant, ...simulatedPeers.filter(p => p.name !== localWebrtcParticipant.name)] : [localWebrtcParticipant, ...simulatedPeers])
         : (localStream 
@@ -1283,7 +1285,17 @@ export default function LiveYogaClassRoom({
         ? allParticipants.find(p => p.identity === spotlightParticipantId)
         : (allParticipants.find(p => p.isInstructor) || allParticipants[0]));
 
-  const otherParticipants = allParticipants.filter(p => p?.identity !== spotlightParticipant?.identity);
+  const otherParticipants = isInstructorRole
+    ? allParticipants.filter(p => 
+        p && 
+        p.identity !== spotlightParticipant?.identity && 
+        p.name !== spotlightParticipant?.name && 
+        p.role !== 'instructor' && 
+        !p.isInstructor && 
+        !String(p.identity || '').startsWith('instructor') && 
+        !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master'].includes(p.name)
+      )
+    : allParticipants.filter(p => p?.identity !== spotlightParticipant?.identity);
 
   // Student count calculation: strictly genuine students only, excluding instructor
   const realStudentsList = connectedStudentsList.filter(s => 

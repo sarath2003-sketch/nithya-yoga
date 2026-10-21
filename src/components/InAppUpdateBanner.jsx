@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Download, RefreshCw, Sparkles, X, CheckCircle2 } from 'lucide-react';
 import { ThreeDLotus } from './ThreeDIcons';
+import { APP_VERSION, APP_BUILD_NUMBER, checkRemoteAppVersion, applyAppUpdate } from '../utils/versionManager';
 
-export const CURRENT_APP_VERSION = '1.2.1';
-export const CURRENT_BUILD_NUMBER = 4;
+export const CURRENT_APP_VERSION = APP_VERSION;
+export const CURRENT_BUILD_NUMBER = APP_BUILD_NUMBER;
 
 export const triggerApkDownload = (url) => {
   const downloadTarget = url || 'https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk';
@@ -57,35 +58,11 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
 
   const checkRemoteUpdate = async () => {
     try {
-      let data = null;
-      // 1. Try local / current domain version.json
-      try {
-        const localRes = await fetch(`./version.json?t=${Date.now()}`, { cache: 'no-store' });
-        if (localRes.ok) data = await localRes.json();
-      } catch (_) {}
-
-      // 2. Fallback to production GitHub Pages version.json
-      if (!data) {
-        const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
-          cache: 'no-store'
-        });
-        if (res.ok) data = await res.json();
-      }
-
-      if (data) {
-        const remoteVer = data.version || '1.2.0';
-        const remoteBuild = data.versionCode || 3;
-        const localVersion = localStorage.getItem('nithya_installed_version') || CURRENT_APP_VERSION;
-        const localBuild = parseInt(localStorage.getItem('nithya_installed_build') || CURRENT_BUILD_NUMBER.toString(), 10);
-        
-        // Show update modal if remote build is higher
-        const isNewer = (remoteBuild > localBuild) || (remoteVer !== localVersion && remoteBuild > CURRENT_BUILD_NUMBER);
-        
-        if (isNewer) {
-          setUpdateInfo(data);
-        } else {
-          setUpdateInfo(null);
-        }
+      const res = await checkRemoteAppVersion();
+      if (res && res.isUpdateAvailable) {
+        setUpdateInfo(res);
+      } else {
+        setUpdateInfo(null);
       }
     } catch (err) {
       console.warn('Could not check remote version:', err);
@@ -94,53 +71,14 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
 
   const handleUpdateNow = async () => {
     setIsUpdating(true);
+    setUpdateDone(true);
 
     try {
-      if ('caches' in window) {
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map(name => caches.delete(name)));
-      }
-
-      if ('serviceWorker' in navigator) {
-        const registrations = await navigator.serviceWorker.getRegistrations();
-        for (const reg of registrations) {
-          await reg.unregister();
-        }
-      }
-
-      if (updateInfo?.version) {
-        localStorage.setItem('nithya_installed_version', updateInfo.version);
-        if (updateInfo?.versionCode) {
-          localStorage.setItem('nithya_installed_build', updateInfo.versionCode.toString());
-        }
-      }
-      try {
-        localStorage.removeItem('nithya_live_participants');
-      } catch (_) {}
-
-      setUpdateDone(true);
-
       // Trigger instant APK download if native Android
       triggerApkDownload(updateInfo?.apkUrl);
-
-      // Automatically refresh to apply latest code on the screen!
-      setTimeout(() => {
-        if (typeof window !== 'undefined') {
-          const isCapacitorOrLocal = 
-            window.location.hostname === 'localhost' ||
-            window.location.hostname === '127.0.0.1' ||
-            window.location.protocol === 'capacitor:' ||
-            window.location.protocol === 'file:';
-          if (isCapacitorOrLocal) {
-            window.location.reload();
-          } else {
-            window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
-          }
-        }
-      }, 900);
+      await applyAppUpdate(updateInfo?.remoteVersion, updateInfo?.remoteBuild);
     } catch (err) {
       console.error('Update error:', err);
-      triggerApkDownload(updateInfo?.apkUrl);
       setTimeout(() => window.location.reload(), 900);
     } finally {
       setTimeout(() => {

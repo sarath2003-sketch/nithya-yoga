@@ -253,12 +253,21 @@ self.addEventListener('push', (event) => {
 
 self.addEventListener('notificationclick', (event) => {
   event.notification.close();
-  const targetUrl = event.notification?.data || './';
+  const rawData = event.notification?.data;
+  let targetUrl = './?tab=reminders';
+  if (typeof rawData === 'string' && rawData.startsWith('http')) {
+    targetUrl = rawData;
+  } else if (rawData && typeof rawData === 'object' && rawData.url) {
+    targetUrl = rawData.url;
+  }
 
   event.waitUntil(
     self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clientList) => {
       for (const client of clientList) {
-        if (client.url && 'focus' in client) {
+        if ('focus' in client) {
+          try {
+            client.postMessage({ type: 'NAVIGATE_TAB', tab: 'reminders' });
+          } catch (_) {}
           return client.focus();
         }
       }

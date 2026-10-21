@@ -1,5 +1,6 @@
 import React from 'react';
-import { Search, Bell, Sparkles, Moon, Sun, Globe, RefreshCw } from 'lucide-react';
+import { Search, Bell, Sparkles, Moon, Sun, Globe, RefreshCw, CheckCircle2 } from 'lucide-react';
+import { APP_VERSION } from '../utils/versionManager';
 
 export default function Header({
   searchQuery,
@@ -12,7 +13,8 @@ export default function Header({
   onOpenNotifications,
   onTestSound,
   onOpenProfile,
-  onQuickUpdate
+  onQuickUpdate,
+  updateAvailable = false
 }) {
   return (
     <header className="dashboard-top-header">
@@ -42,12 +44,18 @@ export default function Header({
         {/* Quick App Update / Refresh Tool */}
         <button
           type="button"
-          className="header-tool-btn header-update-pill cursor-pointer"
+          className={`header-tool-btn header-update-pill cursor-pointer ${updateAvailable ? 'has-update-glow' : ''}`}
           onClick={onQuickUpdate}
-          title={lang === 'ta' ? 'ஆப் புதுப்பிப்பு (Update / Sync App)' : 'Update / Sync App'}
+          title={lang === 'ta' ? `நித்யா யோகா v${APP_VERSION} (புதுப்பிப்பைச் சரிபார்க்கவும்)` : `Nithya Yoga v${APP_VERSION} (Check updates)`}
         >
-          <RefreshCw size={14} className="header-update-icon text-primary" />
-          <span className="update-text-short hidden sm:inline font-bold text-xs">{lang === 'ta' ? 'அப்டேட்' : 'Update'}</span>
+          {updateAvailable ? (
+            <RefreshCw size={14} className="header-update-icon text-primary animate-spin" />
+          ) : (
+            <CheckCircle2 size={14} className="header-update-icon text-emerald-500" />
+          )}
+          <span className="update-text-short hidden sm:inline font-bold text-xs">
+            {updateAvailable ? (lang === 'ta' ? 'அப்டேட்' : 'Update') : `v${APP_VERSION}`}
+          </span>
         </button>
 
         {/* Language Switcher */}

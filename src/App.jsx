@@ -39,12 +39,26 @@ import {
   triggerImmediateSystemNotification, 
   requestSystemNotificationPermission 
 } from './utils/notificationScheduler';
+import { 
+  APP_VERSION, 
+  APP_BUILD_NUMBER, 
+  checkRemoteAppVersion, 
+  applyAppUpdate 
+} from './utils/versionManager';
 
 export default function App() {
-  const [currentTab, setCurrentTab] = useState('home');
+  const [currentTab, setCurrentTab] = useState(() => {
+    try {
+      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+      const tabParam = params ? params.get('tab') : null;
+      if (tabParam) return tabParam;
+    } catch (_) {}
+    return loadStorage('nithya_active_tab', 'home');
+  });
   const [theme, setTheme] = useState(() => loadStorage('nithya_theme', 'light'));
   const [lang, setLang] = useState(() => loadStorage('nithya_lang', 'en'));
   const [searchQuery, setSearchQuery] = useState('');
+  const [updateAvailable, setUpdateAvailable] = useState(false);
 
   // Active in-app alarm trigger state
   const [activeAlarm, setActiveAlarm] = useState(null);
@@ -65,16 +79,17 @@ export default function App() {
   });
   const [showStudentJoinModal, setShowStudentJoinModal] = useState(false);
 
-  // States - Default app owner is 👑 NITHYA Master (Instructor / Admin), or student when joining via student link
+  // States - Default role is Yoga Student; trainer only when verified with trainer/admin token
   const [user, setUser] = useState(() => {
     try {
       const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
       const isStudentQuery = params && (params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('live')));
       const activeRole = typeof localStorage !== 'undefined' ? localStorage.getItem('nithya_active_role') : null;
       const studentSession = loadStorage('nithya_student_session', null);
+      const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
       
-      // If arriving via live link or explicitly in student mode, initialize as student
-      if (isStudentQuery || activeRole === 'student' || (studentSession && !localStorage.getItem('nithya_admin_token'))) {
+      // If arriving via live link or explicitly in student mode, strictly initialize as student
+      if (isStudentQuery || activeRole === 'student' || (!hasTeacherToken && studentSession)) {
         if (studentSession) {
           return {
             ...DEFAULT_USER,
@@ -91,30 +106,29 @@ export default function App() {
           isInstructor: false
         };
       }
+
+      // If user has verified teacher credentials and is not in student mode
+      if (hasTeacherToken && activeRole !== 'student') {
+        const stored = loadStorage('nithya_user', null);
+        if (stored && stored.role === 'trainer') return stored;
+        return {
+          ...DEFAULT_USER,
+          name: 'NITHYA Master',
+          role: 'trainer',
+          isInstructor: true
+        };
+      }
+
+      const stored = loadStorage('nithya_user', null);
+      if (stored) return stored;
     } catch (_) {}
 
-    const stored = loadStorage('nithya_user', null);
-    const isLegacyOrNotTrainer = !stored || 
-      stored.name === 'Yoga Practitioner' || 
-      stored.name === 'Kavitha Ram' || 
-      stored.role === 'Member' || 
-      stored.role === 'Verified Member' || 
-      stored.role !== 'trainer';
-
-    if (isLegacyOrNotTrainer) {
-      const defaultInstructor = {
-        ...DEFAULT_USER,
-        name: 'NITHYA Master',
-        role: 'trainer',
-        isInstructor: true
-      };
-      saveStorage('nithya_user', defaultInstructor);
-      try {
-        localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
-      } catch (_) {}
-      return defaultInstructor;
-    }
-    return stored;
+    return {
+      ...DEFAULT_USER,
+      name: 'Yoga Student',
+      role: 'student',
+      isInstructor: false
+    };
   });
   const [reminders, setReminders] = useState(() => loadStorage('nithya_reminders', DEFAULT_REMINDERS));
   const [classes, setClasses] = useState(() => loadStorage('nithya_classes', DEFAULT_CLASSES));
@@ -155,6 +169,22 @@ export default function App() {
   useEffect(() => {
     saveStorage('nithya_attendance', attendanceLogs);
   }, [attendanceLogs]);
+
+  // Persist active tab to LocalStorage
+  useEffect(() => {
+    saveStorage('nithya_active_tab', currentTab);
+  }, [currentTab]);
+
+  // Check remote app version on mount to keep update indicator accurate without loops
+  useEffect(() => {
+    checkRemoteAppVersion().then(res => {
+      if (res && res.isUpdateAvailable) {
+        setUpdateAvailable(true);
+      } else {
+        setUpdateAvailable(false);
+      }
+    }).catch(() => {});
+  }, []);
 
   // Initialize native Android notification channel and pre-request permission on mount
   useEffect(() => {
@@ -458,8 +488,30 @@ export default function App() {
   };
 
   const handleTabChange = (tabId) => {
+    saveStorage('nithya_active_tab', tabId);
+
+    // Live Class tab security & routing:
+    if (tabId === 'live' || tabId === 'live-classes') {
+      const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
+      const isTrainer = hasTeacherToken && user?.role === 'trainer';
+      if (isTrainer) {
+        setCurrentTab('live');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        const rawSession = loadStorage('nithya_student_session', null);
+        const isValid = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
+        if (!isValid) {
+          setShowStudentJoinModal(true);
+        } else {
+          setCurrentTab('live');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }
+      return;
+    }
+
     setCurrentTab(tabId);
-    if (tabId === 'live' || tabId === 'live-classes' || tabId === 'student' || tabId === 'admin') {
+    if (tabId === 'student' || tabId === 'admin') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
@@ -468,7 +520,7 @@ export default function App() {
       return;
     }
     let selector = '';
-    if (tabId === 'classes' || tabId === 'yoga-classes') selector = '.col-classes';
+    if (tabId === 'yoga' || tabId === 'classes' || tabId === 'yoga-classes') selector = '.col-classes';
     else if (tabId === 'reminders') selector = '.today-reminders-section';
     else if (tabId === 'notes') selector = '.col-notes';
     else if (tabId === 'attendance') selector = '.col-progress';
@@ -602,42 +654,34 @@ export default function App() {
 
   const handleTriggerAppUpdate = async () => {
     showToast(
-      lang === 'ta' ? '🔄 ஆப் புதுப்பிக்கப்படுகிறது...' : '🔄 Updating app & syncing...',
-      lang === 'ta' ? 'புதிய பதிப்பு மாற்றங்கள் செயல்படுத்தப்படுகின்றன...' : 'Refreshing latest code and assets...',
+      lang === 'ta' ? '🔍 அப்டேட் சரிபார்க்கப்படுகிறது...' : '🔍 Checking for updates...',
+      lang === 'ta' ? 'சர்வர் பதிப்பு சோதிக்கப்படுகிறது...' : 'Contacting update server...',
       'info'
     );
     try {
-      if ('caches' in window) {
-        const cacheNames = await caches.keys();
-        await Promise.all(cacheNames.map(name => caches.delete(name)));
+      const res = await checkRemoteAppVersion();
+      if (res && res.isUpdateAvailable) {
+        showToast(
+          lang === 'ta' ? '🔄 ஆப் புதுப்பிக்கப்படுகிறது...' : '🔄 Updating app & syncing...',
+          lang === 'ta' ? `பதிப்பு v${res.remoteVersion} செயல்படுத்தப்படுகிறது...` : `Applying v${res.remoteVersion}...`,
+          'info'
+        );
+        setUpdateAvailable(true);
+        await applyAppUpdate(res.remoteVersion, res.remoteBuild);
+      } else {
+        setUpdateAvailable(false);
+        showToast(
+          lang === 'ta' ? '✅ ஆப் புதுப்பித்த நிலையில் உள்ளது!' : '✅ App is already up to date!',
+          lang === 'ta' ? `தற்போதைய பதிப்பு v${APP_VERSION} முழுமையாக ஒத்திசைக்கப்பட்டுள்ளது.` : `Current version v${APP_VERSION} is the latest available.`,
+          'success'
+        );
       }
-      if ('serviceWorker' in navigator) {
-        const registrations = await navigator.serviceWorker.getRegistrations();
-        for (const reg of registrations) {
-          await reg.unregister();
-        }
-      }
-      if (typeof window !== 'undefined' && window.AndroidNativeUpdater) {
-        try {
-          window.AndroidNativeUpdater.openInChrome('https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk');
-        } catch (_) {}
-      }
-      setTimeout(() => {
-        if (typeof window !== 'undefined') {
-          const isCapacitorOrLocal = 
-            window.location.hostname === 'localhost' ||
-            window.location.hostname === '127.0.0.1' ||
-            window.location.protocol === 'capacitor:' ||
-            window.location.protocol === 'file:';
-          if (isCapacitorOrLocal) {
-            window.location.reload();
-          } else {
-            window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
-          }
-        }
-      }, 700);
     } catch (_) {
-      window.location.reload();
+      showToast(
+        lang === 'ta' ? '✅ ஆப் புதுப்பித்த நிலையில் உள்ளது!' : '✅ App is current!',
+        `Version v${APP_VERSION}`,
+        'success'
+      );
     }
   };
 
@@ -647,6 +691,23 @@ export default function App() {
       remEl.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  // Listen for Service Worker messages (e.g. notification click navigating to reminders tab)
+  useEffect(() => {
+    const handleSwMessage = (e) => {
+      if (e.data && e.data.type === 'NAVIGATE_TAB') {
+        handleTabChange(e.data.tab);
+      }
+    };
+    if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+      navigator.serviceWorker.addEventListener('message', handleSwMessage);
+    }
+    return () => {
+      if (typeof navigator !== 'undefined' && 'serviceWorker' in navigator) {
+        navigator.serviceWorker.removeEventListener('message', handleSwMessage);
+      }
+    };
+  }, []);
 
   return (
     <div className="nithya-app-root yoga-advanced">
@@ -676,6 +737,7 @@ export default function App() {
             onTestSound={handleViewSchedule}
             onOpenProfile={handleOpenProfile}
             onQuickUpdate={handleTriggerAppUpdate}
+            updateAvailable={updateAvailable}
           />
 
           {currentTab === 'student' ? (

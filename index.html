@@ -83,12 +83,13 @@
             console.warn('[PWA] ServiceWorker registration notice:', err);
           });
 
-        // Reload smoothly when new controller takes over to load latest bundle immediately
+        // Reload smoothly when new controller takes over after an explicit update request
         let refreshing = false;
         navigator.serviceWorker.addEventListener('controllerchange', () => {
-          if (!refreshing) {
+          if (!refreshing && sessionStorage.getItem('nithya_pending_update') === '1') {
             refreshing = true;
-            console.log('[PWA] Controller changed; reloading to activate fresh assets.');
+            sessionStorage.removeItem('nithya_pending_update');
+            console.log('[PWA] Controller changed after requested update; reloading to activate fresh assets.');
             window.location.reload();
           }
         });

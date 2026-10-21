@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node serve.js",
     "server": "node server.js",
-    "build": "esbuild src/index.jsx --bundle --platform=browser --format=iife --target=es2020 --outfile=dist/bundle.js --sourcemap",
+    "build": "esbuild src/index.jsx --bundle --platform=browser --format=iife --target=es2020 --outfile=dist/bundle.js --sourcemap && node scripts/prepare_www.js",
+    "build:all": "npm run build && npx cap sync android",
     "test": "node scripts/test_backend.js"
   },
   "keywords": [],

@@ -3113,6 +3113,25 @@ input, select, textarea {
   transform: scale(1.04);
   box-shadow: 0 6px 20px rgba(245, 158, 11, 0.6);
 }
+.btn-launch-google-meet-prominent {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: linear-gradient(135deg, #059669, #047857);
+  color: #FFFFFF;
+  font-weight: 700;
+  font-size: 0.86rem;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.45);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.btn-launch-google-meet-prominent:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(5, 150, 105, 0.6);
+}
 .btn-verify-attendance-green {
   display: inline-flex;
   align-items: center;

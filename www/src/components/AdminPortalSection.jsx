@@ -140,14 +140,17 @@ export default function AdminPortalSection({
         if (stored) {
           const parsed = JSON.parse(stored);
           localLogs = parsed.map(l => ({
-            name: l.studentName || 'Student',
+            name: l.studentName || l.name || 'Student',
+            studentName: l.studentName || l.name || 'Student',
             email: l.phone ? `+91 ${l.phone}` : 'App User',
-            phone: l.phone || 'N/A',
-            classTitle: l.className || 'Hatha Yoga Flow',
-            joinedAt: l.timestamp,
-            durationSeconds: (l.durationMinutes || 1) * 60,
+            phone: l.phone || l.studentPhone || 'N/A',
+            studentPhone: l.phone || l.studentPhone || 'N/A',
+            classTitle: l.classTitle || l.className || 'Hatha Yoga Flow',
+            joinedAt: l.joinedAt || l.timestamp || new Date().toISOString(),
+            durationSeconds: l.durationSeconds || (l.durationMinutes || 1) * 60,
+            durationMinutes: l.durationMinutes || Math.round((l.durationSeconds || 60) / 60),
             attendancePercent: l.attendancePercent || (l.status?.includes('70') ? 85 : 45),
-            status: l.status?.includes('70') ? 'verified_70' : 'incomplete'
+            status: l.status?.includes('70') ? 'verified_70' : (l.status || 'in_progress')
           }));
         }
       } catch (_) {}
@@ -972,6 +975,53 @@ export default function AdminPortalSection({
                 <RefreshCw size={13} className={attendanceLoading ? 'animate-spin' : ''} />
                 <span>{lang === 'ta' ? 'புதுப்பி' : 'Refresh'}</span>
               </button>
+            </div>
+          </div>
+
+          {/* Summary Stat Cards for Nithya Master */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-violet-500/15 text-primary flex items-center justify-center font-bold">
+                <Users size={18} />
+              </div>
+              <div>
+                <span className="text-[11px] text-muted block font-semibold">
+                  {lang === 'ta' ? 'பதிவான மாணவர்கள்' : 'Registered Students'}
+                </span>
+                <strong className="text-base text-heading">
+                  {new Set(attendanceLogs.map(l => (l.phone || l.studentPhone || '').replace(/\D/g, '')).filter(Boolean)).size || attendanceLogs.length}
+                </strong>
+              </div>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-emerald-500/15 text-emerald-600 flex items-center justify-center font-bold">
+                <Clock size={18} />
+              </div>
+              <div>
+                <span className="text-[11px] text-muted block font-semibold">
+                  {lang === 'ta' ? 'மொத்த பயிற்சி நேரம்' : 'Total Practice Time'}
+                </span>
+                <strong className="text-base text-heading">
+                  {Math.round(attendanceLogs.reduce((acc, l) => acc + (l.durationSeconds || 60), 0) / 60)} mins
+                </strong>
+              </div>
+            </div>
+
+            <div className="p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-amber-500/15 text-amber-600 flex items-center justify-center font-bold">
+                <CheckCircle2 size={18} />
+              </div>
+              <div>
+                <span className="text-[11px] text-muted block font-semibold">
+                  {lang === 'ta' ? 'சராசரி வருகை விகிதம்' : 'Avg Attendance Rate'}
+                </span>
+                <strong className="text-base text-heading">
+                  {attendanceLogs.length > 0 
+                    ? Math.round(attendanceLogs.reduce((acc, l) => acc + (l.attendancePercent || 85), 0) / attendanceLogs.length) 
+                    : 100}%
+                </strong>
+              </div>
             </div>
           </div>
 

@@ -270,11 +270,11 @@ export function loadStorage(key, fallback) {
       });
     }
     if (key === 'nithya_user' && val && typeof val === 'object') {
-      if (val.name && ['sarah', 'priya'].includes(String(val.name).toLowerCase())) {
-        val.name = 'Yoga Member';
+      if (val.name && ['sarah', 'priya', 'yoga member'].includes(String(val.name).toLowerCase())) {
+        val.name = 'Yoga Student';
       }
       if (val.email && String(val.email).toLowerCase().includes('sarah')) {
-        val.email = 'member@nithyayoga.com';
+        val.email = 'student@nithyayoga.com';
       }
     }
     return val;

@@ -60,6 +60,15 @@ export default function HeroSection({
             </button>
           </div>
         </div>
+
+        {/* Sacred 7 Chakras Meditating Yogi Artwork */}
+        <div className="hero-right-visual-wrapper">
+          <img 
+            src="assets/images/chakra-meditation.jpg" 
+            alt="NITHYA 7 Chakras Meditation Visual" 
+            className="hero-chakra-visual-img" 
+          />
+        </div>
       </div>
 
       {/* Top Right: User Profile Bento Card */}

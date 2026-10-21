@@ -43,6 +43,7 @@ import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus, ThreeDBell, ThreeDHeart } from './ThreeDIcons';
 import { apiFetch, getApiBaseUrl, setApiBaseUrl, getProductionLiveUrl } from '../utils/api';
 import { loadStorage, saveStorage } from '../utils/storage';
+import { Peer } from 'peerjs';
 
 // Single Participant Video Tile with real track attachment
 function ParticipantTile({
@@ -361,6 +362,12 @@ export default function LiveYogaClassRoom({
   // Pure live state: strictly genuine students, no dummy data
   const [connectedStudentsList, setConnectedStudentsList] = useState([]);
 
+  // PeerJS Multi-Device WebRTC Live Video & Data Streams
+  const [teacherStream, setTeacherStream] = useState(null);
+  const [remoteStreams, setRemoteStreams] = useState({});
+  const peerInstanceRef = useRef(null);
+  const activeConnsRef = useRef([]);
+
   // Class session timer
   const [sessionSeconds, setSessionSeconds] = useState(0);
   const [hasAttendanceRecorded, setHasAttendanceRecorded] = useState(false);
@@ -460,6 +467,206 @@ export default function LiveYogaClassRoom({
       }
     };
   }, [isInstructorRole]);
+
+  // Multi-Device PeerJS WebRTC Video & Data Signaling (Connects Phone & PC across the internet)
+  useEffect(() => {
+    if (!localStream) return;
+
+    const classIdClean = String(activeClass?.id || 'cls-1').toLowerCase().replace(/[^a-z0-9]/g, '');
+    const trainerPeerId = `nithya-yoga-live-${classIdClean}-trainer`;
+    const rawStudentInfo = loadStorage('nithya_student_session', null);
+    const cleanPhone = (rawStudentInfo?.phone || user?.phone || '').replace(/\D/g, '') || Math.floor(Math.random() * 899999 + 100000);
+    const studentName = rawStudentInfo?.name || user?.name || 'Student';
+    const studentPeerId = `nithya-yoga-live-${classIdClean}-student-${cleanPhone}-${Date.now().toString(36).slice(-4)}`;
+
+    let peer = null;
+
+    try {
+      if (peerInstanceRef.current) {
+        try { peerInstanceRef.current.destroy(); } catch (_) {}
+      }
+
+      const myPeerId = isInstructorRole ? trainerPeerId : studentPeerId;
+
+      peer = new Peer(myPeerId, {
+        debug: 0,
+        config: {
+          iceServers: [
+            { urls: 'stun:stun.l.google.com:19302' },
+            { urls: 'stun:stun1.l.google.com:19302' },
+            { urls: 'stun:stun2.l.google.com:19302' }
+          ]
+        }
+      });
+
+      peerInstanceRef.current = peer;
+
+      peer.on('open', (id) => {
+        if (!isInstructorRole) {
+          // Student: Connect to Instructor!
+          const connectToTrainer = () => {
+            // 1. Data Connection for Chat & Student Roster
+            const conn = peer.connect(trainerPeerId, {
+              metadata: { name: studentName, phone: cleanPhone }
+            });
+
+            activeConnsRef.current = [conn];
+
+            conn.on('open', () => {
+              conn.send({
+                type: 'student_joined',
+                student: {
+                  id: myPeerId,
+                  identity: myPeerId,
+                  name: studentName,
+                  phone: cleanPhone,
+                  role: 'student',
+                  joinedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+                }
+              });
+            });
+
+            conn.on('data', (data) => {
+              if (data?.type === 'chat' && data.text) {
+                setChatMessages(prev => [
+                  ...prev,
+                  {
+                    id: `msg-${Date.now()}-${Math.random()}`,
+                    sender: data.sender || 'Instructor',
+                    text: data.text,
+                    time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                    isSystem: false
+                  }
+                ]);
+              } else if (data?.type === 'class-ended') {
+                setClassEndedNotice(true);
+              }
+            });
+
+            // 2. Media Call: Call Instructor with student's localStream
+            const call = peer.call(trainerPeerId, localStream, {
+              metadata: { name: studentName, phone: cleanPhone }
+            });
+
+            if (call) {
+              call.on('stream', (incomingTeacherStream) => {
+                setTeacherStream(incomingTeacherStream);
+                setTeacherOnline(true);
+              });
+
+              call.on('close', () => {
+                setTeacherStream(null);
+              });
+
+              call.on('error', () => {});
+            }
+          };
+
+          connectToTrainer();
+          const retryTimer = setInterval(() => {
+            if (!teacherStream) {
+              connectToTrainer();
+            }
+          }, 6000);
+
+          return () => clearInterval(retryTimer);
+        }
+      });
+
+      if (isInstructorRole) {
+        // Teacher: Listen for student calls
+        peer.on('call', (call) => {
+          call.answer(localStream); // Answer with teacher's camera/mic stream!
+
+          call.on('stream', (studentStream) => {
+            const name = call.metadata?.name || 'Student';
+            const phone = call.metadata?.phone || '';
+
+            setRemoteStreams(prev => ({
+              ...prev,
+              [call.peer]: {
+                stream: studentStream,
+                identity: call.peer,
+                name,
+                phone
+              }
+            }));
+
+            setConnectedStudentsList(prev => {
+              const studentObj = {
+                id: call.peer,
+                identity: call.peer,
+                name,
+                phone,
+                role: 'student',
+                joinedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+              };
+              const updated = [studentObj, ...prev.filter(s => s.phone !== phone && s.identity !== call.peer)];
+              saveStorage('nithya_live_participants', updated);
+              return updated;
+            });
+          });
+
+          call.on('close', () => {
+            setRemoteStreams(prev => {
+              const copy = { ...prev };
+              delete copy[call.peer];
+              return copy;
+            });
+            setConnectedStudentsList(prev => prev.filter(s => s.identity !== call.peer && s.id !== call.peer));
+          });
+        });
+
+        // Teacher: Listen for student data connections
+        peer.on('connection', (conn) => {
+          activeConnsRef.current.push(conn);
+
+          conn.on('data', (data) => {
+            if (data?.type === 'student_joined' && data.student) {
+              setConnectedStudentsList(prev => {
+                const updated = [
+                  data.student,
+                  ...prev.filter(s => s.phone !== data.student.phone && s.identity !== data.student.identity)
+                ];
+                saveStorage('nithya_live_participants', updated);
+                return updated;
+              });
+            } else if (data?.type === 'chat' && data.text) {
+              setChatMessages(prev => [
+                ...prev,
+                {
+                  id: `msg-${Date.now()}-${Math.random()}`,
+                  sender: data.sender || 'Student',
+                  text: data.text,
+                  time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+                  isSystem: false
+                }
+              ]);
+            } else if (data?.type === 'raise-hand') {
+              setRaisedHands(prev => new Set(prev).add(data.identity || conn.peer));
+            }
+          });
+
+          conn.on('close', () => {
+            activeConnsRef.current = activeConnsRef.current.filter(c => c !== conn);
+            setConnectedStudentsList(prev => prev.filter(s => s.identity !== conn.peer && s.id !== conn.peer));
+          });
+        });
+      }
+
+      peer.on('error', (err) => {
+        console.warn('[WebRTC PeerJS] Peer error note:', err?.type);
+      });
+    } catch (err) {
+      console.warn('[WebRTC PeerJS] Init error note:', err.message);
+    }
+
+    return () => {
+      if (peer) {
+        try { peer.destroy(); } catch (_) {}
+      }
+    };
+  }, [localStream, isInstructorRole, activeClass?.id]);
 
   // Ensure active class is marked 'live' on backend when instructor enters room
   useEffect(() => {
@@ -909,6 +1116,15 @@ export default function LiveYogaClassRoom({
       }, 5000);
     }
 
+    // Broadcast raise-hand via PeerJS multi-device data channel
+    activeConnsRef.current.forEach(conn => {
+      try {
+        if (conn && conn.open) {
+          conn.send({ type: 'raise-hand', identity: participantName });
+        }
+      } catch (_) {}
+    });
+
     try {
       if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
         const bc = new BroadcastChannel('nithya_live_class_channel');
@@ -934,6 +1150,19 @@ export default function LiveYogaClassRoom({
         console.error('Chat error:', e);
       }
     }
+
+    // Broadcast chat message via PeerJS multi-device data channel
+    activeConnsRef.current.forEach(conn => {
+      try {
+        if (conn && conn.open) {
+          conn.send({
+            type: 'chat',
+            text: chatInput.trim(),
+            sender: user?.name || (isInstructorRole ? (activeClass?.instructor || 'NITHYA Master') : 'Student')
+          });
+        }
+      } catch (_) {}
+    });
 
     try {
       if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
@@ -1032,6 +1261,15 @@ export default function LiveYogaClassRoom({
       : 'Are you sure you want to end this yoga class for all participants?';
     if (!window.confirm(confirmMsg)) return;
 
+    // Broadcast class-ended via PeerJS multi-device data channel
+    activeConnsRef.current.forEach(conn => {
+      try {
+        if (conn && conn.open) {
+          conn.send({ type: 'class-ended' });
+        }
+      } catch (_) {}
+    });
+
     try {
       if (typeof window !== 'undefined' && 'BroadcastChannel' in window) {
         const bc = new BroadcastChannel('nithya_live_class_channel');
@@ -1088,8 +1326,8 @@ export default function LiveYogaClassRoom({
     const studentInfo = loadStorage('nithya_student_session', null);
     const logRecord = {
       id: `att-live-${Date.now()}`,
-      studentName: user?.name || studentInfo?.name || 'Yoga Member',
-      phone: user?.phone || studentInfo?.phone || '9876543210',
+      studentName: studentInfo?.name || (user?.name && user.name !== 'Yoga Practitioner' && user.name !== 'Yoga Member' ? user.name : 'Yoga Student'),
+      phone: studentInfo?.phone || user?.phone || '',
       classId: activeClass?.id || 'cls-1',
       className: activeClass?.title || activeClass?.name || 'Hatha Yoga Flow',
       instructor: activeClass?.instructor || 'NITHYA Master',
@@ -1124,6 +1362,46 @@ export default function LiveYogaClassRoom({
       onRecordAttendance(logRecord);
     }
   };
+
+  // Continuous background attendance logging for students
+  useEffect(() => {
+    if (isInstructorRole || connectionState !== 'connected' || sessionSeconds < 5) return;
+
+    const rawStudentInfo = loadStorage('nithya_student_session', null);
+    const cleanPhone = (rawStudentInfo?.phone || user?.phone || '').replace(/\D/g, '');
+    const cleanName = rawStudentInfo?.name || user?.name;
+    if (!cleanName || cleanPhone.length < 10) return;
+
+    const classId = activeClass?.id || 'cls-1';
+    const classTitle = activeClass?.title || activeClass?.name || 'Morning Yoga Flow';
+    const totalExpectedSec = (activeClass?.duration || 60) * 60;
+    const currentPct = Math.min(100, Math.max(5, Math.round((sessionSeconds / totalExpectedSec) * 100)));
+    const durationMins = Math.max(1, Math.round(sessionSeconds / 60));
+
+    try {
+      const existingLogs = loadStorage('nithya_attendance_logs', []);
+      const currentLog = {
+        id: `att-${cleanPhone}-${classId}`,
+        studentName: cleanName,
+        name: cleanName,
+        phone: cleanPhone,
+        studentPhone: cleanPhone,
+        classId,
+        className: classTitle,
+        classTitle,
+        instructor: activeClass?.instructor || 'NITHYA Master',
+        date: new Date().toISOString().split('T')[0],
+        durationMinutes: durationMins,
+        durationSeconds: sessionSeconds,
+        attendancePercent: currentPct,
+        status: currentPct >= 70 ? 'Present (70%+)' : `Incomplete (${currentPct}%)`,
+        joinedAt: rawStudentInfo?.joinedAt || new Date().toISOString()
+      };
+
+      const updated = [currentLog, ...existingLogs.filter(l => !((l.phone || l.studentPhone || '').replace(/\D/g, '') === cleanPhone && l.classId === classId))];
+      saveStorage('nithya_attendance_logs', updated);
+    } catch (_) {}
+  }, [sessionSeconds, connectionState, isInstructorRole, activeClass, user]);
 
   // Generate shareable live class link (uses production URL with student parameter)
   const getShareableClassLink = () => {
@@ -1249,17 +1527,26 @@ export default function LiveYogaClassRoom({
 
   const simulatedPeers = (!room && connectedStudentsList && connectedStudentsList.length > 0)
     ? connectedStudentsList
-        .filter(s => s && s.role !== 'instructor' && !String(s.identity || '').startsWith('instructor') && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(s.name))
-        .map(s => ({
-          identity: s.identity || s.id || s.phone || s.name,
-          name: s.name,
-          role: 'student',
-          phone: s.phone,
-          joinedAt: s.joinedAt,
-          stream: null,
-          isLocal: false,
-          isInstructor: false
-        }))
+        .filter(s => 
+          s && 
+          s.role !== 'instructor' && 
+          !String(s.identity || '').startsWith('instructor') && 
+          !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'Yoga Member', 'Yoga Student', 'Student', 'NITHYA Master'].includes(s.name) &&
+          Boolean(s.phone && String(s.phone).replace(/\D/g, '').length >= 10)
+        )
+        .map(s => {
+          const remoteObj = Object.values(remoteStreams).find(r => r && (r.phone === s.phone || r.identity === s.identity || r.name === s.name));
+          return {
+            identity: s.identity || s.id || s.phone || s.name,
+            name: s.name,
+            role: 'student',
+            phone: s.phone,
+            joinedAt: s.joinedAt,
+            stream: remoteObj ? remoteObj.stream : null,
+            isLocal: false,
+            isInstructor: false
+          };
+        })
     : [];
 
   const instructorPeer = !isInstructorRole ? [{
@@ -1268,7 +1555,7 @@ export default function LiveYogaClassRoom({
     role: 'instructor',
     isInstructor: true,
     isLocal: false,
-    stream: null
+    stream: teacherStream || null
   }] : [];
 
   const allParticipants = room
@@ -1293,18 +1580,25 @@ export default function LiveYogaClassRoom({
         p.role !== 'instructor' && 
         !p.isInstructor && 
         !String(p.identity || '').startsWith('instructor') && 
-        !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master'].includes(p.name)
+        !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Yoga Member', 'Yoga Student', 'Student'].includes(p.name) &&
+        (p.isLocal || (p.phone && String(p.phone).replace(/\D/g, '').length >= 10))
       )
     : allParticipants.filter(p => p?.identity !== spotlightParticipant?.identity);
 
   // Student count calculation: strictly genuine students only, excluding instructor
   const realStudentsList = connectedStudentsList.filter(s => 
-    s && s.role !== 'instructor' && !String(s.identity || '').startsWith('instructor') && s.identity !== 'instructor-lead' && s.identity !== 'instructor-local'
+    s && 
+    s.role !== 'instructor' && 
+    !String(s.identity || '').startsWith('instructor') && 
+    s.identity !== 'instructor-lead' && 
+    s.identity !== 'instructor-local' &&
+    !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Yoga Member', 'Yoga Student', 'Student'].includes(s.name) &&
+    Boolean(s.phone && String(s.phone).replace(/\D/g, '').length >= 10)
   );
 
   const currentStudentCount = isInstructorRole
-    ? Math.max(realStudentsList.length, backendStudentCount)
-    : Math.max(1, realStudentsList.length, backendStudentCount);
+    ? realStudentsList.length
+    : Math.max(1, realStudentsList.length);
 
   return (
     <div className={`livekit-yoga-studio-container ${isFullscreen ? 'fullscreen-mode' : ''}`} ref={containerRef}>
@@ -1379,6 +1673,20 @@ export default function LiveYogaClassRoom({
               <span>{lang === 'ta' ? 'ஆப் டவுன்லோட்' : 'Download App'}</span>
             </a>
           )}
+
+          {/* Google Meet Direct Launch Pill */}
+          <button
+            type="button"
+            className="role-toggle-pill as-google-meet-pill bg-emerald-600/90 hover:bg-emerald-500 text-white font-bold flex items-center gap-1 cursor-pointer"
+            onClick={() => {
+              const meetUrl = activeClass?.meetUrl || 'https://meet.google.com/new';
+              window.open(meetUrl, '_blank', 'noopener,noreferrer');
+            }}
+            title={lang === 'ta' ? 'Google Meet-ல் இணைக' : 'Join via Google Meet'}
+          >
+            <span>📹</span>
+            <span>Google Meet</span>
+          </button>
 
           {/* Live Timer */}
           {connectionState === 'connected' && (

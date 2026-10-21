@@ -10,8 +10,8 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
   const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
   const [isUpdatingApp, setIsUpdatingApp] = useState(false);
   const [formData, setFormData] = useState({
-    name: user?.name || 'Yoga Member',
-    email: user?.email || 'member@nithyayoga.com',
+    name: user?.name || (user?.role === 'trainer' ? 'NITHYA Master' : 'Yoga Student'),
+    email: user?.email || 'student@nithyayoga.com',
     age: user?.age || 28,
     goal: user?.goal || 'Better Health & Peace',
     joined: user?.joined || 'Oct 1, 2026',

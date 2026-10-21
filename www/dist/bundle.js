@@ -5,6 +5,9 @@
   var __getOwnPropNames = Object.getOwnPropertyNames;
   var __getProtoOf = Object.getPrototypeOf;
   var __hasOwnProp = Object.prototype.hasOwnProperty;
+  var __typeError = (msg) => {
+    throw TypeError(msg);
+  };
   var __esm = (fn, res, err) => function __init() {
     if (err) throw err[0];
     try {
@@ -40,6 +43,7 @@
     isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
     mod
   ));
+  var __privateAdd = (obj, member, value) => member.has(obj) ? __typeError("Cannot add the same private member more than once") : member instanceof WeakSet ? member.add(obj) : member.set(obj, value);
 
   // node_modules/react/cjs/react.development.js
   var require_react_development = __commonJS({
@@ -1419,7 +1423,7 @@
               }
             }
           }
-          function checkPropTypes(typeSpecs, values, location, componentName, element) {
+          function checkPropTypes(typeSpecs, values, location2, componentName, element) {
             {
               var has = Function.call.bind(hasOwnProperty);
               for (var typeSpecName in typeSpecs) {
@@ -1427,23 +1431,23 @@
                   var error$1 = void 0;
                   try {
                     if (typeof typeSpecs[typeSpecName] !== "function") {
-                      var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                      var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                       err.name = "Invariant Violation";
                       throw err;
                     }
-                    error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                    error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
                   } catch (ex) {
                     error$1 = ex;
                   }
                   if (error$1 && !(error$1 instanceof Error)) {
                     setCurrentlyValidatingElement(element);
-                    error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
+                    error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location2, typeSpecName, typeof error$1);
                     setCurrentlyValidatingElement(null);
                   }
                   if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
                     loggedTypeFailures[error$1.message] = true;
                     setCurrentlyValidatingElement(element);
-                    error("Failed %s type: %s", location, error$1.message);
+                    error("Failed %s type: %s", location2, error$1.message);
                     setCurrentlyValidatingElement(null);
                   }
                 }
@@ -6368,14 +6372,14 @@
             16
           );
           var clz32 = Math.clz32 ? Math.clz32 : clz32Fallback;
-          var log2 = Math.log;
+          var log3 = Math.log;
           var LN2 = Math.LN2;
           function clz32Fallback(x) {
             var asUint = x >>> 0;
             if (asUint === 0) {
               return 32;
             }
-            return 31 - (log2(asUint) / LN2 | 0) | 0;
+            return 31 - (log3(asUint) / LN2 | 0) | 0;
           }
           var TotalLanes = 31;
           var NoLanes = (
@@ -8076,12 +8080,12 @@
                 }
               }
             }
-            var listeners = accumulateTwoPhaseListeners(targetInst, eventType);
-            if (listeners.length > 0) {
+            var listeners2 = accumulateTwoPhaseListeners(targetInst, eventType);
+            if (listeners2.length > 0) {
               var event = new SyntheticCompositionEvent(eventType, domEventName, null, nativeEvent, nativeEventTarget);
               dispatchQueue.push({
                 event,
-                listeners
+                listeners: listeners2
               });
               if (fallbackData) {
                 event.data = fallbackData;
@@ -8152,12 +8156,12 @@
             if (!chars) {
               return null;
             }
-            var listeners = accumulateTwoPhaseListeners(targetInst, "onBeforeInput");
-            if (listeners.length > 0) {
+            var listeners2 = accumulateTwoPhaseListeners(targetInst, "onBeforeInput");
+            if (listeners2.length > 0) {
               var event = new SyntheticInputEvent("onBeforeInput", "beforeinput", null, nativeEvent, nativeEventTarget);
               dispatchQueue.push({
                 event,
-                listeners
+                listeners: listeners2
               });
               event.data = chars;
             }
@@ -8211,12 +8215,12 @@
           }
           function createAndAccumulateChangeEvent(dispatchQueue, inst, nativeEvent, target) {
             enqueueStateRestore(target);
-            var listeners = accumulateTwoPhaseListeners(inst, "onChange");
-            if (listeners.length > 0) {
+            var listeners2 = accumulateTwoPhaseListeners(inst, "onChange");
+            if (listeners2.length > 0) {
               var event = new SyntheticEvent("onChange", "change", null, nativeEvent, target);
               dispatchQueue.push({
                 event,
-                listeners
+                listeners: listeners2
               });
             }
           }
@@ -8714,12 +8718,12 @@
             var currentSelection = getSelection$1(activeElement$1);
             if (!lastSelection || !shallowEqual(lastSelection, currentSelection)) {
               lastSelection = currentSelection;
-              var listeners = accumulateTwoPhaseListeners(activeElementInst$1, "onSelect");
-              if (listeners.length > 0) {
+              var listeners2 = accumulateTwoPhaseListeners(activeElementInst$1, "onSelect");
+              if (listeners2.length > 0) {
                 var event = new SyntheticEvent("onSelect", "select", null, nativeEvent, nativeEventTarget);
                 dispatchQueue.push({
                   event,
-                  listeners
+                  listeners: listeners2
                 });
                 event.target = activeElement$1;
               }
@@ -8993,8 +8997,8 @@
           function processDispatchQueue(dispatchQueue, eventSystemFlags) {
             var inCapturePhase = (eventSystemFlags & IS_CAPTURE_PHASE) !== 0;
             for (var i = 0; i < dispatchQueue.length; i++) {
-              var _dispatchQueue$i = dispatchQueue[i], event = _dispatchQueue$i.event, listeners = _dispatchQueue$i.listeners;
-              processDispatchQueueItemsInOrder(event, listeners, inCapturePhase);
+              var _dispatchQueue$i = dispatchQueue[i], event = _dispatchQueue$i.event, listeners2 = _dispatchQueue$i.listeners;
+              processDispatchQueueItemsInOrder(event, listeners2, inCapturePhase);
             }
             rethrowCaughtError();
           }
@@ -9138,7 +9142,7 @@
           function accumulateSinglePhaseListeners(targetFiber, reactName, nativeEventType, inCapturePhase, accumulateTargetOnly, nativeEvent) {
             var captureName = reactName !== null ? reactName + "Capture" : null;
             var reactEventName = inCapturePhase ? captureName : reactName;
-            var listeners = [];
+            var listeners2 = [];
             var instance = targetFiber;
             var lastHostComponent = null;
             while (instance !== null) {
@@ -9148,7 +9152,7 @@
                 if (reactEventName !== null) {
                   var listener = getListener(instance, reactEventName);
                   if (listener != null) {
-                    listeners.push(createDispatchListener(instance, listener, lastHostComponent));
+                    listeners2.push(createDispatchListener(instance, listener, lastHostComponent));
                   }
                 }
               }
@@ -9157,11 +9161,11 @@
               }
               instance = instance.return;
             }
-            return listeners;
+            return listeners2;
           }
           function accumulateTwoPhaseListeners(targetFiber, reactName) {
             var captureName = reactName + "Capture";
-            var listeners = [];
+            var listeners2 = [];
             var instance = targetFiber;
             while (instance !== null) {
               var _instance3 = instance, stateNode = _instance3.stateNode, tag = _instance3.tag;
@@ -9169,16 +9173,16 @@
                 var currentTarget = stateNode;
                 var captureListener = getListener(instance, captureName);
                 if (captureListener != null) {
-                  listeners.unshift(createDispatchListener(instance, captureListener, currentTarget));
+                  listeners2.unshift(createDispatchListener(instance, captureListener, currentTarget));
                 }
                 var bubbleListener = getListener(instance, reactName);
                 if (bubbleListener != null) {
-                  listeners.push(createDispatchListener(instance, bubbleListener, currentTarget));
+                  listeners2.push(createDispatchListener(instance, bubbleListener, currentTarget));
                 }
               }
               instance = instance.return;
             }
-            return listeners;
+            return listeners2;
           }
           function getParent(inst) {
             if (inst === null) {
@@ -9223,7 +9227,7 @@
           }
           function accumulateEnterLeaveListenersForEvent(dispatchQueue, event, target, common, inCapturePhase) {
             var registrationName = event._reactName;
-            var listeners = [];
+            var listeners2 = [];
             var instance = target;
             while (instance !== null) {
               if (instance === common) {
@@ -9238,21 +9242,21 @@
                 if (inCapturePhase) {
                   var captureListener = getListener(instance, registrationName);
                   if (captureListener != null) {
-                    listeners.unshift(createDispatchListener(instance, captureListener, currentTarget));
+                    listeners2.unshift(createDispatchListener(instance, captureListener, currentTarget));
                   }
                 } else if (!inCapturePhase) {
                   var bubbleListener = getListener(instance, registrationName);
                   if (bubbleListener != null) {
-                    listeners.push(createDispatchListener(instance, bubbleListener, currentTarget));
+                    listeners2.push(createDispatchListener(instance, bubbleListener, currentTarget));
                   }
                 }
               }
               instance = instance.return;
             }
-            if (listeners.length !== 0) {
+            if (listeners2.length !== 0) {
               dispatchQueue.push({
                 event,
-                listeners
+                listeners: listeners2
               });
             }
           }
@@ -10821,7 +10825,7 @@
               }
             }
           }
-          function checkPropTypes(typeSpecs, values, location, componentName, element) {
+          function checkPropTypes(typeSpecs, values, location2, componentName, element) {
             {
               var has2 = Function.call.bind(hasOwnProperty);
               for (var typeSpecName in typeSpecs) {
@@ -10829,23 +10833,23 @@
                   var error$1 = void 0;
                   try {
                     if (typeof typeSpecs[typeSpecName] !== "function") {
-                      var err = Error((componentName || "React class") + ": " + location + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
+                      var err = Error((componentName || "React class") + ": " + location2 + " type `" + typeSpecName + "` is invalid; it must be a function, usually from the `prop-types` package, but received `" + typeof typeSpecs[typeSpecName] + "`.This often happens because of typos such as `PropTypes.function` instead of `PropTypes.func`.");
                       err.name = "Invariant Violation";
                       throw err;
                     }
-                    error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
+                    error$1 = typeSpecs[typeSpecName](values, typeSpecName, componentName, location2, null, "SECRET_DO_NOT_PASS_THIS_OR_YOU_WILL_BE_FIRED");
                   } catch (ex) {
                     error$1 = ex;
                   }
                   if (error$1 && !(error$1 instanceof Error)) {
                     setCurrentlyValidatingElement(element);
-                    error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location, typeSpecName, typeof error$1);
+                    error("%s: type specification of %s `%s` is invalid; the type checker function must return `null` or an `Error` but returned a %s. You may have forgotten to pass an argument to the type checker creator (arrayOf, instanceOf, objectOf, oneOf, oneOfType, and shape all require an argument).", componentName || "React class", location2, typeSpecName, typeof error$1);
                     setCurrentlyValidatingElement(null);
                   }
                   if (error$1 instanceof Error && !(error$1.message in loggedTypeFailures)) {
                     loggedTypeFailures[error$1.message] = true;
                     setCurrentlyValidatingElement(element);
-                    error("Failed %s type: %s", location, error$1.message);
+                    error("Failed %s type: %s", location2, error$1.message);
                     setCurrentlyValidatingElement(null);
                   }
                 }
@@ -25929,7 +25933,14 @@
       },
       /* @__PURE__ */ import_react8.default.createElement(Calendar, { size: 16 }),
       /* @__PURE__ */ import_react8.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8" : "View Today's Schedule")
-    )))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-user-stat-card" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-profile-header-mini" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-round-avatar" }, user2?.avatar ? /* @__PURE__ */ import_react8.default.createElement("img", { src: user2.avatar, alt: user2.name, className: "hero-avatar-img" }) : /* @__PURE__ */ import_react8.default.createElement("span", null, user2?.name ? user2.name.charAt(0) : "N")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-heading-meta" }, /* @__PURE__ */ import_react8.default.createElement("h3", { className: "user-greeting-name" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${user2.name}` : `Hello, ${user2.name}`), /* @__PURE__ */ import_react8.default.createElement("p", { className: "user-subtitle-care" }, user2?.role === "trainer" || user2?.isInstructor ? lang === "ta" ? "\u{1F451} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD \u2022 \u0BA4\u0BB2\u0BC8\u0BAE\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "\u{1F451} Master Instructor \u2022 Lead Guide" : lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Stay consistent. Stay healthy."))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-stats-2x2-grid" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-teal" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap teal-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flower2, { size: 18, className: "text-teal" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.classesAttended || 12), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-blue" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap blue-bg" }, /* @__PURE__ */ import_react8.default.createElement(Calendar, { size: 18, className: "text-blue" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.attendanceRate || 85, "%"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-orange" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap orange-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flame, { size: 18, className: "text-orange" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.dayStreak || 7), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Day Streak"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-gold" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap gold-bg" }, /* @__PURE__ */ import_react8.default.createElement(Star, { size: 18, className: "text-gold" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.level || "Beginner"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Level"))))));
+    ))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-right-visual-wrapper" }, /* @__PURE__ */ import_react8.default.createElement(
+      "img",
+      {
+        src: "assets/images/chakra-meditation.jpg",
+        alt: "NITHYA 7 Chakras Meditation Visual",
+        className: "hero-chakra-visual-img"
+      }
+    ))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-user-stat-card" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-profile-header-mini" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-round-avatar" }, user2?.avatar ? /* @__PURE__ */ import_react8.default.createElement("img", { src: user2.avatar, alt: user2.name, className: "hero-avatar-img" }) : /* @__PURE__ */ import_react8.default.createElement("span", null, user2?.name ? user2.name.charAt(0) : "N")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-heading-meta" }, /* @__PURE__ */ import_react8.default.createElement("h3", { className: "user-greeting-name" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${user2.name}` : `Hello, ${user2.name}`), /* @__PURE__ */ import_react8.default.createElement("p", { className: "user-subtitle-care" }, user2?.role === "trainer" || user2?.isInstructor ? lang === "ta" ? "\u{1F451} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD \u2022 \u0BA4\u0BB2\u0BC8\u0BAE\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "\u{1F451} Master Instructor \u2022 Lead Guide" : lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Stay consistent. Stay healthy."))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-stats-2x2-grid" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-teal" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap teal-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flower2, { size: 18, className: "text-teal" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.classesAttended || 12), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-blue" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap blue-bg" }, /* @__PURE__ */ import_react8.default.createElement(Calendar, { size: 18, className: "text-blue" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.attendanceRate || 85, "%"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-orange" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap orange-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flame, { size: 18, className: "text-orange" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.dayStreak || 7), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Day Streak"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-gold" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap gold-bg" }, /* @__PURE__ */ import_react8.default.createElement(Star, { size: 18, className: "text-gold" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.level || "Beginner"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Level"))))));
   }
   var import_react8;
   var init_HeroSection = __esm({
@@ -29001,9 +29012,9 @@
               try {
                 var cookie = window.document.cookie;
                 var cookieName = encodeURIComponent(storageKey);
-                var location = cookie.indexOf(cookieName + "=");
-                if (location !== -1) {
-                  storedLevel = /^([^;]+)/.exec(cookie.slice(location + cookieName.length + 1))[1];
+                var location2 = cookie.indexOf(cookieName + "=");
+                if (location2 !== -1) {
+                  storedLevel = /^([^;]+)/.exec(cookie.slice(location2 + cookieName.length + 1))[1];
                 }
               } catch (ignore) {
               }
@@ -29305,7 +29316,7 @@
       EventEmitter.init.call(this);
     }
     events.exports = EventEmitter;
-    events.exports.once = once;
+    events.exports.once = once2;
     EventEmitter.EventEmitter = EventEmitter;
     EventEmitter.prototype._events = void 0;
     EventEmitter.prototype._eventsCount = 0;
@@ -29349,7 +29360,7 @@
     EventEmitter.prototype.getMaxListeners = function getMaxListeners() {
       return _getMaxListeners(this);
     };
-    EventEmitter.prototype.emit = function emit(type) {
+    EventEmitter.prototype.emit = function emit2(type) {
       var args = [];
       for (var i = 1; i < arguments.length; i++) args.push(arguments[i]);
       var doError = type === "error";
@@ -29372,8 +29383,8 @@
         ReflectApply(handler, this, args);
       } else {
         var len = handler.length;
-        var listeners = arrayClone(handler, len);
-        for (var i = 0; i < len; ++i) ReflectApply(listeners[i], this, args);
+        var listeners2 = arrayClone(handler, len);
+        for (var i = 0; i < len; ++i) ReflectApply(listeners2[i], this, args);
       }
       return true;
     };
@@ -29445,7 +29456,7 @@
       state.wrapFn = wrapped;
       return wrapped;
     }
-    EventEmitter.prototype.once = function once2(type, listener) {
+    EventEmitter.prototype.once = function once3(type, listener) {
       checkListener(listener);
       this.on(type, _onceWrap(this, type, listener));
       return this;
@@ -29455,7 +29466,7 @@
       this.prependListener(type, _onceWrap(this, type, listener));
       return this;
     };
-    EventEmitter.prototype.removeListener = function removeListener(type, listener) {
+    EventEmitter.prototype.removeListener = function removeListener2(type, listener) {
       var list, events2, position, i, originalListener;
       checkListener(listener);
       events2 = this._events;
@@ -29488,8 +29499,8 @@
       return this;
     };
     EventEmitter.prototype.off = EventEmitter.prototype.removeListener;
-    EventEmitter.prototype.removeAllListeners = function removeAllListeners(type) {
-      var listeners, events2, i;
+    EventEmitter.prototype.removeAllListeners = function removeAllListeners2(type) {
+      var listeners2, events2, i;
       events2 = this._events;
       if (events2 === void 0) return this;
       if (events2.removeListener === void 0) {
@@ -29515,12 +29526,12 @@
         this._eventsCount = 0;
         return this;
       }
-      listeners = events2[type];
-      if (typeof listeners === "function") {
-        this.removeListener(type, listeners);
-      } else if (listeners !== void 0) {
-        for (i = listeners.length - 1; i >= 0; i--) {
-          this.removeListener(type, listeners[i]);
+      listeners2 = events2[type];
+      if (typeof listeners2 === "function") {
+        this.removeListener(type, listeners2);
+      } else if (listeners2 !== void 0) {
+        for (i = listeners2.length - 1; i >= 0; i--) {
+          this.removeListener(type, listeners2[i]);
         }
       }
       return this;
@@ -29533,7 +29544,7 @@
       if (typeof evlistener === "function") return unwrap ? [evlistener.listener || evlistener] : [evlistener];
       return unwrap ? unwrapListeners(evlistener) : arrayClone(evlistener, evlistener.length);
     }
-    EventEmitter.prototype.listeners = function listeners(type) {
+    EventEmitter.prototype.listeners = function listeners2(type) {
       return _listeners(this, type, true);
     };
     EventEmitter.prototype.rawListeners = function rawListeners(type) {
@@ -29543,11 +29554,11 @@
       if (typeof emitter.listenerCount === "function") {
         return emitter.listenerCount(type);
       } else {
-        return listenerCount.call(emitter, type);
+        return listenerCount2.call(emitter, type);
       }
     };
-    EventEmitter.prototype.listenerCount = listenerCount;
-    function listenerCount(type) {
+    EventEmitter.prototype.listenerCount = listenerCount2;
+    function listenerCount2(type) {
       var events2 = this._events;
       if (events2 !== void 0) {
         var evlistener = events2[type];
@@ -29559,7 +29570,7 @@
       }
       return 0;
     }
-    EventEmitter.prototype.eventNames = function eventNames() {
+    EventEmitter.prototype.eventNames = function eventNames2() {
       return this._eventsCount > 0 ? ReflectOwnKeys(this._events) : [];
     };
     function arrayClone(arr, n) {
@@ -29578,7 +29589,7 @@
       }
       return ret;
     }
-    function once(emitter, name) {
+    function once2(emitter, name) {
       return new Promise(function(resolve, reject) {
         function errorListener(err) {
           emitter.removeListener(name, resolver);
@@ -30366,27 +30377,27 @@
       return this.getSenders().find((s) => s.track === track);
     };
     function replaceInternalStreamId(pc, description) {
-      let sdp2 = description.sdp;
+      let sdp3 = description.sdp;
       Object.keys(pc._reverseStreams || []).forEach((internalId) => {
         const externalStream = pc._reverseStreams[internalId];
         const internalStream = pc._streams[externalStream.id];
-        sdp2 = sdp2.replace(new RegExp(internalStream.id, "g"), externalStream.id);
+        sdp3 = sdp3.replace(new RegExp(internalStream.id, "g"), externalStream.id);
       });
       return new RTCSessionDescription({
         type: description.type,
-        sdp: sdp2
+        sdp: sdp3
       });
     }
     function replaceExternalStreamId(pc, description) {
-      let sdp2 = description.sdp;
+      let sdp3 = description.sdp;
       Object.keys(pc._reverseStreams || []).forEach((internalId) => {
         const externalStream = pc._reverseStreams[internalId];
         const internalStream = pc._streams[externalStream.id];
-        sdp2 = sdp2.replace(new RegExp(externalStream.id, "g"), internalStream.id);
+        sdp3 = sdp3.replace(new RegExp(externalStream.id, "g"), internalStream.id);
       });
       return new RTCSessionDescription({
         type: description.type,
-        sdp: sdp2
+        sdp: sdp3
       });
     }
     ["createOffer", "createAnswer"].forEach(function(method) {
@@ -31120,31 +31131,31 @@
     if (hasRequiredSdp) return sdp$1.exports;
     hasRequiredSdp = 1;
     (function(module) {
-      const SDPUtils2 = {};
-      SDPUtils2.generateIdentifier = function() {
+      const SDPUtils3 = {};
+      SDPUtils3.generateIdentifier = function() {
         return Math.random().toString(36).substring(2, 12);
       };
-      SDPUtils2.localCName = SDPUtils2.generateIdentifier();
-      SDPUtils2.splitLines = function(blob) {
+      SDPUtils3.localCName = SDPUtils3.generateIdentifier();
+      SDPUtils3.splitLines = function(blob) {
         return blob.trim().split("\n").map((line) => line.trim());
       };
-      SDPUtils2.splitSections = function(blob) {
+      SDPUtils3.splitSections = function(blob) {
         const parts = blob.split("\nm=");
         return parts.map((part, index) => (index > 0 ? "m=" + part : part).trim() + "\r\n");
       };
-      SDPUtils2.getDescription = function(blob) {
-        const sections = SDPUtils2.splitSections(blob);
+      SDPUtils3.getDescription = function(blob) {
+        const sections = SDPUtils3.splitSections(blob);
         return sections && sections[0];
       };
-      SDPUtils2.getMediaSections = function(blob) {
-        const sections = SDPUtils2.splitSections(blob);
+      SDPUtils3.getMediaSections = function(blob) {
+        const sections = SDPUtils3.splitSections(blob);
         sections.shift();
         return sections;
       };
-      SDPUtils2.matchPrefix = function(blob, prefix) {
-        return SDPUtils2.splitLines(blob).filter((line) => line.indexOf(prefix) === 0);
+      SDPUtils3.matchPrefix = function(blob, prefix) {
+        return SDPUtils3.splitLines(blob).filter((line) => line.indexOf(prefix) === 0);
       };
-      SDPUtils2.parseCandidate = function(line) {
+      SDPUtils3.parseCandidate = function(line) {
         let parts;
         if (line.indexOf("a=candidate:") === 0) {
           parts = line.substring(12).split(" ");
@@ -31190,44 +31201,44 @@
         }
         return candidate;
       };
-      SDPUtils2.writeCandidate = function(candidate) {
-        const sdp2 = [];
-        sdp2.push(candidate.foundation);
+      SDPUtils3.writeCandidate = function(candidate) {
+        const sdp3 = [];
+        sdp3.push(candidate.foundation);
         const component = candidate.component;
         if (component === "rtp") {
-          sdp2.push(1);
+          sdp3.push(1);
         } else if (component === "rtcp") {
-          sdp2.push(2);
+          sdp3.push(2);
         } else {
-          sdp2.push(component);
+          sdp3.push(component);
         }
-        sdp2.push(candidate.protocol.toUpperCase());
-        sdp2.push(candidate.priority);
-        sdp2.push(candidate.address || candidate.ip);
-        sdp2.push(candidate.port);
+        sdp3.push(candidate.protocol.toUpperCase());
+        sdp3.push(candidate.priority);
+        sdp3.push(candidate.address || candidate.ip);
+        sdp3.push(candidate.port);
         const type = candidate.type;
-        sdp2.push("typ");
-        sdp2.push(type);
+        sdp3.push("typ");
+        sdp3.push(type);
         if (type !== "host" && candidate.relatedAddress && candidate.relatedPort !== void 0) {
-          sdp2.push("raddr");
-          sdp2.push(candidate.relatedAddress);
-          sdp2.push("rport");
-          sdp2.push(candidate.relatedPort);
+          sdp3.push("raddr");
+          sdp3.push(candidate.relatedAddress);
+          sdp3.push("rport");
+          sdp3.push(candidate.relatedPort);
         }
         if (candidate.tcpType && candidate.protocol.toLowerCase() === "tcp") {
-          sdp2.push("tcptype");
-          sdp2.push(candidate.tcpType);
+          sdp3.push("tcptype");
+          sdp3.push(candidate.tcpType);
         }
         if (candidate.usernameFragment || candidate.ufrag) {
-          sdp2.push("ufrag");
-          sdp2.push(candidate.usernameFragment || candidate.ufrag);
+          sdp3.push("ufrag");
+          sdp3.push(candidate.usernameFragment || candidate.ufrag);
         }
-        return "candidate:" + sdp2.join(" ");
+        return "candidate:" + sdp3.join(" ");
       };
-      SDPUtils2.parseIceOptions = function(line) {
+      SDPUtils3.parseIceOptions = function(line) {
         return line.substring(14).split(" ");
       };
-      SDPUtils2.parseRtpMap = function(line) {
+      SDPUtils3.parseRtpMap = function(line) {
         let parts = line.substring(9).split(" ");
         const parsed = {
           payloadType: parseInt(parts.shift(), 10)
@@ -31240,7 +31251,7 @@
         parsed.numChannels = parsed.channels;
         return parsed;
       };
-      SDPUtils2.writeRtpMap = function(codec) {
+      SDPUtils3.writeRtpMap = function(codec) {
         let pt = codec.payloadType;
         if (codec.preferredPayloadType !== void 0) {
           pt = codec.preferredPayloadType;
@@ -31248,7 +31259,7 @@
         const channels = codec.channels || codec.numChannels || 1;
         return "a=rtpmap:" + pt + " " + codec.name + "/" + codec.clockRate + (channels !== 1 ? "/" + channels : "") + "\r\n";
       };
-      SDPUtils2.parseExtmap = function(line) {
+      SDPUtils3.parseExtmap = function(line) {
         const parts = line.substring(9).split(" ");
         return {
           id: parseInt(parts[0], 10),
@@ -31257,10 +31268,10 @@
           attributes: parts.slice(2).join(" ")
         };
       };
-      SDPUtils2.writeExtmap = function(headerExtension) {
+      SDPUtils3.writeExtmap = function(headerExtension) {
         return "a=extmap:" + (headerExtension.id || headerExtension.preferredId) + (headerExtension.direction && headerExtension.direction !== "sendrecv" ? "/" + headerExtension.direction : "") + " " + headerExtension.uri + (headerExtension.attributes ? " " + headerExtension.attributes : "") + "\r\n";
       };
-      SDPUtils2.parseFmtp = function(line) {
+      SDPUtils3.parseFmtp = function(line) {
         const parsed = {};
         let kv;
         const parts = line.substring(line.indexOf(" ") + 1).split(";");
@@ -31270,7 +31281,7 @@
         }
         return parsed;
       };
-      SDPUtils2.writeFmtp = function(codec) {
+      SDPUtils3.writeFmtp = function(codec) {
         let line = "";
         let pt = codec.payloadType;
         if (codec.preferredPayloadType !== void 0) {
@@ -31289,14 +31300,14 @@
         }
         return line;
       };
-      SDPUtils2.parseRtcpFb = function(line) {
+      SDPUtils3.parseRtcpFb = function(line) {
         const parts = line.substring(line.indexOf(" ") + 1).split(" ");
         return {
           type: parts.shift(),
           parameter: parts.join(" ")
         };
       };
-      SDPUtils2.writeRtcpFb = function(codec) {
+      SDPUtils3.writeRtcpFb = function(codec) {
         let lines = "";
         let pt = codec.payloadType;
         if (codec.preferredPayloadType !== void 0) {
@@ -31309,7 +31320,7 @@
         }
         return lines;
       };
-      SDPUtils2.parseSsrcMedia = function(line) {
+      SDPUtils3.parseSsrcMedia = function(line) {
         const sp = line.indexOf(" ");
         const parts = {
           ssrc: parseInt(line.substring(7, sp), 10)
@@ -31323,20 +31334,20 @@
         }
         return parts;
       };
-      SDPUtils2.parseSsrcGroup = function(line) {
+      SDPUtils3.parseSsrcGroup = function(line) {
         const parts = line.substring(13).split(" ");
         return {
           semantics: parts.shift(),
           ssrcs: parts.map((ssrc) => parseInt(ssrc, 10))
         };
       };
-      SDPUtils2.getMid = function(mediaSection) {
-        const mid = SDPUtils2.matchPrefix(mediaSection, "a=mid:")[0];
+      SDPUtils3.getMid = function(mediaSection) {
+        const mid = SDPUtils3.matchPrefix(mediaSection, "a=mid:")[0];
         if (mid) {
           return mid.substring(6);
         }
       };
-      SDPUtils2.parseFingerprint = function(line) {
+      SDPUtils3.parseFingerprint = function(line) {
         const parts = line.substring(14).split(" ");
         return {
           algorithm: parts[0].toLowerCase(),
@@ -31345,21 +31356,21 @@
           // the definition is upper-case in RFC 4572.
         };
       };
-      SDPUtils2.getDtlsParameters = function(mediaSection, sessionpart) {
-        const lines = SDPUtils2.matchPrefix(mediaSection + sessionpart, "a=fingerprint:");
+      SDPUtils3.getDtlsParameters = function(mediaSection, sessionpart) {
+        const lines = SDPUtils3.matchPrefix(mediaSection + sessionpart, "a=fingerprint:");
         return {
           role: "auto",
-          fingerprints: lines.map(SDPUtils2.parseFingerprint)
+          fingerprints: lines.map(SDPUtils3.parseFingerprint)
         };
       };
-      SDPUtils2.writeDtlsParameters = function(params, setupType) {
-        let sdp2 = "a=setup:" + setupType + "\r\n";
+      SDPUtils3.writeDtlsParameters = function(params, setupType) {
+        let sdp3 = "a=setup:" + setupType + "\r\n";
         params.fingerprints.forEach((fp) => {
-          sdp2 += "a=fingerprint:" + fp.algorithm + " " + fp.value + "\r\n";
+          sdp3 += "a=fingerprint:" + fp.algorithm + " " + fp.value + "\r\n";
         });
-        return sdp2;
+        return sdp3;
       };
-      SDPUtils2.parseCryptoLine = function(line) {
+      SDPUtils3.parseCryptoLine = function(line) {
         const parts = line.substring(9).split(" ");
         return {
           tag: parseInt(parts[0], 10),
@@ -31368,10 +31379,10 @@
           sessionParams: parts.slice(3)
         };
       };
-      SDPUtils2.writeCryptoLine = function(parameters) {
-        return "a=crypto:" + parameters.tag + " " + parameters.cryptoSuite + " " + (typeof parameters.keyParams === "object" ? SDPUtils2.writeCryptoKeyParams(parameters.keyParams) : parameters.keyParams) + (parameters.sessionParams ? " " + parameters.sessionParams.join(" ") : "") + "\r\n";
+      SDPUtils3.writeCryptoLine = function(parameters) {
+        return "a=crypto:" + parameters.tag + " " + parameters.cryptoSuite + " " + (typeof parameters.keyParams === "object" ? SDPUtils3.writeCryptoKeyParams(parameters.keyParams) : parameters.keyParams) + (parameters.sessionParams ? " " + parameters.sessionParams.join(" ") : "") + "\r\n";
       };
-      SDPUtils2.parseCryptoKeyParams = function(keyParams) {
+      SDPUtils3.parseCryptoKeyParams = function(keyParams) {
         if (keyParams.indexOf("inline:") !== 0) {
           return null;
         }
@@ -31384,16 +31395,16 @@
           mkiLength: parts[2] ? parts[2].split(":")[1] : void 0
         };
       };
-      SDPUtils2.writeCryptoKeyParams = function(keyParams) {
+      SDPUtils3.writeCryptoKeyParams = function(keyParams) {
         return keyParams.keyMethod + ":" + keyParams.keySalt + (keyParams.lifeTime ? "|" + keyParams.lifeTime : "") + (keyParams.mkiValue && keyParams.mkiLength ? "|" + keyParams.mkiValue + ":" + keyParams.mkiLength : "");
       };
-      SDPUtils2.getCryptoParameters = function(mediaSection, sessionpart) {
-        const lines = SDPUtils2.matchPrefix(mediaSection + sessionpart, "a=crypto:");
-        return lines.map(SDPUtils2.parseCryptoLine);
+      SDPUtils3.getCryptoParameters = function(mediaSection, sessionpart) {
+        const lines = SDPUtils3.matchPrefix(mediaSection + sessionpart, "a=crypto:");
+        return lines.map(SDPUtils3.parseCryptoLine);
       };
-      SDPUtils2.getIceParameters = function(mediaSection, sessionpart) {
-        const ufrag = SDPUtils2.matchPrefix(mediaSection + sessionpart, "a=ice-ufrag:")[0];
-        const pwd = SDPUtils2.matchPrefix(mediaSection + sessionpart, "a=ice-pwd:")[0];
+      SDPUtils3.getIceParameters = function(mediaSection, sessionpart) {
+        const ufrag = SDPUtils3.matchPrefix(mediaSection + sessionpart, "a=ice-ufrag:")[0];
+        const pwd = SDPUtils3.matchPrefix(mediaSection + sessionpart, "a=ice-pwd:")[0];
         if (!(ufrag && pwd)) {
           return null;
         }
@@ -31402,31 +31413,31 @@
           password: pwd.substring(10)
         };
       };
-      SDPUtils2.writeIceParameters = function(params) {
-        let sdp2 = "a=ice-ufrag:" + params.usernameFragment + "\r\na=ice-pwd:" + params.password + "\r\n";
+      SDPUtils3.writeIceParameters = function(params) {
+        let sdp3 = "a=ice-ufrag:" + params.usernameFragment + "\r\na=ice-pwd:" + params.password + "\r\n";
         if (params.iceLite) {
-          sdp2 += "a=ice-lite\r\n";
+          sdp3 += "a=ice-lite\r\n";
         }
-        return sdp2;
+        return sdp3;
       };
-      SDPUtils2.parseRtpParameters = function(mediaSection) {
+      SDPUtils3.parseRtpParameters = function(mediaSection) {
         const description = {
           codecs: [],
           headerExtensions: [],
           fecMechanisms: [],
           rtcp: []
         };
-        const lines = SDPUtils2.splitLines(mediaSection);
+        const lines = SDPUtils3.splitLines(mediaSection);
         const mline = lines[0].split(" ");
         description.profile = mline[2];
         for (let i = 3; i < mline.length; i++) {
           const pt = mline[i];
-          const rtpmapline = SDPUtils2.matchPrefix(mediaSection, "a=rtpmap:" + pt + " ")[0];
+          const rtpmapline = SDPUtils3.matchPrefix(mediaSection, "a=rtpmap:" + pt + " ")[0];
           if (rtpmapline) {
-            const codec = SDPUtils2.parseRtpMap(rtpmapline);
-            const fmtps = SDPUtils2.matchPrefix(mediaSection, "a=fmtp:" + pt + " ");
-            codec.parameters = fmtps.length ? SDPUtils2.parseFmtp(fmtps[0]) : {};
-            codec.rtcpFeedback = SDPUtils2.matchPrefix(mediaSection, "a=rtcp-fb:" + pt + " ").map(SDPUtils2.parseRtcpFb);
+            const codec = SDPUtils3.parseRtpMap(rtpmapline);
+            const fmtps = SDPUtils3.matchPrefix(mediaSection, "a=fmtp:" + pt + " ");
+            codec.parameters = fmtps.length ? SDPUtils3.parseFmtp(fmtps[0]) : {};
+            codec.rtcpFeedback = SDPUtils3.matchPrefix(mediaSection, "a=rtcp-fb:" + pt + " ").map(SDPUtils3.parseRtcpFb);
             description.codecs.push(codec);
             switch (codec.name.toUpperCase()) {
               case "RED":
@@ -31436,10 +31447,10 @@
             }
           }
         }
-        SDPUtils2.matchPrefix(mediaSection, "a=extmap:").forEach((line) => {
-          description.headerExtensions.push(SDPUtils2.parseExtmap(line));
+        SDPUtils3.matchPrefix(mediaSection, "a=extmap:").forEach((line) => {
+          description.headerExtensions.push(SDPUtils3.parseExtmap(line));
         });
-        const wildcardRtcpFb = SDPUtils2.matchPrefix(mediaSection, "a=rtcp-fb:* ").map(SDPUtils2.parseRtcpFb);
+        const wildcardRtcpFb = SDPUtils3.matchPrefix(mediaSection, "a=rtcp-fb:* ").map(SDPUtils3.parseRtcpFb);
         description.codecs.forEach((codec) => {
           wildcardRtcpFb.forEach((fb) => {
             const duplicate = codec.rtcpFeedback.find((existingFeedback) => {
@@ -31452,23 +31463,23 @@
         });
         return description;
       };
-      SDPUtils2.writeRtpDescription = function(kind, caps) {
-        let sdp2 = "";
-        sdp2 += "m=" + kind + " ";
-        sdp2 += caps.codecs.length > 0 ? "9" : "0";
-        sdp2 += " " + (caps.profile || "UDP/TLS/RTP/SAVPF") + " ";
-        sdp2 += caps.codecs.map((codec) => {
+      SDPUtils3.writeRtpDescription = function(kind, caps) {
+        let sdp3 = "";
+        sdp3 += "m=" + kind + " ";
+        sdp3 += caps.codecs.length > 0 ? "9" : "0";
+        sdp3 += " " + (caps.profile || "UDP/TLS/RTP/SAVPF") + " ";
+        sdp3 += caps.codecs.map((codec) => {
           if (codec.preferredPayloadType !== void 0) {
             return codec.preferredPayloadType;
           }
           return codec.payloadType;
         }).join(" ") + "\r\n";
-        sdp2 += "c=IN IP4 0.0.0.0\r\n";
-        sdp2 += "a=rtcp:9 IN IP4 0.0.0.0\r\n";
+        sdp3 += "c=IN IP4 0.0.0.0\r\n";
+        sdp3 += "a=rtcp:9 IN IP4 0.0.0.0\r\n";
         caps.codecs.forEach((codec) => {
-          sdp2 += SDPUtils2.writeRtpMap(codec);
-          sdp2 += SDPUtils2.writeFmtp(codec);
-          sdp2 += SDPUtils2.writeRtcpFb(codec);
+          sdp3 += SDPUtils3.writeRtpMap(codec);
+          sdp3 += SDPUtils3.writeFmtp(codec);
+          sdp3 += SDPUtils3.writeRtcpFb(codec);
         });
         let maxptime = 0;
         caps.codecs.forEach((codec) => {
@@ -31477,24 +31488,24 @@
           }
         });
         if (maxptime > 0) {
-          sdp2 += "a=maxptime:" + maxptime + "\r\n";
+          sdp3 += "a=maxptime:" + maxptime + "\r\n";
         }
         if (caps.headerExtensions) {
           caps.headerExtensions.forEach((extension) => {
-            sdp2 += SDPUtils2.writeExtmap(extension);
+            sdp3 += SDPUtils3.writeExtmap(extension);
           });
         }
-        return sdp2;
+        return sdp3;
       };
-      SDPUtils2.parseRtpEncodingParameters = function(mediaSection) {
+      SDPUtils3.parseRtpEncodingParameters = function(mediaSection) {
         const encodingParameters = [];
-        const description = SDPUtils2.parseRtpParameters(mediaSection);
+        const description = SDPUtils3.parseRtpParameters(mediaSection);
         const hasRed = description.fecMechanisms.indexOf("RED") !== -1;
         const hasUlpfec = description.fecMechanisms.indexOf("ULPFEC") !== -1;
-        const ssrcs = SDPUtils2.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils2.parseSsrcMedia(line)).filter((parts) => parts.attribute === "cname");
+        const ssrcs = SDPUtils3.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils3.parseSsrcMedia(line)).filter((parts) => parts.attribute === "cname");
         const primarySsrc = ssrcs.length > 0 && ssrcs[0].ssrc;
         let secondarySsrc;
-        const flows = SDPUtils2.matchPrefix(mediaSection, "a=ssrc-group:FID").map((line) => {
+        const flows = SDPUtils3.matchPrefix(mediaSection, "a=ssrc-group:FID").map((line) => {
           const parts = line.substring(17).split(" ");
           return parts.map((part) => parseInt(part, 10));
         });
@@ -31528,7 +31539,7 @@
             ssrc: primarySsrc
           });
         }
-        let bandwidth = SDPUtils2.matchPrefix(mediaSection, "b=");
+        let bandwidth = SDPUtils3.matchPrefix(mediaSection, "b=");
         if (bandwidth.length) {
           if (bandwidth[0].indexOf("b=TIAS:") === 0) {
             bandwidth = parseInt(bandwidth[0].substring(7), 10);
@@ -31543,36 +31554,36 @@
         }
         return encodingParameters;
       };
-      SDPUtils2.parseRtcpParameters = function(mediaSection) {
+      SDPUtils3.parseRtcpParameters = function(mediaSection) {
         const rtcpParameters = {};
-        const remoteSsrc = SDPUtils2.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils2.parseSsrcMedia(line)).filter((obj) => obj.attribute === "cname")[0];
+        const remoteSsrc = SDPUtils3.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils3.parseSsrcMedia(line)).filter((obj) => obj.attribute === "cname")[0];
         if (remoteSsrc) {
           rtcpParameters.cname = remoteSsrc.value;
           rtcpParameters.ssrc = remoteSsrc.ssrc;
         }
-        const rsize = SDPUtils2.matchPrefix(mediaSection, "a=rtcp-rsize");
+        const rsize = SDPUtils3.matchPrefix(mediaSection, "a=rtcp-rsize");
         rtcpParameters.reducedSize = rsize.length > 0;
         rtcpParameters.compound = rsize.length === 0;
-        const mux = SDPUtils2.matchPrefix(mediaSection, "a=rtcp-mux");
+        const mux = SDPUtils3.matchPrefix(mediaSection, "a=rtcp-mux");
         rtcpParameters.mux = mux.length > 0;
         return rtcpParameters;
       };
-      SDPUtils2.writeRtcpParameters = function(rtcpParameters) {
-        let sdp2 = "";
+      SDPUtils3.writeRtcpParameters = function(rtcpParameters) {
+        let sdp3 = "";
         if (rtcpParameters.reducedSize) {
-          sdp2 += "a=rtcp-rsize\r\n";
+          sdp3 += "a=rtcp-rsize\r\n";
         }
         if (rtcpParameters.mux) {
-          sdp2 += "a=rtcp-mux\r\n";
+          sdp3 += "a=rtcp-mux\r\n";
         }
         if (rtcpParameters.ssrc !== void 0 && rtcpParameters.cname) {
-          sdp2 += "a=ssrc:" + rtcpParameters.ssrc + " cname:" + rtcpParameters.cname + "\r\n";
+          sdp3 += "a=ssrc:" + rtcpParameters.ssrc + " cname:" + rtcpParameters.cname + "\r\n";
         }
-        return sdp2;
+        return sdp3;
       };
-      SDPUtils2.parseMsid = function(mediaSection) {
+      SDPUtils3.parseMsid = function(mediaSection) {
         let parts;
-        const spec = SDPUtils2.matchPrefix(mediaSection, "a=msid:");
+        const spec = SDPUtils3.matchPrefix(mediaSection, "a=msid:");
         if (spec.length === 1) {
           parts = spec[0].substring(7).split(" ");
           return {
@@ -31580,7 +31591,7 @@
             track: parts[1]
           };
         }
-        const planB = SDPUtils2.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils2.parseSsrcMedia(line)).filter((msidParts) => msidParts.attribute === "msid");
+        const planB = SDPUtils3.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils3.parseSsrcMedia(line)).filter((msidParts) => msidParts.attribute === "msid");
         if (planB.length > 0) {
           parts = planB[0].value.split(" ");
           return {
@@ -31589,9 +31600,9 @@
           };
         }
       };
-      SDPUtils2.parseSctpDescription = function(mediaSection) {
-        const mline = SDPUtils2.parseMLine(mediaSection);
-        const maxSizeLine = SDPUtils2.matchPrefix(mediaSection, "a=max-message-size:");
+      SDPUtils3.parseSctpDescription = function(mediaSection) {
+        const mline = SDPUtils3.parseMLine(mediaSection);
+        const maxSizeLine = SDPUtils3.matchPrefix(mediaSection, "a=max-message-size:");
         let maxMessageSize;
         if (maxSizeLine.length > 0) {
           maxMessageSize = parseInt(maxSizeLine[0].substring(19), 10);
@@ -31599,7 +31610,7 @@
         if (isNaN(maxMessageSize)) {
           maxMessageSize = 65536;
         }
-        const sctpPort = SDPUtils2.matchPrefix(mediaSection, "a=sctp-port:");
+        const sctpPort = SDPUtils3.matchPrefix(mediaSection, "a=sctp-port:");
         if (sctpPort.length > 0) {
           return {
             port: parseInt(sctpPort[0].substring(12), 10),
@@ -31607,7 +31618,7 @@
             maxMessageSize
           };
         }
-        const sctpMapLines = SDPUtils2.matchPrefix(mediaSection, "a=sctpmap:");
+        const sctpMapLines = SDPUtils3.matchPrefix(mediaSection, "a=sctpmap:");
         if (sctpMapLines.length > 0) {
           const parts = sctpMapLines[0].substring(10).split(" ");
           return {
@@ -31617,7 +31628,7 @@
           };
         }
       };
-      SDPUtils2.writeSctpDescription = function(media, sctp) {
+      SDPUtils3.writeSctpDescription = function(media, sctp) {
         let output = [];
         if (media.protocol !== "DTLS/SCTP") {
           output = ["m=" + media.kind + " 9 " + media.protocol + " " + sctp.protocol + "\r\n", "c=IN IP4 0.0.0.0\r\n", "a=sctp-port:" + sctp.port + "\r\n"];
@@ -31629,22 +31640,22 @@
         }
         return output.join("");
       };
-      SDPUtils2.generateSessionId = function() {
+      SDPUtils3.generateSessionId = function() {
         return Math.random().toString().substr(2, 22);
       };
-      SDPUtils2.writeSessionBoilerplate = function(sessId, sessVer, sessUser) {
+      SDPUtils3.writeSessionBoilerplate = function(sessId, sessVer, sessUser) {
         let sessionId;
         const version2 = sessVer !== void 0 ? sessVer : 2;
         if (sessId) {
           sessionId = sessId;
         } else {
-          sessionId = SDPUtils2.generateSessionId();
+          sessionId = SDPUtils3.generateSessionId();
         }
         const user2 = sessUser || "thisisadapterortc";
         return "v=0\r\no=" + user2 + " " + sessionId + " " + version2 + " IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n";
       };
-      SDPUtils2.getDirection = function(mediaSection, sessionpart) {
-        const lines = SDPUtils2.splitLines(mediaSection);
+      SDPUtils3.getDirection = function(mediaSection, sessionpart) {
+        const lines = SDPUtils3.splitLines(mediaSection);
         for (let i = 0; i < lines.length; i++) {
           switch (lines[i]) {
             case "a=sendrecv":
@@ -31655,20 +31666,20 @@
           }
         }
         if (sessionpart) {
-          return SDPUtils2.getDirection(sessionpart);
+          return SDPUtils3.getDirection(sessionpart);
         }
         return "sendrecv";
       };
-      SDPUtils2.getKind = function(mediaSection) {
-        const lines = SDPUtils2.splitLines(mediaSection);
+      SDPUtils3.getKind = function(mediaSection) {
+        const lines = SDPUtils3.splitLines(mediaSection);
         const mline = lines[0].split(" ");
         return mline[0].substring(2);
       };
-      SDPUtils2.isRejected = function(mediaSection) {
+      SDPUtils3.isRejected = function(mediaSection) {
         return mediaSection.split(" ", 2)[1] === "0";
       };
-      SDPUtils2.parseMLine = function(mediaSection) {
-        const lines = SDPUtils2.splitLines(mediaSection);
+      SDPUtils3.parseMLine = function(mediaSection) {
+        const lines = SDPUtils3.splitLines(mediaSection);
         const parts = lines[0].substring(2).split(" ");
         return {
           kind: parts[0],
@@ -31677,8 +31688,8 @@
           fmt: parts.slice(3).join(" ")
         };
       };
-      SDPUtils2.parseOLine = function(mediaSection) {
-        const line = SDPUtils2.matchPrefix(mediaSection, "o=")[0];
+      SDPUtils3.parseOLine = function(mediaSection) {
+        const line = SDPUtils3.matchPrefix(mediaSection, "o=")[0];
         const parts = line.substring(2).split(" ");
         return {
           username: parts[0],
@@ -31689,11 +31700,11 @@
           address: parts[5]
         };
       };
-      SDPUtils2.isValidSDP = function(blob) {
+      SDPUtils3.isValidSDP = function(blob) {
         if (typeof blob !== "string" || blob.length === 0) {
           return false;
         }
-        const lines = SDPUtils2.splitLines(blob);
+        const lines = SDPUtils3.splitLines(blob);
         for (let i = 0; i < lines.length; i++) {
           if (lines[i].length < 2 || lines[i].charAt(1) !== "=") {
             return false;
@@ -31702,7 +31713,7 @@
         return true;
       };
       {
-        module.exports = SDPUtils2;
+        module.exports = SDPUtils3;
       }
     })(sdp$1);
     return sdp$1.exports;
@@ -31967,16 +31978,16 @@
     const nativeSRD = window2.RTCPeerConnection.prototype.setRemoteDescription;
     window2.RTCPeerConnection.prototype.setRemoteDescription = function setRemoteDescription(desc) {
       if (desc && desc.sdp && desc.sdp.indexOf("\na=extmap-allow-mixed") !== -1) {
-        const sdp2 = desc.sdp.split("\n").filter((line) => {
+        const sdp3 = desc.sdp.split("\n").filter((line) => {
           return line.trim() !== "a=extmap-allow-mixed";
         }).join("\n");
         if (window2.RTCSessionDescription && desc instanceof window2.RTCSessionDescription) {
           arguments[0] = new window2.RTCSessionDescription({
             type: desc.type,
-            sdp: sdp2
+            sdp: sdp3
           });
         } else {
-          desc.sdp = sdp2;
+          desc.sdp = sdp3;
         }
       }
       return nativeSRD.apply(this, arguments);
@@ -32046,9 +32057,9 @@
       shimFirefox: true,
       shimSafari: true
     };
-    const logging2 = log$5;
+    const logging3 = log$5;
     const browserDetails2 = detectBrowser(window2);
-    const adapter = {
+    const adapter2 = {
       browserDetails: browserDetails2,
       commonShim,
       extractVersion,
@@ -32060,15 +32071,15 @@
     switch (browserDetails2.browser) {
       case "chrome":
         if (!chromeShim || !shimPeerConnection$1 || !options.shimChrome) {
-          logging2("Chrome shim is not included in this adapter release.");
-          return adapter;
+          logging3("Chrome shim is not included in this adapter release.");
+          return adapter2;
         }
         if (browserDetails2.version === null) {
-          logging2("Chrome shim can not determine version, not shimming.");
-          return adapter;
+          logging3("Chrome shim can not determine version, not shimming.");
+          return adapter2;
         }
-        logging2("adapter.js shimming chrome.");
-        adapter.browserShim = chromeShim;
+        logging3("adapter.js shimming chrome.");
+        adapter2.browserShim = chromeShim;
         shimAddIceCandidateNullOrEmpty(window2, browserDetails2);
         shimParameterlessSetLocalDescription(window2);
         shimGetUserMedia$2(window2, browserDetails2);
@@ -32088,11 +32099,11 @@
         break;
       case "firefox":
         if (!firefoxShim || !shimPeerConnection || !options.shimFirefox) {
-          logging2("Firefox shim is not included in this adapter release.");
-          return adapter;
+          logging3("Firefox shim is not included in this adapter release.");
+          return adapter2;
         }
-        logging2("adapter.js shimming firefox.");
-        adapter.browserShim = firefoxShim;
+        logging3("adapter.js shimming firefox.");
+        adapter2.browserShim = firefoxShim;
         shimAddIceCandidateNullOrEmpty(window2, browserDetails2);
         shimParameterlessSetLocalDescription(window2);
         shimGetUserMedia$1(window2, browserDetails2);
@@ -32114,11 +32125,11 @@
         break;
       case "safari":
         if (!safariShim || !options.shimSafari) {
-          logging2("Safari shim is not included in this adapter release.");
-          return adapter;
+          logging3("Safari shim is not included in this adapter release.");
+          return adapter2;
         }
-        logging2("adapter.js shimming safari.");
-        adapter.browserShim = safariShim;
+        logging3("adapter.js shimming safari.");
+        adapter2.browserShim = safariShim;
         shimAddIceCandidateNullOrEmpty(window2, browserDetails2);
         shimParameterlessSetLocalDescription(window2);
         shimRTCIceServerUrls(window2);
@@ -32136,10 +32147,10 @@
         removeExtmapAllowMixed(window2, browserDetails2);
         break;
       default:
-        logging2("Unsupported browser!");
+        logging3("Unsupported browser!");
         break;
     }
-    return adapter;
+    return adapter2;
   }
   function getBrowser(userAgent) {
     let force = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : true;
@@ -34145,38 +34156,38 @@
       var toIntIfInt = function(v) {
         return String(Number(v)) === v ? Number(v) : v;
       };
-      var attachProperties = function(match, location, names, rawName) {
+      var attachProperties = function(match, location2, names, rawName) {
         if (rawName && !names) {
-          location[rawName] = toIntIfInt(match[1]);
+          location2[rawName] = toIntIfInt(match[1]);
         } else {
           for (var i = 0; i < names.length; i += 1) {
             if (match[i + 1] != null) {
-              location[names[i]] = toIntIfInt(match[i + 1]);
+              location2[names[i]] = toIntIfInt(match[i + 1]);
             }
           }
         }
       };
-      var parseReg = function(obj, location, content) {
+      var parseReg = function(obj, location2, content) {
         var needsBlank = obj.name && obj.names;
-        if (obj.push && !location[obj.push]) {
-          location[obj.push] = [];
-        } else if (needsBlank && !location[obj.name]) {
-          location[obj.name] = {};
+        if (obj.push && !location2[obj.push]) {
+          location2[obj.push] = [];
+        } else if (needsBlank && !location2[obj.name]) {
+          location2[obj.name] = {};
         }
         var keyLocation = obj.push ? {} : (
           // blank object that will be pushed
-          needsBlank ? location[obj.name] : location
+          needsBlank ? location2[obj.name] : location2
         );
         attachProperties(content.match(obj.reg), keyLocation, obj.names, obj.name);
         if (obj.push) {
-          location[obj.push].push(keyLocation);
+          location2[obj.push].push(keyLocation);
         }
       };
       var grammar2 = requireGrammar();
       var validLine = RegExp.prototype.test.bind(/^([a-z])=(.*)/);
-      exports.parse = function(sdp2) {
-        var session = {}, media = [], location = session;
-        sdp2.split(/(\r\n|\r|\n)/).filter(validLine).forEach(function(l) {
+      exports.parse = function(sdp3) {
+        var session = {}, media = [], location2 = session;
+        sdp3.split(/(\r\n|\r|\n)/).filter(validLine).forEach(function(l) {
           var type = l[0];
           var content = l.slice(2);
           if (type === "m") {
@@ -34184,12 +34195,12 @@
               rtp: [],
               fmtp: []
             });
-            location = media[media.length - 1];
+            location2 = media[media.length - 1];
           }
           for (var j = 0; j < (grammar2[type] || []).length; j += 1) {
             var obj = grammar2[type][j];
             if (obj.reg.test(content)) {
-              return parseReg(obj, location, content);
+              return parseReg(obj, location2, content);
             }
           }
         });
@@ -34276,20 +34287,20 @@
         }
       });
     };
-    var makeLine = function(type, obj, location) {
-      var str = obj.format instanceof Function ? obj.format(obj.push ? location : location[obj.name]) : obj.format;
+    var makeLine = function(type, obj, location2) {
+      var str = obj.format instanceof Function ? obj.format(obj.push ? location2 : location2[obj.name]) : obj.format;
       var args = [type + "=" + str];
       if (obj.names) {
         for (var i = 0; i < obj.names.length; i += 1) {
           var n = obj.names[i];
           if (obj.name) {
-            args.push(location[obj.name][n]);
+            args.push(location2[obj.name][n]);
           } else {
-            args.push(location[obj.names[i]]);
+            args.push(location2[obj.names[i]]);
           }
         }
       } else {
-        args.push(location[obj.name]);
+        args.push(location2[obj.name]);
       }
       return format.apply(null, args);
     };
@@ -34310,33 +34321,33 @@
       });
       var outerOrder = opts.outerOrder || defaultOuterOrder;
       var innerOrder = opts.innerOrder || defaultInnerOrder;
-      var sdp2 = [];
+      var sdp3 = [];
       outerOrder.forEach(function(type) {
         grammar2[type].forEach(function(obj) {
           if (obj.name in session && session[obj.name] != null) {
-            sdp2.push(makeLine(type, obj, session));
+            sdp3.push(makeLine(type, obj, session));
           } else if (obj.push in session && session[obj.push] != null) {
             session[obj.push].forEach(function(el) {
-              sdp2.push(makeLine(type, obj, el));
+              sdp3.push(makeLine(type, obj, el));
             });
           }
         });
       });
       session.media.forEach(function(mLine) {
-        sdp2.push(makeLine("m", grammar2.m[0], mLine));
+        sdp3.push(makeLine("m", grammar2.m[0], mLine));
         innerOrder.forEach(function(type) {
           grammar2[type].forEach(function(obj) {
             if (obj.name in mLine && mLine[obj.name] != null) {
-              sdp2.push(makeLine(type, obj, mLine));
+              sdp3.push(makeLine(type, obj, mLine));
             } else if (obj.push in mLine && mLine[obj.push] != null) {
               mLine[obj.push].forEach(function(el) {
-                sdp2.push(makeLine(type, obj, el));
+                sdp3.push(makeLine(type, obj, el));
               });
             }
           });
         });
       });
-      return sdp2.join("\r\n") + "\r\n";
+      return sdp3.join("\r\n") + "\r\n";
     };
     return writer;
   }
@@ -34382,9 +34393,9 @@
     }
     return codecPayload;
   }
-  function ensureVideoDDExtension(media, sdp2, ddExtID) {
+  function ensureVideoDDExtension(media, sdp3, ddExtID) {
     var _a2, _b2;
-    const id = ddExtensionIDFor(sdp2, ddExtID);
+    const id = ddExtensionIDFor(sdp3, ddExtID);
     if (id === void 0) {
       return ddExtID;
     }
@@ -34397,19 +34408,19 @@
     }
     return id;
   }
-  function ddExtensionIDFor(sdp2, cachedID) {
-    const mapped = mappedExtensionID(sdp2, ddExtensionURI);
+  function ddExtensionIDFor(sdp3, cachedID) {
+    const mapped = mappedExtensionID(sdp3, ddExtensionURI);
     if (mapped !== void 0) {
-      return usedForOtherURI(sdp2, mapped, ddExtensionURI) ? void 0 : mapped;
+      return usedForOtherURI(sdp3, mapped, ddExtensionURI) ? void 0 : mapped;
     }
-    if (cachedID !== 0 && !usedForOtherURI(sdp2, cachedID, ddExtensionURI)) {
+    if (cachedID !== 0 && !usedForOtherURI(sdp3, cachedID, ddExtensionURI)) {
       return cachedID;
     }
-    return unusedExtensionID(sdp2);
+    return unusedExtensionID(sdp3);
   }
-  function mappedExtensionID(sdp2, uri) {
+  function mappedExtensionID(sdp3, uri) {
     var _a2;
-    for (const media of sdp2.media) {
+    for (const media of sdp3.media) {
       const ext = (_a2 = media.ext) === null || _a2 === void 0 ? void 0 : _a2.find((candidate) => candidate.uri === uri);
       if (ext) {
         return ext.value;
@@ -34417,15 +34428,15 @@
     }
     return void 0;
   }
-  function usedForOtherURI(sdp2, id, uri) {
-    return sdp2.media.some((media) => {
+  function usedForOtherURI(sdp3, id, uri) {
+    return sdp3.media.some((media) => {
       var _a2;
       return (_a2 = media.ext) === null || _a2 === void 0 ? void 0 : _a2.some((ext) => ext.value === id && ext.uri !== uri);
     });
   }
-  function unusedExtensionID(sdp2) {
+  function unusedExtensionID(sdp3) {
     let maxID = 0;
-    sdp2.media.forEach((media) => {
+    sdp3.media.forEach((media) => {
       var _a2;
       (_a2 = media.ext) === null || _a2 === void 0 ? void 0 : _a2.forEach((ext) => {
         if (ext.value > maxID) {
@@ -34820,10 +34831,10 @@
         return "balanced";
     }
   }
-  function setPublishingLayersForSender(sender, senderEncodings, qualities, senderLock, isSVC, log2, logContext) {
+  function setPublishingLayersForSender(sender, senderEncodings, qualities, senderLock, isSVC, log3, logContext) {
     return __awaiter(this, void 0, void 0, function* () {
       const unlock = yield senderLock.lock();
-      log2.debug("setPublishingLayersForSender", Object.assign(Object.assign({}, logContext), {
+      log3.debug("setPublishingLayersForSender", Object.assign(Object.assign({}, logContext), {
         sender,
         qualities,
         senderEncodings
@@ -34835,7 +34846,7 @@
           return;
         }
         if (encodings.length !== senderEncodings.length) {
-          log2.warn("cannot set publishing layers, encodings mismatch", Object.assign(Object.assign({}, logContext), {
+          log3.warn("cannot set publishing layers, encodings mismatch", Object.assign(Object.assign({}, logContext), {
             encodings,
             senderEncodings
           }));
@@ -34865,7 +34876,7 @@
             if (encoding.active !== subscribedQuality.enabled) {
               hasChanged = true;
               encoding.active = subscribedQuality.enabled;
-              log2.debug("setting layer ".concat(subscribedQuality.quality, " to ").concat(encoding.active ? "enabled" : "disabled"), logContext);
+              log3.debug("setting layer ".concat(subscribedQuality.quality, " to ").concat(encoding.active ? "enabled" : "disabled"), logContext);
               if (isFireFox()) {
                 if (subscribedQuality.enabled) {
                   encoding.scaleResolutionDownBy = senderEncodings[idx].scaleResolutionDownBy;
@@ -34882,7 +34893,7 @@
         }
         if (hasChanged) {
           params.encodings = encodings;
-          log2.debug("setting encodings", Object.assign(Object.assign({}, logContext), {
+          log3.debug("setting encodings", Object.assign(Object.assign({}, logContext), {
             encodings: params.encodings
           }));
           yield sender.setParameters(params);
@@ -49729,9 +49740,9 @@
       };
       textEncoder = new TextEncoder();
       OutgoingDataStreamManager = class {
-        constructor(engine, log2, getRemoteParticipantClientProtocol, getRemoteParticipantCapabilities, getAllRemoteParticipantIdentities) {
+        constructor(engine, log3, getRemoteParticipantClientProtocol, getRemoteParticipantCapabilities, getAllRemoteParticipantIdentities) {
           this.engine = engine;
-          this.log = log2;
+          this.log = log3;
           this.getRemoteParticipantClientProtocol = getRemoteParticipantClientProtocol;
           this.getRemoteParticipantCapabilities = getRemoteParticipantCapabilities;
           this.getAllRemoteParticipantIdentities = getAllRemoteParticipantIdentities;
@@ -52279,11 +52290,11 @@
       RPC_VERSION_V1 = 1;
       RPC_VERSION_V2 = 2;
       RpcClientManager = class extends eventsExports.EventEmitter {
-        constructor(log2, outgoingDataStreamManager, getRemoteParticipantClientProtocol, getServerVersion) {
+        constructor(log3, outgoingDataStreamManager, getRemoteParticipantClientProtocol, getServerVersion) {
           super();
           this.pendingAcks = /* @__PURE__ */ new Map();
           this.pendingResponses = /* @__PURE__ */ new Map();
-          this.log = log2;
+          this.log = log3;
           this.outgoingDataStreamManager = outgoingDataStreamManager;
           this.getRemoteParticipantClientProtocol = getRemoteParticipantClientProtocol;
           this.getServerVersion = getServerVersion;
@@ -52464,10 +52475,10 @@
         }
       };
       RpcServerManager = class extends eventsExports.EventEmitter {
-        constructor(log2, outgoingDataStreamManager, getRemoteParticipantClientProtocol) {
+        constructor(log3, outgoingDataStreamManager, getRemoteParticipantClientProtocol) {
           super();
           this.rpcHandlers = /* @__PURE__ */ new Map();
-          this.log = log2;
+          this.log = log3;
           this.outgoingDataStreamManager = outgoingDataStreamManager;
           this.getRemoteParticipantClientProtocol = getRemoteParticipantClientProtocol;
         }
@@ -58541,11 +58552,11 @@
         });
       }
       if (key === "nithya_user" && val && typeof val === "object") {
-        if (val.name && ["sarah", "priya"].includes(String(val.name).toLowerCase())) {
-          val.name = "Yoga Member";
+        if (val.name && ["sarah", "priya", "yoga member"].includes(String(val.name).toLowerCase())) {
+          val.name = "Yoga Student";
         }
         if (val.email && String(val.email).toLowerCase().includes("sarah")) {
-          val.email = "member@nithyayoga.com";
+          val.email = "student@nithyayoga.com";
         }
       }
       return val;
@@ -58817,6 +58828,4766 @@
     }
   });
 
+  // node_modules/peerjs-js-binarypack/dist/binarypack.mjs
+  function $e8379818650e2442$var$concatArrayBuffers(bufs) {
+    let size = 0;
+    for (const buf of bufs) size += buf.byteLength;
+    const result = new Uint8Array(size);
+    let offset = 0;
+    for (const buf of bufs) {
+      const view = new Uint8Array(buf.buffer, buf.byteOffset, buf.byteLength);
+      result.set(view, offset);
+      offset += buf.byteLength;
+    }
+    return result;
+  }
+  function $0cfd7828ad59115f$export$417857010dc9287f(data) {
+    const unpacker = new $0cfd7828ad59115f$var$Unpacker(data);
+    return unpacker.unpack();
+  }
+  function $0cfd7828ad59115f$export$2a703dbb0cb35339(data) {
+    const packer = new $0cfd7828ad59115f$export$b9ec4b114aa40074();
+    const res = packer.pack(data);
+    if (res instanceof Promise) return res.then(() => packer.getBuffer());
+    return packer.getBuffer();
+  }
+  var $e8379818650e2442$export$93654d4f2d6cd524, $0cfd7828ad59115f$var$Unpacker, $0cfd7828ad59115f$export$b9ec4b114aa40074;
+  var init_binarypack = __esm({
+    "node_modules/peerjs-js-binarypack/dist/binarypack.mjs"() {
+      $e8379818650e2442$export$93654d4f2d6cd524 = class {
+        constructor() {
+          this.encoder = new TextEncoder();
+          this._pieces = [];
+          this._parts = [];
+        }
+        append_buffer(data) {
+          this.flush();
+          this._parts.push(data);
+        }
+        append(data) {
+          this._pieces.push(data);
+        }
+        flush() {
+          if (this._pieces.length > 0) {
+            const buf = new Uint8Array(this._pieces);
+            this._parts.push(buf);
+            this._pieces = [];
+          }
+        }
+        toArrayBuffer() {
+          const buffer = [];
+          for (const part of this._parts) buffer.push(part);
+          return $e8379818650e2442$var$concatArrayBuffers(buffer).buffer;
+        }
+      };
+      $0cfd7828ad59115f$var$Unpacker = class {
+        constructor(data) {
+          this.index = 0;
+          this.dataBuffer = data;
+          this.dataView = new Uint8Array(this.dataBuffer);
+          this.length = this.dataBuffer.byteLength;
+        }
+        unpack() {
+          const type = this.unpack_uint8();
+          if (type < 128) return type;
+          else if ((type ^ 224) < 32) return (type ^ 224) - 32;
+          let size;
+          if ((size = type ^ 160) <= 15) return this.unpack_raw(size);
+          else if ((size = type ^ 176) <= 15) return this.unpack_string(size);
+          else if ((size = type ^ 144) <= 15) return this.unpack_array(size);
+          else if ((size = type ^ 128) <= 15) return this.unpack_map(size);
+          switch (type) {
+            case 192:
+              return null;
+            case 193:
+              return void 0;
+            case 194:
+              return false;
+            case 195:
+              return true;
+            case 202:
+              return this.unpack_float();
+            case 203:
+              return this.unpack_double();
+            case 204:
+              return this.unpack_uint8();
+            case 205:
+              return this.unpack_uint16();
+            case 206:
+              return this.unpack_uint32();
+            case 207:
+              return this.unpack_uint64();
+            case 208:
+              return this.unpack_int8();
+            case 209:
+              return this.unpack_int16();
+            case 210:
+              return this.unpack_int32();
+            case 211:
+              return this.unpack_int64();
+            case 212:
+              return void 0;
+            case 213:
+              return void 0;
+            case 214:
+              return void 0;
+            case 215:
+              return void 0;
+            case 216:
+              size = this.unpack_uint16();
+              return this.unpack_string(size);
+            case 217:
+              size = this.unpack_uint32();
+              return this.unpack_string(size);
+            case 218:
+              size = this.unpack_uint16();
+              return this.unpack_raw(size);
+            case 219:
+              size = this.unpack_uint32();
+              return this.unpack_raw(size);
+            case 220:
+              size = this.unpack_uint16();
+              return this.unpack_array(size);
+            case 221:
+              size = this.unpack_uint32();
+              return this.unpack_array(size);
+            case 222:
+              size = this.unpack_uint16();
+              return this.unpack_map(size);
+            case 223:
+              size = this.unpack_uint32();
+              return this.unpack_map(size);
+          }
+        }
+        unpack_uint8() {
+          const byte = this.dataView[this.index] & 255;
+          this.index++;
+          return byte;
+        }
+        unpack_uint16() {
+          const bytes = this.read(2);
+          const uint16 = (bytes[0] & 255) * 256 + (bytes[1] & 255);
+          this.index += 2;
+          return uint16;
+        }
+        unpack_uint32() {
+          const bytes = this.read(4);
+          const uint32 = ((bytes[0] * 256 + bytes[1]) * 256 + bytes[2]) * 256 + bytes[3];
+          this.index += 4;
+          return uint32;
+        }
+        unpack_uint64() {
+          const bytes = this.read(8);
+          const uint64 = ((((((bytes[0] * 256 + bytes[1]) * 256 + bytes[2]) * 256 + bytes[3]) * 256 + bytes[4]) * 256 + bytes[5]) * 256 + bytes[6]) * 256 + bytes[7];
+          this.index += 8;
+          return uint64;
+        }
+        unpack_int8() {
+          const uint8 = this.unpack_uint8();
+          return uint8 < 128 ? uint8 : uint8 - 256;
+        }
+        unpack_int16() {
+          const uint16 = this.unpack_uint16();
+          return uint16 < 32768 ? uint16 : uint16 - 65536;
+        }
+        unpack_int32() {
+          const uint32 = this.unpack_uint32();
+          return uint32 < 2 ** 31 ? uint32 : uint32 - 2 ** 32;
+        }
+        unpack_int64() {
+          const uint64 = this.unpack_uint64();
+          return uint64 < 2 ** 63 ? uint64 : uint64 - 2 ** 64;
+        }
+        unpack_raw(size) {
+          if (this.length < this.index + size) throw new Error(`BinaryPackFailure: index is out of range ${this.index} ${size} ${this.length}`);
+          const buf = this.dataBuffer.slice(this.index, this.index + size);
+          this.index += size;
+          return buf;
+        }
+        unpack_string(size) {
+          const bytes = this.read(size);
+          let i = 0;
+          let str = "";
+          let c;
+          let code;
+          while (i < size) {
+            c = bytes[i];
+            if (c < 160) {
+              code = c;
+              i++;
+            } else if ((c ^ 192) < 32) {
+              code = (c & 31) << 6 | bytes[i + 1] & 63;
+              i += 2;
+            } else if ((c ^ 224) < 16) {
+              code = (c & 15) << 12 | (bytes[i + 1] & 63) << 6 | bytes[i + 2] & 63;
+              i += 3;
+            } else {
+              code = (c & 7) << 18 | (bytes[i + 1] & 63) << 12 | (bytes[i + 2] & 63) << 6 | bytes[i + 3] & 63;
+              i += 4;
+            }
+            str += String.fromCodePoint(code);
+          }
+          this.index += size;
+          return str;
+        }
+        unpack_array(size) {
+          const objects = new Array(size);
+          for (let i = 0; i < size; i++) objects[i] = this.unpack();
+          return objects;
+        }
+        unpack_map(size) {
+          const map = {};
+          for (let i = 0; i < size; i++) {
+            const key = this.unpack();
+            map[key] = this.unpack();
+          }
+          return map;
+        }
+        unpack_float() {
+          const uint32 = this.unpack_uint32();
+          const sign = uint32 >> 31;
+          const exp = (uint32 >> 23 & 255) - 127;
+          const fraction = uint32 & 8388607 | 8388608;
+          return (sign === 0 ? 1 : -1) * fraction * 2 ** (exp - 23);
+        }
+        unpack_double() {
+          const h32 = this.unpack_uint32();
+          const l32 = this.unpack_uint32();
+          const sign = h32 >> 31;
+          const exp = (h32 >> 20 & 2047) - 1023;
+          const hfrac = h32 & 1048575 | 1048576;
+          const frac = hfrac * 2 ** (exp - 20) + l32 * 2 ** (exp - 52);
+          return (sign === 0 ? 1 : -1) * frac;
+        }
+        read(length) {
+          const j = this.index;
+          if (j + length <= this.length) return this.dataView.subarray(j, j + length);
+          else throw new Error("BinaryPackFailure: read index out of range");
+        }
+      };
+      $0cfd7828ad59115f$export$b9ec4b114aa40074 = class {
+        getBuffer() {
+          return this._bufferBuilder.toArrayBuffer();
+        }
+        pack(value) {
+          if (typeof value === "string") this.pack_string(value);
+          else if (typeof value === "number") {
+            if (Math.floor(value) === value) this.pack_integer(value);
+            else this.pack_double(value);
+          } else if (typeof value === "boolean") {
+            if (value === true) this._bufferBuilder.append(195);
+            else if (value === false) this._bufferBuilder.append(194);
+          } else if (value === void 0) this._bufferBuilder.append(192);
+          else if (typeof value === "object") {
+            if (value === null) this._bufferBuilder.append(192);
+            else {
+              const constructor = value.constructor;
+              if (value instanceof Array) {
+                const res = this.pack_array(value);
+                if (res instanceof Promise) return res.then(() => this._bufferBuilder.flush());
+              } else if (value instanceof ArrayBuffer) this.pack_bin(new Uint8Array(value));
+              else if ("BYTES_PER_ELEMENT" in value) {
+                const v = value;
+                this.pack_bin(new Uint8Array(v.buffer, v.byteOffset, v.byteLength));
+              } else if (value instanceof Date) this.pack_string(value.toString());
+              else if (value instanceof Blob) return value.arrayBuffer().then((buffer) => {
+                this.pack_bin(new Uint8Array(buffer));
+                this._bufferBuilder.flush();
+              });
+              else if (constructor == Object || constructor.toString().startsWith("class")) {
+                const res = this.pack_object(value);
+                if (res instanceof Promise) return res.then(() => this._bufferBuilder.flush());
+              } else throw new Error(`Type "${constructor.toString()}" not yet supported`);
+            }
+          } else throw new Error(`Type "${typeof value}" not yet supported`);
+          this._bufferBuilder.flush();
+        }
+        pack_bin(blob) {
+          const length = blob.length;
+          if (length <= 15) this.pack_uint8(160 + length);
+          else if (length <= 65535) {
+            this._bufferBuilder.append(218);
+            this.pack_uint16(length);
+          } else if (length <= 4294967295) {
+            this._bufferBuilder.append(219);
+            this.pack_uint32(length);
+          } else throw new Error("Invalid length");
+          this._bufferBuilder.append_buffer(blob);
+        }
+        pack_string(str) {
+          const encoded = this._textEncoder.encode(str);
+          const length = encoded.length;
+          if (length <= 15) this.pack_uint8(176 + length);
+          else if (length <= 65535) {
+            this._bufferBuilder.append(216);
+            this.pack_uint16(length);
+          } else if (length <= 4294967295) {
+            this._bufferBuilder.append(217);
+            this.pack_uint32(length);
+          } else throw new Error("Invalid length");
+          this._bufferBuilder.append_buffer(encoded);
+        }
+        pack_array(ary) {
+          const length = ary.length;
+          if (length <= 15) this.pack_uint8(144 + length);
+          else if (length <= 65535) {
+            this._bufferBuilder.append(220);
+            this.pack_uint16(length);
+          } else if (length <= 4294967295) {
+            this._bufferBuilder.append(221);
+            this.pack_uint32(length);
+          } else throw new Error("Invalid length");
+          const packNext = (index) => {
+            if (index < length) {
+              const res = this.pack(ary[index]);
+              if (res instanceof Promise) return res.then(() => packNext(index + 1));
+              return packNext(index + 1);
+            }
+          };
+          return packNext(0);
+        }
+        pack_integer(num) {
+          if (num >= -32 && num <= 127) this._bufferBuilder.append(num & 255);
+          else if (num >= 0 && num <= 255) {
+            this._bufferBuilder.append(204);
+            this.pack_uint8(num);
+          } else if (num >= -128 && num <= 127) {
+            this._bufferBuilder.append(208);
+            this.pack_int8(num);
+          } else if (num >= 0 && num <= 65535) {
+            this._bufferBuilder.append(205);
+            this.pack_uint16(num);
+          } else if (num >= -32768 && num <= 32767) {
+            this._bufferBuilder.append(209);
+            this.pack_int16(num);
+          } else if (num >= 0 && num <= 4294967295) {
+            this._bufferBuilder.append(206);
+            this.pack_uint32(num);
+          } else if (num >= -2147483648 && num <= 2147483647) {
+            this._bufferBuilder.append(210);
+            this.pack_int32(num);
+          } else if (num >= -9223372036854776e3 && num <= 9223372036854776e3) {
+            this._bufferBuilder.append(211);
+            this.pack_int64(num);
+          } else if (num >= 0 && num <= 18446744073709552e3) {
+            this._bufferBuilder.append(207);
+            this.pack_uint64(num);
+          } else throw new Error("Invalid integer");
+        }
+        pack_double(num) {
+          let sign = 0;
+          if (num < 0) {
+            sign = 1;
+            num = -num;
+          }
+          const exp = Math.floor(Math.log(num) / Math.LN2);
+          const frac0 = num / 2 ** exp - 1;
+          const frac1 = Math.floor(frac0 * 2 ** 52);
+          const b32 = 2 ** 32;
+          const h32 = sign << 31 | exp + 1023 << 20 | frac1 / b32 & 1048575;
+          const l32 = frac1 % b32;
+          this._bufferBuilder.append(203);
+          this.pack_int32(h32);
+          this.pack_int32(l32);
+        }
+        pack_object(obj) {
+          const keys = Object.keys(obj);
+          const length = keys.length;
+          if (length <= 15) this.pack_uint8(128 + length);
+          else if (length <= 65535) {
+            this._bufferBuilder.append(222);
+            this.pack_uint16(length);
+          } else if (length <= 4294967295) {
+            this._bufferBuilder.append(223);
+            this.pack_uint32(length);
+          } else throw new Error("Invalid length");
+          const packNext = (index) => {
+            if (index < keys.length) {
+              const prop = keys[index];
+              if (obj.hasOwnProperty(prop)) {
+                this.pack(prop);
+                const res = this.pack(obj[prop]);
+                if (res instanceof Promise) return res.then(() => packNext(index + 1));
+              }
+              return packNext(index + 1);
+            }
+          };
+          return packNext(0);
+        }
+        pack_uint8(num) {
+          this._bufferBuilder.append(num);
+        }
+        pack_uint16(num) {
+          this._bufferBuilder.append(num >> 8);
+          this._bufferBuilder.append(num & 255);
+        }
+        pack_uint32(num) {
+          const n = num & 4294967295;
+          this._bufferBuilder.append((n & 4278190080) >>> 24);
+          this._bufferBuilder.append((n & 16711680) >>> 16);
+          this._bufferBuilder.append((n & 65280) >>> 8);
+          this._bufferBuilder.append(n & 255);
+        }
+        pack_uint64(num) {
+          const high = num / 2 ** 32;
+          const low = num % 2 ** 32;
+          this._bufferBuilder.append((high & 4278190080) >>> 24);
+          this._bufferBuilder.append((high & 16711680) >>> 16);
+          this._bufferBuilder.append((high & 65280) >>> 8);
+          this._bufferBuilder.append(high & 255);
+          this._bufferBuilder.append((low & 4278190080) >>> 24);
+          this._bufferBuilder.append((low & 16711680) >>> 16);
+          this._bufferBuilder.append((low & 65280) >>> 8);
+          this._bufferBuilder.append(low & 255);
+        }
+        pack_int8(num) {
+          this._bufferBuilder.append(num & 255);
+        }
+        pack_int16(num) {
+          this._bufferBuilder.append((num & 65280) >> 8);
+          this._bufferBuilder.append(num & 255);
+        }
+        pack_int32(num) {
+          this._bufferBuilder.append(num >>> 24 & 255);
+          this._bufferBuilder.append((num & 16711680) >>> 16);
+          this._bufferBuilder.append((num & 65280) >>> 8);
+          this._bufferBuilder.append(num & 255);
+        }
+        pack_int64(num) {
+          const high = Math.floor(num / 2 ** 32);
+          const low = num % 2 ** 32;
+          this._bufferBuilder.append((high & 4278190080) >>> 24);
+          this._bufferBuilder.append((high & 16711680) >>> 16);
+          this._bufferBuilder.append((high & 65280) >>> 8);
+          this._bufferBuilder.append(high & 255);
+          this._bufferBuilder.append((low & 4278190080) >>> 24);
+          this._bufferBuilder.append((low & 16711680) >>> 16);
+          this._bufferBuilder.append((low & 65280) >>> 8);
+          this._bufferBuilder.append(low & 255);
+        }
+        constructor() {
+          this._bufferBuilder = new (0, $e8379818650e2442$export$93654d4f2d6cd524)();
+          this._textEncoder = new TextEncoder();
+        }
+      };
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/utils.js
+  function extractVersion2(uastring, expr, pos) {
+    const match = uastring.match(expr);
+    return match && match.length >= pos && parseFloat(match[pos], 10);
+  }
+  function wrapPeerConnectionEvent2(window2, eventNameToWrap, wrapper) {
+    if (!window2.RTCPeerConnection) {
+      return;
+    }
+    const addEventListener = Object.getOwnPropertyDescriptor(
+      EventTarget.prototype,
+      "addEventListener"
+    );
+    if (!addEventListener.writable) {
+      log2("Unable to polyfill events");
+      return;
+    }
+    const proto = window2.RTCPeerConnection.prototype;
+    const nativeAddEventListener = proto.addEventListener;
+    proto.addEventListener = function(nativeEventName, cb) {
+      if (nativeEventName !== eventNameToWrap) {
+        return nativeAddEventListener.apply(this, arguments);
+      }
+      const wrappedCallback = (e2) => {
+        const modifiedEvent = wrapper(e2);
+        if (modifiedEvent) {
+          if (cb.handleEvent) {
+            cb.handleEvent(modifiedEvent);
+          } else {
+            cb(modifiedEvent);
+          }
+        }
+      };
+      this._eventMap = this._eventMap || {};
+      if (!this._eventMap[eventNameToWrap]) {
+        this._eventMap[eventNameToWrap] = /* @__PURE__ */ new Map();
+      }
+      this._eventMap[eventNameToWrap].set(cb, wrappedCallback);
+      return nativeAddEventListener.apply(this, [
+        nativeEventName,
+        wrappedCallback
+      ]);
+    };
+    const nativeRemoveEventListener = proto.removeEventListener;
+    proto.removeEventListener = function(nativeEventName, cb) {
+      if (nativeEventName !== eventNameToWrap || !this._eventMap || !this._eventMap[eventNameToWrap]) {
+        return nativeRemoveEventListener.apply(this, arguments);
+      }
+      if (!this._eventMap[eventNameToWrap].has(cb)) {
+        return nativeRemoveEventListener.apply(this, arguments);
+      }
+      const unwrappedCb = this._eventMap[eventNameToWrap].get(cb);
+      this._eventMap[eventNameToWrap].delete(cb);
+      if (this._eventMap[eventNameToWrap].size === 0) {
+        delete this._eventMap[eventNameToWrap];
+      }
+      if (Object.keys(this._eventMap).length === 0) {
+        delete this._eventMap;
+      }
+      return nativeRemoveEventListener.apply(this, [
+        nativeEventName,
+        unwrappedCb
+      ]);
+    };
+    Object.defineProperty(proto, "on" + eventNameToWrap, {
+      get() {
+        return this["_on" + eventNameToWrap];
+      },
+      set(cb) {
+        if (this["_on" + eventNameToWrap]) {
+          this.removeEventListener(
+            eventNameToWrap,
+            this["_on" + eventNameToWrap]
+          );
+          delete this["_on" + eventNameToWrap];
+        }
+        if (cb) {
+          this.addEventListener(
+            eventNameToWrap,
+            this["_on" + eventNameToWrap] = cb
+          );
+        }
+      },
+      enumerable: true,
+      configurable: true
+    });
+  }
+  function disableLog2(bool) {
+    if (typeof bool !== "boolean") {
+      return new Error("Argument type: " + typeof bool + ". Please use a boolean.");
+    }
+    logDisabled_2 = bool;
+    return bool ? "adapter.js logging disabled" : "adapter.js logging enabled";
+  }
+  function disableWarnings2(bool) {
+    if (typeof bool !== "boolean") {
+      return new Error("Argument type: " + typeof bool + ". Please use a boolean.");
+    }
+    deprecationWarnings_2 = !bool;
+    return "adapter.js deprecation warnings " + (bool ? "disabled" : "enabled");
+  }
+  function log2() {
+    if (typeof window === "object") {
+      if (logDisabled_2) {
+        return;
+      }
+      if (typeof console !== "undefined" && typeof console.log === "function") {
+        console.log.apply(console, arguments);
+      }
+    }
+  }
+  function deprecated2(oldMethod, newMethod) {
+    if (!deprecationWarnings_2) {
+      return;
+    }
+    console.warn(oldMethod + " is deprecated, please use " + newMethod + " instead.");
+  }
+  function detectBrowser2(window2) {
+    const result = { browser: null, version: null };
+    if (typeof window2 === "undefined" || !window2.navigator || !window2.navigator.userAgent) {
+      result.browser = "Not a browser.";
+      return result;
+    }
+    const { navigator: navigator2 } = window2;
+    if (navigator2.userAgentData && navigator2.userAgentData.brands) {
+      const chromium = navigator2.userAgentData.brands.find((brand) => {
+        return brand.brand === "Chromium";
+      });
+      if (chromium) {
+        const version2 = parseInt(chromium.version, 10);
+        if (version2 >= 90) {
+          return { browser: "chrome", version: version2 };
+        }
+      }
+    }
+    if (navigator2.mozGetUserMedia) {
+      result.browser = "firefox";
+      result.version = parseInt(extractVersion2(
+        navigator2.userAgent,
+        /Firefox\/(\d+)\./,
+        1
+      ));
+    } else if (navigator2.webkitGetUserMedia || window2.isSecureContext === false && window2.webkitRTCPeerConnection) {
+      result.browser = "chrome";
+      result.version = parseInt(extractVersion2(
+        navigator2.userAgent,
+        /Chrom(e|ium)\/(\d+)\./,
+        2
+      )) || null;
+    } else if (window2.RTCPeerConnection && navigator2.userAgent.match(/AppleWebKit\/(\d+)\./)) {
+      result.browser = "safari";
+      result.version = parseInt(extractVersion2(
+        navigator2.userAgent,
+        /AppleWebKit\/(\d+)\./,
+        1
+      ));
+      result.supportsUnifiedPlan = window2.RTCRtpTransceiver && "currentDirection" in window2.RTCRtpTransceiver.prototype;
+      result._safariVersion = extractVersion2(
+        navigator2.userAgent,
+        /Version\/(\d+(\.?\d+))/,
+        1
+      );
+    } else {
+      result.browser = "Not a supported browser.";
+      return result;
+    }
+    return result;
+  }
+  function isObject(val) {
+    return Object.prototype.toString.call(val) === "[object Object]";
+  }
+  function compactObject2(data) {
+    if (!isObject(data)) {
+      return data;
+    }
+    return Object.keys(data).reduce(function(accumulator, key) {
+      const isObj = isObject(data[key]);
+      const value = isObj ? compactObject2(data[key]) : data[key];
+      const isEmptyObject = isObj && !Object.keys(value).length;
+      if (value === void 0 || isEmptyObject) {
+        return accumulator;
+      }
+      return Object.assign(accumulator, { [key]: value });
+    }, {});
+  }
+  function walkStats2(stats, base, resultSet) {
+    if (!base || resultSet.has(base.id)) {
+      return;
+    }
+    resultSet.set(base.id, base);
+    Object.keys(base).forEach((name) => {
+      if (name.endsWith("Id")) {
+        walkStats2(stats, stats.get(base[name]), resultSet);
+      } else if (name.endsWith("Ids")) {
+        base[name].forEach((id) => {
+          walkStats2(stats, stats.get(id), resultSet);
+        });
+      }
+    });
+  }
+  function filterStats2(result, track, outbound) {
+    const streamStatsType = outbound ? "outbound-rtp" : "inbound-rtp";
+    const filteredResult = /* @__PURE__ */ new Map();
+    if (track === null) {
+      return filteredResult;
+    }
+    const trackStats = [];
+    result.forEach((value) => {
+      if (value.type === "track" && value.trackIdentifier === track.id) {
+        trackStats.push(value);
+      }
+    });
+    trackStats.forEach((trackStat) => {
+      result.forEach((stats) => {
+        if (stats.type === streamStatsType && stats.trackId === trackStat.id) {
+          walkStats2(result, stats, filteredResult);
+        }
+      });
+    });
+    return filteredResult;
+  }
+  var logDisabled_2, deprecationWarnings_2;
+  var init_utils = __esm({
+    "node_modules/webrtc-adapter/src/js/utils.js"() {
+      "use strict";
+      logDisabled_2 = true;
+      deprecationWarnings_2 = true;
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/chrome/getusermedia.js
+  function shimGetUserMedia2(window2, browserDetails2) {
+    if (browserDetails2.version >= 64) {
+      return;
+    }
+    const navigator2 = window2 && window2.navigator;
+    if (!navigator2.mediaDevices) {
+      return;
+    }
+    const constraintsToChrome_ = function(c) {
+      if (typeof c !== "object" || c.mandatory || c.optional) {
+        return c;
+      }
+      const cc = {};
+      Object.keys(c).forEach((key) => {
+        if (key === "require" || key === "advanced" || key === "mediaSource") {
+          return;
+        }
+        const r = typeof c[key] === "object" ? c[key] : { ideal: c[key] };
+        if (r.exact !== void 0 && typeof r.exact === "number") {
+          r.min = r.max = r.exact;
+        }
+        const oldname_ = function(prefix, name) {
+          if (prefix) {
+            return prefix + name.charAt(0).toUpperCase() + name.slice(1);
+          }
+          return name === "deviceId" ? "sourceId" : name;
+        };
+        if (r.ideal !== void 0) {
+          cc.optional = cc.optional || [];
+          let oc = {};
+          if (typeof r.ideal === "number") {
+            oc[oldname_("min", key)] = r.ideal;
+            cc.optional.push(oc);
+            oc = {};
+            oc[oldname_("max", key)] = r.ideal;
+            cc.optional.push(oc);
+          } else {
+            oc[oldname_("", key)] = r.ideal;
+            cc.optional.push(oc);
+          }
+        }
+        if (r.exact !== void 0 && typeof r.exact !== "number") {
+          cc.mandatory = cc.mandatory || {};
+          cc.mandatory[oldname_("", key)] = r.exact;
+        } else {
+          ["min", "max"].forEach((mix) => {
+            if (r[mix] !== void 0) {
+              cc.mandatory = cc.mandatory || {};
+              cc.mandatory[oldname_(mix, key)] = r[mix];
+            }
+          });
+        }
+      });
+      if (c.advanced) {
+        cc.optional = (cc.optional || []).concat(c.advanced);
+      }
+      return cc;
+    };
+    const shimConstraints_ = function(constraints, func) {
+      if (browserDetails2.version >= 61) {
+        return func(constraints);
+      }
+      constraints = JSON.parse(JSON.stringify(constraints));
+      if (constraints && typeof constraints.audio === "object") {
+        const remap = function(obj, a, b) {
+          if (a in obj && !(b in obj)) {
+            obj[b] = obj[a];
+            delete obj[a];
+          }
+        };
+        constraints = JSON.parse(JSON.stringify(constraints));
+        remap(constraints.audio, "autoGainControl", "googAutoGainControl");
+        remap(constraints.audio, "noiseSuppression", "googNoiseSuppression");
+        constraints.audio = constraintsToChrome_(constraints.audio);
+      }
+      if (constraints && typeof constraints.video === "object") {
+        let face = constraints.video.facingMode;
+        face = face && (typeof face === "object" ? face : { ideal: face });
+        const getSupportedFacingModeLies = browserDetails2.version < 66;
+        if (face && (face.exact === "user" || face.exact === "environment" || face.ideal === "user" || face.ideal === "environment") && !(navigator2.mediaDevices.getSupportedConstraints && navigator2.mediaDevices.getSupportedConstraints().facingMode && !getSupportedFacingModeLies)) {
+          delete constraints.video.facingMode;
+          let matches;
+          if (face.exact === "environment" || face.ideal === "environment") {
+            matches = ["back", "rear"];
+          } else if (face.exact === "user" || face.ideal === "user") {
+            matches = ["front"];
+          }
+          if (matches) {
+            return navigator2.mediaDevices.enumerateDevices().then((devices) => {
+              devices = devices.filter((d) => d.kind === "videoinput");
+              let dev = devices.find((d) => matches.some((match) => d.label.toLowerCase().includes(match)));
+              if (!dev && devices.length && matches.includes("back")) {
+                dev = devices[devices.length - 1];
+              }
+              if (dev) {
+                constraints.video.deviceId = face.exact ? { exact: dev.deviceId } : { ideal: dev.deviceId };
+              }
+              constraints.video = constraintsToChrome_(constraints.video);
+              logging2("chrome: " + JSON.stringify(constraints));
+              return func(constraints);
+            });
+          }
+        }
+        constraints.video = constraintsToChrome_(constraints.video);
+      }
+      logging2("chrome: " + JSON.stringify(constraints));
+      return func(constraints);
+    };
+    const shimError_ = function(e2) {
+      if (browserDetails2.version >= 64) {
+        return e2;
+      }
+      return {
+        name: {
+          PermissionDeniedError: "NotAllowedError",
+          PermissionDismissedError: "NotAllowedError",
+          InvalidStateError: "NotAllowedError",
+          DevicesNotFoundError: "NotFoundError",
+          ConstraintNotSatisfiedError: "OverconstrainedError",
+          TrackStartError: "NotReadableError",
+          MediaDeviceFailedDueToShutdown: "NotAllowedError",
+          MediaDeviceKillSwitchOn: "NotAllowedError",
+          TabCaptureError: "AbortError",
+          ScreenCaptureError: "AbortError",
+          DeviceCaptureError: "AbortError"
+        }[e2.name] || e2.name,
+        message: e2.message,
+        constraint: e2.constraint || e2.constraintName,
+        toString() {
+          return this.name + (this.message && ": ") + this.message;
+        }
+      };
+    };
+    const getUserMedia_ = function(constraints, onSuccess, onError) {
+      shimConstraints_(constraints, (c) => {
+        navigator2.webkitGetUserMedia(c, onSuccess, (e2) => {
+          if (onError) {
+            onError(shimError_(e2));
+          }
+        });
+      });
+    };
+    navigator2.getUserMedia = getUserMedia_.bind(navigator2);
+    if (navigator2.mediaDevices.getUserMedia) {
+      const origGetUserMedia = navigator2.mediaDevices.getUserMedia.bind(navigator2.mediaDevices);
+      navigator2.mediaDevices.getUserMedia = function(cs) {
+        return shimConstraints_(cs, (c) => origGetUserMedia(c).then((stream) => {
+          if (c.audio && !stream.getAudioTracks().length || c.video && !stream.getVideoTracks().length) {
+            stream.getTracks().forEach((track) => {
+              track.stop();
+            });
+            throw new DOMException("", "NotFoundError");
+          }
+          return stream;
+        }, (e2) => Promise.reject(shimError_(e2))));
+      };
+    }
+  }
+  var logging2;
+  var init_getusermedia = __esm({
+    "node_modules/webrtc-adapter/src/js/chrome/getusermedia.js"() {
+      "use strict";
+      init_utils();
+      logging2 = log2;
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/chrome/chrome_shim.js
+  var chrome_shim_exports = {};
+  __export(chrome_shim_exports, {
+    fixNegotiationNeeded: () => fixNegotiationNeeded2,
+    shimAddTrackRemoveTrack: () => shimAddTrackRemoveTrack2,
+    shimAddTrackRemoveTrackWithNative: () => shimAddTrackRemoveTrackWithNative2,
+    shimGetSendersWithDtmf: () => shimGetSendersWithDtmf2,
+    shimGetUserMedia: () => shimGetUserMedia2,
+    shimMediaStream: () => shimMediaStream2,
+    shimOnTrack: () => shimOnTrack2,
+    shimPeerConnection: () => shimPeerConnection2,
+    shimSenderReceiverGetStats: () => shimSenderReceiverGetStats2
+  });
+  function shimMediaStream2(window2) {
+    window2.MediaStream = window2.MediaStream || window2.webkitMediaStream;
+  }
+  function shimOnTrack2(window2, browserDetails2) {
+    if (browserDetails2.version > 102) {
+      return;
+    }
+    if (typeof window2 === "object" && window2.RTCPeerConnection && !("ontrack" in window2.RTCPeerConnection.prototype)) {
+      Object.defineProperty(window2.RTCPeerConnection.prototype, "ontrack", {
+        get() {
+          return this._ontrack;
+        },
+        set(f) {
+          if (this._ontrack) {
+            this.removeEventListener("track", this._ontrack);
+          }
+          this.addEventListener("track", this._ontrack = f);
+        },
+        enumerable: true,
+        configurable: true
+      });
+      const origSetRemoteDescription = window2.RTCPeerConnection.prototype.setRemoteDescription;
+      window2.RTCPeerConnection.prototype.setRemoteDescription = function setRemoteDescription() {
+        if (!this._ontrackpoly) {
+          this._ontrackpoly = (e2) => {
+            e2.stream.addEventListener("addtrack", (te) => {
+              let receiver;
+              if (window2.RTCPeerConnection.prototype.getReceivers) {
+                receiver = this.getReceivers().find((r) => r.track && r.track.id === te.track.id);
+              } else {
+                receiver = { track: te.track };
+              }
+              const event = new Event("track");
+              event.track = te.track;
+              event.receiver = receiver;
+              event.transceiver = { receiver };
+              event.streams = [e2.stream];
+              this.dispatchEvent(event);
+            });
+            e2.stream.getTracks().forEach((track) => {
+              let receiver;
+              if (window2.RTCPeerConnection.prototype.getReceivers) {
+                receiver = this.getReceivers().find((r) => r.track && r.track.id === track.id);
+              } else {
+                receiver = { track };
+              }
+              const event = new Event("track");
+              event.track = track;
+              event.receiver = receiver;
+              event.transceiver = { receiver };
+              event.streams = [e2.stream];
+              this.dispatchEvent(event);
+            });
+          };
+          this.addEventListener("addstream", this._ontrackpoly);
+        }
+        return origSetRemoteDescription.apply(this, arguments);
+      };
+    } else {
+      wrapPeerConnectionEvent2(window2, "track", (e2) => {
+        if (!e2.transceiver) {
+          Object.defineProperty(
+            e2,
+            "transceiver",
+            { value: { receiver: e2.receiver } }
+          );
+        }
+        return e2;
+      });
+    }
+  }
+  function shimGetSendersWithDtmf2(window2) {
+    if (typeof window2 === "object" && window2.RTCPeerConnection && !("getSenders" in window2.RTCPeerConnection.prototype) && "createDTMFSender" in window2.RTCPeerConnection.prototype) {
+      const shimSenderWithDtmf = function(pc, track) {
+        return {
+          track,
+          get dtmf() {
+            if (this._dtmf === void 0) {
+              if (track.kind === "audio") {
+                this._dtmf = pc.createDTMFSender(track);
+              } else {
+                this._dtmf = null;
+              }
+            }
+            return this._dtmf;
+          },
+          _pc: pc
+        };
+      };
+      if (!window2.RTCPeerConnection.prototype.getSenders) {
+        window2.RTCPeerConnection.prototype.getSenders = function getSenders() {
+          this._senders = this._senders || [];
+          return this._senders.slice();
+        };
+        const origAddTrack = window2.RTCPeerConnection.prototype.addTrack;
+        window2.RTCPeerConnection.prototype.addTrack = function addTrack(track, stream) {
+          let sender = origAddTrack.apply(this, arguments);
+          if (!sender) {
+            sender = shimSenderWithDtmf(this, track);
+            this._senders.push(sender);
+          }
+          return sender;
+        };
+        const origRemoveTrack = window2.RTCPeerConnection.prototype.removeTrack;
+        window2.RTCPeerConnection.prototype.removeTrack = function removeTrack(sender) {
+          origRemoveTrack.apply(this, arguments);
+          const idx = this._senders.indexOf(sender);
+          if (idx !== -1) {
+            this._senders.splice(idx, 1);
+          }
+        };
+      }
+      const origAddStream = window2.RTCPeerConnection.prototype.addStream;
+      window2.RTCPeerConnection.prototype.addStream = function addStream(stream) {
+        this._senders = this._senders || [];
+        origAddStream.apply(this, [stream]);
+        stream.getTracks().forEach((track) => {
+          this._senders.push(shimSenderWithDtmf(this, track));
+        });
+      };
+      const origRemoveStream = window2.RTCPeerConnection.prototype.removeStream;
+      window2.RTCPeerConnection.prototype.removeStream = function removeStream(stream) {
+        this._senders = this._senders || [];
+        origRemoveStream.apply(this, [stream]);
+        stream.getTracks().forEach((track) => {
+          const sender = this._senders.find((s) => s.track === track);
+          if (sender) {
+            this._senders.splice(this._senders.indexOf(sender), 1);
+          }
+        });
+      };
+    } else if (typeof window2 === "object" && window2.RTCPeerConnection && "getSenders" in window2.RTCPeerConnection.prototype && "createDTMFSender" in window2.RTCPeerConnection.prototype && window2.RTCRtpSender && !("dtmf" in window2.RTCRtpSender.prototype)) {
+      const origGetSenders = window2.RTCPeerConnection.prototype.getSenders;
+      window2.RTCPeerConnection.prototype.getSenders = function getSenders() {
+        const senders = origGetSenders.apply(this, []);
+        senders.forEach((sender) => sender._pc = this);
+        return senders;
+      };
+      Object.defineProperty(window2.RTCRtpSender.prototype, "dtmf", {
+        get() {
+          if (this._dtmf === void 0) {
+            if (this.track.kind === "audio") {
+              this._dtmf = this._pc.createDTMFSender(this.track);
+            } else {
+              this._dtmf = null;
+            }
+          }
+          return this._dtmf;
+        }
+      });
+    }
+  }
+  function shimSenderReceiverGetStats2(window2, browserDetails2) {
+    if (browserDetails2.version >= 67) {
+      return;
+    }
+    if (!(typeof window2 === "object" && window2.RTCPeerConnection && window2.RTCRtpSender && window2.RTCRtpReceiver)) {
+      return;
+    }
+    if (!("getStats" in window2.RTCRtpSender.prototype)) {
+      const origGetSenders = window2.RTCPeerConnection.prototype.getSenders;
+      if (origGetSenders) {
+        window2.RTCPeerConnection.prototype.getSenders = function getSenders() {
+          const senders = origGetSenders.apply(this, []);
+          senders.forEach((sender) => sender._pc = this);
+          return senders;
+        };
+      }
+      const origAddTrack = window2.RTCPeerConnection.prototype.addTrack;
+      if (origAddTrack) {
+        window2.RTCPeerConnection.prototype.addTrack = function addTrack() {
+          const sender = origAddTrack.apply(this, arguments);
+          sender._pc = this;
+          return sender;
+        };
+      }
+      window2.RTCRtpSender.prototype.getStats = function getStats() {
+        const sender = this;
+        return this._pc.getStats().then((result) => (
+          /* Note: this will include stats of all senders that
+           *   send a track with the same id as sender.track as
+           *   it is not possible to identify the RTCRtpSender.
+           */
+          filterStats2(result, sender.track, true)
+        ));
+      };
+    }
+    if (!("getStats" in window2.RTCRtpReceiver.prototype)) {
+      const origGetReceivers = window2.RTCPeerConnection.prototype.getReceivers;
+      if (origGetReceivers) {
+        window2.RTCPeerConnection.prototype.getReceivers = function getReceivers() {
+          const receivers = origGetReceivers.apply(this, []);
+          receivers.forEach((receiver) => receiver._pc = this);
+          return receivers;
+        };
+      }
+      wrapPeerConnectionEvent2(window2, "track", (e2) => {
+        e2.receiver._pc = e2.srcElement;
+        return e2;
+      });
+      window2.RTCRtpReceiver.prototype.getStats = function getStats() {
+        const receiver = this;
+        return this._pc.getStats().then((result) => filterStats2(result, receiver.track, false));
+      };
+    }
+    if (!("getStats" in window2.RTCRtpSender.prototype && "getStats" in window2.RTCRtpReceiver.prototype)) {
+      return;
+    }
+    const origGetStats = window2.RTCPeerConnection.prototype.getStats;
+    window2.RTCPeerConnection.prototype.getStats = function getStats() {
+      if (arguments.length > 0 && arguments[0] instanceof window2.MediaStreamTrack) {
+        const track = arguments[0];
+        let sender;
+        let receiver;
+        let err;
+        this.getSenders().forEach((s) => {
+          if (s.track === track) {
+            if (sender) {
+              err = true;
+            } else {
+              sender = s;
+            }
+          }
+        });
+        this.getReceivers().forEach((r) => {
+          if (r.track === track) {
+            if (receiver) {
+              err = true;
+            } else {
+              receiver = r;
+            }
+          }
+          return r.track === track;
+        });
+        if (err || sender && receiver) {
+          return Promise.reject(new DOMException(
+            "There are more than one sender or receiver for the track.",
+            "InvalidAccessError"
+          ));
+        } else if (sender) {
+          return sender.getStats();
+        } else if (receiver) {
+          return receiver.getStats();
+        }
+        return Promise.reject(new DOMException(
+          "There is no sender or receiver for the track.",
+          "InvalidAccessError"
+        ));
+      }
+      return origGetStats.apply(this, arguments);
+    };
+  }
+  function shimAddTrackRemoveTrackWithNative2(window2) {
+    window2.RTCPeerConnection.prototype.getLocalStreams = function getLocalStreams() {
+      this._shimmedLocalStreams = this._shimmedLocalStreams || {};
+      return Object.keys(this._shimmedLocalStreams).map((streamId) => this._shimmedLocalStreams[streamId][0]);
+    };
+    const origAddTrack = window2.RTCPeerConnection.prototype.addTrack;
+    window2.RTCPeerConnection.prototype.addTrack = function addTrack(track, stream) {
+      if (!stream) {
+        return origAddTrack.apply(this, arguments);
+      }
+      this._shimmedLocalStreams = this._shimmedLocalStreams || {};
+      const sender = origAddTrack.apply(this, arguments);
+      if (!this._shimmedLocalStreams[stream.id]) {
+        this._shimmedLocalStreams[stream.id] = [stream, sender];
+      } else if (this._shimmedLocalStreams[stream.id].indexOf(sender) === -1) {
+        this._shimmedLocalStreams[stream.id].push(sender);
+      }
+      return sender;
+    };
+    const origAddStream = window2.RTCPeerConnection.prototype.addStream;
+    window2.RTCPeerConnection.prototype.addStream = function addStream(stream) {
+      this._shimmedLocalStreams = this._shimmedLocalStreams || {};
+      stream.getTracks().forEach((track) => {
+        const alreadyExists = this.getSenders().find((s) => s.track === track);
+        if (alreadyExists) {
+          throw new DOMException(
+            "Track already exists.",
+            "InvalidAccessError"
+          );
+        }
+      });
+      const existingSenders = this.getSenders();
+      origAddStream.apply(this, arguments);
+      const newSenders = this.getSenders().filter((newSender) => existingSenders.indexOf(newSender) === -1);
+      this._shimmedLocalStreams[stream.id] = [stream].concat(newSenders);
+    };
+    const origRemoveStream = window2.RTCPeerConnection.prototype.removeStream;
+    window2.RTCPeerConnection.prototype.removeStream = function removeStream(stream) {
+      this._shimmedLocalStreams = this._shimmedLocalStreams || {};
+      delete this._shimmedLocalStreams[stream.id];
+      return origRemoveStream.apply(this, arguments);
+    };
+    const origRemoveTrack = window2.RTCPeerConnection.prototype.removeTrack;
+    window2.RTCPeerConnection.prototype.removeTrack = function removeTrack(sender) {
+      this._shimmedLocalStreams = this._shimmedLocalStreams || {};
+      if (sender) {
+        Object.keys(this._shimmedLocalStreams).forEach((streamId) => {
+          const idx = this._shimmedLocalStreams[streamId].indexOf(sender);
+          if (idx !== -1) {
+            this._shimmedLocalStreams[streamId].splice(idx, 1);
+          }
+          if (this._shimmedLocalStreams[streamId].length === 1) {
+            delete this._shimmedLocalStreams[streamId];
+          }
+        });
+      }
+      return origRemoveTrack.apply(this, arguments);
+    };
+  }
+  function shimAddTrackRemoveTrack2(window2, browserDetails2) {
+    if (!window2.RTCPeerConnection) {
+      return;
+    }
+    if (window2.RTCPeerConnection.prototype.addTrack && browserDetails2.version >= 65) {
+      return shimAddTrackRemoveTrackWithNative2(window2);
+    }
+    const origGetLocalStreams = window2.RTCPeerConnection.prototype.getLocalStreams;
+    window2.RTCPeerConnection.prototype.getLocalStreams = function getLocalStreams() {
+      const nativeStreams = origGetLocalStreams.apply(this);
+      this._reverseStreams = this._reverseStreams || {};
+      return nativeStreams.map((stream) => this._reverseStreams[stream.id]);
+    };
+    const origAddStream = window2.RTCPeerConnection.prototype.addStream;
+    window2.RTCPeerConnection.prototype.addStream = function addStream(stream) {
+      this._streams = this._streams || {};
+      this._reverseStreams = this._reverseStreams || {};
+      stream.getTracks().forEach((track) => {
+        const alreadyExists = this.getSenders().find((s) => s.track === track);
+        if (alreadyExists) {
+          throw new DOMException(
+            "Track already exists.",
+            "InvalidAccessError"
+          );
+        }
+      });
+      if (!this._reverseStreams[stream.id]) {
+        const newStream = new window2.MediaStream(stream.getTracks());
+        this._streams[stream.id] = newStream;
+        this._reverseStreams[newStream.id] = stream;
+        stream = newStream;
+      }
+      origAddStream.apply(this, [stream]);
+    };
+    const origRemoveStream = window2.RTCPeerConnection.prototype.removeStream;
+    window2.RTCPeerConnection.prototype.removeStream = function removeStream(stream) {
+      this._streams = this._streams || {};
+      this._reverseStreams = this._reverseStreams || {};
+      origRemoveStream.apply(this, [this._streams[stream.id] || stream]);
+      delete this._reverseStreams[this._streams[stream.id] ? this._streams[stream.id].id : stream.id];
+      delete this._streams[stream.id];
+    };
+    window2.RTCPeerConnection.prototype.addTrack = function addTrack(track, stream) {
+      if (this.signalingState === "closed") {
+        throw new DOMException(
+          "The RTCPeerConnection's signalingState is 'closed'.",
+          "InvalidStateError"
+        );
+      }
+      const streams = [].slice.call(arguments, 1);
+      if (streams.length !== 1 || !streams[0].getTracks().find((t) => t === track)) {
+        throw new DOMException(
+          "The adapter.js addTrack polyfill only supports a single  stream which is associated with the specified track.",
+          "NotSupportedError"
+        );
+      }
+      const alreadyExists = this.getSenders().find((s) => s.track === track);
+      if (alreadyExists) {
+        throw new DOMException(
+          "Track already exists.",
+          "InvalidAccessError"
+        );
+      }
+      this._streams = this._streams || {};
+      this._reverseStreams = this._reverseStreams || {};
+      const oldStream = this._streams[stream.id];
+      if (oldStream) {
+        oldStream.addTrack(track);
+        Promise.resolve().then(() => {
+          this.dispatchEvent(new Event("negotiationneeded"));
+        });
+      } else {
+        const newStream = new window2.MediaStream([track]);
+        this._streams[stream.id] = newStream;
+        this._reverseStreams[newStream.id] = stream;
+        this.addStream(newStream);
+      }
+      return this.getSenders().find((s) => s.track === track);
+    };
+    function replaceInternalStreamId(pc, description) {
+      let sdp3 = description.sdp;
+      Object.keys(pc._reverseStreams || []).forEach((internalId) => {
+        const externalStream = pc._reverseStreams[internalId];
+        const internalStream = pc._streams[externalStream.id];
+        sdp3 = sdp3.replace(
+          new RegExp(internalStream.id, "g"),
+          externalStream.id
+        );
+      });
+      return new RTCSessionDescription({
+        type: description.type,
+        sdp: sdp3
+      });
+    }
+    function replaceExternalStreamId(pc, description) {
+      let sdp3 = description.sdp;
+      Object.keys(pc._reverseStreams || []).forEach((internalId) => {
+        const externalStream = pc._reverseStreams[internalId];
+        const internalStream = pc._streams[externalStream.id];
+        sdp3 = sdp3.replace(
+          new RegExp(externalStream.id, "g"),
+          internalStream.id
+        );
+      });
+      return new RTCSessionDescription({
+        type: description.type,
+        sdp: sdp3
+      });
+    }
+    ["createOffer", "createAnswer"].forEach(function(method) {
+      const nativeMethod = window2.RTCPeerConnection.prototype[method];
+      const methodObj = { [method]() {
+        const args = arguments;
+        const isLegacyCall = arguments.length && typeof arguments[0] === "function";
+        if (isLegacyCall) {
+          return nativeMethod.apply(this, [
+            (description) => {
+              const desc = replaceInternalStreamId(this, description);
+              args[0].apply(null, [desc]);
+            },
+            (err) => {
+              if (args[1]) {
+                args[1].apply(null, err);
+              }
+            },
+            arguments[2]
+          ]);
+        }
+        return nativeMethod.apply(this, arguments).then((description) => replaceInternalStreamId(this, description));
+      } };
+      window2.RTCPeerConnection.prototype[method] = methodObj[method];
+    });
+    const origSetLocalDescription = window2.RTCPeerConnection.prototype.setLocalDescription;
+    window2.RTCPeerConnection.prototype.setLocalDescription = function setLocalDescription() {
+      if (!arguments.length || !arguments[0].type) {
+        return origSetLocalDescription.apply(this, arguments);
+      }
+      arguments[0] = replaceExternalStreamId(this, arguments[0]);
+      return origSetLocalDescription.apply(this, arguments);
+    };
+    const origLocalDescription = Object.getOwnPropertyDescriptor(
+      window2.RTCPeerConnection.prototype,
+      "localDescription"
+    );
+    Object.defineProperty(
+      window2.RTCPeerConnection.prototype,
+      "localDescription",
+      {
+        get() {
+          const description = origLocalDescription.get.apply(this);
+          if (description.type === "") {
+            return description;
+          }
+          return replaceInternalStreamId(this, description);
+        }
+      }
+    );
+    window2.RTCPeerConnection.prototype.removeTrack = function removeTrack(sender) {
+      if (this.signalingState === "closed") {
+        throw new DOMException(
+          "The RTCPeerConnection's signalingState is 'closed'.",
+          "InvalidStateError"
+        );
+      }
+      if (!sender._pc) {
+        throw new DOMException("Argument 1 of RTCPeerConnection.removeTrack does not implement interface RTCRtpSender.", "TypeError");
+      }
+      const isLocal = sender._pc === this;
+      if (!isLocal) {
+        throw new DOMException(
+          "Sender was not created by this connection.",
+          "InvalidAccessError"
+        );
+      }
+      this._streams = this._streams || {};
+      let stream;
+      Object.keys(this._streams).forEach((streamid) => {
+        const hasTrack = this._streams[streamid].getTracks().find((track) => sender.track === track);
+        if (hasTrack) {
+          stream = this._streams[streamid];
+        }
+      });
+      if (stream) {
+        if (stream.getTracks().length === 1) {
+          this.removeStream(this._reverseStreams[stream.id]);
+        } else {
+          stream.removeTrack(sender.track);
+        }
+        this.dispatchEvent(new Event("negotiationneeded"));
+      }
+    };
+  }
+  function shimPeerConnection2(window2, browserDetails2) {
+    if (!window2.RTCPeerConnection && window2.webkitRTCPeerConnection) {
+      window2.RTCPeerConnection = window2.webkitRTCPeerConnection;
+    }
+    if (!window2.RTCPeerConnection) {
+      return;
+    }
+    if (browserDetails2.version < 53) {
+      ["setLocalDescription", "setRemoteDescription", "addIceCandidate"].forEach(function(method) {
+        const nativeMethod = window2.RTCPeerConnection.prototype[method];
+        const methodObj = { [method]() {
+          arguments[0] = new (method === "addIceCandidate" ? window2.RTCIceCandidate : window2.RTCSessionDescription)(arguments[0]);
+          return nativeMethod.apply(this, arguments);
+        } };
+        window2.RTCPeerConnection.prototype[method] = methodObj[method];
+      });
+    }
+  }
+  function fixNegotiationNeeded2(window2, browserDetails2) {
+    if (browserDetails2.version > 102) {
+      return;
+    }
+    wrapPeerConnectionEvent2(window2, "negotiationneeded", (e2) => {
+      const pc = e2.target;
+      if (browserDetails2.version < 72 || pc.getConfiguration && pc.getConfiguration().sdpSemantics === "plan-b") {
+        if (pc.signalingState !== "stable") {
+          return;
+        }
+      }
+      return e2;
+    });
+  }
+  var init_chrome_shim = __esm({
+    "node_modules/webrtc-adapter/src/js/chrome/chrome_shim.js"() {
+      "use strict";
+      init_utils();
+      init_getusermedia();
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/firefox/getusermedia.js
+  function shimGetUserMedia3(window2, browserDetails2) {
+    const navigator2 = window2 && window2.navigator;
+    if (!navigator2.mediaDevices) {
+      return;
+    }
+    const MediaStreamTrack2 = window2 && window2.MediaStreamTrack;
+    navigator2.getUserMedia = function(constraints, onSuccess, onError) {
+      deprecated2(
+        "navigator.getUserMedia",
+        "navigator.mediaDevices.getUserMedia"
+      );
+      navigator2.mediaDevices.getUserMedia(constraints).then(onSuccess, onError);
+    };
+    if (!(browserDetails2.version > 55 && "autoGainControl" in navigator2.mediaDevices.getSupportedConstraints())) {
+      const remap = function(obj, a, b) {
+        if (a in obj && !(b in obj)) {
+          obj[b] = obj[a];
+          delete obj[a];
+        }
+      };
+      const nativeGetUserMedia = navigator2.mediaDevices.getUserMedia.bind(navigator2.mediaDevices);
+      navigator2.mediaDevices.getUserMedia = function(c) {
+        if (typeof c === "object" && typeof c.audio === "object") {
+          c = JSON.parse(JSON.stringify(c));
+          remap(c.audio, "autoGainControl", "mozAutoGainControl");
+          remap(c.audio, "noiseSuppression", "mozNoiseSuppression");
+        }
+        return nativeGetUserMedia(c);
+      };
+      if (MediaStreamTrack2 && MediaStreamTrack2.prototype.getSettings) {
+        const nativeGetSettings = MediaStreamTrack2.prototype.getSettings;
+        MediaStreamTrack2.prototype.getSettings = function() {
+          const obj = nativeGetSettings.apply(this, arguments);
+          remap(obj, "mozAutoGainControl", "autoGainControl");
+          remap(obj, "mozNoiseSuppression", "noiseSuppression");
+          return obj;
+        };
+      }
+      if (MediaStreamTrack2 && MediaStreamTrack2.prototype.applyConstraints) {
+        const nativeApplyConstraints = MediaStreamTrack2.prototype.applyConstraints;
+        MediaStreamTrack2.prototype.applyConstraints = function(c) {
+          if (this.kind === "audio" && typeof c === "object") {
+            c = JSON.parse(JSON.stringify(c));
+            remap(c, "autoGainControl", "mozAutoGainControl");
+            remap(c, "noiseSuppression", "mozNoiseSuppression");
+          }
+          return nativeApplyConstraints.apply(this, [c]);
+        };
+      }
+    }
+  }
+  var init_getusermedia2 = __esm({
+    "node_modules/webrtc-adapter/src/js/firefox/getusermedia.js"() {
+      "use strict";
+      init_utils();
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/firefox/getdisplaymedia.js
+  function shimGetDisplayMedia2(window2, preferredMediaSource) {
+    if (!window2.navigator.mediaDevices) {
+      return;
+    }
+    if (window2.navigator.mediaDevices && "getDisplayMedia" in window2.navigator.mediaDevices) {
+      return;
+    }
+    window2.navigator.mediaDevices.getDisplayMedia = function getDisplayMedia(constraints) {
+      if (!(constraints && constraints.video)) {
+        const err = new DOMException("getDisplayMedia without video constraints is undefined");
+        err.name = "NotFoundError";
+        err.code = 8;
+        return Promise.reject(err);
+      }
+      if (constraints.video === true) {
+        constraints.video = { mediaSource: preferredMediaSource };
+      } else {
+        constraints.video.mediaSource = preferredMediaSource;
+      }
+      return window2.navigator.mediaDevices.getUserMedia(constraints);
+    };
+  }
+  var init_getdisplaymedia = __esm({
+    "node_modules/webrtc-adapter/src/js/firefox/getdisplaymedia.js"() {
+      "use strict";
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/firefox/firefox_shim.js
+  var firefox_shim_exports = {};
+  __export(firefox_shim_exports, {
+    shimAddTransceiver: () => shimAddTransceiver2,
+    shimCreateAnswer: () => shimCreateAnswer2,
+    shimCreateOffer: () => shimCreateOffer2,
+    shimGetDisplayMedia: () => shimGetDisplayMedia2,
+    shimGetParameters: () => shimGetParameters2,
+    shimGetStats: () => shimGetStats2,
+    shimGetUserMedia: () => shimGetUserMedia3,
+    shimOnTrack: () => shimOnTrack3,
+    shimPeerConnection: () => shimPeerConnection3,
+    shimRTCDataChannel: () => shimRTCDataChannel2,
+    shimReceiverGetStats: () => shimReceiverGetStats2,
+    shimRemoveStream: () => shimRemoveStream2,
+    shimSenderGetStats: () => shimSenderGetStats2
+  });
+  function shimOnTrack3(window2) {
+    if (typeof window2 === "object" && window2.RTCTrackEvent && "receiver" in window2.RTCTrackEvent.prototype && !("transceiver" in window2.RTCTrackEvent.prototype)) {
+      Object.defineProperty(window2.RTCTrackEvent.prototype, "transceiver", {
+        get() {
+          return { receiver: this.receiver };
+        }
+      });
+    }
+  }
+  function shimPeerConnection3(window2, browserDetails2) {
+    if (typeof window2 !== "object" || !(window2.RTCPeerConnection || window2.mozRTCPeerConnection)) {
+      return;
+    }
+    if (!window2.RTCPeerConnection && window2.mozRTCPeerConnection) {
+      window2.RTCPeerConnection = window2.mozRTCPeerConnection;
+    }
+    if (browserDetails2.version < 53) {
+      ["setLocalDescription", "setRemoteDescription", "addIceCandidate"].forEach(function(method) {
+        const nativeMethod = window2.RTCPeerConnection.prototype[method];
+        const methodObj = { [method]() {
+          arguments[0] = new (method === "addIceCandidate" ? window2.RTCIceCandidate : window2.RTCSessionDescription)(arguments[0]);
+          return nativeMethod.apply(this, arguments);
+        } };
+        window2.RTCPeerConnection.prototype[method] = methodObj[method];
+      });
+    }
+  }
+  function shimGetStats2(window2, browserDetails2) {
+    if (typeof window2 !== "object" || !(window2.RTCPeerConnection || window2.mozRTCPeerConnection)) {
+      return;
+    }
+    if (browserDetails2.version >= 151) {
+      return;
+    }
+    const modernStatsTypes = {
+      inboundrtp: "inbound-rtp",
+      outboundrtp: "outbound-rtp",
+      candidatepair: "candidate-pair",
+      localcandidate: "local-candidate",
+      remotecandidate: "remote-candidate"
+    };
+    const nativeGetStats = window2.RTCPeerConnection.prototype.getStats;
+    window2.RTCPeerConnection.prototype.getStats = function getStats() {
+      const [selector, onSucc, onErr] = arguments;
+      if (this.signalingState === "closed") {
+        return Promise.resolve(/* @__PURE__ */ new Map());
+      }
+      return nativeGetStats.apply(this, [selector || null]).then((stats) => {
+        if (browserDetails2.version < 53 && !onSucc) {
+          try {
+            stats.forEach((stat) => {
+              stat.type = modernStatsTypes[stat.type] || stat.type;
+            });
+          } catch (e2) {
+            if (e2.name !== "TypeError") {
+              throw e2;
+            }
+            stats.forEach((stat, i) => {
+              stats.set(i, Object.assign({}, stat, {
+                type: modernStatsTypes[stat.type] || stat.type
+              }));
+            });
+          }
+        }
+        return stats;
+      }).then(onSucc, onErr);
+    };
+  }
+  function shimSenderGetStats2(window2) {
+    if (!(typeof window2 === "object" && window2.RTCPeerConnection && window2.RTCRtpSender)) {
+      return;
+    }
+    if (window2.RTCRtpSender && "getStats" in window2.RTCRtpSender.prototype) {
+      return;
+    }
+    const origGetSenders = window2.RTCPeerConnection.prototype.getSenders;
+    if (origGetSenders) {
+      window2.RTCPeerConnection.prototype.getSenders = function getSenders() {
+        const senders = origGetSenders.apply(this, []);
+        senders.forEach((sender) => sender._pc = this);
+        return senders;
+      };
+    }
+    const origAddTrack = window2.RTCPeerConnection.prototype.addTrack;
+    if (origAddTrack) {
+      window2.RTCPeerConnection.prototype.addTrack = function addTrack() {
+        const sender = origAddTrack.apply(this, arguments);
+        sender._pc = this;
+        return sender;
+      };
+    }
+    window2.RTCRtpSender.prototype.getStats = function getStats() {
+      return this.track ? this._pc.getStats(this.track) : Promise.resolve(/* @__PURE__ */ new Map());
+    };
+  }
+  function shimReceiverGetStats2(window2) {
+    if (!(typeof window2 === "object" && window2.RTCPeerConnection && window2.RTCRtpSender)) {
+      return;
+    }
+    if (window2.RTCRtpSender && "getStats" in window2.RTCRtpReceiver.prototype) {
+      return;
+    }
+    const origGetReceivers = window2.RTCPeerConnection.prototype.getReceivers;
+    if (origGetReceivers) {
+      window2.RTCPeerConnection.prototype.getReceivers = function getReceivers() {
+        const receivers = origGetReceivers.apply(this, []);
+        receivers.forEach((receiver) => receiver._pc = this);
+        return receivers;
+      };
+    }
+    wrapPeerConnectionEvent2(window2, "track", (e2) => {
+      e2.receiver._pc = e2.srcElement;
+      return e2;
+    });
+    window2.RTCRtpReceiver.prototype.getStats = function getStats() {
+      return this._pc.getStats(this.track);
+    };
+  }
+  function shimRemoveStream2(window2) {
+    if (!window2.RTCPeerConnection || "removeStream" in window2.RTCPeerConnection.prototype) {
+      return;
+    }
+    window2.RTCPeerConnection.prototype.removeStream = function removeStream(stream) {
+      deprecated2("removeStream", "removeTrack");
+      this.getSenders().forEach((sender) => {
+        if (sender.track && stream.getTracks().includes(sender.track)) {
+          this.removeTrack(sender);
+        }
+      });
+    };
+  }
+  function shimRTCDataChannel2(window2) {
+    if (window2.DataChannel && !window2.RTCDataChannel) {
+      window2.RTCDataChannel = window2.DataChannel;
+    }
+  }
+  function shimAddTransceiver2(window2, browserDetails2) {
+    if (!(typeof window2 === "object" && window2.RTCPeerConnection)) {
+      return;
+    }
+    if (browserDetails2.version >= 110) {
+      return;
+    }
+    const origAddTransceiver = window2.RTCPeerConnection.prototype.addTransceiver;
+    if (origAddTransceiver) {
+      window2.RTCPeerConnection.prototype.addTransceiver = function addTransceiver() {
+        this.setParametersPromises = [];
+        let sendEncodings = arguments[1] && arguments[1].sendEncodings;
+        if (sendEncodings === void 0) {
+          sendEncodings = [];
+        }
+        sendEncodings = [...sendEncodings];
+        const shouldPerformCheck = sendEncodings.length > 0;
+        if (shouldPerformCheck) {
+          sendEncodings.forEach((encodingParam) => {
+            if ("rid" in encodingParam) {
+              const ridRegex = /^[a-z0-9]{0,16}$/i;
+              if (!ridRegex.test(encodingParam.rid)) {
+                throw new TypeError("Invalid RID value provided.");
+              }
+            }
+            if ("scaleResolutionDownBy" in encodingParam) {
+              if (!(parseFloat(encodingParam.scaleResolutionDownBy) >= 1)) {
+                throw new RangeError("scale_resolution_down_by must be >= 1.0");
+              }
+            }
+            if ("maxFramerate" in encodingParam) {
+              if (!(parseFloat(encodingParam.maxFramerate) >= 0)) {
+                throw new RangeError("max_framerate must be >= 0.0");
+              }
+            }
+          });
+        }
+        const transceiver = origAddTransceiver.apply(this, arguments);
+        if (shouldPerformCheck) {
+          const { sender } = transceiver;
+          const params = sender.getParameters();
+          if (!("encodings" in params) || // Avoid being fooled by patched getParameters() below.
+          params.encodings.length === 1 && Object.keys(params.encodings[0]).length === 0) {
+            params.encodings = sendEncodings;
+            sender.sendEncodings = sendEncodings;
+            this.setParametersPromises.push(
+              sender.setParameters(params).then(() => {
+                delete sender.sendEncodings;
+              }).catch(() => {
+                delete sender.sendEncodings;
+              })
+            );
+          }
+        }
+        return transceiver;
+      };
+    }
+  }
+  function shimGetParameters2(window2, browserDetails2) {
+    if (!(typeof window2 === "object" && window2.RTCRtpSender)) {
+      return;
+    }
+    if (browserDetails2.version >= 110) {
+      return;
+    }
+    const origGetParameters = window2.RTCRtpSender.prototype.getParameters;
+    if (origGetParameters) {
+      window2.RTCRtpSender.prototype.getParameters = function getParameters() {
+        const params = origGetParameters.apply(this, arguments);
+        if (!("encodings" in params)) {
+          params.encodings = [].concat(this.sendEncodings || [{}]);
+        }
+        return params;
+      };
+    }
+  }
+  function shimCreateOffer2(window2, browserDetails2) {
+    if (!(typeof window2 === "object" && window2.RTCPeerConnection)) {
+      return;
+    }
+    if (browserDetails2.version >= 110) {
+      return;
+    }
+    const origCreateOffer = window2.RTCPeerConnection.prototype.createOffer;
+    window2.RTCPeerConnection.prototype.createOffer = function createOffer() {
+      if (this.setParametersPromises && this.setParametersPromises.length) {
+        return Promise.all(this.setParametersPromises).then(() => {
+          return origCreateOffer.apply(this, arguments);
+        }).finally(() => {
+          this.setParametersPromises = [];
+        });
+      }
+      return origCreateOffer.apply(this, arguments);
+    };
+  }
+  function shimCreateAnswer2(window2, browserDetails2) {
+    if (!(typeof window2 === "object" && window2.RTCPeerConnection)) {
+      return;
+    }
+    if (browserDetails2.version >= 110) {
+      return;
+    }
+    const origCreateAnswer = window2.RTCPeerConnection.prototype.createAnswer;
+    window2.RTCPeerConnection.prototype.createAnswer = function createAnswer() {
+      if (this.setParametersPromises && this.setParametersPromises.length) {
+        return Promise.all(this.setParametersPromises).then(() => {
+          return origCreateAnswer.apply(this, arguments);
+        }).finally(() => {
+          this.setParametersPromises = [];
+        });
+      }
+      return origCreateAnswer.apply(this, arguments);
+    };
+  }
+  var init_firefox_shim = __esm({
+    "node_modules/webrtc-adapter/src/js/firefox/firefox_shim.js"() {
+      "use strict";
+      init_utils();
+      init_getusermedia2();
+      init_getdisplaymedia();
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/safari/safari_shim.js
+  var safari_shim_exports = {};
+  __export(safari_shim_exports, {
+    shimAudioContext: () => shimAudioContext2,
+    shimCallbacksAPI: () => shimCallbacksAPI2,
+    shimConstraints: () => shimConstraints2,
+    shimCreateOfferLegacy: () => shimCreateOfferLegacy2,
+    shimGetUserMedia: () => shimGetUserMedia4,
+    shimLocalStreamsAPI: () => shimLocalStreamsAPI2,
+    shimRTCIceServerUrls: () => shimRTCIceServerUrls2,
+    shimRemoteStreamsAPI: () => shimRemoteStreamsAPI2,
+    shimTrackEventTransceiver: () => shimTrackEventTransceiver2
+  });
+  function shimLocalStreamsAPI2(window2) {
+    if (typeof window2 !== "object" || !window2.RTCPeerConnection) {
+      return;
+    }
+    if (!("getLocalStreams" in window2.RTCPeerConnection.prototype)) {
+      window2.RTCPeerConnection.prototype.getLocalStreams = function getLocalStreams() {
+        if (!this._localStreams) {
+          this._localStreams = [];
+        }
+        return this._localStreams;
+      };
+    }
+    if (!("addStream" in window2.RTCPeerConnection.prototype)) {
+      const _addTrack = window2.RTCPeerConnection.prototype.addTrack;
+      window2.RTCPeerConnection.prototype.addStream = function addStream(stream) {
+        if (!this._localStreams) {
+          this._localStreams = [];
+        }
+        if (!this._localStreams.includes(stream)) {
+          this._localStreams.push(stream);
+        }
+        stream.getAudioTracks().forEach((track) => _addTrack.call(
+          this,
+          track,
+          stream
+        ));
+        stream.getVideoTracks().forEach((track) => _addTrack.call(
+          this,
+          track,
+          stream
+        ));
+      };
+      window2.RTCPeerConnection.prototype.addTrack = function addTrack(track, ...streams) {
+        if (streams) {
+          streams.forEach((stream) => {
+            if (!this._localStreams) {
+              this._localStreams = [stream];
+            } else if (!this._localStreams.includes(stream)) {
+              this._localStreams.push(stream);
+            }
+          });
+        }
+        return _addTrack.apply(this, arguments);
+      };
+    }
+    if (!("removeStream" in window2.RTCPeerConnection.prototype)) {
+      window2.RTCPeerConnection.prototype.removeStream = function removeStream(stream) {
+        if (!this._localStreams) {
+          this._localStreams = [];
+        }
+        const index = this._localStreams.indexOf(stream);
+        if (index === -1) {
+          return;
+        }
+        this._localStreams.splice(index, 1);
+        const tracks = stream.getTracks();
+        this.getSenders().forEach((sender) => {
+          if (tracks.includes(sender.track)) {
+            this.removeTrack(sender);
+          }
+        });
+      };
+    }
+  }
+  function shimRemoteStreamsAPI2(window2) {
+    if (typeof window2 !== "object" || !window2.RTCPeerConnection) {
+      return;
+    }
+    if (!("getRemoteStreams" in window2.RTCPeerConnection.prototype)) {
+      window2.RTCPeerConnection.prototype.getRemoteStreams = function getRemoteStreams() {
+        return this._remoteStreams ? this._remoteStreams : [];
+      };
+    }
+    if (!("onaddstream" in window2.RTCPeerConnection.prototype)) {
+      Object.defineProperty(window2.RTCPeerConnection.prototype, "onaddstream", {
+        get() {
+          return this._onaddstream;
+        },
+        set(f) {
+          if (this._onaddstream) {
+            this.removeEventListener("addstream", this._onaddstream);
+            this.removeEventListener("track", this._onaddstreampoly);
+          }
+          this.addEventListener("addstream", this._onaddstream = f);
+          this.addEventListener("track", this._onaddstreampoly = (e2) => {
+            e2.streams.forEach((stream) => {
+              if (!this._remoteStreams) {
+                this._remoteStreams = [];
+              }
+              if (this._remoteStreams.includes(stream)) {
+                return;
+              }
+              this._remoteStreams.push(stream);
+              const event = new Event("addstream");
+              event.stream = stream;
+              this.dispatchEvent(event);
+            });
+          });
+        }
+      });
+      const origSetRemoteDescription = window2.RTCPeerConnection.prototype.setRemoteDescription;
+      window2.RTCPeerConnection.prototype.setRemoteDescription = function setRemoteDescription() {
+        const pc = this;
+        if (!this._onaddstreampoly) {
+          this.addEventListener("track", this._onaddstreampoly = function(e2) {
+            e2.streams.forEach((stream) => {
+              if (!pc._remoteStreams) {
+                pc._remoteStreams = [];
+              }
+              if (pc._remoteStreams.indexOf(stream) >= 0) {
+                return;
+              }
+              pc._remoteStreams.push(stream);
+              const event = new Event("addstream");
+              event.stream = stream;
+              pc.dispatchEvent(event);
+            });
+          });
+        }
+        return origSetRemoteDescription.apply(pc, arguments);
+      };
+    }
+  }
+  function shimCallbacksAPI2(window2) {
+    if (typeof window2 !== "object" || !window2.RTCPeerConnection) {
+      return;
+    }
+    const prototype = window2.RTCPeerConnection.prototype;
+    const origCreateOffer = prototype.createOffer;
+    const origCreateAnswer = prototype.createAnswer;
+    const setLocalDescription = prototype.setLocalDescription;
+    const setRemoteDescription = prototype.setRemoteDescription;
+    const addIceCandidate = prototype.addIceCandidate;
+    prototype.createOffer = function createOffer(successCallback, failureCallback) {
+      const options = arguments.length >= 2 ? arguments[2] : arguments[0];
+      const promise = origCreateOffer.apply(this, [options]);
+      if (!failureCallback) {
+        return promise;
+      }
+      promise.then(successCallback, failureCallback);
+      return Promise.resolve();
+    };
+    prototype.createAnswer = function createAnswer(successCallback, failureCallback) {
+      const options = arguments.length >= 2 ? arguments[2] : arguments[0];
+      const promise = origCreateAnswer.apply(this, [options]);
+      if (!failureCallback) {
+        return promise;
+      }
+      promise.then(successCallback, failureCallback);
+      return Promise.resolve();
+    };
+    let withCallback = function(description, successCallback, failureCallback) {
+      const promise = setLocalDescription.apply(this, [description]);
+      if (!failureCallback) {
+        return promise;
+      }
+      promise.then(successCallback, failureCallback);
+      return Promise.resolve();
+    };
+    prototype.setLocalDescription = withCallback;
+    withCallback = function(description, successCallback, failureCallback) {
+      const promise = setRemoteDescription.apply(this, [description]);
+      if (!failureCallback) {
+        return promise;
+      }
+      promise.then(successCallback, failureCallback);
+      return Promise.resolve();
+    };
+    prototype.setRemoteDescription = withCallback;
+    withCallback = function(candidate, successCallback, failureCallback) {
+      const promise = addIceCandidate.apply(this, [candidate]);
+      if (!failureCallback) {
+        return promise;
+      }
+      promise.then(successCallback, failureCallback);
+      return Promise.resolve();
+    };
+    prototype.addIceCandidate = withCallback;
+  }
+  function shimGetUserMedia4(window2) {
+    const navigator2 = window2 && window2.navigator;
+    if (navigator2.mediaDevices && navigator2.mediaDevices.getUserMedia) {
+      const mediaDevices = navigator2.mediaDevices;
+      const _getUserMedia = mediaDevices.getUserMedia.bind(mediaDevices);
+      navigator2.mediaDevices.getUserMedia = (constraints) => {
+        return _getUserMedia(shimConstraints2(constraints));
+      };
+    }
+    if (!navigator2.getUserMedia && navigator2.mediaDevices && navigator2.mediaDevices.getUserMedia) {
+      navigator2.getUserMedia = function getUserMedia(constraints, cb, errcb) {
+        navigator2.mediaDevices.getUserMedia(constraints).then(cb, errcb);
+      }.bind(navigator2);
+    }
+  }
+  function shimConstraints2(constraints) {
+    if (constraints && constraints.video !== void 0) {
+      return Object.assign(
+        {},
+        constraints,
+        { video: compactObject2(constraints.video) }
+      );
+    }
+    return constraints;
+  }
+  function shimRTCIceServerUrls2(window2) {
+    if (!window2.RTCPeerConnection) {
+      return;
+    }
+    const OrigPeerConnection = window2.RTCPeerConnection;
+    window2.RTCPeerConnection = function RTCPeerConnection2(pcConfig, pcConstraints) {
+      if (pcConfig && pcConfig.iceServers) {
+        const newIceServers = [];
+        for (let i = 0; i < pcConfig.iceServers.length; i++) {
+          let server = pcConfig.iceServers[i];
+          if (server.urls === void 0 && server.url) {
+            deprecated2("RTCIceServer.url", "RTCIceServer.urls");
+            server = JSON.parse(JSON.stringify(server));
+            server.urls = server.url;
+            delete server.url;
+            newIceServers.push(server);
+          } else {
+            newIceServers.push(pcConfig.iceServers[i]);
+          }
+        }
+        pcConfig.iceServers = newIceServers;
+      }
+      return new OrigPeerConnection(pcConfig, pcConstraints);
+    };
+    window2.RTCPeerConnection.prototype = OrigPeerConnection.prototype;
+    if ("generateCertificate" in OrigPeerConnection) {
+      Object.defineProperty(window2.RTCPeerConnection, "generateCertificate", {
+        get() {
+          return OrigPeerConnection.generateCertificate;
+        }
+      });
+    }
+  }
+  function shimTrackEventTransceiver2(window2) {
+    if (typeof window2 === "object" && window2.RTCTrackEvent && "receiver" in window2.RTCTrackEvent.prototype && !("transceiver" in window2.RTCTrackEvent.prototype)) {
+      Object.defineProperty(window2.RTCTrackEvent.prototype, "transceiver", {
+        get() {
+          return { receiver: this.receiver };
+        }
+      });
+    }
+  }
+  function shimCreateOfferLegacy2(window2) {
+    const origCreateOffer = window2.RTCPeerConnection.prototype.createOffer;
+    window2.RTCPeerConnection.prototype.createOffer = function createOffer(offerOptions) {
+      if (offerOptions) {
+        if (typeof offerOptions.offerToReceiveAudio !== "undefined") {
+          offerOptions.offerToReceiveAudio = !!offerOptions.offerToReceiveAudio;
+        }
+        const audioTransceiver = this.getTransceivers().find((transceiver) => transceiver.receiver.track.kind === "audio");
+        if (offerOptions.offerToReceiveAudio === false && audioTransceiver) {
+          if (audioTransceiver.direction === "sendrecv") {
+            if (audioTransceiver.setDirection) {
+              audioTransceiver.setDirection("sendonly");
+            } else {
+              audioTransceiver.direction = "sendonly";
+            }
+          } else if (audioTransceiver.direction === "recvonly") {
+            if (audioTransceiver.setDirection) {
+              audioTransceiver.setDirection("inactive");
+            } else {
+              audioTransceiver.direction = "inactive";
+            }
+          }
+        } else if (offerOptions.offerToReceiveAudio === true && !audioTransceiver) {
+          this.addTransceiver("audio", { direction: "recvonly" });
+        }
+        if (typeof offerOptions.offerToReceiveVideo !== "undefined") {
+          offerOptions.offerToReceiveVideo = !!offerOptions.offerToReceiveVideo;
+        }
+        const videoTransceiver = this.getTransceivers().find((transceiver) => transceiver.receiver.track.kind === "video");
+        if (offerOptions.offerToReceiveVideo === false && videoTransceiver) {
+          if (videoTransceiver.direction === "sendrecv") {
+            if (videoTransceiver.setDirection) {
+              videoTransceiver.setDirection("sendonly");
+            } else {
+              videoTransceiver.direction = "sendonly";
+            }
+          } else if (videoTransceiver.direction === "recvonly") {
+            if (videoTransceiver.setDirection) {
+              videoTransceiver.setDirection("inactive");
+            } else {
+              videoTransceiver.direction = "inactive";
+            }
+          }
+        } else if (offerOptions.offerToReceiveVideo === true && !videoTransceiver) {
+          this.addTransceiver("video", { direction: "recvonly" });
+        }
+      }
+      return origCreateOffer.apply(this, arguments);
+    };
+  }
+  function shimAudioContext2(window2) {
+    if (typeof window2 !== "object" || window2.AudioContext) {
+      return;
+    }
+    window2.AudioContext = window2.webkitAudioContext;
+  }
+  var init_safari_shim = __esm({
+    "node_modules/webrtc-adapter/src/js/safari/safari_shim.js"() {
+      "use strict";
+      init_utils();
+    }
+  });
+
+  // node_modules/sdp/sdp.js
+  var require_sdp = __commonJS({
+    "node_modules/sdp/sdp.js"(exports, module) {
+      "use strict";
+      var SDPUtils3 = {};
+      SDPUtils3.generateIdentifier = function() {
+        return Math.random().toString(36).substring(2, 12);
+      };
+      SDPUtils3.localCName = SDPUtils3.generateIdentifier();
+      SDPUtils3.splitLines = function(blob) {
+        return blob.trim().split("\n").map((line) => line.trim());
+      };
+      SDPUtils3.splitSections = function(blob) {
+        const parts = blob.split("\nm=");
+        return parts.map((part, index) => (index > 0 ? "m=" + part : part).trim() + "\r\n");
+      };
+      SDPUtils3.getDescription = function(blob) {
+        const sections = SDPUtils3.splitSections(blob);
+        return sections && sections[0];
+      };
+      SDPUtils3.getMediaSections = function(blob) {
+        const sections = SDPUtils3.splitSections(blob);
+        sections.shift();
+        return sections;
+      };
+      SDPUtils3.matchPrefix = function(blob, prefix) {
+        return SDPUtils3.splitLines(blob).filter((line) => line.indexOf(prefix) === 0);
+      };
+      SDPUtils3.parseCandidate = function(line) {
+        let parts;
+        if (line.indexOf("a=candidate:") === 0) {
+          parts = line.substring(12).split(" ");
+        } else {
+          parts = line.substring(10).split(" ");
+        }
+        const candidate = {
+          foundation: parts[0],
+          component: { 1: "rtp", 2: "rtcp" }[parts[1]] || parts[1],
+          protocol: parts[2].toLowerCase(),
+          priority: parseInt(parts[3], 10),
+          ip: parts[4],
+          address: parts[4],
+          // address is an alias for ip.
+          port: parseInt(parts[5], 10),
+          // skip parts[6] == 'typ'
+          type: parts[7]
+        };
+        for (let i = 8; i < parts.length; i += 2) {
+          switch (parts[i]) {
+            case "raddr":
+              candidate.relatedAddress = parts[i + 1];
+              break;
+            case "rport":
+              candidate.relatedPort = parseInt(parts[i + 1], 10);
+              break;
+            case "tcptype":
+              candidate.tcpType = parts[i + 1];
+              break;
+            case "ufrag":
+              candidate.ufrag = parts[i + 1];
+              candidate.usernameFragment = parts[i + 1];
+              break;
+            default:
+              if (candidate[parts[i]] === void 0) {
+                candidate[parts[i]] = parts[i + 1];
+              }
+              break;
+          }
+        }
+        return candidate;
+      };
+      SDPUtils3.writeCandidate = function(candidate) {
+        const sdp3 = [];
+        sdp3.push(candidate.foundation);
+        const component = candidate.component;
+        if (component === "rtp") {
+          sdp3.push(1);
+        } else if (component === "rtcp") {
+          sdp3.push(2);
+        } else {
+          sdp3.push(component);
+        }
+        sdp3.push(candidate.protocol.toUpperCase());
+        sdp3.push(candidate.priority);
+        sdp3.push(candidate.address || candidate.ip);
+        sdp3.push(candidate.port);
+        const type = candidate.type;
+        sdp3.push("typ");
+        sdp3.push(type);
+        if (type !== "host" && candidate.relatedAddress && candidate.relatedPort !== void 0) {
+          sdp3.push("raddr");
+          sdp3.push(candidate.relatedAddress);
+          sdp3.push("rport");
+          sdp3.push(candidate.relatedPort);
+        }
+        if (candidate.tcpType && candidate.protocol.toLowerCase() === "tcp") {
+          sdp3.push("tcptype");
+          sdp3.push(candidate.tcpType);
+        }
+        if (candidate.usernameFragment || candidate.ufrag) {
+          sdp3.push("ufrag");
+          sdp3.push(candidate.usernameFragment || candidate.ufrag);
+        }
+        return "candidate:" + sdp3.join(" ");
+      };
+      SDPUtils3.parseIceOptions = function(line) {
+        return line.substring(14).split(" ");
+      };
+      SDPUtils3.parseRtpMap = function(line) {
+        let parts = line.substring(9).split(" ");
+        const parsed = {
+          payloadType: parseInt(parts.shift(), 10)
+          // was: id
+        };
+        parts = parts[0].split("/");
+        parsed.name = parts[0];
+        parsed.clockRate = parseInt(parts[1], 10);
+        parsed.channels = parts.length === 3 ? parseInt(parts[2], 10) : 1;
+        parsed.numChannels = parsed.channels;
+        return parsed;
+      };
+      SDPUtils3.writeRtpMap = function(codec) {
+        let pt = codec.payloadType;
+        if (codec.preferredPayloadType !== void 0) {
+          pt = codec.preferredPayloadType;
+        }
+        const channels = codec.channels || codec.numChannels || 1;
+        return "a=rtpmap:" + pt + " " + codec.name + "/" + codec.clockRate + (channels !== 1 ? "/" + channels : "") + "\r\n";
+      };
+      SDPUtils3.parseExtmap = function(line) {
+        const parts = line.substring(9).split(" ");
+        return {
+          id: parseInt(parts[0], 10),
+          direction: parts[0].indexOf("/") > 0 ? parts[0].split("/")[1] : "sendrecv",
+          uri: parts[1],
+          attributes: parts.slice(2).join(" ")
+        };
+      };
+      SDPUtils3.writeExtmap = function(headerExtension) {
+        return "a=extmap:" + (headerExtension.id || headerExtension.preferredId) + (headerExtension.direction && headerExtension.direction !== "sendrecv" ? "/" + headerExtension.direction : "") + " " + headerExtension.uri + (headerExtension.attributes ? " " + headerExtension.attributes : "") + "\r\n";
+      };
+      SDPUtils3.parseFmtp = function(line) {
+        const parsed = {};
+        let kv;
+        const parts = line.substring(line.indexOf(" ") + 1).split(";");
+        for (let j = 0; j < parts.length; j++) {
+          kv = parts[j].trim().split("=");
+          parsed[kv[0].trim()] = kv[1];
+        }
+        return parsed;
+      };
+      SDPUtils3.writeFmtp = function(codec) {
+        let line = "";
+        let pt = codec.payloadType;
+        if (codec.preferredPayloadType !== void 0) {
+          pt = codec.preferredPayloadType;
+        }
+        if (codec.parameters && Object.keys(codec.parameters).length) {
+          const params = [];
+          Object.keys(codec.parameters).forEach((param) => {
+            if (codec.parameters[param] !== void 0) {
+              params.push(param + "=" + codec.parameters[param]);
+            } else {
+              params.push(param);
+            }
+          });
+          line += "a=fmtp:" + pt + " " + params.join(";") + "\r\n";
+        }
+        return line;
+      };
+      SDPUtils3.parseRtcpFb = function(line) {
+        const parts = line.substring(line.indexOf(" ") + 1).split(" ");
+        return {
+          type: parts.shift(),
+          parameter: parts.join(" ")
+        };
+      };
+      SDPUtils3.writeRtcpFb = function(codec) {
+        let lines = "";
+        let pt = codec.payloadType;
+        if (codec.preferredPayloadType !== void 0) {
+          pt = codec.preferredPayloadType;
+        }
+        if (codec.rtcpFeedback && codec.rtcpFeedback.length) {
+          codec.rtcpFeedback.forEach((fb) => {
+            lines += "a=rtcp-fb:" + pt + " " + fb.type + (fb.parameter && fb.parameter.length ? " " + fb.parameter : "") + "\r\n";
+          });
+        }
+        return lines;
+      };
+      SDPUtils3.parseSsrcMedia = function(line) {
+        const sp = line.indexOf(" ");
+        const parts = {
+          ssrc: parseInt(line.substring(7, sp), 10)
+        };
+        const colon = line.indexOf(":", sp);
+        if (colon > -1) {
+          parts.attribute = line.substring(sp + 1, colon);
+          parts.value = line.substring(colon + 1);
+        } else {
+          parts.attribute = line.substring(sp + 1);
+        }
+        return parts;
+      };
+      SDPUtils3.parseSsrcGroup = function(line) {
+        const parts = line.substring(13).split(" ");
+        return {
+          semantics: parts.shift(),
+          ssrcs: parts.map((ssrc) => parseInt(ssrc, 10))
+        };
+      };
+      SDPUtils3.getMid = function(mediaSection) {
+        const mid = SDPUtils3.matchPrefix(mediaSection, "a=mid:")[0];
+        if (mid) {
+          return mid.substring(6);
+        }
+      };
+      SDPUtils3.parseFingerprint = function(line) {
+        const parts = line.substring(14).split(" ");
+        return {
+          algorithm: parts[0].toLowerCase(),
+          // algorithm is case-sensitive in Edge.
+          value: parts[1].toUpperCase()
+          // the definition is upper-case in RFC 4572.
+        };
+      };
+      SDPUtils3.getDtlsParameters = function(mediaSection, sessionpart) {
+        const lines = SDPUtils3.matchPrefix(
+          mediaSection + sessionpart,
+          "a=fingerprint:"
+        );
+        return {
+          role: "auto",
+          fingerprints: lines.map(SDPUtils3.parseFingerprint)
+        };
+      };
+      SDPUtils3.writeDtlsParameters = function(params, setupType) {
+        let sdp3 = "a=setup:" + setupType + "\r\n";
+        params.fingerprints.forEach((fp) => {
+          sdp3 += "a=fingerprint:" + fp.algorithm + " " + fp.value + "\r\n";
+        });
+        return sdp3;
+      };
+      SDPUtils3.parseCryptoLine = function(line) {
+        const parts = line.substring(9).split(" ");
+        return {
+          tag: parseInt(parts[0], 10),
+          cryptoSuite: parts[1],
+          keyParams: parts[2],
+          sessionParams: parts.slice(3)
+        };
+      };
+      SDPUtils3.writeCryptoLine = function(parameters) {
+        return "a=crypto:" + parameters.tag + " " + parameters.cryptoSuite + " " + (typeof parameters.keyParams === "object" ? SDPUtils3.writeCryptoKeyParams(parameters.keyParams) : parameters.keyParams) + (parameters.sessionParams ? " " + parameters.sessionParams.join(" ") : "") + "\r\n";
+      };
+      SDPUtils3.parseCryptoKeyParams = function(keyParams) {
+        if (keyParams.indexOf("inline:") !== 0) {
+          return null;
+        }
+        const parts = keyParams.substring(7).split("|");
+        return {
+          keyMethod: "inline",
+          keySalt: parts[0],
+          lifeTime: parts[1],
+          mkiValue: parts[2] ? parts[2].split(":")[0] : void 0,
+          mkiLength: parts[2] ? parts[2].split(":")[1] : void 0
+        };
+      };
+      SDPUtils3.writeCryptoKeyParams = function(keyParams) {
+        return keyParams.keyMethod + ":" + keyParams.keySalt + (keyParams.lifeTime ? "|" + keyParams.lifeTime : "") + (keyParams.mkiValue && keyParams.mkiLength ? "|" + keyParams.mkiValue + ":" + keyParams.mkiLength : "");
+      };
+      SDPUtils3.getCryptoParameters = function(mediaSection, sessionpart) {
+        const lines = SDPUtils3.matchPrefix(
+          mediaSection + sessionpart,
+          "a=crypto:"
+        );
+        return lines.map(SDPUtils3.parseCryptoLine);
+      };
+      SDPUtils3.getIceParameters = function(mediaSection, sessionpart) {
+        const ufrag = SDPUtils3.matchPrefix(
+          mediaSection + sessionpart,
+          "a=ice-ufrag:"
+        )[0];
+        const pwd = SDPUtils3.matchPrefix(
+          mediaSection + sessionpart,
+          "a=ice-pwd:"
+        )[0];
+        if (!(ufrag && pwd)) {
+          return null;
+        }
+        return {
+          usernameFragment: ufrag.substring(12),
+          password: pwd.substring(10)
+        };
+      };
+      SDPUtils3.writeIceParameters = function(params) {
+        let sdp3 = "a=ice-ufrag:" + params.usernameFragment + "\r\na=ice-pwd:" + params.password + "\r\n";
+        if (params.iceLite) {
+          sdp3 += "a=ice-lite\r\n";
+        }
+        return sdp3;
+      };
+      SDPUtils3.parseRtpParameters = function(mediaSection) {
+        const description = {
+          codecs: [],
+          headerExtensions: [],
+          fecMechanisms: [],
+          rtcp: []
+        };
+        const lines = SDPUtils3.splitLines(mediaSection);
+        const mline = lines[0].split(" ");
+        description.profile = mline[2];
+        for (let i = 3; i < mline.length; i++) {
+          const pt = mline[i];
+          const rtpmapline = SDPUtils3.matchPrefix(
+            mediaSection,
+            "a=rtpmap:" + pt + " "
+          )[0];
+          if (rtpmapline) {
+            const codec = SDPUtils3.parseRtpMap(rtpmapline);
+            const fmtps = SDPUtils3.matchPrefix(
+              mediaSection,
+              "a=fmtp:" + pt + " "
+            );
+            codec.parameters = fmtps.length ? SDPUtils3.parseFmtp(fmtps[0]) : {};
+            codec.rtcpFeedback = SDPUtils3.matchPrefix(
+              mediaSection,
+              "a=rtcp-fb:" + pt + " "
+            ).map(SDPUtils3.parseRtcpFb);
+            description.codecs.push(codec);
+            switch (codec.name.toUpperCase()) {
+              case "RED":
+              case "ULPFEC":
+                description.fecMechanisms.push(codec.name.toUpperCase());
+                break;
+              default:
+                break;
+            }
+          }
+        }
+        SDPUtils3.matchPrefix(mediaSection, "a=extmap:").forEach((line) => {
+          description.headerExtensions.push(SDPUtils3.parseExtmap(line));
+        });
+        const wildcardRtcpFb = SDPUtils3.matchPrefix(mediaSection, "a=rtcp-fb:* ").map(SDPUtils3.parseRtcpFb);
+        description.codecs.forEach((codec) => {
+          wildcardRtcpFb.forEach((fb) => {
+            const duplicate = codec.rtcpFeedback.find((existingFeedback) => {
+              return existingFeedback.type === fb.type && existingFeedback.parameter === fb.parameter;
+            });
+            if (!duplicate) {
+              codec.rtcpFeedback.push(fb);
+            }
+          });
+        });
+        return description;
+      };
+      SDPUtils3.writeRtpDescription = function(kind, caps) {
+        let sdp3 = "";
+        sdp3 += "m=" + kind + " ";
+        sdp3 += caps.codecs.length > 0 ? "9" : "0";
+        sdp3 += " " + (caps.profile || "UDP/TLS/RTP/SAVPF") + " ";
+        sdp3 += caps.codecs.map((codec) => {
+          if (codec.preferredPayloadType !== void 0) {
+            return codec.preferredPayloadType;
+          }
+          return codec.payloadType;
+        }).join(" ") + "\r\n";
+        sdp3 += "c=IN IP4 0.0.0.0\r\n";
+        sdp3 += "a=rtcp:9 IN IP4 0.0.0.0\r\n";
+        caps.codecs.forEach((codec) => {
+          sdp3 += SDPUtils3.writeRtpMap(codec);
+          sdp3 += SDPUtils3.writeFmtp(codec);
+          sdp3 += SDPUtils3.writeRtcpFb(codec);
+        });
+        let maxptime = 0;
+        caps.codecs.forEach((codec) => {
+          if (codec.maxptime > maxptime) {
+            maxptime = codec.maxptime;
+          }
+        });
+        if (maxptime > 0) {
+          sdp3 += "a=maxptime:" + maxptime + "\r\n";
+        }
+        if (caps.headerExtensions) {
+          caps.headerExtensions.forEach((extension) => {
+            sdp3 += SDPUtils3.writeExtmap(extension);
+          });
+        }
+        return sdp3;
+      };
+      SDPUtils3.parseRtpEncodingParameters = function(mediaSection) {
+        const encodingParameters = [];
+        const description = SDPUtils3.parseRtpParameters(mediaSection);
+        const hasRed = description.fecMechanisms.indexOf("RED") !== -1;
+        const hasUlpfec = description.fecMechanisms.indexOf("ULPFEC") !== -1;
+        const ssrcs = SDPUtils3.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils3.parseSsrcMedia(line)).filter((parts) => parts.attribute === "cname");
+        const primarySsrc = ssrcs.length > 0 && ssrcs[0].ssrc;
+        let secondarySsrc;
+        const flows = SDPUtils3.matchPrefix(mediaSection, "a=ssrc-group:FID").map((line) => {
+          const parts = line.substring(17).split(" ");
+          return parts.map((part) => parseInt(part, 10));
+        });
+        if (flows.length > 0 && flows[0].length > 1 && flows[0][0] === primarySsrc) {
+          secondarySsrc = flows[0][1];
+        }
+        description.codecs.forEach((codec) => {
+          if (codec.name.toUpperCase() === "RTX" && codec.parameters.apt) {
+            let encParam = {
+              ssrc: primarySsrc,
+              codecPayloadType: parseInt(codec.parameters.apt, 10)
+            };
+            if (primarySsrc && secondarySsrc) {
+              encParam.rtx = { ssrc: secondarySsrc };
+            }
+            encodingParameters.push(encParam);
+            if (hasRed) {
+              encParam = JSON.parse(JSON.stringify(encParam));
+              encParam.fec = {
+                ssrc: primarySsrc,
+                mechanism: hasUlpfec ? "red+ulpfec" : "red"
+              };
+              encodingParameters.push(encParam);
+            }
+          }
+        });
+        if (encodingParameters.length === 0 && primarySsrc) {
+          encodingParameters.push({
+            ssrc: primarySsrc
+          });
+        }
+        let bandwidth = SDPUtils3.matchPrefix(mediaSection, "b=");
+        if (bandwidth.length) {
+          if (bandwidth[0].indexOf("b=TIAS:") === 0) {
+            bandwidth = parseInt(bandwidth[0].substring(7), 10);
+          } else if (bandwidth[0].indexOf("b=AS:") === 0) {
+            bandwidth = parseInt(bandwidth[0].substring(5), 10) * 1e3 * 0.95 - 50 * 40 * 8;
+          } else {
+            bandwidth = void 0;
+          }
+          encodingParameters.forEach((params) => {
+            params.maxBitrate = bandwidth;
+          });
+        }
+        return encodingParameters;
+      };
+      SDPUtils3.parseRtcpParameters = function(mediaSection) {
+        const rtcpParameters = {};
+        const remoteSsrc = SDPUtils3.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils3.parseSsrcMedia(line)).filter((obj) => obj.attribute === "cname")[0];
+        if (remoteSsrc) {
+          rtcpParameters.cname = remoteSsrc.value;
+          rtcpParameters.ssrc = remoteSsrc.ssrc;
+        }
+        const rsize = SDPUtils3.matchPrefix(mediaSection, "a=rtcp-rsize");
+        rtcpParameters.reducedSize = rsize.length > 0;
+        rtcpParameters.compound = rsize.length === 0;
+        const mux = SDPUtils3.matchPrefix(mediaSection, "a=rtcp-mux");
+        rtcpParameters.mux = mux.length > 0;
+        return rtcpParameters;
+      };
+      SDPUtils3.writeRtcpParameters = function(rtcpParameters) {
+        let sdp3 = "";
+        if (rtcpParameters.reducedSize) {
+          sdp3 += "a=rtcp-rsize\r\n";
+        }
+        if (rtcpParameters.mux) {
+          sdp3 += "a=rtcp-mux\r\n";
+        }
+        if (rtcpParameters.ssrc !== void 0 && rtcpParameters.cname) {
+          sdp3 += "a=ssrc:" + rtcpParameters.ssrc + " cname:" + rtcpParameters.cname + "\r\n";
+        }
+        return sdp3;
+      };
+      SDPUtils3.parseMsid = function(mediaSection) {
+        let parts;
+        const spec = SDPUtils3.matchPrefix(mediaSection, "a=msid:");
+        if (spec.length === 1) {
+          parts = spec[0].substring(7).split(" ");
+          return { stream: parts[0], track: parts[1] };
+        }
+        const planB = SDPUtils3.matchPrefix(mediaSection, "a=ssrc:").map((line) => SDPUtils3.parseSsrcMedia(line)).filter((msidParts) => msidParts.attribute === "msid");
+        if (planB.length > 0) {
+          parts = planB[0].value.split(" ");
+          return { stream: parts[0], track: parts[1] };
+        }
+      };
+      SDPUtils3.parseSctpDescription = function(mediaSection) {
+        const mline = SDPUtils3.parseMLine(mediaSection);
+        const maxSizeLine = SDPUtils3.matchPrefix(mediaSection, "a=max-message-size:");
+        let maxMessageSize;
+        if (maxSizeLine.length > 0) {
+          maxMessageSize = parseInt(maxSizeLine[0].substring(19), 10);
+        }
+        if (isNaN(maxMessageSize)) {
+          maxMessageSize = 65536;
+        }
+        const sctpPort = SDPUtils3.matchPrefix(mediaSection, "a=sctp-port:");
+        if (sctpPort.length > 0) {
+          return {
+            port: parseInt(sctpPort[0].substring(12), 10),
+            protocol: mline.fmt,
+            maxMessageSize
+          };
+        }
+        const sctpMapLines = SDPUtils3.matchPrefix(mediaSection, "a=sctpmap:");
+        if (sctpMapLines.length > 0) {
+          const parts = sctpMapLines[0].substring(10).split(" ");
+          return {
+            port: parseInt(parts[0], 10),
+            protocol: parts[1],
+            maxMessageSize
+          };
+        }
+      };
+      SDPUtils3.writeSctpDescription = function(media, sctp) {
+        let output = [];
+        if (media.protocol !== "DTLS/SCTP") {
+          output = [
+            "m=" + media.kind + " 9 " + media.protocol + " " + sctp.protocol + "\r\n",
+            "c=IN IP4 0.0.0.0\r\n",
+            "a=sctp-port:" + sctp.port + "\r\n"
+          ];
+        } else {
+          output = [
+            "m=" + media.kind + " 9 " + media.protocol + " " + sctp.port + "\r\n",
+            "c=IN IP4 0.0.0.0\r\n",
+            "a=sctpmap:" + sctp.port + " " + sctp.protocol + " 65535\r\n"
+          ];
+        }
+        if (sctp.maxMessageSize !== void 0) {
+          output.push("a=max-message-size:" + sctp.maxMessageSize + "\r\n");
+        }
+        return output.join("");
+      };
+      SDPUtils3.generateSessionId = function() {
+        return Math.random().toString().substr(2, 22);
+      };
+      SDPUtils3.writeSessionBoilerplate = function(sessId, sessVer, sessUser) {
+        let sessionId;
+        const version2 = sessVer !== void 0 ? sessVer : 2;
+        if (sessId) {
+          sessionId = sessId;
+        } else {
+          sessionId = SDPUtils3.generateSessionId();
+        }
+        const user2 = sessUser || "thisisadapterortc";
+        return "v=0\r\no=" + user2 + " " + sessionId + " " + version2 + " IN IP4 127.0.0.1\r\ns=-\r\nt=0 0\r\n";
+      };
+      SDPUtils3.getDirection = function(mediaSection, sessionpart) {
+        const lines = SDPUtils3.splitLines(mediaSection);
+        for (let i = 0; i < lines.length; i++) {
+          switch (lines[i]) {
+            case "a=sendrecv":
+            case "a=sendonly":
+            case "a=recvonly":
+            case "a=inactive":
+              return lines[i].substring(2);
+            default:
+          }
+        }
+        if (sessionpart) {
+          return SDPUtils3.getDirection(sessionpart);
+        }
+        return "sendrecv";
+      };
+      SDPUtils3.getKind = function(mediaSection) {
+        const lines = SDPUtils3.splitLines(mediaSection);
+        const mline = lines[0].split(" ");
+        return mline[0].substring(2);
+      };
+      SDPUtils3.isRejected = function(mediaSection) {
+        return mediaSection.split(" ", 2)[1] === "0";
+      };
+      SDPUtils3.parseMLine = function(mediaSection) {
+        const lines = SDPUtils3.splitLines(mediaSection);
+        const parts = lines[0].substring(2).split(" ");
+        return {
+          kind: parts[0],
+          port: parseInt(parts[1], 10),
+          protocol: parts[2],
+          fmt: parts.slice(3).join(" ")
+        };
+      };
+      SDPUtils3.parseOLine = function(mediaSection) {
+        const line = SDPUtils3.matchPrefix(mediaSection, "o=")[0];
+        const parts = line.substring(2).split(" ");
+        return {
+          username: parts[0],
+          sessionId: parts[1],
+          sessionVersion: parseInt(parts[2], 10),
+          netType: parts[3],
+          addressType: parts[4],
+          address: parts[5]
+        };
+      };
+      SDPUtils3.isValidSDP = function(blob) {
+        if (typeof blob !== "string" || blob.length === 0) {
+          return false;
+        }
+        const lines = SDPUtils3.splitLines(blob);
+        for (let i = 0; i < lines.length; i++) {
+          if (lines[i].length < 2 || lines[i].charAt(1) !== "=") {
+            return false;
+          }
+        }
+        return true;
+      };
+      if (typeof module === "object") {
+        module.exports = SDPUtils3;
+      }
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/common_shim.js
+  var common_shim_exports = {};
+  __export(common_shim_exports, {
+    removeExtmapAllowMixed: () => removeExtmapAllowMixed2,
+    shimAddIceCandidateNullOrEmpty: () => shimAddIceCandidateNullOrEmpty2,
+    shimConnectionState: () => shimConnectionState2,
+    shimMaxMessageSize: () => shimMaxMessageSize2,
+    shimParameterlessSetLocalDescription: () => shimParameterlessSetLocalDescription2,
+    shimRTCIceCandidate: () => shimRTCIceCandidate2,
+    shimRTCIceCandidateRelayProtocol: () => shimRTCIceCandidateRelayProtocol2,
+    shimSendThrowTypeError: () => shimSendThrowTypeError2
+  });
+  function shimRTCIceCandidate2(window2) {
+    if (!window2.RTCIceCandidate || window2.RTCIceCandidate && "foundation" in window2.RTCIceCandidate.prototype) {
+      return;
+    }
+    const NativeRTCIceCandidate = window2.RTCIceCandidate;
+    window2.RTCIceCandidate = function RTCIceCandidate2(args) {
+      if (typeof args === "object" && args.candidate && args.candidate.indexOf("a=") === 0) {
+        args = JSON.parse(JSON.stringify(args));
+        args.candidate = args.candidate.substring(2);
+      }
+      if (args.candidate && args.candidate.length) {
+        const nativeCandidate = new NativeRTCIceCandidate(args);
+        const parsedCandidate = import_sdp.default.parseCandidate(args.candidate);
+        for (const key in parsedCandidate) {
+          if (!(key in nativeCandidate)) {
+            Object.defineProperty(
+              nativeCandidate,
+              key,
+              { value: parsedCandidate[key] }
+            );
+          }
+        }
+        nativeCandidate.toJSON = function toJSON() {
+          return {
+            candidate: nativeCandidate.candidate,
+            sdpMid: nativeCandidate.sdpMid,
+            sdpMLineIndex: nativeCandidate.sdpMLineIndex,
+            usernameFragment: nativeCandidate.usernameFragment
+          };
+        };
+        return nativeCandidate;
+      }
+      return new NativeRTCIceCandidate(args);
+    };
+    window2.RTCIceCandidate.prototype = NativeRTCIceCandidate.prototype;
+    wrapPeerConnectionEvent2(window2, "icecandidate", (e2) => {
+      if (e2.candidate) {
+        Object.defineProperty(e2, "candidate", {
+          value: new window2.RTCIceCandidate(e2.candidate),
+          writable: "false"
+        });
+      }
+      return e2;
+    });
+  }
+  function shimRTCIceCandidateRelayProtocol2(window2) {
+    if (!window2.RTCIceCandidate || window2.RTCIceCandidate && "relayProtocol" in window2.RTCIceCandidate.prototype) {
+      return;
+    }
+    wrapPeerConnectionEvent2(window2, "icecandidate", (e2) => {
+      if (e2.candidate) {
+        const parsedCandidate = import_sdp.default.parseCandidate(e2.candidate.candidate);
+        if (parsedCandidate.type === "relay") {
+          e2.candidate.relayProtocol = {
+            0: "tls",
+            1: "tcp",
+            2: "udp"
+          }[parsedCandidate.priority >> 24];
+        }
+      }
+      return e2;
+    });
+  }
+  function shimMaxMessageSize2(window2, browserDetails2) {
+    if (!window2.RTCPeerConnection) {
+      return;
+    }
+    if (browserDetails2.browser === "chrome" && browserDetails2.version > 102) {
+      return;
+    }
+    if (browserDetails2.browser === "firefox" && browserDetails2.version >= 113) {
+      return;
+    }
+    if (!("sctp" in window2.RTCPeerConnection.prototype)) {
+      Object.defineProperty(window2.RTCPeerConnection.prototype, "sctp", {
+        get() {
+          return typeof this._sctp === "undefined" ? null : this._sctp;
+        }
+      });
+    }
+    const sctpInDescription = function(description) {
+      if (!description || !description.sdp) {
+        return false;
+      }
+      const sections = import_sdp.default.splitSections(description.sdp);
+      sections.shift();
+      return sections.some((mediaSection) => {
+        const mLine = import_sdp.default.parseMLine(mediaSection);
+        return mLine && mLine.kind === "application" && mLine.protocol.indexOf("SCTP") !== -1;
+      });
+    };
+    const getRemoteFirefoxVersion = function(description) {
+      const match = description.sdp.match(/mozilla...THIS_IS_SDPARTA-(\d+)/);
+      if (match === null || match.length < 2) {
+        return -1;
+      }
+      const version2 = parseInt(match[1], 10);
+      return version2 !== version2 ? -1 : version2;
+    };
+    const getCanSendMaxMessageSize = function(remoteIsFirefox) {
+      let canSendMaxMessageSize = 65536;
+      if (browserDetails2.browser === "firefox") {
+        if (browserDetails2.version < 57) {
+          if (remoteIsFirefox === -1) {
+            canSendMaxMessageSize = 16384;
+          } else {
+            canSendMaxMessageSize = 2147483637;
+          }
+        } else if (browserDetails2.version < 60) {
+          canSendMaxMessageSize = browserDetails2.version === 57 ? 65535 : 65536;
+        } else {
+          canSendMaxMessageSize = 2147483637;
+        }
+      }
+      return canSendMaxMessageSize;
+    };
+    const getMaxMessageSize = function(description, remoteIsFirefox) {
+      let maxMessageSize = 65536;
+      if (browserDetails2.browser === "firefox" && browserDetails2.version === 57) {
+        maxMessageSize = 65535;
+      }
+      const match = import_sdp.default.matchPrefix(
+        description.sdp,
+        "a=max-message-size:"
+      );
+      if (match.length > 0) {
+        maxMessageSize = parseInt(match[0].substring(19), 10);
+      } else if (browserDetails2.browser === "firefox" && remoteIsFirefox !== -1) {
+        maxMessageSize = 2147483637;
+      }
+      return maxMessageSize;
+    };
+    const origSetRemoteDescription = window2.RTCPeerConnection.prototype.setRemoteDescription;
+    window2.RTCPeerConnection.prototype.setRemoteDescription = function setRemoteDescription() {
+      this._sctp = null;
+      if (browserDetails2.browser === "chrome" && browserDetails2.version >= 76) {
+        const { sdpSemantics } = this.getConfiguration();
+        if (sdpSemantics === "plan-b") {
+          Object.defineProperty(this, "sctp", {
+            get() {
+              return typeof this._sctp === "undefined" ? null : this._sctp;
+            },
+            enumerable: true,
+            configurable: true
+          });
+        }
+      }
+      if (sctpInDescription(arguments[0])) {
+        const isFirefox = getRemoteFirefoxVersion(arguments[0]);
+        const canSendMMS = getCanSendMaxMessageSize(isFirefox);
+        const remoteMMS = getMaxMessageSize(arguments[0], isFirefox);
+        let maxMessageSize;
+        if (canSendMMS === 0 && remoteMMS === 0) {
+          maxMessageSize = Number.POSITIVE_INFINITY;
+        } else if (canSendMMS === 0 || remoteMMS === 0) {
+          maxMessageSize = Math.max(canSendMMS, remoteMMS);
+        } else {
+          maxMessageSize = Math.min(canSendMMS, remoteMMS);
+        }
+        const sctp = {};
+        Object.defineProperty(sctp, "maxMessageSize", {
+          get() {
+            return maxMessageSize;
+          }
+        });
+        this._sctp = sctp;
+      }
+      return origSetRemoteDescription.apply(this, arguments);
+    };
+  }
+  function shimSendThrowTypeError2(window2, browserDetails2) {
+    if (!(window2.RTCPeerConnection && "createDataChannel" in window2.RTCPeerConnection.prototype)) {
+      return;
+    }
+    if (browserDetails2.browser === "chrome" && browserDetails2.version >= 149) {
+      return;
+    }
+    if (browserDetails2.browser === "firefox" && browserDetails2.version > 60) {
+      return;
+    }
+    function wrapDcSend(dc, pc) {
+      const origDataChannelSend = dc.send;
+      dc.send = function send() {
+        const data = arguments[0];
+        const length = data.length || data.size || data.byteLength;
+        if (dc.readyState === "open" && pc.sctp && length > pc.sctp.maxMessageSize) {
+          throw new TypeError("Message too large (can send a maximum of " + pc.sctp.maxMessageSize + " bytes)");
+        }
+        return origDataChannelSend.apply(dc, arguments);
+      };
+    }
+    const origCreateDataChannel = window2.RTCPeerConnection.prototype.createDataChannel;
+    window2.RTCPeerConnection.prototype.createDataChannel = function createDataChannel() {
+      const dataChannel = origCreateDataChannel.apply(this, arguments);
+      wrapDcSend(dataChannel, this);
+      return dataChannel;
+    };
+    wrapPeerConnectionEvent2(window2, "datachannel", (e2) => {
+      wrapDcSend(e2.channel, e2.target);
+      return e2;
+    });
+  }
+  function shimConnectionState2(window2) {
+    if (!window2.RTCPeerConnection || "connectionState" in window2.RTCPeerConnection.prototype) {
+      return;
+    }
+    const proto = window2.RTCPeerConnection.prototype;
+    Object.defineProperty(proto, "connectionState", {
+      get() {
+        return {
+          completed: "connected",
+          checking: "connecting"
+        }[this.iceConnectionState] || this.iceConnectionState;
+      },
+      enumerable: true,
+      configurable: true
+    });
+    Object.defineProperty(proto, "onconnectionstatechange", {
+      get() {
+        return this._onconnectionstatechange || null;
+      },
+      set(cb) {
+        if (this._onconnectionstatechange) {
+          this.removeEventListener(
+            "connectionstatechange",
+            this._onconnectionstatechange
+          );
+          delete this._onconnectionstatechange;
+        }
+        if (cb) {
+          this.addEventListener(
+            "connectionstatechange",
+            this._onconnectionstatechange = cb
+          );
+        }
+      },
+      enumerable: true,
+      configurable: true
+    });
+    ["setLocalDescription", "setRemoteDescription"].forEach((method) => {
+      const origMethod = proto[method];
+      proto[method] = function() {
+        if (!this._connectionstatechangepoly) {
+          this._connectionstatechangepoly = (e2) => {
+            const pc = e2.target;
+            if (pc._lastConnectionState !== pc.connectionState) {
+              pc._lastConnectionState = pc.connectionState;
+              const newEvent = new Event("connectionstatechange", e2);
+              pc.dispatchEvent(newEvent);
+            }
+            return e2;
+          };
+          this.addEventListener(
+            "iceconnectionstatechange",
+            this._connectionstatechangepoly
+          );
+        }
+        return origMethod.apply(this, arguments);
+      };
+    });
+  }
+  function removeExtmapAllowMixed2(window2, browserDetails2) {
+    if (!window2.RTCPeerConnection) {
+      return;
+    }
+    if (browserDetails2.browser === "chrome" && browserDetails2.version >= 71) {
+      return;
+    }
+    if (browserDetails2.browser === "safari" && browserDetails2._safariVersion >= 13.1) {
+      return;
+    }
+    const nativeSRD = window2.RTCPeerConnection.prototype.setRemoteDescription;
+    window2.RTCPeerConnection.prototype.setRemoteDescription = function setRemoteDescription(desc) {
+      if (desc && desc.sdp && desc.sdp.indexOf("\na=extmap-allow-mixed") !== -1) {
+        const sdp3 = desc.sdp.split("\n").filter((line) => {
+          return line.trim() !== "a=extmap-allow-mixed";
+        }).join("\n");
+        if (window2.RTCSessionDescription && desc instanceof window2.RTCSessionDescription) {
+          arguments[0] = new window2.RTCSessionDescription({
+            type: desc.type,
+            sdp: sdp3
+          });
+        } else {
+          desc.sdp = sdp3;
+        }
+      }
+      return nativeSRD.apply(this, arguments);
+    };
+  }
+  function shimAddIceCandidateNullOrEmpty2(window2, browserDetails2) {
+    if (!(window2.RTCPeerConnection && window2.RTCPeerConnection.prototype)) {
+      return;
+    }
+    const nativeAddIceCandidate = window2.RTCPeerConnection.prototype.addIceCandidate;
+    if (!nativeAddIceCandidate || nativeAddIceCandidate.length === 0) {
+      return;
+    }
+    window2.RTCPeerConnection.prototype.addIceCandidate = function addIceCandidate() {
+      if (!arguments[0]) {
+        if (arguments[1]) {
+          arguments[1].apply(null);
+        }
+        return Promise.resolve();
+      }
+      if ((browserDetails2.browser === "chrome" && browserDetails2.version < 78 || browserDetails2.browser === "firefox" && browserDetails2.version < 68 || browserDetails2.browser === "safari") && arguments[0] && arguments[0].candidate === "") {
+        return Promise.resolve();
+      }
+      return nativeAddIceCandidate.apply(this, arguments);
+    };
+  }
+  function shimParameterlessSetLocalDescription2(window2, browserDetails2) {
+    if (!(window2.RTCPeerConnection && window2.RTCPeerConnection.prototype)) {
+      return;
+    }
+    const nativeSetLocalDescription = window2.RTCPeerConnection.prototype.setLocalDescription;
+    if (!nativeSetLocalDescription || nativeSetLocalDescription.length === 0) {
+      return;
+    }
+    window2.RTCPeerConnection.prototype.setLocalDescription = function setLocalDescription() {
+      let desc = arguments[0] || {};
+      if (typeof desc !== "object" || desc.type && desc.sdp) {
+        return nativeSetLocalDescription.apply(this, arguments);
+      }
+      desc = { type: desc.type, sdp: desc.sdp };
+      if (!desc.type) {
+        switch (this.signalingState) {
+          case "stable":
+          case "have-local-offer":
+          case "have-remote-pranswer":
+            desc.type = "offer";
+            break;
+          default:
+            desc.type = "answer";
+            break;
+        }
+      }
+      if (desc.sdp || desc.type !== "offer" && desc.type !== "answer") {
+        return nativeSetLocalDescription.apply(this, [desc]);
+      }
+      const func = desc.type === "offer" ? this.createOffer : this.createAnswer;
+      return func.apply(this).then((d) => nativeSetLocalDescription.apply(this, [d]));
+    };
+  }
+  var import_sdp;
+  var init_common_shim = __esm({
+    "node_modules/webrtc-adapter/src/js/common_shim.js"() {
+      "use strict";
+      import_sdp = __toESM(require_sdp());
+      init_utils();
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/adapter_factory.js
+  function adapterFactory2({ window: window2 } = {}, options = {
+    shimChrome: true,
+    shimFirefox: true,
+    shimSafari: true
+  }) {
+    const logging3 = log2;
+    const browserDetails2 = detectBrowser2(window2);
+    const adapter2 = {
+      browserDetails: browserDetails2,
+      commonShim: common_shim_exports,
+      extractVersion: extractVersion2,
+      disableLog: disableLog2,
+      disableWarnings: disableWarnings2,
+      // Expose sdp as a convenience. For production apps include directly.
+      sdp: sdp2
+    };
+    switch (browserDetails2.browser) {
+      case "chrome":
+        if (!chrome_shim_exports || !shimPeerConnection2 || !options.shimChrome) {
+          logging3("Chrome shim is not included in this adapter release.");
+          return adapter2;
+        }
+        if (browserDetails2.version === null) {
+          logging3("Chrome shim can not determine version, not shimming.");
+          return adapter2;
+        }
+        logging3("adapter.js shimming chrome.");
+        adapter2.browserShim = chrome_shim_exports;
+        shimAddIceCandidateNullOrEmpty2(window2, browserDetails2);
+        shimParameterlessSetLocalDescription2(window2, browserDetails2);
+        shimGetUserMedia2(window2, browserDetails2);
+        shimMediaStream2(window2, browserDetails2);
+        shimPeerConnection2(window2, browserDetails2);
+        shimOnTrack2(window2, browserDetails2);
+        shimAddTrackRemoveTrack2(window2, browserDetails2);
+        shimGetSendersWithDtmf2(window2, browserDetails2);
+        shimSenderReceiverGetStats2(window2, browserDetails2);
+        fixNegotiationNeeded2(window2, browserDetails2);
+        shimRTCIceCandidate2(window2, browserDetails2);
+        shimRTCIceCandidateRelayProtocol2(window2, browserDetails2);
+        shimConnectionState2(window2, browserDetails2);
+        shimMaxMessageSize2(window2, browserDetails2);
+        shimSendThrowTypeError2(window2, browserDetails2);
+        removeExtmapAllowMixed2(window2, browserDetails2);
+        break;
+      case "firefox":
+        if (!firefox_shim_exports || !shimPeerConnection3 || !options.shimFirefox) {
+          logging3("Firefox shim is not included in this adapter release.");
+          return adapter2;
+        }
+        logging3("adapter.js shimming firefox.");
+        adapter2.browserShim = firefox_shim_exports;
+        shimAddIceCandidateNullOrEmpty2(window2, browserDetails2);
+        shimParameterlessSetLocalDescription2(window2, browserDetails2);
+        shimGetUserMedia3(window2, browserDetails2);
+        shimPeerConnection3(window2, browserDetails2);
+        shimGetStats2(window2, browserDetails2);
+        shimOnTrack3(window2, browserDetails2);
+        shimRemoveStream2(window2, browserDetails2);
+        shimSenderGetStats2(window2, browserDetails2);
+        shimReceiverGetStats2(window2, browserDetails2);
+        shimRTCDataChannel2(window2, browserDetails2);
+        shimAddTransceiver2(window2, browserDetails2);
+        shimGetParameters2(window2, browserDetails2);
+        shimCreateOffer2(window2, browserDetails2);
+        shimCreateAnswer2(window2, browserDetails2);
+        shimRTCIceCandidate2(window2, browserDetails2);
+        shimConnectionState2(window2, browserDetails2);
+        shimMaxMessageSize2(window2, browserDetails2);
+        shimSendThrowTypeError2(window2, browserDetails2);
+        break;
+      case "safari":
+        if (!safari_shim_exports || !options.shimSafari) {
+          logging3("Safari shim is not included in this adapter release.");
+          return adapter2;
+        }
+        logging3("adapter.js shimming safari.");
+        adapter2.browserShim = safari_shim_exports;
+        shimAddIceCandidateNullOrEmpty2(window2, browserDetails2);
+        shimParameterlessSetLocalDescription2(window2, browserDetails2);
+        shimRTCIceServerUrls2(window2, browserDetails2);
+        shimCreateOfferLegacy2(window2, browserDetails2);
+        shimCallbacksAPI2(window2, browserDetails2);
+        shimLocalStreamsAPI2(window2, browserDetails2);
+        shimRemoteStreamsAPI2(window2, browserDetails2);
+        shimTrackEventTransceiver2(window2, browserDetails2);
+        shimGetUserMedia4(window2, browserDetails2);
+        shimAudioContext2(window2, browserDetails2);
+        shimRTCIceCandidate2(window2, browserDetails2);
+        shimRTCIceCandidateRelayProtocol2(window2, browserDetails2);
+        shimMaxMessageSize2(window2, browserDetails2);
+        shimSendThrowTypeError2(window2, browserDetails2);
+        removeExtmapAllowMixed2(window2, browserDetails2);
+        break;
+      default:
+        logging3("Unsupported browser!");
+        break;
+    }
+    return adapter2;
+  }
+  var sdp2;
+  var init_adapter_factory = __esm({
+    "node_modules/webrtc-adapter/src/js/adapter_factory.js"() {
+      init_utils();
+      init_chrome_shim();
+      init_firefox_shim();
+      init_safari_shim();
+      init_common_shim();
+      sdp2 = __toESM(require_sdp());
+    }
+  });
+
+  // node_modules/webrtc-adapter/src/js/adapter_core.js
+  var adapter, adapter_core_default;
+  var init_adapter_core = __esm({
+    "node_modules/webrtc-adapter/src/js/adapter_core.js"() {
+      "use strict";
+      init_adapter_factory();
+      adapter = adapterFactory2({ window: typeof window === "undefined" ? void 0 : window });
+      adapter_core_default = adapter;
+    }
+  });
+
+  // node_modules/peerjs/dist/bundler.mjs
+  function $parcel$export(e2, n, v, s) {
+    Object.defineProperty(e2, n, { get: v, set: s, enumerable: true, configurable: true });
+  }
+  function $fcbcc7538a6776d5$export$52c89ebcdc4f53f2(bufs) {
+    let size = 0;
+    for (const buf of bufs) size += buf.byteLength;
+    const result = new Uint8Array(size);
+    let offset = 0;
+    for (const buf of bufs) {
+      result.set(buf, offset);
+      offset += buf.byteLength;
+    }
+    return result;
+  }
+  function $c4dcfd1d1ea86647$var$Events() {
+  }
+  function $c4dcfd1d1ea86647$var$EE(fn, context, once2) {
+    this.fn = fn;
+    this.context = context;
+    this.once = once2 || false;
+  }
+  function $c4dcfd1d1ea86647$var$addListener(emitter, event, fn, context, once2) {
+    if (typeof fn !== "function") throw new TypeError("The listener must be a function");
+    var listener = new $c4dcfd1d1ea86647$var$EE(fn, context || emitter, once2), evt = $c4dcfd1d1ea86647$var$prefix ? $c4dcfd1d1ea86647$var$prefix + event : event;
+    if (!emitter._events[evt]) emitter._events[evt] = listener, emitter._eventsCount++;
+    else if (!emitter._events[evt].fn) emitter._events[evt].push(listener);
+    else emitter._events[evt] = [
+      emitter._events[evt],
+      listener
+    ];
+    return emitter;
+  }
+  function $c4dcfd1d1ea86647$var$clearEvent(emitter, evt) {
+    if (--emitter._eventsCount === 0) emitter._events = new $c4dcfd1d1ea86647$var$Events();
+    else delete emitter._events[evt];
+  }
+  function $c4dcfd1d1ea86647$var$EventEmitter() {
+    this._events = new $c4dcfd1d1ea86647$var$Events();
+    this._eventsCount = 0;
+  }
+  var $fcbcc7538a6776d5$export$f1c5f4c9cb95390b, $fb63e766cfafaab9$var$webRTCAdapter, $fb63e766cfafaab9$export$25be9502477c137d, $9a84a32bf0bf36bb$export$f35f128fd59ea256, $0e5fd1585784c252$export$4e61f672936bec77, $4f4134156c446392$var$DEFAULT_CONFIG, $4f4134156c446392$export$f8f26dd395d7e1bd, $4f4134156c446392$export$7debb50ef11d5e0b, $257947e92926277a$var$LOG_PREFIX, $257947e92926277a$var$Logger, $257947e92926277a$export$2e2bcd8739ae039, $c4dcfd1d1ea86647$exports, $c4dcfd1d1ea86647$var$has, $c4dcfd1d1ea86647$var$prefix, $78455e22dea96b8c$exports, $78455e22dea96b8c$export$3157d57b4135e3bc, $78455e22dea96b8c$export$9547aaa2e39030ff, $78455e22dea96b8c$export$7974935686149686, $78455e22dea96b8c$export$49ae800c114df41d, $78455e22dea96b8c$export$89f507cf986a947, $78455e22dea96b8c$export$3b5c4a4b6354f023, $78455e22dea96b8c$export$adb4a1754da6f10d, $520832d44ba058c8$export$83d89fbfd8236492, $8f5bfa60836d261d$export$4798917dbf149b79, $b82fb8fc0514bfc1$export$89e6bb5ad64bf4a, $23779d1881157a18$export$6a678e589c8a4542, $23779d1881157a18$export$98871882f492de82, $5045192fc6d387ba$export$23a2a68283c24d80, __, _$5c1d08c7c57da9a3$export$4a84e95a2324ac29, $5c1d08c7c57da9a3$export$4a84e95a2324ac29, $abf266641927cd89$export$2c4e825dc9120f87, __2, __22, _$6366c4ca161bc297$export$d365f7ad9d7df9c9, $6366c4ca161bc297$export$d365f7ad9d7df9c9, $a229bedbcaa6ca23$export$ff7c9d4c11d94e8b, $9fcfddb3ae148f88$export$f0a5a64d5bb37108, $bbaee3f15f714663$export$6f88fe47d32c9c94, $817f931e3f9096cf$export$48880ac635f47186, __3, _$416260bce337df90$export$ecd1fc136c422448, $416260bce337df90$export$ecd1fc136c422448;
+  var init_bundler = __esm({
+    "node_modules/peerjs/dist/bundler.mjs"() {
+      init_binarypack();
+      init_adapter_core();
+      $fcbcc7538a6776d5$export$f1c5f4c9cb95390b = class {
+        constructor() {
+          this.chunkedMTU = 16300;
+          this._dataCount = 1;
+          this.chunk = (blob) => {
+            const chunks = [];
+            const size = blob.byteLength;
+            const total = Math.ceil(size / this.chunkedMTU);
+            let index = 0;
+            let start = 0;
+            while (start < size) {
+              const end = Math.min(size, start + this.chunkedMTU);
+              const b = blob.slice(start, end);
+              const chunk = {
+                __peerData: this._dataCount,
+                n: index,
+                data: b,
+                total
+              };
+              chunks.push(chunk);
+              start = end;
+              index++;
+            }
+            this._dataCount++;
+            return chunks;
+          };
+        }
+      };
+      $fb63e766cfafaab9$var$webRTCAdapter = //@ts-ignore
+      (0, adapter_core_default).default || (0, adapter_core_default);
+      $fb63e766cfafaab9$export$25be9502477c137d = new class {
+        isWebRTCSupported() {
+          return typeof RTCPeerConnection !== "undefined";
+        }
+        isBrowserSupported() {
+          const browser = this.getBrowser();
+          const version2 = this.getVersion();
+          const validBrowser = this.supportedBrowsers.includes(browser);
+          if (!validBrowser) return false;
+          if (browser === "chrome") return version2 >= this.minChromeVersion;
+          if (browser === "firefox") return version2 >= this.minFirefoxVersion;
+          if (browser === "safari") return !this.isIOS && version2 >= this.minSafariVersion;
+          return false;
+        }
+        getBrowser() {
+          return $fb63e766cfafaab9$var$webRTCAdapter.browserDetails.browser;
+        }
+        getVersion() {
+          return $fb63e766cfafaab9$var$webRTCAdapter.browserDetails.version || 0;
+        }
+        isUnifiedPlanSupported() {
+          const browser = this.getBrowser();
+          const version2 = $fb63e766cfafaab9$var$webRTCAdapter.browserDetails.version || 0;
+          if (browser === "chrome" && version2 < this.minChromeVersion) return false;
+          if (browser === "firefox" && version2 >= this.minFirefoxVersion) return true;
+          if (!window.RTCRtpTransceiver || !("currentDirection" in RTCRtpTransceiver.prototype)) return false;
+          let tempPc;
+          let supported = false;
+          try {
+            tempPc = new RTCPeerConnection();
+            tempPc.addTransceiver("audio");
+            supported = true;
+          } catch (e2) {
+          } finally {
+            if (tempPc) tempPc.close();
+          }
+          return supported;
+        }
+        toString() {
+          return `Supports:
+    browser:${this.getBrowser()}
+    version:${this.getVersion()}
+    isIOS:${this.isIOS}
+    isWebRTCSupported:${this.isWebRTCSupported()}
+    isBrowserSupported:${this.isBrowserSupported()}
+    isUnifiedPlanSupported:${this.isUnifiedPlanSupported()}`;
+        }
+        constructor() {
+          this.isIOS = typeof navigator !== "undefined" ? [
+            "iPad",
+            "iPhone",
+            "iPod"
+          ].includes(navigator.platform) : false;
+          this.supportedBrowsers = [
+            "firefox",
+            "chrome",
+            "safari"
+          ];
+          this.minFirefoxVersion = 59;
+          this.minChromeVersion = 72;
+          this.minSafariVersion = 605;
+        }
+      }();
+      $9a84a32bf0bf36bb$export$f35f128fd59ea256 = (id) => {
+        return !id || /^[A-Za-z0-9]+(?:[ _-][A-Za-z0-9]+)*$/.test(id);
+      };
+      $0e5fd1585784c252$export$4e61f672936bec77 = () => Math.random().toString(36).slice(2);
+      $4f4134156c446392$var$DEFAULT_CONFIG = {
+        iceServers: [
+          {
+            urls: "stun:stun.l.google.com:19302"
+          },
+          {
+            urls: [
+              "turn:eu-0.turn.peerjs.com:3478",
+              "turn:us-0.turn.peerjs.com:3478"
+            ],
+            username: "peerjs",
+            credential: "peerjsp"
+          }
+        ],
+        sdpSemantics: "unified-plan"
+      };
+      $4f4134156c446392$export$f8f26dd395d7e1bd = class extends (0, $fcbcc7538a6776d5$export$f1c5f4c9cb95390b) {
+        noop() {
+        }
+        blobToArrayBuffer(blob, cb) {
+          const fr = new FileReader();
+          fr.onload = function(evt) {
+            if (evt.target) cb(evt.target.result);
+          };
+          fr.readAsArrayBuffer(blob);
+          return fr;
+        }
+        binaryStringToArrayBuffer(binary) {
+          const byteArray = new Uint8Array(binary.length);
+          for (let i = 0; i < binary.length; i++) byteArray[i] = binary.charCodeAt(i) & 255;
+          return byteArray.buffer;
+        }
+        isSecure() {
+          return location.protocol === "https:";
+        }
+        constructor(...args) {
+          super(...args), this.CLOUD_HOST = "0.peerjs.com", this.CLOUD_PORT = 443, // Browsers that need chunking:
+          this.chunkedBrowsers = {
+            Chrome: 1,
+            chrome: 1
+          }, // Returns browser-agnostic default config
+          this.defaultConfig = $4f4134156c446392$var$DEFAULT_CONFIG, this.browser = (0, $fb63e766cfafaab9$export$25be9502477c137d).getBrowser(), this.browserVersion = (0, $fb63e766cfafaab9$export$25be9502477c137d).getVersion(), this.pack = $0cfd7828ad59115f$export$2a703dbb0cb35339, this.unpack = $0cfd7828ad59115f$export$417857010dc9287f, /**
+          * A hash of WebRTC features mapped to booleans that correspond to whether the feature is supported by the current browser.
+          *
+          * :::caution
+          * Only the properties documented here are guaranteed to be present on `util.supports`
+          * :::
+          */
+          this.supports = (function() {
+            const supported = {
+              browser: (0, $fb63e766cfafaab9$export$25be9502477c137d).isBrowserSupported(),
+              webRTC: (0, $fb63e766cfafaab9$export$25be9502477c137d).isWebRTCSupported(),
+              audioVideo: false,
+              data: false,
+              binaryBlob: false,
+              reliable: false
+            };
+            if (!supported.webRTC) return supported;
+            let pc;
+            try {
+              pc = new RTCPeerConnection($4f4134156c446392$var$DEFAULT_CONFIG);
+              supported.audioVideo = true;
+              let dc;
+              try {
+                dc = pc.createDataChannel("_PEERJSTEST", {
+                  ordered: true
+                });
+                supported.data = true;
+                supported.reliable = !!dc.ordered;
+                try {
+                  dc.binaryType = "blob";
+                  supported.binaryBlob = !(0, $fb63e766cfafaab9$export$25be9502477c137d).isIOS;
+                } catch (e2) {
+                }
+              } catch (e2) {
+              } finally {
+                if (dc) dc.close();
+              }
+            } catch (e2) {
+            } finally {
+              if (pc) pc.close();
+            }
+            return supported;
+          })(), // Ensure alphanumeric ids
+          this.validateId = (0, $9a84a32bf0bf36bb$export$f35f128fd59ea256), this.randomToken = (0, $0e5fd1585784c252$export$4e61f672936bec77);
+        }
+      };
+      $4f4134156c446392$export$7debb50ef11d5e0b = new $4f4134156c446392$export$f8f26dd395d7e1bd();
+      $257947e92926277a$var$LOG_PREFIX = "PeerJS: ";
+      $257947e92926277a$var$Logger = class {
+        get logLevel() {
+          return this._logLevel;
+        }
+        set logLevel(logLevel) {
+          this._logLevel = logLevel;
+        }
+        log(...args) {
+          if (this._logLevel >= 3) this._print(3, ...args);
+        }
+        warn(...args) {
+          if (this._logLevel >= 2) this._print(2, ...args);
+        }
+        error(...args) {
+          if (this._logLevel >= 1) this._print(1, ...args);
+        }
+        setLogFunction(fn) {
+          this._print = fn;
+        }
+        _print(logLevel, ...rest) {
+          const copy = [
+            $257947e92926277a$var$LOG_PREFIX,
+            ...rest
+          ];
+          for (const i in copy) if (copy[i] instanceof Error) copy[i] = "(" + copy[i].name + ") " + copy[i].message;
+          if (logLevel >= 3) console.log(...copy);
+          else if (logLevel >= 2) console.warn("WARNING", ...copy);
+          else if (logLevel >= 1) console.error("ERROR", ...copy);
+        }
+        constructor() {
+          this._logLevel = 0;
+        }
+      };
+      $257947e92926277a$export$2e2bcd8739ae039 = new $257947e92926277a$var$Logger();
+      $c4dcfd1d1ea86647$exports = {};
+      $c4dcfd1d1ea86647$var$has = Object.prototype.hasOwnProperty;
+      $c4dcfd1d1ea86647$var$prefix = "~";
+      if (Object.create) {
+        $c4dcfd1d1ea86647$var$Events.prototype = /* @__PURE__ */ Object.create(null);
+        if (!new $c4dcfd1d1ea86647$var$Events().__proto__) $c4dcfd1d1ea86647$var$prefix = false;
+      }
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.eventNames = function eventNames() {
+        var names = [], events2, name;
+        if (this._eventsCount === 0) return names;
+        for (name in events2 = this._events) if ($c4dcfd1d1ea86647$var$has.call(events2, name)) names.push($c4dcfd1d1ea86647$var$prefix ? name.slice(1) : name);
+        if (Object.getOwnPropertySymbols) return names.concat(Object.getOwnPropertySymbols(events2));
+        return names;
+      };
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.listeners = function listeners(event) {
+        var evt = $c4dcfd1d1ea86647$var$prefix ? $c4dcfd1d1ea86647$var$prefix + event : event, handlers = this._events[evt];
+        if (!handlers) return [];
+        if (handlers.fn) return [
+          handlers.fn
+        ];
+        for (var i = 0, l = handlers.length, ee = new Array(l); i < l; i++) ee[i] = handlers[i].fn;
+        return ee;
+      };
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.listenerCount = function listenerCount(event) {
+        var evt = $c4dcfd1d1ea86647$var$prefix ? $c4dcfd1d1ea86647$var$prefix + event : event, listeners2 = this._events[evt];
+        if (!listeners2) return 0;
+        if (listeners2.fn) return 1;
+        return listeners2.length;
+      };
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.emit = function emit(event, a1, a2, a3, a4, a5) {
+        var evt = $c4dcfd1d1ea86647$var$prefix ? $c4dcfd1d1ea86647$var$prefix + event : event;
+        if (!this._events[evt]) return false;
+        var listeners2 = this._events[evt], len = arguments.length, args, i;
+        if (listeners2.fn) {
+          if (listeners2.once) this.removeListener(event, listeners2.fn, void 0, true);
+          switch (len) {
+            case 1:
+              return listeners2.fn.call(listeners2.context), true;
+            case 2:
+              return listeners2.fn.call(listeners2.context, a1), true;
+            case 3:
+              return listeners2.fn.call(listeners2.context, a1, a2), true;
+            case 4:
+              return listeners2.fn.call(listeners2.context, a1, a2, a3), true;
+            case 5:
+              return listeners2.fn.call(listeners2.context, a1, a2, a3, a4), true;
+            case 6:
+              return listeners2.fn.call(listeners2.context, a1, a2, a3, a4, a5), true;
+          }
+          for (i = 1, args = new Array(len - 1); i < len; i++) args[i - 1] = arguments[i];
+          listeners2.fn.apply(listeners2.context, args);
+        } else {
+          var length = listeners2.length, j;
+          for (i = 0; i < length; i++) {
+            if (listeners2[i].once) this.removeListener(event, listeners2[i].fn, void 0, true);
+            switch (len) {
+              case 1:
+                listeners2[i].fn.call(listeners2[i].context);
+                break;
+              case 2:
+                listeners2[i].fn.call(listeners2[i].context, a1);
+                break;
+              case 3:
+                listeners2[i].fn.call(listeners2[i].context, a1, a2);
+                break;
+              case 4:
+                listeners2[i].fn.call(listeners2[i].context, a1, a2, a3);
+                break;
+              default:
+                if (!args) for (j = 1, args = new Array(len - 1); j < len; j++) args[j - 1] = arguments[j];
+                listeners2[i].fn.apply(listeners2[i].context, args);
+            }
+          }
+        }
+        return true;
+      };
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.on = function on2(event, fn, context) {
+        return $c4dcfd1d1ea86647$var$addListener(this, event, fn, context, false);
+      };
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.once = function once(event, fn, context) {
+        return $c4dcfd1d1ea86647$var$addListener(this, event, fn, context, true);
+      };
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.removeListener = function removeListener(event, fn, context, once2) {
+        var evt = $c4dcfd1d1ea86647$var$prefix ? $c4dcfd1d1ea86647$var$prefix + event : event;
+        if (!this._events[evt]) return this;
+        if (!fn) {
+          $c4dcfd1d1ea86647$var$clearEvent(this, evt);
+          return this;
+        }
+        var listeners2 = this._events[evt];
+        if (listeners2.fn) {
+          if (listeners2.fn === fn && (!once2 || listeners2.once) && (!context || listeners2.context === context)) $c4dcfd1d1ea86647$var$clearEvent(this, evt);
+        } else {
+          for (var i = 0, events2 = [], length = listeners2.length; i < length; i++) if (listeners2[i].fn !== fn || once2 && !listeners2[i].once || context && listeners2[i].context !== context) events2.push(listeners2[i]);
+          if (events2.length) this._events[evt] = events2.length === 1 ? events2[0] : events2;
+          else $c4dcfd1d1ea86647$var$clearEvent(this, evt);
+        }
+        return this;
+      };
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.removeAllListeners = function removeAllListeners(event) {
+        var evt;
+        if (event) {
+          evt = $c4dcfd1d1ea86647$var$prefix ? $c4dcfd1d1ea86647$var$prefix + event : event;
+          if (this._events[evt]) $c4dcfd1d1ea86647$var$clearEvent(this, evt);
+        } else {
+          this._events = new $c4dcfd1d1ea86647$var$Events();
+          this._eventsCount = 0;
+        }
+        return this;
+      };
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.off = $c4dcfd1d1ea86647$var$EventEmitter.prototype.removeListener;
+      $c4dcfd1d1ea86647$var$EventEmitter.prototype.addListener = $c4dcfd1d1ea86647$var$EventEmitter.prototype.on;
+      $c4dcfd1d1ea86647$var$EventEmitter.prefixed = $c4dcfd1d1ea86647$var$prefix;
+      $c4dcfd1d1ea86647$var$EventEmitter.EventEmitter = $c4dcfd1d1ea86647$var$EventEmitter;
+      $c4dcfd1d1ea86647$exports = $c4dcfd1d1ea86647$var$EventEmitter;
+      $78455e22dea96b8c$exports = {};
+      $parcel$export($78455e22dea96b8c$exports, "ConnectionType", () => $78455e22dea96b8c$export$3157d57b4135e3bc);
+      $parcel$export($78455e22dea96b8c$exports, "PeerErrorType", () => $78455e22dea96b8c$export$9547aaa2e39030ff);
+      $parcel$export($78455e22dea96b8c$exports, "BaseConnectionErrorType", () => $78455e22dea96b8c$export$7974935686149686);
+      $parcel$export($78455e22dea96b8c$exports, "DataConnectionErrorType", () => $78455e22dea96b8c$export$49ae800c114df41d);
+      $parcel$export($78455e22dea96b8c$exports, "SerializationType", () => $78455e22dea96b8c$export$89f507cf986a947);
+      $parcel$export($78455e22dea96b8c$exports, "SocketEventType", () => $78455e22dea96b8c$export$3b5c4a4b6354f023);
+      $parcel$export($78455e22dea96b8c$exports, "ServerMessageType", () => $78455e22dea96b8c$export$adb4a1754da6f10d);
+      $78455e22dea96b8c$export$3157d57b4135e3bc = /* @__PURE__ */ (function(ConnectionType) {
+        ConnectionType["Data"] = "data";
+        ConnectionType["Media"] = "media";
+        return ConnectionType;
+      })({});
+      $78455e22dea96b8c$export$9547aaa2e39030ff = /* @__PURE__ */ (function(PeerErrorType) {
+        PeerErrorType["BrowserIncompatible"] = "browser-incompatible";
+        PeerErrorType["Disconnected"] = "disconnected";
+        PeerErrorType["InvalidID"] = "invalid-id";
+        PeerErrorType["InvalidKey"] = "invalid-key";
+        PeerErrorType["Network"] = "network";
+        PeerErrorType["PeerUnavailable"] = "peer-unavailable";
+        PeerErrorType["SslUnavailable"] = "ssl-unavailable";
+        PeerErrorType["ServerError"] = "server-error";
+        PeerErrorType["SocketError"] = "socket-error";
+        PeerErrorType["SocketClosed"] = "socket-closed";
+        PeerErrorType["UnavailableID"] = "unavailable-id";
+        PeerErrorType["WebRTC"] = "webrtc";
+        return PeerErrorType;
+      })({});
+      $78455e22dea96b8c$export$7974935686149686 = /* @__PURE__ */ (function(BaseConnectionErrorType) {
+        BaseConnectionErrorType["NegotiationFailed"] = "negotiation-failed";
+        BaseConnectionErrorType["ConnectionClosed"] = "connection-closed";
+        return BaseConnectionErrorType;
+      })({});
+      $78455e22dea96b8c$export$49ae800c114df41d = /* @__PURE__ */ (function(DataConnectionErrorType) {
+        DataConnectionErrorType["NotOpenYet"] = "not-open-yet";
+        DataConnectionErrorType["MessageToBig"] = "message-too-big";
+        return DataConnectionErrorType;
+      })({});
+      $78455e22dea96b8c$export$89f507cf986a947 = /* @__PURE__ */ (function(SerializationType) {
+        SerializationType["Binary"] = "binary";
+        SerializationType["BinaryUTF8"] = "binary-utf8";
+        SerializationType["JSON"] = "json";
+        SerializationType["None"] = "raw";
+        return SerializationType;
+      })({});
+      $78455e22dea96b8c$export$3b5c4a4b6354f023 = /* @__PURE__ */ (function(SocketEventType) {
+        SocketEventType["Message"] = "message";
+        SocketEventType["Disconnected"] = "disconnected";
+        SocketEventType["Error"] = "error";
+        SocketEventType["Close"] = "close";
+        return SocketEventType;
+      })({});
+      $78455e22dea96b8c$export$adb4a1754da6f10d = /* @__PURE__ */ (function(ServerMessageType) {
+        ServerMessageType["Heartbeat"] = "HEARTBEAT";
+        ServerMessageType["Candidate"] = "CANDIDATE";
+        ServerMessageType["Offer"] = "OFFER";
+        ServerMessageType["Answer"] = "ANSWER";
+        ServerMessageType["Open"] = "OPEN";
+        ServerMessageType["Error"] = "ERROR";
+        ServerMessageType["IdTaken"] = "ID-TAKEN";
+        ServerMessageType["InvalidKey"] = "INVALID-KEY";
+        ServerMessageType["Leave"] = "LEAVE";
+        ServerMessageType["Expire"] = "EXPIRE";
+        return ServerMessageType;
+      })({});
+      $520832d44ba058c8$export$83d89fbfd8236492 = "1.5.5";
+      $8f5bfa60836d261d$export$4798917dbf149b79 = class extends (0, $c4dcfd1d1ea86647$exports.EventEmitter) {
+        constructor(secure, host, port, path, key, pingInterval = 5e3) {
+          super(), this.pingInterval = pingInterval, this._disconnected = true, this._messagesQueue = [];
+          const wsProtocol = secure ? "wss://" : "ws://";
+          this._baseUrl = wsProtocol + host + ":" + port + path + "peerjs?key=" + key;
+        }
+        start(id, token) {
+          this._id = id;
+          const wsUrl = `${this._baseUrl}&id=${id}&token=${token}`;
+          if (!!this._socket || !this._disconnected) return;
+          this._socket = new WebSocket(wsUrl + "&version=" + (0, $520832d44ba058c8$export$83d89fbfd8236492));
+          this._disconnected = false;
+          this._socket.onmessage = (event) => {
+            let data;
+            try {
+              data = JSON.parse(event.data);
+              (0, $257947e92926277a$export$2e2bcd8739ae039).log("Server message received:", data);
+            } catch (e2) {
+              (0, $257947e92926277a$export$2e2bcd8739ae039).log("Invalid server message", event.data);
+              return;
+            }
+            this.emit((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Message, data);
+          };
+          this._socket.onclose = (event) => {
+            if (this._disconnected) return;
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Socket closed.", event);
+            this._cleanup();
+            this._disconnected = true;
+            this.emit((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Disconnected);
+          };
+          this._socket.onopen = () => {
+            if (this._disconnected) return;
+            this._sendQueuedMessages();
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Socket open");
+            this._scheduleHeartbeat();
+          };
+        }
+        _scheduleHeartbeat() {
+          this._wsPingTimer = setTimeout(() => {
+            this._sendHeartbeat();
+          }, this.pingInterval);
+        }
+        _sendHeartbeat() {
+          if (!this._wsOpen()) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Cannot send heartbeat, because socket closed`);
+            return;
+          }
+          const message = JSON.stringify({
+            type: (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Heartbeat
+          });
+          this._socket.send(message);
+          this._scheduleHeartbeat();
+        }
+        /** Is the websocket currently open? */
+        _wsOpen() {
+          return !!this._socket && this._socket.readyState === 1;
+        }
+        /** Send queued messages. */
+        _sendQueuedMessages() {
+          const copiedQueue = [
+            ...this._messagesQueue
+          ];
+          this._messagesQueue = [];
+          for (const message of copiedQueue) this.send(message);
+        }
+        /** Exposed send for DC & Peer. */
+        send(data) {
+          if (this._disconnected) return;
+          if (!this._id) {
+            this._messagesQueue.push(data);
+            return;
+          }
+          if (!data.type) {
+            this.emit((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Error, "Invalid message");
+            return;
+          }
+          if (!this._wsOpen()) return;
+          const message = JSON.stringify(data);
+          this._socket.send(message);
+        }
+        close() {
+          if (this._disconnected) return;
+          this._cleanup();
+          this._disconnected = true;
+        }
+        _cleanup() {
+          if (this._socket) {
+            this._socket.onopen = this._socket.onmessage = this._socket.onclose = null;
+            this._socket.close();
+            this._socket = void 0;
+          }
+          clearTimeout(this._wsPingTimer);
+        }
+      };
+      $b82fb8fc0514bfc1$export$89e6bb5ad64bf4a = class {
+        constructor(connection) {
+          this.connection = connection;
+        }
+        /** Returns a PeerConnection object set up correctly (for data, media). */
+        startConnection(options) {
+          const peerConnection = this._startPeerConnection();
+          this.connection.peerConnection = peerConnection;
+          if (this.connection.type === (0, $78455e22dea96b8c$export$3157d57b4135e3bc).Media && options._stream) this._addTracksToConnection(options._stream, peerConnection);
+          if (options.originator) {
+            const dataConnection = this.connection;
+            const config = {
+              ordered: !!options.reliable
+            };
+            const dataChannel = peerConnection.createDataChannel(dataConnection.label, config);
+            dataConnection._initializeDataChannel(dataChannel);
+            this._makeOffer();
+          } else this.handleSDP("OFFER", options.sdp);
+        }
+        /** Start a PC. */
+        _startPeerConnection() {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log("Creating RTCPeerConnection.");
+          const peerConnection = new RTCPeerConnection(this.connection.provider.options.config);
+          this._setupListeners(peerConnection);
+          return peerConnection;
+        }
+        /** Set up various WebRTC listeners. */
+        _setupListeners(peerConnection) {
+          const peerId = this.connection.peer;
+          const connectionId = this.connection.connectionId;
+          const connectionType = this.connection.type;
+          const provider = this.connection.provider;
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log("Listening for ICE candidates.");
+          peerConnection.onicecandidate = (evt) => {
+            if (!evt.candidate || !evt.candidate.candidate) return;
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Received ICE candidates for ${peerId}:`, evt.candidate);
+            provider.socket.send({
+              type: (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Candidate,
+              payload: {
+                candidate: evt.candidate,
+                type: connectionType,
+                connectionId
+              },
+              dst: peerId
+            });
+          };
+          peerConnection.oniceconnectionstatechange = () => {
+            switch (peerConnection.iceConnectionState) {
+              case "failed":
+                (0, $257947e92926277a$export$2e2bcd8739ae039).log("iceConnectionState is failed, closing connections to " + peerId);
+                this.connection.emitError((0, $78455e22dea96b8c$export$7974935686149686).NegotiationFailed, "Negotiation of connection to " + peerId + " failed.");
+                this.connection.close();
+                break;
+              case "closed":
+                (0, $257947e92926277a$export$2e2bcd8739ae039).log("iceConnectionState is closed, closing connections to " + peerId);
+                this.connection.emitError((0, $78455e22dea96b8c$export$7974935686149686).ConnectionClosed, "Connection to " + peerId + " closed.");
+                this.connection.close();
+                break;
+              case "disconnected":
+                (0, $257947e92926277a$export$2e2bcd8739ae039).log("iceConnectionState changed to disconnected on the connection with " + peerId);
+                break;
+              case "completed":
+                peerConnection.onicecandidate = () => {
+                };
+                break;
+            }
+            this.connection.emit("iceStateChanged", peerConnection.iceConnectionState);
+          };
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log("Listening for data channel");
+          peerConnection.ondatachannel = (evt) => {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Received data channel");
+            const dataChannel = evt.channel;
+            const connection = provider.getConnection(peerId, connectionId);
+            connection._initializeDataChannel(dataChannel);
+          };
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log("Listening for remote stream");
+          peerConnection.ontrack = (evt) => {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Received remote stream");
+            const stream = evt.streams[0];
+            const connection = provider.getConnection(peerId, connectionId);
+            if (connection.type === (0, $78455e22dea96b8c$export$3157d57b4135e3bc).Media) {
+              const mediaConnection = connection;
+              this._addStreamToMediaConnection(stream, mediaConnection);
+            }
+          };
+        }
+        cleanup() {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log("Cleaning up PeerConnection to " + this.connection.peer);
+          const peerConnection = this.connection.peerConnection;
+          if (!peerConnection) return;
+          this.connection.peerConnection = null;
+          peerConnection.onicecandidate = peerConnection.oniceconnectionstatechange = peerConnection.ondatachannel = peerConnection.ontrack = () => {
+          };
+          const peerConnectionNotClosed = peerConnection.signalingState !== "closed";
+          let dataChannelNotClosed = false;
+          const dataChannel = this.connection.dataChannel;
+          if (dataChannel) dataChannelNotClosed = !!dataChannel.readyState && dataChannel.readyState !== "closed";
+          if (peerConnectionNotClosed || dataChannelNotClosed) peerConnection.close();
+        }
+        async _makeOffer() {
+          const peerConnection = this.connection.peerConnection;
+          const provider = this.connection.provider;
+          try {
+            const offer = await peerConnection.createOffer(this.connection.options.constraints);
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Created offer.");
+            if (this.connection.options.sdpTransform && typeof this.connection.options.sdpTransform === "function") offer.sdp = this.connection.options.sdpTransform(offer.sdp) || offer.sdp;
+            try {
+              await peerConnection.setLocalDescription(offer);
+              (0, $257947e92926277a$export$2e2bcd8739ae039).log("Set localDescription:", offer, `for:${this.connection.peer}`);
+              let payload = {
+                sdp: offer,
+                type: this.connection.type,
+                connectionId: this.connection.connectionId,
+                metadata: this.connection.metadata
+              };
+              if (this.connection.type === (0, $78455e22dea96b8c$export$3157d57b4135e3bc).Data) {
+                const dataConnection = this.connection;
+                payload = {
+                  ...payload,
+                  label: dataConnection.label,
+                  reliable: dataConnection.reliable,
+                  serialization: dataConnection.serialization
+                };
+              }
+              provider.socket.send({
+                type: (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Offer,
+                payload,
+                dst: this.connection.peer
+              });
+            } catch (err) {
+              if (err != "OperationError: Failed to set local offer sdp: Called in wrong state: kHaveRemoteOffer") {
+                provider.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).WebRTC, err);
+                (0, $257947e92926277a$export$2e2bcd8739ae039).log("Failed to setLocalDescription, ", err);
+              }
+            }
+          } catch (err_1) {
+            provider.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).WebRTC, err_1);
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Failed to createOffer, ", err_1);
+          }
+        }
+        async _makeAnswer() {
+          const peerConnection = this.connection.peerConnection;
+          const provider = this.connection.provider;
+          try {
+            const answer = await peerConnection.createAnswer();
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Created answer.");
+            if (this.connection.options.sdpTransform && typeof this.connection.options.sdpTransform === "function") answer.sdp = this.connection.options.sdpTransform(answer.sdp) || answer.sdp;
+            try {
+              await peerConnection.setLocalDescription(answer);
+              (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Set localDescription:`, answer, `for:${this.connection.peer}`);
+              provider.socket.send({
+                type: (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Answer,
+                payload: {
+                  sdp: answer,
+                  type: this.connection.type,
+                  connectionId: this.connection.connectionId
+                },
+                dst: this.connection.peer
+              });
+            } catch (err) {
+              provider.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).WebRTC, err);
+              (0, $257947e92926277a$export$2e2bcd8739ae039).log("Failed to setLocalDescription, ", err);
+            }
+          } catch (err_1) {
+            provider.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).WebRTC, err_1);
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Failed to create answer, ", err_1);
+          }
+        }
+        /** Handle an SDP. */
+        async handleSDP(type, sdp3) {
+          sdp3 = new RTCSessionDescription(sdp3);
+          const peerConnection = this.connection.peerConnection;
+          const provider = this.connection.provider;
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log("Setting remote description", sdp3);
+          const self2 = this;
+          try {
+            await peerConnection.setRemoteDescription(sdp3);
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Set remoteDescription:${type} for:${this.connection.peer}`);
+            if (type === "OFFER") await self2._makeAnswer();
+          } catch (err) {
+            provider.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).WebRTC, err);
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Failed to setRemoteDescription, ", err);
+          }
+        }
+        /** Handle a candidate. */
+        async handleCandidate(ice) {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log(`handleCandidate:`, ice);
+          try {
+            await this.connection.peerConnection.addIceCandidate(ice);
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Added ICE candidate for:${this.connection.peer}`);
+          } catch (err) {
+            this.connection.provider.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).WebRTC, err);
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log("Failed to handleCandidate, ", err);
+          }
+        }
+        _addTracksToConnection(stream, peerConnection) {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log(`add tracks from stream ${stream.id} to peer connection`);
+          if (!peerConnection.addTrack) return (0, $257947e92926277a$export$2e2bcd8739ae039).error(`Your browser does't support RTCPeerConnection#addTrack. Ignored.`);
+          stream.getTracks().forEach((track) => {
+            peerConnection.addTrack(track, stream);
+          });
+        }
+        _addStreamToMediaConnection(stream, mediaConnection) {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log(`add stream ${stream.id} to media connection ${mediaConnection.connectionId}`);
+          mediaConnection.addStream(stream);
+        }
+      };
+      $23779d1881157a18$export$6a678e589c8a4542 = class extends (0, $c4dcfd1d1ea86647$exports.EventEmitter) {
+        /**
+        * Emits a typed error message.
+        *
+        * @internal
+        */
+        emitError(type, err) {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).error("Error:", err);
+          this.emit("error", new $23779d1881157a18$export$98871882f492de82(`${type}`, err));
+        }
+      };
+      $23779d1881157a18$export$98871882f492de82 = class extends Error {
+        /**
+        * @internal
+        */
+        constructor(type, err) {
+          if (typeof err === "string") super(err);
+          else {
+            super();
+            Object.assign(this, err);
+          }
+          this.type = type;
+        }
+      };
+      $5045192fc6d387ba$export$23a2a68283c24d80 = class extends (0, $23779d1881157a18$export$6a678e589c8a4542) {
+        /**
+        * Whether the media connection is active (e.g. your call has been answered).
+        * You can check this if you want to set a maximum wait time for a one-sided call.
+        */
+        get open() {
+          return this._open;
+        }
+        constructor(peer, provider, options) {
+          super(), this.peer = peer, this.provider = provider, this.options = options, this._open = false;
+          this.metadata = options.metadata;
+        }
+      };
+      _$5c1d08c7c57da9a3$export$4a84e95a2324ac29 = class _$5c1d08c7c57da9a3$export$4a84e95a2324ac29 extends (0, $5045192fc6d387ba$export$23a2a68283c24d80) {
+        /**
+        * For media connections, this is always 'media'.
+        */
+        get type() {
+          return (0, $78455e22dea96b8c$export$3157d57b4135e3bc).Media;
+        }
+        get localStream() {
+          return this._localStream;
+        }
+        get remoteStream() {
+          return this._remoteStream;
+        }
+        constructor(peerId, provider, options) {
+          super(peerId, provider, options);
+          this._localStream = this.options._stream;
+          this.connectionId = this.options.connectionId || _$5c1d08c7c57da9a3$export$4a84e95a2324ac29.ID_PREFIX + (0, $4f4134156c446392$export$7debb50ef11d5e0b).randomToken();
+          this._negotiator = new (0, $b82fb8fc0514bfc1$export$89e6bb5ad64bf4a)(this);
+          if (this._localStream) this._negotiator.startConnection({
+            _stream: this._localStream,
+            originator: true
+          });
+        }
+        /** Called by the Negotiator when the DataChannel is ready. */
+        _initializeDataChannel(dc) {
+          this.dataChannel = dc;
+          this.dataChannel.onopen = () => {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`DC#${this.connectionId} dc connection success`);
+            this.emit("willCloseOnRemote");
+          };
+          this.dataChannel.onclose = () => {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`DC#${this.connectionId} dc closed for:`, this.peer);
+            this.close();
+          };
+        }
+        addStream(remoteStream) {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log("Receiving stream", remoteStream);
+          this._remoteStream = remoteStream;
+          super.emit("stream", remoteStream);
+        }
+        /**
+        * @internal
+        */
+        handleMessage(message) {
+          const type = message.type;
+          const payload = message.payload;
+          switch (message.type) {
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Answer:
+              this._negotiator.handleSDP(type, payload.sdp);
+              this._open = true;
+              break;
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Candidate:
+              this._negotiator.handleCandidate(payload.candidate);
+              break;
+            default:
+              (0, $257947e92926277a$export$2e2bcd8739ae039).warn(`Unrecognized message type:${type} from peer:${this.peer}`);
+              break;
+          }
+        }
+        /**
+             * When receiving a {@apilink PeerEvents | `call`} event on a peer, you can call
+             * `answer` on the media connection provided by the callback to accept the call
+             * and optionally send your own media stream.
+        
+             *
+             * @param stream A WebRTC media stream.
+             * @param options
+             * @returns
+             */
+        answer(stream, options = {}) {
+          if (this._localStream) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).warn("Local stream already exists on this MediaConnection. Are you answering a call twice?");
+            return;
+          }
+          this._localStream = stream;
+          if (options && options.sdpTransform) this.options.sdpTransform = options.sdpTransform;
+          this._negotiator.startConnection({
+            ...this.options._payload,
+            _stream: stream
+          });
+          const messages = this.provider._getMessages(this.connectionId);
+          for (const message of messages) this.handleMessage(message);
+          this._open = true;
+        }
+        /**
+        * Exposed functionality for users.
+        */
+        /**
+        * Closes the media connection.
+        */
+        close() {
+          if (this._negotiator) {
+            this._negotiator.cleanup();
+            this._negotiator = null;
+          }
+          this._localStream = null;
+          this._remoteStream = null;
+          if (this.provider) {
+            this.provider._removeConnection(this);
+            this.provider = null;
+          }
+          if (this.options && this.options._stream) this.options._stream = null;
+          if (!this.open) return;
+          this._open = false;
+          super.emit("close");
+        }
+      };
+      __ = new WeakMap();
+      __privateAdd(_$5c1d08c7c57da9a3$export$4a84e95a2324ac29, __, _$5c1d08c7c57da9a3$export$4a84e95a2324ac29.ID_PREFIX = "mc_");
+      $5c1d08c7c57da9a3$export$4a84e95a2324ac29 = _$5c1d08c7c57da9a3$export$4a84e95a2324ac29;
+      $abf266641927cd89$export$2c4e825dc9120f87 = class {
+        constructor(_options) {
+          this._options = _options;
+        }
+        _buildRequest(method) {
+          const protocol = this._options.secure ? "https" : "http";
+          const { host, port, path, key } = this._options;
+          const url = new URL(`${protocol}://${host}:${port}${path}${key}/${method}`);
+          url.searchParams.set("ts", `${Date.now()}${Math.random()}`);
+          url.searchParams.set("version", (0, $520832d44ba058c8$export$83d89fbfd8236492));
+          return fetch(url.href, {
+            referrerPolicy: this._options.referrerPolicy
+          });
+        }
+        /** Get a unique ID from the server via XHR and initialize with it. */
+        async retrieveId() {
+          try {
+            const response = await this._buildRequest("id");
+            if (response.status !== 200) throw new Error(`Error. Status:${response.status}`);
+            return response.text();
+          } catch (error) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).error("Error retrieving ID", error);
+            let pathError = "";
+            if (this._options.path === "/" && this._options.host !== (0, $4f4134156c446392$export$7debb50ef11d5e0b).CLOUD_HOST) pathError = " If you passed in a `path` to your self-hosted PeerServer, you'll also need to pass in that same path when creating a new Peer.";
+            throw new Error("Could not get an ID from the server." + pathError);
+          }
+        }
+        /** @deprecated */
+        async listAllPeers() {
+          try {
+            const response = await this._buildRequest("peers");
+            if (response.status !== 200) {
+              if (response.status === 401) {
+                let helpfulError = "";
+                if (this._options.host === (0, $4f4134156c446392$export$7debb50ef11d5e0b).CLOUD_HOST) helpfulError = "It looks like you're using the cloud server. You can email team@peerjs.com to enable peer listing for your API key.";
+                else helpfulError = "You need to enable `allow_discovery` on your self-hosted PeerServer to use this feature.";
+                throw new Error("It doesn't look like you have permission to list peers IDs. " + helpfulError);
+              }
+              throw new Error(`Error. Status:${response.status}`);
+            }
+            return response.json();
+          } catch (error) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).error("Error retrieving list peers", error);
+            throw new Error("Could not get list peers from the server." + error);
+          }
+        }
+      };
+      _$6366c4ca161bc297$export$d365f7ad9d7df9c9 = class _$6366c4ca161bc297$export$d365f7ad9d7df9c9 extends (0, $5045192fc6d387ba$export$23a2a68283c24d80) {
+        get type() {
+          return (0, $78455e22dea96b8c$export$3157d57b4135e3bc).Data;
+        }
+        constructor(peerId, provider, options) {
+          super(peerId, provider, options);
+          this.connectionId = this.options.connectionId || _$6366c4ca161bc297$export$d365f7ad9d7df9c9.ID_PREFIX + (0, $0e5fd1585784c252$export$4e61f672936bec77)();
+          this.label = this.options.label || this.connectionId;
+          this.reliable = !!this.options.reliable;
+          this._negotiator = new (0, $b82fb8fc0514bfc1$export$89e6bb5ad64bf4a)(this);
+          this._negotiator.startConnection(this.options._payload || {
+            originator: true,
+            reliable: this.reliable
+          });
+        }
+        /** Called by the Negotiator when the DataChannel is ready. */
+        _initializeDataChannel(dc) {
+          this.dataChannel = dc;
+          this.dataChannel.onopen = () => {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`DC#${this.connectionId} dc connection success`);
+            this._open = true;
+            this.emit("open");
+          };
+          this.dataChannel.onmessage = (e2) => {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`DC#${this.connectionId} dc onmessage:`, e2.data);
+          };
+          this.dataChannel.onclose = () => {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`DC#${this.connectionId} dc closed for:`, this.peer);
+            this.close();
+          };
+        }
+        /**
+        * Exposed functionality for users.
+        */
+        /** Allows user to close connection. */
+        close(options) {
+          if (options?.flush) {
+            this.send({
+              __peerData: {
+                type: "close"
+              }
+            });
+            return;
+          }
+          if (this._negotiator) {
+            this._negotiator.cleanup();
+            this._negotiator = null;
+          }
+          if (this.provider) {
+            this.provider._removeConnection(this);
+            this.provider = null;
+          }
+          if (this.dataChannel) {
+            this.dataChannel.onopen = null;
+            this.dataChannel.onmessage = null;
+            this.dataChannel.onclose = null;
+            this.dataChannel = null;
+          }
+          if (!this.open) return;
+          this._open = false;
+          super.emit("close");
+        }
+        /** Allows user to send data. */
+        send(data, chunked = false) {
+          if (!this.open) {
+            this.emitError((0, $78455e22dea96b8c$export$49ae800c114df41d).NotOpenYet, "Connection is not open. You should listen for the `open` event before sending messages.");
+            return;
+          }
+          return this._send(data, chunked);
+        }
+        async handleMessage(message) {
+          const payload = message.payload;
+          switch (message.type) {
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Answer:
+              await this._negotiator.handleSDP(message.type, payload.sdp);
+              break;
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Candidate:
+              await this._negotiator.handleCandidate(payload.candidate);
+              break;
+            default:
+              (0, $257947e92926277a$export$2e2bcd8739ae039).warn("Unrecognized message type:", message.type, "from peer:", this.peer);
+              break;
+          }
+        }
+      };
+      __2 = new WeakMap();
+      __22 = new WeakMap();
+      __privateAdd(_$6366c4ca161bc297$export$d365f7ad9d7df9c9, __2, _$6366c4ca161bc297$export$d365f7ad9d7df9c9.ID_PREFIX = "dc_");
+      __privateAdd(_$6366c4ca161bc297$export$d365f7ad9d7df9c9, __22, _$6366c4ca161bc297$export$d365f7ad9d7df9c9.MAX_BUFFERED_AMOUNT = 8388608);
+      $6366c4ca161bc297$export$d365f7ad9d7df9c9 = _$6366c4ca161bc297$export$d365f7ad9d7df9c9;
+      $a229bedbcaa6ca23$export$ff7c9d4c11d94e8b = class extends (0, $6366c4ca161bc297$export$d365f7ad9d7df9c9) {
+        get bufferSize() {
+          return this._bufferSize;
+        }
+        _initializeDataChannel(dc) {
+          super._initializeDataChannel(dc);
+          this.dataChannel.binaryType = "arraybuffer";
+          this.dataChannel.addEventListener("message", (e2) => this._handleDataMessage(e2));
+        }
+        _bufferedSend(msg) {
+          if (this._buffering || !this._trySend(msg)) {
+            this._buffer.push(msg);
+            this._bufferSize = this._buffer.length;
+          }
+        }
+        // Returns true if the send succeeds.
+        _trySend(msg) {
+          if (!this.open) return false;
+          if (this.dataChannel.bufferedAmount > (0, $6366c4ca161bc297$export$d365f7ad9d7df9c9).MAX_BUFFERED_AMOUNT) {
+            this._buffering = true;
+            setTimeout(() => {
+              this._buffering = false;
+              this._tryBuffer();
+            }, 50);
+            return false;
+          }
+          try {
+            this.dataChannel.send(msg);
+          } catch (e2) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).error(`DC#:${this.connectionId} Error when sending:`, e2);
+            this._buffering = true;
+            this.close();
+            return false;
+          }
+          return true;
+        }
+        // Try to send the first message in the buffer.
+        _tryBuffer() {
+          if (!this.open) return;
+          if (this._buffer.length === 0) return;
+          const msg = this._buffer[0];
+          if (this._trySend(msg)) {
+            this._buffer.shift();
+            this._bufferSize = this._buffer.length;
+            this._tryBuffer();
+          }
+        }
+        close(options) {
+          if (options?.flush) {
+            this.send({
+              __peerData: {
+                type: "close"
+              }
+            });
+            return;
+          }
+          this._buffer = [];
+          this._bufferSize = 0;
+          super.close();
+        }
+        constructor(...args) {
+          super(...args), this._buffer = [], this._bufferSize = 0, this._buffering = false;
+        }
+      };
+      $9fcfddb3ae148f88$export$f0a5a64d5bb37108 = class extends (0, $a229bedbcaa6ca23$export$ff7c9d4c11d94e8b) {
+        close(options) {
+          super.close(options);
+          this._chunkedData = {};
+        }
+        constructor(peerId, provider, options) {
+          super(peerId, provider, options), this.chunker = new (0, $fcbcc7538a6776d5$export$f1c5f4c9cb95390b)(), this.serialization = (0, $78455e22dea96b8c$export$89f507cf986a947).Binary, this._chunkedData = {};
+        }
+        // Handles a DataChannel message.
+        _handleDataMessage({ data }) {
+          const deserializedData = (0, $0cfd7828ad59115f$export$417857010dc9287f)(data);
+          const peerData = deserializedData["__peerData"];
+          if (peerData) {
+            if (peerData.type === "close") {
+              this.close();
+              return;
+            }
+            this._handleChunk(deserializedData);
+            return;
+          }
+          this.emit("data", deserializedData);
+        }
+        _handleChunk(data) {
+          const id = data.__peerData;
+          const chunkInfo = this._chunkedData[id] || {
+            data: [],
+            count: 0,
+            total: data.total
+          };
+          chunkInfo.data[data.n] = new Uint8Array(data.data);
+          chunkInfo.count++;
+          this._chunkedData[id] = chunkInfo;
+          if (chunkInfo.total === chunkInfo.count) {
+            delete this._chunkedData[id];
+            const data2 = (0, $fcbcc7538a6776d5$export$52c89ebcdc4f53f2)(chunkInfo.data);
+            this._handleDataMessage({
+              data: data2
+            });
+          }
+        }
+        _send(data, chunked) {
+          const blob = (0, $0cfd7828ad59115f$export$2a703dbb0cb35339)(data);
+          if (blob instanceof Promise) return this._send_blob(blob);
+          if (!chunked && blob.byteLength > this.chunker.chunkedMTU) {
+            this._sendChunks(blob);
+            return;
+          }
+          this._bufferedSend(blob);
+        }
+        async _send_blob(blobPromise) {
+          const blob = await blobPromise;
+          if (blob.byteLength > this.chunker.chunkedMTU) {
+            this._sendChunks(blob);
+            return;
+          }
+          this._bufferedSend(blob);
+        }
+        _sendChunks(blob) {
+          const blobs = this.chunker.chunk(blob);
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log(`DC#${this.connectionId} Try to send ${blobs.length} chunks...`);
+          for (const blob2 of blobs) this.send(blob2, true);
+        }
+      };
+      $bbaee3f15f714663$export$6f88fe47d32c9c94 = class extends (0, $a229bedbcaa6ca23$export$ff7c9d4c11d94e8b) {
+        _handleDataMessage({ data }) {
+          super.emit("data", data);
+        }
+        _send(data, _chunked) {
+          this._bufferedSend(data);
+        }
+        constructor(...args) {
+          super(...args), this.serialization = (0, $78455e22dea96b8c$export$89f507cf986a947).None;
+        }
+      };
+      $817f931e3f9096cf$export$48880ac635f47186 = class extends (0, $a229bedbcaa6ca23$export$ff7c9d4c11d94e8b) {
+        // Handles a DataChannel message.
+        _handleDataMessage({ data }) {
+          const deserializedData = this.parse(this.decoder.decode(data));
+          const peerData = deserializedData["__peerData"];
+          if (peerData && peerData.type === "close") {
+            this.close();
+            return;
+          }
+          this.emit("data", deserializedData);
+        }
+        _send(data, _chunked) {
+          const encodedData = this.encoder.encode(this.stringify(data));
+          if (encodedData.byteLength >= (0, $4f4134156c446392$export$7debb50ef11d5e0b).chunkedMTU) {
+            this.emitError((0, $78455e22dea96b8c$export$49ae800c114df41d).MessageToBig, "Message too big for JSON channel");
+            return;
+          }
+          this._bufferedSend(encodedData);
+        }
+        constructor(...args) {
+          super(...args), this.serialization = (0, $78455e22dea96b8c$export$89f507cf986a947).JSON, this.encoder = new TextEncoder(), this.decoder = new TextDecoder(), this.stringify = JSON.stringify, this.parse = JSON.parse;
+        }
+      };
+      _$416260bce337df90$export$ecd1fc136c422448 = class _$416260bce337df90$export$ecd1fc136c422448 extends (0, $23779d1881157a18$export$6a678e589c8a4542) {
+        /**
+        * The brokering ID of this peer
+        *
+        * If no ID was specified in {@apilink Peer | the constructor},
+        * this will be `undefined` until the {@apilink PeerEvents | `open`} event is emitted.
+        */
+        get id() {
+          return this._id;
+        }
+        get options() {
+          return this._options;
+        }
+        get open() {
+          return this._open;
+        }
+        /**
+        * @internal
+        */
+        get socket() {
+          return this._socket;
+        }
+        /**
+        * A hash of all connections associated with this peer, keyed by the remote peer's ID.
+        * @deprecated
+        * Return type will change from Object to Map<string,[]>
+        */
+        get connections() {
+          const plainConnections = /* @__PURE__ */ Object.create(null);
+          for (const [k, v] of this._connections) plainConnections[k] = v;
+          return plainConnections;
+        }
+        /**
+        * true if this peer and all of its connections can no longer be used.
+        */
+        get destroyed() {
+          return this._destroyed;
+        }
+        /**
+        * false if there is an active connection to the PeerServer.
+        */
+        get disconnected() {
+          return this._disconnected;
+        }
+        constructor(id, options) {
+          super(), this._serializers = {
+            raw: (0, $bbaee3f15f714663$export$6f88fe47d32c9c94),
+            json: (0, $817f931e3f9096cf$export$48880ac635f47186),
+            binary: (0, $9fcfddb3ae148f88$export$f0a5a64d5bb37108),
+            "binary-utf8": (0, $9fcfddb3ae148f88$export$f0a5a64d5bb37108),
+            default: (0, $9fcfddb3ae148f88$export$f0a5a64d5bb37108)
+          }, this._id = null, this._lastServerId = null, // States.
+          this._destroyed = false, this._disconnected = false, this._open = false, this._connections = /* @__PURE__ */ new Map(), this._lostMessages = /* @__PURE__ */ new Map();
+          let userId;
+          if (id && id.constructor == Object) options = id;
+          else if (id) userId = id.toString();
+          options = {
+            debug: 0,
+            host: (0, $4f4134156c446392$export$7debb50ef11d5e0b).CLOUD_HOST,
+            port: (0, $4f4134156c446392$export$7debb50ef11d5e0b).CLOUD_PORT,
+            path: "/",
+            key: _$416260bce337df90$export$ecd1fc136c422448.DEFAULT_KEY,
+            token: (0, $4f4134156c446392$export$7debb50ef11d5e0b).randomToken(),
+            config: (0, $4f4134156c446392$export$7debb50ef11d5e0b).defaultConfig,
+            referrerPolicy: "strict-origin-when-cross-origin",
+            serializers: {},
+            ...options
+          };
+          this._options = options;
+          this._serializers = {
+            ...this._serializers,
+            ...this.options.serializers
+          };
+          if (this._options.host === "/") this._options.host = window.location.hostname;
+          if (this._options.path) {
+            if (this._options.path[0] !== "/") this._options.path = "/" + this._options.path;
+            if (this._options.path[this._options.path.length - 1] !== "/") this._options.path += "/";
+          }
+          if (this._options.secure === void 0 && this._options.host !== (0, $4f4134156c446392$export$7debb50ef11d5e0b).CLOUD_HOST) this._options.secure = (0, $4f4134156c446392$export$7debb50ef11d5e0b).isSecure();
+          else if (this._options.host == (0, $4f4134156c446392$export$7debb50ef11d5e0b).CLOUD_HOST) this._options.secure = true;
+          if (this._options.logFunction) (0, $257947e92926277a$export$2e2bcd8739ae039).setLogFunction(this._options.logFunction);
+          (0, $257947e92926277a$export$2e2bcd8739ae039).logLevel = this._options.debug || 0;
+          this._api = new (0, $abf266641927cd89$export$2c4e825dc9120f87)(options);
+          this._socket = this._createServerConnection();
+          if (!(0, $4f4134156c446392$export$7debb50ef11d5e0b).supports.audioVideo && !(0, $4f4134156c446392$export$7debb50ef11d5e0b).supports.data) {
+            this._delayedAbort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).BrowserIncompatible, "The current browser does not support WebRTC");
+            return;
+          }
+          if (!!userId && !(0, $4f4134156c446392$export$7debb50ef11d5e0b).validateId(userId)) {
+            this._delayedAbort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).InvalidID, `ID "${userId}" is invalid`);
+            return;
+          }
+          if (userId) this._initialize(userId);
+          else this._api.retrieveId().then((id2) => this._initialize(id2)).catch((error) => this._abort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).ServerError, error));
+        }
+        _createServerConnection() {
+          const socket = new (0, $8f5bfa60836d261d$export$4798917dbf149b79)(this._options.secure, this._options.host, this._options.port, this._options.path, this._options.key, this._options.pingInterval);
+          socket.on((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Message, (data) => {
+            this._handleMessage(data);
+          });
+          socket.on((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Error, (error) => {
+            this._abort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).SocketError, error);
+          });
+          socket.on((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Disconnected, () => {
+            if (this.disconnected) return;
+            this.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).Network, "Lost connection to server.");
+            this.disconnect();
+          });
+          socket.on((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Close, () => {
+            if (this.disconnected) return;
+            this._abort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).SocketClosed, "Underlying socket is already closed.");
+          });
+          return socket;
+        }
+        /** Initialize a connection with the server. */
+        _initialize(id) {
+          this._id = id;
+          this.socket.start(id, this._options.token);
+        }
+        /** Handles messages from the server. */
+        _handleMessage(message) {
+          const type = message.type;
+          const payload = message.payload;
+          const peerId = message.src;
+          switch (type) {
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Open:
+              this._lastServerId = this.id;
+              this._open = true;
+              this.emit("open", this.id);
+              break;
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Error:
+              this._abort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).ServerError, payload.msg);
+              break;
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).IdTaken:
+              this._abort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).UnavailableID, `ID "${this.id}" is taken`);
+              break;
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).InvalidKey:
+              this._abort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).InvalidKey, `API KEY "${this._options.key}" is invalid`);
+              break;
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Leave:
+              (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Received leave message from ${peerId}`);
+              this._cleanupPeer(peerId);
+              this._connections.delete(peerId);
+              break;
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Expire:
+              this.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).PeerUnavailable, `Could not connect to peer ${peerId}`);
+              break;
+            case (0, $78455e22dea96b8c$export$adb4a1754da6f10d).Offer: {
+              const connectionId = payload.connectionId;
+              let connection = this.getConnection(peerId, connectionId);
+              if (connection) {
+                connection.close();
+                (0, $257947e92926277a$export$2e2bcd8739ae039).warn(`Offer received for existing Connection ID:${connectionId}`);
+              }
+              if (payload.type === (0, $78455e22dea96b8c$export$3157d57b4135e3bc).Media) {
+                const mediaConnection = new (0, $5c1d08c7c57da9a3$export$4a84e95a2324ac29)(peerId, this, {
+                  connectionId,
+                  _payload: payload,
+                  metadata: payload.metadata
+                });
+                connection = mediaConnection;
+                this._addConnection(peerId, connection);
+                this.emit("call", mediaConnection);
+              } else if (payload.type === (0, $78455e22dea96b8c$export$3157d57b4135e3bc).Data) {
+                const dataConnection = new this._serializers[payload.serialization](peerId, this, {
+                  connectionId,
+                  _payload: payload,
+                  metadata: payload.metadata,
+                  label: payload.label,
+                  serialization: payload.serialization,
+                  reliable: payload.reliable
+                });
+                connection = dataConnection;
+                this._addConnection(peerId, connection);
+                this.emit("connection", dataConnection);
+              } else {
+                (0, $257947e92926277a$export$2e2bcd8739ae039).warn(`Received malformed connection type:${payload.type}`);
+                return;
+              }
+              const messages = this._getMessages(connectionId);
+              for (const message2 of messages) connection.handleMessage(message2);
+              break;
+            }
+            default: {
+              if (!payload) {
+                (0, $257947e92926277a$export$2e2bcd8739ae039).warn(`You received a malformed message from ${peerId} of type ${type}`);
+                return;
+              }
+              const connectionId = payload.connectionId;
+              const connection = this.getConnection(peerId, connectionId);
+              if (connection && connection.peerConnection)
+                connection.handleMessage(message);
+              else if (connectionId)
+                this._storeMessage(connectionId, message);
+              else (0, $257947e92926277a$export$2e2bcd8739ae039).warn("You received an unrecognized message:", message);
+              break;
+            }
+          }
+        }
+        /** Stores messages without a set up connection, to be claimed later. */
+        _storeMessage(connectionId, message) {
+          if (!this._lostMessages.has(connectionId)) this._lostMessages.set(connectionId, []);
+          this._lostMessages.get(connectionId).push(message);
+        }
+        /**
+        * Retrieve messages from lost message store
+        * @internal
+        */
+        //TODO Change it to private
+        _getMessages(connectionId) {
+          const messages = this._lostMessages.get(connectionId);
+          if (messages) {
+            this._lostMessages.delete(connectionId);
+            return messages;
+          }
+          return [];
+        }
+        /**
+        * Connects to the remote peer specified by id and returns a data connection.
+        * @param peer The brokering ID of the remote peer (their {@apilink Peer.id}).
+        * @param options for specifying details about Peer Connection
+        */
+        connect(peer, options = {}) {
+          options = {
+            serialization: "default",
+            ...options
+          };
+          if (this.disconnected) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).warn("You cannot connect to a new Peer because you called .disconnect() on this Peer and ended your connection with the server. You can create a new Peer to reconnect, or call reconnect on this peer if you believe its ID to still be available.");
+            this.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).Disconnected, "Cannot connect to new Peer after disconnecting from server.");
+            return;
+          }
+          const dataConnection = new this._serializers[options.serialization](peer, this, options);
+          this._addConnection(peer, dataConnection);
+          return dataConnection;
+        }
+        /**
+        * Calls the remote peer specified by id and returns a media connection.
+        * @param peer The brokering ID of the remote peer (their peer.id).
+        * @param stream The caller's media stream
+        * @param options Metadata associated with the connection, passed in by whoever initiated the connection.
+        */
+        call(peer, stream, options = {}) {
+          if (this.disconnected) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).warn("You cannot connect to a new Peer because you called .disconnect() on this Peer and ended your connection with the server. You can create a new Peer to reconnect.");
+            this.emitError((0, $78455e22dea96b8c$export$9547aaa2e39030ff).Disconnected, "Cannot connect to new Peer after disconnecting from server.");
+            return;
+          }
+          if (!stream) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).error("To call a peer, you must provide a stream from your browser's `getUserMedia`.");
+            return;
+          }
+          const mediaConnection = new (0, $5c1d08c7c57da9a3$export$4a84e95a2324ac29)(peer, this, {
+            ...options,
+            _stream: stream
+          });
+          this._addConnection(peer, mediaConnection);
+          return mediaConnection;
+        }
+        /** Add a data/media connection to this peer. */
+        _addConnection(peerId, connection) {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log(`add connection ${connection.type}:${connection.connectionId} to peerId:${peerId}`);
+          if (!this._connections.has(peerId)) this._connections.set(peerId, []);
+          this._connections.get(peerId).push(connection);
+        }
+        //TODO should be private
+        _removeConnection(connection) {
+          const connections = this._connections.get(connection.peer);
+          if (connections) {
+            const index = connections.indexOf(connection);
+            if (index !== -1) connections.splice(index, 1);
+          }
+          this._lostMessages.delete(connection.connectionId);
+        }
+        /** Retrieve a data/media connection for this peer. */
+        getConnection(peerId, connectionId) {
+          const connections = this._connections.get(peerId);
+          if (!connections) return null;
+          for (const connection of connections) {
+            if (connection.connectionId === connectionId) return connection;
+          }
+          return null;
+        }
+        _delayedAbort(type, message) {
+          setTimeout(() => {
+            this._abort(type, message);
+          }, 0);
+        }
+        /**
+        * Emits an error message and destroys the Peer.
+        * The Peer is not destroyed if it's in a disconnected state, in which case
+        * it retains its disconnected state and its existing connections.
+        */
+        _abort(type, message) {
+          (0, $257947e92926277a$export$2e2bcd8739ae039).error("Aborting!");
+          this.emitError(type, message);
+          if (!this._lastServerId) this.destroy();
+          else this.disconnect();
+        }
+        /**
+        * Destroys the Peer: closes all active connections as well as the connection
+        * to the server.
+        *
+        * :::caution
+        * This cannot be undone; the respective peer object will no longer be able
+        * to create or receive any connections, its ID will be forfeited on the server,
+        * and all of its data and media connections will be closed.
+        * :::
+        */
+        destroy() {
+          if (this.destroyed) return;
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Destroy peer with ID:${this.id}`);
+          this.disconnect();
+          this._cleanup();
+          this._destroyed = true;
+          this.emit("close");
+        }
+        /** Disconnects every connection on this peer. */
+        _cleanup() {
+          for (const peerId of this._connections.keys()) {
+            this._cleanupPeer(peerId);
+            this._connections.delete(peerId);
+          }
+          this.socket.removeAllListeners();
+        }
+        /** Closes all connections to this peer. */
+        _cleanupPeer(peerId) {
+          const connections = this._connections.get(peerId);
+          if (!connections) return;
+          for (const connection of connections) connection.close();
+        }
+        /**
+        * Disconnects the Peer's connection to the PeerServer. Does not close any
+        *  active connections.
+        * Warning: The peer can no longer create or accept connections after being
+        *  disconnected. It also cannot reconnect to the server.
+        */
+        disconnect() {
+          if (this.disconnected) return;
+          const currentId = this.id;
+          (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Disconnect peer with ID:${currentId}`);
+          this._disconnected = true;
+          this._open = false;
+          this.socket.close();
+          this._lastServerId = currentId;
+          this._id = null;
+          this.emit("disconnected", currentId);
+        }
+        /** Attempts to reconnect with the same ID.
+        *
+        * Only {@apilink Peer.disconnect | disconnected peers} can be reconnected.
+        * Destroyed peers cannot be reconnected.
+        * If the connection fails (as an example, if the peer's old ID is now taken),
+        * the peer's existing connections will not close, but any associated errors events will fire.
+        */
+        reconnect() {
+          if (this.disconnected && !this.destroyed) {
+            (0, $257947e92926277a$export$2e2bcd8739ae039).log(`Attempting reconnection to server with ID ${this._lastServerId}`);
+            this._disconnected = false;
+            this._initialize(this._lastServerId);
+          } else if (this.destroyed) throw new Error("This peer cannot reconnect to the server. It has already been destroyed.");
+          else if (!this.disconnected && !this.open)
+            (0, $257947e92926277a$export$2e2bcd8739ae039).error("In a hurry? We're still trying to make the initial connection!");
+          else throw new Error(`Peer ${this.id} cannot reconnect because it is not disconnected from the server!`);
+        }
+        /**
+        * Get a list of available peer IDs. If you're running your own server, you'll
+        * want to set allow_discovery: true in the PeerServer options. If you're using
+        * the cloud server, email team@peerjs.com to get the functionality enabled for
+        * your key.
+        */
+        listAllPeers(cb = (_2) => {
+        }) {
+          this._api.listAllPeers().then((peers) => cb(peers)).catch((error) => this._abort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).ServerError, error));
+        }
+      };
+      __3 = new WeakMap();
+      __privateAdd(_$416260bce337df90$export$ecd1fc136c422448, __3, _$416260bce337df90$export$ecd1fc136c422448.DEFAULT_KEY = "peerjs");
+      $416260bce337df90$export$ecd1fc136c422448 = _$416260bce337df90$export$ecd1fc136c422448;
+    }
+  });
+
   // src/components/LiveYogaClassRoom.jsx
   function ParticipantTile({
     participant,
@@ -59051,6 +63822,10 @@
     const [reconnectCount, setReconnectCount] = (0, import_react11.useState)(0);
     const [isSimulatingDisconnect, setIsSimulatingDisconnect] = (0, import_react11.useState)(false);
     const [connectedStudentsList, setConnectedStudentsList] = (0, import_react11.useState)([]);
+    const [teacherStream, setTeacherStream] = (0, import_react11.useState)(null);
+    const [remoteStreams, setRemoteStreams] = (0, import_react11.useState)({});
+    const peerInstanceRef = (0, import_react11.useRef)(null);
+    const activeConnsRef = (0, import_react11.useRef)([]);
     const [sessionSeconds, setSessionSeconds] = (0, import_react11.useState)(0);
     const [hasAttendanceRecorded, setHasAttendanceRecorded] = (0, import_react11.useState)(false);
     const [showChat, setShowChat] = (0, import_react11.useState)(false);
@@ -59138,6 +63913,180 @@
         }
       };
     }, [isInstructorRole]);
+    (0, import_react11.useEffect)(() => {
+      if (!localStream) return;
+      const classIdClean = String(activeClass?.id || "cls-1").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const trainerPeerId = `nithya-yoga-live-${classIdClean}-trainer`;
+      const rawStudentInfo = loadStorage("nithya_student_session", null);
+      const cleanPhone = (rawStudentInfo?.phone || user2?.phone || "").replace(/\D/g, "") || Math.floor(Math.random() * 899999 + 1e5);
+      const studentName = rawStudentInfo?.name || user2?.name || "Student";
+      const studentPeerId = `nithya-yoga-live-${classIdClean}-student-${cleanPhone}-${Date.now().toString(36).slice(-4)}`;
+      let peer = null;
+      try {
+        if (peerInstanceRef.current) {
+          try {
+            peerInstanceRef.current.destroy();
+          } catch (_2) {
+          }
+        }
+        const myPeerId = isInstructorRole ? trainerPeerId : studentPeerId;
+        peer = new $416260bce337df90$export$ecd1fc136c422448(myPeerId, {
+          debug: 0,
+          config: {
+            iceServers: [
+              { urls: "stun:stun.l.google.com:19302" },
+              { urls: "stun:stun1.l.google.com:19302" },
+              { urls: "stun:stun2.l.google.com:19302" }
+            ]
+          }
+        });
+        peerInstanceRef.current = peer;
+        peer.on("open", (id) => {
+          if (!isInstructorRole) {
+            const connectToTrainer = () => {
+              const conn = peer.connect(trainerPeerId, {
+                metadata: { name: studentName, phone: cleanPhone }
+              });
+              activeConnsRef.current = [conn];
+              conn.on("open", () => {
+                conn.send({
+                  type: "student_joined",
+                  student: {
+                    id: myPeerId,
+                    identity: myPeerId,
+                    name: studentName,
+                    phone: cleanPhone,
+                    role: "student",
+                    joinedAt: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                  }
+                });
+              });
+              conn.on("data", (data) => {
+                if (data?.type === "chat" && data.text) {
+                  setChatMessages((prev) => [
+                    ...prev,
+                    {
+                      id: `msg-${Date.now()}-${Math.random()}`,
+                      sender: data.sender || "Instructor",
+                      text: data.text,
+                      time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                      isSystem: false
+                    }
+                  ]);
+                } else if (data?.type === "class-ended") {
+                  setClassEndedNotice(true);
+                }
+              });
+              const call = peer.call(trainerPeerId, localStream, {
+                metadata: { name: studentName, phone: cleanPhone }
+              });
+              if (call) {
+                call.on("stream", (incomingTeacherStream) => {
+                  setTeacherStream(incomingTeacherStream);
+                  setTeacherOnline(true);
+                });
+                call.on("close", () => {
+                  setTeacherStream(null);
+                });
+                call.on("error", () => {
+                });
+              }
+            };
+            connectToTrainer();
+            const retryTimer = setInterval(() => {
+              if (!teacherStream) {
+                connectToTrainer();
+              }
+            }, 6e3);
+            return () => clearInterval(retryTimer);
+          }
+        });
+        if (isInstructorRole) {
+          peer.on("call", (call) => {
+            call.answer(localStream);
+            call.on("stream", (studentStream) => {
+              const name = call.metadata?.name || "Student";
+              const phone = call.metadata?.phone || "";
+              setRemoteStreams((prev) => ({
+                ...prev,
+                [call.peer]: {
+                  stream: studentStream,
+                  identity: call.peer,
+                  name,
+                  phone
+                }
+              }));
+              setConnectedStudentsList((prev) => {
+                const studentObj = {
+                  id: call.peer,
+                  identity: call.peer,
+                  name,
+                  phone,
+                  role: "student",
+                  joinedAt: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                };
+                const updated = [studentObj, ...prev.filter((s) => s.phone !== phone && s.identity !== call.peer)];
+                saveStorage("nithya_live_participants", updated);
+                return updated;
+              });
+            });
+            call.on("close", () => {
+              setRemoteStreams((prev) => {
+                const copy = { ...prev };
+                delete copy[call.peer];
+                return copy;
+              });
+              setConnectedStudentsList((prev) => prev.filter((s) => s.identity !== call.peer && s.id !== call.peer));
+            });
+          });
+          peer.on("connection", (conn) => {
+            activeConnsRef.current.push(conn);
+            conn.on("data", (data) => {
+              if (data?.type === "student_joined" && data.student) {
+                setConnectedStudentsList((prev) => {
+                  const updated = [
+                    data.student,
+                    ...prev.filter((s) => s.phone !== data.student.phone && s.identity !== data.student.identity)
+                  ];
+                  saveStorage("nithya_live_participants", updated);
+                  return updated;
+                });
+              } else if (data?.type === "chat" && data.text) {
+                setChatMessages((prev) => [
+                  ...prev,
+                  {
+                    id: `msg-${Date.now()}-${Math.random()}`,
+                    sender: data.sender || "Student",
+                    text: data.text,
+                    time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
+                    isSystem: false
+                  }
+                ]);
+              } else if (data?.type === "raise-hand") {
+                setRaisedHands((prev) => new Set(prev).add(data.identity || conn.peer));
+              }
+            });
+            conn.on("close", () => {
+              activeConnsRef.current = activeConnsRef.current.filter((c) => c !== conn);
+              setConnectedStudentsList((prev) => prev.filter((s) => s.identity !== conn.peer && s.id !== conn.peer));
+            });
+          });
+        }
+        peer.on("error", (err) => {
+          console.warn("[WebRTC PeerJS] Peer error note:", err?.type);
+        });
+      } catch (err) {
+        console.warn("[WebRTC PeerJS] Init error note:", err.message);
+      }
+      return () => {
+        if (peer) {
+          try {
+            peer.destroy();
+          } catch (_2) {
+          }
+        }
+      };
+    }, [localStream, isInstructorRole, activeClass?.id]);
     (0, import_react11.useEffect)(() => {
       if (isInstructorRole && activeClass?.id) {
         try {
@@ -59536,6 +64485,14 @@
           });
         }, 5e3);
       }
+      activeConnsRef.current.forEach((conn) => {
+        try {
+          if (conn && conn.open) {
+            conn.send({ type: "raise-hand", identity: participantName });
+          }
+        } catch (_2) {
+        }
+      });
       try {
         if (typeof window !== "undefined" && "BroadcastChannel" in window) {
           const bc = new BroadcastChannel("nithya_live_class_channel");
@@ -59564,6 +64521,18 @@
           console.error("Chat error:", e3);
         }
       }
+      activeConnsRef.current.forEach((conn) => {
+        try {
+          if (conn && conn.open) {
+            conn.send({
+              type: "chat",
+              text: chatInput.trim(),
+              sender: user2?.name || (isInstructorRole ? activeClass?.instructor || "NITHYA Master" : "Student")
+            });
+          }
+        } catch (_2) {
+        }
+      });
       try {
         if (typeof window !== "undefined" && "BroadcastChannel" in window) {
           const bc = new BroadcastChannel("nithya_live_class_channel");
@@ -59654,6 +64623,14 @@
     const handleEndClassForAll = async () => {
       const confirmMsg = lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF \u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BBE?" : "Are you sure you want to end this yoga class for all participants?";
       if (!window.confirm(confirmMsg)) return;
+      activeConnsRef.current.forEach((conn) => {
+        try {
+          if (conn && conn.open) {
+            conn.send({ type: "class-ended" });
+          }
+        } catch (_2) {
+        }
+      });
       try {
         if (typeof window !== "undefined" && "BroadcastChannel" in window) {
           const bc = new BroadcastChannel("nithya_live_class_channel");
@@ -59705,8 +64682,8 @@
       const studentInfo = loadStorage("nithya_student_session", null);
       const logRecord = {
         id: `att-live-${Date.now()}`,
-        studentName: user2?.name || studentInfo?.name || "Yoga Member",
-        phone: user2?.phone || studentInfo?.phone || "9876543210",
+        studentName: studentInfo?.name || (user2?.name && user2.name !== "Yoga Practitioner" && user2.name !== "Yoga Member" ? user2.name : "Yoga Student"),
+        phone: studentInfo?.phone || user2?.phone || "",
         classId: activeClass?.id || "cls-1",
         className: activeClass?.title || activeClass?.name || "Hatha Yoga Flow",
         instructor: activeClass?.instructor || "NITHYA Master",
@@ -59739,6 +64716,41 @@
         onRecordAttendance(logRecord);
       }
     };
+    (0, import_react11.useEffect)(() => {
+      if (isInstructorRole || connectionState !== "connected" || sessionSeconds < 5) return;
+      const rawStudentInfo = loadStorage("nithya_student_session", null);
+      const cleanPhone = (rawStudentInfo?.phone || user2?.phone || "").replace(/\D/g, "");
+      const cleanName = rawStudentInfo?.name || user2?.name;
+      if (!cleanName || cleanPhone.length < 10) return;
+      const classId = activeClass?.id || "cls-1";
+      const classTitle = activeClass?.title || activeClass?.name || "Morning Yoga Flow";
+      const totalExpectedSec = (activeClass?.duration || 60) * 60;
+      const currentPct = Math.min(100, Math.max(5, Math.round(sessionSeconds / totalExpectedSec * 100)));
+      const durationMins = Math.max(1, Math.round(sessionSeconds / 60));
+      try {
+        const existingLogs = loadStorage("nithya_attendance_logs", []);
+        const currentLog = {
+          id: `att-${cleanPhone}-${classId}`,
+          studentName: cleanName,
+          name: cleanName,
+          phone: cleanPhone,
+          studentPhone: cleanPhone,
+          classId,
+          className: classTitle,
+          classTitle,
+          instructor: activeClass?.instructor || "NITHYA Master",
+          date: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
+          durationMinutes: durationMins,
+          durationSeconds: sessionSeconds,
+          attendancePercent: currentPct,
+          status: currentPct >= 70 ? "Present (70%+)" : `Incomplete (${currentPct}%)`,
+          joinedAt: rawStudentInfo?.joinedAt || (/* @__PURE__ */ new Date()).toISOString()
+        };
+        const updated = [currentLog, ...existingLogs.filter((l) => !((l.phone || l.studentPhone || "").replace(/\D/g, "") === cleanPhone && l.classId === classId))];
+        saveStorage("nithya_attendance_logs", updated);
+      } catch (_2) {
+      }
+    }, [sessionSeconds, connectionState, isInstructorRole, activeClass, user2]);
     const getShareableClassLink = () => {
       const classId = activeClass?.id || "cls-1";
       return getProductionLiveUrl(classId, { join: "student" });
@@ -59846,33 +64858,38 @@ ${url}`;
       isLocal: true,
       isInstructor: isInstructorRole
     };
-    const simulatedPeers = !room && connectedStudentsList && connectedStudentsList.length > 0 ? connectedStudentsList.filter((s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(s.name)).map((s) => ({
-      identity: s.identity || s.id || s.phone || s.name,
-      name: s.name,
-      role: "student",
-      phone: s.phone,
-      joinedAt: s.joinedAt,
-      stream: null,
-      isLocal: false,
-      isInstructor: false
-    })) : [];
+    const simulatedPeers = !room && connectedStudentsList && connectedStudentsList.length > 0 ? connectedStudentsList.filter(
+      (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "Yoga Member", "Yoga Student", "Student", "NITHYA Master"].includes(s.name) && Boolean(s.phone && String(s.phone).replace(/\D/g, "").length >= 10)
+    ).map((s) => {
+      const remoteObj = Object.values(remoteStreams).find((r) => r && (r.phone === s.phone || r.identity === s.identity || r.name === s.name));
+      return {
+        identity: s.identity || s.id || s.phone || s.name,
+        name: s.name,
+        role: "student",
+        phone: s.phone,
+        joinedAt: s.joinedAt,
+        stream: remoteObj ? remoteObj.stream : null,
+        isLocal: false,
+        isInstructor: false
+      };
+    }) : [];
     const instructorPeer = !isInstructorRole ? [{
       identity: "instructor-lead",
       name: activeClass?.instructor || "NITHYA Master (Leader)",
       role: "instructor",
       isInstructor: true,
       isLocal: false,
-      stream: null
+      stream: teacherStream || null
     }] : [];
     const allParticipants = room ? [room.localParticipant, ...participants.filter((p) => p && p.role !== "instructor" && !String(p.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(p.name))] : isInstructorRole ? localStream ? [localWebrtcParticipant, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : [localWebrtcParticipant, ...simulatedPeers] : localStream ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter((p) => p.name !== localWebrtcParticipant.name)] : [...instructorPeer, localWebrtcParticipant, ...simulatedPeers];
     const spotlightParticipant = isInstructorRole ? localWebrtcParticipant : spotlightParticipantId ? allParticipants.find((p) => p.identity === spotlightParticipantId) : allParticipants.find((p) => p.isInstructor) || allParticipants[0];
     const otherParticipants = isInstructorRole ? allParticipants.filter(
-      (p) => p && p.identity !== spotlightParticipant?.identity && p.name !== spotlightParticipant?.name && p.role !== "instructor" && !p.isInstructor && !String(p.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master"].includes(p.name)
+      (p) => p && p.identity !== spotlightParticipant?.identity && p.name !== spotlightParticipant?.name && p.role !== "instructor" && !p.isInstructor && !String(p.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Yoga Member", "Yoga Student", "Student"].includes(p.name) && (p.isLocal || p.phone && String(p.phone).replace(/\D/g, "").length >= 10)
     ) : allParticipants.filter((p) => p?.identity !== spotlightParticipant?.identity);
     const realStudentsList = connectedStudentsList.filter(
-      (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && s.identity !== "instructor-lead" && s.identity !== "instructor-local"
+      (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && s.identity !== "instructor-lead" && s.identity !== "instructor-local" && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Yoga Member", "Yoga Student", "Student"].includes(s.name) && Boolean(s.phone && String(s.phone).replace(/\D/g, "").length >= 10)
     );
-    const currentStudentCount = isInstructorRole ? Math.max(realStudentsList.length, backendStudentCount) : Math.max(1, realStudentsList.length, backendStudentCount);
+    const currentStudentCount = isInstructorRole ? realStudentsList.length : Math.max(1, realStudentsList.length);
     return /* @__PURE__ */ import_react11.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "livekit-studio-header" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-left-title-cluster" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-status-pill-indicator" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `live-pulse-dot ${connectionState === "connected" ? "active-green" : "connecting-amber"}` }), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-pill-text" }, connectionState === "connected" ? "LIVE" : lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "class-title-meta flex flex-col" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "inline-block px-2.5 py-0.5 mb-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-[11px] font-bold uppercase tracking-wider w-fit" }, courseName || activeClass?.courseName || activeClass?.course_name || "Morning Yoga Flow"), /* @__PURE__ */ import_react11.default.createElement("h3", { className: "live-class-heading m-0 text-base font-bold text-white flex items-center gap-2" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react11.default.createElement("span", { className: "live-instructor-subtitle text-xs text-slate-400" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Led by", " ", /* @__PURE__ */ import_react11.default.createElement("strong", { className: "text-slate-200" }, activeClass?.instructor || "NITHYA Master")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "header-right-tools" }, connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement(
       "button",
       {
@@ -59908,6 +64925,19 @@ ${url}`;
       },
       /* @__PURE__ */ import_react11.default.createElement(Download, { size: 13 }),
       /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0B9F\u0BB5\u0BC1\u0BA9\u0BCD\u0BB2\u0BCB\u0B9F\u0BCD" : "Download App")
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "role-toggle-pill as-google-meet-pill bg-emerald-600/90 hover:bg-emerald-500 text-white font-bold flex items-center gap-1 cursor-pointer",
+        onClick: () => {
+          const meetUrl = activeClass?.meetUrl || "https://meet.google.com/new";
+          window.open(meetUrl, "_blank", "noopener,noreferrer");
+        },
+        title: lang === "ta" ? "Google Meet-\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Join via Google Meet"
+      },
+      /* @__PURE__ */ import_react11.default.createElement("span", null, "\u{1F4F9}"),
+      /* @__PURE__ */ import_react11.default.createElement("span", null, "Google Meet")
     ), connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-timer-chip" }, /* @__PURE__ */ import_react11.default.createElement(Radio, { size: 13, className: "timer-radio-icon" }), /* @__PURE__ */ import_react11.default.createElement("span", null, formatTimer(sessionSeconds))), connectionState === "connected" && /* @__PURE__ */ import_react11.default.createElement(
       "div",
       {
@@ -60392,6 +65422,7 @@ Verified WebRTC Attendance Session`;
       init_ThreeDIcons();
       init_api();
       init_storage();
+      init_bundler();
     }
   });
 
@@ -60570,7 +65601,7 @@ Click to join: ${link}`
         {
           activeClass,
           user: {
-            name: isTeacherMode ? activeClass?.instructor || "NITHYA Master" : user?.name || "Yoga Member",
+            name: isTeacherMode ? activeClass?.instructor || "NITHYA Master" : user?.name || "Yoga Student",
             role: isTeacherMode ? "instructor" : "student"
           },
           onLeaveClass: () => {
@@ -60611,7 +65642,7 @@ Click to join: ${link}`
       "button",
       {
         type: "button",
-        className: "btn-launch-meet-gold ya-btn ya-ripple",
+        className: "btn-launch-meet-gold ya-btn ya-ripple mb-2",
         onClick: () => {
           if (onOpenFullStudio) {
             onOpenFullStudio();
@@ -60621,12 +65652,21 @@ Click to join: ${link}`
         }
       },
       /* @__PURE__ */ import_react12.default.createElement(Radio, { size: 16 }),
-      /* @__PURE__ */ import_react12.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD HD \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95 \u{1F9D8}\u200D\u2640\uFE0F" : "Enter LiveKit HD Studio \u{1F9D8}\u200D\u2640\uFE0F")
-    ), /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex items-center gap-2 mt-2" }, /* @__PURE__ */ import_react12.default.createElement(
+      /* @__PURE__ */ import_react12.default.createElement("span", null, lang === "ta" ? "HD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u{1F9D8}\u200D\u2640\uFE0F" : "Enter HD Live Studio \u{1F9D8}\u200D\u2640\uFE0F")
+    ), /* @__PURE__ */ import_react12.default.createElement(
       "button",
       {
         type: "button",
-        className: "text-xs px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur flex items-center gap-1 cursor-pointer transition-all",
+        className: "btn-launch-google-meet-prominent ya-btn ya-ripple mb-2",
+        onClick: handleLaunchGoogleMeet
+      },
+      /* @__PURE__ */ import_react12.default.createElement(ExternalLink, { size: 14 }),
+      /* @__PURE__ */ import_react12.default.createElement("span", null, lang === "ta" ? "Google Meet \u0BAE\u0BC2\u0BB2\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0B95 \u{1F4F9}" : "Join via Google Meet \u{1F4F9}")
+    ), /* @__PURE__ */ import_react12.default.createElement("div", { className: "flex items-center gap-2 mt-1" }, /* @__PURE__ */ import_react12.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "text-xs px-3 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold backdrop-blur flex items-center gap-1 cursor-pointer transition-all border border-white/20 shadow-sm",
         onClick: handleCopyLiveLink,
         title: "Copy Live Class Join Link"
       },
@@ -60635,21 +65675,12 @@ Click to join: ${link}`
       "button",
       {
         type: "button",
-        className: "text-xs px-2.5 py-1 rounded-full bg-emerald-700/80 hover:bg-emerald-600 text-white backdrop-blur flex items-center gap-1 cursor-pointer transition-all",
+        className: "text-xs px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold backdrop-blur flex items-center gap-1 cursor-pointer transition-all shadow-sm",
         onClick: handleWhatsAppShare,
         title: "Share Live Class via WhatsApp"
       },
       /* @__PURE__ */ import_react12.default.createElement("span", null, "\u{1F4F2} WhatsApp")
-    )), /* @__PURE__ */ import_react12.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-google-meet-subtle mt-2 text-xs text-white/90 hover:text-white underline cursor-pointer flex items-center justify-center gap-1 bg-black/40 px-3 py-1 rounded-full backdrop-blur",
-        onClick: handleLaunchGoogleMeet
-      },
-      /* @__PURE__ */ import_react12.default.createElement(ExternalLink, { size: 12 }),
-      /* @__PURE__ */ import_react12.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 Google Meet \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BB5\u0BC1\u0BAE\u0BCD" : "Or join via Google Meet")
-    ), isSessionActive && !attendanceVerified && /* @__PURE__ */ import_react12.default.createElement(
+    )), isSessionActive && !attendanceVerified && /* @__PURE__ */ import_react12.default.createElement(
       "button",
       {
         type: "button",
@@ -61673,7 +66704,7 @@ Click to join: ${link}`
         strokeDasharray: "238.76",
         strokeDashoffset: "47.75"
       }
-    )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-center-text" }, /* @__PURE__ */ import_react16.default.createElement("strong", null, "80%"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-list" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-blue" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0BA4\u0BA3\u0BCD\u0BA3\u0BC0\u0BB0\u0BCD" : "Water"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "3/3")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-yellow" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0B89\u0BA3\u0BB5\u0BC1" : "Meal"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "2/2")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-green" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Call"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "2/3")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-purple" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0BAE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC8" : "Other"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "5/7")))))), showLogsModal && /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-backdrop-scrim", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-bottom-sheet", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react16.default.createElement(ShieldCheck, { size: 18, className: "text-green" }), /* @__PURE__ */ import_react16.default.createElement("h3", { className: "modal-title-bold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Verified Attendance Records")), /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn-modal-close", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react16.default.createElement(X, { size: 18 }))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "attendance-history-table-wrapper max-h-60 overflow-y-auto" }, /* @__PURE__ */ import_react16.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react16.default.createElement("thead", null, /* @__PURE__ */ import_react16.default.createElement("tr", { className: "border-b border-subtle text-muted" }, /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Teacher"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA4\u0BC7\u0BA4\u0BBF" : "Date"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Duration"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Status"))), /* @__PURE__ */ import_react16.default.createElement("tbody", null, logs.map((log2) => /* @__PURE__ */ import_react16.default.createElement("tr", { key: log2.id, className: "border-b border-subtle" }, /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1 font-semibold" }, log2.className), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1 text-muted" }, log2.instructor), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, log2.date), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, log2.durationMinutes, " mins"), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium" }, "\u2713 ", log2.status || "Verified"))))))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setShowLogsModal(false) }, lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close")))));
+    )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-center-text" }, /* @__PURE__ */ import_react16.default.createElement("strong", null, "80%"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-list" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-blue" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0BA4\u0BA3\u0BCD\u0BA3\u0BC0\u0BB0\u0BCD" : "Water"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "3/3")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-yellow" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0B89\u0BA3\u0BB5\u0BC1" : "Meal"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "2/2")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-green" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Call"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "2/3")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-purple" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0BAE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC8" : "Other"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "5/7")))))), showLogsModal && /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-backdrop-scrim", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-bottom-sheet", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react16.default.createElement(ShieldCheck, { size: 18, className: "text-green" }), /* @__PURE__ */ import_react16.default.createElement("h3", { className: "modal-title-bold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Verified Attendance Records")), /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn-modal-close", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react16.default.createElement(X, { size: 18 }))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "attendance-history-table-wrapper max-h-60 overflow-y-auto" }, /* @__PURE__ */ import_react16.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react16.default.createElement("thead", null, /* @__PURE__ */ import_react16.default.createElement("tr", { className: "border-b border-subtle text-muted" }, /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Teacher"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA4\u0BC7\u0BA4\u0BBF" : "Date"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Duration"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Status"))), /* @__PURE__ */ import_react16.default.createElement("tbody", null, logs.map((log3) => /* @__PURE__ */ import_react16.default.createElement("tr", { key: log3.id, className: "border-b border-subtle" }, /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1 font-semibold" }, log3.className), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1 text-muted" }, log3.instructor), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, log3.date), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, log3.durationMinutes, " mins"), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium" }, "\u2713 ", log3.status || "Verified"))))))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setShowLogsModal(false) }, lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close")))));
   }
   var import_react16;
   var init_AttendanceProgressSection = __esm({
@@ -61909,8 +66940,8 @@ Click to join: ${link}`
     const [isCheckingUpdate, setIsCheckingUpdate] = (0, import_react19.useState)(false);
     const [isUpdatingApp, setIsUpdatingApp] = (0, import_react19.useState)(false);
     const [formData, setFormData] = (0, import_react19.useState)({
-      name: user2?.name || "Yoga Member",
-      email: user2?.email || "member@nithyayoga.com",
+      name: user2?.name || (user2?.role === "trainer" ? "NITHYA Master" : "Yoga Student"),
+      email: user2?.email || "student@nithyayoga.com",
       age: user2?.age || 28,
       goal: user2?.goal || "Better Health & Peace",
       joined: user2?.joined || "Oct 1, 2026",
@@ -62708,14 +67739,17 @@ Click to join: ${link}`
           if (stored) {
             const parsed = JSON.parse(stored);
             localLogs = parsed.map((l) => ({
-              name: l.studentName || "Student",
+              name: l.studentName || l.name || "Student",
+              studentName: l.studentName || l.name || "Student",
               email: l.phone ? `+91 ${l.phone}` : "App User",
-              phone: l.phone || "N/A",
-              classTitle: l.className || "Hatha Yoga Flow",
-              joinedAt: l.timestamp,
-              durationSeconds: (l.durationMinutes || 1) * 60,
+              phone: l.phone || l.studentPhone || "N/A",
+              studentPhone: l.phone || l.studentPhone || "N/A",
+              classTitle: l.classTitle || l.className || "Hatha Yoga Flow",
+              joinedAt: l.joinedAt || l.timestamp || (/* @__PURE__ */ new Date()).toISOString(),
+              durationSeconds: l.durationSeconds || (l.durationMinutes || 1) * 60,
+              durationMinutes: l.durationMinutes || Math.round((l.durationSeconds || 60) / 60),
               attendancePercent: l.attendancePercent || (l.status?.includes("70") ? 85 : 45),
-              status: l.status?.includes("70") ? "verified_70" : "incomplete"
+              status: l.status?.includes("70") ? "verified_70" : l.status || "in_progress"
             }));
           }
         } catch (_2) {
@@ -63310,9 +68344,9 @@ ${liveUrl}`;
       },
       /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 13, className: attendanceLoading ? "animate-spin" : "" }),
       /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
-    ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "rounded-xl border border-subtle overflow-x-auto bg-card" }, /* @__PURE__ */ import_react23.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react23.default.createElement("thead", null, /* @__PURE__ */ import_react23.default.createElement("tr", { className: "border-b border-subtle bg-subtle/50 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Student Name"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Mobile Phone"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Class Title"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Joined Time"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Duration"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Attendance %"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Status"))), /* @__PURE__ */ import_react23.default.createElement("tbody", null, attendanceLogs.length === 0 ? /* @__PURE__ */ import_react23.default.createElement("tr", null, /* @__PURE__ */ import_react23.default.createElement("td", { colSpan: 7, className: "text-center p-6 text-muted" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "No student attendance records found yet.")) : attendanceLogs.map((log2, index) => {
-      const isPresent = log2.status?.includes("70") || log2.attendancePercent >= 70;
-      return /* @__PURE__ */ import_react23.default.createElement("tr", { key: log2.id || index, className: "border-b border-subtle/50 hover:bg-subtle/30" }, /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-semibold text-heading" }, log2.studentName || log2.name || "Student"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-mono text-muted" }, log2.studentPhone || log2.phone || "N/A"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 text-heading" }, log2.classTitle || log2.className || "Hatha Flow"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 text-muted text-[11px]" }, log2.joinedAt ? new Date(log2.joinedAt).toLocaleString() : "Recent"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-mono" }, Math.round((log2.durationSeconds || 60) / 60), " mins"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-bold text-primary" }, log2.attendancePercent || 85, "%"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${isPresent ? "bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/15 text-amber-600 border border-amber-500/30"}` }, isPresent ? "\u2713 Present (70%+)" : "Incomplete")));
+    ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "w-9 h-9 rounded-full bg-violet-500/15 text-primary flex items-center justify-center font-bold" }, /* @__PURE__ */ import_react23.default.createElement(Users, { size: 18 })), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] text-muted block font-semibold" }, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BBE\u0BA9 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Registered Students"), /* @__PURE__ */ import_react23.default.createElement("strong", { className: "text-base text-heading" }, new Set(attendanceLogs.map((l) => (l.phone || l.studentPhone || "").replace(/\D/g, "")).filter(Boolean)).size || attendanceLogs.length))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "w-9 h-9 rounded-full bg-emerald-500/15 text-emerald-600 flex items-center justify-center font-bold" }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 18 })), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] text-muted block font-semibold" }, lang === "ta" ? "\u0BAE\u0BCA\u0BA4\u0BCD\u0BA4 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Total Practice Time"), /* @__PURE__ */ import_react23.default.createElement("strong", { className: "text-base text-heading" }, Math.round(attendanceLogs.reduce((acc, l) => acc + (l.durationSeconds || 60), 0) / 60), " mins"))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "w-9 h-9 rounded-full bg-amber-500/15 text-amber-600 flex items-center justify-center font-bold" }, /* @__PURE__ */ import_react23.default.createElement(CircleCheck, { size: 18 })), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] text-muted block font-semibold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBE\u0B9A\u0BB0\u0BBF \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Avg Attendance Rate"), /* @__PURE__ */ import_react23.default.createElement("strong", { className: "text-base text-heading" }, attendanceLogs.length > 0 ? Math.round(attendanceLogs.reduce((acc, l) => acc + (l.attendancePercent || 85), 0) / attendanceLogs.length) : 100, "%")))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "rounded-xl border border-subtle overflow-x-auto bg-card" }, /* @__PURE__ */ import_react23.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react23.default.createElement("thead", null, /* @__PURE__ */ import_react23.default.createElement("tr", { className: "border-b border-subtle bg-subtle/50 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Student Name"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Mobile Phone"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Class Title"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Joined Time"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Duration"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Attendance %"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Status"))), /* @__PURE__ */ import_react23.default.createElement("tbody", null, attendanceLogs.length === 0 ? /* @__PURE__ */ import_react23.default.createElement("tr", null, /* @__PURE__ */ import_react23.default.createElement("td", { colSpan: 7, className: "text-center p-6 text-muted" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "No student attendance records found yet.")) : attendanceLogs.map((log3, index) => {
+      const isPresent = log3.status?.includes("70") || log3.attendancePercent >= 70;
+      return /* @__PURE__ */ import_react23.default.createElement("tr", { key: log3.id || index, className: "border-b border-subtle/50 hover:bg-subtle/30" }, /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-semibold text-heading" }, log3.studentName || log3.name || "Student"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-mono text-muted" }, log3.studentPhone || log3.phone || "N/A"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 text-heading" }, log3.classTitle || log3.className || "Hatha Flow"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 text-muted text-[11px]" }, log3.joinedAt ? new Date(log3.joinedAt).toLocaleString() : "Recent"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-mono" }, Math.round((log3.durationSeconds || 60) / 60), " mins"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-bold text-primary" }, log3.attendancePercent || 85, "%"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${isPresent ? "bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/15 text-amber-600 border border-amber-500/30"}` }, isPresent ? "\u2713 Present (70%+)" : "Incomplete")));
     }))))), activeTab === "notes" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 / PDF \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Upload Yoga Notes & PDF Material")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleAddMaterial, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Title"), /* @__PURE__ */ import_react23.default.createElement(
       "input",
       {
@@ -63802,8 +68836,34 @@ ${liveUrl}`;
         };
         try {
           const existing = JSON.parse(localStorage.getItem("nithya_live_participants") || "[]");
-          const updated = [newParticipant, ...existing.filter((p) => (p.phone || "").replace(/\D/g, "") !== cleanPhone.replace(/\D/g, ""))];
+          const cleanExisting = existing.filter(
+            (p) => p && p.name && !["Yoga Member", "Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Student"].includes(p.name) && (p.phone || "").replace(/\D/g, "").length >= 10 && (p.phone || "").replace(/\D/g, "") !== cleanPhone.replace(/\D/g, "")
+          );
+          const updated = [newParticipant, ...cleanExisting];
           localStorage.setItem("nithya_live_participants", JSON.stringify(updated));
+        } catch (_2) {
+        }
+        try {
+          const classId = activeClass?.id || "cls-1";
+          const classTitle = activeClass?.title || activeClass?.name || "Live Yoga Flow";
+          const logs = JSON.parse(localStorage.getItem("nithya_attendance_logs") || "[]");
+          const newLog = {
+            id: `att-${cleanPhone.replace(/\D/g, "")}-${Date.now()}`,
+            classId,
+            classTitle,
+            className: classTitle,
+            studentName: cleanName,
+            name: cleanName,
+            phone: cleanPhone,
+            studentPhone: cleanPhone,
+            joinedAt: (/* @__PURE__ */ new Date()).toISOString(),
+            durationSeconds: 60,
+            durationMinutes: 1,
+            attendancePercent: 10,
+            status: "in_progress"
+          };
+          const updatedLogs = [newLog, ...logs.filter((l) => !((l.phone || l.studentPhone || "").replace(/\D/g, "") === cleanPhone.replace(/\D/g, "") && l.classId === classId))];
+          localStorage.setItem("nithya_attendance_logs", JSON.stringify(updatedLogs));
         } catch (_2) {
         }
         try {
@@ -64340,12 +69400,12 @@ ${liveUrl}`;
             return wrapper;
           };
           const addListener = createPluginMethodWrapper("addListener");
-          const removeListener = createPluginMethodWrapper("removeListener");
+          const removeListener2 = createPluginMethodWrapper("removeListener");
           const addListenerNative = (eventName, callback) => {
             const call = addListener({ eventName }, callback);
             const remove = async () => {
               const callbackId = await call;
-              removeListener({
+              removeListener2({
                 eventName,
                 callbackId
               }, callback);
@@ -64368,7 +69428,7 @@ ${liveUrl}`;
                 case "addListener":
                   return pluginHeader ? addListenerNative : addListener;
                 case "removeListener":
-                  return removeListener;
+                  return removeListener2;
                 default:
                   return createPluginMethodWrapper(prop);
               }
@@ -64406,8 +69466,8 @@ ${liveUrl}`;
         }
         addListener(eventName, listenerFunc) {
           let firstListener = false;
-          const listeners = this.listeners[eventName];
-          if (!listeners) {
+          const listeners2 = this.listeners[eventName];
+          if (!listeners2) {
             this.listeners[eventName] = [];
             firstListener = true;
           }
@@ -64431,8 +69491,8 @@ ${liveUrl}`;
           this.windowListeners = {};
         }
         notifyListeners(eventName, data, retainUntilConsumed) {
-          const listeners = this.listeners[eventName];
-          if (!listeners) {
+          const listeners2 = this.listeners[eventName];
+          if (!listeners2) {
             if (retainUntilConsumed) {
               let args = this.retainedEventArguments[eventName];
               if (!args) {
@@ -64443,7 +69503,7 @@ ${liveUrl}`;
             }
             return;
           }
-          listeners.forEach((listener) => listener(data));
+          listeners2.forEach((listener) => listener(data));
         }
         hasListeners(eventName) {
           var _a2;
@@ -64466,11 +69526,11 @@ ${liveUrl}`;
           return new Capacitor.Exception(msg, ExceptionCode.Unavailable);
         }
         async removeListener(eventName, listenerFunc) {
-          const listeners = this.listeners[eventName];
-          if (!listeners) {
+          const listeners2 = this.listeners[eventName];
+          if (!listeners2) {
             return;
           }
-          const index = listeners.indexOf(listenerFunc);
+          const index = listeners2.indexOf(listenerFunc);
           if (index !== -1) {
             this.listeners[eventName].splice(index, 1);
           }
@@ -65334,6 +70394,21 @@ ${liveUrl}`;
       saveStorage("nithya_user", user2);
     }, [user2]);
     (0, import_react28.useEffect)(() => {
+      try {
+        const stored = localStorage.getItem("nithya_live_participants");
+        if (stored) {
+          const parsed = JSON.parse(stored);
+          if (Array.isArray(parsed)) {
+            const cleaned = parsed.filter(
+              (p) => p && p.name && !["Yoga Member", "Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Student"].includes(p.name) && (p.phone || "").replace(/\D/g, "").length >= 10
+            );
+            localStorage.setItem("nithya_live_participants", JSON.stringify(cleaned));
+          }
+        }
+      } catch (_2) {
+      }
+    }, []);
+    (0, import_react28.useEffect)(() => {
       saveStorage("nithya_reminders", reminders);
       syncAllRemindersWithSystem(reminders, lang);
     }, [reminders, lang]);
@@ -65554,7 +70629,7 @@ ${liveUrl}`;
             setCurrentTab("live");
           } else {
             localStorage.setItem("nithya_active_role", "student");
-            if (!session) {
+            if (isStudentExplicit || !session) {
               setShowStudentJoinModal(true);
             } else {
               setUser((prev) => ({

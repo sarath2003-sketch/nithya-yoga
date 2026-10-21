@@ -157,6 +157,25 @@ export default function App() {
     saveStorage('nithya_user', user);
   }, [user]);
 
+  // Purge any legacy dummy participants from local storage on mount
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('nithya_live_participants');
+      if (stored) {
+        const parsed = JSON.parse(stored);
+        if (Array.isArray(parsed)) {
+          const cleaned = parsed.filter(p => 
+            p && 
+            p.name && 
+            !['Yoga Member', 'Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Student'].includes(p.name) &&
+            (p.phone || '').replace(/\D/g, '').length >= 10
+          );
+          localStorage.setItem('nithya_live_participants', JSON.stringify(cleaned));
+        }
+      }
+    } catch (_) {}
+  }, []);
+
   useEffect(() => {
     saveStorage('nithya_reminders', reminders);
     syncAllRemindersWithSystem(reminders, lang);
@@ -423,8 +442,8 @@ export default function App() {
           setCurrentTab('live');
         } else {
           localStorage.setItem('nithya_active_role', 'student');
-          if (!session) {
-            // Keep on current tab and prompt registration modal so LiveYogaClassRoom does not mount early
+          // Always prompt the Student Join modal when arriving via student link
+          if (isStudentExplicit || !session) {
             setShowStudentJoinModal(true);
           } else {
             setUser(prev => ({

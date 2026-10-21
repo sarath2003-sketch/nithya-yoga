@@ -216,7 +216,7 @@ export default function LiveClassStudio({
         <LiveYogaClassRoom
           activeClass={activeClass}
           user={{
-            name: isTeacherMode ? (activeClass?.instructor || 'NITHYA Master') : (user?.name || 'Yoga Member'),
+            name: isTeacherMode ? (activeClass?.instructor || 'NITHYA Master') : (user?.name || 'Yoga Student'),
             role: isTeacherMode ? 'instructor' : 'student'
           }}
           onLeaveClass={() => {
@@ -297,7 +297,7 @@ export default function LiveClassStudio({
         <div className="video-center-launcher-box">
           <button
             type="button"
-            className="btn-launch-meet-gold ya-btn ya-ripple"
+            className="btn-launch-meet-gold ya-btn ya-ripple mb-2"
             onClick={() => {
               if (onOpenFullStudio) {
                 onOpenFullStudio();
@@ -307,13 +307,22 @@ export default function LiveClassStudio({
             }}
           >
             <Radio size={16} />
-            <span>{lang === 'ta' ? 'லைவ்கிட் HD ஸ்டுடியோவில் இணைக 🧘‍♀️' : 'Enter LiveKit HD Studio 🧘‍♀️'}</span>
+            <span>{lang === 'ta' ? 'HD நேரலை யோகா ஸ்டுடியோ 🧘‍♀️' : 'Enter HD Live Studio 🧘‍♀️'}</span>
           </button>
 
-          <div className="flex items-center gap-2 mt-2">
+          <button
+            type="button"
+            className="btn-launch-google-meet-prominent ya-btn ya-ripple mb-2"
+            onClick={handleLaunchGoogleMeet}
+          >
+            <ExternalLink size={14} />
+            <span>{lang === 'ta' ? 'Google Meet மூலம் இணைக 📹' : 'Join via Google Meet 📹'}</span>
+          </button>
+
+          <div className="flex items-center gap-2 mt-1">
             <button
               type="button"
-              className="text-xs px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-white backdrop-blur flex items-center gap-1 cursor-pointer transition-all"
+              className="text-xs px-3 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold backdrop-blur flex items-center gap-1 cursor-pointer transition-all border border-white/20 shadow-sm"
               onClick={handleCopyLiveLink}
               title="Copy Live Class Join Link"
             >
@@ -321,22 +330,13 @@ export default function LiveClassStudio({
             </button>
             <button
               type="button"
-              className="text-xs px-2.5 py-1 rounded-full bg-emerald-700/80 hover:bg-emerald-600 text-white backdrop-blur flex items-center gap-1 cursor-pointer transition-all"
+              className="text-xs px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold backdrop-blur flex items-center gap-1 cursor-pointer transition-all shadow-sm"
               onClick={handleWhatsAppShare}
               title="Share Live Class via WhatsApp"
             >
               <span>📲 WhatsApp</span>
             </button>
           </div>
-
-          <button
-            type="button"
-            className="btn-google-meet-subtle mt-2 text-xs text-white/90 hover:text-white underline cursor-pointer flex items-center justify-center gap-1 bg-black/40 px-3 py-1 rounded-full backdrop-blur"
-            onClick={handleLaunchGoogleMeet}
-          >
-            <ExternalLink size={12} />
-            <span>{lang === 'ta' ? 'அல்லது Google Meet பயன்படுத்தவும்' : 'Or join via Google Meet'}</span>
-          </button>
           
           {isSessionActive && !attendanceVerified && (
             <button

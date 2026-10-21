@@ -99,8 +99,39 @@ export default function StudentJoinModal({
 
       try {
         const existing = JSON.parse(localStorage.getItem('nithya_live_participants') || '[]');
-        const updated = [newParticipant, ...existing.filter(p => (p.phone || '').replace(/\D/g, '') !== cleanPhone.replace(/\D/g, ''))];
+        const cleanExisting = existing.filter(p => 
+          p && 
+          p.name && 
+          !['Yoga Member', 'Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Student'].includes(p.name) &&
+          (p.phone || '').replace(/\D/g, '').length >= 10 &&
+          (p.phone || '').replace(/\D/g, '') !== cleanPhone.replace(/\D/g, '')
+        );
+        const updated = [newParticipant, ...cleanExisting];
         localStorage.setItem('nithya_live_participants', JSON.stringify(updated));
+      } catch (_) {}
+
+      // Pre-register student attendance record in local storage for Admin & Trainer Portal
+      try {
+        const classId = activeClass?.id || 'cls-1';
+        const classTitle = activeClass?.title || activeClass?.name || 'Live Yoga Flow';
+        const logs = JSON.parse(localStorage.getItem('nithya_attendance_logs') || '[]');
+        const newLog = {
+          id: `att-${cleanPhone.replace(/\D/g, '')}-${Date.now()}`,
+          classId,
+          classTitle,
+          className: classTitle,
+          studentName: cleanName,
+          name: cleanName,
+          phone: cleanPhone,
+          studentPhone: cleanPhone,
+          joinedAt: new Date().toISOString(),
+          durationSeconds: 60,
+          durationMinutes: 1,
+          attendancePercent: 10,
+          status: 'in_progress'
+        };
+        const updatedLogs = [newLog, ...logs.filter(l => !((l.phone || l.studentPhone || '').replace(/\D/g, '') === cleanPhone.replace(/\D/g, '') && l.classId === classId))];
+        localStorage.setItem('nithya_attendance_logs', JSON.stringify(updatedLogs));
       } catch (_) {}
 
       try {

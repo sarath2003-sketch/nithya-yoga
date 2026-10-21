@@ -9,13 +9,14 @@ import {
   Calendar, 
   Music, 
   User,
-  Heart,
-  ShieldCheck
+  ShieldCheck,
+  Crown,
+  Sparkles
 } from 'lucide-react';
 import { KitHeart } from './ThreeDIcons';
 import LotusMark from './LotusMark';
 
-export default function Sidebar({ currentTab, setCurrentTab, lang = 'en' }) {
+export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user = { name: 'Nithya' } }) {
   const navItems = [
     { id: 'home', label: 'Home', labelTa: 'முகப்பு', icon: Home },
     { id: 'student', label: 'Student Portal', labelTa: 'மாணவர் பகுதி', icon: GraduationCap },
@@ -29,18 +30,30 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en' }) {
     { id: 'admin', label: 'Trainer Portal', labelTa: 'பயிற்றுநர் பகுதி', icon: ShieldCheck },
   ];
 
+  const displayName = user?.name ? user.name.split(' ')[0] : 'Nithya';
+
   return (
-    <aside className="app-sidebar-nav">
-      {/* Brand Header */}
+    <aside className="app-sidebar-nav" aria-label="Sidebar Navigation">
+      {/* Brand & User Profile Top Header */}
       <div className="sidebar-brand-container" onClick={() => setCurrentTab('home')}>
-        <img 
-          src="assets/images/logo.png" 
-          alt="Nithya Yoga &amp; Wellness Logo" 
-          className="sidebar-brand-logo-img" 
-        />
+        <div className="sidebar-user-avatar-pill">
+          {user?.avatar ? (
+            <img src={user.avatar} alt={user.name} className="sidebar-user-img" />
+          ) : (
+            <div className="sidebar-avatar-fallback">
+              {displayName.charAt(0)}
+            </div>
+          )}
+          <span className="sidebar-online-status-dot"></span>
+        </div>
         <div className="brand-text-block">
-          <h1 className="brand-name-title">NITHYA</h1>
-          <span className="brand-subtitle">Yoga &amp; Wellness</span>
+          <div className="sidebar-greeting-row">
+            <span className="sidebar-hi-text">Hi, {displayName}!</span>
+            <span className="sidebar-wave">👋</span>
+          </div>
+          <span className="brand-subtitle">
+            {lang === 'ta' ? 'நித்யா யோகா & நலம்' : 'Yoga & Wellness'}
+          </span>
         </div>
       </div>
 
@@ -48,13 +61,16 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en' }) {
       <nav className="sidebar-menu-list">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = currentTab === item.id;
+          const isActive = currentTab === item.id || 
+            (item.id === 'classes' && (currentTab === 'yoga' || currentTab === 'yoga-classes')) ||
+            (item.id === 'live' && (currentTab === 'live' || currentTab === 'live-classes'));
           return (
             <button
               key={item.id}
               type="button"
               className={`sidebar-menu-item ${isActive ? 'active' : ''}`}
               onClick={() => setCurrentTab(item.id)}
+              aria-selected={isActive}
             >
               <Icon size={18} className="menu-icon" />
               <span className="menu-label">
@@ -65,19 +81,27 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en' }) {
         })}
       </nav>
 
-      {/* Bottom Inspiration Card */}
+      {/* Bottom Inspiration / Go Premium Pastel Card */}
       <div className="sidebar-bottom-wellness-card">
-        <div className="bottom-card-bg-overlay"></div>
+        <div className="bottom-card-pastel-blob"></div>
         <div className="bottom-card-content">
-          <div className="bottom-card-lotus">
-            <LotusMark className="lotus-tiny-svg" />
+          <div className="bottom-card-icon-badge">
+            <Crown size={15} className="bottom-card-crown-icon" />
           </div>
+          <h4 className="bottom-card-title">
+            {lang === 'ta' ? 'தினசரி உத்வேகம்' : 'Daily Inspiration'}
+          </h4>
           <p className="bottom-card-quote">
             {lang === 'ta' ? 'ஆரோக்கியமான நீங்களே மகிழ்ச்சியான நீங்கள்...' : 'A healthier you is a happier you...'}
           </p>
-          <span className="bottom-card-heart" style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>
-            <KitHeart size={14} />
-          </span>
+          <div className="bottom-card-footer-pill">
+            <span className="bottom-card-heart">
+              <KitHeart size={13} />
+            </span>
+            <span className="bottom-card-spark">
+              {lang === 'ta' ? 'அமைதி • ஆரோக்கியம்' : 'Mindful • Healthy'}
+            </span>
+          </div>
         </div>
       </div>
     </aside>

@@ -1,181 +1,185 @@
 import React, { useState } from 'react';
-import { TrendingUp, Flower2, Calendar, CheckCircle2, Star, ListFilter, X, ShieldCheck } from 'lucide-react';
+import { TrendingUp, Flower2, Calendar, CheckCircle2, Star, ListFilter, X, ShieldCheck, ChevronDown } from 'lucide-react';
 import { loadStorage, DEFAULT_ATTENDANCE_LOGS } from '../utils/storage';
 
 export default function AttendanceProgressSection({ user, attendanceLogs = [], lang = 'en' }) {
   const [showLogsModal, setShowLogsModal] = useState(false);
+  const [selectedWeek, setSelectedWeek] = useState('This Week');
   const logs = attendanceLogs && attendanceLogs.length > 0 
     ? attendanceLogs 
     : loadStorage('nithya_attendance', DEFAULT_ATTENDANCE_LOGS);
 
-  const weeklyData = [
-    { day: 'Mon', h1: 45, h2: 25 },
-    { day: 'Tue', h1: 65, h2: 40 },
-    { day: 'Wed', h1: 30, h2: 20 },
-    { day: 'Thu', h1: 85, h2: 60 },
-    { day: 'Fri', h1: 50, h2: 35 },
-    { day: 'Sat', h1: 70, h2: 55 },
-    { day: 'Sun', h1: 90, h2: 75 }
+  const weeklyBars = [
+    { day: 'Mon', hours: 2.5, heightPct: 42, color: '#B89EFA' },
+    { day: 'Tue', hours: 4.2, heightPct: 70, color: '#F8B4C8' },
+    { day: 'Wed', hours: 3.0, heightPct: 50, color: '#FCD385' },
+    { day: 'Thu', hours: 5.5, heightPct: 92, color: '#A8E090' },
+    { day: 'Fri', hours: 3.8, heightPct: 63, color: '#88D49E' },
+    { day: 'Sat', hours: 4.8, heightPct: 80, color: '#8ECCFA' },
+    { day: 'Sun', hours: 4.0, heightPct: 66, color: '#9B7AE8' }
+  ];
+
+  const focusAreas = [
+    { name: lang === 'ta' ? 'ஆசனங்கள்' : 'Asanas', pct: '45%', color: '#9B7AE8' },
+    { name: lang === 'ta' ? 'பிராணாயாமம்' : 'Pranayama', pct: '25%', color: '#F8B4C8' },
+    { name: lang === 'ta' ? 'தியானம்' : 'Meditation', pct: '15%', color: '#FCD385' },
+    { name: lang === 'ta' ? 'ரிலாக்சேஷன்' : 'Relaxation', pct: '10%', color: '#A8E090' },
+    { name: lang === 'ta' ? 'மற்றவை' : 'Other', pct: '5%', color: '#8ECCFA' }
   ];
 
   return (
-    <div className="dashboard-card progress-dashboard-card">
-      {/* Header */}
-      <div className="card-header-block flex justify-between items-start">
-        <div>
-          <h3 className="card-title-main">
-            <TrendingUp size={18} className="text-violet" />
-            <span>{lang === 'ta' ? 'முன்னேற்றம் மற்றும் வருகை' : 'Progress & Attendance'}</span>
-          </h3>
-          <p className="card-sub-motto">
-            {lang === 'ta' ? 'உங்கள் பயணத்தைக் கண்காணித்து வளர்ச்சியைக் கொண்டாடுங்கள்.' : 'Track your journey and celebrate your growth.'}
-          </p>
-        </div>
-
-        <button
-          type="button"
-          className="btn-logs-pill text-xs flex items-center gap-1 px-2 py-1 rounded bg-subtle hover-accent cursor-pointer"
-          onClick={() => setShowLogsModal(true)}
-          title="View Verified Attendance Records"
-        >
-          <Calendar size={13} />
-          <span>{lang === 'ta' ? 'வருகை வரலாறு' : 'Attendance Log'}</span>
-        </button>
-      </div>
-
-      {/* 4 Stat Boxes Row */}
-      <div className="progress-metrics-4row">
-        {/* Metric 1 */}
-        <div className="prog-metric-tile tile-purple">
-          <div className="prog-tile-top">
-            <Flower2 size={16} className="text-purple" />
-          </div>
-          <span className="prog-metric-label">
-            {lang === 'ta' ? 'கலந்துகொண்ட வகுப்புகள்' : 'Classes Attended'}
-          </span>
-          <strong className="prog-metric-val">{user?.classesAttended || logs.length || 12}</strong>
-          <small className="prog-metric-sub">{lang === 'ta' ? 'இந்த மாதம்' : 'This month'}</small>
-        </div>
-
-        {/* Metric 2 */}
-        <div className="prog-metric-tile tile-blue">
-          <div className="prog-tile-top">
-            <Calendar size={16} className="text-blue" />
-          </div>
-          <span className="prog-metric-label">
-            {lang === 'ta' ? 'வருகை விகிதம்' : 'Attendance Rate'}
-          </span>
-          <strong className="prog-metric-val">{user?.attendanceRate || 85}%</strong>
-          <small className="prog-metric-sub text-green">{lang === 'ta' ? '+5% முந்தைய மாதம்' : '+5% than last month'}</small>
-        </div>
-
-        {/* Metric 3 */}
-        <div className="prog-metric-tile tile-green">
-          <div className="prog-tile-top">
-            <CheckCircle2 size={16} className="text-green" />
-          </div>
-          <span className="prog-metric-label">
-            {lang === 'ta' ? 'நினைவூட்டல்கள் முடிந்தது' : 'Reminder Completed'}
-          </span>
-          <strong className="prog-metric-val">18</strong>
-          <small className="prog-metric-sub text-green">{lang === 'ta' ? '+3 முந்தைய வாரம்' : '+3 than last week'}</small>
-        </div>
-
-        {/* Metric 4 */}
-        <div className="prog-metric-tile tile-pink">
-          <div className="prog-tile-top">
-            <Star size={16} className="text-pink" />
-          </div>
-          <span className="prog-metric-label">
-            {lang === 'ta' ? 'யோகா முன்னேற்றம்' : 'Yoga Progress'}
-          </span>
-          <strong className="prog-metric-val">{lang === 'ta' ? 'நன்று' : 'Good'}</strong>
-          <small className="prog-metric-sub">{lang === 'ta' ? 'தொடருங்கள்!' : 'Keep going!'}</small>
-        </div>
-      </div>
-
-      {/* Split Charts: Weekly Activity (Left) + Reminder Completion Donut (Right) */}
+    <div className="attendance-progress-wrapper">
+      {/* 2-Card Split Grid matching Master Reference */}
       <div className="charts-split-grid">
-        {/* Weekly Activity Bar Chart */}
-        <div className="chart-box-card">
-          <h4 className="chart-title-sub">
-            {lang === 'ta' ? 'வாராந்திர செயல்பாடு' : 'Weekly Activity'}
-          </h4>
-          <div className="bar-chart-visual-container">
-            {weeklyData.map((d) => (
-              <div key={d.day} className="bar-chart-column">
-                <div className="bars-stacked">
-                  <div 
-                    className="bar-fill-violet" 
-                    style={{ height: `${d.h1}%` }}
-                    title={`${d.day}: ${d.h1} mins`}
-                  ></div>
-                  <div 
-                    className="bar-fill-cyan" 
-                    style={{ height: `${d.h2}%` }}
-                  ></div>
-                </div>
-                <span className="bar-day-label">{d.day}</span>
+        {/* Card 1: Practice Overview Bar Chart (Mon-Sun) */}
+        <div className="dashboard-card chart-box-card">
+          <div className="chart-header-row">
+            <div>
+              <h4 className="chart-title-main">
+                {lang === 'ta' ? 'பயிற்சி கண்ணோட்டம்' : 'Practice Overview'}
+              </h4>
+              <span className="chart-subtitle-text">
+                {lang === 'ta' ? 'வாராந்திர யோகா நேரம்' : 'Weekly mindful practice hours'}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <div className="time-select-pill">
+                <span>{lang === 'ta' ? 'இந்த வாரம்' : selectedWeek}</span>
+                <ChevronDown size={14} className="text-muted" />
               </div>
-            ))}
+
+              <button
+                type="button"
+                className="btn-logs-pill"
+                onClick={() => setShowLogsModal(true)}
+                title="View Verified Attendance Records"
+              >
+                <Calendar size={13} />
+                <span>{lang === 'ta' ? 'பதிவேடு' : 'Log'}</span>
+              </button>
+            </div>
+          </div>
+
+          {/* Bar Chart Visual with Y-Axis */}
+          <div className="bar-chart-visual-container">
+            {/* Y-Axis scale */}
+            <div className="chart-y-axis-labels">
+              <span>6h</span>
+              <span>4h</span>
+              <span>2h</span>
+              <span>0</span>
+            </div>
+
+            {/* Columns */}
+            <div className="bar-chart-columns-flex">
+              {weeklyBars.map((d) => (
+                <div key={d.day} className="bar-chart-column-item">
+                  <div className="bar-track-backdrop">
+                    <div 
+                      className="bar-3d-capsule" 
+                      style={{ 
+                        height: `${d.heightPct}%`,
+                        backgroundColor: d.color
+                      }}
+                      title={`${d.day}: ${d.hours} hrs`}
+                    ></div>
+                  </div>
+                  <span className="bar-day-label">{d.day}</span>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Reminder Completion Donut Chart */}
-        <div className="chart-box-card">
-          <h4 className="chart-title-sub">
-            {lang === 'ta' ? 'நினைவூட்டல் நிறைவு' : 'Reminder Completion'}
-          </h4>
+        {/* Card 2: Focus Areas Donut Chart */}
+        <div className="dashboard-card chart-box-card">
+          <div className="chart-header-row">
+            <div>
+              <h4 className="chart-title-main">
+                {lang === 'ta' ? 'முக்கியப் பகுதிகள்' : 'Yoga Focus Areas'}
+              </h4>
+              <span className="chart-subtitle-text">
+                {lang === 'ta' ? 'பயிற்சி பிரிவுகள் பகிர்வு' : 'Distribution across practice types'}
+              </span>
+            </div>
+          </div>
 
           <div className="donut-chart-flex">
-            {/* SVG Donut */}
+            {/* SVG Donut with segmented pastel strokes */}
             <div className="donut-circle-wrap">
               <svg viewBox="0 0 100 100" className="donut-svg">
+                {/* Background Ring */}
                 <circle
                   cx="50"
                   cy="50"
-                  r="38"
+                  r="36"
                   className="donut-bg-ring"
                 />
+                {/* Asanas: 45% (offset 0) */}
                 <circle
                   cx="50"
                   cy="50"
-                  r="38"
-                  className="donut-accent-ring"
-                  strokeDasharray="238.76"
-                  strokeDashoffset="47.75"
+                  r="36"
+                  className="donut-slice slice-purple"
+                  strokeDasharray="101.78 124.4"
+                  strokeDashoffset="0"
+                />
+                {/* Pranayama: 25% (offset -101.78) */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="36"
+                  className="donut-slice slice-pink"
+                  strokeDasharray="56.55 169.64"
+                  strokeDashoffset="-101.78"
+                />
+                {/* Meditation: 15% (offset -158.33) */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="36"
+                  className="donut-slice slice-yellow"
+                  strokeDasharray="33.93 192.26"
+                  strokeDashoffset="-158.33"
+                />
+                {/* Relaxation: 10% (offset -192.26) */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="36"
+                  className="donut-slice slice-green"
+                  strokeDasharray="22.62 203.57"
+                  strokeDashoffset="-192.26"
+                />
+                {/* Other: 5% (offset -214.88) */}
+                <circle
+                  cx="50"
+                  cy="50"
+                  r="36"
+                  className="donut-slice slice-blue"
+                  strokeDasharray="11.31 214.88"
+                  strokeDashoffset="-214.88"
                 />
               </svg>
               <div className="donut-center-text">
-                <strong>80%</strong>
+                <span className="donut-center-pct">80%</span>
+                <span className="donut-center-sub">{lang === 'ta' ? 'முழுமை' : 'Active'}</span>
               </div>
             </div>
 
-            {/* Legend & Counts */}
+            {/* Legend with Colored Dots */}
             <div className="donut-legend-list">
-              <div className="donut-legend-row">
-                <span className="dot-color dot-blue">●</span>
-                <span className="leg-name">{lang === 'ta' ? 'தண்ணீர்' : 'Water'}</span>
-                <span className="leg-val">3/3</span>
-              </div>
-
-              <div className="donut-legend-row">
-                <span className="dot-color dot-yellow">●</span>
-                <span className="leg-name">{lang === 'ta' ? 'உணவு' : 'Meal'}</span>
-                <span className="leg-val">2/2</span>
-              </div>
-
-              <div className="donut-legend-row">
-                <span className="dot-color dot-green">●</span>
-                <span className="leg-name">{lang === 'ta' ? 'அழைப்பு' : 'Call'}</span>
-                <span className="leg-val">2/3</span>
-              </div>
-
-              <div className="donut-legend-row">
-                <span className="dot-color dot-purple">●</span>
-                <span className="leg-name">{lang === 'ta' ? 'மற்றவை' : 'Other'}</span>
-                <span className="leg-val">5/7</span>
-              </div>
+              {focusAreas.map((item, idx) => (
+                <div key={idx} className="donut-legend-row">
+                  <span 
+                    className="dot-color-round" 
+                    style={{ backgroundColor: item.color }}
+                  ></span>
+                  <span className="leg-name">{item.name}</span>
+                  <span className="leg-val">{item.pct}</span>
+                </div>
+              ))}
             </div>
           </div>
         </div>

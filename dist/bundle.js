@@ -2403,9 +2403,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React26 = require_react();
+          var React27 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React26.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React27.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -4012,7 +4012,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React26.Children.forEach(props.children, function(child) {
+                  React27.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -23907,12 +23907,30 @@
     }
   });
 
+  // node_modules/lucide-react/dist/esm/icons/arrow-right.mjs
+  var __iconData2, ArrowRight;
+  var init_arrow_right = __esm({
+    "node_modules/lucide-react/dist/esm/icons/arrow-right.mjs"() {
+      init_createLucideIcon();
+      __iconData2 = {
+        name: "arrow-right",
+        size: 24,
+        node: [
+          ["path", { d: "M5 12h14", key: "1ays0h" }],
+          ["path", { d: "m12 5 7 7-7 7", key: "xquz4c" }]
+        ]
+      };
+      __iconData2.node;
+      ArrowRight = createLucideIcon(__iconData2);
+    }
+  });
+
   // node_modules/lucide-react/dist/esm/icons/award.mjs
-  var __iconData2, Award;
+  var __iconData3, Award;
   var init_award = __esm({
     "node_modules/lucide-react/dist/esm/icons/award.mjs"() {
       init_createLucideIcon();
-      __iconData2 = {
+      __iconData3 = {
         name: "award",
         size: 24,
         node: [
@@ -23926,17 +23944,17 @@
           ["circle", { cx: "12", cy: "8", r: "6", key: "1vp47v" }]
         ]
       };
-      __iconData2.node;
-      Award = createLucideIcon(__iconData2);
+      __iconData3.node;
+      Award = createLucideIcon(__iconData3);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/bell-ring.mjs
-  var __iconData3, BellRing;
+  var __iconData4, BellRing;
   var init_bell_ring = __esm({
     "node_modules/lucide-react/dist/esm/icons/bell-ring.mjs"() {
       init_createLucideIcon();
-      __iconData3 = {
+      __iconData4 = {
         name: "bell-ring",
         size: 24,
         node: [
@@ -23952,17 +23970,17 @@
           ["path", { d: "M4 2C2.8 3.7 2 5.7 2 8", key: "tap9e0" }]
         ]
       };
-      __iconData3.node;
-      BellRing = createLucideIcon(__iconData3);
+      __iconData4.node;
+      BellRing = createLucideIcon(__iconData4);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/bell.mjs
-  var __iconData4, Bell;
+  var __iconData5, Bell;
   var init_bell = __esm({
     "node_modules/lucide-react/dist/esm/icons/bell.mjs"() {
       init_createLucideIcon();
-      __iconData4 = {
+      __iconData5 = {
         name: "bell",
         size: 24,
         node: [
@@ -23976,17 +23994,17 @@
           ]
         ]
       };
-      __iconData4.node;
-      Bell = createLucideIcon(__iconData4);
+      __iconData5.node;
+      Bell = createLucideIcon(__iconData5);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/book-open.mjs
-  var __iconData5, BookOpen;
+  var __iconData6, BookOpen;
   var init_book_open = __esm({
     "node_modules/lucide-react/dist/esm/icons/book-open.mjs"() {
       init_createLucideIcon();
-      __iconData5 = {
+      __iconData6 = {
         name: "book-open",
         size: 24,
         node: [
@@ -24000,17 +24018,17 @@
           ]
         ]
       };
-      __iconData5.node;
-      BookOpen = createLucideIcon(__iconData5);
+      __iconData6.node;
+      BookOpen = createLucideIcon(__iconData6);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/calendar.mjs
-  var __iconData6, Calendar;
+  var __iconData7, Calendar;
   var init_calendar = __esm({
     "node_modules/lucide-react/dist/esm/icons/calendar.mjs"() {
       init_createLucideIcon();
-      __iconData6 = {
+      __iconData7 = {
         name: "calendar",
         size: 24,
         node: [
@@ -24020,17 +24038,17 @@
           ["path", { d: "M3 9h18", key: "1pudct" }]
         ]
       };
-      __iconData6.node;
-      Calendar = createLucideIcon(__iconData6);
+      __iconData7.node;
+      Calendar = createLucideIcon(__iconData7);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/camera.mjs
-  var __iconData7, Camera;
+  var __iconData8, Camera;
   var init_camera = __esm({
     "node_modules/lucide-react/dist/esm/icons/camera.mjs"() {
       init_createLucideIcon();
-      __iconData7 = {
+      __iconData8 = {
         name: "camera",
         size: 24,
         node: [
@@ -24044,47 +24062,62 @@
           ["circle", { cx: "12", cy: "13", r: "3", key: "1vg3eu" }]
         ]
       };
-      __iconData7.node;
-      Camera = createLucideIcon(__iconData7);
+      __iconData8.node;
+      Camera = createLucideIcon(__iconData8);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/check.mjs
-  var __iconData8, Check;
+  var __iconData9, Check;
   var init_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/check.mjs"() {
       init_createLucideIcon();
-      __iconData8 = {
+      __iconData9 = {
         name: "check",
         size: 24,
         node: [["path", { d: "M20 6 9 17l-5-5", key: "1gmf2c" }]]
       };
-      __iconData8.node;
-      Check = createLucideIcon(__iconData8);
+      __iconData9.node;
+      Check = createLucideIcon(__iconData9);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/chevron-down.mjs
+  var __iconData10, ChevronDown;
+  var init_chevron_down = __esm({
+    "node_modules/lucide-react/dist/esm/icons/chevron-down.mjs"() {
+      init_createLucideIcon();
+      __iconData10 = {
+        name: "chevron-down",
+        size: 24,
+        node: [["path", { d: "m6 9 6 6 6-6", key: "qrunsl" }]]
+      };
+      __iconData10.node;
+      ChevronDown = createLucideIcon(__iconData10);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/chevron-right.mjs
-  var __iconData9, ChevronRight;
+  var __iconData11, ChevronRight;
   var init_chevron_right = __esm({
     "node_modules/lucide-react/dist/esm/icons/chevron-right.mjs"() {
       init_createLucideIcon();
-      __iconData9 = {
+      __iconData11 = {
         name: "chevron-right",
         size: 24,
         node: [["path", { d: "m9 18 6-6-6-6", key: "mthhwq" }]]
       };
-      __iconData9.node;
-      ChevronRight = createLucideIcon(__iconData9);
+      __iconData11.node;
+      ChevronRight = createLucideIcon(__iconData11);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/circle-alert.mjs
-  var __iconData10, CircleAlert;
+  var __iconData12, CircleAlert;
   var init_circle_alert = __esm({
     "node_modules/lucide-react/dist/esm/icons/circle-alert.mjs"() {
       init_createLucideIcon();
-      __iconData10 = {
+      __iconData12 = {
         name: "circle-alert",
         size: 24,
         node: [
@@ -24094,17 +24127,17 @@
         ],
         aliases: ["alert-circle"]
       };
-      __iconData10.node;
-      CircleAlert = createLucideIcon(__iconData10);
+      __iconData12.node;
+      CircleAlert = createLucideIcon(__iconData12);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/circle-check-big.mjs
-  var __iconData11, CircleCheckBig;
+  var __iconData13, CircleCheckBig;
   var init_circle_check_big = __esm({
     "node_modules/lucide-react/dist/esm/icons/circle-check-big.mjs"() {
       init_createLucideIcon();
-      __iconData11 = {
+      __iconData13 = {
         name: "circle-check-big",
         size: 24,
         node: [
@@ -24113,17 +24146,17 @@
         ],
         aliases: ["check-circle"]
       };
-      __iconData11.node;
-      CircleCheckBig = createLucideIcon(__iconData11);
+      __iconData13.node;
+      CircleCheckBig = createLucideIcon(__iconData13);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/circle-check.mjs
-  var __iconData12, CircleCheck;
+  var __iconData14, CircleCheck;
   var init_circle_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/circle-check.mjs"() {
       init_createLucideIcon();
-      __iconData12 = {
+      __iconData14 = {
         name: "circle-check",
         size: 24,
         node: [
@@ -24132,17 +24165,17 @@
         ],
         aliases: ["check-circle-2"]
       };
-      __iconData12.node;
-      CircleCheck = createLucideIcon(__iconData12);
+      __iconData14.node;
+      CircleCheck = createLucideIcon(__iconData14);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/clock.mjs
-  var __iconData13, Clock;
+  var __iconData15, Clock;
   var init_clock = __esm({
     "node_modules/lucide-react/dist/esm/icons/clock.mjs"() {
       init_createLucideIcon();
-      __iconData13 = {
+      __iconData15 = {
         name: "clock",
         size: 24,
         node: [
@@ -24150,17 +24183,41 @@
           ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }]
         ]
       };
-      __iconData13.node;
-      Clock = createLucideIcon(__iconData13);
+      __iconData15.node;
+      Clock = createLucideIcon(__iconData15);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/compass.mjs
+  var __iconData16, Compass;
+  var init_compass = __esm({
+    "node_modules/lucide-react/dist/esm/icons/compass.mjs"() {
+      init_createLucideIcon();
+      __iconData16 = {
+        name: "compass",
+        size: 24,
+        node: [
+          ["circle", { cx: "12", cy: "12", r: "10", key: "1mglay" }],
+          [
+            "path",
+            {
+              d: "m16.24 7.76-1.804 5.411a2 2 0 0 1-1.265 1.265L7.76 16.24l1.804-5.411a2 2 0 0 1 1.265-1.265z",
+              key: "9ktpf1"
+            }
+          ]
+        ]
+      };
+      __iconData16.node;
+      Compass = createLucideIcon(__iconData16);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/copy.mjs
-  var __iconData14, Copy;
+  var __iconData17, Copy;
   var init_copy = __esm({
     "node_modules/lucide-react/dist/esm/icons/copy.mjs"() {
       init_createLucideIcon();
-      __iconData14 = {
+      __iconData17 = {
         name: "copy",
         size: 24,
         node: [
@@ -24168,17 +24225,17 @@
           ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
         ]
       };
-      __iconData14.node;
-      Copy = createLucideIcon(__iconData14);
+      __iconData17.node;
+      Copy = createLucideIcon(__iconData17);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/crown.mjs
-  var __iconData15, Crown;
+  var __iconData18, Crown;
   var init_crown = __esm({
     "node_modules/lucide-react/dist/esm/icons/crown.mjs"() {
       init_createLucideIcon();
-      __iconData15 = {
+      __iconData18 = {
         name: "crown",
         size: 24,
         node: [
@@ -24192,17 +24249,17 @@
           ["path", { d: "M5 21h14", key: "11awu3" }]
         ]
       };
-      __iconData15.node;
-      Crown = createLucideIcon(__iconData15);
+      __iconData18.node;
+      Crown = createLucideIcon(__iconData18);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/download.mjs
-  var __iconData16, Download;
+  var __iconData19, Download;
   var init_download = __esm({
     "node_modules/lucide-react/dist/esm/icons/download.mjs"() {
       init_createLucideIcon();
-      __iconData16 = {
+      __iconData19 = {
         name: "download",
         size: 24,
         node: [
@@ -24211,17 +24268,17 @@
           ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
         ]
       };
-      __iconData16.node;
-      Download = createLucideIcon(__iconData16);
+      __iconData19.node;
+      Download = createLucideIcon(__iconData19);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/external-link.mjs
-  var __iconData17, ExternalLink;
+  var __iconData20, ExternalLink;
   var init_external_link = __esm({
     "node_modules/lucide-react/dist/esm/icons/external-link.mjs"() {
       init_createLucideIcon();
-      __iconData17 = {
+      __iconData20 = {
         name: "external-link",
         size: 24,
         node: [
@@ -24230,17 +24287,17 @@
           ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
         ]
       };
-      __iconData17.node;
-      ExternalLink = createLucideIcon(__iconData17);
+      __iconData20.node;
+      ExternalLink = createLucideIcon(__iconData20);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/eye.mjs
-  var __iconData18, Eye;
+  var __iconData21, Eye;
   var init_eye = __esm({
     "node_modules/lucide-react/dist/esm/icons/eye.mjs"() {
       init_createLucideIcon();
-      __iconData18 = {
+      __iconData21 = {
         name: "eye",
         size: 24,
         node: [
@@ -24254,17 +24311,17 @@
           ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
         ]
       };
-      __iconData18.node;
-      Eye = createLucideIcon(__iconData18);
+      __iconData21.node;
+      Eye = createLucideIcon(__iconData21);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/file-text.mjs
-  var __iconData19, FileText;
+  var __iconData22, FileText;
   var init_file_text = __esm({
     "node_modules/lucide-react/dist/esm/icons/file-text.mjs"() {
       init_createLucideIcon();
-      __iconData19 = {
+      __iconData22 = {
         name: "file-text",
         size: 24,
         node: [
@@ -24281,17 +24338,17 @@
           ["path", { d: "M16 17H8", key: "z1uh3a" }]
         ]
       };
-      __iconData19.node;
-      FileText = createLucideIcon(__iconData19);
+      __iconData22.node;
+      FileText = createLucideIcon(__iconData22);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/flame.mjs
-  var __iconData20, Flame;
+  var __iconData23, Flame;
   var init_flame = __esm({
     "node_modules/lucide-react/dist/esm/icons/flame.mjs"() {
       init_createLucideIcon();
-      __iconData20 = {
+      __iconData23 = {
         name: "flame",
         size: 24,
         node: [
@@ -24304,17 +24361,17 @@
           ]
         ]
       };
-      __iconData20.node;
-      Flame = createLucideIcon(__iconData20);
+      __iconData23.node;
+      Flame = createLucideIcon(__iconData23);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/flower-2.mjs
-  var __iconData21, Flower2;
+  var __iconData24, Flower2;
   var init_flower_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/flower-2.mjs"() {
       init_createLucideIcon();
-      __iconData21 = {
+      __iconData24 = {
         name: "flower-2",
         size: 24,
         node: [
@@ -24331,17 +24388,17 @@
           ["path", { d: "M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z", key: "ufn41s" }]
         ]
       };
-      __iconData21.node;
-      Flower2 = createLucideIcon(__iconData21);
+      __iconData24.node;
+      Flower2 = createLucideIcon(__iconData24);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/globe.mjs
-  var __iconData22, Globe;
+  var __iconData25, Globe;
   var init_globe = __esm({
     "node_modules/lucide-react/dist/esm/icons/globe.mjs"() {
       init_createLucideIcon();
-      __iconData22 = {
+      __iconData25 = {
         name: "globe",
         size: 24,
         node: [
@@ -24350,17 +24407,17 @@
           ["path", { d: "M2 12h20", key: "9i4pu4" }]
         ]
       };
-      __iconData22.node;
-      Globe = createLucideIcon(__iconData22);
+      __iconData25.node;
+      Globe = createLucideIcon(__iconData25);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/graduation-cap.mjs
-  var __iconData23, GraduationCap;
+  var __iconData26, GraduationCap;
   var init_graduation_cap = __esm({
     "node_modules/lucide-react/dist/esm/icons/graduation-cap.mjs"() {
       init_createLucideIcon();
-      __iconData23 = {
+      __iconData26 = {
         name: "graduation-cap",
         size: 24,
         node: [
@@ -24375,17 +24432,17 @@
           ["path", { d: "M6 12.5V16a6 3 0 0 0 12 0v-3.5", key: "1r8lef" }]
         ]
       };
-      __iconData23.node;
-      GraduationCap = createLucideIcon(__iconData23);
+      __iconData26.node;
+      GraduationCap = createLucideIcon(__iconData26);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/hand.mjs
-  var __iconData24, Hand;
+  var __iconData27, Hand;
   var init_hand = __esm({
     "node_modules/lucide-react/dist/esm/icons/hand.mjs"() {
       init_createLucideIcon();
-      __iconData24 = {
+      __iconData27 = {
         name: "hand",
         size: 24,
         node: [
@@ -24401,17 +24458,17 @@
           ]
         ]
       };
-      __iconData24.node;
-      Hand = createLucideIcon(__iconData24);
+      __iconData27.node;
+      Hand = createLucideIcon(__iconData27);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/headphones.mjs
-  var __iconData25, Headphones;
+  var __iconData28, Headphones;
   var init_headphones = __esm({
     "node_modules/lucide-react/dist/esm/icons/headphones.mjs"() {
       init_createLucideIcon();
-      __iconData25 = {
+      __iconData28 = {
         name: "headphones",
         size: 24,
         node: [
@@ -24424,17 +24481,17 @@
           ]
         ]
       };
-      __iconData25.node;
-      Headphones = createLucideIcon(__iconData25);
+      __iconData28.node;
+      Headphones = createLucideIcon(__iconData28);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/house.mjs
-  var __iconData26, House;
+  var __iconData29, House;
   var init_house = __esm({
     "node_modules/lucide-react/dist/esm/icons/house.mjs"() {
       init_createLucideIcon();
-      __iconData26 = {
+      __iconData29 = {
         name: "house",
         size: 24,
         node: [
@@ -24449,17 +24506,17 @@
         ],
         aliases: ["home"]
       };
-      __iconData26.node;
-      House = createLucideIcon(__iconData26);
+      __iconData29.node;
+      House = createLucideIcon(__iconData29);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/key.mjs
-  var __iconData27, Key;
+  var __iconData30, Key;
   var init_key = __esm({
     "node_modules/lucide-react/dist/esm/icons/key.mjs"() {
       init_createLucideIcon();
-      __iconData27 = {
+      __iconData30 = {
         name: "key",
         size: 24,
         node: [
@@ -24471,17 +24528,17 @@
           ["circle", { cx: "15.5", cy: "7.5", r: "5.5", key: "4wxmhb" }]
         ]
       };
-      __iconData27.node;
-      Key = createLucideIcon(__iconData27);
+      __iconData30.node;
+      Key = createLucideIcon(__iconData30);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/layers.mjs
-  var __iconData28, Layers;
+  var __iconData31, Layers;
   var init_layers = __esm({
     "node_modules/lucide-react/dist/esm/icons/layers.mjs"() {
       init_createLucideIcon();
-      __iconData28 = {
+      __iconData31 = {
         name: "layers",
         size: 24,
         node: [
@@ -24509,17 +24566,17 @@
         ],
         aliases: ["layers-3"]
       };
-      __iconData28.node;
-      Layers = createLucideIcon(__iconData28);
+      __iconData31.node;
+      Layers = createLucideIcon(__iconData31);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/link.mjs
-  var __iconData29, Link;
+  var __iconData32, Link;
   var init_link = __esm({
     "node_modules/lucide-react/dist/esm/icons/link.mjs"() {
       init_createLucideIcon();
-      __iconData29 = {
+      __iconData32 = {
         name: "link",
         size: 24,
         node: [
@@ -24527,17 +24584,17 @@
           ["path", { d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71", key: "19qd67" }]
         ]
       };
-      __iconData29.node;
-      Link = createLucideIcon(__iconData29);
+      __iconData32.node;
+      Link = createLucideIcon(__iconData32);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/log-out.mjs
-  var __iconData30, LogOut;
+  var __iconData33, LogOut;
   var init_log_out = __esm({
     "node_modules/lucide-react/dist/esm/icons/log-out.mjs"() {
       init_createLucideIcon();
-      __iconData30 = {
+      __iconData33 = {
         name: "log-out",
         size: 24,
         node: [
@@ -24546,17 +24603,17 @@
           ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
         ]
       };
-      __iconData30.node;
-      LogOut = createLucideIcon(__iconData30);
+      __iconData33.node;
+      LogOut = createLucideIcon(__iconData33);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mail.mjs
-  var __iconData31, Mail;
+  var __iconData34, Mail;
   var init_mail = __esm({
     "node_modules/lucide-react/dist/esm/icons/mail.mjs"() {
       init_createLucideIcon();
-      __iconData31 = {
+      __iconData34 = {
         name: "mail",
         size: 24,
         node: [
@@ -24564,17 +24621,17 @@
           ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
         ]
       };
-      __iconData31.node;
-      Mail = createLucideIcon(__iconData31);
+      __iconData34.node;
+      Mail = createLucideIcon(__iconData34);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/maximize-2.mjs
-  var __iconData32, Maximize2;
+  var __iconData35, Maximize2;
   var init_maximize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/maximize-2.mjs"() {
       init_createLucideIcon();
-      __iconData32 = {
+      __iconData35 = {
         name: "maximize-2",
         size: 24,
         node: [
@@ -24584,17 +24641,17 @@
           ["path", { d: "M9 21H3v-6", key: "wtvkvv" }]
         ]
       };
-      __iconData32.node;
-      Maximize2 = createLucideIcon(__iconData32);
+      __iconData35.node;
+      Maximize2 = createLucideIcon(__iconData35);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/message-square.mjs
-  var __iconData33, MessageSquare;
+  var __iconData36, MessageSquare;
   var init_message_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/message-square.mjs"() {
       init_createLucideIcon();
-      __iconData33 = {
+      __iconData36 = {
         name: "message-square",
         size: 24,
         node: [
@@ -24607,17 +24664,17 @@
           ]
         ]
       };
-      __iconData33.node;
-      MessageSquare = createLucideIcon(__iconData33);
+      __iconData36.node;
+      MessageSquare = createLucideIcon(__iconData36);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic-off.mjs
-  var __iconData34, MicOff;
+  var __iconData37, MicOff;
   var init_mic_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic-off.mjs"() {
       init_createLucideIcon();
-      __iconData34 = {
+      __iconData37 = {
         name: "mic-off",
         size: 24,
         node: [
@@ -24629,17 +24686,17 @@
           ["path", { d: "M9 9v3a3 3 0 0 0 5.12 2.12", key: "r2i35w" }]
         ]
       };
-      __iconData34.node;
-      MicOff = createLucideIcon(__iconData34);
+      __iconData37.node;
+      MicOff = createLucideIcon(__iconData37);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic.mjs
-  var __iconData35, Mic;
+  var __iconData38, Mic;
   var init_mic = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic.mjs"() {
       init_createLucideIcon();
-      __iconData35 = {
+      __iconData38 = {
         name: "mic",
         size: 24,
         node: [
@@ -24648,17 +24705,17 @@
           ["rect", { x: "9", y: "2", width: "6", height: "13", rx: "3", key: "s6n7sd" }]
         ]
       };
-      __iconData35.node;
-      Mic = createLucideIcon(__iconData35);
+      __iconData38.node;
+      Mic = createLucideIcon(__iconData38);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/minimize-2.mjs
-  var __iconData36, Minimize2;
+  var __iconData39, Minimize2;
   var init_minimize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/minimize-2.mjs"() {
       init_createLucideIcon();
-      __iconData36 = {
+      __iconData39 = {
         name: "minimize-2",
         size: 24,
         node: [
@@ -24668,17 +24725,17 @@
           ["path", { d: "M4 14h6v6", key: "rmj7iw" }]
         ]
       };
-      __iconData36.node;
-      Minimize2 = createLucideIcon(__iconData36);
+      __iconData39.node;
+      Minimize2 = createLucideIcon(__iconData39);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/music.mjs
-  var __iconData37, Music;
+  var __iconData40, Music;
   var init_music = __esm({
     "node_modules/lucide-react/dist/esm/icons/music.mjs"() {
       init_createLucideIcon();
-      __iconData37 = {
+      __iconData40 = {
         name: "music",
         size: 24,
         node: [
@@ -24687,17 +24744,17 @@
           ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
         ]
       };
-      __iconData37.node;
-      Music = createLucideIcon(__iconData37);
+      __iconData40.node;
+      Music = createLucideIcon(__iconData40);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pause.mjs
-  var __iconData38, Pause;
+  var __iconData41, Pause;
   var init_pause = __esm({
     "node_modules/lucide-react/dist/esm/icons/pause.mjs"() {
       init_createLucideIcon();
-      __iconData38 = {
+      __iconData41 = {
         name: "pause",
         size: 24,
         node: [
@@ -24705,17 +24762,17 @@
           ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
         ]
       };
-      __iconData38.node;
-      Pause = createLucideIcon(__iconData38);
+      __iconData41.node;
+      Pause = createLucideIcon(__iconData41);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pen-line.mjs
-  var __iconData39, PenLine;
+  var __iconData42, PenLine;
   var init_pen_line = __esm({
     "node_modules/lucide-react/dist/esm/icons/pen-line.mjs"() {
       init_createLucideIcon();
-      __iconData39 = {
+      __iconData42 = {
         name: "pen-line",
         size: 24,
         node: [
@@ -24730,17 +24787,17 @@
         ],
         aliases: ["edit-3"]
       };
-      __iconData39.node;
-      PenLine = createLucideIcon(__iconData39);
+      __iconData42.node;
+      PenLine = createLucideIcon(__iconData42);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone-off.mjs
-  var __iconData40, PhoneOff;
+  var __iconData43, PhoneOff;
   var init_phone_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone-off.mjs"() {
       init_createLucideIcon();
-      __iconData40 = {
+      __iconData43 = {
         name: "phone-off",
         size: 24,
         node: [
@@ -24761,17 +24818,17 @@
           ]
         ]
       };
-      __iconData40.node;
-      PhoneOff = createLucideIcon(__iconData40);
+      __iconData43.node;
+      PhoneOff = createLucideIcon(__iconData43);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone.mjs
-  var __iconData41, Phone;
+  var __iconData44, Phone;
   var init_phone = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone.mjs"() {
       init_createLucideIcon();
-      __iconData41 = {
+      __iconData44 = {
         name: "phone",
         size: 24,
         node: [
@@ -24784,17 +24841,17 @@
           ]
         ]
       };
-      __iconData41.node;
-      Phone = createLucideIcon(__iconData41);
+      __iconData44.node;
+      Phone = createLucideIcon(__iconData44);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/play.mjs
-  var __iconData42, Play;
+  var __iconData45, Play;
   var init_play = __esm({
     "node_modules/lucide-react/dist/esm/icons/play.mjs"() {
       init_createLucideIcon();
-      __iconData42 = {
+      __iconData45 = {
         name: "play",
         size: 24,
         node: [
@@ -24807,17 +24864,17 @@
           ]
         ]
       };
-      __iconData42.node;
-      Play = createLucideIcon(__iconData42);
+      __iconData45.node;
+      Play = createLucideIcon(__iconData45);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/plus.mjs
-  var __iconData43, Plus;
+  var __iconData46, Plus;
   var init_plus = __esm({
     "node_modules/lucide-react/dist/esm/icons/plus.mjs"() {
       init_createLucideIcon();
-      __iconData43 = {
+      __iconData46 = {
         name: "plus",
         size: 24,
         node: [
@@ -24825,17 +24882,17 @@
           ["path", { d: "M12 5v14", key: "s699le" }]
         ]
       };
-      __iconData43.node;
-      Plus = createLucideIcon(__iconData43);
+      __iconData46.node;
+      Plus = createLucideIcon(__iconData46);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/radio.mjs
-  var __iconData44, Radio;
+  var __iconData47, Radio;
   var init_radio = __esm({
     "node_modules/lucide-react/dist/esm/icons/radio.mjs"() {
       init_createLucideIcon();
-      __iconData44 = {
+      __iconData47 = {
         name: "radio",
         size: 24,
         node: [
@@ -24846,17 +24903,17 @@
           ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
         ]
       };
-      __iconData44.node;
-      Radio = createLucideIcon(__iconData44);
+      __iconData47.node;
+      Radio = createLucideIcon(__iconData47);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs
-  var __iconData45, RefreshCw;
+  var __iconData48, RefreshCw;
   var init_refresh_cw = __esm({
     "node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs"() {
       init_createLucideIcon();
-      __iconData45 = {
+      __iconData48 = {
         name: "refresh-cw",
         size: 24,
         node: [
@@ -24866,17 +24923,17 @@
           ["path", { d: "M8 16H3v5", key: "1cv678" }]
         ]
       };
-      __iconData45.node;
-      RefreshCw = createLucideIcon(__iconData45);
+      __iconData48.node;
+      RefreshCw = createLucideIcon(__iconData48);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/repeat.mjs
-  var __iconData46, Repeat;
+  var __iconData49, Repeat;
   var init_repeat = __esm({
     "node_modules/lucide-react/dist/esm/icons/repeat.mjs"() {
       init_createLucideIcon();
-      __iconData46 = {
+      __iconData49 = {
         name: "repeat",
         size: 24,
         node: [
@@ -24886,17 +24943,17 @@
           ["path", { d: "M21 13v1a4 4 0 0 1-4 4H3", key: "1rx37r" }]
         ]
       };
-      __iconData46.node;
-      Repeat = createLucideIcon(__iconData46);
+      __iconData49.node;
+      Repeat = createLucideIcon(__iconData49);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs
-  var __iconData47, RotateCcw;
+  var __iconData50, RotateCcw;
   var init_rotate_ccw = __esm({
     "node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs"() {
       init_createLucideIcon();
-      __iconData47 = {
+      __iconData50 = {
         name: "rotate-ccw",
         size: 24,
         node: [
@@ -24904,17 +24961,17 @@
           ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
         ]
       };
-      __iconData47.node;
-      RotateCcw = createLucideIcon(__iconData47);
+      __iconData50.node;
+      RotateCcw = createLucideIcon(__iconData50);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/save.mjs
-  var __iconData48, Save;
+  var __iconData51, Save;
   var init_save = __esm({
     "node_modules/lucide-react/dist/esm/icons/save.mjs"() {
       init_createLucideIcon();
-      __iconData48 = {
+      __iconData51 = {
         name: "save",
         size: 24,
         node: [
@@ -24929,17 +24986,17 @@
           ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
         ]
       };
-      __iconData48.node;
-      Save = createLucideIcon(__iconData48);
+      __iconData51.node;
+      Save = createLucideIcon(__iconData51);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/search.mjs
-  var __iconData49, Search;
+  var __iconData52, Search;
   var init_search = __esm({
     "node_modules/lucide-react/dist/esm/icons/search.mjs"() {
       init_createLucideIcon();
-      __iconData49 = {
+      __iconData52 = {
         name: "search",
         size: 24,
         node: [
@@ -24947,17 +25004,17 @@
           ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
         ]
       };
-      __iconData49.node;
-      Search = createLucideIcon(__iconData49);
+      __iconData52.node;
+      Search = createLucideIcon(__iconData52);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/send.mjs
-  var __iconData50, Send;
+  var __iconData53, Send;
   var init_send = __esm({
     "node_modules/lucide-react/dist/esm/icons/send.mjs"() {
       init_createLucideIcon();
-      __iconData50 = {
+      __iconData53 = {
         name: "send",
         size: 24,
         node: [
@@ -24971,17 +25028,17 @@
           ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
         ]
       };
-      __iconData50.node;
-      Send = createLucideIcon(__iconData50);
+      __iconData53.node;
+      Send = createLucideIcon(__iconData53);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/settings.mjs
-  var __iconData51, Settings;
+  var __iconData54, Settings;
   var init_settings = __esm({
     "node_modules/lucide-react/dist/esm/icons/settings.mjs"() {
       init_createLucideIcon();
-      __iconData51 = {
+      __iconData54 = {
         name: "settings",
         size: 24,
         node: [
@@ -24995,17 +25052,17 @@
           ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
         ]
       };
-      __iconData51.node;
-      Settings = createLucideIcon(__iconData51);
+      __iconData54.node;
+      Settings = createLucideIcon(__iconData54);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/share-2.mjs
-  var __iconData52, Share2;
+  var __iconData55, Share2;
   var init_share_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/share-2.mjs"() {
       init_createLucideIcon();
-      __iconData52 = {
+      __iconData55 = {
         name: "share-2",
         size: 24,
         node: [
@@ -25016,17 +25073,17 @@
           ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49", key: "1n3mei" }]
         ]
       };
-      __iconData52.node;
-      Share2 = createLucideIcon(__iconData52);
+      __iconData55.node;
+      Share2 = createLucideIcon(__iconData55);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/shield-check.mjs
-  var __iconData53, ShieldCheck;
+  var __iconData56, ShieldCheck;
   var init_shield_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/shield-check.mjs"() {
       init_createLucideIcon();
-      __iconData53 = {
+      __iconData56 = {
         name: "shield-check",
         size: 24,
         node: [
@@ -25040,17 +25097,17 @@
           ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
         ]
       };
-      __iconData53.node;
-      ShieldCheck = createLucideIcon(__iconData53);
+      __iconData56.node;
+      ShieldCheck = createLucideIcon(__iconData56);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/skip-back.mjs
-  var __iconData54, SkipBack;
+  var __iconData57, SkipBack;
   var init_skip_back = __esm({
     "node_modules/lucide-react/dist/esm/icons/skip-back.mjs"() {
       init_createLucideIcon();
-      __iconData54 = {
+      __iconData57 = {
         name: "skip-back",
         size: 24,
         node: [
@@ -25064,17 +25121,17 @@
           ["path", { d: "M3 20V4", key: "1ptbpl" }]
         ]
       };
-      __iconData54.node;
-      SkipBack = createLucideIcon(__iconData54);
+      __iconData57.node;
+      SkipBack = createLucideIcon(__iconData57);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/skip-forward.mjs
-  var __iconData55, SkipForward;
+  var __iconData58, SkipForward;
   var init_skip_forward = __esm({
     "node_modules/lucide-react/dist/esm/icons/skip-forward.mjs"() {
       init_createLucideIcon();
-      __iconData55 = {
+      __iconData58 = {
         name: "skip-forward",
         size: 24,
         node: [
@@ -25088,17 +25145,17 @@
           ]
         ]
       };
-      __iconData55.node;
-      SkipForward = createLucideIcon(__iconData55);
+      __iconData58.node;
+      SkipForward = createLucideIcon(__iconData58);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/sparkles.mjs
-  var __iconData56, Sparkles;
+  var __iconData59, Sparkles;
   var init_sparkles = __esm({
     "node_modules/lucide-react/dist/esm/icons/sparkles.mjs"() {
       init_createLucideIcon();
-      __iconData56 = {
+      __iconData59 = {
         name: "sparkles",
         size: 24,
         node: [
@@ -25115,17 +25172,17 @@
         ],
         aliases: ["stars"]
       };
-      __iconData56.node;
-      Sparkles = createLucideIcon(__iconData56);
+      __iconData59.node;
+      Sparkles = createLucideIcon(__iconData59);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs
-  var __iconData57, SquareCenterlineDashedHorizontal;
+  var __iconData60, SquareCenterlineDashedHorizontal;
   var init_square_centerline_dashed_horizontal = __esm({
     "node_modules/lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs"() {
       init_createLucideIcon();
-      __iconData57 = {
+      __iconData60 = {
         name: "square-centerline-dashed-horizontal",
         size: 24,
         node: [
@@ -25138,55 +25195,32 @@
         ],
         aliases: ["flip-horizontal"]
       };
-      __iconData57.node;
-      SquareCenterlineDashedHorizontal = createLucideIcon(__iconData57);
+      __iconData60.node;
+      SquareCenterlineDashedHorizontal = createLucideIcon(__iconData60);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/square.mjs
-  var __iconData58, Square;
+  var __iconData61, Square;
   var init_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/square.mjs"() {
       init_createLucideIcon();
-      __iconData58 = {
+      __iconData61 = {
         name: "square",
         size: 24,
         node: [["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]]
       };
-      __iconData58.node;
-      Square = createLucideIcon(__iconData58);
-    }
-  });
-
-  // node_modules/lucide-react/dist/esm/icons/star.mjs
-  var __iconData59, Star;
-  var init_star = __esm({
-    "node_modules/lucide-react/dist/esm/icons/star.mjs"() {
-      init_createLucideIcon();
-      __iconData59 = {
-        name: "star",
-        size: 24,
-        node: [
-          [
-            "path",
-            {
-              d: "M11.525 2.295a.53.53 0 0 1 .95 0l2.31 4.679a2.123 2.123 0 0 0 1.595 1.16l5.166.756a.53.53 0 0 1 .294.904l-3.736 3.638a2.123 2.123 0 0 0-.611 1.878l.882 5.14a.53.53 0 0 1-.771.56l-4.618-2.428a2.122 2.122 0 0 0-1.973 0L6.396 21.01a.53.53 0 0 1-.77-.56l.881-5.139a2.122 2.122 0 0 0-.611-1.879L2.16 9.795a.53.53 0 0 1 .294-.906l5.165-.755a2.122 2.122 0 0 0 1.597-1.16z",
-              key: "r04s7s"
-            }
-          ]
-        ]
-      };
-      __iconData59.node;
-      Star = createLucideIcon(__iconData59);
+      __iconData61.node;
+      Square = createLucideIcon(__iconData61);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/switch-camera.mjs
-  var __iconData60, SwitchCamera;
+  var __iconData62, SwitchCamera;
   var init_switch_camera = __esm({
     "node_modules/lucide-react/dist/esm/icons/switch-camera.mjs"() {
       init_createLucideIcon();
-      __iconData60 = {
+      __iconData62 = {
         name: "switch-camera",
         size: 24,
         node: [
@@ -25197,17 +25231,17 @@
           ["path", { d: "m6 2 3 3-3 3", key: "1fnbkv" }]
         ]
       };
-      __iconData60.node;
-      SwitchCamera = createLucideIcon(__iconData60);
+      __iconData62.node;
+      SwitchCamera = createLucideIcon(__iconData62);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/tag.mjs
-  var __iconData61, Tag;
+  var __iconData63, Tag;
   var init_tag = __esm({
     "node_modules/lucide-react/dist/esm/icons/tag.mjs"() {
       init_createLucideIcon();
-      __iconData61 = {
+      __iconData63 = {
         name: "tag",
         size: 24,
         node: [
@@ -25221,17 +25255,17 @@
           ["circle", { cx: "7.5", cy: "7.5", r: ".5", fill: "currentColor", key: "kqv944" }]
         ]
       };
-      __iconData61.node;
-      Tag = createLucideIcon(__iconData61);
+      __iconData63.node;
+      Tag = createLucideIcon(__iconData63);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trash.mjs
-  var __iconData62, Trash;
+  var __iconData64, Trash;
   var init_trash = __esm({
     "node_modules/lucide-react/dist/esm/icons/trash.mjs"() {
       init_createLucideIcon();
-      __iconData62 = {
+      __iconData64 = {
         name: "trash",
         size: 24,
         node: [
@@ -25243,35 +25277,17 @@
         ],
         aliases: ["trash-2"]
       };
-      __iconData62.node;
-      Trash = createLucideIcon(__iconData62);
-    }
-  });
-
-  // node_modules/lucide-react/dist/esm/icons/trending-up.mjs
-  var __iconData63, TrendingUp;
-  var init_trending_up = __esm({
-    "node_modules/lucide-react/dist/esm/icons/trending-up.mjs"() {
-      init_createLucideIcon();
-      __iconData63 = {
-        name: "trending-up",
-        size: 24,
-        node: [
-          ["path", { d: "M16 7h6v6", key: "box55l" }],
-          ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
-        ]
-      };
-      __iconData63.node;
-      TrendingUp = createLucideIcon(__iconData63);
+      __iconData64.node;
+      Trash = createLucideIcon(__iconData64);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/upload.mjs
-  var __iconData64, Upload;
+  var __iconData65, Upload;
   var init_upload = __esm({
     "node_modules/lucide-react/dist/esm/icons/upload.mjs"() {
       init_createLucideIcon();
-      __iconData64 = {
+      __iconData65 = {
         name: "upload",
         size: 24,
         node: [
@@ -25280,17 +25296,17 @@
           ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
         ]
       };
-      __iconData64.node;
-      Upload = createLucideIcon(__iconData64);
+      __iconData65.node;
+      Upload = createLucideIcon(__iconData65);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/user.mjs
-  var __iconData65, User;
+  var __iconData66, User;
   var init_user = __esm({
     "node_modules/lucide-react/dist/esm/icons/user.mjs"() {
       init_createLucideIcon();
-      __iconData65 = {
+      __iconData66 = {
         name: "user",
         size: 24,
         node: [
@@ -25298,17 +25314,17 @@
           ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
         ]
       };
-      __iconData65.node;
-      User = createLucideIcon(__iconData65);
+      __iconData66.node;
+      User = createLucideIcon(__iconData66);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/users.mjs
-  var __iconData66, Users;
+  var __iconData67, Users;
   var init_users = __esm({
     "node_modules/lucide-react/dist/esm/icons/users.mjs"() {
       init_createLucideIcon();
-      __iconData66 = {
+      __iconData67 = {
         name: "users",
         size: 24,
         node: [
@@ -25318,17 +25334,17 @@
           ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
         ]
       };
-      __iconData66.node;
-      Users = createLucideIcon(__iconData66);
+      __iconData67.node;
+      Users = createLucideIcon(__iconData67);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video-off.mjs
-  var __iconData67, VideoOff;
+  var __iconData68, VideoOff;
   var init_video_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/video-off.mjs"() {
       init_createLucideIcon();
-      __iconData67 = {
+      __iconData68 = {
         name: "video-off",
         size: 24,
         node: [
@@ -25340,17 +25356,17 @@
           ["path", { d: "m2 2 20 20", key: "1ooewy" }]
         ]
       };
-      __iconData67.node;
-      VideoOff = createLucideIcon(__iconData67);
+      __iconData68.node;
+      VideoOff = createLucideIcon(__iconData68);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video.mjs
-  var __iconData68, Video;
+  var __iconData69, Video;
   var init_video = __esm({
     "node_modules/lucide-react/dist/esm/icons/video.mjs"() {
       init_createLucideIcon();
-      __iconData68 = {
+      __iconData69 = {
         name: "video",
         size: 24,
         node: [
@@ -25364,17 +25380,17 @@
           ["rect", { x: "2", y: "6", width: "14", height: "12", rx: "2", key: "158x01" }]
         ]
       };
-      __iconData68.node;
-      Video = createLucideIcon(__iconData68);
+      __iconData69.node;
+      Video = createLucideIcon(__iconData69);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/volume-2.mjs
-  var __iconData69, Volume2;
+  var __iconData70, Volume2;
   var init_volume_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/volume-2.mjs"() {
       init_createLucideIcon();
-      __iconData69 = {
+      __iconData70 = {
         name: "volume-2",
         size: 24,
         node: [
@@ -25389,17 +25405,17 @@
           ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
         ]
       };
-      __iconData69.node;
-      Volume2 = createLucideIcon(__iconData69);
+      __iconData70.node;
+      Volume2 = createLucideIcon(__iconData70);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/wind.mjs
-  var __iconData70, Wind;
+  var __iconData71, Wind;
   var init_wind = __esm({
     "node_modules/lucide-react/dist/esm/icons/wind.mjs"() {
       init_createLucideIcon();
-      __iconData70 = {
+      __iconData71 = {
         name: "wind",
         size: 24,
         node: [
@@ -25408,17 +25424,17 @@
           ["path", { d: "M9.8 4.4A2 2 0 1 1 11 8H2", key: "75valh" }]
         ]
       };
-      __iconData70.node;
-      Wind = createLucideIcon(__iconData70);
+      __iconData71.node;
+      Wind = createLucideIcon(__iconData71);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/x.mjs
-  var __iconData71, X;
+  var __iconData72, X;
   var init_x = __esm({
     "node_modules/lucide-react/dist/esm/icons/x.mjs"() {
       init_createLucideIcon();
-      __iconData71 = {
+      __iconData72 = {
         name: "x",
         size: 24,
         node: [
@@ -25426,8 +25442,8 @@
           ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
         ]
       };
-      __iconData71.node;
-      X = createLucideIcon(__iconData71);
+      __iconData72.node;
+      X = createLucideIcon(__iconData72);
     }
   });
 
@@ -25445,6 +25461,7 @@
       init_square_centerline_dashed_horizontal();
       init_trash();
       init_arrow_left();
+      init_arrow_right();
       init_award();
       init_bell_ring();
       init_bell();
@@ -25452,8 +25469,10 @@
       init_calendar();
       init_camera();
       init_check();
+      init_chevron_down();
       init_chevron_right();
       init_clock();
+      init_compass();
       init_copy();
       init_crown();
       init_download();
@@ -25494,10 +25513,8 @@
       init_skip_back();
       init_skip_forward();
       init_square();
-      init_star();
       init_switch_camera();
       init_tag();
-      init_trending_up();
       init_upload();
       init_user();
       init_users();
@@ -25622,34 +25639,15 @@
   });
 
   // src/components/LotusMark.jsx
-  function LotusMark({ className }) {
-    const petals = [
-      { a: -62, s: 7.6 },
-      { a: 62, s: 7.6 },
-      { a: -31, s: 10 },
-      { a: 31, s: 10 },
-      { a: 0, s: 11.5 }
-    ];
-    return /* @__PURE__ */ import_react5.default.createElement("svg", { viewBox: "0 0 24 24", className, "aria-hidden": "true" }, petals.map((p, i) => /* @__PURE__ */ import_react5.default.createElement(
-      "path",
-      {
-        key: i,
-        d: PETAL,
-        transform: `translate(12 17.5) rotate(${p.a}) scale(${p.s})`,
-        vectorEffect: "non-scaling-stroke"
-      }
-    )), /* @__PURE__ */ import_react5.default.createElement("path", { d: "M5.5 19.2C9.2 21 14.8 21 18.5 19.2", vectorEffect: "non-scaling-stroke" }));
-  }
-  var import_react5, PETAL;
+  var import_react5;
   var init_LotusMark = __esm({
     "src/components/LotusMark.jsx"() {
       import_react5 = __toESM(require_react());
-      PETAL = "M0 0C-0.30 -0.20 -0.32 -0.72 0 -1C0.32 -0.72 0.30 -0.20 0 0Z";
     }
   });
 
   // src/components/Sidebar.jsx
-  function Sidebar({ currentTab, setCurrentTab, lang = "en" }) {
+  function Sidebar({ currentTab, setCurrentTab, lang = "en", user: user2 = { name: "Nithya" } }) {
     const navItems = [
       { id: "home", label: "Home", labelTa: "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BC1", icon: House },
       { id: "student", label: "Student Portal", labelTa: "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF", icon: GraduationCap },
@@ -25662,28 +25660,23 @@
       { id: "profile", label: "Profile", labelTa: "\u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD", icon: User },
       { id: "admin", label: "Trainer Portal", labelTa: "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF", icon: ShieldCheck }
     ];
-    return /* @__PURE__ */ import_react6.default.createElement("aside", { className: "app-sidebar-nav" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "sidebar-brand-container", onClick: () => setCurrentTab("home") }, /* @__PURE__ */ import_react6.default.createElement(
-      "img",
-      {
-        src: "assets/images/logo.png",
-        alt: "Nithya Yoga & Wellness Logo",
-        className: "sidebar-brand-logo-img"
-      }
-    ), /* @__PURE__ */ import_react6.default.createElement("div", { className: "brand-text-block" }, /* @__PURE__ */ import_react6.default.createElement("h1", { className: "brand-name-title" }, "NITHYA"), /* @__PURE__ */ import_react6.default.createElement("span", { className: "brand-subtitle" }, "Yoga & Wellness"))), /* @__PURE__ */ import_react6.default.createElement("nav", { className: "sidebar-menu-list" }, navItems.map((item) => {
+    const displayName = user2?.name ? user2.name.split(" ")[0] : "Nithya";
+    return /* @__PURE__ */ import_react6.default.createElement("aside", { className: "app-sidebar-nav", "aria-label": "Sidebar Navigation" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "sidebar-brand-container", onClick: () => setCurrentTab("home") }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "sidebar-user-avatar-pill" }, user2?.avatar ? /* @__PURE__ */ import_react6.default.createElement("img", { src: user2.avatar, alt: user2.name, className: "sidebar-user-img" }) : /* @__PURE__ */ import_react6.default.createElement("div", { className: "sidebar-avatar-fallback" }, displayName.charAt(0)), /* @__PURE__ */ import_react6.default.createElement("span", { className: "sidebar-online-status-dot" })), /* @__PURE__ */ import_react6.default.createElement("div", { className: "brand-text-block" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "sidebar-greeting-row" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "sidebar-hi-text" }, "Hi, ", displayName, "!"), /* @__PURE__ */ import_react6.default.createElement("span", { className: "sidebar-wave" }, "\u{1F44B}")), /* @__PURE__ */ import_react6.default.createElement("span", { className: "brand-subtitle" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE & \u0BA8\u0BB2\u0BAE\u0BCD" : "Yoga & Wellness"))), /* @__PURE__ */ import_react6.default.createElement("nav", { className: "sidebar-menu-list" }, navItems.map((item) => {
       const Icon2 = item.icon;
-      const isActive = currentTab === item.id;
+      const isActive = currentTab === item.id || item.id === "classes" && (currentTab === "yoga" || currentTab === "yoga-classes") || item.id === "live" && (currentTab === "live" || currentTab === "live-classes");
       return /* @__PURE__ */ import_react6.default.createElement(
         "button",
         {
           key: item.id,
           type: "button",
           className: `sidebar-menu-item ${isActive ? "active" : ""}`,
-          onClick: () => setCurrentTab(item.id)
+          onClick: () => setCurrentTab(item.id),
+          "aria-selected": isActive
         },
         /* @__PURE__ */ import_react6.default.createElement(Icon2, { size: 18, className: "menu-icon" }),
         /* @__PURE__ */ import_react6.default.createElement("span", { className: "menu-label" }, lang === "ta" ? item.labelTa : item.label)
       );
-    })), /* @__PURE__ */ import_react6.default.createElement("div", { className: "sidebar-bottom-wellness-card" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "bottom-card-bg-overlay" }), /* @__PURE__ */ import_react6.default.createElement("div", { className: "bottom-card-content" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "bottom-card-lotus" }, /* @__PURE__ */ import_react6.default.createElement(LotusMark, { className: "lotus-tiny-svg" })), /* @__PURE__ */ import_react6.default.createElement("p", { className: "bottom-card-quote" }, lang === "ta" ? "\u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0BA9 \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BC7 \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD..." : "A healthier you is a happier you..."), /* @__PURE__ */ import_react6.default.createElement("span", { className: "bottom-card-heart", style: { display: "inline-flex", alignItems: "center", justifyContent: "center" } }, /* @__PURE__ */ import_react6.default.createElement(KitHeart, { size: 14 })))));
+    })), /* @__PURE__ */ import_react6.default.createElement("div", { className: "sidebar-bottom-wellness-card" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "bottom-card-pastel-blob" }), /* @__PURE__ */ import_react6.default.createElement("div", { className: "bottom-card-content" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "bottom-card-icon-badge" }, /* @__PURE__ */ import_react6.default.createElement(Crown, { size: 15, className: "bottom-card-crown-icon" })), /* @__PURE__ */ import_react6.default.createElement("h4", { className: "bottom-card-title" }, lang === "ta" ? "\u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0B89\u0BA4\u0BCD\u0BB5\u0BC7\u0B95\u0BAE\u0BCD" : "Daily Inspiration"), /* @__PURE__ */ import_react6.default.createElement("p", { className: "bottom-card-quote" }, lang === "ta" ? "\u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0BA9 \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BC7 \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD..." : "A healthier you is a happier you..."), /* @__PURE__ */ import_react6.default.createElement("div", { className: "bottom-card-footer-pill" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "bottom-card-heart" }, /* @__PURE__ */ import_react6.default.createElement(KitHeart, { size: 13 })), /* @__PURE__ */ import_react6.default.createElement("span", { className: "bottom-card-spark" }, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u2022 \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BCD" : "Mindful \u2022 Healthy")))));
   }
   var import_react6;
   var init_Sidebar = __esm({
@@ -25828,7 +25821,7 @@
     onQuickUpdate,
     updateAvailable = false
   }) {
-    return /* @__PURE__ */ import_react7.default.createElement("header", { className: "dashboard-top-header" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-mobile-brand-wrap", onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }) }, /* @__PURE__ */ import_react7.default.createElement("img", { src: "assets/images/logo.png", alt: "Nithya Yoga", className: "header-mobile-logo-img" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "header-mobile-title" }, "NITHYA")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-search-wrapper" }, /* @__PURE__ */ import_react7.default.createElement(Search, { size: 16, className: "search-icon-left" }), /* @__PURE__ */ import_react7.default.createElement(
+    return /* @__PURE__ */ import_react7.default.createElement("header", { className: "dashboard-top-header" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-left-cluster" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-mobile-brand-wrap", onClick: () => window.scrollTo({ top: 0, behavior: "smooth" }) }, /* @__PURE__ */ import_react7.default.createElement("img", { src: "assets/images/logo.png", alt: "Nithya Yoga", className: "header-mobile-logo-img" }), /* @__PURE__ */ import_react7.default.createElement("span", { className: "header-mobile-title" }, "NITHYA")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-page-title-block hidden md:flex" }, /* @__PURE__ */ import_react7.default.createElement("h1", { className: "header-page-title" }, lang === "ta" ? "\u0B9F\u0BBE\u0BB7\u0BCD\u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BC1" : "Dashboard"))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "header-search-wrapper" }, /* @__PURE__ */ import_react7.default.createElement(Search, { size: 16, className: "search-icon-left" }), /* @__PURE__ */ import_react7.default.createElement(
       "input",
       {
         type: "text",
@@ -25875,7 +25868,7 @@
         title: "Notifications"
       },
       /* @__PURE__ */ import_react7.default.createElement(Bell, { size: 17 }),
-      /* @__PURE__ */ import_react7.default.createElement("span", { className: "red-notification-dot" })
+      /* @__PURE__ */ import_react7.default.createElement("span", { className: "pink-notification-dot" })
     ), /* @__PURE__ */ import_react7.default.createElement(
       "div",
       {
@@ -25892,8 +25885,8 @@
         role: "button",
         tabIndex: 0
       },
-      /* @__PURE__ */ import_react7.default.createElement("div", { className: "user-avatar-circle" }, user2.avatar ? /* @__PURE__ */ import_react7.default.createElement("img", { src: user2.avatar, alt: user2.name }) : /* @__PURE__ */ import_react7.default.createElement("span", null, user2.name.charAt(0))),
-      /* @__PURE__ */ import_react7.default.createElement("div", { className: "user-greeting-meta" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "welcome-tag" }, lang === "ta" ? "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD," : "Welcome,"), /* @__PURE__ */ import_react7.default.createElement("span", { className: "user-name-bold" }, user2.name))
+      /* @__PURE__ */ import_react7.default.createElement("div", { className: "user-avatar-circle" }, user2?.avatar ? /* @__PURE__ */ import_react7.default.createElement("img", { src: user2.avatar, alt: user2.name }) : /* @__PURE__ */ import_react7.default.createElement("span", null, user2?.name ? user2.name.charAt(0) : "N")),
+      /* @__PURE__ */ import_react7.default.createElement("div", { className: "user-greeting-meta hidden sm:flex" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "welcome-tag" }, lang === "ta" ? "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD," : "Welcome,"), /* @__PURE__ */ import_react7.default.createElement("span", { className: "user-name-bold" }, user2?.name || "Nithya"))
     )));
   }
   var import_react7;
@@ -25912,39 +25905,33 @@
     onViewSchedule,
     lang = "en"
   }) {
-    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-section-grid" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-banner-card" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-banner-bg" }, /* @__PURE__ */ import_react8.default.createElement(
-      "img",
-      {
-        src: "assets/images/chakra-meditation.jpg",
-        alt: "Yoga & Wellness Chakra Meditation",
-        className: "hero-img-cover"
-      }
-    ), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-gradient-overlay" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-content-body" }, /* @__PURE__ */ import_react8.default.createElement("h2", { className: "hero-headline-title" }, /* @__PURE__ */ import_react8.default.createElement("span", null, "Move \u2022 Breathe \u2022"), /* @__PURE__ */ import_react8.default.createElement("br", null), /* @__PURE__ */ import_react8.default.createElement("span", null, "Remember \u2022 Relax")), /* @__PURE__ */ import_react8.default.createElement("p", { className: "hero-supporting-sub" }, lang === "ta" ? "\u0B92\u0BB5\u0BCD\u0BB5\u0BCA\u0BB0\u0BC1 \u0BA8\u0BBE\u0BB3\u0BC1\u0BAE\u0BCD \u0B8E\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC8\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B9A\u0BBF\u0BB1\u0BBF\u0BAF \u0B85\u0B9F\u0BBF\u0B95\u0BB3\u0BCD, \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD." : "Small steps every day lead to a healthier and happier you."), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-cta-buttons-row" }, /* @__PURE__ */ import_react8.default.createElement(
+    const displayName = user2?.name ? user2.name.split(" ")[0] : "Nithya";
+    return /* @__PURE__ */ import_react8.default.createElement("div", { className: "pastel-hero-container" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "pastel-welcome-banner" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "welcome-banner-decor-blob1" }), /* @__PURE__ */ import_react8.default.createElement("div", { className: "welcome-banner-decor-blob2" }), /* @__PURE__ */ import_react8.default.createElement("div", { className: "welcome-banner-content" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "welcome-greeting-badge" }, /* @__PURE__ */ import_react8.default.createElement(Sparkles, { size: 14, className: "sparkle-gold" }), /* @__PURE__ */ import_react8.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BB2\u0BCD\u0BB5\u0BBE\u0BB4\u0BCD\u0BB5\u0BC1" : "Daily Yoga & Wellness")), /* @__PURE__ */ import_react8.default.createElement("h2", { className: "welcome-banner-title" }, /* @__PURE__ */ import_react8.default.createElement("span", null, lang === "ta" ? `\u0B95\u0BBE\u0BB2\u0BC8 \u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${displayName}! \u2600\uFE0F` : `Good Morning, ${displayName}! \u2600\uFE0F`), /* @__PURE__ */ import_react8.default.createElement("span", { className: "welcome-banner-subtitle-line" }, lang === "ta" ? "\u0B89\u0B9F\u0BB2\u0B9A\u0BC8\u0BB5\u0BC1 \u2022 \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD \u2022 \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u2022 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF" : "Move \u2022 Breathe \u2022 Remember \u2022 Relax")), /* @__PURE__ */ import_react8.default.createElement("p", { className: "welcome-banner-description" }, lang === "ta" ? "\u0B92\u0BB5\u0BCD\u0BB5\u0BCA\u0BB0\u0BC1 \u0BA8\u0BBE\u0BB3\u0BC1\u0BAE\u0BCD \u0B8E\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC8\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B9A\u0BBF\u0BB1\u0BBF\u0BAF \u0B85\u0B9F\u0BBF\u0B95\u0BB3\u0BCD, \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0B95\u0BBF\u0BB4\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD. \u0B87\u0BA9\u0BCD\u0BB1\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B9A\u0BBF\u0BB1\u0BBF\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0B92\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Small steps every day lead to a healthier and happier you. Make time for your mindful practice today."), /* @__PURE__ */ import_react8.default.createElement("div", { className: "welcome-banner-actions" }, /* @__PURE__ */ import_react8.default.createElement(
       "button",
       {
         type: "button",
-        className: "btn-hero-primary ya-btn ya-ripple",
+        className: "btn-pastel-cta-primary ya-ripple",
         onClick: onJoinLive
       },
-      /* @__PURE__ */ import_react8.default.createElement("span", { className: "btn-play-circle", style: { display: "inline-flex", alignItems: "center", justifyContent: "center" } }, /* @__PURE__ */ import_react8.default.createElement(Play, { size: 11, fill: "currentColor" })),
-      /* @__PURE__ */ import_react8.default.createElement("span", null, user2?.role === "trainer" || user2?.isInstructor ? lang === "ta" ? "\u{1F451} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F451} Start Live Class" : lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Join Live Class")
+      /* @__PURE__ */ import_react8.default.createElement("span", { className: "cta-icon-circle" }, /* @__PURE__ */ import_react8.default.createElement(Play, { size: 12, fill: "currentColor" })),
+      /* @__PURE__ */ import_react8.default.createElement("span", null, user2?.role === "trainer" || user2?.isInstructor ? lang === "ta" ? "\u{1F451} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F451} Start Live Class" : lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0B95 \u{1F9D8}\u200D\u2640\uFE0F" : "Continue Practice \u{1F9D8}\u200D\u2640\uFE0F")
     ), /* @__PURE__ */ import_react8.default.createElement(
       "button",
       {
         type: "button",
-        className: "btn-hero-secondary ya-btn ya-ripple",
+        className: "btn-pastel-cta-secondary ya-ripple",
         onClick: onViewSchedule
       },
       /* @__PURE__ */ import_react8.default.createElement(Calendar, { size: 16 }),
-      /* @__PURE__ */ import_react8.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8" : "View Today's Schedule")
-    ))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-right-visual-wrapper" }, /* @__PURE__ */ import_react8.default.createElement(
+      /* @__PURE__ */ import_react8.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8" : "Today's Schedule")
+    ))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "welcome-banner-art-wrap hero-right-visual-wrapper" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "art-aura-ring" }), /* @__PURE__ */ import_react8.default.createElement(
       "img",
       {
         src: "assets/images/chakra-meditation.jpg",
-        alt: "NITHYA 7 Chakras Meditation Visual",
-        className: "hero-chakra-visual-img"
+        alt: "Nithya Yoga Meditating Yogi",
+        className: "welcome-banner-yogi-img hero-chakra-visual-img"
       }
-    ))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "hero-user-stat-card" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-profile-header-mini" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-round-avatar" }, user2?.avatar ? /* @__PURE__ */ import_react8.default.createElement("img", { src: user2.avatar, alt: user2.name, className: "hero-avatar-img" }) : /* @__PURE__ */ import_react8.default.createElement("span", null, user2?.name ? user2.name.charAt(0) : "N")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-heading-meta" }, /* @__PURE__ */ import_react8.default.createElement("h3", { className: "user-greeting-name" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${user2.name}` : `Hello, ${user2.name}`), /* @__PURE__ */ import_react8.default.createElement("p", { className: "user-subtitle-care" }, user2?.role === "trainer" || user2?.isInstructor ? lang === "ta" ? "\u{1F451} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD \u2022 \u0BA4\u0BB2\u0BC8\u0BAE\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "\u{1F451} Master Instructor \u2022 Lead Guide" : lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAE\u0BBE\u0B95 \u0B87\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Stay consistent. Stay healthy."))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "user-stats-2x2-grid" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-teal" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap teal-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flower2, { size: 18, className: "text-teal" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.classesAttended || 12), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-blue" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap blue-bg" }, /* @__PURE__ */ import_react8.default.createElement(Calendar, { size: 18, className: "text-blue" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.attendanceRate || 85, "%"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-orange" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap orange-bg" }, /* @__PURE__ */ import_react8.default.createElement(Flame, { size: 18, className: "text-orange" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.dayStreak || 7), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Day Streak"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-box tile-gold" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-icon-wrap gold-bg" }, /* @__PURE__ */ import_react8.default.createElement(Star, { size: 18, className: "text-gold" })), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-tile-text" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-number" }, user2.level || "Beginner"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-label" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Level"))))));
+    ), /* @__PURE__ */ import_react8.default.createElement("div", { className: "art-plant-accent", title: "Zen Flora" }, "\u{1FAB4}"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "pastel-stat-card-row" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "pastel-stat-card card-tone-lavender" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-icon-pill icon-lavender" }, /* @__PURE__ */ import_react8.default.createElement(Flower2, { size: 18 })), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-trend-tag tag-lavender" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD" : "This Month")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-card-value" }, user2?.classesAttended || 12), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "12 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1" : "12 sessions completed"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "pastel-stat-card card-tone-pink" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-icon-pill icon-pink" }, /* @__PURE__ */ import_react8.default.createElement(Clock, { size: 18 })), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-trend-tag tag-pink" }, "+5% ", lang === "ta" ? "\u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BC7\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD" : "vs last mo")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-card-value" }, user2?.attendanceRate || 85, "%"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8\u0BAF\u0BBE\u0BA9 \u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF" : "Consistent consistency"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "pastel-stat-card card-tone-yellow" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-icon-pill icon-yellow" }, /* @__PURE__ */ import_react8.default.createElement(Flame, { size: 18 })), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-trend-tag tag-yellow" }, "\u{1F525} ", lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD" : "Streak")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-card-value" }, user2?.dayStreak || 7, " ", lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Days"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Day Streak"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD!" : "Keep going strong!"))), /* @__PURE__ */ import_react8.default.createElement("div", { className: "pastel-stat-card card-tone-blue" }, /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-icon-pill icon-blue" }, /* @__PURE__ */ import_react8.default.createElement(CircleCheck, { size: 18 })), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-trend-tag tag-blue" }, user2?.level || "Beginner")), /* @__PURE__ */ import_react8.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react8.default.createElement("strong", { className: "stat-card-value" }, "18"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Reminders Done"), /* @__PURE__ */ import_react8.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0BAA\u0BB4\u0B95\u0BCD\u0B95\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Healthy daily habits")))));
   }
   var import_react8;
   var init_HeroSection = __esm({
@@ -66653,45 +66640,50 @@ Click to join: ${link}`
   // src/components/AttendanceProgressSection.jsx
   function AttendanceProgressSection({ user: user2, attendanceLogs = [], lang = "en" }) {
     const [showLogsModal, setShowLogsModal] = (0, import_react16.useState)(false);
+    const [selectedWeek, setSelectedWeek] = (0, import_react16.useState)("This Week");
     const logs = attendanceLogs && attendanceLogs.length > 0 ? attendanceLogs : loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS);
-    const weeklyData = [
-      { day: "Mon", h1: 45, h2: 25 },
-      { day: "Tue", h1: 65, h2: 40 },
-      { day: "Wed", h1: 30, h2: 20 },
-      { day: "Thu", h1: 85, h2: 60 },
-      { day: "Fri", h1: 50, h2: 35 },
-      { day: "Sat", h1: 70, h2: 55 },
-      { day: "Sun", h1: 90, h2: 75 }
+    const weeklyBars = [
+      { day: "Mon", hours: 2.5, heightPct: 42, color: "#B89EFA" },
+      { day: "Tue", hours: 4.2, heightPct: 70, color: "#F8B4C8" },
+      { day: "Wed", hours: 3, heightPct: 50, color: "#FCD385" },
+      { day: "Thu", hours: 5.5, heightPct: 92, color: "#A8E090" },
+      { day: "Fri", hours: 3.8, heightPct: 63, color: "#88D49E" },
+      { day: "Sat", hours: 4.8, heightPct: 80, color: "#8ECCFA" },
+      { day: "Sun", hours: 4, heightPct: 66, color: "#9B7AE8" }
     ];
-    return /* @__PURE__ */ import_react16.default.createElement("div", { className: "dashboard-card progress-dashboard-card" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "card-header-block flex justify-between items-start" }, /* @__PURE__ */ import_react16.default.createElement("div", null, /* @__PURE__ */ import_react16.default.createElement("h3", { className: "card-title-main" }, /* @__PURE__ */ import_react16.default.createElement(TrendingUp, { size: 18, className: "text-violet" }), /* @__PURE__ */ import_react16.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BC7\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8" : "Progress & Attendance")), /* @__PURE__ */ import_react16.default.createElement("p", { className: "card-sub-motto" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BAF\u0BA3\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1 \u0BB5\u0BB3\u0BB0\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BC8\u0B95\u0BCD \u0B95\u0BCA\u0BA3\u0BCD\u0B9F\u0BBE\u0B9F\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Track your journey and celebrate your growth.")), /* @__PURE__ */ import_react16.default.createElement(
+    const focusAreas = [
+      { name: lang === "ta" ? "\u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Asanas", pct: "45%", color: "#9B7AE8" },
+      { name: lang === "ta" ? "\u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Pranayama", pct: "25%", color: "#F8B4C8" },
+      { name: lang === "ta" ? "\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD" : "Meditation", pct: "15%", color: "#FCD385" },
+      { name: lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD" : "Relaxation", pct: "10%", color: "#A8E090" },
+      { name: lang === "ta" ? "\u0BAE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC8" : "Other", pct: "5%", color: "#8ECCFA" }
+    ];
+    return /* @__PURE__ */ import_react16.default.createElement("div", { className: "attendance-progress-wrapper" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "charts-split-grid" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "dashboard-card chart-box-card" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "chart-header-row" }, /* @__PURE__ */ import_react16.default.createElement("div", null, /* @__PURE__ */ import_react16.default.createElement("h4", { className: "chart-title-main" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0B95\u0BA3\u0BCD\u0BA3\u0BCB\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD" : "Practice Overview"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "chart-subtitle-text" }, lang === "ta" ? "\u0BB5\u0BBE\u0BB0\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Weekly mindful practice hours")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "time-select-pill" }, /* @__PURE__ */ import_react16.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : selectedWeek), /* @__PURE__ */ import_react16.default.createElement(ChevronDown, { size: 14, className: "text-muted" })), /* @__PURE__ */ import_react16.default.createElement(
       "button",
       {
         type: "button",
-        className: "btn-logs-pill text-xs flex items-center gap-1 px-2 py-1 rounded bg-subtle hover-accent cursor-pointer",
+        className: "btn-logs-pill",
         onClick: () => setShowLogsModal(true),
         title: "View Verified Attendance Records"
       },
       /* @__PURE__ */ import_react16.default.createElement(Calendar, { size: 13 }),
-      /* @__PURE__ */ import_react16.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BB0\u0BB2\u0BBE\u0BB1\u0BC1" : "Attendance Log")
-    )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "progress-metrics-4row" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-purple" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Flower2, { size: 16, className: "text-purple" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes Attended"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, user2?.classesAttended || logs.length || 12), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD" : "This month")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-blue" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Calendar, { size: 16, className: "text-blue" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Attendance Rate"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, user2?.attendanceRate || 85, "%"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub text-green" }, lang === "ta" ? "+5% \u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0BAE\u0BBE\u0BA4\u0BAE\u0BCD" : "+5% than last month")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-green" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(CircleCheck, { size: 16, className: "text-green" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Reminder Completed"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, "18"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub text-green" }, lang === "ta" ? "+3 \u0BAE\u0BC1\u0BA8\u0BCD\u0BA4\u0BC8\u0BAF \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "+3 than last week")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-metric-tile tile-pink" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "prog-tile-top" }, /* @__PURE__ */ import_react16.default.createElement(Star, { size: 16, className: "text-pink" })), /* @__PURE__ */ import_react16.default.createElement("span", { className: "prog-metric-label" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BC1\u0BA9\u0BCD\u0BA9\u0BC7\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD" : "Yoga Progress"), /* @__PURE__ */ import_react16.default.createElement("strong", { className: "prog-metric-val" }, lang === "ta" ? "\u0BA8\u0BA9\u0BCD\u0BB1\u0BC1" : "Good"), /* @__PURE__ */ import_react16.default.createElement("small", { className: "prog-metric-sub" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD!" : "Keep going!"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "charts-split-grid" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "chart-box-card" }, /* @__PURE__ */ import_react16.default.createElement("h4", { className: "chart-title-sub" }, lang === "ta" ? "\u0BB5\u0BBE\u0BB0\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0B9A\u0BC6\u0BAF\u0BB2\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1" : "Weekly Activity"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "bar-chart-visual-container" }, weeklyData.map((d) => /* @__PURE__ */ import_react16.default.createElement("div", { key: d.day, className: "bar-chart-column" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "bars-stacked" }, /* @__PURE__ */ import_react16.default.createElement(
+      /* @__PURE__ */ import_react16.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC7\u0B9F\u0BC1" : "Log")
+    ))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "bar-chart-visual-container" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "chart-y-axis-labels" }, /* @__PURE__ */ import_react16.default.createElement("span", null, "6h"), /* @__PURE__ */ import_react16.default.createElement("span", null, "4h"), /* @__PURE__ */ import_react16.default.createElement("span", null, "2h"), /* @__PURE__ */ import_react16.default.createElement("span", null, "0")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "bar-chart-columns-flex" }, weeklyBars.map((d) => /* @__PURE__ */ import_react16.default.createElement("div", { key: d.day, className: "bar-chart-column-item" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "bar-track-backdrop" }, /* @__PURE__ */ import_react16.default.createElement(
       "div",
       {
-        className: "bar-fill-violet",
-        style: { height: `${d.h1}%` },
-        title: `${d.day}: ${d.h1} mins`
+        className: "bar-3d-capsule",
+        style: {
+          height: `${d.heightPct}%`,
+          backgroundColor: d.color
+        },
+        title: `${d.day}: ${d.hours} hrs`
       }
-    ), /* @__PURE__ */ import_react16.default.createElement(
-      "div",
-      {
-        className: "bar-fill-cyan",
-        style: { height: `${d.h2}%` }
-      }
-    )), /* @__PURE__ */ import_react16.default.createElement("span", { className: "bar-day-label" }, d.day))))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "chart-box-card" }, /* @__PURE__ */ import_react16.default.createElement("h4", { className: "chart-title-sub" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1" : "Reminder Completion"), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-chart-flex" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-circle-wrap" }, /* @__PURE__ */ import_react16.default.createElement("svg", { viewBox: "0 0 100 100", className: "donut-svg" }, /* @__PURE__ */ import_react16.default.createElement(
+    )), /* @__PURE__ */ import_react16.default.createElement("span", { className: "bar-day-label" }, d.day)))))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "dashboard-card chart-box-card" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "chart-header-row" }, /* @__PURE__ */ import_react16.default.createElement("div", null, /* @__PURE__ */ import_react16.default.createElement("h4", { className: "chart-title-main" }, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BAA\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF\u0B95\u0BB3\u0BCD" : "Yoga Focus Areas"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "chart-subtitle-text" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAA\u0BBF\u0BB0\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BCD\u0BB5\u0BC1" : "Distribution across practice types"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-chart-flex" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-circle-wrap" }, /* @__PURE__ */ import_react16.default.createElement("svg", { viewBox: "0 0 100 100", className: "donut-svg" }, /* @__PURE__ */ import_react16.default.createElement(
       "circle",
       {
         cx: "50",
         cy: "50",
-        r: "38",
+        r: "36",
         className: "donut-bg-ring"
       }
     ), /* @__PURE__ */ import_react16.default.createElement(
@@ -66699,12 +66691,58 @@ Click to join: ${link}`
       {
         cx: "50",
         cy: "50",
-        r: "38",
-        className: "donut-accent-ring",
-        strokeDasharray: "238.76",
-        strokeDashoffset: "47.75"
+        r: "36",
+        className: "donut-slice slice-purple",
+        strokeDasharray: "101.78 124.4",
+        strokeDashoffset: "0"
       }
-    )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-center-text" }, /* @__PURE__ */ import_react16.default.createElement("strong", null, "80%"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-list" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-blue" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0BA4\u0BA3\u0BCD\u0BA3\u0BC0\u0BB0\u0BCD" : "Water"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "3/3")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-yellow" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0B89\u0BA3\u0BB5\u0BC1" : "Meal"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "2/2")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-green" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Call"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "2/3")), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "dot-color dot-purple" }, "\u25CF"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, lang === "ta" ? "\u0BAE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC8" : "Other"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, "5/7")))))), showLogsModal && /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-backdrop-scrim", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-bottom-sheet", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react16.default.createElement(ShieldCheck, { size: 18, className: "text-green" }), /* @__PURE__ */ import_react16.default.createElement("h3", { className: "modal-title-bold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Verified Attendance Records")), /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn-modal-close", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react16.default.createElement(X, { size: 18 }))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "attendance-history-table-wrapper max-h-60 overflow-y-auto" }, /* @__PURE__ */ import_react16.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react16.default.createElement("thead", null, /* @__PURE__ */ import_react16.default.createElement("tr", { className: "border-b border-subtle text-muted" }, /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Teacher"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA4\u0BC7\u0BA4\u0BBF" : "Date"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Duration"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Status"))), /* @__PURE__ */ import_react16.default.createElement("tbody", null, logs.map((log3) => /* @__PURE__ */ import_react16.default.createElement("tr", { key: log3.id, className: "border-b border-subtle" }, /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1 font-semibold" }, log3.className), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1 text-muted" }, log3.instructor), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, log3.date), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, log3.durationMinutes, " mins"), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium" }, "\u2713 ", log3.status || "Verified"))))))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setShowLogsModal(false) }, lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close")))));
+    ), /* @__PURE__ */ import_react16.default.createElement(
+      "circle",
+      {
+        cx: "50",
+        cy: "50",
+        r: "36",
+        className: "donut-slice slice-pink",
+        strokeDasharray: "56.55 169.64",
+        strokeDashoffset: "-101.78"
+      }
+    ), /* @__PURE__ */ import_react16.default.createElement(
+      "circle",
+      {
+        cx: "50",
+        cy: "50",
+        r: "36",
+        className: "donut-slice slice-yellow",
+        strokeDasharray: "33.93 192.26",
+        strokeDashoffset: "-158.33"
+      }
+    ), /* @__PURE__ */ import_react16.default.createElement(
+      "circle",
+      {
+        cx: "50",
+        cy: "50",
+        r: "36",
+        className: "donut-slice slice-green",
+        strokeDasharray: "22.62 203.57",
+        strokeDashoffset: "-192.26"
+      }
+    ), /* @__PURE__ */ import_react16.default.createElement(
+      "circle",
+      {
+        cx: "50",
+        cy: "50",
+        r: "36",
+        className: "donut-slice slice-blue",
+        strokeDasharray: "11.31 214.88",
+        strokeDashoffset: "-214.88"
+      }
+    )), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-center-text" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "donut-center-pct" }, "80%"), /* @__PURE__ */ import_react16.default.createElement("span", { className: "donut-center-sub" }, lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1\u0BAE\u0BC8" : "Active"))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "donut-legend-list" }, focusAreas.map((item, idx) => /* @__PURE__ */ import_react16.default.createElement("div", { key: idx, className: "donut-legend-row" }, /* @__PURE__ */ import_react16.default.createElement(
+      "span",
+      {
+        className: "dot-color-round",
+        style: { backgroundColor: item.color }
+      }
+    ), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-name" }, item.name), /* @__PURE__ */ import_react16.default.createElement("span", { className: "leg-val" }, item.pct))))))), showLogsModal && /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-backdrop-scrim", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-bottom-sheet", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react16.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react16.default.createElement(ShieldCheck, { size: 18, className: "text-green" }), /* @__PURE__ */ import_react16.default.createElement("h3", { className: "modal-title-bold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Verified Attendance Records")), /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn-modal-close", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react16.default.createElement(X, { size: 18 }))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "attendance-history-table-wrapper max-h-60 overflow-y-auto" }, /* @__PURE__ */ import_react16.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react16.default.createElement("thead", null, /* @__PURE__ */ import_react16.default.createElement("tr", { className: "border-b border-subtle text-muted" }, /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Teacher"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA4\u0BC7\u0BA4\u0BBF" : "Date"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Duration"), /* @__PURE__ */ import_react16.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Status"))), /* @__PURE__ */ import_react16.default.createElement("tbody", null, logs.map((log3) => /* @__PURE__ */ import_react16.default.createElement("tr", { key: log3.id, className: "border-b border-subtle" }, /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1 font-semibold" }, log3.className), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1 text-muted" }, log3.instructor), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, log3.date), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, log3.durationMinutes, " mins"), /* @__PURE__ */ import_react16.default.createElement("td", { className: "py-2 px-1" }, /* @__PURE__ */ import_react16.default.createElement("span", { className: "inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium" }, "\u2713 ", log3.status || "Verified"))))))), /* @__PURE__ */ import_react16.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react16.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setShowLogsModal(false) }, lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close")))));
   }
   var import_react16;
   var init_AttendanceProgressSection = __esm({
@@ -69363,6 +69401,28 @@ ${liveUrl}`;
     }
   });
 
+  // src/components/BottomBanner.jsx
+  function BottomBanner({ onExplore, lang = "en" }) {
+    return /* @__PURE__ */ import_react28.default.createElement("div", { className: "pastel-bottom-banner" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "bottom-banner-blob" }), /* @__PURE__ */ import_react28.default.createElement("div", { className: "bottom-banner-left" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "bottom-banner-star-badge" }, /* @__PURE__ */ import_react28.default.createElement(Sparkles, { size: 18, className: "star-icon-gold" })), /* @__PURE__ */ import_react28.default.createElement("div", { className: "bottom-banner-text" }, /* @__PURE__ */ import_react28.default.createElement("h3", { className: "bottom-banner-title" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0B95\u0BCD \u0B95\u0BA3\u0BCD\u0B9F\u0BB1\u0BBF\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Discover New Classes"), /* @__PURE__ */ import_react28.default.createElement("p", { className: "bottom-banner-sub" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAA\u0BCD \u0BAA\u0BBF\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BC8 \u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Play sessions we think you'll love \u2022 Explore curated practices"))), /* @__PURE__ */ import_react28.default.createElement("div", { className: "bottom-banner-right" }, /* @__PURE__ */ import_react28.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-bottom-banner-cta ya-ripple",
+        onClick: onExplore
+      },
+      /* @__PURE__ */ import_react28.default.createElement(Compass, { size: 16 }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B86\u0BB0\u0BBE\u0BAF\u0BCD\u0B95" : "Explore Now"),
+      /* @__PURE__ */ import_react28.default.createElement(ArrowRight, { size: 15 })
+    )));
+  }
+  var import_react28;
+  var init_BottomBanner = __esm({
+    "src/components/BottomBanner.jsx"() {
+      import_react28 = __toESM(require_react());
+      init_lucide_react();
+    }
+  });
+
   // node_modules/@capacitor/core/dist/index.js
   var ExceptionCode, CapacitorException, getPlatformId, createCapacitor, initCapacitorGlobal, Capacitor, registerPlugin, WebPlugin, encode, decode, CapacitorCookiesPluginWeb, CapacitorCookies, readBlobAsBase64, normalizeHttpHeaders, buildUrlParams, buildRequestInit, CapacitorHttpPluginWeb, CapacitorHttp, SystemBarsStyle, SystemBarType, SystemBarsPluginWeb, SystemBars;
   var init_dist = __esm({
@@ -70386,7 +70446,7 @@ ${liveUrl}`;
 
   // src/App.jsx
   function App() {
-    const [currentTab, setCurrentTab] = (0, import_react28.useState)(() => {
+    const [currentTab, setCurrentTab] = (0, import_react29.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         const tabParam = params ? params.get("tab") : null;
@@ -70395,12 +70455,12 @@ ${liveUrl}`;
       }
       return loadStorage("nithya_active_tab", "home");
     });
-    const [theme, setTheme] = (0, import_react28.useState)(() => loadStorage("nithya_theme", "light"));
-    const [lang, setLang] = (0, import_react28.useState)(() => loadStorage("nithya_lang", "en"));
-    const [searchQuery, setSearchQuery] = (0, import_react28.useState)("");
-    const [updateAvailable, setUpdateAvailable] = (0, import_react28.useState)(false);
-    const [activeAlarm, setActiveAlarm] = (0, import_react28.useState)(null);
-    const [inviteToken, setInviteToken] = (0, import_react28.useState)(() => {
+    const [theme, setTheme] = (0, import_react29.useState)(() => loadStorage("nithya_theme", "light"));
+    const [lang, setLang] = (0, import_react29.useState)(() => loadStorage("nithya_lang", "en"));
+    const [searchQuery, setSearchQuery] = (0, import_react29.useState)("");
+    const [updateAvailable, setUpdateAvailable] = (0, import_react29.useState)(false);
+    const [activeAlarm, setActiveAlarm] = (0, import_react29.useState)(null);
+    const [inviteToken, setInviteToken] = (0, import_react29.useState)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
         return params.get("invite") || "";
@@ -70408,11 +70468,11 @@ ${liveUrl}`;
         return "";
       }
     });
-    const [studentSession, setStudentSession] = (0, import_react28.useState)(() => {
+    const [studentSession, setStudentSession] = (0, import_react29.useState)(() => {
       return loadStorage("nithya_student_session", null);
     });
-    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react28.useState)(false);
-    const [user2, setUser] = (0, import_react28.useState)(() => {
+    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react29.useState)(false);
+    const [user2, setUser] = (0, import_react29.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         const isStudentQuery = params && (params.get("join") === "student" || params.get("role") === "student" || Boolean(params.get("live")));
@@ -70457,25 +70517,25 @@ ${liveUrl}`;
         isInstructor: false
       };
     });
-    const [reminders, setReminders] = (0, import_react28.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
-    const [classes, setClasses] = (0, import_react28.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
-    const [activeClass, setActiveClass] = (0, import_react28.useState)(() => classes[0] || DEFAULT_CLASSES[0]);
-    const [attendanceLogs, setAttendanceLogs] = (0, import_react28.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
-    const [toasts, setToasts] = (0, import_react28.useState)([]);
-    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react28.useState)(false);
-    const [editingReminder, setEditingReminder] = (0, import_react28.useState)(null);
-    (0, import_react28.useEffect)(() => {
+    const [reminders, setReminders] = (0, import_react29.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
+    const [classes, setClasses] = (0, import_react29.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
+    const [activeClass, setActiveClass] = (0, import_react29.useState)(() => classes[0] || DEFAULT_CLASSES[0]);
+    const [attendanceLogs, setAttendanceLogs] = (0, import_react29.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
+    const [toasts, setToasts] = (0, import_react29.useState)([]);
+    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react29.useState)(false);
+    const [editingReminder, setEditingReminder] = (0, import_react29.useState)(null);
+    (0, import_react29.useEffect)(() => {
       saveStorage("nithya_theme", theme);
       document.documentElement.setAttribute("data-theme", theme);
     }, [theme]);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       saveStorage("nithya_lang", lang);
       document.documentElement.setAttribute("data-lang", lang);
     }, [lang]);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       saveStorage("nithya_user", user2);
     }, [user2]);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       try {
         const stored = localStorage.getItem("nithya_live_participants");
         if (stored) {
@@ -70490,20 +70550,20 @@ ${liveUrl}`;
       } catch (_2) {
       }
     }, []);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       saveStorage("nithya_reminders", reminders);
       syncAllRemindersWithSystem(reminders, lang);
     }, [reminders, lang]);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       saveStorage("nithya_classes", classes);
     }, [classes]);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       saveStorage("nithya_attendance", attendanceLogs);
     }, [attendanceLogs]);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       saveStorage("nithya_active_tab", currentTab);
     }, [currentTab]);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       checkRemoteAppVersion().then((res) => {
         if (res && res.isUpdateAvailable) {
           setUpdateAvailable(true);
@@ -70513,11 +70573,11 @@ ${liveUrl}`;
       }).catch(() => {
       });
     }, []);
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       initNotificationSystem();
     }, []);
-    const firedRemindersRef = (0, import_react28.useRef)(/* @__PURE__ */ new Set());
-    (0, import_react28.useEffect)(() => {
+    const firedRemindersRef = (0, import_react29.useRef)(/* @__PURE__ */ new Set());
+    (0, import_react29.useEffect)(() => {
       const checkScheduledReminders = () => {
         const now = /* @__PURE__ */ new Date();
         const currentHours = now.getHours();
@@ -70639,7 +70699,7 @@ ${liveUrl}`;
         }
       }, 100);
     };
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
         const liveId = (params.get("live") || params.get("room") || "").trim();
@@ -70925,7 +70985,7 @@ ${liveUrl}`;
         remEl.scrollIntoView({ behavior: "smooth" });
       }
     };
-    (0, import_react28.useEffect)(() => {
+    (0, import_react29.useEffect)(() => {
       const handleSwMessage = (e2) => {
         if (e2.data && e2.data.type === "NAVIGATE_TAB") {
           handleTabChange(e2.data.tab);
@@ -70940,22 +71000,23 @@ ${liveUrl}`;
         }
       };
     }, []);
-    return /* @__PURE__ */ import_react28.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, typeof window !== "undefined" && !window.Capacitor?.isNativePlatform() && /Android/i.test(navigator.userAgent) && /* @__PURE__ */ import_react28.default.createElement("div", { className: "open-in-native-app-banner bg-gradient-to-r from-violet-900 to-indigo-900 text-white px-3 py-2 text-xs flex items-center justify-between shadow-md sticky top-0 z-50 border-b border-violet-500/30" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-base animate-pulse" }, "\u{1F4F1}"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-semibold" }, lang === "ta" ? "NITHYA Yoga App \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE?" : "Open in NITHYA Yoga App:")), /* @__PURE__ */ import_react28.default.createElement(
+    return /* @__PURE__ */ import_react29.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, typeof window !== "undefined" && !window.Capacitor?.isNativePlatform() && /Android/i.test(navigator.userAgent) && /* @__PURE__ */ import_react29.default.createElement("div", { className: "open-in-native-app-banner bg-gradient-to-r from-violet-900 to-indigo-900 text-white px-3 py-2 text-xs flex items-center justify-between shadow-md sticky top-0 z-50 border-b border-violet-500/30" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react29.default.createElement("span", { className: "text-base animate-pulse" }, "\u{1F4F1}"), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-semibold" }, lang === "ta" ? "NITHYA Yoga App \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE?" : "Open in NITHYA Yoga App:")), /* @__PURE__ */ import_react29.default.createElement(
       "a",
       {
         href: `intent://sarath2003-sketch.github.io/nithya-yoga/${window.location.search || ""}#Intent;scheme=https;package=com.nithya.yoga;end`,
         className: "px-3 py-1 bg-white text-purple-900 font-bold rounded-full text-xs shadow hover:bg-slate-100 transition-all flex items-center gap-1 cursor-pointer"
       },
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1" : "Open App"),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, "\u2794")
-    )), /* @__PURE__ */ import_react28.default.createElement(InAppUpdateBanner, { lang }), /* @__PURE__ */ import_react28.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1" : "Open App"),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, "\u2794")
+    )), /* @__PURE__ */ import_react29.default.createElement(InAppUpdateBanner, { lang }), /* @__PURE__ */ import_react29.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react29.default.createElement(
       Sidebar,
       {
         currentTab,
         setCurrentTab: handleTabChange,
-        lang
+        lang,
+        user: user2
       }
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react29.default.createElement(
       Header,
       {
         searchQuery,
@@ -70971,16 +71032,16 @@ ${liveUrl}`;
         onQuickUpdate: handleTriggerAppUpdate,
         updateAvailable
       }
-    ), currentTab === "student" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    ), currentTab === "student" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-page-viewport dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F393} ", lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F393} ", lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react29.default.createElement(
       StudentDashboard,
       {
         user: user2,
@@ -71001,16 +71062,16 @@ ${liveUrl}`;
         },
         lang
       }
-    )) : currentTab === "admin" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "admin" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F6E1}\uFE0F ", lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F6E1}\uFE0F ", lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react29.default.createElement(
       AdminPortalSection,
       {
         onLaunchInstructorStudio: (cls) => {
@@ -71020,16 +71081,16 @@ ${liveUrl}`;
         showToast,
         lang
       }
-    )) : currentTab === "live" || currentTab === "live-classes" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "live" || currentTab === "live-classes" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-white/20 hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "live-indicator-dot animate-pulse" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-black text-sm tracking-wide text-white" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Studio"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "badge-private-hd" }, "HD WebRTC"))), /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2 ml-auto" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-xs text-white/70 font-semibold hidden sm:inline" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-white/20 hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react29.default.createElement("span", { className: "live-indicator-dot animate-pulse" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-black text-sm tracking-wide text-white" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Studio"), /* @__PURE__ */ import_react29.default.createElement("span", { className: "badge-private-hd" }, "HD WebRTC"))), /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-2 ml-auto" }, /* @__PURE__ */ import_react29.default.createElement("span", { className: "text-xs text-white/70 font-semibold hidden sm:inline" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react29.default.createElement(
       "select",
       {
         value: activeClass?.id,
@@ -71039,8 +71100,8 @@ ${liveUrl}`;
         },
         className: "studio-class-dropdown"
       },
-      classes.map((c) => /* @__PURE__ */ import_react28.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
-    ))), /* @__PURE__ */ import_react28.default.createElement(
+      classes.map((c) => /* @__PURE__ */ import_react29.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
+    ))), /* @__PURE__ */ import_react29.default.createElement(
       LiveYogaClassRoom,
       {
         activeClass,
@@ -71056,16 +71117,16 @@ ${liveUrl}`;
         onRecordAttendance: handleRecordAttendance,
         lang
       }
-    )) : currentTab === "yoga" || currentTab === "classes" || currentTab === "yoga-classes" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-yoga-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "yoga" || currentTab === "classes" || currentTab === "yoga-classes" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-page-viewport dedicated-yoga-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Classes & Asanas Library")), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Classes & Asanas Library")), /* @__PURE__ */ import_react29.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -71075,16 +71136,16 @@ ${liveUrl}`;
         },
         lang
       }
-    )) : currentTab === "reminders" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-reminders-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "reminders" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-page-viewport dedicated-reminders-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B85\u0BB2\u0BBE\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Reminders & Daily Alarms")), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B85\u0BB2\u0BBE\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Reminders & Daily Alarms")), /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
@@ -71096,7 +71157,7 @@ ${liveUrl}`;
       },
       "+ ",
       lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Add Reminder"
-    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react28.default.createElement(
+    )), /* @__PURE__ */ import_react29.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react29.default.createElement(
       SmartCareTimeline,
       {
         reminders,
@@ -71111,22 +71172,22 @@ ${liveUrl}`;
         },
         lang
       }
-    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "max-w-xl mx-auto" }, /* @__PURE__ */ import_react28.default.createElement(
+    )), /* @__PURE__ */ import_react29.default.createElement("div", { className: "max-w-xl mx-auto" }, /* @__PURE__ */ import_react29.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ))) : currentTab === "profile" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-profile-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    ))) : currentTab === "profile" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-page-viewport dedicated-profile-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F464} ", lang === "ta" ? "\u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BB0\u0BCD \u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD & \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Member Profile & App Settings")), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F464} ", lang === "ta" ? "\u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BB0\u0BCD \u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD & \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Member Profile & App Settings")), /* @__PURE__ */ import_react29.default.createElement(
       ProfileSection,
       {
         user: user2,
@@ -71134,41 +71195,41 @@ ${liveUrl}`;
         showToast,
         lang
       }
-    )) : currentTab === "notes" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-notes-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "notes" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-page-viewport dedicated-notes-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4DD} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Practice Notes")), /* @__PURE__ */ import_react28.default.createElement(YogaNotesSection, { lang })) : currentTab === "attendance" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-attendance-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4DD} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Practice Notes")), /* @__PURE__ */ import_react29.default.createElement(YogaNotesSection, { lang })) : currentTab === "attendance" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-page-viewport dedicated-attendance-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4CA} ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Attendance Analytics")), /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4CA} ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Attendance Analytics")), /* @__PURE__ */ import_react29.default.createElement(
       AttendanceProgressSection,
       {
         user: user2,
         attendanceLogs,
         lang
       }
-    )) : currentTab === "relaxation" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-relaxation-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "relaxation" ? /* @__PURE__ */ import_react29.default.createElement("main", { className: "dedicated-page-viewport dedicated-relaxation-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react29.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F3B5} ", lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD & \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Relaxation & Pranayama")), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react28.default.createElement(PranayamaBreathingOrb, { lang }), /* @__PURE__ */ import_react28.default.createElement(RelaxationZone, { lang }))) : /* @__PURE__ */ import_react28.default.createElement("main", { className: "dashboard-content-grid-wrapper ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement(
+      /* @__PURE__ */ import_react29.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react29.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react29.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F3B5} ", lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD & \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Relaxation & Pranayama")), /* @__PURE__ */ import_react29.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react29.default.createElement(PranayamaBreathingOrb, { lang }), /* @__PURE__ */ import_react29.default.createElement(RelaxationZone, { lang }))) : /* @__PURE__ */ import_react29.default.createElement("main", { className: "dashboard-content-grid-wrapper ya-reveal" }, /* @__PURE__ */ import_react29.default.createElement(
       HeroSection,
       {
         user: user2,
@@ -71176,7 +71237,7 @@ ${liveUrl}`;
         onViewSchedule: handleViewSchedule,
         lang
       }
-    ), /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement(
       SmartCareTimeline,
       {
         reminders,
@@ -71188,7 +71249,7 @@ ${liveUrl}`;
         onShowAll: () => handleTabChange("reminders"),
         lang
       }
-    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react29.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -71197,7 +71258,7 @@ ${liveUrl}`;
         onShowAll: () => handleTabChange("yoga"),
         lang
       }
-    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react28.default.createElement(
+    )), /* @__PURE__ */ import_react29.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react29.default.createElement(
       LiveClassStudio,
       {
         activeClass,
@@ -71207,35 +71268,35 @@ ${liveUrl}`;
         onOpenFullStudio: () => handleTabChange("live"),
         lang
       }
-    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react28.default.createElement(
+    )), /* @__PURE__ */ import_react29.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react29.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ), /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement(
       PranayamaBreathingOrb,
       {
         lang
       }
-    ), /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement(
       RelaxationZone,
       {
         lang
       }
-    ))), /* @__PURE__ */ import_react28.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-progress" }, /* @__PURE__ */ import_react28.default.createElement(
+    ))), /* @__PURE__ */ import_react29.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react29.default.createElement("div", { className: "grid-col col-progress" }, /* @__PURE__ */ import_react29.default.createElement(
       AttendanceProgressSection,
       {
         user: user2,
         attendanceLogs,
         lang
       }
-    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react28.default.createElement(
+    )), /* @__PURE__ */ import_react29.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react29.default.createElement(
       YogaNotesSection,
       {
         lang
       }
-    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react28.default.createElement(
+    )), /* @__PURE__ */ import_react29.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react29.default.createElement(
       ProfileSection,
       {
         user: user2,
@@ -71243,14 +71304,20 @@ ${liveUrl}`;
         showToast,
         lang
       }
-    )))))), /* @__PURE__ */ import_react28.default.createElement(
+    ))), /* @__PURE__ */ import_react29.default.createElement(
+      BottomBanner,
+      {
+        onExplore: () => handleTabChange("yoga"),
+        lang
+      }
+    )))), /* @__PURE__ */ import_react29.default.createElement(
       MobileBottomNav,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement(
       ReminderModal,
       {
         isOpen: isReminderModalOpen,
@@ -71263,7 +71330,7 @@ ${liveUrl}`;
         initialData: editingReminder,
         lang
       }
-    ), inviteToken && /* @__PURE__ */ import_react28.default.createElement(
+    ), inviteToken && /* @__PURE__ */ import_react29.default.createElement(
       InviteRegistrationModal,
       {
         inviteToken,
@@ -71289,7 +71356,7 @@ ${liveUrl}`;
         },
         lang
       }
-    ), /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement(
       ActiveAlarmModal,
       {
         alarm: activeAlarm,
@@ -71297,7 +71364,7 @@ ${liveUrl}`;
         onSnooze: handleSnoozeAlarm,
         lang
       }
-    ), /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement(
       StudentJoinModal,
       {
         isOpen: showStudentJoinModal,
@@ -71329,7 +71396,7 @@ ${liveUrl}`;
           );
         }
       }
-    ), /* @__PURE__ */ import_react28.default.createElement(
+    ), /* @__PURE__ */ import_react29.default.createElement(
       ToastContainer,
       {
         toasts,
@@ -71337,10 +71404,10 @@ ${liveUrl}`;
       }
     ));
   }
-  var import_react28;
+  var import_react29;
   var init_App = __esm({
     "src/App.jsx"() {
-      import_react28 = __toESM(require_react());
+      import_react29 = __toESM(require_react());
       init_Sidebar();
       init_Header();
       init_HeroSection();
@@ -71363,6 +71430,7 @@ ${liveUrl}`;
       init_StudentJoinModal();
       init_StudentDashboard();
       init_InAppUpdateBanner();
+      init_BottomBanner();
       init_lucide_react();
       init_storage();
       init_audioEngine();
@@ -71374,13 +71442,13 @@ ${liveUrl}`;
   // src/index.jsx
   var require_index = __commonJS({
     "src/index.jsx"() {
-      var import_react29 = __toESM(require_react());
+      var import_react30 = __toESM(require_react());
       var import_client = __toESM(require_client());
       init_App();
       var container = document.getElementById("root");
       if (container) {
         const root = (0, import_client.createRoot)(container);
-        root.render(/* @__PURE__ */ import_react29.default.createElement(App, null));
+        root.render(/* @__PURE__ */ import_react30.default.createElement(App, null));
       }
     }
   });
@@ -71447,6 +71515,7 @@ lucide-react/dist/esm/context.mjs:
 lucide-react/dist/esm/Icon.mjs:
 lucide-react/dist/esm/createLucideIcon.mjs:
 lucide-react/dist/esm/icons/arrow-left.mjs:
+lucide-react/dist/esm/icons/arrow-right.mjs:
 lucide-react/dist/esm/icons/award.mjs:
 lucide-react/dist/esm/icons/bell-ring.mjs:
 lucide-react/dist/esm/icons/bell.mjs:
@@ -71454,11 +71523,13 @@ lucide-react/dist/esm/icons/book-open.mjs:
 lucide-react/dist/esm/icons/calendar.mjs:
 lucide-react/dist/esm/icons/camera.mjs:
 lucide-react/dist/esm/icons/check.mjs:
+lucide-react/dist/esm/icons/chevron-down.mjs:
 lucide-react/dist/esm/icons/chevron-right.mjs:
 lucide-react/dist/esm/icons/circle-alert.mjs:
 lucide-react/dist/esm/icons/circle-check-big.mjs:
 lucide-react/dist/esm/icons/circle-check.mjs:
 lucide-react/dist/esm/icons/clock.mjs:
+lucide-react/dist/esm/icons/compass.mjs:
 lucide-react/dist/esm/icons/copy.mjs:
 lucide-react/dist/esm/icons/crown.mjs:
 lucide-react/dist/esm/icons/download.mjs:
@@ -71504,11 +71575,9 @@ lucide-react/dist/esm/icons/skip-forward.mjs:
 lucide-react/dist/esm/icons/sparkles.mjs:
 lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs:
 lucide-react/dist/esm/icons/square.mjs:
-lucide-react/dist/esm/icons/star.mjs:
 lucide-react/dist/esm/icons/switch-camera.mjs:
 lucide-react/dist/esm/icons/tag.mjs:
 lucide-react/dist/esm/icons/trash.mjs:
-lucide-react/dist/esm/icons/trending-up.mjs:
 lucide-react/dist/esm/icons/upload.mjs:
 lucide-react/dist/esm/icons/user.mjs:
 lucide-react/dist/esm/icons/users.mjs:

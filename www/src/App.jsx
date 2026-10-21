@@ -21,6 +21,7 @@ import ActiveAlarmModal from './components/ActiveAlarmModal';
 import StudentJoinModal from './components/StudentJoinModal';
 import StudentDashboard from './components/StudentDashboard';
 import InAppUpdateBanner from './components/InAppUpdateBanner';
+import BottomBanner from './components/BottomBanner';
 import { ArrowLeft } from 'lucide-react';
 
 import { 
@@ -726,11 +727,12 @@ export default function App() {
       <InAppUpdateBanner lang={lang} />
 
       <div className="app-main-layout">
-        {/* Left Dark Sidebar with exact uploaded logo */}
+        {/* Left Pastel Sidebar */}
         <Sidebar 
           currentTab={currentTab} 
           setCurrentTab={handleTabChange} 
           lang={lang} 
+          user={user}
         />
 
         {/* Main Content Area */}
@@ -1129,6 +1131,12 @@ export default function App() {
                 />
               </div>
             </div>
+
+            {/* Row 5: Full-Width Pastel Bottom Banner */}
+            <BottomBanner
+              onExplore={() => handleTabChange('yoga')}
+              lang={lang}
+            />
           </main>
         )}
         </div>

@@ -18,13 +18,20 @@ export default function Header({
 }) {
   return (
     <header className="dashboard-top-header">
-      {/* Mobile Brand Logo */}
-      <div className="header-mobile-brand-wrap" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-        <img src="assets/images/logo.png" alt="Nithya Yoga" className="header-mobile-logo-img" />
-        <span className="header-mobile-title">NITHYA</span>
+      {/* Left: Page Title / Mobile Brand */}
+      <div className="header-left-cluster">
+        <div className="header-mobile-brand-wrap" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <img src="assets/images/logo.png" alt="Nithya Yoga" className="header-mobile-logo-img" />
+          <span className="header-mobile-title">NITHYA</span>
+        </div>
+        <div className="header-page-title-block hidden md:flex">
+          <h1 className="header-page-title">
+            {lang === 'ta' ? 'டாஷ்போர்டு' : 'Dashboard'}
+          </h1>
+        </div>
       </div>
 
-      {/* Search Input Bar */}
+      {/* Center: Search Input Bar */}
       <div className="header-search-wrapper">
         <Search size={16} className="search-icon-left" />
         <input
@@ -39,9 +46,9 @@ export default function Header({
         </button>
       </div>
 
-      {/* Header Actions */}
+      {/* Right: Header Tools & User Profile */}
       <div className="header-tools-cluster">
-        {/* Quick App Update / Refresh Tool */}
+        {/* Quick App Update Pill */}
         <button
           type="button"
           className={`header-tool-btn header-update-pill cursor-pointer ${updateAvailable ? 'has-update-glow' : ''}`}
@@ -79,7 +86,7 @@ export default function Header({
           <Sparkles size={17} className="sparkle-icon" />
         </button>
 
-        {/* Notification Bell */}
+        {/* Notification Bell with Pink Indicator Dot */}
         <button
           type="button"
           className="header-tool-btn notif-bell-btn"
@@ -87,7 +94,7 @@ export default function Header({
           title="Notifications"
         >
           <Bell size={17} />
-          <span className="red-notification-dot"></span>
+          <span className="pink-notification-dot"></span>
         </button>
 
         {/* User Pill */}
@@ -106,15 +113,15 @@ export default function Header({
           tabIndex={0}
         >
           <div className="user-avatar-circle">
-            {user.avatar ? (
+            {user?.avatar ? (
               <img src={user.avatar} alt={user.name} />
             ) : (
-              <span>{user.name.charAt(0)}</span>
+              <span>{user?.name ? user.name.charAt(0) : 'N'}</span>
             )}
           </div>
-          <div className="user-greeting-meta">
+          <div className="user-greeting-meta hidden sm:flex">
             <span className="welcome-tag">{lang === 'ta' ? 'வணக்கம்,' : 'Welcome,'}</span>
-            <span className="user-name-bold">{user.name}</span>
+            <span className="user-name-bold">{user?.name || 'Nithya'}</span>
           </div>
         </div>
       </div>

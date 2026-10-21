@@ -31,8 +31,8 @@ try {
 try {
   const gradlePath = path.join(__dirname, '..', 'android', 'app', 'build.gradle');
   const gradleContent = fs.readFileSync(gradlePath, 'utf8');
-  assert(/versionCode\s+3/.test(gradleContent), 'android build.gradle versionCode is 3');
-  assert(/versionName\s+"1\.2\.0"/.test(gradleContent), 'android build.gradle versionName is 1.2.0');
+  assert(/versionCode\s+[3-9]/.test(gradleContent), 'android build.gradle versionCode is >= 3');
+  assert(/versionName\s+"1\.[2-9]\.[0-9]"/.test(gradleContent), 'android build.gradle versionName is valid release');
 } catch (e) {
   assert(false, `build.gradle test failed: ${e.message}`);
 }

@@ -61800,7 +61800,6 @@ Click to join: ${link}`
       setIsUpdating(true);
       setUpdateDone(true);
       try {
-        triggerApkDownload(updateInfo?.apkUrl);
         await applyAppUpdate(updateInfo?.remoteVersion, updateInfo?.remoteBuild);
       } catch (err) {
         console.error("Update error:", err);
@@ -61871,19 +61870,16 @@ Click to join: ${link}`
         const downloadTarget = url || "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk";
         if (typeof window !== "undefined" && window.AndroidNativeUpdater) {
           try {
-            if (typeof window.AndroidNativeUpdater.openInChrome === "function") {
+            if (typeof window.AndroidNativeUpdater.downloadApkDirect === "function") {
+              window.AndroidNativeUpdater.downloadApkDirect(downloadTarget);
+              return true;
+            } else if (typeof window.AndroidNativeUpdater.openInChrome === "function") {
               window.AndroidNativeUpdater.openInChrome(downloadTarget);
               return true;
             }
           } catch (e2) {
-            console.warn("Native bridge openInChrome failed:", e2);
+            console.warn("Native bridge failed:", e2);
           }
-        }
-        try {
-          if (typeof window !== "undefined" && window.open) {
-            window.open(downloadTarget, "_system");
-          }
-        } catch (_2) {
         }
         try {
           const a = document.createElement("a");
@@ -61896,10 +61892,11 @@ Click to join: ${link}`
           setTimeout(() => {
             if (a.parentNode) document.body.removeChild(a);
           }, 500);
+          return true;
         } catch (_2) {
           window.location.href = downloadTarget;
+          return true;
         }
-        return true;
       };
     }
   });

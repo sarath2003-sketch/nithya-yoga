@@ -9,26 +9,22 @@ export const CURRENT_BUILD_NUMBER = APP_BUILD_NUMBER;
 export const triggerApkDownload = (url) => {
   const downloadTarget = url || 'https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk';
   
-  // 1. Direct Android Native Updater Bridge (instant Chrome activity intent via OS)
+  // 1. Android Native Background Downloader (uses Android OS DownloadManager, no Chrome bouncing)
   if (typeof window !== 'undefined' && window.AndroidNativeUpdater) {
     try {
-      if (typeof window.AndroidNativeUpdater.openInChrome === 'function') {
+      if (typeof window.AndroidNativeUpdater.downloadApkDirect === 'function') {
+        window.AndroidNativeUpdater.downloadApkDirect(downloadTarget);
+        return true;
+      } else if (typeof window.AndroidNativeUpdater.openInChrome === 'function') {
         window.AndroidNativeUpdater.openInChrome(downloadTarget);
         return true;
       }
     } catch (e) {
-      console.warn('Native bridge openInChrome failed:', e);
+      console.warn('Native bridge failed:', e);
     }
   }
 
-  // 2. Capacitor / System Browser Intent
-  try {
-    if (typeof window !== 'undefined' && window.open) {
-      window.open(downloadTarget, '_system');
-    }
-  } catch (_) {}
-
-  // 3. DOM link click fallback
+  // 2. Single Web Browser Download Trigger (prevents multiple duplicate downloads in Chrome/Brave)
   try {
     const a = document.createElement('a');
     a.href = downloadTarget;
@@ -40,10 +36,11 @@ export const triggerApkDownload = (url) => {
     setTimeout(() => {
       if (a.parentNode) document.body.removeChild(a);
     }, 500);
+    return true;
   } catch (_) {
     window.location.href = downloadTarget;
+    return true;
   }
-  return true;
 };
 
 export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
@@ -74,8 +71,7 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
     setUpdateDone(true);
 
     try {
-      // Trigger instant APK download if native Android
-      triggerApkDownload(updateInfo?.apkUrl);
+      // Lightweight OTA Update: clear caches, update version state, and reload latest code without downloading 40MB APK
       await applyAppUpdate(updateInfo?.remoteVersion, updateInfo?.remoteBuild);
     } catch (err) {
       console.error('Update error:', err);

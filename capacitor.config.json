@@ -4,6 +4,7 @@
   "webDir": "www",
   "bundledWebRuntime": false,
   "server": {
+    "url": "https://sarath2003-sketch.github.io/nithya-yoga/",
     "androidScheme": "https",
     "cleartext": true
   },

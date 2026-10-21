@@ -242,13 +242,9 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
                   </p>
                 </div>
 
-                <button
-                  type="button"
-                  className="btn-join-live-pill text-xs font-bold px-3 py-1.5 rounded-full bg-primary text-white cursor-pointer hover:opacity-90 active:scale-95 transition-all flex-shrink-0"
-                  onClick={() => onSelectClass && onSelectClass(item)}
-                >
-                  {lang === 'ta' ? 'இணையவும்' : 'Join Live'}
-                </button>
+                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-500/15 text-primary border border-violet-500/20 flex-shrink-0">
+                  {lang === 'ta' ? 'பாடத்திட்டம்' : 'Curriculum'}
+                </span>
               </div>
             ))}
           </div>

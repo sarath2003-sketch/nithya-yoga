@@ -232,7 +232,7 @@ export default function StudentJoinModal({
               <input
                 type="text"
                 className="ya-input w-full text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
-                placeholder={lang === 'ta' ? 'எ.கா. கவிதா ராம் / Kavitha Ram' : 'e.g. Kavitha Ram'}
+                placeholder={lang === 'ta' ? 'உங்கள் பெயர் (எ.கா. சரத்)' : 'Your Name (e.g. Sarath)'}
                 value={name}
                 onChange={(e) => {
                   setName(e.target.value);

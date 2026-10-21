@@ -242,16 +242,6 @@ export default function LiveClassStudio({
         </div>
 
         <div className="live-header-actions flex items-center gap-2">
-          {/* Mode Badge / Switch */}
-          <button
-            type="button"
-            className={`btn-mode-toggle text-xs px-2 py-1 rounded-full ${isTeacherMode ? 'bg-purple text-white' : 'bg-subtle text-muted'}`}
-            onClick={() => setIsTeacherMode(!isTeacherMode)}
-            title="Switch Teacher / Student Mode"
-          >
-            {isTeacherMode ? '👨‍🏫 Teacher Mode' : '🧘 Student Mode'}
-          </button>
-
           <span className="live-status-badge">
             <span className="green-dot-pulse">●</span>
             <span>Live</span>
@@ -286,18 +276,15 @@ export default function LiveClassStudio({
 
         {/* Top-Left Active Class Meta */}
         <div className="video-class-meta-overlay">
-          <span className="class-course-tag inline-block px-2 py-0.5 mb-1 rounded-full bg-violet-500/30 text-violet-200 border border-violet-400/40 text-[10px] font-bold uppercase tracking-wider backdrop-blur">
-            {activeClass?.courseName || activeClass?.course_name || 'Morning Yoga Flow'}
-          </span>
-          <span className="class-name-tag block font-bold text-sm text-white">{activeClass?.title || activeClass?.name || 'Hatha Yoga Flow'}</span>
-          <span className="class-teacher-tag text-xs text-white/80">by {activeClass?.instructor || 'NITHYA Master'}</span>
+          <span className="class-name-tag block font-bold text-base text-white shadow-sm">{activeClass?.title || activeClass?.name || 'Live Yoga Flow'}</span>
+          <span className="class-teacher-tag text-xs text-white/90">by {activeClass?.instructor || 'NITHYA Master'}</span>
         </div>
 
-        {/* Center LiveKit Quick Launcher Button */}
+        {/* Center Live Studio Launcher Button */}
         <div className="video-center-launcher-box">
           <button
             type="button"
-            className="btn-launch-meet-gold ya-btn ya-ripple mb-2"
+            className="btn-launch-meet-gold ya-btn ya-ripple font-bold text-sm px-6 py-3 rounded-2xl shadow-2xl flex items-center justify-center gap-2 cursor-pointer hover:scale-105 transition-all"
             onClick={() => {
               if (onOpenFullStudio) {
                 onOpenFullStudio();
@@ -306,37 +293,9 @@ export default function LiveClassStudio({
               }
             }}
           >
-            <Radio size={16} />
+            <Radio size={18} className="animate-pulse" />
             <span>{lang === 'ta' ? 'HD நேரலை யோகா ஸ்டுடியோ 🧘‍♀️' : 'Enter HD Live Studio 🧘‍♀️'}</span>
           </button>
-
-          <button
-            type="button"
-            className="btn-launch-google-meet-prominent ya-btn ya-ripple mb-2"
-            onClick={handleLaunchGoogleMeet}
-          >
-            <ExternalLink size={14} />
-            <span>{lang === 'ta' ? 'Google Meet மூலம் இணைக 📹' : 'Join via Google Meet 📹'}</span>
-          </button>
-
-          <div className="flex items-center gap-2 mt-1">
-            <button
-              type="button"
-              className="text-xs px-3 py-1.5 rounded-full bg-white/20 hover:bg-white/30 text-white font-semibold backdrop-blur flex items-center gap-1 cursor-pointer transition-all border border-white/20 shadow-sm"
-              onClick={handleCopyLiveLink}
-              title="Copy Live Class Join Link"
-            >
-              <span>{copiedLink ? (lang === 'ta' ? '✓ நகலெடுக்கப்பட்டது' : '✓ Copied') : (lang === 'ta' ? '🔗 லிங்க் நகலெடு' : '🔗 Copy Link')}</span>
-            </button>
-            <button
-              type="button"
-              className="text-xs px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold backdrop-blur flex items-center gap-1 cursor-pointer transition-all shadow-sm"
-              onClick={handleWhatsAppShare}
-              title="Share Live Class via WhatsApp"
-            >
-              <span>📲 WhatsApp</span>
-            </button>
-          </div>
           
           {isSessionActive && !attendanceVerified && (
             <button
@@ -386,15 +345,6 @@ export default function LiveClassStudio({
             >
               {isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
             </button>
-
-            <button 
-              type="button" 
-              className="ctrl-btn" 
-              title="Google Meet Link"
-              onClick={() => window.open(activeClass?.meetUrl || 'https://meet.google.com/new', '_blank')}
-            >
-              <ExternalLink size={15} />
-            </button>
           </div>
 
           <button 
@@ -403,6 +353,38 @@ export default function LiveClassStudio({
             onClick={handleLeave}
           >
             {lang === 'ta' ? 'வெளியேறு' : 'Leave Class'}
+          </button>
+        </div>
+      </div>
+
+      {/* Auxiliary Actions Bar (Google Meet, Copy Link & WhatsApp Share) */}
+      <div className="p-3 bg-subtle/50 rounded-xl mt-2 flex items-center justify-between flex-wrap gap-2 border border-subtle">
+        <button
+          type="button"
+          className="text-xs px-3 py-1.5 rounded-lg bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/30 flex items-center gap-1.5 cursor-pointer transition-all"
+          onClick={handleLaunchGoogleMeet}
+        >
+          <ExternalLink size={13} />
+          <span>Google Meet 📹</span>
+        </button>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            className="text-xs px-3 py-1.5 rounded-lg bg-card hover:bg-subtle text-heading font-medium border border-subtle flex items-center gap-1 cursor-pointer transition-all"
+            onClick={handleCopyLiveLink}
+            title="Copy Student Join Link"
+          >
+            <span>{copiedLink ? (lang === 'ta' ? '✓ நகலெடுக்கப்பட்டது' : '✓ Copied') : (lang === 'ta' ? '🔗 லிங்க் நகலெடு' : '🔗 Copy Link')}</span>
+          </button>
+
+          <button
+            type="button"
+            className="text-xs px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center gap-1 cursor-pointer transition-all shadow-sm"
+            onClick={handleWhatsAppShare}
+            title="Share via WhatsApp"
+          >
+            <span>📲 WhatsApp</span>
           </button>
         </div>
       </div>

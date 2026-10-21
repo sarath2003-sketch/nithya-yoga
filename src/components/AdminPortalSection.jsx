@@ -561,6 +561,63 @@ export default function AdminPortalSection({
     document.body.removeChild(link);
   };
 
+  // Delete single attendance entry (Trainer / Admin testing tool)
+  const handleDeleteAttendance = async (logId) => {
+    if (!window.confirm(lang === 'ta' ? 'இந்த மாணவர் வருகைப் பதிவை நீக்க வேண்டுமா?' : 'Delete this student attendance record?')) {
+      return;
+    }
+    try {
+      if (adminToken) {
+        await apiFetch(`/api/trainer/attendance/${encodeURIComponent(logId)}`, {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        }).catch(() => {});
+      }
+      const updated = attendanceLogs.filter(l => l.id !== logId);
+      setAttendanceLogs(updated);
+      try {
+        localStorage.setItem('nithya_attendance_logs', JSON.stringify(updated));
+      } catch (_) {}
+      if (showToast) {
+        showToast(
+          lang === 'ta' ? 'பதிவு நீக்கப்பட்டது ✓' : 'Record Deleted ✓',
+          lang === 'ta' ? 'வருகைப் பதிவு வெற்றிகரமாக நீக்கப்பட்டது' : 'Attendance record removed',
+          'info'
+        );
+      }
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  // Clear all attendance logs for testing reset
+  const handleClearAllAttendance = async () => {
+    if (!window.confirm(lang === 'ta' ? 'அனைத்து மாணவர் வருகைப் பதிவுகளையும் நீக்க விரும்புகிறீர்களா (டெஸ்ட் தரவு)?' : 'Clear all student attendance records (test data reset)?')) {
+      return;
+    }
+    try {
+      if (adminToken) {
+        await apiFetch('/api/trainer/attendance', {
+          method: 'DELETE',
+          headers: { 'Authorization': `Bearer ${adminToken}` }
+        }).catch(() => {});
+      }
+      setAttendanceLogs([]);
+      try {
+        localStorage.setItem('nithya_attendance_logs', JSON.stringify([]));
+      } catch (_) {}
+      if (showToast) {
+        showToast(
+          lang === 'ta' ? 'அனைத்து பதிவுகளும் நீக்கப்பட்டன 🧹' : 'All Records Cleared 🧹',
+          lang === 'ta' ? 'வருகைப் பட்டியல் முற்றிலும் சுத்தப்படுத்தப்பட்டது' : 'Attendance register reset for testing',
+          'success'
+        );
+      }
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
   // -------------------------------------------------------------
   // VIEW 1: TRAINER LOGIN SCREEN
   // -------------------------------------------------------------
@@ -960,6 +1017,16 @@ export default function AdminPortalSection({
             <div className="flex items-center gap-2">
               <button
                 type="button"
+                onClick={handleClearAllAttendance}
+                className="ya-btn ya-btn--soft text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 cursor-pointer text-red-500 hover:bg-red-500/10 font-bold border border-red-500/20"
+                title={lang === 'ta' ? 'அனைத்து டெஸ்ட் பதிவுகளையும் நீக்கு' : 'Clear all test records'}
+              >
+                <Trash2 size={13} />
+                <span>{lang === 'ta' ? 'பதிவுகளை நீக்கு 🧹' : 'Clear All'}</span>
+              </button>
+
+              <button
+                type="button"
                 onClick={handleExportCSV}
                 className="ya-btn ya-btn--soft text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 cursor-pointer font-bold"
               >
@@ -1036,12 +1103,13 @@ export default function AdminPortalSection({
                   <th className="p-3">Duration</th>
                   <th className="p-3">Attendance %</th>
                   <th className="p-3">Status</th>
+                  <th className="p-3 text-center">Action</th>
                 </tr>
               </thead>
               <tbody>
                 {attendanceLogs.length === 0 ? (
                   <tr>
-                    <td colSpan={7} className="text-center p-6 text-muted">
+                    <td colSpan={8} className="text-center p-6 text-muted">
                       {lang === 'ta' ? 'வருகை பதிவுகள் எதுவும் இல்லை.' : 'No student attendance records found yet.'}
                     </td>
                   </tr>
@@ -1064,6 +1132,16 @@ export default function AdminPortalSection({
                           }`}>
                             {isPresent ? '✓ Present (70%+)' : 'Incomplete'}
                           </span>
+                        </td>
+                        <td className="p-3 text-center">
+                          <button
+                            type="button"
+                            onClick={() => handleDeleteAttendance(log.id)}
+                            className="p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 cursor-pointer transition-colors"
+                            title={lang === 'ta' ? 'பதிவை நீக்கு' : 'Delete Record'}
+                          >
+                            <Trash2 size={14} />
+                          </button>
                         </td>
                       </tr>
                     );

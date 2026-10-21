@@ -256,6 +256,13 @@ export async function triggerImmediateSystemNotification(reminder, lang = 'en') 
     ? (reminder.messageTa || reminder.message || 'நினைவூட்டல் நேரம்! 💜')
     : (reminder.message || 'Time for your healthy habit! 💜');
 
+  // Direct Android Native JavascriptInterface Trigger (Heads-up Status Bar Popup)
+  if (typeof window !== 'undefined' && window.AndroidNativeUpdater && typeof window.AndroidNativeUpdater.showNativePopupNotification === 'function') {
+    try {
+      window.AndroidNativeUpdater.showNativePopupNotification(title, body);
+    } catch (_) {}
+  }
+
   if (Capacitor.isNativePlatform()) {
     try {
       await LocalNotifications.schedule({

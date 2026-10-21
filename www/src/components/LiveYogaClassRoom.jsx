@@ -37,7 +37,8 @@ import {
   FileText,
   Download,
   FlipHorizontal,
-  SwitchCamera
+  SwitchCamera,
+  Trash2
 } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus, ThreeDBell, ThreeDHeart } from './ThreeDIcons';
@@ -347,6 +348,32 @@ export default function LiveYogaClassRoom({
     }
   };
   const [classEndedNotice, setClassEndedNotice] = useState(false);
+  const [handAlertMsg, setHandAlertMsg] = useState('');
+
+  const handleDeleteLiveStudent = (studentPhone) => {
+    if (!studentPhone) return;
+    const cleanP = String(studentPhone).replace(/\D/g, '');
+    try {
+      const stored = JSON.parse(localStorage.getItem('nithya_live_participants') || '[]');
+      const filtered = stored.filter(p => (p.phone || '').replace(/\D/g, '') !== cleanP);
+      localStorage.setItem('nithya_live_participants', JSON.stringify(filtered));
+      setSimulatedPeers(filtered);
+    } catch (_) {}
+    try {
+      const logs = JSON.parse(localStorage.getItem('nithya_attendance_logs') || '[]');
+      const filteredLogs = logs.filter(l => (l.phone || l.studentPhone || '').replace(/\D/g, '') !== cleanP);
+      localStorage.setItem('nithya_attendance_logs', JSON.stringify(filteredLogs));
+    } catch (_) {}
+  };
+
+  const handleClearLiveRegister = () => {
+    if (!window.confirm(lang === 'ta' ? 'அனைத்து டெஸ்ட் மாணவர் வருகைப் பதிவுகளையும் நீக்க விரும்புகிறீர்களா?' : 'Clear all test participants in register?')) return;
+    try {
+      localStorage.setItem('nithya_live_participants', JSON.stringify([]));
+      localStorage.setItem('nithya_attendance_logs', JSON.stringify([]));
+      setSimulatedPeers([]);
+    } catch (_) {}
+  };
 
   // Local WebRTC media stream and mode
   const [localStream, setLocalStream] = useState(null);
@@ -1602,6 +1629,14 @@ export default function LiveYogaClassRoom({
 
   return (
     <div className={`livekit-yoga-studio-container ${isFullscreen ? 'fullscreen-mode' : ''}`} ref={containerRef}>
+      {/* Floating Hand Raise Notification */}
+      {handAlertMsg && (
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-full shadow-2xl backdrop-blur flex items-center gap-2 animate-bounce border border-amber-200">
+          <Hand size={18} className="text-slate-950" />
+          <span className="text-xs">{handAlertMsg}</span>
+        </div>
+      )}
+
       {/* Studio Header (Google Meet Style Header) */}
       <div className="livekit-studio-header">
         <div className="header-left-title-cluster">
@@ -1646,47 +1681,27 @@ export default function LiveYogaClassRoom({
             </button>
           )}
 
-          {/* Interactive Role Switcher Pill - Protected by passcode for students */}
-          <button
-            type="button"
-            className={`role-toggle-pill ${isInstructorRole ? 'as-instructor' : 'as-student'}`}
-            onClick={handleToggleRole}
-            title={lang === 'ta' ? 'பயிற்றுநர் / மாணவர் பயன்முறையை மாற்றுக' : 'Switch Instructor / Student Mode'}
-          >
-            {isInstructorRole ? <Crown size={14} className="text-amber-400" /> : <Users size={14} className="text-indigo-400" />}
-            <span className="font-bold">
-              {isInstructorRole 
-                ? (lang === 'ta' ? '👑 நித்யா மாஸ்டர் (பயிற்றுநர்)' : '👑 NITHYA Master (Host)') 
-                : (lang === 'ta' ? '👥 மாணவர் முறை (Student)' : '👥 Student Mode')}
-            </span>
-            <span className="role-change-arrow ml-1 text-xs opacity-70">⮂</span>
-          </button>
-
-          {!isInstructorRole && (
-            <a
-              href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
-              download="NITHYA-Yoga-v1.0.apk"
-              className="role-toggle-pill as-download-apk text-violet"
-              title={lang === 'ta' ? 'மொபைல் ஆப் (APK) டவுன்லோட்' : 'Download Android App (APK)'}
+          {/* Role Badge: Instructor mode switchable; Student mode is fixed and clean */}
+          {isInstructorRole ? (
+            <button
+              type="button"
+              className="role-toggle-pill as-instructor"
+              onClick={handleToggleRole}
+              title={lang === 'ta' ? 'பயிற்றுநர் பயன்முறை' : 'Instructor / Host'}
             >
-              <Download size={13} />
-              <span>{lang === 'ta' ? 'ஆப் டவுன்லோட்' : 'Download App'}</span>
-            </a>
+              <Crown size={14} className="text-amber-400" />
+              <span className="font-bold">
+                {lang === 'ta' ? '👑 நித்யா மாஸ்டர்' : '👑 Host'}
+              </span>
+            </button>
+          ) : (
+            <div className="role-toggle-pill as-student opacity-95">
+              <Users size={14} className="text-indigo-400" />
+              <span className="font-bold">
+                {lang === 'ta' ? '🧘 மாணவர்' : '🧘 Student'}
+              </span>
+            </div>
           )}
-
-          {/* Google Meet Direct Launch Pill */}
-          <button
-            type="button"
-            className="role-toggle-pill as-google-meet-pill bg-emerald-600/90 hover:bg-emerald-500 text-white font-bold flex items-center gap-1 cursor-pointer"
-            onClick={() => {
-              const meetUrl = activeClass?.meetUrl || 'https://meet.google.com/new';
-              window.open(meetUrl, '_blank', 'noopener,noreferrer');
-            }}
-            title={lang === 'ta' ? 'Google Meet-ல் இணைக' : 'Join via Google Meet'}
-          >
-            <span>📹</span>
-            <span>Google Meet</span>
-          </button>
 
           {/* Live Timer */}
           {connectionState === 'connected' && (
@@ -1707,36 +1722,36 @@ export default function LiveYogaClassRoom({
             </div>
           )}
 
-          {/* Copy Link button */}
-          <button
-            type="button"
-            className="header-icon-tool-btn ya-icon-btn"
-            onClick={handleCopyShareLink}
-            title={copiedLink ? 'Link Copied!' : 'Copy Live Class Link'}
-          >
-            {copiedLink ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
-          </button>
-
-          {/* WhatsApp Share button */}
-          <button
-            type="button"
-            className="header-icon-tool-btn ya-icon-btn"
-            onClick={handleWhatsAppShare}
-            title="Share via WhatsApp"
-          >
-            <Share2 size={16} />
-          </button>
-
-          {/* Instructor Attendance Register drawer toggle */}
+          {/* Copy Link, WhatsApp Share & Register (Teacher / Host Only) */}
           {isInstructorRole && (
-            <button
-              type="button"
-              className="header-icon-tool-btn ya-icon-btn"
-              onClick={() => setShowAttendanceDrawer(true)}
-              title="Attendance Register"
-            >
-              <FileText size={16} />
-            </button>
+            <>
+              <button
+                type="button"
+                className="header-icon-tool-btn ya-icon-btn"
+                onClick={handleCopyShareLink}
+                title={copiedLink ? 'Link Copied!' : 'Copy Live Class Link'}
+              >
+                {copiedLink ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
+              </button>
+
+              <button
+                type="button"
+                className="header-icon-tool-btn ya-icon-btn"
+                onClick={handleWhatsAppShare}
+                title="Share via WhatsApp"
+              >
+                <Share2 size={16} />
+              </button>
+
+              <button
+                type="button"
+                className="header-icon-tool-btn ya-icon-btn"
+                onClick={() => setShowAttendanceDrawer(true)}
+                title="Attendance Register"
+              >
+                <FileText size={16} />
+              </button>
+            </>
           )}
 
           {/* Fullscreen Toggle */}
@@ -2369,6 +2384,15 @@ export default function LiveYogaClassRoom({
                 </span>
                 <button
                   type="button"
+                  className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1 text-rose-500 border border-rose-500/20 hover:bg-rose-500/10 cursor-pointer font-bold"
+                  onClick={handleClearLiveRegister}
+                  title="Clear Test Register"
+                >
+                  <Trash2 size={13} />
+                  <span>Clear</span>
+                </button>
+                <button
+                  type="button"
                   className="ya-btn ya-btn--primary text-xs px-3 py-1.5 flex items-center gap-1.5"
                   onClick={() => {
                     const text = `NITHYA YOGA — ATTENDANCE REGISTER\nClass: ${activeClass?.title || 'Hatha Yoga Flow'}\nDate: ${new Date().toLocaleDateString()}\nInstructor: ${activeClass?.instructor || 'NITHYA Master'}\n----------------------------------------\n` +
@@ -2395,12 +2419,13 @@ export default function LiveYogaClassRoom({
                     <th className="p-2">Joined Time</th>
                     <th className="p-2">Duration</th>
                     <th className="p-2">Status</th>
+                    <th className="p-2 text-center">Action</th>
                   </tr>
                 </thead>
                 <tbody>
                   {connectedStudentsList.length === 0 ? (
                     <tr>
-                      <td colSpan={5} className="p-6 text-center text-xs text-muted">
+                      <td colSpan={6} className="p-6 text-center text-xs text-muted">
                         {lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை (0 மாணவர்கள்)' : 'No students joined yet (0 active students)'}
                       </td>
                     </tr>
@@ -2419,6 +2444,16 @@ export default function LiveYogaClassRoom({
                           }`}>
                             {currentAttendancePct >= 70 ? '✓ Present (70%+)' : `Incomplete (${currentAttendancePct}%)`}
                           </span>
+                        </td>
+                        <td className="p-2 text-center">
+                          <button
+                            type="button"
+                            className="p-1 rounded text-rose-500 hover:bg-rose-500/10 cursor-pointer"
+                            onClick={() => handleDeleteLiveStudent(s.phone)}
+                            title={lang === 'ta' ? 'மாணவரை நீக்கு' : 'Delete Student'}
+                          >
+                            <Trash2 size={13} />
+                          </button>
                         </td>
                       </tr>
                     ))

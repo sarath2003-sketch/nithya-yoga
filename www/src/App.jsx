@@ -705,6 +705,23 @@ export default function App() {
 
   return (
     <div className="nithya-app-root yoga-advanced">
+      {/* Smart Deep Link Banner for Android Mobile Web Viewers: Open in Installed App */}
+      {typeof window !== 'undefined' && !window.Capacitor?.isNativePlatform() && /Android/i.test(navigator.userAgent) && (
+        <div className="open-in-native-app-banner bg-gradient-to-r from-violet-900 to-indigo-900 text-white px-3 py-2 text-xs flex items-center justify-between shadow-md sticky top-0 z-50 border-b border-violet-500/30">
+          <div className="flex items-center gap-2">
+            <span className="text-base animate-pulse">📱</span>
+            <span className="font-semibold">{lang === 'ta' ? 'NITHYA Yoga App மொபைலில் உள்ளதா?' : 'Open in NITHYA Yoga App:'}</span>
+          </div>
+          <a
+            href={`intent://sarath2003-sketch.github.io/nithya-yoga/${window.location.search || ''}#Intent;scheme=https;package=com.nithya.yoga;end`}
+            className="px-3 py-1 bg-white text-purple-900 font-bold rounded-full text-xs shadow hover:bg-slate-100 transition-all flex items-center gap-1 cursor-pointer"
+          >
+            <span>{lang === 'ta' ? 'ஆப்பில் திற' : 'Open App'}</span>
+            <span>➔</span>
+          </a>
+        </div>
+      )}
+
       {/* Real-time In-App Remote Update Notification */}
       <InAppUpdateBanner lang={lang} />
 

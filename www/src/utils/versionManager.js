@@ -6,7 +6,7 @@
  */
 
 export const APP_VERSION = '1.2.1';
-export const APP_BUILD_NUMBER = 4;
+export const APP_BUILD_NUMBER = 5;
 
 /**
  * Compare two semantic version strings (e.g. "1.2.1" vs "1.2.0")

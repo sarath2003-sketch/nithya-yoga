@@ -25801,7 +25801,7 @@
   var init_versionManager = __esm({
     "src/utils/versionManager.js"() {
       APP_VERSION = "1.2.1";
-      APP_BUILD_NUMBER = 4;
+      APP_BUILD_NUMBER = 5;
     }
   });
 
@@ -65614,43 +65614,19 @@ ${liveUrl}`;
       if (tabId === "live" || tabId === "live-classes") {
         const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
         const isTrainer = hasTeacherToken && user2?.role === "trainer";
-        if (isTrainer) {
-          setCurrentTab("live");
-          window.scrollTo({ top: 0, behavior: "smooth" });
-        } else {
+        setCurrentTab("live");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (!isTrainer) {
           const rawSession = loadStorage("nithya_student_session", null);
           const isValid = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, "").length >= 10 && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(rawSession.name);
           if (!isValid) {
             setShowStudentJoinModal(true);
-          } else {
-            setCurrentTab("live");
-            window.scrollTo({ top: 0, behavior: "smooth" });
           }
         }
         return;
       }
       setCurrentTab(tabId);
-      if (tabId === "student" || tabId === "admin") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return;
-      }
-      if (tabId === "home") {
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        return;
-      }
-      let selector = "";
-      if (tabId === "yoga" || tabId === "classes" || tabId === "yoga-classes") selector = ".col-classes";
-      else if (tabId === "reminders") selector = ".today-reminders-section";
-      else if (tabId === "notes") selector = ".col-notes";
-      else if (tabId === "attendance") selector = ".col-progress";
-      else if (tabId === "relaxation") selector = ".relaxation-zone-card";
-      else if (tabId === "profile") selector = ".profile-dashboard-card";
-      if (selector) {
-        setTimeout(() => {
-          const el = document.querySelector(selector);
-          if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
-        }, 50);
-      }
+      window.scrollTo({ top: 0, behavior: "smooth" });
     };
     const handleAddReminder = (newReminder) => {
       setReminders((prev) => [newReminder, ...prev]);
@@ -65833,15 +65809,15 @@ ${liveUrl}`;
         onQuickUpdate: handleTriggerAppUpdate,
         updateAvailable
       }
-    ), currentTab === "student" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    ), currentTab === "student" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
-        onClick: () => setCurrentTab("home")
+        onClick: () => handleTabChange("home")
       },
       /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard")
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
     ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F393} ", lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react28.default.createElement(
       StudentDashboard,
       {
@@ -65854,7 +65830,7 @@ ${liveUrl}`;
           if (!session) {
             setShowStudentJoinModal(true);
           } else {
-            setCurrentTab("live");
+            handleTabChange("live");
           }
         },
         onOpenReminderModal: () => {
@@ -65863,34 +65839,34 @@ ${liveUrl}`;
         },
         lang
       }
-    )) : currentTab === "admin" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "admin" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
-        onClick: () => setCurrentTab("home")
+        onClick: () => handleTabChange("home")
       },
       /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard")
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
     ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F6E1}\uFE0F ", lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react28.default.createElement(
       AdminPortalSection,
       {
         onLaunchInstructorStudio: (cls) => {
           if (cls) setActiveClass(cls);
-          setCurrentTab("live");
+          handleTabChange("live");
         },
         showToast,
         lang
       }
-    )) : currentTab === "live" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "live" || currentTab === "live-classes" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
-        onClick: () => setCurrentTab("home")
+        onClick: () => handleTabChange("home")
       },
       /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Dashboard")
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
     ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-white/20 hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "live-indicator-dot animate-pulse" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-black text-sm tracking-wide text-white" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Studio"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "badge-private-hd" }, "HD WebRTC"))), /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-2 ml-auto" }, /* @__PURE__ */ import_react28.default.createElement("span", { className: "text-xs text-white/70 font-semibold hidden sm:inline" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react28.default.createElement(
       "select",
       {
@@ -65913,12 +65889,124 @@ ${liveUrl}`;
             lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BBF\u0BA9\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "You left the live session",
             "info"
           );
-          setCurrentTab("home");
+          handleTabChange("home");
         },
         onRecordAttendance: handleRecordAttendance,
         lang
       }
-    )) : /* @__PURE__ */ import_react28.default.createElement("main", { className: "dashboard-content-grid-wrapper" }, /* @__PURE__ */ import_react28.default.createElement(
+    )) : currentTab === "yoga" || currentTab === "classes" || currentTab === "yoga-classes" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-yoga-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-back-dashboard-modern",
+        onClick: () => handleTabChange("home")
+      },
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Classes & Asanas Library")), /* @__PURE__ */ import_react28.default.createElement(
+      YogaClassesSection,
+      {
+        onSelectClass: (cls) => {
+          handleJoinLive(cls);
+        },
+        onShowAll: () => {
+        },
+        lang
+      }
+    )) : currentTab === "reminders" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-reminders-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react28.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-back-dashboard-modern",
+        onClick: () => handleTabChange("home")
+      },
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B85\u0BB2\u0BBE\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Reminders & Daily Alarms")), /* @__PURE__ */ import_react28.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-hero-primary py-2 px-4 text-xs font-bold",
+        onClick: () => {
+          setEditingReminder(null);
+          setIsReminderModalOpen(true);
+        }
+      },
+      "+ ",
+      lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Add Reminder"
+    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react28.default.createElement(
+      SmartCareTimeline,
+      {
+        reminders,
+        onToggleComplete: handleToggleComplete,
+        onToggleEnable: handleToggleEnable,
+        onDeleteReminder: handleDeleteReminder,
+        onEditReminder: handleEditReminder,
+        onTestSystemNotification: handleTestSystemNotification,
+        onShowAll: () => {
+          setEditingReminder(null);
+          setIsReminderModalOpen(true);
+        },
+        lang
+      }
+    )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "max-w-xl mx-auto" }, /* @__PURE__ */ import_react28.default.createElement(
+      QuickAddReminderCard,
+      {
+        onAddReminder: handleAddReminder,
+        lang
+      }
+    ))) : currentTab === "profile" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-profile-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-back-dashboard-modern",
+        onClick: () => handleTabChange("home")
+      },
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F464} ", lang === "ta" ? "\u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BB0\u0BCD \u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD & \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Member Profile & App Settings")), /* @__PURE__ */ import_react28.default.createElement(
+      ProfileSection,
+      {
+        user: user2,
+        onUpdateUser: handleUpdateUser,
+        showToast,
+        lang
+      }
+    )) : currentTab === "notes" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-notes-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-back-dashboard-modern",
+        onClick: () => handleTabChange("home")
+      },
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4DD} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Practice Notes")), /* @__PURE__ */ import_react28.default.createElement(YogaNotesSection, { lang })) : currentTab === "attendance" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-attendance-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-back-dashboard-modern",
+        onClick: () => handleTabChange("home")
+      },
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4CA} ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Attendance Analytics")), /* @__PURE__ */ import_react28.default.createElement(
+      AttendanceProgressSection,
+      {
+        user: user2,
+        attendanceLogs,
+        lang
+      }
+    )) : currentTab === "relaxation" ? /* @__PURE__ */ import_react28.default.createElement("main", { className: "dedicated-page-viewport dedicated-relaxation-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react28.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-back-dashboard-modern",
+        onClick: () => handleTabChange("home")
+      },
+      /* @__PURE__ */ import_react28.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react28.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F3B5} ", lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD & \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Relaxation & Pranayama")), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react28.default.createElement(PranayamaBreathingOrb, { lang }), /* @__PURE__ */ import_react28.default.createElement(RelaxationZone, { lang }))) : /* @__PURE__ */ import_react28.default.createElement("main", { className: "dashboard-content-grid-wrapper ya-reveal" }, /* @__PURE__ */ import_react28.default.createElement(
       HeroSection,
       {
         user: user2,
@@ -65935,10 +66023,7 @@ ${liveUrl}`;
         onDeleteReminder: handleDeleteReminder,
         onEditReminder: handleEditReminder,
         onTestSystemNotification: handleTestSystemNotification,
-        onShowAll: () => {
-          setEditingReminder(null);
-          setIsReminderModalOpen(true);
-        },
+        onShowAll: () => handleTabChange("reminders"),
         lang
       }
     ), /* @__PURE__ */ import_react28.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react28.default.createElement(
@@ -65947,7 +66032,7 @@ ${liveUrl}`;
         onSelectClass: (cls) => {
           handleJoinLive(cls);
         },
-        onShowAll: () => handleTabChange("classes"),
+        onShowAll: () => handleTabChange("yoga"),
         lang
       }
     )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react28.default.createElement(
@@ -65957,7 +66042,7 @@ ${liveUrl}`;
         onLeaveClass: () => showToast(lang === "ta" ? "\u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Session Ended", lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BBF\u0BA9\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "You left the live session", "info"),
         onRecordAttendance: handleRecordAttendance,
         onScheduleClass: handleScheduleClass,
-        onOpenFullStudio: () => setCurrentTab("live"),
+        onOpenFullStudio: () => handleTabChange("live"),
         lang
       }
     )), /* @__PURE__ */ import_react28.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react28.default.createElement(

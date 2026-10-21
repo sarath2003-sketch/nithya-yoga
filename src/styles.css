@@ -2415,8 +2415,9 @@ input, select, textarea {
 
 /* 5. Mobile Landscape & Standard Phones (max-width: 640px) */
 @media (max-width: 640px) {
-  .dashboard-content-grid-wrapper {
-    padding: 14px 14px 90px;
+  .dashboard-content-grid-wrapper,
+  .dedicated-page-viewport {
+    padding: 14px 14px calc(115px + env(safe-area-inset-bottom, 20px)) !important;
     gap: 16px;
   }
   .dashboard-card {
@@ -2495,8 +2496,9 @@ input, select, textarea {
 
 /* 6. Mobile Mid-Tier Screens (max-width: 480px) */
 @media (max-width: 480px) {
-  .dashboard-content-grid-wrapper {
-    padding: 12px 12px 90px;
+  .dashboard-content-grid-wrapper,
+  .dedicated-page-viewport {
+    padding: 12px 12px calc(115px + env(safe-area-inset-bottom, 20px)) !important;
     gap: 14px;
   }
   .dashboard-top-header {
@@ -2706,8 +2708,9 @@ input, select, textarea {
 
 /* 8. Small Screens (max-width: 360px - Android Compact) */
 @media (max-width: 360px) {
-  .dashboard-content-grid-wrapper {
-    padding: 10px 8px 85px;
+  .dashboard-content-grid-wrapper,
+  .dedicated-page-viewport {
+    padding: 10px 8px calc(115px + env(safe-area-inset-bottom, 20px)) !important;
   }
   .dashboard-top-header {
     padding-top: max(env(safe-area-inset-top, 0px), 18px);

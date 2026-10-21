@@ -494,45 +494,20 @@ export default function App() {
     if (tabId === 'live' || tabId === 'live-classes') {
       const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
       const isTrainer = hasTeacherToken && user?.role === 'trainer';
-      if (isTrainer) {
-        setCurrentTab('live');
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      } else {
+      setCurrentTab('live');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      if (!isTrainer) {
         const rawSession = loadStorage('nithya_student_session', null);
         const isValid = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
         if (!isValid) {
           setShowStudentJoinModal(true);
-        } else {
-          setCurrentTab('live');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
         }
       }
       return;
     }
 
     setCurrentTab(tabId);
-    if (tabId === 'student' || tabId === 'admin') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    if (tabId === 'home') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
-    let selector = '';
-    if (tabId === 'yoga' || tabId === 'classes' || tabId === 'yoga-classes') selector = '.col-classes';
-    else if (tabId === 'reminders') selector = '.today-reminders-section';
-    else if (tabId === 'notes') selector = '.col-notes';
-    else if (tabId === 'attendance') selector = '.col-progress';
-    else if (tabId === 'relaxation') selector = '.relaxation-zone-card';
-    else if (tabId === 'profile') selector = '.profile-dashboard-card';
-
-    if (selector) {
-      setTimeout(() => {
-        const el = document.querySelector(selector);
-        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 50);
-    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleAddReminder = (newReminder) => {
@@ -741,15 +716,15 @@ export default function App() {
           />
 
           {currentTab === 'student' ? (
-            <main className="dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal">
+            <main className="dedicated-page-viewport dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal">
               <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <button 
                   type="button" 
                   className="btn-back-dashboard-modern"
-                  onClick={() => setCurrentTab('home')}
+                  onClick={() => handleTabChange('home')}
                 >
                   <ArrowLeft size={14} className="back-arrow-icon" />
-                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}</span>
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
                 </button>
                 <div className="h-4 w-px bg-subtle hidden sm:block"></div>
                 <span className="font-bold text-sm text-heading flex items-center gap-1.5">
@@ -766,7 +741,7 @@ export default function App() {
                   if (!session) {
                     setShowStudentJoinModal(true);
                   } else {
-                    setCurrentTab('live');
+                    handleTabChange('live');
                   }
                 }}
                 onOpenReminderModal={() => {
@@ -777,15 +752,15 @@ export default function App() {
               />
             </main>
           ) : currentTab === 'admin' ? (
-            <main className="dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal">
+            <main className="dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal">
               <div className="flex items-center gap-3 mb-4 flex-wrap">
                 <button 
                   type="button" 
                   className="btn-back-dashboard-modern"
-                  onClick={() => setCurrentTab('home')}
+                  onClick={() => handleTabChange('home')}
                 >
                   <ArrowLeft size={14} className="back-arrow-icon" />
-                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}</span>
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
                 </button>
                 <div className="h-4 w-px bg-subtle hidden sm:block"></div>
                 <span className="font-bold text-sm text-heading flex items-center gap-1.5">
@@ -795,13 +770,13 @@ export default function App() {
               <AdminPortalSection
                 onLaunchInstructorStudio={(cls) => {
                   if (cls) setActiveClass(cls);
-                  setCurrentTab('live');
+                  handleTabChange('live');
                 }}
                 showToast={showToast}
                 lang={lang}
               />
             </main>
-          ) : currentTab === 'live' ? (
+          ) : (currentTab === 'live' || currentTab === 'live-classes') ? (
             <main className="dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal">
               {/* Luxury Studio Frame Header & Switcher */}
               <div className="live-studio-premium-frame mb-4">
@@ -809,10 +784,10 @@ export default function App() {
                   <button 
                     type="button" 
                     className="btn-back-dashboard-modern"
-                    onClick={() => setCurrentTab('home')}
+                    onClick={() => handleTabChange('home')}
                   >
                     <ArrowLeft size={14} className="back-arrow-icon" />
-                    <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Dashboard'}</span>
+                    <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
                   </button>
                   <div className="h-4 w-px bg-white/20 hidden sm:block"></div>
                   <div className="flex items-center gap-2">
@@ -855,14 +830,179 @@ export default function App() {
                     lang === 'ta' ? 'நீங்கள் அமர்விலிருந்து வெளியேறினீர்கள்' : 'You left the live session',
                     'info'
                   );
-                  setCurrentTab('home');
+                  handleTabChange('home');
                 }}
                 onRecordAttendance={handleRecordAttendance}
                 lang={lang}
               />
             </main>
+          ) : (currentTab === 'yoga' || currentTab === 'classes' || currentTab === 'yoga-classes') ? (
+            <main className="dedicated-page-viewport dedicated-yoga-viewport p-4 max-w-7xl mx-auto ya-reveal">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
+                <button 
+                  type="button" 
+                  className="btn-back-dashboard-modern"
+                  onClick={() => handleTabChange('home')}
+                >
+                  <ArrowLeft size={14} className="back-arrow-icon" />
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
+                </button>
+                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                  🧘‍♀️ {lang === 'ta' ? 'யோகா வகுப்புகள் & ஆசனங்கள்' : 'Yoga Classes & Asanas Library'}
+                </span>
+              </div>
+
+              <YogaClassesSection
+                onSelectClass={(cls) => {
+                  handleJoinLive(cls);
+                }}
+                onShowAll={() => {}}
+                lang={lang}
+              />
+            </main>
+          ) : (currentTab === 'reminders') ? (
+            <main className="dedicated-page-viewport dedicated-reminders-viewport p-4 max-w-7xl mx-auto ya-reveal">
+              <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <div className="flex items-center gap-3">
+                  <button 
+                    type="button" 
+                    className="btn-back-dashboard-modern"
+                    onClick={() => handleTabChange('home')}
+                  >
+                    <ArrowLeft size={14} className="back-arrow-icon" />
+                    <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
+                  </button>
+                  <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                  <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                    🔔 {lang === 'ta' ? 'யோகா நினைவூட்டல்கள் & அலாரங்கள்' : 'Mindful Reminders & Daily Alarms'}
+                  </span>
+                </div>
+
+                <button
+                  type="button"
+                  className="btn-hero-primary py-2 px-4 text-xs font-bold"
+                  onClick={() => {
+                    setEditingReminder(null);
+                    setIsReminderModalOpen(true);
+                  }}
+                >
+                  + {lang === 'ta' ? 'புதிய நினைவூட்டல்' : 'Add Reminder'}
+                </button>
+              </div>
+
+              {/* Today's Reminders Cards */}
+              <div className="mb-6">
+                <SmartCareTimeline
+                  reminders={reminders}
+                  onToggleComplete={handleToggleComplete}
+                  onToggleEnable={handleToggleEnable}
+                  onDeleteReminder={handleDeleteReminder}
+                  onEditReminder={handleEditReminder}
+                  onTestSystemNotification={handleTestSystemNotification}
+                  onShowAll={() => {
+                    setEditingReminder(null);
+                    setIsReminderModalOpen(true);
+                  }}
+                  lang={lang}
+                />
+              </div>
+
+              {/* Quick Add Custom Reminder */}
+              <div className="max-w-xl mx-auto">
+                <QuickAddReminderCard
+                  onAddReminder={handleAddReminder}
+                  lang={lang}
+                />
+              </div>
+            </main>
+          ) : (currentTab === 'profile') ? (
+            <main className="dedicated-page-viewport dedicated-profile-viewport p-4 max-w-7xl mx-auto ya-reveal">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
+                <button 
+                  type="button" 
+                  className="btn-back-dashboard-modern"
+                  onClick={() => handleTabChange('home')}
+                >
+                  <ArrowLeft size={14} className="back-arrow-icon" />
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
+                </button>
+                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                  👤 {lang === 'ta' ? 'உறுப்பினர் சுயவிவரம் & அமைப்புகள்' : 'Member Profile & App Settings'}
+                </span>
+              </div>
+
+              <ProfileSection
+                user={user}
+                onUpdateUser={handleUpdateUser}
+                showToast={showToast}
+                lang={lang}
+              />
+            </main>
+          ) : (currentTab === 'notes') ? (
+            <main className="dedicated-page-viewport dedicated-notes-viewport p-4 max-w-7xl mx-auto ya-reveal">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
+                <button 
+                  type="button" 
+                  className="btn-back-dashboard-modern"
+                  onClick={() => handleTabChange('home')}
+                >
+                  <ArrowLeft size={14} className="back-arrow-icon" />
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
+                </button>
+                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                  📝 {lang === 'ta' ? 'யோகா குறிப்புகள்' : 'Yoga Practice Notes'}
+                </span>
+              </div>
+              <YogaNotesSection lang={lang} />
+            </main>
+          ) : (currentTab === 'attendance') ? (
+            <main className="dedicated-page-viewport dedicated-attendance-viewport p-4 max-w-7xl mx-auto ya-reveal">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
+                <button 
+                  type="button" 
+                  className="btn-back-dashboard-modern"
+                  onClick={() => handleTabChange('home')}
+                >
+                  <ArrowLeft size={14} className="back-arrow-icon" />
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
+                </button>
+                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                  📊 {lang === 'ta' ? 'வருகை புள்ளிவிவரங்கள்' : 'Attendance Analytics'}
+                </span>
+              </div>
+              <AttendanceProgressSection
+                user={user}
+                attendanceLogs={attendanceLogs}
+                lang={lang}
+              />
+            </main>
+          ) : (currentTab === 'relaxation') ? (
+            <main className="dedicated-page-viewport dedicated-relaxation-viewport p-4 max-w-7xl mx-auto ya-reveal">
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
+                <button 
+                  type="button" 
+                  className="btn-back-dashboard-modern"
+                  onClick={() => handleTabChange('home')}
+                >
+                  <ArrowLeft size={14} className="back-arrow-icon" />
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
+                </button>
+                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                  🎵 {lang === 'ta' ? 'ரிலாக்சேஷன் & பிராணாயாமம்' : 'Relaxation & Pranayama'}
+                </span>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <PranayamaBreathingOrb lang={lang} />
+                <RelaxationZone lang={lang} />
+              </div>
+            </main>
           ) : (
-            <main className="dashboard-content-grid-wrapper">
+            <main className="dashboard-content-grid-wrapper ya-reveal">
               {/* Row 1: Panoramic Hero Banner (Left) + User Profile Bento (Right) */}
               <HeroSection
                 user={user}
@@ -879,10 +1019,7 @@ export default function App() {
                 onDeleteReminder={handleDeleteReminder}
                 onEditReminder={handleEditReminder}
                 onTestSystemNotification={handleTestSystemNotification}
-                onShowAll={() => {
-                  setEditingReminder(null);
-                  setIsReminderModalOpen(true);
-                }}
+                onShowAll={() => handleTabChange('reminders')}
                 lang={lang}
               />
 
@@ -894,7 +1031,7 @@ export default function App() {
                     onSelectClass={(cls) => {
                       handleJoinLive(cls);
                     }}
-                    onShowAll={() => handleTabChange('classes')}
+                    onShowAll={() => handleTabChange('yoga')}
                     lang={lang}
                   />
                 </div>
@@ -906,7 +1043,7 @@ export default function App() {
                     onLeaveClass={() => showToast(lang === 'ta' ? 'அமர்வு முடிந்தது' : 'Session Ended', lang === 'ta' ? 'நீங்கள் அமர்விலிருந்து வெளியேறினீர்கள்' : 'You left the live session', 'info')}
                     onRecordAttendance={handleRecordAttendance}
                     onScheduleClass={handleScheduleClass}
-                    onOpenFullStudio={() => setCurrentTab('live')}
+                    onOpenFullStudio={() => handleTabChange('live')}
                     lang={lang}
                   />
                 </div>

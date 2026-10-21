@@ -20,7 +20,7 @@ function assert(condition, message) {
 try {
   const versionPath = path.join(__dirname, '..', 'version.json');
   const versionData = JSON.parse(fs.readFileSync(versionPath, 'utf8'));
-  assert(versionData.version === '1.2.1' || versionData.version === '1.2.0', 'version.json version is valid release');
+  assert(versionData.version === '1.3.0' || versionData.version === '1.2.1' || versionData.version === '1.2.0', 'version.json version is valid release');
   assert(versionData.versionCode >= 3, 'version.json versionCode is >= 3');
   assert(versionData.apkUrl.includes('NITHYA-Yoga-v1.0.apk'), 'version.json apkUrl points to valid APK');
 } catch (e) {

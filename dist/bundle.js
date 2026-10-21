@@ -25792,6 +25792,10 @@
     }
     setTimeout(() => {
       if (typeof window !== "undefined") {
+        if (window.AndroidNativeUpdater && typeof window.AndroidNativeUpdater.reloadAppFresh === "function") {
+          window.AndroidNativeUpdater.reloadAppFresh();
+          return;
+        }
         const isCapacitorOrLocal = window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1" || window.location.protocol === "capacitor:" || window.location.protocol === "file:";
         if (isCapacitorOrLocal) {
           window.location.reload();
@@ -25804,8 +25808,8 @@
   var APP_VERSION, APP_BUILD_NUMBER;
   var init_versionManager = __esm({
     "src/utils/versionManager.js"() {
-      APP_VERSION = "1.2.1";
-      APP_BUILD_NUMBER = 5;
+      APP_VERSION = "1.3.0";
+      APP_BUILD_NUMBER = 6;
     }
   });
 

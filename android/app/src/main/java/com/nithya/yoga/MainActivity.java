@@ -40,6 +40,8 @@ public class MainActivity extends BridgeActivity {
         // Configure WebView for direct external browser launches, file downloads, and native notifications
         if (getBridge() != null && getBridge().getWebView() != null) {
             WebView webView = getBridge().getWebView();
+            webView.getSettings().setDomStorageEnabled(true);
+            webView.getSettings().setCacheMode(android.webkit.WebSettings.LOAD_DEFAULT);
 
             // Android DownloadListener: opens any APK or external download in Google Chrome
             webView.setDownloadListener(new DownloadListener() {
@@ -54,6 +56,17 @@ public class MainActivity extends BridgeActivity {
                 @JavascriptInterface
                 public void openInChrome(String url) {
                     openInExternalBrowser(url);
+                }
+
+                @JavascriptInterface
+                public void reloadAppFresh() {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            webView.clearCache(true);
+                            webView.reload();
+                        }
+                    });
                 }
 
                 @JavascriptInterface

@@ -5,8 +5,8 @@
  * and state-aware update checking (idle, checking, available, current, error).
  */
 
-export const APP_VERSION = '1.2.1';
-export const APP_BUILD_NUMBER = 5;
+export const APP_VERSION = '1.3.0';
+export const APP_BUILD_NUMBER = 6;
 
 /**
  * Compare two semantic version strings (e.g. "1.2.1" vs "1.2.0")
@@ -143,6 +143,10 @@ export async function applyAppUpdate(remoteVersion = APP_VERSION, remoteBuild = 
   // Reload page
   setTimeout(() => {
     if (typeof window !== 'undefined') {
+      if (window.AndroidNativeUpdater && typeof window.AndroidNativeUpdater.reloadAppFresh === 'function') {
+        window.AndroidNativeUpdater.reloadAppFresh();
+        return;
+      }
       const isCapacitorOrLocal = 
         window.location.hostname === 'localhost' ||
         window.location.hostname === '127.0.0.1' ||

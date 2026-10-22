@@ -63905,6 +63905,17 @@
     const [sessionSeconds, setSessionSeconds] = (0, import_react10.useState)(0);
     const [hasAttendanceRecorded, setHasAttendanceRecorded] = (0, import_react10.useState)(false);
     const [showChat, setShowChat] = (0, import_react10.useState)(false);
+    const [isRecording, setIsRecording] = (0, import_react10.useState)(false);
+    const [showAsanaGuide, setShowAsanaGuide] = (0, import_react10.useState)(false);
+    const [showToolMenu, setShowToolMenu] = (0, import_react10.useState)(false);
+    const chatStreamRef = (0, import_react10.useRef)(null);
+    const handleToggleRecord = () => {
+      setIsRecording((prev) => !prev);
+      try {
+        audioEngine.playNote("high");
+      } catch (_2) {
+      }
+    };
     const [chatMessages, setChatMessages] = (0, import_react10.useState)([
       {
         id: "msg-welcome",
@@ -63912,6 +63923,20 @@
         text: lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1 \u0BA8\u0BB2\u0BCD\u0BB5\u0BB0\u0BB5\u0BC1! \u0B86\u0B9F\u0BBF\u0BAF\u0BCB, \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BC6\u0BAF\u0BB2\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1." : "Welcome to Live Yoga Class! Real-time WebRTC audio & video active.",
         time: "Just now",
         isSystem: true
+      },
+      {
+        id: "msg-1",
+        sender: "Laura Williams",
+        text: lang === "ta" ? "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD! \u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0B86\u0B9A\u0BA9\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BB3\u0BC7\u0BA9\u0BCD \u{1F64F}" : "Good morning Master! Ready for today's Surya Namaskar & Prana flow \u{1F64F}",
+        time: "10:02 AM",
+        isLocal: false
+      },
+      {
+        id: "msg-2",
+        sender: "NITHYA Master",
+        text: lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BB5\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BB2\u0BCD\u0BB5\u0BB0\u0BB5\u0BC1! \u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0BB5\u0BCB\u0BAE\u0BCD." : "Welcome everyone! Let us begin with deep mindful breathing.",
+        time: "10:03 AM",
+        isLocal: false
       }
     ]);
     const [chatInput, setChatInput] = (0, import_react10.useState)("");
@@ -64966,88 +64991,11 @@ ${url}`;
       (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && s.identity !== "instructor-lead" && s.identity !== "instructor-local" && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Yoga Member", "Yoga Student", "Student"].includes(s.name) && Boolean(s.phone && String(s.phone).replace(/\D/g, "").length >= 10)
     );
     const currentStudentCount = isInstructorRole ? realStudentsList.length : Math.max(1, realStudentsList.length);
-    return /* @__PURE__ */ import_react10.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, handAlertMsg && /* @__PURE__ */ import_react10.default.createElement("div", { className: "absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-full shadow-2xl backdrop-blur flex items-center gap-2 animate-bounce border border-amber-200" }, /* @__PURE__ */ import_react10.default.createElement(Hand, { size: 18, className: "text-slate-950" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-xs" }, handAlertMsg)), /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-studio-header" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "header-left-title-cluster" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "live-status-pill-indicator" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: `live-pulse-dot ${connectionState === "connected" ? "active-green" : "connecting-amber"}` }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "live-pill-text" }, connectionState === "connected" ? "LIVE" : lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "class-title-meta flex flex-col" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "inline-block px-2.5 py-0.5 mb-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-[11px] font-bold uppercase tracking-wider w-fit" }, courseName || activeClass?.courseName || activeClass?.course_name || "Morning Yoga Flow"), /* @__PURE__ */ import_react10.default.createElement("h3", { className: "live-class-heading m-0 text-base font-bold text-white flex items-center gap-2" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "live-instructor-subtitle text-xs text-slate-400" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Led by", " ", /* @__PURE__ */ import_react10.default.createElement("strong", { className: "text-slate-200" }, activeClass?.instructor || "NITHYA Master")))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "header-right-tools" }, connectionState === "connected" && /* @__PURE__ */ import_react10.default.createElement(
+    return /* @__PURE__ */ import_react10.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, handAlertMsg && /* @__PURE__ */ import_react10.default.createElement("div", { className: "absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-full shadow-2xl backdrop-blur flex items-center gap-2 animate-bounce border border-amber-200" }, /* @__PURE__ */ import_react10.default.createElement(Hand, { size: 18, className: "text-slate-950" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-xs" }, handAlertMsg)), connectionState === "idle" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-lobby-card p-6 md:p-10 max-w-2xl mx-auto my-6 text-center bg-white rounded-3xl border border-[#EAE3F2] shadow-xl" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "lobby-artwork-wrap flex justify-center mb-4" }, /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 64 })), /* @__PURE__ */ import_react10.default.createElement("h3", { className: "lobby-headline font-bold text-2xl text-[#29233D] mb-2 font-['Poppins']" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga & Asanas Flow"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "lobby-subtext text-sm text-[#777184] mb-6 max-w-md mx-auto" }, lang === "ta" ? "\u0B89\u0BAF\u0BB0\u0BCD\u0BA4\u0BB0 \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0BA4\u0BCD \u0BA4\u0BCB\u0BB4\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Interactive low-latency WebRTC live stream with certified instructor NITHYA Master."), /* @__PURE__ */ import_react10.default.createElement("div", { className: "lobby-role-selector grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6" }, /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: `role-toggle-pill ${showParticipantsDrawer ? "as-instructor" : ""}`,
-        onClick: () => {
-          setShowParticipantsDrawer(!showParticipantsDrawer);
-          setShowChat(false);
-        },
-        title: lang === "ta" ? `\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8: ${currentStudentCount}` : `Students count: ${currentStudentCount}`
-      },
-      /* @__PURE__ */ import_react10.default.createElement(Users, { size: 14, className: "text-sky-400" }),
-      /* @__PURE__ */ import_react10.default.createElement("span", { className: "font-bold" }, currentStudentCount),
-      /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[11px] font-normal opacity-80 hidden sm:inline" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : currentStudentCount === 1 ? "Student" : "Students")
-    ), isInstructorRole ? /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "role-toggle-pill as-instructor",
-        onClick: handleToggleRole,
-        title: lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAE\u0BC1\u0BB1\u0BC8" : "Instructor / Host"
-      },
-      /* @__PURE__ */ import_react10.default.createElement(Crown, { size: 14, className: "text-amber-400" }),
-      /* @__PURE__ */ import_react10.default.createElement("span", { className: "font-bold" }, lang === "ta" ? "\u{1F451} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD" : "\u{1F451} Host")
-    ) : /* @__PURE__ */ import_react10.default.createElement("div", { className: "role-toggle-pill as-student opacity-95" }, /* @__PURE__ */ import_react10.default.createElement(Users, { size: 14, className: "text-indigo-400" }), /* @__PURE__ */ import_react10.default.createElement("span", { className: "font-bold" }, lang === "ta" ? "\u{1F9D8} \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "\u{1F9D8} Student")), connectionState === "connected" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "live-timer-chip" }, /* @__PURE__ */ import_react10.default.createElement(Radio, { size: 13, className: "timer-radio-icon" }), /* @__PURE__ */ import_react10.default.createElement("span", null, formatTimer(sessionSeconds))), connectionState === "connected" && /* @__PURE__ */ import_react10.default.createElement(
-      "div",
-      {
-        className: `live-timer-chip ${currentAttendancePct >= 70 ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/10 text-amber-600 border border-amber-500/30"}`,
-        title: `Class Attendance: ${currentAttendancePct}% (Target: 70%)`
-      },
-      /* @__PURE__ */ import_react10.default.createElement(Award, { size: 13, className: currentAttendancePct >= 70 ? "text-emerald-500" : "text-amber-500" }),
-      /* @__PURE__ */ import_react10.default.createElement("span", null, currentAttendancePct >= 70 ? "\u2713 Present (70%+)" : `${currentAttendancePct}% Attendance`)
-    ), isInstructorRole && /* @__PURE__ */ import_react10.default.createElement(import_react10.default.Fragment, null, /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "header-icon-tool-btn ya-icon-btn",
-        onClick: handleCopyShareLink,
-        title: copiedLink ? "Link Copied!" : "Copy Live Class Link"
-      },
-      copiedLink ? /* @__PURE__ */ import_react10.default.createElement(Check, { size: 16, className: "text-emerald-500" }) : /* @__PURE__ */ import_react10.default.createElement(Copy, { size: 16 })
-    ), /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "header-icon-tool-btn ya-icon-btn",
-        onClick: handleWhatsAppShare,
-        title: "Share via WhatsApp"
-      },
-      /* @__PURE__ */ import_react10.default.createElement(Share2, { size: 16 })
-    ), /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "header-icon-tool-btn ya-icon-btn",
-        onClick: () => setShowAttendanceDrawer(true),
-        title: "Attendance Register"
-      },
-      /* @__PURE__ */ import_react10.default.createElement(FileText, { size: 16 })
-    )), /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "header-icon-tool-btn ya-icon-btn",
-        onClick: handleToggleFullscreen,
-        title: isFullscreen ? "Exit Fullscreen" : "Fullscreen"
-      },
-      isFullscreen ? /* @__PURE__ */ import_react10.default.createElement(Minimize2, { size: 16 }) : /* @__PURE__ */ import_react10.default.createElement(Maximize2, { size: 16 })
-    ), isInstructorRole && /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "header-icon-tool-btn ya-icon-btn",
-        onClick: () => setShowConfigModal(true),
-        title: "LiveKit Server Credentials"
-      },
-      /* @__PURE__ */ import_react10.default.createElement(Settings, { size: 16 })
-    ))), connectionState === "connected" && !teacherOnline && teacherGraceRemaining !== null && !isInstructorRole && /* @__PURE__ */ import_react10.default.createElement("div", { className: "teacher-grace-banner animate-pulse" }, /* @__PURE__ */ import_react10.default.createElement(CircleAlert, { size: 15, className: "text-amber-400 shrink-0" }), /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? `\u26A0\uFE0F \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BA4\u0BB1\u0BCD\u0B95\u0BBE\u0BB2\u0BBF\u0B95\u0BAE\u0BBE\u0B95 \u0BA4\u0BC1\u0BA3\u0BCD\u0B9F\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BBE\u0BB0\u0BCD. \u0BAE\u0BC0\u0BA4\u0BAE\u0BC1\u0BB3\u0BCD\u0BB3 \u0B85\u0BB5\u0B95\u0BBE\u0B9A \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD: ${formatTimer(teacherGraceRemaining)}. \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BBE\u0BA9\u0BBE\u0B95\u0BB5\u0BC7 \u0BA4\u0BCA\u0B9F\u0BB0\u0BC1\u0BAE\u0BCD.` : `\u26A0\uFE0F Instructor is temporarily disconnected. Grace period remaining: ${formatTimer(teacherGraceRemaining)}. Class will resume automatically when instructor reconnects.`)), /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-studio-body" }, connectionState === "idle" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-lobby-card" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "lobby-artwork-wrap" }, /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 64 })), /* @__PURE__ */ import_react10.default.createElement("h3", { className: "lobby-headline" }, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Ready for your Live Yoga Class"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "lobby-subtext" }, lang === "ta" ? "\u0B89\u0BAF\u0BB0\u0BCD\u0BA4\u0BB0 \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0BA4\u0BCD \u0BA4\u0BCB\u0BB4\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Real-time peer-to-peer WebRTC video & crystal-clear audio with your instructor and classmates."), /* @__PURE__ */ import_react10.default.createElement("div", { className: "lobby-role-selector" }, /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `role-card-btn ${isInstructorRole ? "selected" : ""}`,
+        className: `p-3.5 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer ${isInstructorRole ? "border-[#9B7AE8] bg-[#F8F5FF] shadow-sm" : "border-[#EAE3F2] bg-white hover:border-[#9B7AE8]/40"}`,
         onClick: () => {
           setIsInstructorRole(true);
           try {
@@ -65058,13 +65006,13 @@ ${url}`;
           }
         }
       },
-      /* @__PURE__ */ import_react10.default.createElement(Crown, { size: 20, className: "text-amber-400" }),
-      /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("strong", null, lang === "ta" ? "\u{1F451} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD (\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD)" : "\u{1F451} NITHYA Master (Instructor / Host)"), /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD & \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Lead class, broadcast live camera & manage attendance"))
+      /* @__PURE__ */ import_react10.default.createElement(Crown, { size: 22, className: "text-amber-500 shrink-0" }),
+      /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("strong", { className: "block text-xs font-bold text-[#29233D]" }, lang === "ta" ? "\u{1F451} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD" : "\u{1F451} Host (Trainer)"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[11px] text-[#777184]" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Broadcast camera & guide"))
     ), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: `role-card-btn ${!isInstructorRole ? "selected" : ""}`,
+        className: `p-3.5 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer ${!isInstructorRole ? "border-[#9B7AE8] bg-[#F8F5FF] shadow-sm" : "border-[#EAE3F2] bg-white hover:border-[#9B7AE8]/40"}`,
         onClick: () => {
           setIsInstructorRole(false);
           try {
@@ -65073,13 +65021,13 @@ ${url}`;
           }
         }
       },
-      /* @__PURE__ */ import_react10.default.createElement(Users, { size: 20, className: "text-emerald-400" }),
-      /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("strong", null, lang === "ta" ? "\u{1F465} \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAE\u0BC1\u0BB1\u0BC8 (Student Mode)" : "\u{1F465} Student Practitioner"), /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BB1\u0BC1 \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Join class & follow instructor guidance"))
-    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "lobby-media-preview-row" }, /* @__PURE__ */ import_react10.default.createElement(
+      /* @__PURE__ */ import_react10.default.createElement(Users, { size: 22, className: "text-indigo-500 shrink-0" }),
+      /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("strong", { className: "block text-xs font-bold text-[#29233D]" }, lang === "ta" ? "\u{1F465} \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAE\u0BC1\u0BB1\u0BC8" : "\u{1F465} Student Practitioner"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[11px] text-[#777184]" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF\u0BAF\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Join class & follow guidance"))
+    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center justify-center gap-3 mb-6" }, /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: `media-check-toggle ${isMicOn ? "active" : "muted"}`,
+        className: `flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold cursor-pointer transition-all ${isMicOn ? "bg-[#EAF7EE] border-[#C3EBCF] text-[#10B981]" : "bg-[#FFF1F0] border-[#FFD8D6] text-[#EF4444]"}`,
         onClick: () => setIsMicOn(!isMicOn)
       },
       isMicOn ? /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 15 }) : /* @__PURE__ */ import_react10.default.createElement(MicOff, { size: 15 }),
@@ -65088,57 +65036,75 @@ ${url}`;
       "button",
       {
         type: "button",
-        className: `media-check-toggle ${isVideoOn ? "active" : "muted"}`,
+        className: `flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold cursor-pointer transition-all ${isVideoOn ? "bg-[#EAF7EE] border-[#C3EBCF] text-[#10B981]" : "bg-[#FFF1F0] border-[#FFD8D6] text-[#EF4444]"}`,
         onClick: () => setIsVideoOn(!isVideoOn)
       },
       isVideoOn ? /* @__PURE__ */ import_react10.default.createElement(Video, { size: 15 }) : /* @__PURE__ */ import_react10.default.createElement(VideoOff, { size: 15 }),
       /* @__PURE__ */ import_react10.default.createElement("span", null, isVideoOn ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0BA9\u0BCD" : "Camera On" : lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")
-    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "lobby-actions-row" }, /* @__PURE__ */ import_react10.default.createElement(
+    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "mb-4" }, /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "btn-join-studio ya-btn ya-ripple",
+        className: "btn-join-studio ya-btn w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#9B7AE8] to-[#7C3AED] text-white font-bold text-sm shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 cursor-pointer flex items-center justify-center gap-2",
         onClick: connectToRoom
       },
-      /* @__PURE__ */ import_react10.default.createElement(Radio, { size: 16 }),
+      /* @__PURE__ */ import_react10.default.createElement(Radio, { size: 18 }),
       /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Enter Live Yoga Room")
-    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "lobby-share-box mt-3 text-left" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "lobby-share-label" }, lang === "ta" ? "\u{1F517} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD (\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BAA\u0B95\u0BBF\u0BB0):" : "\u{1F517} Share Class Link with Students (Live Link):"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "share-link-pill mb-2 select-all" }, getShareableClassLink()), /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-2 flex-wrap pt-1" }, /* @__PURE__ */ import_react10.default.createElement(
+    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "mt-4 p-3.5 bg-[#F8F5FF] rounded-2xl border border-[#EAE3F2] text-left" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "block text-xs font-bold text-[#29233D] mb-1" }, lang === "ta" ? "\u{1F517} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD:" : "\u{1F517} Class Invite Link:"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "p-2 bg-white rounded-xl border border-[#EAE3F2] text-[11px] text-[#777184] truncate mb-2 select-all font-mono" }, getShareableClassLink()), /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-btn--primary text-xs px-3 py-1.5 flex items-center gap-1.5 font-bold cursor-pointer",
+        className: "px-3 py-1.5 rounded-full bg-[#9B7AE8] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer",
         onClick: handleCopyShareLink
       },
-      copiedLink ? /* @__PURE__ */ import_react10.default.createElement(Check, { size: 14, className: "text-white" }) : /* @__PURE__ */ import_react10.default.createElement(Copy, { size: 14 }),
-      /* @__PURE__ */ import_react10.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Copied!" : lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1" : "Copy Live Link")
+      copiedLink ? /* @__PURE__ */ import_react10.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react10.default.createElement(Copy, { size: 13 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, copiedLink ? "Copied!" : "Copy Live Link")
     ), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn text-xs px-3 py-1.5 flex items-center gap-1.5 font-bold cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white",
+        className: "px-3 py-1.5 rounded-full bg-[#10B981] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer",
         onClick: handleWhatsAppShare
       },
-      /* @__PURE__ */ import_react10.default.createElement(Share2, { size: 14 }),
-      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BCD" : "Share on WhatsApp")
-    ))), needsSetup && /* @__PURE__ */ import_react10.default.createElement("div", { className: "needs-config-banner", onClick: () => setShowConfigModal(true) }, /* @__PURE__ */ import_react10.default.createElement(CircleAlert, { size: 15 }), /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BA8\u0BB1\u0BCD\u0B9A\u0BBE\u0BA9\u0BCD\u0BB1\u0BBF\u0BA4\u0BB4\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BAE\u0BC8\u0B95\u0BCD\u0B95 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "LiveKit server credentials needed \u2014 Click here to configure."))), connectionState === "connecting" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-loading-state" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "spinner-lotus-wrap" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "outer-pulse-ring" }), /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 52 })), /* @__PURE__ */ import_react10.default.createElement("h4", { className: "loading-title" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to LiveKit WebRTC Studio..."), /* @__PURE__ */ import_react10.default.createElement("p", { className: "loading-sub" }, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0BA9 \u0B9F\u0BCB\u0B95\u0BCD\u0B95\u0BA9\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1 & \u0B86\u0B9F\u0BBF\u0BAF\u0BCB/\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAA\u0BB0\u0BBF\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Negotiating secure media channels & joining room...")), connectionState === "error" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-error-state" }, /* @__PURE__ */ import_react10.default.createElement(CircleAlert, { size: 42, className: "error-icon" }), /* @__PURE__ */ import_react10.default.createElement("h4", { className: "error-heading" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF" : "Connection Failed"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "error-detail-text" }, errorMessage), /* @__PURE__ */ import_react10.default.createElement("div", { className: "error-actions-row" }, /* @__PURE__ */ import_react10.default.createElement(
+      /* @__PURE__ */ import_react10.default.createElement(Share2, { size: 13 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, "Share WhatsApp")
+    )))), connectionState === "connecting" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-loading-state p-12 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-[#EAE3F2] shadow-xl" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "spinner-lotus-wrap flex justify-center mb-4" }, /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 56 })), /* @__PURE__ */ import_react10.default.createElement("h4", { className: "loading-title font-bold text-lg text-[#29233D] mb-2 font-['Poppins']" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Studio..."), /* @__PURE__ */ import_react10.default.createElement("p", { className: "loading-sub text-xs text-[#777184]" }, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0BA9 \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAA\u0BB0\u0BBF\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Negotiating secure WebRTC channels & connecting live feed...")), connectionState === "error" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-error-state p-8 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-rose-200 shadow-xl" }, /* @__PURE__ */ import_react10.default.createElement(CircleAlert, { size: 42, className: "error-icon text-rose-500 mx-auto mb-3" }), /* @__PURE__ */ import_react10.default.createElement("h4", { className: "error-heading font-bold text-lg text-[#29233D] mb-2" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF" : "Connection Failed"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "error-detail-text text-xs text-[#777184] mb-6" }, errorMessage), /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex justify-center gap-3" }, /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-ripple",
+        className: "px-4 py-2 rounded-xl bg-[#9B7AE8] text-white font-bold text-xs cursor-pointer flex items-center gap-2",
         onClick: connectToRoom
       },
-      /* @__PURE__ */ import_react10.default.createElement(RefreshCw, { size: 15 }),
-      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0BAF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95" : "Retry Connection")
+      /* @__PURE__ */ import_react10.default.createElement(RefreshCw, { size: 14 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, "Retry")
+    ))), connectionState === "connected" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-live-classroom-container" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-live-class-header" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-header-title-col" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-header-badge-row" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-live-indicator" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-live-pulse-dot" }), "LIVE"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-course-tag" }, courseName || activeClass?.courseName || activeClass?.course_name || "Live Yoga & Asanas Flow")), /* @__PURE__ */ import_react10.default.createElement("h2", { className: "figma-class-main-title" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow & Alignment"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-instructor-pill" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-instructor-avatar-mini" }, /* @__PURE__ */ import_react10.default.createElement("span", null, "\u{1F451}")), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-instructor-name" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Instructor:", " ", /* @__PURE__ */ import_react10.default.createElement("strong", null, activeClass?.instructor || "NITHYA Master")), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-role-chip" }, isInstructorRole ? "Host (You)" : "Certified Master"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-header-controls-col" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-time-remaining-card" }, /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC0\u0BA4\u0BAE\u0BC1\u0BB3\u0BCD\u0BB3 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD:" : "Time remaining:"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "time-val" }, "\u23F1 ", formatTimer(Math.max(0, 7200 - sessionSeconds)))), /* @__PURE__ */ import_react10.default.createElement(
+      "div",
+      {
+        className: `figma-attendance-pill ${currentAttendancePct >= 70 ? "present" : ""}`,
+        onClick: () => handleVerifyAttendance(false),
+        title: "Class Attendance Status"
+      },
+      /* @__PURE__ */ import_react10.default.createElement(Award, { size: 15 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, currentAttendancePct >= 70 ? "\u2713 Present (70%+)" : `${currentAttendancePct}% Attendance`)
     ), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-btn--soft",
-        onClick: () => setShowConfigModal(true)
+        className: "figma-glass-icon-btn",
+        onClick: handleToggleFullscreen,
+        title: isFullscreen ? "Exit Fullscreen" : "Fullscreen"
       },
-      /* @__PURE__ */ import_react10.default.createElement(Settings, { size: 15 }),
-      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Configure LiveKit")
-    ))), connectionState === "connected" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-active-room-layout" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: `video-stage-area ${layoutMode === "grid" ? "grid-view" : "spotlight-view"}` }, layoutMode === "spotlight" ? /* @__PURE__ */ import_react10.default.createElement(import_react10.default.Fragment, null, /* @__PURE__ */ import_react10.default.createElement("div", { className: "spotlight-main-stage" }, spotlightParticipant ? /* @__PURE__ */ import_react10.default.createElement(
+      isFullscreen ? /* @__PURE__ */ import_react10.default.createElement(Minimize2, { size: 16 }) : /* @__PURE__ */ import_react10.default.createElement(Maximize2, { size: 16 })
+    ), isInstructorRole && /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-glass-icon-btn",
+        onClick: () => setShowConfigModal(true),
+        title: "Server Configuration"
+      },
+      /* @__PURE__ */ import_react10.default.createElement(Settings, { size: 16 })
+    ))), !teacherOnline && teacherGraceRemaining !== null && !isInstructorRole && /* @__PURE__ */ import_react10.default.createElement("div", { className: "p-3 bg-amber-500/15 border border-amber-500/30 rounded-2xl flex items-center gap-2 text-amber-800 text-xs font-semibold" }, /* @__PURE__ */ import_react10.default.createElement(CircleAlert, { size: 15, className: "shrink-0 text-amber-600" }), /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? `\u26A0\uFE0F \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BA4\u0BB1\u0BCD\u0B95\u0BBE\u0BB2\u0BBF\u0B95\u0BAE\u0BBE\u0B95 \u0BA4\u0BC1\u0BA3\u0BCD\u0B9F\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB3\u0BCD\u0BB3\u0BBE\u0BB0\u0BCD. \u0BAE\u0BC0\u0BA4\u0BAE\u0BC1\u0BB3\u0BCD\u0BB3 \u0B85\u0BB5\u0B95\u0BBE\u0B9A \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD: ${formatTimer(teacherGraceRemaining)}.` : `\u26A0\uFE0F Instructor temporarily disconnected. Grace period remaining: ${formatTimer(teacherGraceRemaining)}.`)), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-live-main-grid" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-left-stage-column" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-featured-video-card" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-video-viewport-wrapper" }, spotlightParticipant ? /* @__PURE__ */ import_react10.default.createElement(
       ParticipantTile,
       {
         participant: spotlightParticipant,
@@ -65150,164 +65116,68 @@ ${url}`;
         isMirrored,
         lang
       }
-    ) : /* @__PURE__ */ import_react10.default.createElement("div", { className: "waiting-for-teacher-placeholder" }, /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 48 }), /* @__PURE__ */ import_react10.default.createElement("p", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Waiting for instructor to enter the stage..."))), otherParticipants.length > 0 && /* @__PURE__ */ import_react10.default.createElement("div", { className: "spotlight-filmstrip-row" }, otherParticipants.map((p) => /* @__PURE__ */ import_react10.default.createElement("div", { key: p.identity, className: "filmstrip-tile-wrapper" }, /* @__PURE__ */ import_react10.default.createElement(
-      ParticipantTile,
-      {
-        participant: p,
-        isLocal: p === room?.localParticipant || p.isLocal,
-        isSpotlight: false,
-        isSpeaking: activeSpeakers.includes(p.identity),
-        isLocalMicOn: isMicOn,
-        isLocalVideoOn: isVideoOn,
-        isMirrored,
-        lang,
-        onPin: () => setSpotlightParticipantId(p.identity)
-      }
-    ))))) : (
-      /* Gallery Grid View */
-      /* @__PURE__ */ import_react10.default.createElement("div", { className: `gallery-participants-grid count-${allParticipants.length}` }, allParticipants.map((p) => /* @__PURE__ */ import_react10.default.createElement(
-        ParticipantTile,
-        {
-          key: p.identity,
-          participant: p,
-          isLocal: p === room?.localParticipant || p.isLocal,
-          isSpotlight: false,
-          isSpeaking: activeSpeakers.includes(p.identity),
-          isLocalMicOn: isMicOn,
-          isLocalVideoOn: isVideoOn,
-          isMirrored,
-          lang,
-          onPin: () => {
-            setSpotlightParticipantId(p.identity);
-            setLayoutMode("spotlight");
-          }
-        }
-      )))
-    )), showChat && /* @__PURE__ */ import_react10.default.createElement("aside", { className: "in-room-chat-drawer" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "chat-drawer-header" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react10.default.createElement(MessageSquare, { size: 16 }), /* @__PURE__ */ import_react10.default.createElement("strong", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB0\u0B9F\u0BCD\u0B9F\u0BC8 (Chat)" : "Class Real-Time Chat")), /* @__PURE__ */ import_react10.default.createElement(
+    ) : /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-center p-8 text-white/80" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex justify-center mb-3" }, /* @__PURE__ */ import_react10.default.createElement(ThreeDLotus, { size: 64 })), /* @__PURE__ */ import_react10.default.createElement("h4", { className: "font-bold text-base text-white mb-1" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Teacher Video..."), /* @__PURE__ */ import_react10.default.createElement("p", { className: "text-xs text-slate-400" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB8\u0BCD\u0B9F\u0BCD\u0BB0\u0BC0\u0BAE\u0BCD" : "Low-latency peer-to-peer WebRTC video active")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-stage-name-badge" }, /* @__PURE__ */ import_react10.default.createElement("span", null, "\u{1F464}"), /* @__PURE__ */ import_react10.default.createElement("span", null, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-badge-role-tag" }, "Host")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-stage-floating-dock" }, /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "close-chat-btn",
-        onClick: () => setShowChat(false)
-      },
-      "\u2715"
-    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "chat-messages-container" }, chatMessages.map((msg) => /* @__PURE__ */ import_react10.default.createElement("div", { key: msg.id, className: `chat-bubble-item ${msg.isLocal ? "sent-by-me" : "received-by-peer"} ${msg.isSystem ? "system-msg" : ""}` }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "bubble-meta" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "bubble-author" }, msg.sender), /* @__PURE__ */ import_react10.default.createElement("span", { className: "bubble-time" }, msg.time)), /* @__PURE__ */ import_react10.default.createElement("p", { className: "bubble-text-content" }, msg.text)))), /* @__PURE__ */ import_react10.default.createElement("form", { onSubmit: handleSendChatMessage, className: "chat-input-bar" }, /* @__PURE__ */ import_react10.default.createElement(
-      "input",
-      {
-        type: "text",
-        placeholder: lang === "ta" ? "\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BBF\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0B9F\u0BCD\u0B9F\u0B9A\u0BCD\u0B9A\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95..." : "Type a mindful message...",
-        value: chatInput,
-        onChange: (e2) => setChatInput(e2.target.value)
-      }
-    ), /* @__PURE__ */ import_react10.default.createElement("button", { type: "submit", className: "chat-send-btn", "aria-label": "Send" }, /* @__PURE__ */ import_react10.default.createElement(Send, { size: 15 })))), showParticipantsDrawer && /* @__PURE__ */ import_react10.default.createElement("aside", { className: "meet-people-drawer" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "chat-drawer-header" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react10.default.createElement(Users, { size: 16, className: "text-sky-400" }), /* @__PURE__ */ import_react10.default.createElement("strong", null, lang === "ta" ? `\u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BAA\u0BBE\u0BB3\u0BB0\u0BCD\u0B95\u0BB3\u0BCD (\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD: ${currentStudentCount})` : `Class Participants (${currentStudentCount} ${currentStudentCount === 1 ? "student" : "students"})`)), /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "close-chat-btn",
-        onClick: () => setShowParticipantsDrawer(false)
-      },
-      "\u2715"
-    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "p-3 overflow-y-auto flex-1 flex flex-col gap-2" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Host / Teacher"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "p-2.5 rounded-xl bg-white/5 border border-amber-500/30 flex items-center justify-between" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "w-8 h-8 rounded-full bg-amber-500/20 text-amber-300 font-bold flex items-center justify-center text-xs" }, "\u{1F451}"), /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-xs font-bold text-white flex items-center gap-1" }, /* @__PURE__ */ import_react10.default.createElement("span", null, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[10px] text-amber-400 bg-amber-500/15 px-1.5 py-0.2 rounded font-semibold" }, "Host")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-[10px] text-emerald-400 flex items-center gap-1" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react10.default.createElement("span", null, teacherOnline ? "Online" : "Reconnecting...")))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-1 text-slate-300 text-xs" }, isInstructorRole ? isMicOn ? /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 14, className: "text-emerald-400" }) : /* @__PURE__ */ import_react10.default.createElement(MicOff, { size: 14, className: "text-rose-400" }) : /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 14, className: "text-emerald-400" }))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1 mt-2" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Students"), otherParticipants.filter((p) => !p.isInstructor && p.role !== "instructor" && !String(p.identity || "").startsWith("instructor")).length === 0 ? /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-center py-6 text-slate-500 text-xs" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BBE\u0BB0\u0BC1\u0BAE\u0BCD \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 (0)" : "No students connected yet (0 students)") : otherParticipants.filter((p) => !p.isInstructor && p.role !== "instructor" && !String(p.identity || "").startsWith("instructor")).map((p, idx) => /* @__PURE__ */ import_react10.default.createElement("div", { key: p.identity || idx, className: "p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "w-8 h-8 rounded-full bg-violet-600/30 text-violet-300 font-bold flex items-center justify-center text-xs" }, (p.name || "S").charAt(0).toUpperCase()), /* @__PURE__ */ import_react10.default.createElement("div", null, /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-xs font-semibold text-white" }, p.name || "Student"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "text-[10px] text-slate-400" }, p.phone || (p.isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : "Online")))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-1.5" }, p.isLocal ? isMicOn ? /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 13, className: "text-emerald-400" }) : /* @__PURE__ */ import_react10.default.createElement(MicOff, { size: 13, className: "text-rose-400" }) : /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 13, className: "text-slate-400" })))))))), connectionState === "connected" && /* @__PURE__ */ import_react10.default.createElement("div", { className: "meet-floating-dock-container" }, /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `meet-circle-btn ${isMicOn ? "" : "btn-muted-danger"}`,
+        className: `figma-dock-round-btn ${!isMicOn ? "btn-danger-muted" : ""}`,
         onClick: handleToggleMic,
-        title: isMicOn ? "Mute Microphone" : "Unmute Microphone"
+        title: isMicOn ? "Mute Mic" : "Unmute Mic"
       },
-      isMicOn ? /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 20 }) : /* @__PURE__ */ import_react10.default.createElement(MicOff, { size: 20 })
+      isMicOn ? /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 18 }) : /* @__PURE__ */ import_react10.default.createElement(MicOff, { size: 18 })
     ), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: `meet-circle-btn ${isVideoOn ? "" : "btn-muted-danger"}`,
+        className: `figma-dock-round-btn ${!isVideoOn ? "btn-danger-muted" : ""}`,
         onClick: handleToggleVideo,
-        title: isVideoOn ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC8 \u0B85\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Turn Off Camera" : lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC8 \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Turn On Camera"
+        title: isVideoOn ? "Turn Off Camera" : "Turn On Camera"
       },
-      isVideoOn ? /* @__PURE__ */ import_react10.default.createElement(Video, { size: 20 }) : /* @__PURE__ */ import_react10.default.createElement(VideoOff, { size: 20 })
-    ), /* @__PURE__ */ import_react10.default.createElement(
+      isVideoOn ? /* @__PURE__ */ import_react10.default.createElement(Video, { size: 18 }) : /* @__PURE__ */ import_react10.default.createElement(VideoOff, { size: 18 })
+    ), isInstructorRole ? /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "meet-circle-btn switch-camera-btn",
-        onClick: handleSwitchCamera,
-        title: cameraFacing === "user" ? lang === "ta" ? "\u0BAA\u0BBF\u0BA9\u0BCD \u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1 (Back Camera)" : "Switch to Back Camera" : lang === "ta" ? "\u0BAE\u0BC1\u0BA9\u0BCD \u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BC1 (Front Camera)" : "Switch to Front Camera"
+        className: "figma-dock-end-pill-btn",
+        onClick: handleEndClassForAll,
+        title: lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BB5\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class for All"
       },
-      /* @__PURE__ */ import_react10.default.createElement(SwitchCamera, { size: 20 })
-    ), /* @__PURE__ */ import_react10.default.createElement(
+      /* @__PURE__ */ import_react10.default.createElement(PhoneOff, { size: 16 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Call")
+    ) : /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: `meet-circle-btn mirror-toggle-btn ${isMirrored ? "btn-active-state" : ""}`,
-        onClick: handleToggleMirror,
-        title: isMirrored ? lang === "ta" ? "\u0BAE\u0BBF\u0BB0\u0BB0\u0BCD \u0BB5\u0BBF\u0BAF\u0BC2: \u0B86\u0BA9\u0BCD (\u0B87\u0BAF\u0BB1\u0BCD\u0B95\u0BC8 \u0B95\u0BA3\u0BCD\u0BA3\u0BBE\u0B9F\u0BBF \u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BCD)" : "Mirror View: ON (Natural Mirror)" : lang === "ta" ? "\u0BAE\u0BBF\u0BB0\u0BB0\u0BCD \u0BB5\u0BBF\u0BAF\u0BC2: \u0B86\u0B83\u0BAA\u0BCD" : "Mirror View: OFF"
+        className: "figma-dock-end-pill-btn",
+        onClick: handleLeave,
+        title: lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave Class"
       },
-      /* @__PURE__ */ import_react10.default.createElement(SquareCenterlineDashedHorizontal, { size: 20 })
-    ), isInstructorRole && /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `meet-circle-btn ${isScreenSharing ? "btn-active-state" : ""}`,
-        onClick: handleToggleScreenShare,
-        title: "Present Screen"
-      },
-      /* @__PURE__ */ import_react10.default.createElement(Share2, { size: 20 })
+      /* @__PURE__ */ import_react10.default.createElement(PhoneOff, { size: 16 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave")
     ), !isInstructorRole && /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: `meet-circle-btn ${raisedHands.has(room?.localParticipant?.identity) || raisedHands.has("local-hand") ? "btn-hand-active" : ""}`,
+        className: `figma-dock-round-btn ${raisedHands.has(room?.localParticipant?.identity) || raisedHands.has("local-hand") ? "btn-amber-active" : ""}`,
         onClick: handleRaiseHand,
         title: "Raise Hand"
       },
-      /* @__PURE__ */ import_react10.default.createElement(Hand, { size: 20 })
+      /* @__PURE__ */ import_react10.default.createElement(Hand, { size: 18 })
     ), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "meet-circle-btn",
-        onClick: () => setLayoutMode(layoutMode === "spotlight" ? "grid" : "spotlight"),
-        title: layoutMode === "spotlight" ? "Switch to Grid View" : "Switch to Speaker Stage"
+        className: "figma-dock-round-btn",
+        onClick: () => setShowToolMenu(!showToolMenu),
+        title: "Settings & Camera Switch"
       },
-      /* @__PURE__ */ import_react10.default.createElement(Layers, { size: 20 })
+      /* @__PURE__ */ import_react10.default.createElement(Settings, { size: 18 })
     ), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: `meet-circle-btn ${showChat ? "btn-active-state" : ""}`,
-        onClick: () => {
-          setShowChat(!showChat);
-          setShowParticipantsDrawer(false);
-        },
-        title: "Class Chat"
-      },
-      /* @__PURE__ */ import_react10.default.createElement(MessageSquare, { size: 20 })
-    ), /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `meet-circle-btn ${showParticipantsDrawer ? "btn-active-state" : ""}`,
-        onClick: () => {
-          setShowParticipantsDrawer(!showParticipantsDrawer);
-          setShowChat(false);
-        },
-        title: "Participants Roster"
-      },
-      /* @__PURE__ */ import_react10.default.createElement(Users, { size: 20 })
-    ), /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `meet-circle-btn ${hasAttendanceRecorded ? "btn-active-state" : ""}`,
-        onClick: () => handleVerifyAttendance(false),
-        title: "Record Attendance (70%+)"
-      },
-      hasAttendanceRecorded ? /* @__PURE__ */ import_react10.default.createElement(CircleCheck, { size: 20, className: "text-emerald-400" }) : /* @__PURE__ */ import_react10.default.createElement(Award, { size: 20 })
-    ), /* @__PURE__ */ import_react10.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "dock-control-btn test-attendance-btn hidden md:flex",
+        className: "dock-control-btn test-attendance-btn",
+        style: { display: "none" },
         onClick: () => handleVerifyAttendance(true),
         title: "Simulate 70%+ Attendance (Test 11)"
       },
@@ -65317,33 +65187,272 @@ ${url}`;
       "button",
       {
         type: "button",
-        className: "dock-control-btn test-reconnect-btn hidden md:flex",
+        className: "dock-control-btn test-reconnect-btn",
+        style: { display: "none" },
         onClick: handleSimulateNetworkDrop,
         title: "Simulate Disconnect & Reconnect (Test 12)"
       },
       /* @__PURE__ */ import_react10.default.createElement(RefreshCw, { size: 15, className: isSimulatingDisconnect ? "animate-spin text-amber-400" : "" }),
       /* @__PURE__ */ import_react10.default.createElement("span", { className: "dock-label" }, reconnectCount > 0 ? `Reconn (${reconnectCount})` : "Drop/Reconn")
-    ), isInstructorRole ? /* @__PURE__ */ import_react10.default.createElement(
+    )), showToolMenu && /* @__PURE__ */ import_react10.default.createElement(
+      "div",
+      {
+        style: {
+          position: "absolute",
+          bottom: "72px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          background: "#FFFFFF",
+          border: "1px solid #EAE3F2",
+          borderRadius: "16px",
+          padding: "8px",
+          boxShadow: "0 12px 32px rgba(100, 80, 160, 0.2)",
+          zIndex: 50,
+          display: "flex",
+          flexDirection: "column",
+          gap: "4px",
+          minWidth: "220px"
+        }
+      },
+      /* @__PURE__ */ import_react10.default.createElement(
+        "button",
+        {
+          type: "button",
+          style: {
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "8px 12px",
+            borderRadius: "8px",
+            border: "none",
+            background: "transparent",
+            color: "#29233D",
+            fontSize: "12px",
+            fontWeight: 600,
+            cursor: "pointer",
+            textAlign: "left"
+          },
+          onClick: () => {
+            handleSwitchCamera();
+            setShowToolMenu(false);
+          }
+        },
+        /* @__PURE__ */ import_react10.default.createElement(SwitchCamera, { size: 15, className: "text-violet-500" }),
+        /* @__PURE__ */ import_react10.default.createElement("span", null, cameraFacing === "user" ? "Switch to Rear Camera" : "Switch to Front Camera")
+      ),
+      /* @__PURE__ */ import_react10.default.createElement(
+        "button",
+        {
+          type: "button",
+          style: {
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "8px 12px",
+            borderRadius: "8px",
+            border: "none",
+            background: "transparent",
+            color: "#29233D",
+            fontSize: "12px",
+            fontWeight: 600,
+            cursor: "pointer",
+            textAlign: "left"
+          },
+          onClick: () => {
+            handleToggleMirror();
+            setShowToolMenu(false);
+          }
+        },
+        /* @__PURE__ */ import_react10.default.createElement(SquareCenterlineDashedHorizontal, { size: 15, className: "text-violet-500" }),
+        /* @__PURE__ */ import_react10.default.createElement("span", null, isMirrored ? "Disable Mirror View" : "Enable Natural Mirror")
+      ),
+      isInstructorRole && /* @__PURE__ */ import_react10.default.createElement(
+        "button",
+        {
+          type: "button",
+          style: {
+            display: "flex",
+            alignItems: "center",
+            gap: "8px",
+            padding: "8px 12px",
+            borderRadius: "8px",
+            border: "none",
+            background: "transparent",
+            color: "#29233D",
+            fontSize: "12px",
+            fontWeight: 600,
+            cursor: "pointer",
+            textAlign: "left"
+          },
+          onClick: () => {
+            setShowConfigModal(true);
+            setShowToolMenu(false);
+          }
+        },
+        /* @__PURE__ */ import_react10.default.createElement(Settings, { size: 15, className: "text-violet-500" }),
+        /* @__PURE__ */ import_react10.default.createElement("span", null, "Server Credentials")
+      )
+    ))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-participant-tiles-grid" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-student-tile" }, realStudentsList[0]?.stream ? /* @__PURE__ */ import_react10.default.createElement(
+      "video",
+      {
+        ref: (el) => {
+          if (el && realStudentsList[0].stream) {
+            el.srcObject = realStudentsList[0].stream;
+            el.playsInline = true;
+            el.play().catch(() => {
+            });
+          }
+        },
+        autoPlay: true,
+        playsInline: true,
+        style: { width: "100%", height: "100%", objectFit: "cover" }
+      }
+    ) : /* @__PURE__ */ import_react10.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "avatar-circle", style: { width: 44, height: 44, fontSize: 16, background: "linear-gradient(135deg, #0284C7, #0369A1)" } }, /* @__PURE__ */ import_react10.default.createElement("span", null, (realStudentsList[0]?.name || "LW").charAt(0).toUpperCase())), /* @__PURE__ */ import_react10.default.createElement("span", { className: "avatar-fallback-name", style: { fontSize: 11 } }, realStudentsList[0]?.name || "Laura Williams")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-student-tile-overlay-bottom" }, /* @__PURE__ */ import_react10.default.createElement("span", null, "\u{1F464} ", realStudentsList[0]?.name || "Laura Williams"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "status-icon-pill active-speaking", style: { width: 18, height: 18 } }, /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 10 })))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-student-tile is-active-speaker" }, localStream && isVideoOn ? /* @__PURE__ */ import_react10.default.createElement(
+      "video",
+      {
+        ref: (el) => {
+          if (el && localStream) {
+            el.srcObject = localStream;
+            el.muted = true;
+            el.playsInline = true;
+            el.play().catch(() => {
+            });
+          }
+        },
+        autoPlay: true,
+        playsInline: true,
+        muted: true,
+        className: `participant-video-stream ${isMirrored ? "is-mirrored" : ""}`,
+        style: { width: "100%", height: "100%", objectFit: "cover" }
+      }
+    ) : /* @__PURE__ */ import_react10.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "avatar-circle", style: { width: 44, height: 44, fontSize: 16 } }, /* @__PURE__ */ import_react10.default.createElement("span", null, (user2?.name || "Y").charAt(0).toUpperCase())), /* @__PURE__ */ import_react10.default.createElement("span", { className: "avatar-fallback-name", style: { fontSize: 11 } }, user2?.name || (lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-student-tile-overlay-bottom" }, /* @__PURE__ */ import_react10.default.createElement("span", null, "\u{1F464} ", lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You"), /* @__PURE__ */ import_react10.default.createElement("span", { className: `status-icon-pill ${isMicOn ? "active-speaking" : "audio-muted"}`, style: { width: 18, height: 18 } }, isMicOn ? /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 10 }) : /* @__PURE__ */ import_react10.default.createElement(MicOff, { size: 10 })))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-student-tile" }, realStudentsList[1]?.stream ? /* @__PURE__ */ import_react10.default.createElement(
+      "video",
+      {
+        ref: (el) => {
+          if (el && realStudentsList[1].stream) {
+            el.srcObject = realStudentsList[1].stream;
+            el.playsInline = true;
+            el.play().catch(() => {
+            });
+          }
+        },
+        autoPlay: true,
+        playsInline: true,
+        style: { width: "100%", height: "100%", objectFit: "cover" }
+      }
+    ) : /* @__PURE__ */ import_react10.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "avatar-circle", style: { width: 44, height: 44, fontSize: 16, background: "linear-gradient(135deg, #DB2777, #9D174D)" } }, /* @__PURE__ */ import_react10.default.createElement("span", null, (realStudentsList[1]?.name || "JB").charAt(0).toUpperCase())), /* @__PURE__ */ import_react10.default.createElement("span", { className: "avatar-fallback-name", style: { fontSize: 11 } }, realStudentsList[1]?.name || "Jessica Behringer")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-student-tile-overlay-bottom" }, /* @__PURE__ */ import_react10.default.createElement("span", null, "\u{1F464} ", realStudentsList[1]?.name || "Jessica Behringer"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "status-icon-pill active-speaking", style: { width: 18, height: 18 } }, /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 10 }))))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-actions-toolbar" }, /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "meet-end-pill-btn",
-        onClick: handleEndClassForAll,
-        title: lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BB5\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class for All"
+        className: "figma-toolbar-action-btn",
+        onClick: () => {
+          const el = document.getElementById("figma-participants-roster");
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }
       },
-      /* @__PURE__ */ import_react10.default.createElement(PhoneOff, { size: 18 }),
-      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class")
-    ) : /* @__PURE__ */ import_react10.default.createElement(
+      /* @__PURE__ */ import_react10.default.createElement(Users, { size: 15, className: "text-violet-500" }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, "Participants (", currentStudentCount, ")")
+    ), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",
-        className: "meet-end-pill-btn",
-        onClick: handleLeave,
-        title: lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave Class"
+        className: `figma-toolbar-action-btn ${isRecording ? "is-recording" : ""}`,
+        onClick: handleToggleRecord
       },
-      /* @__PURE__ */ import_react10.default.createElement(PhoneOff, { size: 18 }),
-      /* @__PURE__ */ import_react10.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave")
-    )), classEndedNotice && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-modal-backdrop", style: { zIndex: 9999 } }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-modal-card text-center p-6 max-w-md mx-auto ya-card bg-card border border-subtle shadow-2xl rounded-2xl", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500" }, /* @__PURE__ */ import_react10.default.createElement(CircleCheck, { size: 36 })), /* @__PURE__ */ import_react10.default.createElement("h3", { className: "text-xl font-bold text-heading mb-2" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 \u{1F64F}" : "Yoga Class Concluded \u{1F64F}"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "text-xs text-muted mb-6 leading-relaxed" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BBE\u0BB0\u0BCD. \u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0BB5\u0BBE\u0BB4\u0BCD\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BB3\u0BCD! \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "The instructor has concluded this live yoga session. Thank you for your practice today! Your attendance has been logged."), /* @__PURE__ */ import_react10.default.createElement(
+      /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-record-dot" }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, isRecording ? "Recording (00:14)" : "Record")
+    ), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-toolbar-action-btn",
+        onClick: handleToggleScreenShare
+      },
+      /* @__PURE__ */ import_react10.default.createElement(Share2, { size: 15 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, "Share screen")
+    ), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-toolbar-action-btn",
+        onClick: () => setShowAsanaGuide(true)
+      },
+      /* @__PURE__ */ import_react10.default.createElement(Layers, { size: 15 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, "Asana Guide")
+    ), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-toolbar-action-btn",
+        onClick: handleCopyShareLink
+      },
+      copiedLink ? /* @__PURE__ */ import_react10.default.createElement(Check, { size: 15, className: "text-emerald-500" }) : /* @__PURE__ */ import_react10.default.createElement(Copy, { size: 15 }),
+      /* @__PURE__ */ import_react10.default.createElement("span", null, copiedLink ? "Link Copied!" : "Invite Link")
+    ), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-toolbar-action-btn",
+        onClick: () => setShowToolMenu(!showToolMenu)
+      },
+      /* @__PURE__ */ import_react10.default.createElement("span", null, "\u22EF More")
+    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-meeting-cards-grid" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-meeting-card" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-meeting-card-head" }, /* @__PURE__ */ import_react10.default.createElement("h4", { className: "figma-card-title" }, "Meeting Room"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-card-date" }, "\u{1F4C5} ", (/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-avatar-stack-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-avatar-stack" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#8B5CF6" } }, "LW"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#0EA5E9" } }, "JB"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#F59E0B" } }, "MK"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-stack-avatar figma-stack-more" }, "+3")), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-btn-create-meeting",
+        onClick: handleCopyShareLink
+      },
+      "+ Create Meeting"
+    ))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-meeting-card" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-meeting-card-head" }, /* @__PURE__ */ import_react10.default.createElement("h4", { className: "figma-card-title" }, "Weekly Meetings"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-card-date" }, "\u{1F4C5} Every Morning 06:00 AM")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-avatar-stack-row" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-avatar-stack" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#EC4899" } }, "NY"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#10B981" } }, "PS"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#6366F1" } }, "AR")), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-waiting-badge" }, "Waiting Meeting"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-promo-course-card" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-promo-top" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-promo-badge" }, "\u{1F393} 43 Courses")), /* @__PURE__ */ import_react10.default.createElement("h4", { className: "figma-promo-title" }, "Elevate your yoga practice"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "figma-promo-sub" }, "Guided Asanas & Pranayama Modules"), /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-promo-btn",
+        onClick: () => {
+          if (typeof window !== "undefined") {
+            window.location.hash = "#classes";
+          }
+        }
+      },
+      "Add Course"
+    )))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-right-sidebar-column" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-participants-roster-card", id: "figma-participants-roster" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-roster-header" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-roster-title-wrap" }, /* @__PURE__ */ import_react10.default.createElement("h3", { className: "figma-roster-heading" }, "Meeting Participants"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-roster-count-badge" }, currentStudentCount)), /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "figma-dots-btn" }, "\u22EF")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-roster-list" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-participant-item" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-avatar", style: { background: "#F59E0B", color: "#FFF" } }, "\u{1F451}"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-name-row" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-name" }, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-host-tag" }, "Host")), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-status-green-dot" }), "Lead Instructor"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 13 })), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react10.default.createElement(Video, { size: 13 })))), realStudentsList.length > 0 ? realStudentsList.map((st, idx) => /* @__PURE__ */ import_react10.default.createElement("div", { key: st.phone || idx, className: "figma-participant-item" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-avatar", style: { background: "#8B5CF6", color: "#FFF" } }, (st.name || "S").charAt(0).toUpperCase()), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-name" }, st.name || "Student"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-status-green-dot" }), st.phone ? `+91 ${st.phone.slice(-4).padStart(st.phone.length, "\u2022")}` : "Online"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 13 })), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react10.default.createElement(Video, { size: 13 })), isInstructorRole && /* @__PURE__ */ import_react10.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-item-delete-btn",
+        onClick: () => handleDeleteLiveStudent(st.phone),
+        title: "Remove Student"
+      },
+      /* @__PURE__ */ import_react10.default.createElement(Trash, { size: 13 })
+    )))) : (
+      /* Default Active Students matching Figma Frame 2955 */
+      /* @__PURE__ */ import_react10.default.createElement(import_react10.default.Fragment, null, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-participant-item" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-avatar", style: { background: "#0EA5E9", color: "#FFF" } }, "LW"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-name" }, "Laura Williams"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-status-green-dot" }), lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BBE\u0BB0\u0BCD" : "In Class"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 13 })), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react10.default.createElement(Video, { size: 13 })))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-participant-item" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-avatar", style: { background: "#7C3AED", color: "#FFF" } }, (user2?.name || "Y").charAt(0).toUpperCase()), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-name" }, user2?.name || (lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You"), " (You)"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-status-green-dot" }), "Active Practitioner"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: `figma-media-pill ${isMicOn ? "active" : "muted"}` }, isMicOn ? /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 13 }) : /* @__PURE__ */ import_react10.default.createElement(MicOff, { size: 13 })), /* @__PURE__ */ import_react10.default.createElement("span", { className: `figma-media-pill ${isVideoOn ? "active" : "muted"}` }, isVideoOn ? /* @__PURE__ */ import_react10.default.createElement(Video, { size: 13 }) : /* @__PURE__ */ import_react10.default.createElement(VideoOff, { size: 13 })))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-participant-item" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-avatar", style: { background: "#EC4899", color: "#FFF" } }, "JB"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-name" }, "Jessica Behringer"), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-status-green-dot" }), lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BBE\u0BB0\u0BCD" : "In Class"))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react10.default.createElement(Mic, { size: 13 })), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react10.default.createElement(Video, { size: 13 })))))
+    ))), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-chats-card" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-chats-header" }, /* @__PURE__ */ import_react10.default.createElement("h3", { className: "figma-chats-heading" }, "Chats"), /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "figma-dots-btn" }, "\u22EF")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-chats-stream", ref: chatStreamRef }, chatMessages.map((msg) => /* @__PURE__ */ import_react10.default.createElement(
+      "div",
+      {
+        key: msg.id,
+        className: `figma-chat-bubble-wrap ${msg.isLocal ? "sent" : "received"} ${msg.isSystem ? "system" : ""}`
+      },
+      !msg.isLocal && !msg.isSystem && /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-chat-author-avatar" }, (msg.sender || "U").charAt(0).toUpperCase()),
+      /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-chat-bubble" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-bubble-meta" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-bubble-sender" }, msg.sender), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-bubble-time" }, msg.time)), /* @__PURE__ */ import_react10.default.createElement("p", { className: "figma-bubble-text" }, msg.text))
+    )), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-typing-indicator" }, /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-typing-avatar" }, "N"), /* @__PURE__ */ import_react10.default.createElement("div", { className: "figma-typing-dots" }, /* @__PURE__ */ import_react10.default.createElement("span", null), /* @__PURE__ */ import_react10.default.createElement("span", null), /* @__PURE__ */ import_react10.default.createElement("span", null)), /* @__PURE__ */ import_react10.default.createElement("span", { className: "figma-typing-label" }, "Nithya is typing..."))), /* @__PURE__ */ import_react10.default.createElement("form", { onSubmit: handleSendChatMessage, className: "figma-chat-input-form" }, /* @__PURE__ */ import_react10.default.createElement(
+      "input",
+      {
+        type: "text",
+        className: "figma-chat-input",
+        placeholder: lang === "ta" ? "\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BBF\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0B9F\u0BCD\u0B9F\u0B9A\u0BCD\u0B9A\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95..." : "Type a message...",
+        value: chatInput,
+        onChange: (e2) => setChatInput(e2.target.value)
+      }
+    ), /* @__PURE__ */ import_react10.default.createElement("button", { type: "submit", className: "figma-chat-send-btn", "aria-label": "Send Message" }, /* @__PURE__ */ import_react10.default.createElement(Send, { size: 15 }))))))), showAsanaGuide && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-modal-backdrop", onClick: () => setShowAsanaGuide(false) }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-modal-card max-w-xl p-6 ya-card bg-card border border-subtle shadow-2xl rounded-2xl", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center justify-between pb-3 border-b border-subtle mb-4" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react10.default.createElement(Layers, { size: 20, className: "text-violet-500" }), /* @__PURE__ */ import_react10.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, "Live Asana Posture Reference")), /* @__PURE__ */ import_react10.default.createElement("button", { type: "button", className: "close-x-btn", onClick: () => setShowAsanaGuide(false) }, "\u2715")), /* @__PURE__ */ import_react10.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto pr-1" }, [
+      { name: "Surya Namaskar", sanskrit: "\u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD", tip: "Sync movement with inhalation and exhalation.", duration: "5 - 10 Rounds" },
+      { name: "Vrikshasana (Tree Pose)", sanskrit: "\u0BB5\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0BB7\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", tip: "Fix your gaze on a steady point ahead for balance.", duration: "30s per leg" },
+      { name: "Bhujangasana (Cobra Pose)", sanskrit: "\u0BAA\u0BC1\u0B9C\u0B99\u0BCD\u0B95\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", tip: "Roll shoulders back, gently expand the chest.", duration: "3 - 5 Breaths" },
+      { name: "Virabhadrasana II (Warrior)", sanskrit: "\u0BB5\u0BC0\u0BB0\u0BAA\u0BA4\u0BCD\u0BB0\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD II", tip: "Keep front knee stacked over ankle, hips open.", duration: "30s each side" },
+      { name: "Tadasana (Mountain Pose)", sanskrit: "\u0BA4\u0BBE\u0B9F\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", tip: "Ground all four corners of both feet into the mat.", duration: "1 Minute" },
+      { name: "Padmasana (Lotus Pose)", sanskrit: "\u0BAA\u0BA4\u0BCD\u0BAE\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", tip: "Spine erect, hands in Chin Mudra for meditation.", duration: "5 - 10 Minutes" }
+    ].map((item, i) => /* @__PURE__ */ import_react10.default.createElement("div", { key: i, className: "p-3 rounded-xl bg-violet-500/5 border border-violet-500/20 flex flex-col gap-1" }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "flex justify-between items-center" }, /* @__PURE__ */ import_react10.default.createElement("strong", { className: "text-xs text-heading font-bold" }, item.name), /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[10px] text-violet-500 font-semibold" }, item.duration)), /* @__PURE__ */ import_react10.default.createElement("span", { className: "text-[11px] text-muted font-medium" }, item.sanskrit), /* @__PURE__ */ import_react10.default.createElement("p", { className: "text-[11px] text-muted m-0 leading-snug" }, item.tip)))))), classEndedNotice && /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-modal-backdrop", style: { zIndex: 9999 } }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "livekit-modal-card text-center p-6 max-w-md mx-auto ya-card bg-card border border-subtle shadow-2xl rounded-2xl", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react10.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500" }, /* @__PURE__ */ import_react10.default.createElement(CircleCheck, { size: 36 })), /* @__PURE__ */ import_react10.default.createElement("h3", { className: "text-xl font-bold text-heading mb-2" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 \u{1F64F}" : "Yoga Class Concluded \u{1F64F}"), /* @__PURE__ */ import_react10.default.createElement("p", { className: "text-xs text-muted mb-6 leading-relaxed" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BBE\u0BB0\u0BCD. \u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0BB5\u0BBE\u0BB4\u0BCD\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BB3\u0BCD! \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "The instructor has concluded this live yoga session. Thank you for your practice today! Your attendance has been logged."), /* @__PURE__ */ import_react10.default.createElement(
       "button",
       {
         type: "button",

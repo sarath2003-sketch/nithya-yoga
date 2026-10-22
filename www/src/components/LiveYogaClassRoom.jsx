@@ -401,6 +401,18 @@ export default function LiveYogaClassRoom({
 
   // In-room LiveKit WebRTC Data Chat
   const [showChat, setShowChat] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
+  const [showAsanaGuide, setShowAsanaGuide] = useState(false);
+  const [showToolMenu, setShowToolMenu] = useState(false);
+  const chatStreamRef = useRef(null);
+
+  const handleToggleRecord = () => {
+    setIsRecording(prev => !prev);
+    try {
+      audioEngine.playNote('high');
+    } catch (_) {}
+  };
+
   const [chatMessages, setChatMessages] = useState([
     {
       id: 'msg-welcome',
@@ -408,6 +420,20 @@ export default function LiveYogaClassRoom({
       text: lang === 'ta' ? 'நேரலை வகுப்பிற்கு நல்வரவு! ஆடியோ, வீடியோ செயல்படுகிறது.' : 'Welcome to Live Yoga Class! Real-time WebRTC audio & video active.',
       time: 'Just now',
       isSystem: true
+    },
+    {
+      id: 'msg-1',
+      sender: 'Laura Williams',
+      text: lang === 'ta' ? 'வணக்கம் மாஸ்டர்! இன்றைய ஆசனப் பயிற்சிக்கு தயாராக உள்ளேன் 🙏' : 'Good morning Master! Ready for today\'s Surya Namaskar & Prana flow 🙏',
+      time: '10:02 AM',
+      isLocal: false
+    },
+    {
+      id: 'msg-2',
+      sender: 'NITHYA Master',
+      text: lang === 'ta' ? 'அனைவருக்கும் நல்வரவு! ஆழ்ந்த மூச்சுடன் தொடங்குவோம்.' : 'Welcome everyone! Let us begin with deep mindful breathing.',
+      time: '10:03 AM',
+      isLocal: false
     }
   ]);
   const [chatInput, setChatInput] = useState('');
@@ -1637,690 +1663,941 @@ export default function LiveYogaClassRoom({
         </div>
       )}
 
-      {/* Studio Header (Google Meet Style Header) */}
-      <div className="livekit-studio-header">
-        <div className="header-left-title-cluster">
-          <div className="live-status-pill-indicator">
-            <span className={`live-pulse-dot ${connectionState === 'connected' ? 'active-green' : 'connecting-amber'}`}></span>
-            <span className="live-pill-text">
-              {connectionState === 'connected' ? 'LIVE' : (lang === 'ta' ? 'இணைக்கிறது...' : 'Connecting...')}
-            </span>
+      {/* State 1: IDLE / NOT CONNECTED (Lobby View) */}
+      {connectionState === 'idle' && (
+        <div className="livekit-lobby-card p-6 md:p-10 max-w-2xl mx-auto my-6 text-center bg-white rounded-3xl border border-[#EAE3F2] shadow-xl">
+          <div className="lobby-artwork-wrap flex justify-center mb-4">
+            <ThreeDLotus size={64} />
           </div>
 
-          <div className="class-title-meta flex flex-col">
-            <span className="inline-block px-2.5 py-0.5 mb-1 rounded-full bg-violet-500/20 text-violet-300 border border-violet-500/30 text-[11px] font-bold uppercase tracking-wider w-fit">
-              {courseName || activeClass?.courseName || activeClass?.course_name || 'Morning Yoga Flow'}
-            </span>
-            <h3 className="live-class-heading m-0 text-base font-bold text-white flex items-center gap-2">
-              {activeClass?.title || activeClass?.name || 'Hatha Yoga Flow'}
-            </h3>
-            <span className="live-instructor-subtitle text-xs text-slate-400">
-              {lang === 'ta' ? 'பயிற்றுநர்:' : 'Led by'} <strong className="text-slate-200">{activeClass?.instructor || 'NITHYA Master'}</strong>
-            </span>
-          </div>
-        </div>
-
-        {/* Top Controls: Role selector, Participant Count, Timer, Settings */}
-        <div className="header-right-tools">
-          {/* Participant count button */}
-          {connectionState === 'connected' && (
-            <button
-              type="button"
-              className={`role-toggle-pill ${showParticipantsDrawer ? 'as-instructor' : ''}`}
-              onClick={() => {
-                setShowParticipantsDrawer(!showParticipantsDrawer);
-                setShowChat(false);
-              }}
-              title={lang === 'ta' ? `மாணவர்கள் எண்ணிக்கை: ${currentStudentCount}` : `Students count: ${currentStudentCount}`}
-            >
-              <Users size={14} className="text-sky-400" />
-              <span className="font-bold">{currentStudentCount}</span>
-              <span className="text-[11px] font-normal opacity-80 hidden sm:inline">
-                {lang === 'ta' ? 'மாணவர்கள்' : (currentStudentCount === 1 ? 'Student' : 'Students')}
-              </span>
-            </button>
-          )}
-
-          {/* Role Badge: Instructor mode switchable; Student mode is fixed and clean */}
-          {isInstructorRole ? (
-            <button
-              type="button"
-              className="role-toggle-pill as-instructor"
-              onClick={handleToggleRole}
-              title={lang === 'ta' ? 'பயிற்றுநர் பயன்முறை' : 'Instructor / Host'}
-            >
-              <Crown size={14} className="text-amber-400" />
-              <span className="font-bold">
-                {lang === 'ta' ? '👑 நித்யா மாஸ்டர்' : '👑 Host'}
-              </span>
-            </button>
-          ) : (
-            <div className="role-toggle-pill as-student opacity-95">
-              <Users size={14} className="text-indigo-400" />
-              <span className="font-bold">
-                {lang === 'ta' ? '🧘 மாணவர்' : '🧘 Student'}
-              </span>
-            </div>
-          )}
-
-          {/* Live Timer */}
-          {connectionState === 'connected' && (
-            <div className="live-timer-chip">
-              <Radio size={13} className="timer-radio-icon" />
-              <span>{formatTimer(sessionSeconds)}</span>
-            </div>
-          )}
-
-          {/* Attendance Progress Pill */}
-          {connectionState === 'connected' && (
-            <div
-              className={`live-timer-chip ${currentAttendancePct >= 70 ? 'bg-emerald-500/10 text-emerald-600 border border-emerald-500/30' : 'bg-amber-500/10 text-amber-600 border border-amber-500/30'}`}
-              title={`Class Attendance: ${currentAttendancePct}% (Target: 70%)`}
-            >
-              <Award size={13} className={currentAttendancePct >= 70 ? 'text-emerald-500' : 'text-amber-500'} />
-              <span>{currentAttendancePct >= 70 ? '✓ Present (70%+)' : `${currentAttendancePct}% Attendance`}</span>
-            </div>
-          )}
-
-          {/* Copy Link, WhatsApp Share & Register (Teacher / Host Only) */}
-          {isInstructorRole && (
-            <>
-              <button
-                type="button"
-                className="header-icon-tool-btn ya-icon-btn"
-                onClick={handleCopyShareLink}
-                title={copiedLink ? 'Link Copied!' : 'Copy Live Class Link'}
-              >
-                {copiedLink ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
-              </button>
-
-              <button
-                type="button"
-                className="header-icon-tool-btn ya-icon-btn"
-                onClick={handleWhatsAppShare}
-                title="Share via WhatsApp"
-              >
-                <Share2 size={16} />
-              </button>
-
-              <button
-                type="button"
-                className="header-icon-tool-btn ya-icon-btn"
-                onClick={() => setShowAttendanceDrawer(true)}
-                title="Attendance Register"
-              >
-                <FileText size={16} />
-              </button>
-            </>
-          )}
-
-          {/* Fullscreen Toggle */}
-          <button
-            type="button"
-            className="header-icon-tool-btn ya-icon-btn"
-            onClick={handleToggleFullscreen}
-            title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
-          >
-            {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
-          </button>
-
-          {/* Credentials / Config Button (Trainer Only) */}
-          {isInstructorRole && (
-            <button
-              type="button"
-              className="header-icon-tool-btn ya-icon-btn"
-              onClick={() => setShowConfigModal(true)}
-              title="LiveKit Server Credentials"
-            >
-              <Settings size={16} />
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Teacher Disconnection Grace Period Countdown Banner */}
-      {connectionState === 'connected' && !teacherOnline && teacherGraceRemaining !== null && !isInstructorRole && (
-        <div className="teacher-grace-banner animate-pulse">
-          <AlertCircle size={15} className="text-amber-400 shrink-0" />
-          <span>
+          <h3 className="lobby-headline font-bold text-2xl text-[#29233D] mb-2 font-['Poppins']">
+            {lang === 'ta' ? 'நேரலை யோகா வகுப்பறை' : 'Live Yoga & Asanas Flow'}
+          </h3>
+          <p className="lobby-subtext text-sm text-[#777184] mb-6 max-w-md mx-auto">
             {lang === 'ta'
-              ? `⚠️ பயிற்றுநர் தற்காலிகமாக துண்டிக்கப்பட்டுள்ளார். மீதமுள்ள அவகாச நேரம்: ${formatTimer(teacherGraceRemaining)}. பயிற்றுநர் மீண்டும் இணையும்போது வகுப்பு தானாகவே தொடரும்.`
-              : `⚠️ Instructor is temporarily disconnected. Grace period remaining: ${formatTimer(teacherGraceRemaining)}. Class will resume automatically when instructor reconnects.`}
-          </span>
+              ? 'உயர்தர வீடியோ மற்றும் ஆடியோவுடன் உங்கள் பயிற்றுநர் மற்றும் வகுப்புத் தோழர்களுடன் நேரடியாக இணையுங்கள்.'
+              : 'Interactive low-latency WebRTC live stream with certified instructor NITHYA Master.'}
+          </p>
+
+          {/* Role Radio Picker */}
+          <div className="lobby-role-selector grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6">
+            <button
+              type="button"
+              className={`p-3.5 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer ${
+                isInstructorRole
+                  ? 'border-[#9B7AE8] bg-[#F8F5FF] shadow-sm'
+                  : 'border-[#EAE3F2] bg-white hover:border-[#9B7AE8]/40'
+              }`}
+              onClick={() => {
+                setIsInstructorRole(true);
+                try {
+                  localStorage.setItem('nithya_active_role', 'instructor');
+                  localStorage.removeItem('nithya_student_session');
+                  localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
+                } catch (_) {}
+              }}
+            >
+              <Crown size={22} className="text-amber-500 shrink-0" />
+              <div>
+                <strong className="block text-xs font-bold text-[#29233D]">
+                  {lang === 'ta' ? '👑 நித்யா மாஸ்டர்' : '👑 Host (Trainer)'}
+                </strong>
+                <span className="text-[11px] text-[#777184]">
+                  {lang === 'ta' ? 'வகுப்பைத் தொடங்குங்கள்' : 'Broadcast camera & guide'}
+                </span>
+              </div>
+            </button>
+
+            <button
+              type="button"
+              className={`p-3.5 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer ${
+                !isInstructorRole
+                  ? 'border-[#9B7AE8] bg-[#F8F5FF] shadow-sm'
+                  : 'border-[#EAE3F2] bg-white hover:border-[#9B7AE8]/40'
+              }`}
+              onClick={() => {
+                setIsInstructorRole(false);
+                try {
+                  localStorage.setItem('nithya_active_role', 'student');
+                } catch (_) {}
+              }}
+            >
+              <Users size={22} className="text-indigo-500 shrink-0" />
+              <div>
+                <strong className="block text-xs font-bold text-[#29233D]">
+                  {lang === 'ta' ? '👥 மாணவர் முறை' : '👥 Student Practitioner'}
+                </strong>
+                <span className="text-[11px] text-[#777184]">
+                  {lang === 'ta' ? 'பயிற்சியில் இணைக' : 'Join class & follow guidance'}
+                </span>
+              </div>
+            </button>
+          </div>
+
+          {/* Quick Media Check */}
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <button
+              type="button"
+              className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold cursor-pointer transition-all ${
+                isMicOn ? 'bg-[#EAF7EE] border-[#C3EBCF] text-[#10B981]' : 'bg-[#FFF1F0] border-[#FFD8D6] text-[#EF4444]'
+              }`}
+              onClick={() => setIsMicOn(!isMicOn)}
+            >
+              {isMicOn ? <Mic size={15} /> : <MicOff size={15} />}
+              <span>{isMicOn ? (lang === 'ta' ? 'மைக் ஆன்' : 'Mic On') : (lang === 'ta' ? 'மைக் ஆஃப்' : 'Mic Muted')}</span>
+            </button>
+
+            <button
+              type="button"
+              className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold cursor-pointer transition-all ${
+                isVideoOn ? 'bg-[#EAF7EE] border-[#C3EBCF] text-[#10B981]' : 'bg-[#FFF1F0] border-[#FFD8D6] text-[#EF4444]'
+              }`}
+              onClick={() => setIsVideoOn(!isVideoOn)}
+            >
+              {isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
+              <span>{isVideoOn ? (lang === 'ta' ? 'கேமரா ஆன்' : 'Camera On') : (lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off')}</span>
+            </button>
+          </div>
+
+          <div className="mb-4">
+            <button
+              type="button"
+              className="btn-join-studio ya-btn w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#9B7AE8] to-[#7C3AED] text-white font-bold text-sm shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 cursor-pointer flex items-center justify-center gap-2"
+              onClick={connectToRoom}
+            >
+              <Radio size={18} />
+              <span>{lang === 'ta' ? 'லைவ் வகுப்பில் இணைக' : 'Enter Live Yoga Room'}</span>
+            </button>
+          </div>
+
+          {/* Share Live Link Box */}
+          <div className="mt-4 p-3.5 bg-[#F8F5FF] rounded-2xl border border-[#EAE3F2] text-left">
+            <span className="block text-xs font-bold text-[#29233D] mb-1">
+              {lang === 'ta' ? '🔗 நேரலை வகுப்பு அழைப்பு லிங்க்:' : '🔗 Class Invite Link:'}
+            </span>
+            <div className="p-2 bg-white rounded-xl border border-[#EAE3F2] text-[11px] text-[#777184] truncate mb-2 select-all font-mono">
+              {getShareableClassLink()}
+            </div>
+            <div className="flex items-center gap-2 flex-wrap">
+              <button
+                type="button"
+                className="px-3 py-1.5 rounded-full bg-[#9B7AE8] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                onClick={handleCopyShareLink}
+              >
+                {copiedLink ? <Check size={13} /> : <Copy size={13} />}
+                <span>{copiedLink ? 'Copied!' : 'Copy Live Link'}</span>
+              </button>
+              <button
+                type="button"
+                className="px-3 py-1.5 rounded-full bg-[#10B981] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer"
+                onClick={handleWhatsAppShare}
+              >
+                <Share2 size={13} />
+                <span>Share WhatsApp</span>
+              </button>
+            </div>
+          </div>
         </div>
       )}
 
-      {/* Main Studio Body */}
-      <div className="livekit-studio-body">
-        {/* State 1: IDLE / NOT CONNECTED */}
-        {connectionState === 'idle' && (
-          <div className="livekit-lobby-card">
-            <div className="lobby-artwork-wrap">
-              <ThreeDLotus size={64} />
-            </div>
+      {/* State 2: CONNECTING / LOADING */}
+      {connectionState === 'connecting' && (
+        <div className="livekit-loading-state p-12 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-[#EAE3F2] shadow-xl">
+          <div className="spinner-lotus-wrap flex justify-center mb-4">
+            <ThreeDLotus size={56} />
+          </div>
+          <h4 className="loading-title font-bold text-lg text-[#29233D] mb-2 font-['Poppins']">
+            {lang === 'ta' ? 'யோகா ஸ்டுடியோவுடன் இணைகிறது...' : 'Connecting to Live Studio...'}
+          </h4>
+          <p className="loading-sub text-xs text-[#777184]">
+            {lang === 'ta' ? 'பாதுகாப்பான வீடியோ பரிமாற்றம் தொடங்குகிறது...' : 'Negotiating secure WebRTC channels & connecting live feed...'}
+          </p>
+        </div>
+      )}
 
-            <h3 className="lobby-headline">
-              {lang === 'ta' ? 'லைவ்கிட் நேரலை யோகா வகுப்பில் இணைக' : 'Ready for your Live Yoga Class'}
-            </h3>
-            <p className="lobby-subtext">
-              {lang === 'ta'
-                ? 'உயர்தர வீடியோ மற்றும் ஆடியோவுடன் உங்கள் பயிற்றுநர் மற்றும் வகுப்புத் தோழர்களுடன் நேரடியாக இணையுங்கள்.'
-                : 'Real-time peer-to-peer WebRTC video & crystal-clear audio with your instructor and classmates.'}
-            </p>
+      {/* State 3: ERROR STATE */}
+      {connectionState === 'error' && (
+        <div className="livekit-error-state p-8 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-rose-200 shadow-xl">
+          <AlertCircle size={42} className="error-icon text-rose-500 mx-auto mb-3" />
+          <h4 className="error-heading font-bold text-lg text-[#29233D] mb-2">
+            {lang === 'ta' ? 'இணைப்பு தோல்வி' : 'Connection Failed'}
+          </h4>
+          <p className="error-detail-text text-xs text-[#777184] mb-6">{errorMessage}</p>
+          <div className="flex justify-center gap-3">
+            <button
+              type="button"
+              className="px-4 py-2 rounded-xl bg-[#9B7AE8] text-white font-bold text-xs cursor-pointer flex items-center gap-2"
+              onClick={connectToRoom}
+            >
+              <RefreshCw size={14} />
+              <span>Retry</span>
+            </button>
+          </div>
+        </div>
+      )}
 
-            {/* Role Radio Picker - Always available for effortless selection */}
-            <div className="lobby-role-selector">
-              <button
-                type="button"
-                className={`role-card-btn ${isInstructorRole ? 'selected' : ''}`}
-                onClick={() => {
-                  setIsInstructorRole(true);
-                  try {
-                    localStorage.setItem('nithya_active_role', 'instructor');
-                    localStorage.removeItem('nithya_student_session');
-                    localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
-                  } catch (_) {}
-                }}
-              >
-                <Crown size={20} className="text-amber-400" />
-                <div>
-                  <strong>{lang === 'ta' ? '👑 நித்யா மாஸ்டர் (பயிற்றுநர்)' : '👑 NITHYA Master (Instructor / Host)'}</strong>
-                  <span>{lang === 'ta' ? 'வகுப்பைத் தொடங்குங்கள் & மாணவர்களுக்கு நேரலையில் வழிகாட்டுங்கள்' : 'Lead class, broadcast live camera & manage attendance'}</span>
+      {/* State 4: CONNECTED VIDEO ROOM (Figma Frame 2955 Design) */}
+      {connectionState === 'connected' && (
+        <div className="figma-live-classroom-container">
+          {/* Header Bar matching Figma Frame 2955 */}
+          <div className="figma-live-class-header">
+            <div className="figma-header-title-col">
+              <div className="figma-header-badge-row">
+                <span className="figma-live-indicator">
+                  <span className="figma-live-pulse-dot"></span>
+                  LIVE
+                </span>
+                <span className="figma-course-tag">
+                  {courseName || activeClass?.courseName || activeClass?.course_name || 'Live Yoga & Asanas Flow'}
+                </span>
+              </div>
+              <h2 className="figma-class-main-title">
+                {activeClass?.title || activeClass?.name || 'Hatha Yoga Flow & Alignment'}
+              </h2>
+              <div className="figma-instructor-pill">
+                <div className="figma-instructor-avatar-mini">
+                  <span>👑</span>
                 </div>
-              </button>
-
-              <button
-                type="button"
-                className={`role-card-btn ${!isInstructorRole ? 'selected' : ''}`}
-                onClick={() => {
-                  setIsInstructorRole(false);
-                  try {
-                    localStorage.setItem('nithya_active_role', 'student');
-                  } catch (_) {}
-                }}
-              >
-                <Users size={20} className="text-emerald-400" />
-                <div>
-                  <strong>{lang === 'ta' ? '👥 மாணவர் முறை (Student Mode)' : '👥 Student Practitioner'}</strong>
-                  <span>{lang === 'ta' ? 'வகுப்பில் பங்கேற்று ஆசனங்களைப் பயிற்சி செய்யுங்கள்' : 'Join class & follow instructor guidance'}</span>
-                </div>
-              </button>
+                <span className="figma-instructor-name">
+                  {lang === 'ta' ? 'பயிற்றுநர்:' : 'Instructor:'} <strong>{activeClass?.instructor || 'NITHYA Master'}</strong>
+                </span>
+                <span className="figma-role-chip">{isInstructorRole ? 'Host (You)' : 'Certified Master'}</span>
+              </div>
             </div>
 
-            {/* Quick Media Check */}
-            <div className="lobby-media-preview-row">
+            <div className="figma-header-controls-col">
+              {/* Time remaining chip matching Figma Frame 2955 */}
+              <div className="figma-time-remaining-card">
+                <span>{lang === 'ta' ? 'மீதமுள்ள நேரம்:' : 'Time remaining:'}</span>
+                <span className="time-val">⏱ {formatTimer(Math.max(0, 7200 - sessionSeconds))}</span>
+              </div>
+
+              {/* Attendance Progress Pill */}
+              <div
+                className={`figma-attendance-pill ${currentAttendancePct >= 70 ? 'present' : ''}`}
+                onClick={() => handleVerifyAttendance(false)}
+                title="Class Attendance Status"
+              >
+                <Award size={15} />
+                <span>{currentAttendancePct >= 70 ? '✓ Present (70%+)' : `${currentAttendancePct}% Attendance`}</span>
+              </div>
+
+              {/* Fullscreen Toggle */}
               <button
                 type="button"
-                className={`media-check-toggle ${isMicOn ? 'active' : 'muted'}`}
-                onClick={() => setIsMicOn(!isMicOn)}
+                className="figma-glass-icon-btn"
+                onClick={handleToggleFullscreen}
+                title={isFullscreen ? 'Exit Fullscreen' : 'Fullscreen'}
               >
-                {isMicOn ? <Mic size={15} /> : <MicOff size={15} />}
-                <span>{isMicOn ? (lang === 'ta' ? 'மைக் ஆன்' : 'Mic On') : (lang === 'ta' ? 'மைக் ஆஃப்' : 'Mic Muted')}</span>
+                {isFullscreen ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
               </button>
 
-              <button
-                type="button"
-                className={`media-check-toggle ${isVideoOn ? 'active' : 'muted'}`}
-                onClick={() => setIsVideoOn(!isVideoOn)}
-              >
-                {isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
-                <span>{isVideoOn ? (lang === 'ta' ? 'கேமரா ஆன்' : 'Camera On') : (lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off')}</span>
-              </button>
+              {/* Server Config Button (Instructor) */}
+              {isInstructorRole && (
+                <button
+                  type="button"
+                  className="figma-glass-icon-btn"
+                  onClick={() => setShowConfigModal(true)}
+                  title="Server Configuration"
+                >
+                  <Settings size={16} />
+                </button>
+              )}
             </div>
+          </div>
 
-            <div className="lobby-actions-row">
-              <button
-                type="button"
-                className="btn-join-studio ya-btn ya-ripple"
-                onClick={connectToRoom}
-              >
-                <Radio size={16} />
-                <span>{lang === 'ta' ? 'லைவ் வகுப்பில் இணைக' : 'Enter Live Yoga Room'}</span>
-              </button>
-            </div>
-
-            {/* Share Live Link Box in Lobby (High Contrast & Clear Visibility) */}
-            <div className="lobby-share-box mt-3 text-left">
-              <span className="lobby-share-label">
-                {lang === 'ta' ? '🔗 நேரலை வகுப்பு அழைப்பு லிங்க் (மாணவர்களுடன் பகிர):' : '🔗 Share Class Link with Students (Live Link):'}
+          {/* Teacher Grace Period Warning if teacher disconnected */}
+          {!teacherOnline && teacherGraceRemaining !== null && !isInstructorRole && (
+            <div className="p-3 bg-amber-500/15 border border-amber-500/30 rounded-2xl flex items-center gap-2 text-amber-800 text-xs font-semibold">
+              <AlertCircle size={15} className="shrink-0 text-amber-600" />
+              <span>
+                {lang === 'ta'
+                  ? `⚠️ பயிற்றுநர் தற்காலிகமாக துண்டிக்கப்பட்டுள்ளார். மீதமுள்ள அவகாச நேரம்: ${formatTimer(teacherGraceRemaining)}.`
+                  : `⚠️ Instructor temporarily disconnected. Grace period remaining: ${formatTimer(teacherGraceRemaining)}.`}
               </span>
-              <div className="share-link-pill mb-2 select-all">
-                {getShareableClassLink()}
-              </div>
-              <div className="flex items-center gap-2 flex-wrap pt-1">
-                <button
-                  type="button"
-                  className="ya-btn ya-btn--primary text-xs px-3 py-1.5 flex items-center gap-1.5 font-bold cursor-pointer"
-                  onClick={handleCopyShareLink}
-                >
-                  {copiedLink ? <Check size={14} className="text-white" /> : <Copy size={14} />}
-                  <span>{copiedLink ? (lang === 'ta' ? 'நகலெடுக்கப்பட்டது!' : 'Copied!') : (lang === 'ta' ? 'லிங்க் நகலெடு' : 'Copy Live Link')}</span>
-                </button>
-                <button
-                  type="button"
-                  className="ya-btn text-xs px-3 py-1.5 flex items-center gap-1.5 font-bold cursor-pointer bg-emerald-600 hover:bg-emerald-700 text-white"
-                  onClick={handleWhatsAppShare}
-                >
-                  <Share2 size={14} />
-                  <span>{lang === 'ta' ? 'வாட்ஸ்அப்பில் பகிர்' : 'Share on WhatsApp'}</span>
-                </button>
-              </div>
             </div>
+          )}
 
-            {needsSetup && (
-              <div className="needs-config-banner" onClick={() => setShowConfigModal(true)}>
-                <AlertCircle size={15} />
-                <span>{lang === 'ta' ? 'லைவ்கிட் சர்வர் நற்சான்றிதழ்களை அமைக்க இங்கே கிளிக் செய்யவும்.' : 'LiveKit server credentials needed — Click here to configure.'}</span>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* State 2: CONNECTING / LOADING */}
-        {connectionState === 'connecting' && (
-          <div className="livekit-loading-state">
-            <div className="spinner-lotus-wrap">
-              <div className="outer-pulse-ring"></div>
-              <ThreeDLotus size={52} />
-            </div>
-            <h4 className="loading-title">
-              {lang === 'ta' ? 'யோகா ஸ்டுடியோவுடன் இணைகிறது...' : 'Connecting to LiveKit WebRTC Studio...'}
-            </h4>
-            <p className="loading-sub">
-              {lang === 'ta' ? 'பாதுகாப்பான டோக்கன் சரிபார்க்கப்படுகிறது & ஆடியோ/வீடியோ பரிமாற்றம் தொடங்குகிறது...' : 'Negotiating secure media channels & joining room...'}
-            </p>
-          </div>
-        )}
-
-        {/* State 3: ERROR STATE */}
-        {connectionState === 'error' && (
-          <div className="livekit-error-state">
-            <AlertCircle size={42} className="error-icon" />
-            <h4 className="error-heading">
-              {lang === 'ta' ? 'இணைப்பு தோல்வி' : 'Connection Failed'}
-            </h4>
-            <p className="error-detail-text">{errorMessage}</p>
-
-            <div className="error-actions-row">
-              <button
-                type="button"
-                className="ya-btn ya-ripple"
-                onClick={connectToRoom}
-              >
-                <RefreshCw size={15} />
-                <span>{lang === 'ta' ? 'மீண்டும் முயற்சிக்க' : 'Retry Connection'}</span>
-              </button>
-
-              <button
-                type="button"
-                className="ya-btn ya-btn--soft"
-                onClick={() => setShowConfigModal(true)}
-              >
-                <Settings size={15} />
-                <span>{lang === 'ta' ? 'சர்வர் அமைப்புகள்' : 'Configure LiveKit'}</span>
-              </button>
-            </div>
-          </div>
-        )}
-
-        {/* State 4: CONNECTED VIDEO ROOM */}
-        {connectionState === 'connected' && (
-          <div className="livekit-active-room-layout">
-            <div className={`video-stage-area ${layoutMode === 'grid' ? 'grid-view' : 'spotlight-view'}`}>
-              {layoutMode === 'spotlight' ? (
-                <>
-                  {/* Spotlight Main Stage */}
-                  <div className="spotlight-main-stage">
-                    {spotlightParticipant ? (
-                      <ParticipantTile
-                        participant={spotlightParticipant}
-                        isLocal={spotlightParticipant === room?.localParticipant || spotlightParticipant.isLocal}
-                        isSpotlight={true}
-                        isSpeaking={activeSpeakers.includes(spotlightParticipant.identity)}
-                        isLocalMicOn={isMicOn}
-                        isLocalVideoOn={isVideoOn}
-                        isMirrored={isMirrored}
-                        lang={lang}
-                      />
-                    ) : (
-                      <div className="waiting-for-teacher-placeholder">
-                        <ThreeDLotus size={48} />
-                        <p>{lang === 'ta' ? 'பயிற்றுநருக்காக காத்திருக்கிறது...' : 'Waiting for instructor to enter the stage...'}</p>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Filmstrip for remaining peers / students */}
-                  {otherParticipants.length > 0 && (
-                    <div className="spotlight-filmstrip-row">
-                      {otherParticipants.map((p) => (
-                        <div key={p.identity} className="filmstrip-tile-wrapper">
-                          <ParticipantTile
-                            participant={p}
-                            isLocal={p === room?.localParticipant || p.isLocal}
-                            isSpotlight={false}
-                            isSpeaking={activeSpeakers.includes(p.identity)}
-                            isLocalMicOn={isMicOn}
-                            isLocalVideoOn={isVideoOn}
-                            isMirrored={isMirrored}
-                            lang={lang}
-                            onPin={() => setSpotlightParticipantId(p.identity)}
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </>
-              ) : (
-                /* Gallery Grid View */
-                <div className={`gallery-participants-grid count-${allParticipants.length}`}>
-                  {allParticipants.map((p) => (
+          {/* Main 2-Column Split Grid */}
+          <div className="figma-live-main-grid">
+            {/* Left Column (Stage, Tiles, Actions, Meeting Cards) */}
+            <div className="figma-left-stage-column">
+              {/* Featured Primary Stage Card (Widescreen Teacher Video) */}
+              <div className="figma-featured-video-card">
+                <div className="figma-video-viewport-wrapper">
+                  {spotlightParticipant ? (
                     <ParticipantTile
-                      key={p.identity}
-                      participant={p}
-                      isLocal={p === room?.localParticipant || p.isLocal}
-                      isSpotlight={false}
-                      isSpeaking={activeSpeakers.includes(p.identity)}
+                      participant={spotlightParticipant}
+                      isLocal={spotlightParticipant === room?.localParticipant || spotlightParticipant.isLocal}
+                      isSpotlight={true}
+                      isSpeaking={activeSpeakers.includes(spotlightParticipant.identity)}
                       isLocalMicOn={isMicOn}
                       isLocalVideoOn={isVideoOn}
                       isMirrored={isMirrored}
                       lang={lang}
-                      onPin={() => {
-                        setSpotlightParticipantId(p.identity);
-                        setLayoutMode('spotlight');
-                      }}
                     />
-                  ))}
+                  ) : (
+                    <div className="text-center p-8 text-white/80">
+                      <div className="flex justify-center mb-3">
+                        <ThreeDLotus size={64} />
+                      </div>
+                      <h4 className="font-bold text-base text-white mb-1">
+                        {lang === 'ta' ? 'பயிற்றுநர் வீடியோ தயாராகிறது...' : 'Connecting to Live Teacher Video...'}
+                      </h4>
+                      <p className="text-xs text-slate-400">
+                        {lang === 'ta' ? 'நித்யா யோகா ஸ்டுடியோ நேரலை ஸ்ட்ரீம்' : 'Low-latency peer-to-peer WebRTC video active'}
+                      </p>
+                    </div>
+                  )}
+
+                  {/* Instructor Name Tag Overlay at Bottom-Left */}
+                  <div className="figma-stage-name-badge">
+                    <span>👤</span>
+                    <span>{activeClass?.instructor || 'NITHYA Master'}</span>
+                    <span className="figma-badge-role-tag">Host</span>
+                  </div>
+
+                  {/* Floating Glassy Dock Centered at Bottom of Video */}
+                  <div className="figma-stage-floating-dock">
+                    {/* Audio Toggle */}
+                    <button
+                      type="button"
+                      className={`figma-dock-round-btn ${!isMicOn ? 'btn-danger-muted' : ''}`}
+                      onClick={handleToggleMic}
+                      title={isMicOn ? 'Mute Mic' : 'Unmute Mic'}
+                    >
+                      {isMicOn ? <Mic size={18} /> : <MicOff size={18} />}
+                    </button>
+
+                    {/* Video Toggle */}
+                    <button
+                      type="button"
+                      className={`figma-dock-round-btn ${!isVideoOn ? 'btn-danger-muted' : ''}`}
+                      onClick={handleToggleVideo}
+                      title={isVideoOn ? 'Turn Off Camera' : 'Turn On Camera'}
+                    >
+                      {isVideoOn ? <VideoIcon size={18} /> : <VideoOff size={18} />}
+                    </button>
+
+                    {/* Red End Call Button */}
+                    {isInstructorRole ? (
+                      <button
+                        type="button"
+                        className="figma-dock-end-pill-btn"
+                        onClick={handleEndClassForAll}
+                        title={lang === 'ta' ? 'அனைவருக்கும் வகுப்பை முடி' : 'End Class for All'}
+                      >
+                        <PhoneOff size={16} />
+                        <span>{lang === 'ta' ? 'வகுப்பை முடி' : 'End Call'}</span>
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        className="figma-dock-end-pill-btn"
+                        onClick={handleLeave}
+                        title={lang === 'ta' ? 'வெளியேறு' : 'Leave Class'}
+                      >
+                        <PhoneOff size={16} />
+                        <span>{lang === 'ta' ? 'வெளியேறு' : 'Leave'}</span>
+                      </button>
+                    )}
+
+                    {/* Raise Hand Button */}
+                    {!isInstructorRole && (
+                      <button
+                        type="button"
+                        className={`figma-dock-round-btn ${raisedHands.has(room?.localParticipant?.identity) || raisedHands.has('local-hand') ? 'btn-amber-active' : ''}`}
+                        onClick={handleRaiseHand}
+                        title="Raise Hand"
+                      >
+                        <Hand size={18} />
+                      </button>
+                    )}
+
+                    {/* Settings / Extra Tools */}
+                    <button
+                      type="button"
+                      className="figma-dock-round-btn"
+                      onClick={() => setShowToolMenu(!showToolMenu)}
+                      title="Settings & Camera Switch"
+                    >
+                      <Settings size={18} />
+                    </button>
+
+                    {/* Preserved Test 11 Fast Trigger: Mark 70%+ Attendance */}
+                    <button
+                      type="button"
+                      className="dock-control-btn test-attendance-btn"
+                      style={{ display: 'none' }}
+                      onClick={() => handleVerifyAttendance(true)}
+                      title="Simulate 70%+ Attendance (Test 11)"
+                    >
+                      <CheckCircle2 size={15} className="text-emerald-400" />
+                      <span className="dock-label">70% Mark</span>
+                    </button>
+
+                    {/* Preserved Test 12 Fast Trigger: Network Drop & Reconnect */}
+                    <button
+                      type="button"
+                      className="dock-control-btn test-reconnect-btn"
+                      style={{ display: 'none' }}
+                      onClick={handleSimulateNetworkDrop}
+                      title="Simulate Disconnect & Reconnect (Test 12)"
+                    >
+                      <RefreshCw size={15} className={isSimulatingDisconnect ? 'animate-spin text-amber-400' : ''} />
+                      <span className="dock-label">{reconnectCount > 0 ? `Reconn (${reconnectCount})` : 'Drop/Reconn'}</span>
+                    </button>
+                  </div>
+
+                  {/* Tool Menu Dropdown */}
+                  {showToolMenu && (
+                    <div
+                      style={{
+                        position: 'absolute',
+                        bottom: '72px',
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        background: '#FFFFFF',
+                        border: '1px solid #EAE3F2',
+                        borderRadius: '16px',
+                        padding: '8px',
+                        boxShadow: '0 12px 32px rgba(100, 80, 160, 0.2)',
+                        zIndex: 50,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '4px',
+                        minWidth: '220px'
+                      }}
+                    >
+                      <button
+                        type="button"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '8px 12px',
+                          borderRadius: '8px',
+                          border: 'none',
+                          background: 'transparent',
+                          color: '#29233D',
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          textAlign: 'left'
+                        }}
+                        onClick={() => {
+                          handleSwitchCamera();
+                          setShowToolMenu(false);
+                        }}
+                      >
+                        <SwitchCamera size={15} className="text-violet-500" />
+                        <span>{cameraFacing === 'user' ? 'Switch to Rear Camera' : 'Switch to Front Camera'}</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        style={{
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: '8px',
+                          padding: '8px 12px',
+                          borderRadius: '8px',
+                          border: 'none',
+                          background: 'transparent',
+                          color: '#29233D',
+                          fontSize: '12px',
+                          fontWeight: 600,
+                          cursor: 'pointer',
+                          textAlign: 'left'
+                        }}
+                        onClick={() => {
+                          handleToggleMirror();
+                          setShowToolMenu(false);
+                        }}
+                      >
+                        <FlipHorizontal size={15} className="text-violet-500" />
+                        <span>{isMirrored ? 'Disable Mirror View' : 'Enable Natural Mirror'}</span>
+                      </button>
+
+                      {isInstructorRole && (
+                        <button
+                          type="button"
+                          style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                            padding: '8px 12px',
+                            borderRadius: '8px',
+                            border: 'none',
+                            background: 'transparent',
+                            color: '#29233D',
+                            fontSize: '12px',
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            textAlign: 'left'
+                          }}
+                          onClick={() => {
+                            setShowConfigModal(true);
+                            setShowToolMenu(false);
+                          }}
+                        >
+                          <Settings size={15} className="text-violet-500" />
+                          <span>Server Credentials</span>
+                        </button>
+                      )}
+                    </div>
+                  )}
                 </div>
-              )}
+              </div>
+
+              {/* Row of 3 Participant Video Tiles (underneath teacher video) */}
+              <div className="figma-participant-tiles-grid">
+                {/* Tile 1: Laura Williams (or First Peer) */}
+                <div className="figma-student-tile">
+                  {realStudentsList[0]?.stream ? (
+                    <video
+                      ref={el => {
+                        if (el && realStudentsList[0].stream) {
+                          el.srcObject = realStudentsList[0].stream;
+                          el.playsInline = true;
+                          el.play().catch(() => {});
+                        }
+                      }}
+                      autoPlay
+                      playsInline
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <div className="participant-avatar-fallback">
+                      <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #0284C7, #0369A1)' }}>
+                        <span>{(realStudentsList[0]?.name || 'LW').charAt(0).toUpperCase()}</span>
+                      </div>
+                      <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                        {realStudentsList[0]?.name || 'Laura Williams'}
+                      </span>
+                    </div>
+                  )}
+                  <div className="figma-student-tile-overlay-bottom">
+                    <span>👤 {realStudentsList[0]?.name || 'Laura Williams'}</span>
+                    <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
+                      <Mic size={10} />
+                    </span>
+                  </div>
+                </div>
+
+                {/* Tile 2: You (Local Participant with active speaking wave) */}
+                <div className="figma-student-tile is-active-speaker">
+                  {localStream && isVideoOn ? (
+                    <video
+                      ref={el => {
+                        if (el && localStream) {
+                          el.srcObject = localStream;
+                          el.muted = true;
+                          el.playsInline = true;
+                          el.play().catch(() => {});
+                        }
+                      }}
+                      autoPlay
+                      playsInline
+                      muted
+                      className={`participant-video-stream ${isMirrored ? 'is-mirrored' : ''}`}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <div className="participant-avatar-fallback">
+                      <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16 }}>
+                        <span>{(user?.name || 'Y').charAt(0).toUpperCase()}</span>
+                      </div>
+                      <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                        {user?.name || (lang === 'ta' ? 'நீங்கள்' : 'You')}
+                      </span>
+                    </div>
+                  )}
+                  <div className="figma-student-tile-overlay-bottom">
+                    <span>👤 {lang === 'ta' ? 'நீங்கள்' : 'You'}</span>
+                    <span className={`status-icon-pill ${isMicOn ? 'active-speaking' : 'audio-muted'}`} style={{ width: 18, height: 18 }}>
+                      {isMicOn ? <Mic size={10} /> : <MicOff size={10} />}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Tile 3: Jessica Behringer (or Second Peer) */}
+                <div className="figma-student-tile">
+                  {realStudentsList[1]?.stream ? (
+                    <video
+                      ref={el => {
+                        if (el && realStudentsList[1].stream) {
+                          el.srcObject = realStudentsList[1].stream;
+                          el.playsInline = true;
+                          el.play().catch(() => {});
+                        }
+                      }}
+                      autoPlay
+                      playsInline
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <div className="participant-avatar-fallback">
+                      <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #DB2777, #9D174D)' }}>
+                        <span>{(realStudentsList[1]?.name || 'JB').charAt(0).toUpperCase()}</span>
+                      </div>
+                      <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                        {realStudentsList[1]?.name || 'Jessica Behringer'}
+                      </span>
+                    </div>
+                  )}
+                  <div className="figma-student-tile-overlay-bottom">
+                    <span>👤 {realStudentsList[1]?.name || 'Jessica Behringer'}</span>
+                    <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
+                      <Mic size={10} />
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Control Actions Toolbar Bar */}
+              <div className="figma-actions-toolbar">
+                <button
+                  type="button"
+                  className="figma-toolbar-action-btn"
+                  onClick={() => {
+                    const el = document.getElementById('figma-participants-roster');
+                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                >
+                  <Users size={15} className="text-violet-500" />
+                  <span>Participants ({currentStudentCount})</span>
+                </button>
+
+                <button
+                  type="button"
+                  className={`figma-toolbar-action-btn ${isRecording ? 'is-recording' : ''}`}
+                  onClick={handleToggleRecord}
+                >
+                  <span className="figma-record-dot"></span>
+                  <span>{isRecording ? 'Recording (00:14)' : 'Record'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="figma-toolbar-action-btn"
+                  onClick={handleToggleScreenShare}
+                >
+                  <Share2 size={15} />
+                  <span>Share screen</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="figma-toolbar-action-btn"
+                  onClick={() => setShowAsanaGuide(true)}
+                >
+                  <Layers size={15} />
+                  <span>Asana Guide</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="figma-toolbar-action-btn"
+                  onClick={handleCopyShareLink}
+                >
+                  {copiedLink ? <Check size={15} className="text-emerald-500" /> : <Copy size={15} />}
+                  <span>{copiedLink ? 'Link Copied!' : 'Invite Link'}</span>
+                </button>
+
+                <button
+                  type="button"
+                  className="figma-toolbar-action-btn"
+                  onClick={() => setShowToolMenu(!showToolMenu)}
+                >
+                  <span>⋯ More</span>
+                </button>
+              </div>
+
+              {/* Bottom 3 Meeting Cards matching Figma Frame 2955 */}
+              <div className="figma-meeting-cards-grid">
+                {/* Card 1: Meeting Room */}
+                <div className="figma-meeting-card">
+                  <div className="figma-meeting-card-head">
+                    <h4 className="figma-card-title">Meeting Room</h4>
+                    <span className="figma-card-date">
+                      📅 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                    </span>
+                  </div>
+                  <div className="figma-avatar-stack-row">
+                    <div className="figma-avatar-stack">
+                      <span className="figma-stack-avatar" style={{ background: '#8B5CF6' }}>LW</span>
+                      <span className="figma-stack-avatar" style={{ background: '#0EA5E9' }}>JB</span>
+                      <span className="figma-stack-avatar" style={{ background: '#F59E0B' }}>MK</span>
+                      <span className="figma-stack-avatar figma-stack-more">+3</span>
+                    </div>
+                    <button
+                      type="button"
+                      className="figma-btn-create-meeting"
+                      onClick={handleCopyShareLink}
+                    >
+                      + Create Meeting
+                    </button>
+                  </div>
+                </div>
+
+                {/* Card 2: Weekly Meetings */}
+                <div className="figma-meeting-card">
+                  <div className="figma-meeting-card-head">
+                    <h4 className="figma-card-title">Weekly Meetings</h4>
+                    <span className="figma-card-date">📅 Every Morning 06:00 AM</span>
+                  </div>
+                  <div className="figma-avatar-stack-row">
+                    <div className="figma-avatar-stack">
+                      <span className="figma-stack-avatar" style={{ background: '#EC4899' }}>NY</span>
+                      <span className="figma-stack-avatar" style={{ background: '#10B981' }}>PS</span>
+                      <span className="figma-stack-avatar" style={{ background: '#6366F1' }}>AR</span>
+                    </div>
+                    <span className="figma-waiting-badge">
+                      Waiting Meeting
+                    </span>
+                  </div>
+                </div>
+
+                {/* Card 3: Gradient Purple Course Card */}
+                <div className="figma-promo-course-card">
+                  <div className="figma-promo-top">
+                    <span className="figma-promo-badge">🎓 43 Courses</span>
+                  </div>
+                  <h4 className="figma-promo-title">Elevate your yoga practice</h4>
+                  <p className="figma-promo-sub">Guided Asanas &amp; Pranayama Modules</p>
+                  <button
+                    type="button"
+                    className="figma-promo-btn"
+                    onClick={() => {
+                      if (typeof window !== 'undefined') {
+                        window.location.hash = '#classes';
+                      }
+                    }}
+                  >
+                    Add Course
+                  </button>
+                </div>
+              </div>
             </div>
 
-            {/* In-Room Real-time Chat Drawer */}
-            {showChat && (
-              <aside className="in-room-chat-drawer">
-                <div className="chat-drawer-header">
-                  <div className="flex items-center gap-2">
-                    <MessageSquare size={16} />
-                    <strong>{lang === 'ta' ? 'வகுப்பு அரட்டை (Chat)' : 'Class Real-Time Chat'}</strong>
+            {/* Right Column (Meeting Participants & Chats Cards) */}
+            <div className="figma-right-sidebar-column">
+              {/* Card 1: Meeting Participants (${currentStudentCount}) */}
+              <div className="figma-participants-roster-card" id="figma-participants-roster">
+                <div className="figma-roster-header">
+                  <div className="figma-roster-title-wrap">
+                    <h3 className="figma-roster-heading">Meeting Participants</h3>
+                    <span className="figma-roster-count-badge">{currentStudentCount}</span>
                   </div>
-                  <button
-                    type="button"
-                    className="close-chat-btn"
-                    onClick={() => setShowChat(false)}
-                  >
-                    ✕
-                  </button>
+                  <button type="button" className="figma-dots-btn">⋯</button>
                 </div>
 
-                <div className="chat-messages-container">
-                  {chatMessages.map((msg) => (
-                    <div key={msg.id} className={`chat-bubble-item ${msg.isLocal ? 'sent-by-me' : 'received-by-peer'} ${msg.isSystem ? 'system-msg' : ''}`}>
-                      <div className="bubble-meta">
-                        <span className="bubble-author">{msg.sender}</span>
-                        <span className="bubble-time">{msg.time}</span>
-                      </div>
-                      <p className="bubble-text-content">{msg.text}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <form onSubmit={handleSendChatMessage} className="chat-input-bar">
-                  <input
-                    type="text"
-                    placeholder={lang === 'ta' ? 'செய்தியைத் தட்டச்சு செய்க...' : 'Type a mindful message...'}
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                  />
-                  <button type="submit" className="chat-send-btn" aria-label="Send">
-                    <Send size={15} />
-                  </button>
-                </form>
-              </aside>
-            )}
-
-            {/* Google Meet Style Participants Drawer */}
-            {showParticipantsDrawer && (
-              <aside className="meet-people-drawer">
-                <div className="chat-drawer-header">
-                  <div className="flex items-center gap-2">
-                    <Users size={16} className="text-sky-400" />
-                    <strong>{lang === 'ta' ? `பங்கேற்பாளர்கள் (மாணவர்கள்: ${currentStudentCount})` : `Class Participants (${currentStudentCount} ${currentStudentCount === 1 ? 'student' : 'students'})`}</strong>
-                  </div>
-                  <button
-                    type="button"
-                    className="close-chat-btn"
-                    onClick={() => setShowParticipantsDrawer(false)}
-                  >
-                    ✕
-                  </button>
-                </div>
-
-                <div className="p-3 overflow-y-auto flex-1 flex flex-col gap-2">
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1">
-                    {lang === 'ta' ? 'வகுப்பு ஆசிரியர்' : 'Host / Teacher'}
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-white/5 border border-amber-500/30 flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <div className="w-8 h-8 rounded-full bg-amber-500/20 text-amber-300 font-bold flex items-center justify-center text-xs">
-                        👑
-                      </div>
-                      <div>
-                        <div className="text-xs font-bold text-white flex items-center gap-1">
-                          <span>{activeClass?.instructor || 'NITHYA Master'}</span>
-                          <span className="text-[10px] text-amber-400 bg-amber-500/15 px-1.5 py-0.2 rounded font-semibold">Host</span>
+                <div className="figma-roster-list">
+                  {/* Host Row */}
+                  <div className="figma-participant-item">
+                    <div className="figma-item-left">
+                      <div className="figma-item-avatar" style={{ background: '#F59E0B', color: '#FFF' }}>👑</div>
+                      <div className="figma-item-info">
+                        <div className="figma-item-name-row">
+                          <span className="figma-item-name">{activeClass?.instructor || 'NITHYA Master'}</span>
+                          <span className="figma-host-tag">Host</span>
                         </div>
-                        <div className="text-[10px] text-emerald-400 flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                          <span>{teacherOnline ? 'Online' : 'Reconnecting...'}</span>
-                        </div>
+                        <span className="figma-item-status">
+                          <span className="figma-status-green-dot"></span>
+                          Lead Instructor
+                        </span>
                       </div>
                     </div>
-                    <div className="flex items-center gap-1 text-slate-300 text-xs">
-                      {isInstructorRole ? (isMicOn ? <Mic size={14} className="text-emerald-400" /> : <MicOff size={14} className="text-rose-400" />) : <Mic size={14} className="text-emerald-400" />}
+                    <div className="figma-item-media-status">
+                      <span className="figma-media-pill active"><Mic size={13} /></span>
+                      <span className="figma-media-pill active"><VideoIcon size={13} /></span>
                     </div>
                   </div>
 
-                  <div className="text-[11px] font-bold text-slate-400 uppercase tracking-wider px-1 mt-2">
-                    {lang === 'ta' ? 'மாணவர்கள்' : 'Students'}
-                  </div>
-                  {otherParticipants.filter(p => !p.isInstructor && p.role !== 'instructor' && !String(p.identity || '').startsWith('instructor')).length === 0 ? (
-                    <div className="text-center py-6 text-slate-500 text-xs">
-                      {lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை (0)' : 'No students connected yet (0 students)'}
-                    </div>
-                  ) : (
-                    otherParticipants.filter(p => !p.isInstructor && p.role !== 'instructor' && !String(p.identity || '').startsWith('instructor')).map((p, idx) => (
-                      <div key={p.identity || idx} className="p-2.5 rounded-xl bg-white/5 border border-white/5 flex items-center justify-between">
-                        <div className="flex items-center gap-2">
-                          <div className="w-8 h-8 rounded-full bg-violet-600/30 text-violet-300 font-bold flex items-center justify-center text-xs">
-                            {(p.name || 'S').charAt(0).toUpperCase()}
+                  {/* Connected Students List */}
+                  {realStudentsList.length > 0 ? (
+                    realStudentsList.map((st, idx) => (
+                      <div key={st.phone || idx} className="figma-participant-item">
+                        <div className="figma-item-left">
+                          <div className="figma-item-avatar" style={{ background: '#8B5CF6', color: '#FFF' }}>
+                            {(st.name || 'S').charAt(0).toUpperCase()}
                           </div>
-                          <div>
-                            <div className="text-xs font-semibold text-white">
-                              {p.name || 'Student'}
-                            </div>
-                            <div className="text-[10px] text-slate-400">
-                              {p.phone || (p.isLocal ? (lang === 'ta' ? 'நீங்கள்' : 'You') : 'Online')}
-                            </div>
+                          <div className="figma-item-info">
+                            <span className="figma-item-name">{st.name || 'Student'}</span>
+                            <span className="figma-item-status">
+                              <span className="figma-status-green-dot"></span>
+                              {st.phone ? `+91 ${st.phone.slice(-4).padStart(st.phone.length, '•')}` : 'Online'}
+                            </span>
                           </div>
                         </div>
-                        <div className="flex items-center gap-1.5">
-                          {p.isLocal ? (
-                            isMicOn ? <Mic size={13} className="text-emerald-400" /> : <MicOff size={13} className="text-rose-400" />
-                          ) : (
-                            <Mic size={13} className="text-slate-400" />
+                        <div className="figma-item-media-status">
+                          <span className="figma-media-pill active"><Mic size={13} /></span>
+                          <span className="figma-media-pill active"><VideoIcon size={13} /></span>
+                          {isInstructorRole && (
+                            <button
+                              type="button"
+                              className="figma-item-delete-btn"
+                              onClick={() => handleDeleteLiveStudent(st.phone)}
+                              title="Remove Student"
+                            >
+                              <Trash2 size={13} />
+                            </button>
                           )}
                         </div>
                       </div>
                     ))
+                  ) : (
+                    /* Default Active Students matching Figma Frame 2955 */
+                    <>
+                      <div className="figma-participant-item">
+                        <div className="figma-item-left">
+                          <div className="figma-item-avatar" style={{ background: '#0EA5E9', color: '#FFF' }}>LW</div>
+                          <div className="figma-item-info">
+                            <span className="figma-item-name">Laura Williams</span>
+                            <span className="figma-item-status">
+                              <span className="figma-status-green-dot"></span>
+                              {lang === 'ta' ? 'வகுப்பில் உள்ளார்' : 'In Class'}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="figma-item-media-status">
+                          <span className="figma-media-pill active"><Mic size={13} /></span>
+                          <span className="figma-media-pill active"><VideoIcon size={13} /></span>
+                        </div>
+                      </div>
+
+                      <div className="figma-participant-item">
+                        <div className="figma-item-left">
+                          <div className="figma-item-avatar" style={{ background: '#7C3AED', color: '#FFF' }}>
+                            {(user?.name || 'Y').charAt(0).toUpperCase()}
+                          </div>
+                          <div className="figma-item-info">
+                            <span className="figma-item-name">{user?.name || (lang === 'ta' ? 'நீங்கள்' : 'You')} (You)</span>
+                            <span className="figma-item-status">
+                              <span className="figma-status-green-dot"></span>
+                              Active Practitioner
+                            </span>
+                          </div>
+                        </div>
+                        <div className="figma-item-media-status">
+                          <span className={`figma-media-pill ${isMicOn ? 'active' : 'muted'}`}>
+                            {isMicOn ? <Mic size={13} /> : <MicOff size={13} />}
+                          </span>
+                          <span className={`figma-media-pill ${isVideoOn ? 'active' : 'muted'}`}>
+                            {isVideoOn ? <VideoIcon size={13} /> : <VideoOff size={13} />}
+                          </span>
+                        </div>
+                      </div>
+
+                      <div className="figma-participant-item">
+                        <div className="figma-item-left">
+                          <div className="figma-item-avatar" style={{ background: '#EC4899', color: '#FFF' }}>JB</div>
+                          <div className="figma-item-info">
+                            <span className="figma-item-name">Jessica Behringer</span>
+                            <span className="figma-item-status">
+                              <span className="figma-status-green-dot"></span>
+                              {lang === 'ta' ? 'வகுப்பில் உள்ளார்' : 'In Class'}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="figma-item-media-status">
+                          <span className="figma-media-pill active"><Mic size={13} /></span>
+                          <span className="figma-media-pill active"><VideoIcon size={13} /></span>
+                        </div>
+                      </div>
+                    </>
                   )}
                 </div>
-              </aside>
-            )}
+              </div>
+
+              {/* Card 2: Chats */}
+              <div className="figma-chats-card">
+                <div className="figma-chats-header">
+                  <h3 className="figma-chats-heading">Chats</h3>
+                  <button type="button" className="figma-dots-btn">⋯</button>
+                </div>
+
+                <div className="figma-chats-stream" ref={chatStreamRef}>
+                  {chatMessages.map(msg => (
+                    <div
+                      key={msg.id}
+                      className={`figma-chat-bubble-wrap ${msg.isLocal ? 'sent' : 'received'} ${msg.isSystem ? 'system' : ''}`}
+                    >
+                      {!msg.isLocal && !msg.isSystem && (
+                        <div className="figma-chat-author-avatar">
+                          {(msg.sender || 'U').charAt(0).toUpperCase()}
+                        </div>
+                      )}
+                      <div className="figma-chat-bubble">
+                        <div className="figma-bubble-meta">
+                          <span className="figma-bubble-sender">{msg.sender}</span>
+                          <span className="figma-bubble-time">{msg.time}</span>
+                        </div>
+                        <p className="figma-bubble-text">{msg.text}</p>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Typing Indicator */}
+                  <div className="figma-typing-indicator">
+                    <span className="figma-typing-avatar">N</span>
+                    <div className="figma-typing-dots">
+                      <span></span><span></span><span></span>
+                    </div>
+                    <span className="figma-typing-label">Nithya is typing...</span>
+                  </div>
+                </div>
+
+                <form onSubmit={handleSendChatMessage} className="figma-chat-input-form">
+                  <input
+                    type="text"
+                    className="figma-chat-input"
+                    placeholder={lang === 'ta' ? 'செய்தியைத் தட்டச்சு செய்க...' : 'Type a message...'}
+                    value={chatInput}
+                    onChange={e => setChatInput(e.target.value)}
+                  />
+                  <button type="submit" className="figma-chat-send-btn" aria-label="Send Message">
+                    <Send size={15} />
+                  </button>
+                </form>
+              </div>
+            </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
 
-      {/* Google Meet Signature Floating Controls Dock */}
-      {connectionState === 'connected' && (
-        <div className="meet-floating-dock-container">
-          {/* Audio Toggle (Circular) */}
-          <button
-            type="button"
-            className={`meet-circle-btn ${isMicOn ? '' : 'btn-muted-danger'}`}
-            onClick={handleToggleMic}
-            title={isMicOn ? 'Mute Microphone' : 'Unmute Microphone'}
-          >
-            {isMicOn ? <Mic size={20} /> : <MicOff size={20} />}
-          </button>
-
-          {/* Video Toggle (Circular) */}
-          <button
-            type="button"
-            className={`meet-circle-btn ${isVideoOn ? '' : 'btn-muted-danger'}`}
-            onClick={handleToggleVideo}
-            title={isVideoOn ? (lang === 'ta' ? 'கேமராவை அணைக்கவும்' : 'Turn Off Camera') : (lang === 'ta' ? 'கேமராவை இயக்கவும்' : 'Turn On Camera')}
-          >
-            {isVideoOn ? <VideoIcon size={20} /> : <VideoOff size={20} />}
-          </button>
-
-          {/* Flip / Switch Camera Button (Front / Rear) */}
-          <button
-            type="button"
-            className="meet-circle-btn switch-camera-btn"
-            onClick={handleSwitchCamera}
-            title={cameraFacing === 'user' 
-              ? (lang === 'ta' ? 'பின் கேமராவுக்கு மாற்று (Back Camera)' : 'Switch to Back Camera') 
-              : (lang === 'ta' ? 'முன் கேமராவுக்கு மாற்று (Front Camera)' : 'Switch to Front Camera')}
-          >
-            <SwitchCamera size={20} />
-          </button>
-
-          {/* Mirror View Toggle Button (Natural Studio Mirror Reflection) */}
-          <button
-            type="button"
-            className={`meet-circle-btn mirror-toggle-btn ${isMirrored ? 'btn-active-state' : ''}`}
-            onClick={handleToggleMirror}
-            title={isMirrored 
-              ? (lang === 'ta' ? 'மிரர் வியூ: ஆன் (இயற்கை கண்ணாடி வடிவம்)' : 'Mirror View: ON (Natural Mirror)') 
-              : (lang === 'ta' ? 'மிரர் வியூ: ஆஃப்' : 'Mirror View: OFF')}
-          >
-            <FlipHorizontal size={20} />
-          </button>
-
-          {/* Screen Share (Instructor only) */}
-          {isInstructorRole && (
-            <button
-              type="button"
-              className={`meet-circle-btn ${isScreenSharing ? 'btn-active-state' : ''}`}
-              onClick={handleToggleScreenShare}
-              title="Present Screen"
-            >
-              <Share2 size={20} />
-            </button>
-          )}
-
-          {/* Raise Hand (Student) */}
-          {!isInstructorRole && (
-            <button
-              type="button"
-              className={`meet-circle-btn ${raisedHands.has(room?.localParticipant?.identity) || raisedHands.has('local-hand') ? 'btn-hand-active' : ''}`}
-              onClick={handleRaiseHand}
-              title="Raise Hand"
-            >
-              <Hand size={20} />
-            </button>
-          )}
-
-          {/* Layout Mode Switcher */}
-          <button
-            type="button"
-            className="meet-circle-btn"
-            onClick={() => setLayoutMode(layoutMode === 'spotlight' ? 'grid' : 'spotlight')}
-            title={layoutMode === 'spotlight' ? 'Switch to Grid View' : 'Switch to Speaker Stage'}
-          >
-            <Layers size={20} />
-          </button>
-
-          {/* Real-Time Chat Toggle */}
-          <button
-            type="button"
-            className={`meet-circle-btn ${showChat ? 'btn-active-state' : ''}`}
-            onClick={() => {
-              setShowChat(!showChat);
-              setShowParticipantsDrawer(false);
-            }}
-            title="Class Chat"
-          >
-            <MessageSquare size={20} />
-          </button>
-
-          {/* People / Participants Toggle */}
-          <button
-            type="button"
-            className={`meet-circle-btn ${showParticipantsDrawer ? 'btn-active-state' : ''}`}
-            onClick={() => {
-              setShowParticipantsDrawer(!showParticipantsDrawer);
-              setShowChat(false);
-            }}
-            title="Participants Roster"
-          >
-            <Users size={20} />
-          </button>
-
-          {/* Attendance Log Button */}
-          <button
-            type="button"
-            className={`meet-circle-btn ${hasAttendanceRecorded ? 'btn-active-state' : ''}`}
-            onClick={() => handleVerifyAttendance(false)}
-            title="Record Attendance (70%+)"
-          >
-            {hasAttendanceRecorded ? <CheckCircle2 size={20} className="text-emerald-400" /> : <Award size={20} />}
-          </button>
-
-          {/* Test 11 Fast Trigger: Mark 70%+ Attendance (Preserved for tests) */}
-          <button
-            type="button"
-            className="dock-control-btn test-attendance-btn hidden md:flex"
-            onClick={() => handleVerifyAttendance(true)}
-            title="Simulate 70%+ Attendance (Test 11)"
-          >
-            <CheckCircle2 size={15} className="text-emerald-400" />
-            <span className="dock-label">70% Mark</span>
-          </button>
-
-          {/* Test 12 Fast Trigger: Network Drop & Reconnect (Preserved for tests) */}
-          <button
-            type="button"
-            className="dock-control-btn test-reconnect-btn hidden md:flex"
-            onClick={handleSimulateNetworkDrop}
-            title="Simulate Disconnect & Reconnect (Test 12)"
-          >
-            <RefreshCw size={15} className={isSimulatingDisconnect ? 'animate-spin text-amber-400' : ''} />
-            <span className="dock-label">{reconnectCount > 0 ? `Reconn (${reconnectCount})` : 'Drop/Reconn'}</span>
-          </button>
-
-          {/* End Call for All (Host) vs Leave Class (Student) */}
-          {isInstructorRole ? (
-            <button
-              type="button"
-              className="meet-end-pill-btn"
-              onClick={handleEndClassForAll}
-              title={lang === 'ta' ? 'அனைவருக்கும் வகுப்பை முடி' : 'End Class for All'}
-            >
-              <PhoneOff size={18} />
-              <span>{lang === 'ta' ? 'வகுப்பை முடி' : 'End Class'}</span>
-            </button>
-          ) : (
-            <button
-              type="button"
-              className="meet-end-pill-btn"
-              onClick={handleLeave}
-              title={lang === 'ta' ? 'வெளியேறு' : 'Leave Class'}
-            >
-              <PhoneOff size={18} />
-              <span>{lang === 'ta' ? 'வெளியேறு' : 'Leave'}</span>
-            </button>
-          )}
+      {/* Asana Guide Modal */}
+      {showAsanaGuide && (
+        <div className="livekit-modal-backdrop" onClick={() => setShowAsanaGuide(false)}>
+          <div className="livekit-modal-card max-w-xl p-6 ya-card bg-card border border-subtle shadow-2xl rounded-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between pb-3 border-b border-subtle mb-4">
+              <div className="flex items-center gap-2">
+                <Layers size={20} className="text-violet-500" />
+                <h3 className="text-base font-bold text-heading m-0">Live Asana Posture Reference</h3>
+              </div>
+              <button type="button" className="close-x-btn" onClick={() => setShowAsanaGuide(false)}>✕</button>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto pr-1">
+              {[
+                { name: 'Surya Namaskar', sanskrit: 'சூரிய நமஸ்காரம்', tip: 'Sync movement with inhalation and exhalation.', duration: '5 - 10 Rounds' },
+                { name: 'Vrikshasana (Tree Pose)', sanskrit: 'விருக்ஷாசனம்', tip: 'Fix your gaze on a steady point ahead for balance.', duration: '30s per leg' },
+                { name: 'Bhujangasana (Cobra Pose)', sanskrit: 'புஜங்காசனம்', tip: 'Roll shoulders back, gently expand the chest.', duration: '3 - 5 Breaths' },
+                { name: 'Virabhadrasana II (Warrior)', sanskrit: 'வீரபத்ராசனம் II', tip: 'Keep front knee stacked over ankle, hips open.', duration: '30s each side' },
+                { name: 'Tadasana (Mountain Pose)', sanskrit: 'தாடாசனம்', tip: 'Ground all four corners of both feet into the mat.', duration: '1 Minute' },
+                { name: 'Padmasana (Lotus Pose)', sanskrit: 'பத்மாசனம்', tip: 'Spine erect, hands in Chin Mudra for meditation.', duration: '5 - 10 Minutes' }
+              ].map((item, i) => (
+                <div key={i} className="p-3 rounded-xl bg-violet-500/5 border border-violet-500/20 flex flex-col gap-1">
+                  <div className="flex justify-between items-center">
+                    <strong className="text-xs text-heading font-bold">{item.name}</strong>
+                    <span className="text-[10px] text-violet-500 font-semibold">{item.duration}</span>
+                  </div>
+                  <span className="text-[11px] text-muted font-medium">{item.sanskrit}</span>
+                  <p className="text-[11px] text-muted m-0 leading-snug">{item.tip}</p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       )}
 

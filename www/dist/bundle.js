@@ -25541,11 +25541,11 @@
     return /* @__PURE__ */ import_react4.default.createElement("aside", { className: "app-sidebar-nav", "aria-label": "Sidebar Navigation" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "sidebar-brand-container", onClick: () => setCurrentTab("home") }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "sidebar-user-avatar-pill avatar-3d-popout-wrap" }, /* @__PURE__ */ import_react4.default.createElement(
       "img",
       {
-        src: "assets/images/pastel/sidebar_avatar_3d.png",
+        src: "assets/images/pastel/nithya_3d_avatar.png",
         alt: "3D Character Avatar",
         className: "sidebar-user-img-3d"
       }
-    )), /* @__PURE__ */ import_react4.default.createElement("div", { className: "brand-text-block" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "sidebar-greeting-row" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "sidebar-hi-text" }, "Hi, ", displayName, "!"), /* @__PURE__ */ import_react4.default.createElement("span", { className: "sidebar-wave" }, "\u{1F44B}")), /* @__PURE__ */ import_react4.default.createElement("span", { className: "brand-subtitle" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE & \u0BA8\u0BB2\u0BAE\u0BCD" : "Yoga & Wellness"))), /* @__PURE__ */ import_react4.default.createElement("nav", { className: "sidebar-menu-list" }, navItems.map((item) => {
+    )), /* @__PURE__ */ import_react4.default.createElement("div", { className: "brand-text-block" }, /* @__PURE__ */ import_react4.default.createElement("div", { className: "sidebar-greeting-row" }, /* @__PURE__ */ import_react4.default.createElement("span", { className: "sidebar-hi-text" }, lang === "ta" ? `\u0BB9\u0BBE\u0BAF\u0BCD, ${displayName}!` : `Hi, ${displayName}!`), /* @__PURE__ */ import_react4.default.createElement("span", { className: "sidebar-wave" }, "\u{1F44B}")), /* @__PURE__ */ import_react4.default.createElement("span", { className: "brand-subtitle" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE & \u0BA8\u0BB2\u0BAE\u0BCD" : "Yoga & Wellness"))), /* @__PURE__ */ import_react4.default.createElement("nav", { className: "sidebar-menu-list" }, navItems.map((item) => {
       const Icon2 = item.icon;
       const isActive = currentTab === item.id || item.id === "classes" && (currentTab === "yoga" || currentTab === "yoga-classes") || item.id === "live" && (currentTab === "live" || currentTab === "live-classes");
       return /* @__PURE__ */ import_react4.default.createElement(
@@ -25778,12 +25778,19 @@
             if (el) el.scrollIntoView({ behavior: "smooth" });
           }
         },
-        title: "View / Edit Profile",
+        title: lang === "ta" ? "\u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "View / Edit Profile",
         role: "button",
         tabIndex: 0
       },
-      /* @__PURE__ */ import_react5.default.createElement("div", { className: "user-avatar-circle" }, user2?.avatar ? /* @__PURE__ */ import_react5.default.createElement("img", { src: user2.avatar, alt: user2.name }) : /* @__PURE__ */ import_react5.default.createElement("span", null, user2?.name ? user2.name.charAt(0) : "N")),
-      /* @__PURE__ */ import_react5.default.createElement("div", { className: "user-greeting-meta hidden sm:flex" }, /* @__PURE__ */ import_react5.default.createElement("span", { className: "welcome-tag" }, lang === "ta" ? "\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD," : "Welcome,"), /* @__PURE__ */ import_react5.default.createElement("span", { className: "user-name-bold" }, user2?.name || "Nithya"))
+      /* @__PURE__ */ import_react5.default.createElement("div", { className: "header-avatar-3d-wrap" }, /* @__PURE__ */ import_react5.default.createElement(
+        "img",
+        {
+          src: user2?.avatar || "assets/images/pastel/nithya_3d_avatar.png",
+          alt: user2?.name || "Nithya",
+          className: "header-avatar-3d-img"
+        }
+      )),
+      /* @__PURE__ */ import_react5.default.createElement("div", { className: "user-greeting-meta hidden sm:flex" }, /* @__PURE__ */ import_react5.default.createElement("span", { className: "welcome-tag" }, lang === "ta" ? "\u0BB9\u0BBE\u0BAF\u0BCD," : "Hi,"), /* @__PURE__ */ import_react5.default.createElement("span", { className: "user-name-bold" }, user2?.name ? user2.name.includes("Master") ? lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD" : "Nithya Master" : lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u{1F44B}" : "Nithya \u{1F44B}" : "Nithya"))
     )));
   }
   var import_react5;
@@ -25795,98 +25802,12 @@
     }
   });
 
-  // src/components/HeroSection.jsx
-  function HeroSection({
-    user: user2,
-    onJoinLive,
-    onViewSchedule,
-    lang = "en"
-  }) {
-    const displayName = user2?.name ? user2.name.split(" ")[0] : "Nithya";
-    return /* @__PURE__ */ import_react6.default.createElement("div", { className: "pastel-hero-container" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "pastel-welcome-banner hero-banner-3d-layout" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "welcome-banner-decor-blob1" }), /* @__PURE__ */ import_react6.default.createElement("div", { className: "welcome-banner-decor-blob2" }), /* @__PURE__ */ import_react6.default.createElement("div", { className: "welcome-banner-char-left" }, /* @__PURE__ */ import_react6.default.createElement(
-      "img",
-      {
-        src: "assets/images/pastel/hero_girl_3d.png",
-        alt: "3D Mindful Character",
-        className: "hero-girl-3d-img"
-      }
-    )), /* @__PURE__ */ import_react6.default.createElement("div", { className: "welcome-banner-content" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "floating-music-notes", "aria-hidden": "true" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "note-pink note-1" }, "\u{1F3B5}"), /* @__PURE__ */ import_react6.default.createElement("span", { className: "note-purple note-2" }, "\u{1F3B6}")), /* @__PURE__ */ import_react6.default.createElement("h2", { className: "welcome-banner-title" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "greeting-main-line" }, lang === "ta" ? `\u0B95\u0BBE\u0BB2\u0BC8 \u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${displayName}! \u2600\uFE0F` : `Good Morning, ${displayName}! \u2600\uFE0F`), /* @__PURE__ */ import_react6.default.createElement("span", { className: "welcome-banner-subtitle-line" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC1 \u0B9A\u0BBF\u0BB1\u0BBF\u0BA4\u0BC1 \u0BAF\u0BCB\u0B95\u0BBE\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0B9A\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BB0\u0B9A\u0BBF\u0BAA\u0BCD\u0BAA\u0BCB\u0BAE\u0BCD!" : "Let's enjoy some music & mindful practice today!")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "welcome-banner-actions" }, /* @__PURE__ */ import_react6.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-pastel-cta-primary ya-ripple",
-        onClick: onJoinLive
-      },
-      /* @__PURE__ */ import_react6.default.createElement("span", { className: "cta-icon-circle" }, /* @__PURE__ */ import_react6.default.createElement(Play, { size: 12, fill: "currentColor" })),
-      /* @__PURE__ */ import_react6.default.createElement("span", null, user2?.role === "trainer" || user2?.isInstructor ? lang === "ta" ? "\u{1F451} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F451} Start Live Class" : lang === "ta" ? "\u0B87\u0B9A\u0BC8\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1 \u25B6" : "Play Something")
-    ), /* @__PURE__ */ import_react6.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-pastel-cta-secondary ya-ripple",
-        onClick: onViewSchedule
-      },
-      /* @__PURE__ */ import_react6.default.createElement(Calendar, { size: 15 }),
-      /* @__PURE__ */ import_react6.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8" : "Schedule")
-    ))), /* @__PURE__ */ import_react6.default.createElement("div", { className: "welcome-banner-art-wrap hero-right-visual-wrapper" }, /* @__PURE__ */ import_react6.default.createElement(
-      "img",
-      {
-        src: "assets/images/pastel/potted_plant_3d.png",
-        alt: "Zen Potted Plant",
-        className: "welcome-potted-plant-img"
-      }
-    ), /* @__PURE__ */ import_react6.default.createElement(
-      "img",
-      {
-        src: "assets/images/chakra-meditation.jpg",
-        alt: "Nithya Yoga 7 Chakras Meditation Visual",
-        className: "hero-chakra-visual-img",
-        style: { display: "none" }
-      }
-    ))), /* @__PURE__ */ import_react6.default.createElement("div", { className: "pastel-stat-card-row" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "pastel-stat-card card-tone-lavender" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-icon-pill icon-lavender icon-3d-wrap" }, /* @__PURE__ */ import_react6.default.createElement(
-      "img",
-      {
-        src: "assets/images/pastel/icon_music_3d.png",
-        alt: "Music Note 3D",
-        className: "stat-icon-3d-img"
-      }
-    )), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-trend-tag tag-lavender" }, "+18% ", lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "this week")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Songs Played / Classes"), /* @__PURE__ */ import_react6.default.createElement("strong", { className: "stat-card-value" }, user2?.classesAttended ? (user2.classesAttended * 100).toLocaleString() : "1,248"), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "12 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1" : "+18% this week"))), /* @__PURE__ */ import_react6.default.createElement("div", { className: "pastel-stat-card card-tone-pink" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-icon-pill icon-pink icon-3d-wrap" }, /* @__PURE__ */ import_react6.default.createElement(
-      "img",
-      {
-        src: "assets/images/pastel/icon_heart_3d.png",
-        alt: "Heart 3D",
-        className: "stat-icon-3d-img"
-      }
-    )), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-trend-tag tag-pink" }, "+8 ", lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "this week")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BB5\u0BBF\u0BB0\u0BC1\u0BAA\u0BCD\u0BAA\u0B99\u0BCD\u0B95\u0BB3\u0BCD / \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Favorites"), /* @__PURE__ */ import_react6.default.createElement("strong", { className: "stat-card-value" }, user2?.attendanceRate || 128), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8\u0BAF\u0BBE\u0BA9 \u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF" : "+8 this week"))), /* @__PURE__ */ import_react6.default.createElement("div", { className: "pastel-stat-card card-tone-yellow" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-icon-pill icon-yellow icon-3d-wrap" }, /* @__PURE__ */ import_react6.default.createElement(
-      "img",
-      {
-        src: "assets/images/pastel/icon_clock_3d.png",
-        alt: "Clock 3D",
-        className: "stat-icon-3d-img"
-      }
-    )), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-trend-tag tag-yellow" }, "+6.2 ", lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "this week")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Hours Listened"), /* @__PURE__ */ import_react6.default.createElement("strong", { className: "stat-card-value" }, "34.6"), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD!" : "+6.2 this week"))), /* @__PURE__ */ import_react6.default.createElement("div", { className: "pastel-stat-card card-tone-blue" }, /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-icon-pill icon-blue icon-3d-wrap" }, /* @__PURE__ */ import_react6.default.createElement(
-      "img",
-      {
-        src: "assets/images/pastel/icon_flame_3d.png",
-        alt: "Flame 3D",
-        className: "stat-icon-3d-img"
-      }
-    )), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-trend-tag tag-blue" }, "\u{1F525} ", user2?.dayStreak || 7, " ", lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "days")), /* @__PURE__ */ import_react6.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Current Streak"), /* @__PURE__ */ import_react6.default.createElement("strong", { className: "stat-card-value" }, user2?.dayStreak || 7), /* @__PURE__ */ import_react6.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "days in a row")))));
-  }
-  var import_react6;
-  var init_HeroSection = __esm({
-    "src/components/HeroSection.jsx"() {
-      import_react6 = __toESM(require_react());
-      init_lucide_react();
-    }
-  });
-
   // src/components/ThreeDIcons.jsx
   function KitBell({ size = 20, className = "" }) {
-    return /* @__PURE__ */ import_react7.default.createElement("svg", { viewBox: "0 0 24 24", width: size, height: size, className, fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ import_react7.default.createElement("path", { d: KIT_PATHS.bell }), /* @__PURE__ */ import_react7.default.createElement("path", { d: KIT_PATHS.bellClapper }));
+    return /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 24 24", width: size, height: size, className, fill: "none", stroke: "currentColor", strokeWidth: "1.8", strokeLinecap: "round", strokeLinejoin: "round" }, /* @__PURE__ */ import_react6.default.createElement("path", { d: KIT_PATHS.bell }), /* @__PURE__ */ import_react6.default.createElement("path", { d: KIT_PATHS.bellClapper }));
   }
   function ThreeDWater({ size = 38, className = "" }) {
-    return /* @__PURE__ */ import_react7.default.createElement("div", { className: `three-d-badge water-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react7.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react7.default.createElement("defs", null, /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "waterKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#7DD3FC" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "45%", stopColor: "#0EA5E9" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#0369A1" })), /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "waterGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react7.default.createElement("filter", { id: "waterGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react7.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#0284C7", floodOpacity: "0.38" }))), /* @__PURE__ */ import_react7.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#waterKitGrad)", filter: "url(#waterGlow)" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#waterGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react7.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react7.default.createElement(
+    return /* @__PURE__ */ import_react6.default.createElement("div", { className: `three-d-badge water-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "waterKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#7DD3FC" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "45%", stopColor: "#0EA5E9" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#0369A1" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "waterGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "waterGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#0284C7", floodOpacity: "0.38" }))), /* @__PURE__ */ import_react6.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#waterKitGrad)", filter: "url(#waterGlow)" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#waterGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react6.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react6.default.createElement(
       "path",
       {
         d: KIT_PATHS.water,
@@ -25896,7 +25817,7 @@
         strokeLinejoin: "round",
         fill: "rgba(255, 255, 255, 0.22)"
       }
-    ), /* @__PURE__ */ import_react7.default.createElement(
+    ), /* @__PURE__ */ import_react6.default.createElement(
       "path",
       {
         d: KIT_PATHS.waterDrop,
@@ -25905,10 +25826,10 @@
         strokeLinecap: "round",
         strokeLinejoin: "round"
       }
-    )), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.85" })));
+    )), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.85" })));
   }
   function ThreeDBell({ size = 38, className = "" }) {
-    return /* @__PURE__ */ import_react7.default.createElement("div", { className: `three-d-badge bell-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react7.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react7.default.createElement("defs", null, /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "bellKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#FDE68A" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "40%", stopColor: "#F59E0B" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#B45309" })), /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "bellGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react7.default.createElement("filter", { id: "bellGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react7.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#F59E0B", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "16", cy: "16", r: "14", fill: "url(#bellKitGrad)", filter: "url(#bellGlow)" }), /* @__PURE__ */ import_react7.default.createElement("ellipse", { cx: "16", cy: "8", rx: "8", ry: "4", fill: "url(#bellGloss)", opacity: "0.45" }), /* @__PURE__ */ import_react7.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react7.default.createElement(
+    return /* @__PURE__ */ import_react6.default.createElement("div", { className: `three-d-badge bell-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "bellKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FDE68A" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "40%", stopColor: "#F59E0B" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#B45309" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "bellGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "bellGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#F59E0B", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "16", cy: "16", r: "14", fill: "url(#bellKitGrad)", filter: "url(#bellGlow)" }), /* @__PURE__ */ import_react6.default.createElement("ellipse", { cx: "16", cy: "8", rx: "8", ry: "4", fill: "url(#bellGloss)", opacity: "0.45" }), /* @__PURE__ */ import_react6.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react6.default.createElement(
       "path",
       {
         d: KIT_PATHS.bell,
@@ -25918,7 +25839,7 @@
         strokeLinejoin: "round",
         fill: "rgba(255, 255, 255, 0.2)"
       }
-    ), /* @__PURE__ */ import_react7.default.createElement(
+    ), /* @__PURE__ */ import_react6.default.createElement(
       "path",
       {
         d: KIT_PATHS.bellClapper,
@@ -25926,10 +25847,10 @@
         strokeWidth: "2.2",
         strokeLinecap: "round"
       }
-    )), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "22", cy: "9", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
+    )), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "22", cy: "9", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
   }
   function ThreeDHeart({ size = 38, className = "" }) {
-    return /* @__PURE__ */ import_react7.default.createElement("div", { className: `three-d-badge heart-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react7.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react7.default.createElement("defs", null, /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "heartKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#F472B6" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "45%", stopColor: "#EC4899" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#9D174D" })), /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "heartGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react7.default.createElement("filter", { id: "heartGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react7.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#EC4899", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react7.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#heartKitGrad)", filter: "url(#heartGlow)" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#heartGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react7.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react7.default.createElement(
+    return /* @__PURE__ */ import_react6.default.createElement("div", { className: `three-d-badge heart-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "heartKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#F472B6" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "45%", stopColor: "#EC4899" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#9D174D" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "heartGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "heartGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#EC4899", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react6.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#heartKitGrad)", filter: "url(#heartGlow)" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#heartGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react6.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react6.default.createElement(
       "path",
       {
         d: KIT_PATHS.heart,
@@ -25939,10 +25860,10 @@
         strokeLinejoin: "round",
         fill: "rgba(255, 255, 255, 0.3)"
       }
-    )), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
+    )), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
   }
   function ThreeDPhone({ size = 38, className = "" }) {
-    return /* @__PURE__ */ import_react7.default.createElement("div", { className: `three-d-badge phone-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react7.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react7.default.createElement("defs", null, /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "phoneKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#C4B5FD" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "45%", stopColor: "#8B5CF6" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#5B21B6" })), /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "phoneGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react7.default.createElement("filter", { id: "phoneGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react7.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#8B5CF6", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react7.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#phoneKitGrad)", filter: "url(#phoneGlow)" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#phoneGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react7.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react7.default.createElement(
+    return /* @__PURE__ */ import_react6.default.createElement("div", { className: `three-d-badge phone-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "phoneKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#C4B5FD" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "45%", stopColor: "#8B5CF6" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#5B21B6" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "phoneGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "phoneGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#8B5CF6", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react6.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#phoneKitGrad)", filter: "url(#phoneGlow)" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#phoneGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react6.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react6.default.createElement(
       "path",
       {
         d: KIT_PATHS.call,
@@ -25952,16 +25873,16 @@
         strokeLinejoin: "round",
         fill: "rgba(255, 255, 255, 0.22)"
       }
-    )), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
+    )), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
   }
   function ThreeDMeal({ size = 38, className = "" }) {
-    return /* @__PURE__ */ import_react7.default.createElement("div", { className: `three-d-badge meal-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react7.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react7.default.createElement("defs", null, /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "mealKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#86EFAC" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "45%", stopColor: "#22C55E" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#15803D" })), /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "mealGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react7.default.createElement("filter", { id: "mealGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react7.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#16A34A", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react7.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#mealKitGrad)", filter: "url(#mealGlow)" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#mealGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react7.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react7.default.createElement("path", { d: "M4 12 C4 18 8 20 12 20 C16 20 20 18 20 12 Z", stroke: "#FFFFFF", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "rgba(255,255,255,0.25)" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M4 12 H20", stroke: "#FFFFFF", strokeWidth: "2", strokeLinecap: "round" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M8 8 Q7 6 8 4", stroke: "#FFFFFF", strokeWidth: "1.5", strokeLinecap: "round", fill: "none", opacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M12 7 Q11 5 12 3", stroke: "#FFFFFF", strokeWidth: "1.5", strokeLinecap: "round", fill: "none", opacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M16 8 Q15 6 16 4", stroke: "#FFFFFF", strokeWidth: "1.5", strokeLinecap: "round", fill: "none", opacity: "0.8" })), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
+    return /* @__PURE__ */ import_react6.default.createElement("div", { className: `three-d-badge meal-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "mealKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#86EFAC" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "45%", stopColor: "#22C55E" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#15803D" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "mealGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "mealGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#16A34A", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react6.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#mealKitGrad)", filter: "url(#mealGlow)" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#mealGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react6.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react6.default.createElement("path", { d: "M4 12 C4 18 8 20 12 20 C16 20 20 18 20 12 Z", stroke: "#FFFFFF", strokeWidth: "2", strokeLinecap: "round", strokeLinejoin: "round", fill: "rgba(255,255,255,0.25)" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M4 12 H20", stroke: "#FFFFFF", strokeWidth: "2", strokeLinecap: "round" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M8 8 Q7 6 8 4", stroke: "#FFFFFF", strokeWidth: "1.5", strokeLinecap: "round", fill: "none", opacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M12 7 Q11 5 12 3", stroke: "#FFFFFF", strokeWidth: "1.5", strokeLinecap: "round", fill: "none", opacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M16 8 Q15 6 16 4", stroke: "#FFFFFF", strokeWidth: "1.5", strokeLinecap: "round", fill: "none", opacity: "0.8" })), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
   }
   function ThreeDLotus({ size = 38, className = "" }) {
-    return /* @__PURE__ */ import_react7.default.createElement("div", { className: `three-d-badge lotus-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react7.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react7.default.createElement("defs", null, /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "lotusKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#F472B6" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "50%", stopColor: "#A855F7" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#6D28D9" })), /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "lotusGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react7.default.createElement("filter", { id: "lotusGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react7.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#A855F7", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "16", cy: "16", r: "14", fill: "url(#lotusKitGrad)", filter: "url(#lotusGlow)" }), /* @__PURE__ */ import_react7.default.createElement("ellipse", { cx: "16", cy: "8", rx: "8", ry: "4", fill: "url(#lotusGloss)", opacity: "0.45" }), /* @__PURE__ */ import_react7.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react7.default.createElement("path", { d: "M12 3 C10 9 7 14 7 18 C7 20 9 21 12 21 C15 21 17 20 17 18 C17 14 14 9 12 3 Z", fill: "#FFFFFF", opacity: "0.95" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M12 10 C8 11.5 4 14.5 4 18.5 C4 20.5 6 21.2 9 21.2 C10.5 21.2 12 20.8 12 20.8 Z", fill: "#FFFFFF", opacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M12 10 C16 11.5 20 14.5 20 18.5 C20 20.5 18 21.2 15 21.2 C13.5 21.2 12 20.8 12 20.8 Z", fill: "#FFFFFF", opacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "12", cy: "18", r: "1.8", fill: "#FEF08A" })), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "22", cy: "9", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
+    return /* @__PURE__ */ import_react6.default.createElement("div", { className: `three-d-badge lotus-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "lotusKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#F472B6" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "50%", stopColor: "#A855F7" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#6D28D9" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "lotusGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "lotusGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#A855F7", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "16", cy: "16", r: "14", fill: "url(#lotusKitGrad)", filter: "url(#lotusGlow)" }), /* @__PURE__ */ import_react6.default.createElement("ellipse", { cx: "16", cy: "8", rx: "8", ry: "4", fill: "url(#lotusGloss)", opacity: "0.45" }), /* @__PURE__ */ import_react6.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react6.default.createElement("path", { d: "M12 3 C10 9 7 14 7 18 C7 20 9 21 12 21 C15 21 17 20 17 18 C17 14 14 9 12 3 Z", fill: "#FFFFFF", opacity: "0.95" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M12 10 C8 11.5 4 14.5 4 18.5 C4 20.5 6 21.2 9 21.2 C10.5 21.2 12 20.8 12 20.8 Z", fill: "#FFFFFF", opacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M12 10 C16 11.5 20 14.5 20 18.5 C20 20.5 18 21.2 15 21.2 C13.5 21.2 12 20.8 12 20.8 Z", fill: "#FFFFFF", opacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "12", cy: "18", r: "1.8", fill: "#FEF08A" })), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "22", cy: "9", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
   }
   function ThreeDMusic({ size = 38, className = "" }) {
-    return /* @__PURE__ */ import_react7.default.createElement("div", { className: `three-d-badge music-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react7.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react7.default.createElement("defs", null, /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "musicKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#38BDF8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "50%", stopColor: "#818CF8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#C084FC" })), /* @__PURE__ */ import_react7.default.createElement("linearGradient", { id: "musicGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react7.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react7.default.createElement("filter", { id: "musicGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react7.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#818CF8", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react7.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#musicKitGrad)", filter: "url(#musicGlow)" }), /* @__PURE__ */ import_react7.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#musicGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react7.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react7.default.createElement(
+    return /* @__PURE__ */ import_react6.default.createElement("div", { className: `three-d-badge music-3d ya-icon-badge ${className}`, style: { width: size, height: size } }, /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 32 32", className: "three-d-svg" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "musicKitGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#38BDF8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "50%", stopColor: "#818CF8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#C084FC" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "musicGloss", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.8" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "musicGlow", x: "-20%", y: "-20%", width: "140%", height: "140%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "4", stdDeviation: "3.5", floodColor: "#818CF8", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react6.default.createElement("rect", { x: "2", y: "2", width: "28", height: "28", rx: "8", fill: "url(#musicKitGrad)", filter: "url(#musicGlow)" }), /* @__PURE__ */ import_react6.default.createElement("path", { d: "M4 4 H28 V13 Q16 16 4 13 Z", fill: "url(#musicGloss)", rx: "8", opacity: "0.35" }), /* @__PURE__ */ import_react6.default.createElement("g", { transform: "translate(4, 4)" }, /* @__PURE__ */ import_react6.default.createElement(
       "path",
       {
         d: KIT_PATHS.music,
@@ -25971,12 +25892,56 @@
         strokeLinejoin: "round",
         fill: "none"
       }
-    ), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "6", cy: "18", r: "3", fill: "#FFFFFF" }), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "18", cy: "16", r: "3", fill: "#FFFFFF" })), /* @__PURE__ */ import_react7.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
+    ), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "6", cy: "18", r: "3", fill: "#FFFFFF" }), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "18", cy: "16", r: "3", fill: "#FFFFFF" })), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "23", cy: "8", r: "1.5", fill: "#FFFFFF", opacity: "0.9" })));
   }
-  var import_react7, KIT_PATHS;
+  function Stat3DMusicNote({ size = 32, className = "" }) {
+    return /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 36 36", width: size, height: size, className, fill: "none" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("radialGradient", { id: "musicBallGrad", cx: "35%", cy: "30%", r: "65%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#C4B5FD" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "50%", stopColor: "#8B5CF6" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#5B21B6" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "musicStemGrad", x1: "0%", y1: "0%", x2: "100%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#A78BFA" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#6D28D9" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "music3dDrop", x: "-20%", y: "-20%", width: "150%", height: "150%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "2.5", stdDeviation: "2", floodColor: "#6D28D9", floodOpacity: "0.3" }))), /* @__PURE__ */ import_react6.default.createElement("g", { filter: "url(#music3dDrop)" }, /* @__PURE__ */ import_react6.default.createElement("path", { d: "M12 7 L28 4 V9 L12 12 Z", fill: "url(#musicStemGrad)" }), /* @__PURE__ */ import_react6.default.createElement("rect", { x: "12", y: "7", width: "3.5", height: "17", rx: "1.75", fill: "url(#musicStemGrad)" }), /* @__PURE__ */ import_react6.default.createElement("rect", { x: "24.5", y: "4", width: "3.5", height: "17", rx: "1.75", fill: "url(#musicStemGrad)" }), /* @__PURE__ */ import_react6.default.createElement("ellipse", { cx: "10", cy: "24", rx: "5.5", ry: "4.2", transform: "rotate(-20 10 24)", fill: "url(#musicBallGrad)" }), /* @__PURE__ */ import_react6.default.createElement("ellipse", { cx: "9", cy: "22.5", rx: "2.5", ry: "1.4", transform: "rotate(-20 9 22.5)", fill: "#FFFFFF", opacity: "0.75" }), /* @__PURE__ */ import_react6.default.createElement("ellipse", { cx: "22.5", cy: "21", rx: "5.5", ry: "4.2", transform: "rotate(-20 22.5 21)", fill: "url(#musicBallGrad)" }), /* @__PURE__ */ import_react6.default.createElement("ellipse", { cx: "21.5", cy: "19.5", rx: "2.5", ry: "1.4", transform: "rotate(-20 21.5 19.5)", fill: "#FFFFFF", opacity: "0.75" })));
+  }
+  function Stat3DHeart({ size = 32, className = "" }) {
+    return /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 36 36", width: size, height: size, className, fill: "none" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("radialGradient", { id: "heartSphereGrad", cx: "30%", cy: "25%", r: "75%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FDA4AF" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "40%", stopColor: "#F43F5E" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "85%", stopColor: "#BE123C" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#881337" })), /* @__PURE__ */ import_react6.default.createElement("linearGradient", { id: "heartSheen", x1: "0%", y1: "0%", x2: "0%", y2: "100%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF", stopOpacity: "0.85" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FFFFFF", stopOpacity: "0" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "heart3dDrop", x: "-20%", y: "-20%", width: "150%", height: "150%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "2.5", stdDeviation: "2.5", floodColor: "#BE123C", floodOpacity: "0.35" }))), /* @__PURE__ */ import_react6.default.createElement("g", { filter: "url(#heart3dDrop)" }, /* @__PURE__ */ import_react6.default.createElement(
+      "path",
+      {
+        d: "M18 31 C18 31 4 21.5 4 11.5 C4 6.5 8 2.5 13 2.5 C15.8 2.5 17.5 4 18 5 C18.5 4 20.2 2.5 23 2.5 C28 2.5 32 6.5 32 11.5 C32 21.5 18 31 18 31 Z",
+        fill: "url(#heartSphereGrad)"
+      }
+    ), /* @__PURE__ */ import_react6.default.createElement(
+      "path",
+      {
+        d: "M7 11 C7 7.5 10 4.5 13.5 4.5 C14.8 4.5 16 5.2 17 6.2 C15 7.5 13.5 10.5 13 14 C9.5 13.8 7 12.8 7 11 Z",
+        fill: "url(#heartSheen)",
+        opacity: "0.65"
+      }
+    ), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "11", cy: "7.5", r: "1.8", fill: "#FFFFFF", opacity: "0.9" })));
+  }
+  function Stat3DClock({ size = 32, className = "" }) {
+    return /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 36 36", width: size, height: size, className, fill: "none" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("radialGradient", { id: "clockDialGrad", cx: "35%", cy: "30%", r: "70%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FEF08A" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "45%", stopColor: "#EAB308" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "85%", stopColor: "#CA8A04" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#854D0E" })), /* @__PURE__ */ import_react6.default.createElement("radialGradient", { id: "clockFaceGrad", cx: "40%", cy: "35%", r: "65%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FFFFFF" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#FEF9C3" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "clock3dDrop", x: "-20%", y: "-20%", width: "150%", height: "150%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "2.5", stdDeviation: "2.5", floodColor: "#CA8A04", floodOpacity: "0.35" }))), /* @__PURE__ */ import_react6.default.createElement("g", { filter: "url(#clock3dDrop)" }, /* @__PURE__ */ import_react6.default.createElement("rect", { x: "16", y: "2", width: "4", height: "3", rx: "1.5", fill: "#CA8A04" }), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "18", cy: "19", r: "14.5", fill: "url(#clockDialGrad)" }), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "18", cy: "19", r: "11", fill: "url(#clockFaceGrad)" }), /* @__PURE__ */ import_react6.default.createElement("ellipse", { cx: "18", cy: "11", rx: "7.5", ry: "3", fill: "#FFFFFF", opacity: "0.5" }), /* @__PURE__ */ import_react6.default.createElement("line", { x1: "18", y1: "19", x2: "18", y2: "12", stroke: "#854D0E", strokeWidth: "2.4", strokeLinecap: "round" }), /* @__PURE__ */ import_react6.default.createElement("line", { x1: "18", y1: "19", x2: "23", y2: "19", stroke: "#854D0E", strokeWidth: "2", strokeLinecap: "round" }), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "18", cy: "19", r: "1.8", fill: "#CA8A04" }), /* @__PURE__ */ import_react6.default.createElement("circle", { cx: "18", cy: "19", r: "0.7", fill: "#FFFFFF" })));
+  }
+  function Stat3DFlame({ size = 32, className = "" }) {
+    return /* @__PURE__ */ import_react6.default.createElement("svg", { viewBox: "0 0 36 36", width: size, height: size, className, fill: "none" }, /* @__PURE__ */ import_react6.default.createElement("defs", null, /* @__PURE__ */ import_react6.default.createElement("radialGradient", { id: "flameOuterGrad", cx: "40%", cy: "40%", r: "60%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FB923C" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "50%", stopColor: "#F97316" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "85%", stopColor: "#EA580C" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#C2410C" })), /* @__PURE__ */ import_react6.default.createElement("radialGradient", { id: "flameInnerGrad", cx: "45%", cy: "35%", r: "60%" }, /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "0%", stopColor: "#FEF08A" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "60%", stopColor: "#FBBF24" }), /* @__PURE__ */ import_react6.default.createElement("stop", { offset: "100%", stopColor: "#F59E0B" })), /* @__PURE__ */ import_react6.default.createElement("filter", { id: "flame3dDrop", x: "-20%", y: "-20%", width: "150%", height: "150%" }, /* @__PURE__ */ import_react6.default.createElement("feDropShadow", { dx: "0", dy: "2.5", stdDeviation: "2.5", floodColor: "#EA580C", floodOpacity: "0.4" }))), /* @__PURE__ */ import_react6.default.createElement("g", { filter: "url(#flame3dDrop)" }, /* @__PURE__ */ import_react6.default.createElement(
+      "path",
+      {
+        d: "M18 2 C18 2 24 9 24 15 C24 17 23 18.5 22 19.5 C25 18 28 20.5 28 24 C28 28.5 23.5 33 18 33 C12.5 33 8 28.5 8 24 C8 17 14 10 18 2 Z",
+        fill: "url(#flameOuterGrad)"
+      }
+    ), /* @__PURE__ */ import_react6.default.createElement(
+      "path",
+      {
+        d: "M18 13 C18 13 22 17.5 22 21.5 C22 23 21 24.2 20 25 C21.5 24 23 25.5 23 27 C23 29.5 20.8 31.5 18 31.5 C15.2 31.5 13 29.5 13 27 C13 22 16.5 18 18 13 Z",
+        fill: "url(#flameInnerGrad)"
+      }
+    ), /* @__PURE__ */ import_react6.default.createElement(
+      "path",
+      {
+        d: "M12 21 C11.5 18 13.5 14 15.5 11 C14.5 14 13.8 17.5 14.5 21 Z",
+        fill: "#FFFFFF",
+        opacity: "0.65"
+      }
+    )));
+  }
+  var import_react6, KIT_PATHS;
   var init_ThreeDIcons = __esm({
     "src/components/ThreeDIcons.jsx"() {
-      import_react7 = __toESM(require_react());
+      import_react6 = __toESM(require_react());
       KIT_PATHS = {
         heart: "M20.8 8.7c0 5.1-8.8 10-8.8 10s-8.8-4.9-8.8-10A4.7 4.7 0 0 1 12 6.2a4.7 4.7 0 0 1 8.8 2.5Z",
         bell: "M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9",
@@ -25987,6 +25952,58 @@
         music: "M9 18V5l12-2v13",
         play: "m8 5 11 7-11 7z"
       };
+    }
+  });
+
+  // src/components/HeroSection.jsx
+  function HeroSection({
+    user: user2,
+    onJoinLive,
+    onViewSchedule,
+    lang = "en"
+  }) {
+    const displayName = user2?.name ? user2.name.split(" ")[0] : "Nithya";
+    return /* @__PURE__ */ import_react7.default.createElement("div", { className: "pastel-hero-container" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "pastel-welcome-banner hero-banner-3d-layout" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "welcome-banner-decor-blob1" }), /* @__PURE__ */ import_react7.default.createElement("div", { className: "welcome-banner-decor-blob2" }), /* @__PURE__ */ import_react7.default.createElement("div", { className: "welcome-banner-content" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "floating-music-notes", "aria-hidden": "true" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "note-pink note-1" }, "\u{1F3B5}"), /* @__PURE__ */ import_react7.default.createElement("span", { className: "note-purple note-2" }, "\u{1F3B6}")), /* @__PURE__ */ import_react7.default.createElement("h2", { className: "welcome-banner-title" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "greeting-main-line" }, lang === "ta" ? `\u0B95\u0BBE\u0BB2\u0BC8 \u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${displayName}! \u2600\uFE0F` : `Good Morning, ${displayName}! \u2600\uFE0F`), /* @__PURE__ */ import_react7.default.createElement("span", { className: "welcome-banner-subtitle-line" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC1 \u0B9A\u0BBF\u0BB1\u0BBF\u0BA4\u0BC1 \u0BAF\u0BCB\u0B95\u0BBE\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0B9A\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BB0\u0B9A\u0BBF\u0BAA\u0BCD\u0BAA\u0BCB\u0BAE\u0BCD!" : "Let's enjoy some music & mindful practice today!")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "welcome-banner-actions" }, /* @__PURE__ */ import_react7.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-pastel-cta-primary ya-ripple",
+        onClick: onJoinLive
+      },
+      /* @__PURE__ */ import_react7.default.createElement("span", { className: "cta-icon-circle" }, /* @__PURE__ */ import_react7.default.createElement(Play, { size: 12, fill: "currentColor" })),
+      /* @__PURE__ */ import_react7.default.createElement("span", null, user2?.role === "trainer" || user2?.isInstructor ? lang === "ta" ? "\u{1F451} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F451} Start Live Class" : lang === "ta" ? "\u0B87\u0B9A\u0BC8\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1 \u25B6" : "Play Something")
+    ), /* @__PURE__ */ import_react7.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-pastel-cta-secondary ya-ripple",
+        onClick: onViewSchedule
+      },
+      /* @__PURE__ */ import_react7.default.createElement(Calendar, { size: 15 }),
+      /* @__PURE__ */ import_react7.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8" : "Schedule")
+    ))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "welcome-banner-art-wrap hero-right-visual-wrapper" }, /* @__PURE__ */ import_react7.default.createElement(
+      "img",
+      {
+        src: "assets/images/pastel/potted_plant_3d.png",
+        alt: "Zen Potted Plant",
+        className: "welcome-potted-plant-img"
+      }
+    ), /* @__PURE__ */ import_react7.default.createElement(
+      "img",
+      {
+        src: "assets/images/chakra-meditation.jpg",
+        alt: "Nithya Yoga 7 Chakras Meditation Visual",
+        className: "hero-chakra-visual-img",
+        style: { display: "none" }
+      }
+    ))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "pastel-stat-card-row" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "pastel-stat-card card-tone-lavender" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-icon-pill icon-lavender icon-3d-wrap" }, /* @__PURE__ */ import_react7.default.createElement(Stat3DMusicNote, { size: 28 })), /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-trend-tag tag-lavender" }, "+18% ", lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "this week")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BA3\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Songs Played / Classes"), /* @__PURE__ */ import_react7.default.createElement("strong", { className: "stat-card-value" }, user2?.classesAttended ? (user2.classesAttended * 100).toLocaleString() : "1,248"), /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "12 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1" : "+18% this week"))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "pastel-stat-card card-tone-pink" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-icon-pill icon-pink icon-3d-wrap" }, /* @__PURE__ */ import_react7.default.createElement(Stat3DHeart, { size: 28 })), /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-trend-tag tag-pink" }, "+8 ", lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "this week")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BB5\u0BBF\u0BB0\u0BC1\u0BAA\u0BCD\u0BAA\u0B99\u0BCD\u0B95\u0BB3\u0BCD / \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Favorites"), /* @__PURE__ */ import_react7.default.createElement("strong", { className: "stat-card-value" }, user2?.attendanceRate || 128), /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8\u0BAF\u0BBE\u0BA9 \u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF" : "+8 this week"))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "pastel-stat-card card-tone-yellow" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-icon-pill icon-yellow icon-3d-wrap" }, /* @__PURE__ */ import_react7.default.createElement(Stat3DClock, { size: 28 })), /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-trend-tag tag-yellow" }, "+6.2 ", lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : "this week")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Hours Listened"), /* @__PURE__ */ import_react7.default.createElement("strong", { className: "stat-card-value" }, "34.6"), /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD!" : "+6.2 this week"))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "pastel-stat-card card-tone-blue" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "stat-card-top-row" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-icon-pill icon-blue icon-3d-wrap" }, /* @__PURE__ */ import_react7.default.createElement(Stat3DFlame, { size: 28 })), /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-trend-tag tag-blue" }, "\u{1F525} ", user2?.dayStreak || 7, " ", lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "days")), /* @__PURE__ */ import_react7.default.createElement("div", { className: "stat-card-meta" }, /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-title" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Current Streak"), /* @__PURE__ */ import_react7.default.createElement("strong", { className: "stat-card-value" }, user2?.dayStreak || 7), /* @__PURE__ */ import_react7.default.createElement("span", { className: "stat-card-subtext" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0BB0\u0BCD\u0B9A\u0BCD\u0B9A\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "days in a row")))));
+  }
+  var import_react7;
+  var init_HeroSection = __esm({
+    "src/components/HeroSection.jsx"() {
+      import_react7 = __toESM(require_react());
+      init_lucide_react();
+      init_ThreeDIcons();
     }
   });
 
@@ -67198,7 +67215,7 @@ Click to join: ${link}`
       },
       isEditing ? /* @__PURE__ */ import_react18.default.createElement(X, { size: 13 }) : /* @__PURE__ */ import_react18.default.createElement(PenLine, { size: 13 }),
       /* @__PURE__ */ import_react18.default.createElement("span", null, isEditing ? lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD" : "Cancel" : lang === "ta" ? "\u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1" : "Edit Profile")
-    )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-user-strip" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-round-avatar relative-avatar-wrap" }, formData.avatar ? /* @__PURE__ */ import_react18.default.createElement("img", { src: formData.avatar, alt: formData.name, className: "profile-img-fit" }) : /* @__PURE__ */ import_react18.default.createElement("span", null, formData.name ? formData.name.charAt(0) : "S"), /* @__PURE__ */ import_react18.default.createElement("label", { className: "avatar-camera-overlay-badge", title: "Upload Profile Picture" }, /* @__PURE__ */ import_react18.default.createElement(Camera, { size: 13 }), /* @__PURE__ */ import_react18.default.createElement(
+    )), /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-user-strip" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-round-avatar relative-avatar-wrap" }, formData.avatar ? /* @__PURE__ */ import_react18.default.createElement("img", { src: formData.avatar, alt: formData.name, className: "profile-img-fit" }) : /* @__PURE__ */ import_react18.default.createElement("img", { src: "assets/images/pastel/nithya_3d_avatar.png", alt: formData.name, className: "profile-img-fit" }), /* @__PURE__ */ import_react18.default.createElement("label", { className: "avatar-camera-overlay-badge", title: "Upload Profile Picture" }, /* @__PURE__ */ import_react18.default.createElement(Camera, { size: 13 }), /* @__PURE__ */ import_react18.default.createElement(
       "input",
       {
         type: "file",
@@ -69489,7 +69506,7 @@ ${liveUrl}`;
         titleTa: "\u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0B85\u0BB8\u0BCD\u0BA4\u0BAE\u0BA9\u0BAA\u0BCD \u0BAA\u0BBE\u0BA4\u0BC8",
         subtitle: "Chill & Focus Flow \u2022 45m",
         subtitleTa: "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B86\u0B9A\u0BA9\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u2022 45 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD",
-        thumbnail: "assets/images/pastel/thumb_sunset.png",
+        thumbnail: "assets/images/pastel/thumb_sunset_hd.jpg",
         tag: "Yoga"
       },
       {
@@ -69498,7 +69515,7 @@ ${liveUrl}`;
         titleTa: "\u0BA4\u0B99\u0BCD\u0B95 \u0BAE\u0BBE\u0BB2\u0BC8 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD",
         subtitle: "Deep Breath & Calm \u2022 30m",
         subtitleTa: "\u0B86\u0BB4\u0BCD\u0BA8\u0BCD\u0BA4 \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD & \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u2022 30 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD",
-        thumbnail: "assets/images/pastel/thumb_golden.png",
+        thumbnail: "assets/images/pastel/thumb_golden_hd.jpg",
         tag: "Breathe"
       },
       {
@@ -69507,7 +69524,7 @@ ${liveUrl}`;
         titleTa: "\u0BB2\u0BCB-\u0B83\u0BAA\u0BC8 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0B87\u0B9A\u0BC8",
         subtitle: "Lofi Ambient Chimes \u2022 20m",
         subtitleTa: "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B92\u0BB2\u0BBF \u2022 20 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD",
-        thumbnail: "assets/images/pastel/thumb_coffee.png",
+        thumbnail: "assets/images/pastel/thumb_coffee_hd.jpg",
         tag: "Music"
       }
     ];
@@ -69592,7 +69609,7 @@ ${liveUrl}`;
     }))), /* @__PURE__ */ import_react28.default.createElement("div", { className: "dashboard-card daily-mix-card" }, /* @__PURE__ */ import_react28.default.createElement("div", { className: "daily-mix-header" }, /* @__PURE__ */ import_react28.default.createElement("div", null, /* @__PURE__ */ import_react28.default.createElement("h4", { className: "daily-mix-title" }, lang === "ta" ? "\u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BB2\u0BB5\u0BC8" : "Daily Mix"), /* @__PURE__ */ import_react28.default.createElement("span", { className: "daily-mix-badge" }, /* @__PURE__ */ import_react28.default.createElement(Sparkles, { size: 12, className: "sparkle-gold" }), /* @__PURE__ */ import_react28.default.createElement("span", null, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0BA9\u0BA4\u0BC1" : "Made for you")))), /* @__PURE__ */ import_react28.default.createElement("div", { className: "daily-mix-artwork-container", onClick: handlePlayDailyMix }, /* @__PURE__ */ import_react28.default.createElement(
       "img",
       {
-        src: "assets/images/pastel/daily_mix_room.png",
+        src: "assets/images/pastel/daily_mix_room_hd.jpg",
         alt: "Daily Mix Cozy Meditation Room",
         className: "daily-mix-cover-img"
       }

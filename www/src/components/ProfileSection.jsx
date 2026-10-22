@@ -227,7 +227,7 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
           {formData.avatar ? (
             <img src={formData.avatar} alt={formData.name} className="profile-img-fit" />
           ) : (
-            <span>{formData.name ? formData.name.charAt(0) : 'S'}</span>
+            <img src="assets/images/pastel/nithya_3d_avatar.png" alt={formData.name} className="profile-img-fit" />
           )}
 
           {/* Quick Upload Button on Avatar */}

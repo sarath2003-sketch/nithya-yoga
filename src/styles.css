@@ -5252,26 +5252,67 @@ video::-webkit-media-controls-enclosure {
    Master 3D Pastel UI Enhancements (Reference Dashboard Alignment)
    ========================================================================== */
 
-/* 1. Sidebar 3D Avatar & Bottom Golden Crown Card */
+/* 1. Sidebar & Header 3D Pop-out Avatar (Head protruding over circle) */
 .avatar-3d-popout-wrap {
   position: relative;
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   flex-shrink: 0;
   background: linear-gradient(135deg, #E9DDFB 0%, #D8C3F8 100%);
-  box-shadow: 0 4px 14px rgba(98, 70, 143, 0.25);
+  border: 2.5px solid #FFFFFF;
+  box-shadow: 0 4px 14px rgba(155, 122, 232, 0.4);
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   justify-content: center;
+  overflow: visible !important;
 }
 
 .sidebar-user-img-3d {
-  width: 44px;
-  height: 44px;
+  position: relative;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
+  transform: translateY(-8px) scale(1.18);
+  filter: drop-shadow(0 6px 12px rgba(98, 70, 143, 0.38));
+  transition: transform 0.25s var(--ease-spring);
   display: block;
+}
+
+.sidebar-brand-container:hover .sidebar-user-img-3d {
+  transform: translateY(-11px) scale(1.24);
+}
+
+.header-avatar-3d-wrap {
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #E9DDFB 0%, #D8C3F8 100%);
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 3px 10px rgba(155, 122, 232, 0.35);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: visible !important;
+  flex-shrink: 0;
+}
+
+.header-avatar-3d-img {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 50%;
+  transform: translateY(-5px) scale(1.18);
+  filter: drop-shadow(0 4px 8px rgba(98, 70, 143, 0.35));
+  transition: transform 0.22s var(--ease-spring);
+  display: block;
+}
+
+.header-user-badge:hover .header-avatar-3d-img {
+  transform: translateY(-8px) scale(1.24);
 }
 
 .bottom-card-icon-badge-3d {
@@ -5778,33 +5819,122 @@ video::-webkit-media-controls-enclosure {
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
-/* Mobile responsive rules for 3D elements */
+/* ==========================================================================
+   STRICT MOBILE HORIZONTAL OVERFLOW PREVENTION (Zero off-screen spillage)
+   ========================================================================== */
+html, body, #root, .app-root-container, .app-main-layout {
+  max-width: 100vw !important;
+  overflow-x: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* Mobile responsive rules for 3D elements & Header */
 @media (max-width: 768px) {
+  /* Crucial: Hide redundant title block on mobile so EN, Sparkle, Bell, Avatar never overflow */
+  .header-page-title-block {
+    display: none !important;
+  }
+
+  .dashboard-top-header {
+    padding: max(env(safe-area-inset-top, 0px), 12px) 12px 10px 12px !important;
+    gap: 8px !important;
+    width: 100% !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  .header-left-cluster {
+    flex-shrink: 0;
+    max-width: 120px;
+  }
+
+  .header-tools-cluster {
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    margin-left: auto;
+  }
+
+  .header-tool-btn {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    padding: 0 !important;
+  }
+
+  .header-update-pill .update-text-short {
+    display: none !important;
+  }
+
+  .lang-pill-btn {
+    padding: 0 6px !important;
+    font-size: 0.72rem !important;
+    width: auto !important;
+    min-width: 32px !important;
+  }
+
+  .header-user-badge {
+    padding: 2px 4px !important;
+    gap: 4px !important;
+  }
+
+  .user-greeting-meta {
+    display: none !important;
+  }
+
+  .dashboard-content-grid-wrapper {
+    padding: 12px 12px calc(85px + env(safe-area-inset-bottom, 14px)) !important;
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+
+  .pastel-hero-container {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
   .hero-banner-3d-layout {
     grid-template-columns: 1fr;
     text-align: center;
     gap: 16px;
-    padding: 20px 16px;
+    padding: 20px 16px !important;
+    border-radius: 22px !important;
   }
-  .welcome-banner-char-left {
-    order: -1;
+
+  .welcome-banner-title {
+    font-size: 1.35rem !important;
   }
-  .hero-girl-3d-img {
-    width: 95px;
-    height: 95px;
-  }
+
   .welcome-potted-plant-img {
     width: 80px;
     height: 80px;
   }
+
   .welcome-banner-actions {
     justify-content: center;
   }
+
   .floating-music-notes {
     justify-content: center;
   }
+
+  .pastel-stat-card-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 10px !important;
+  }
+
+  .pastel-stat-card {
+    padding: 14px 14px !important;
+    border-radius: 18px !important;
+  }
+
   .recently-daily-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
+    grid-template-columns: minmax(0, 1fr) !important;
+    gap: 14px !important;
+  }
+
+  .recent-played-card, .daily-mix-card {
+    padding: 16px 16px !important;
+    border-radius: 20px !important;
   }
 }

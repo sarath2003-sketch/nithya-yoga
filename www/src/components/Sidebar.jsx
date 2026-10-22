@@ -37,14 +37,14 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user =
       <div className="sidebar-brand-container" onClick={() => setCurrentTab('home')}>
         <div className="sidebar-user-avatar-pill avatar-3d-popout-wrap">
           <img 
-            src="assets/images/pastel/sidebar_avatar_3d.png" 
+            src="assets/images/pastel/nithya_3d_avatar.png" 
             alt="3D Character Avatar" 
             className="sidebar-user-img-3d" 
           />
         </div>
         <div className="brand-text-block">
           <div className="sidebar-greeting-row">
-            <span className="sidebar-hi-text">Hi, {displayName}!</span>
+            <span className="sidebar-hi-text">{lang === 'ta' ? `ஹாய், ${displayName}!` : `Hi, ${displayName}!`}</span>
             <span className="sidebar-wave">👋</span>
           </div>
           <span className="brand-subtitle">

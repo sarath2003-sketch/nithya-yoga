@@ -12,7 +12,7 @@ export default function RecentlyPlayedDailyMix({ onSelectClass, showToast, lang 
       titleTa: 'சூரிய அஸ்தமனப் பாதை',
       subtitle: 'Chill & Focus Flow • 45m',
       subtitleTa: 'அமைதியான ஆசனப் பயிற்சி • 45 நிமிடம்',
-      thumbnail: 'assets/images/pastel/thumb_sunset.png',
+      thumbnail: 'assets/images/pastel/thumb_sunset_hd.jpg',
       tag: 'Yoga'
     },
     {
@@ -21,7 +21,7 @@ export default function RecentlyPlayedDailyMix({ onSelectClass, showToast, lang 
       titleTa: 'தங்க மாலை நேரம்',
       subtitle: 'Deep Breath & Calm • 30m',
       subtitleTa: 'ஆழ்ந்த சுவாசம் & அமைதி • 30 நிமிடம்',
-      thumbnail: 'assets/images/pastel/thumb_golden.png',
+      thumbnail: 'assets/images/pastel/thumb_golden_hd.jpg',
       tag: 'Breathe'
     },
     {
@@ -30,7 +30,7 @@ export default function RecentlyPlayedDailyMix({ onSelectClass, showToast, lang 
       titleTa: 'லோ-ஃபை அமைதி இசை',
       subtitle: 'Lofi Ambient Chimes • 20m',
       subtitleTa: 'அமைதியான தியான ஒலி • 20 நிமிடம்',
-      thumbnail: 'assets/images/pastel/thumb_coffee.png',
+      thumbnail: 'assets/images/pastel/thumb_coffee_hd.jpg',
       tag: 'Music'
     }
   ];
@@ -164,7 +164,7 @@ export default function RecentlyPlayedDailyMix({ onSelectClass, showToast, lang 
 
           <div className="daily-mix-artwork-container" onClick={handlePlayDailyMix}>
             <img 
-              src="assets/images/pastel/daily_mix_room.png" 
+              src="assets/images/pastel/daily_mix_room_hd.jpg" 
               alt="Daily Mix Cozy Meditation Room" 
               className="daily-mix-cover-img" 
             />

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Play, Calendar, Sparkles, Flame, Flower2, Clock, CheckCircle2 } from 'lucide-react';
+import { Play, Calendar, Sparkles } from 'lucide-react';
+import { Stat3DMusicNote, Stat3DHeart, Stat3DClock, Stat3DFlame } from './ThreeDIcons';
 
 export default function HeroSection({
   user,
@@ -15,15 +16,6 @@ export default function HeroSection({
       <div className="pastel-welcome-banner hero-banner-3d-layout">
         <div className="welcome-banner-decor-blob1"></div>
         <div className="welcome-banner-decor-blob2"></div>
-
-        {/* Left: 3D Character with Lavender Hoodie & Headphones */}
-        <div className="welcome-banner-char-left">
-          <img 
-            src="assets/images/pastel/hero_girl_3d.png" 
-            alt="3D Mindful Character" 
-            className="hero-girl-3d-img" 
-          />
-        </div>
 
         {/* Center: Floating Musical Notes, Greeting & CTA */}
         <div className="welcome-banner-content">
@@ -75,7 +67,7 @@ export default function HeroSection({
             alt="Zen Potted Plant" 
             className="welcome-potted-plant-img" 
           />
-          {/* Subtle hidden verification tag for cross-device tests */}
+          {/* Preserved cross-device test element */}
           <img 
             src="assets/images/chakra-meditation.jpg" 
             alt="Nithya Yoga 7 Chakras Meditation Visual" 
@@ -85,17 +77,13 @@ export default function HeroSection({
         </div>
       </div>
 
-      {/* 2. Four Distinct Pastel Statistics Cards with 3D Icons */}
+      {/* 2. Four Distinct Pastel Statistics Cards with Crisp 3D Vector Icons */}
       <div className="pastel-stat-card-row">
         {/* Card 1: Lavender - Songs Played / Classes Attended */}
         <div className="pastel-stat-card card-tone-lavender">
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-lavender icon-3d-wrap">
-              <img 
-                src="assets/images/pastel/icon_music_3d.png" 
-                alt="Music Note 3D" 
-                className="stat-icon-3d-img" 
-              />
+              <Stat3DMusicNote size={28} />
             </span>
             <span className="stat-trend-tag tag-lavender">
               +18% {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
@@ -116,11 +104,7 @@ export default function HeroSection({
         <div className="pastel-stat-card card-tone-pink">
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-pink icon-3d-wrap">
-              <img 
-                src="assets/images/pastel/icon_heart_3d.png" 
-                alt="Heart 3D" 
-                className="stat-icon-3d-img" 
-              />
+              <Stat3DHeart size={28} />
             </span>
             <span className="stat-trend-tag tag-pink">
               +8 {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
@@ -141,11 +125,7 @@ export default function HeroSection({
         <div className="pastel-stat-card card-tone-yellow">
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-yellow icon-3d-wrap">
-              <img 
-                src="assets/images/pastel/icon_clock_3d.png" 
-                alt="Clock 3D" 
-                className="stat-icon-3d-img" 
-              />
+              <Stat3DClock size={28} />
             </span>
             <span className="stat-trend-tag tag-yellow">
               +6.2 {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
@@ -166,11 +146,7 @@ export default function HeroSection({
         <div className="pastel-stat-card card-tone-blue">
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-blue icon-3d-wrap">
-              <img 
-                src="assets/images/pastel/icon_flame_3d.png" 
-                alt="Flame 3D" 
-                className="stat-icon-3d-img" 
-              />
+              <Stat3DFlame size={28} />
             </span>
             <span className="stat-trend-tag tag-blue">
               🔥 {user?.dayStreak || 7} {lang === 'ta' ? 'நாட்கள்' : 'days'}

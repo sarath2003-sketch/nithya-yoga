@@ -331,3 +331,142 @@ export function ThreeDMusic({ size = 38, className = '' }) {
     </div>
   );
 }
+
+
+// ==========================================================================
+// ULTRA-CRISP 3D VECTOR ICONS (Infinite Resolution, Retina & AMOLED Ready)
+// ==========================================================================
+
+export function Stat3DMusicNote({ size = 32, className = '' }) {
+  return (
+    <svg viewBox="0 0 36 36" width={size} height={size} className={className} fill="none">
+      <defs>
+        <radialGradient id="musicBallGrad" cx="35%" cy="30%" r="65%">
+          <stop offset="0%" stopColor="#C4B5FD" />
+          <stop offset="50%" stopColor="#8B5CF6" />
+          <stop offset="100%" stopColor="#5B21B6" />
+        </radialGradient>
+        <linearGradient id="musicStemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#A78BFA" />
+          <stop offset="100%" stopColor="#6D28D9" />
+        </linearGradient>
+        <filter id="music3dDrop" x="-20%" y="-20%" width="150%" height="150%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="2" floodColor="#6D28D9" floodOpacity="0.3" />
+        </filter>
+      </defs>
+      <g filter="url(#music3dDrop)">
+        <path d="M12 7 L28 4 V9 L12 12 Z" fill="url(#musicStemGrad)" />
+        <rect x="12" y="7" width="3.5" height="17" rx="1.75" fill="url(#musicStemGrad)" />
+        <rect x="24.5" y="4" width="3.5" height="17" rx="1.75" fill="url(#musicStemGrad)" />
+        <ellipse cx="10" cy="24" rx="5.5" ry="4.2" transform="rotate(-20 10 24)" fill="url(#musicBallGrad)" />
+        <ellipse cx="9" cy="22.5" rx="2.5" ry="1.4" transform="rotate(-20 9 22.5)" fill="#FFFFFF" opacity="0.75" />
+        <ellipse cx="22.5" cy="21" rx="5.5" ry="4.2" transform="rotate(-20 22.5 21)" fill="url(#musicBallGrad)" />
+        <ellipse cx="21.5" cy="19.5" rx="2.5" ry="1.4" transform="rotate(-20 21.5 19.5)" fill="#FFFFFF" opacity="0.75" />
+      </g>
+    </svg>
+  );
+}
+
+export function Stat3DHeart({ size = 32, className = '' }) {
+  return (
+    <svg viewBox="0 0 36 36" width={size} height={size} className={className} fill="none">
+      <defs>
+        <radialGradient id="heartSphereGrad" cx="30%" cy="25%" r="75%">
+          <stop offset="0%" stopColor="#FDA4AF" />
+          <stop offset="40%" stopColor="#F43F5E" />
+          <stop offset="85%" stopColor="#BE123C" />
+          <stop offset="100%" stopColor="#881337" />
+        </radialGradient>
+        <linearGradient id="heartSheen" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.85" />
+          <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
+        </linearGradient>
+        <filter id="heart3dDrop" x="-20%" y="-20%" width="150%" height="150%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="2.5" floodColor="#BE123C" floodOpacity="0.35" />
+        </filter>
+      </defs>
+      <g filter="url(#heart3dDrop)">
+        <path
+          d="M18 31 C18 31 4 21.5 4 11.5 C4 6.5 8 2.5 13 2.5 C15.8 2.5 17.5 4 18 5 C18.5 4 20.2 2.5 23 2.5 C28 2.5 32 6.5 32 11.5 C32 21.5 18 31 18 31 Z"
+          fill="url(#heartSphereGrad)"
+        />
+        <path
+          d="M7 11 C7 7.5 10 4.5 13.5 4.5 C14.8 4.5 16 5.2 17 6.2 C15 7.5 13.5 10.5 13 14 C9.5 13.8 7 12.8 7 11 Z"
+          fill="url(#heartSheen)"
+          opacity="0.65"
+        />
+        <circle cx="11" cy="7.5" r="1.8" fill="#FFFFFF" opacity="0.9" />
+      </g>
+    </svg>
+  );
+}
+
+export function Stat3DClock({ size = 32, className = '' }) {
+  return (
+    <svg viewBox="0 0 36 36" width={size} height={size} className={className} fill="none">
+      <defs>
+        <radialGradient id="clockDialGrad" cx="35%" cy="30%" r="70%">
+          <stop offset="0%" stopColor="#FEF08A" />
+          <stop offset="45%" stopColor="#EAB308" />
+          <stop offset="85%" stopColor="#CA8A04" />
+          <stop offset="100%" stopColor="#854D0E" />
+        </radialGradient>
+        <radialGradient id="clockFaceGrad" cx="40%" cy="35%" r="65%">
+          <stop offset="0%" stopColor="#FFFFFF" />
+          <stop offset="100%" stopColor="#FEF9C3" />
+        </radialGradient>
+        <filter id="clock3dDrop" x="-20%" y="-20%" width="150%" height="150%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="2.5" floodColor="#CA8A04" floodOpacity="0.35" />
+        </filter>
+      </defs>
+      <g filter="url(#clock3dDrop)">
+        <rect x="16" y="2" width="4" height="3" rx="1.5" fill="#CA8A04" />
+        <circle cx="18" cy="19" r="14.5" fill="url(#clockDialGrad)" />
+        <circle cx="18" cy="19" r="11" fill="url(#clockFaceGrad)" />
+        <ellipse cx="18" cy="11" rx="7.5" ry="3" fill="#FFFFFF" opacity="0.5" />
+        <line x1="18" y1="19" x2="18" y2="12" stroke="#854D0E" strokeWidth="2.4" strokeLinecap="round" />
+        <line x1="18" y1="19" x2="23" y2="19" stroke="#854D0E" strokeWidth="2" strokeLinecap="round" />
+        <circle cx="18" cy="19" r="1.8" fill="#CA8A04" />
+        <circle cx="18" cy="19" r="0.7" fill="#FFFFFF" />
+      </g>
+    </svg>
+  );
+}
+
+export function Stat3DFlame({ size = 32, className = '' }) {
+  return (
+    <svg viewBox="0 0 36 36" width={size} height={size} className={className} fill="none">
+      <defs>
+        <radialGradient id="flameOuterGrad" cx="40%" cy="40%" r="60%">
+          <stop offset="0%" stopColor="#FB923C" />
+          <stop offset="50%" stopColor="#F97316" />
+          <stop offset="85%" stopColor="#EA580C" />
+          <stop offset="100%" stopColor="#C2410C" />
+        </radialGradient>
+        <radialGradient id="flameInnerGrad" cx="45%" cy="35%" r="60%">
+          <stop offset="0%" stopColor="#FEF08A" />
+          <stop offset="60%" stopColor="#FBBF24" />
+          <stop offset="100%" stopColor="#F59E0B" />
+        </radialGradient>
+        <filter id="flame3dDrop" x="-20%" y="-20%" width="150%" height="150%">
+          <feDropShadow dx="0" dy="2.5" stdDeviation="2.5" floodColor="#EA580C" floodOpacity="0.4" />
+        </filter>
+      </defs>
+      <g filter="url(#flame3dDrop)">
+        <path
+          d="M18 2 C18 2 24 9 24 15 C24 17 23 18.5 22 19.5 C25 18 28 20.5 28 24 C28 28.5 23.5 33 18 33 C12.5 33 8 28.5 8 24 C8 17 14 10 18 2 Z"
+          fill="url(#flameOuterGrad)"
+        />
+        <path
+          d="M18 13 C18 13 22 17.5 22 21.5 C22 23 21 24.2 20 25 C21.5 24 23 25.5 23 27 C23 29.5 20.8 31.5 18 31.5 C15.2 31.5 13 29.5 13 27 C13 22 16.5 18 18 13 Z"
+          fill="url(#flameInnerGrad)"
+        />
+        <path
+          d="M12 21 C11.5 18 13.5 14 15.5 11 C14.5 14 13.8 17.5 14.5 21 Z"
+          fill="#FFFFFF"
+          opacity="0.65"
+        />
+      </g>
+    </svg>
+  );
+}

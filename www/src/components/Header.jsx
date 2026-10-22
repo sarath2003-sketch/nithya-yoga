@@ -97,7 +97,7 @@ export default function Header({
           <span className="pink-notification-dot"></span>
         </button>
 
-        {/* User Pill */}
+        {/* User Pill with 3D Pop-out Avatar */}
         <div 
           className="header-user-badge cursor-pointer"
           onClick={() => {
@@ -108,20 +108,20 @@ export default function Header({
               if (el) el.scrollIntoView({ behavior: 'smooth' });
             }
           }}
-          title="View / Edit Profile"
+          title={lang === 'ta' ? 'சுயவிவரம் பார்க்க' : 'View / Edit Profile'}
           role="button"
           tabIndex={0}
         >
-          <div className="user-avatar-circle">
-            {user?.avatar ? (
-              <img src={user.avatar} alt={user.name} />
-            ) : (
-              <span>{user?.name ? user.name.charAt(0) : 'N'}</span>
-            )}
+          <div className="header-avatar-3d-wrap">
+            <img 
+              src={user?.avatar || 'assets/images/pastel/nithya_3d_avatar.png'} 
+              alt={user?.name || 'Nithya'} 
+              className="header-avatar-3d-img"
+            />
           </div>
           <div className="user-greeting-meta hidden sm:flex">
-            <span className="welcome-tag">{lang === 'ta' ? 'வணக்கம்,' : 'Welcome,'}</span>
-            <span className="user-name-bold">{user?.name || 'Nithya'}</span>
+            <span className="welcome-tag">{lang === 'ta' ? 'ஹாய்,' : 'Hi,'}</span>
+            <span className="user-name-bold">{user?.name ? (user.name.includes('Master') ? (lang === 'ta' ? 'நித்யா மாஸ்டர்' : 'Nithya Master') : (lang === 'ta' ? 'நித்யா 👋' : 'Nithya 👋')) : 'Nithya'}</span>
           </div>
         </div>
       </div>

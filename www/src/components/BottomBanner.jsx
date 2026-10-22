@@ -6,12 +6,16 @@ export default function BottomBanner({ onExplore, lang = 'en' }) {
     <div className="pastel-bottom-banner">
       <div className="bottom-banner-blob"></div>
       <div className="bottom-banner-left">
-        <div className="bottom-banner-star-badge">
-          <Sparkles size={18} className="star-icon-gold" />
+        <div className="bottom-banner-star-badge-3d">
+          <img 
+            src="assets/images/pastel/star_3d.png" 
+            alt="3D Star" 
+            className="bottom-banner-star-img-3d" 
+          />
         </div>
         <div className="bottom-banner-text">
           <h3 className="bottom-banner-title">
-            {lang === 'ta' ? 'புதிய வகுப்புகளைக் கண்டறியுங்கள்' : 'Discover New Classes'}
+            {lang === 'ta' ? 'புதிய யோகா & இசை வகுப்புகளைக் கண்டறியுங்கள்' : 'Discover New Music & Yoga Classes'}
           </h3>
           <p className="bottom-banner-sub">
             {lang === 'ta'

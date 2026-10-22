@@ -22,6 +22,7 @@ import StudentJoinModal from './components/StudentJoinModal';
 import StudentDashboard from './components/StudentDashboard';
 import InAppUpdateBanner from './components/InAppUpdateBanner';
 import BottomBanner from './components/BottomBanner';
+import RecentlyPlayedDailyMix from './components/RecentlyPlayedDailyMix';
 import { ArrowLeft } from 'lucide-react';
 
 import { 
@@ -1041,7 +1042,7 @@ export default function App() {
             </main>
           ) : (
             <main className="dashboard-content-grid-wrapper ya-reveal">
-              {/* Row 1: Panoramic Hero Banner (Left) + User Profile Bento (Right) */}
+              {/* Row 1: Panoramic 3D Hero Banner + 4 Pastel Stat Cards (Master Reference Design) */}
               <HeroSection
                 user={user}
                 onJoinLive={() => handleJoinLive(activeClass)}
@@ -1049,7 +1050,27 @@ export default function App() {
                 lang={lang}
               />
 
-              {/* Row 2: Today's Reminders (5 Pastel Cards) */}
+              {/* Row 2: Practice Overview & Focus Areas Charts (Master Reference Design) */}
+              <AttendanceProgressSection
+                user={user}
+                attendanceLogs={attendanceLogs}
+                lang={lang}
+              />
+
+              {/* Row 3: Recently Played & Daily Mix (Master Reference Design) */}
+              <RecentlyPlayedDailyMix
+                onSelectClass={(cls) => {
+                  if (cls?.id === 'all-classes') {
+                    handleTabChange('yoga');
+                  } else {
+                    handleJoinLive(activeClass);
+                  }
+                }}
+                showToast={showToast}
+                lang={lang}
+              />
+
+              {/* Row 4: Today's Reminders (5 Pastel Cards) */}
               <SmartCareTimeline
                 reminders={reminders}
                 onToggleComplete={handleToggleComplete}
@@ -1103,25 +1124,16 @@ export default function App() {
               </div>
             </div>
 
-            {/* Row 4: 3 Columns Grid (Progress | Yoga Notes | Profile) */}
+            {/* Row 6: 2 Columns Grid (Yoga Notes | Profile) */}
             <div className="dashboard-row-4-grid">
-              {/* Col 1: Progress Analytics */}
-              <div className="grid-col col-progress">
-                <AttendanceProgressSection
-                  user={user}
-                  attendanceLogs={attendanceLogs}
-                  lang={lang}
-                />
-              </div>
-
-              {/* Col 2: Yoga Notes */}
+              {/* Col 1: Yoga Notes */}
               <div className="grid-col col-notes">
                 <YogaNotesSection
                   lang={lang}
                 />
               </div>
 
-              {/* Col 3: Member Profile */}
+              {/* Col 2: Member Profile */}
               <div className="grid-col col-profile">
                 <ProfileSection
                   user={user}
@@ -1132,7 +1144,7 @@ export default function App() {
               </div>
             </div>
 
-            {/* Row 5: Full-Width Pastel Bottom Banner */}
+            {/* Row 7: Full-Width Pastel Bottom Banner */}
             <BottomBanner
               onExplore={() => handleTabChange('yoga')}
               lang={lang}

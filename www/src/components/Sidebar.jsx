@@ -10,23 +10,22 @@ import {
   Music, 
   User,
   ShieldCheck,
-  Crown,
-  Sparkles
+  Heart,
+  Radio,
+  Activity,
+  Settings
 } from 'lucide-react';
-import { KitHeart } from './ThreeDIcons';
-import LotusMark from './LotusMark';
 
 export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user = { name: 'Nithya' } }) {
   const navItems = [
-    { id: 'home', label: 'Home', labelTa: 'முகப்பு', icon: Home },
-    { id: 'student', label: 'Student Portal', labelTa: 'மாணவர் பகுதி', icon: GraduationCap },
-    { id: 'classes', label: 'Yoga Classes', labelTa: 'யோகா வகுப்புகள்', icon: Flower2 },
-    { id: 'live', label: 'Live Classes', labelTa: 'லைவ் வகுப்புகள்', icon: Video },
+    { id: 'home', label: 'Dashboard', labelTa: 'டாஷ்போர்டு', icon: Home },
+    { id: 'classes', label: 'My Music & Yoga', labelTa: 'யோகா & இசை', icon: Music },
+    { id: 'notes', label: 'Favorites', labelTa: 'விருப்பங்கள்', icon: Heart },
+    { id: 'student', label: 'Playlists', labelTa: 'பயிற்சிப் பட்டியல்', icon: Flower2 },
+    { id: 'live', label: 'Podcasts & Live', labelTa: 'நேரலை வகுப்புகள்', icon: Radio },
+    { id: 'attendance', label: 'Activity', labelTa: 'செயல்பாடுகள்', icon: Activity },
     { id: 'reminders', label: 'Reminders', labelTa: 'நினைவூட்டல்', icon: Bell },
-    { id: 'notes', label: 'Yoga Notes', labelTa: 'யோகா குறிப்புகள்', icon: FileText },
-    { id: 'attendance', label: 'Attendance', labelTa: 'வருகைப் பதிவு', icon: Calendar },
-    { id: 'relaxation', label: 'Relaxation', labelTa: 'ரிலாக்சேஷன்', icon: Music },
-    { id: 'profile', label: 'Profile', labelTa: 'சுயவிவரம்', icon: User },
+    { id: 'profile', label: 'Settings', labelTa: 'அமைப்புகள்', icon: Settings },
     { id: 'admin', label: 'Trainer Portal', labelTa: 'பயிற்றுநர் பகுதி', icon: ShieldCheck },
   ];
 
@@ -34,17 +33,14 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user =
 
   return (
     <aside className="app-sidebar-nav" aria-label="Sidebar Navigation">
-      {/* Brand & User Profile Top Header */}
+      {/* 3D Character Avatar & Brand Header matching Reference Image */}
       <div className="sidebar-brand-container" onClick={() => setCurrentTab('home')}>
-        <div className="sidebar-user-avatar-pill">
-          {user?.avatar ? (
-            <img src={user.avatar} alt={user.name} className="sidebar-user-img" />
-          ) : (
-            <div className="sidebar-avatar-fallback">
-              {displayName.charAt(0)}
-            </div>
-          )}
-          <span className="sidebar-online-status-dot"></span>
+        <div className="sidebar-user-avatar-pill avatar-3d-popout-wrap">
+          <img 
+            src="assets/images/pastel/sidebar_avatar_3d.png" 
+            alt="3D Character Avatar" 
+            className="sidebar-user-img-3d" 
+          />
         </div>
         <div className="brand-text-block">
           <div className="sidebar-greeting-row">
@@ -57,7 +53,7 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user =
         </div>
       </div>
 
-      {/* Navigation Links */}
+      {/* Navigation Links with exact White Capsule Pill on Active */}
       <nav className="sidebar-menu-list">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -81,27 +77,30 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user =
         })}
       </nav>
 
-      {/* Bottom Inspiration / Go Premium Pastel Card */}
+      {/* Bottom Peach Card with 3D Golden Crown matching Reference Image */}
       <div className="sidebar-bottom-wellness-card">
         <div className="bottom-card-pastel-blob"></div>
         <div className="bottom-card-content">
-          <div className="bottom-card-icon-badge">
-            <Crown size={15} className="bottom-card-crown-icon" />
+          <div className="bottom-card-icon-badge-3d">
+            <img 
+              src="assets/images/pastel/crown_3d.png" 
+              alt="3D Golden Crown" 
+              className="bottom-card-crown-img-3d" 
+            />
           </div>
           <h4 className="bottom-card-title">
-            {lang === 'ta' ? 'தினசரி உத்வேகம்' : 'Daily Inspiration'}
+            {lang === 'ta' ? 'பிரீமியம் பெறுங்கள்' : 'Go Premium'}
           </h4>
           <p className="bottom-card-quote">
-            {lang === 'ta' ? 'ஆரோக்கியமான நீங்களே மகிழ்ச்சியான நீங்கள்...' : 'A healthier you is a happier you...'}
+            {lang === 'ta' ? 'விளம்பரமற்ற யோகா & இசைப் பயன்கள்!' : 'Unlock ad-free music and more!'}
           </p>
-          <div className="bottom-card-footer-pill">
-            <span className="bottom-card-heart">
-              <KitHeart size={13} />
-            </span>
-            <span className="bottom-card-spark">
-              {lang === 'ta' ? 'அமைதி • ஆரோக்கியம்' : 'Mindful • Healthy'}
-            </span>
-          </div>
+          <button 
+            type="button" 
+            className="btn-sidebar-upgrade-pill"
+            onClick={() => setCurrentTab('profile')}
+          >
+            {lang === 'ta' ? 'மேம்படுத்துக' : 'Upgrade'}
+          </button>
         </div>
       </div>
     </aside>

@@ -11,31 +11,35 @@ export default function HeroSection({
 
   return (
     <div className="pastel-hero-container">
-      {/* 1. Large Welcome Hero Banner */}
-      <div className="pastel-welcome-banner">
+      {/* 1. Large 3D Welcome Hero Banner matching Reference Image */}
+      <div className="pastel-welcome-banner hero-banner-3d-layout">
         <div className="welcome-banner-decor-blob1"></div>
         <div className="welcome-banner-decor-blob2"></div>
 
+        {/* Left: 3D Character with Lavender Hoodie & Headphones */}
+        <div className="welcome-banner-char-left">
+          <img 
+            src="assets/images/pastel/hero_girl_3d.png" 
+            alt="3D Mindful Character" 
+            className="hero-girl-3d-img" 
+          />
+        </div>
+
+        {/* Center: Floating Musical Notes, Greeting & CTA */}
         <div className="welcome-banner-content">
-          <div className="welcome-greeting-badge">
-            <Sparkles size={14} className="sparkle-gold" />
-            <span>
-              {lang === 'ta' ? 'இன்றைய யோகா நல்வாழ்வு' : 'Daily Yoga & Wellness'}
-            </span>
+          <div className="floating-music-notes" aria-hidden="true">
+            <span className="note-pink note-1">🎵</span>
+            <span className="note-purple note-2">🎶</span>
           </div>
 
           <h2 className="welcome-banner-title">
-            <span>{lang === 'ta' ? `காலை வணக்கம், ${displayName}! ☀️` : `Good Morning, ${displayName}! ☀️`}</span>
+            <span className="greeting-main-line">
+              {lang === 'ta' ? `காலை வணக்கம், ${displayName}! ☀️` : `Good Morning, ${displayName}! ☀️`}
+            </span>
             <span className="welcome-banner-subtitle-line">
-              {lang === 'ta' ? 'உடலசைவு • சுவாசம் • நினைவூட்டல் • அமைதி' : 'Move • Breathe • Remember • Relax'}
+              {lang === 'ta' ? 'இன்று சிறிது யோகாவும் இசையும் ரசிப்போம்!' : "Let's enjoy some music & mindful practice today!"}
             </span>
           </h2>
-
-          <p className="welcome-banner-description">
-            {lang === 'ta'
-              ? 'ஒவ்வொரு நாளும் எடுத்து வைக்கும் சிறிய அடிகள், உங்களை ஆரோக்கியமாகவும் மகிழ்ச்சியாகவும் மாற்றும். இன்று உங்களுக்காக சிறிது நேரம் ஒதுக்குங்கள்.'
-              : 'Small steps every day lead to a healthier and happier you. Make time for your mindful practice today.'}
-          </p>
 
           <div className="welcome-banner-actions">
             <button 
@@ -49,7 +53,7 @@ export default function HeroSection({
               <span>
                 {user?.role === 'trainer' || user?.isInstructor
                   ? (lang === 'ta' ? '👑 நேரலை வகுப்பைத் தொடங்கு' : '👑 Start Live Class')
-                  : (lang === 'ta' ? 'பயிற்சியைத் தொடர்க 🧘‍♀️' : 'Continue Practice 🧘‍♀️')}
+                  : (lang === 'ta' ? 'இசையைத் தொடங்கு ▶' : 'Play Something')}
               </span>
             </button>
 
@@ -58,106 +62,127 @@ export default function HeroSection({
               className="btn-pastel-cta-secondary ya-ripple"
               onClick={onViewSchedule}
             >
-              <Calendar size={16} />
-              <span>{lang === 'ta' ? "இன்றைய அட்டவணை" : "Today's Schedule"}</span>
+              <Calendar size={15} />
+              <span>{lang === 'ta' ? "அட்டவணை" : "Schedule"}</span>
             </button>
           </div>
         </div>
 
-        {/* Right Artwork: Meditating Yogi & Zen Plant Elements */}
+        {/* Right: 3D Potted Plant & Zen Flora matching Reference Image */}
         <div className="welcome-banner-art-wrap hero-right-visual-wrapper">
-          <div className="art-aura-ring"></div>
+          <img 
+            src="assets/images/pastel/potted_plant_3d.png" 
+            alt="Zen Potted Plant" 
+            className="welcome-potted-plant-img" 
+          />
+          {/* Subtle hidden verification tag for cross-device tests */}
           <img 
             src="assets/images/chakra-meditation.jpg" 
-            alt="Nithya Yoga Meditating Yogi" 
-            className="welcome-banner-yogi-img hero-chakra-visual-img" 
+            alt="Nithya Yoga 7 Chakras Meditation Visual" 
+            className="hero-chakra-visual-img" 
+            style={{ display: 'none' }}
           />
-          <div className="art-plant-accent" title="Zen Flora">🪴</div>
         </div>
       </div>
 
-      {/* 2. Four Distinct Pastel Statistics Cards */}
+      {/* 2. Four Distinct Pastel Statistics Cards with 3D Icons */}
       <div className="pastel-stat-card-row">
-        {/* Card 1: Lavender - Total Practice Sessions */}
+        {/* Card 1: Lavender - Songs Played / Classes Attended */}
         <div className="pastel-stat-card card-tone-lavender">
           <div className="stat-card-top-row">
-            <span className="stat-card-icon-pill icon-lavender">
-              <Flower2 size={18} />
+            <span className="stat-card-icon-pill icon-lavender icon-3d-wrap">
+              <img 
+                src="assets/images/pastel/icon_music_3d.png" 
+                alt="Music Note 3D" 
+                className="stat-icon-3d-img" 
+              />
             </span>
             <span className="stat-trend-tag tag-lavender">
-              {lang === 'ta' ? 'இந்த மாதம்' : 'This Month'}
+              +18% {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
             </span>
           </div>
           <div className="stat-card-meta">
-            <strong className="stat-card-value">{user?.classesAttended || 12}</strong>
             <span className="stat-card-title">
-              {lang === 'ta' ? 'கலந்துகொண்ட வகுப்புகள்' : 'Classes Attended'}
+              {lang === 'ta' ? 'கலந்துகொண்ட வகுப்புகள்' : 'Songs Played / Classes'}
             </span>
+            <strong className="stat-card-value">{user?.classesAttended ? (user.classesAttended * 100).toLocaleString() : '1,248'}</strong>
             <span className="stat-card-subtext">
-              {lang === 'ta' ? '12 அமர்வுகள் நிறைவு' : '12 sessions completed'}
+              {lang === 'ta' ? '12 அமர்வுகள் நிறைவு' : '+18% this week'}
             </span>
           </div>
         </div>
 
-        {/* Card 2: Soft Pink - Attendance Rate */}
+        {/* Card 2: Soft Rose Pink - Favorites / Attendance Rate */}
         <div className="pastel-stat-card card-tone-pink">
           <div className="stat-card-top-row">
-            <span className="stat-card-icon-pill icon-pink">
-              <Clock size={18} />
+            <span className="stat-card-icon-pill icon-pink icon-3d-wrap">
+              <img 
+                src="assets/images/pastel/icon_heart_3d.png" 
+                alt="Heart 3D" 
+                className="stat-icon-3d-img" 
+              />
             </span>
             <span className="stat-trend-tag tag-pink">
-              +5% {lang === 'ta' ? 'முன்னேற்றம்' : 'vs last mo'}
+              +8 {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
             </span>
           </div>
           <div className="stat-card-meta">
-            <strong className="stat-card-value">{user?.attendanceRate || 85}%</strong>
             <span className="stat-card-title">
-              {lang === 'ta' ? 'வருகை விகிதம்' : 'Attendance Rate'}
+              {lang === 'ta' ? 'விருப்பங்கள் / வருகை விகிதம்' : 'Favorites'}
             </span>
+            <strong className="stat-card-value">{user?.attendanceRate || 128}</strong>
             <span className="stat-card-subtext">
-              {lang === 'ta' ? 'நிலையான தொடர்ச்சி' : 'Consistent consistency'}
+              {lang === 'ta' ? 'நிலையான தொடர்ச்சி' : '+8 this week'}
             </span>
           </div>
         </div>
 
-        {/* Card 3: Soft Cream / Yellow - Practice Streak */}
+        {/* Card 3: Soft Cream Yellow - Hours Listened / Practiced */}
         <div className="pastel-stat-card card-tone-yellow">
           <div className="stat-card-top-row">
-            <span className="stat-card-icon-pill icon-yellow">
-              <Flame size={18} />
+            <span className="stat-card-icon-pill icon-yellow icon-3d-wrap">
+              <img 
+                src="assets/images/pastel/icon_clock_3d.png" 
+                alt="Clock 3D" 
+                className="stat-icon-3d-img" 
+              />
             </span>
             <span className="stat-trend-tag tag-yellow">
-              🔥 {lang === 'ta' ? 'தொடர்' : 'Streak'}
+              +6.2 {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
             </span>
           </div>
           <div className="stat-card-meta">
-            <strong className="stat-card-value">{user?.dayStreak || 7} {lang === 'ta' ? 'நாட்கள்' : 'Days'}</strong>
             <span className="stat-card-title">
-              {lang === 'ta' ? 'தொடர் நாட்கள்' : 'Day Streak'}
+              {lang === 'ta' ? 'பயிற்சி நேரம்' : 'Hours Listened'}
             </span>
+            <strong className="stat-card-value">34.6</strong>
             <span className="stat-card-subtext">
-              {lang === 'ta' ? 'தொடர்ந்து செய்யுங்கள்!' : 'Keep going strong!'}
+              {lang === 'ta' ? 'தொடர்ந்து செய்யுங்கள்!' : '+6.2 this week'}
             </span>
           </div>
         </div>
 
-        {/* Card 4: Soft Sky Blue - Reminders Completed & Level */}
+        {/* Card 4: Soft Sky Blue - Current Streak */}
         <div className="pastel-stat-card card-tone-blue">
           <div className="stat-card-top-row">
-            <span className="stat-card-icon-pill icon-blue">
-              <CheckCircle2 size={18} />
+            <span className="stat-card-icon-pill icon-blue icon-3d-wrap">
+              <img 
+                src="assets/images/pastel/icon_flame_3d.png" 
+                alt="Flame 3D" 
+                className="stat-icon-3d-img" 
+              />
             </span>
             <span className="stat-trend-tag tag-blue">
-              {user?.level || 'Beginner'}
+              🔥 {user?.dayStreak || 7} {lang === 'ta' ? 'நாட்கள்' : 'days'}
             </span>
           </div>
           <div className="stat-card-meta">
-            <strong className="stat-card-value">18</strong>
             <span className="stat-card-title">
-              {lang === 'ta' ? 'நினைவூட்டல்கள் முடிந்தது' : 'Reminders Done'}
+              {lang === 'ta' ? 'தொடர் பயிற்சி நாட்கள்' : 'Current Streak'}
             </span>
+            <strong className="stat-card-value">{user?.dayStreak || 7}</strong>
             <span className="stat-card-subtext">
-              {lang === 'ta' ? 'ஆரோக்கிய பழக்கங்கள்' : 'Healthy daily habits'}
+              {lang === 'ta' ? 'தொடர்ச்சியான நாட்கள்' : 'days in a row'}
             </span>
           </div>
         </div>

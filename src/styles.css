@@ -1995,7 +1995,7 @@ input, select, textarea {
    ========================================================================== */
 .dashboard-row-4-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 20px;
   width: 100%;
 }
@@ -5246,3 +5246,565 @@ video::-webkit-media-controls-enclosure {
 }
 
 
+
+
+/* ==========================================================================
+   Master 3D Pastel UI Enhancements (Reference Dashboard Alignment)
+   ========================================================================== */
+
+/* 1. Sidebar 3D Avatar & Bottom Golden Crown Card */
+.avatar-3d-popout-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: linear-gradient(135deg, #E9DDFB 0%, #D8C3F8 100%);
+  box-shadow: 0 4px 14px rgba(98, 70, 143, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sidebar-user-img-3d {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.bottom-card-icon-badge-3d {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(217, 106, 147, 0.22);
+  margin-bottom: 4px;
+}
+
+.bottom-card-crown-img-3d {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(212, 152, 38, 0.35));
+}
+
+.btn-sidebar-upgrade-pill {
+  margin-top: 8px;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  background: #9B7AE8;
+  color: #FFFFFF;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(155, 122, 232, 0.4);
+  transition: transform 0.2s ease, background 0.2s ease;
+  text-align: center;
+}
+
+.btn-sidebar-upgrade-pill:hover {
+  background: #8762E4;
+  transform: translateY(-2px);
+}
+
+/* 2. Hero Banner 3D Character, Notes & Potted Plant */
+.hero-banner-3d-layout {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 28px;
+  padding: 24px 34px;
+}
+
+.welcome-banner-char-left {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-girl-3d-img {
+  width: 135px;
+  height: 135px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 20px rgba(98, 70, 143, 0.25));
+  animation: floatGirl 5s ease-in-out infinite alternate;
+}
+
+@keyframes floatGirl {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+  100% { transform: translateY(0px); }
+}
+
+.floating-music-notes {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 2px;
+}
+
+.note-pink {
+  font-size: 1.25rem;
+  display: inline-block;
+  animation: pulseFloat 3s ease-in-out infinite alternate;
+}
+
+.note-purple {
+  font-size: 1.1rem;
+  display: inline-block;
+  animation: pulseFloat 3s ease-in-out infinite alternate 1.5s;
+}
+
+@keyframes pulseFloat {
+  0% { transform: translateY(0px) scale(0.95); opacity: 0.85; }
+  100% { transform: translateY(-5px) scale(1.08); opacity: 1; }
+}
+
+.greeting-main-line {
+  display: block;
+}
+
+.welcome-potted-plant-img {
+  width: 115px;
+  height: 115px;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 18px rgba(98, 70, 143, 0.2));
+  animation: plantSway 6s ease-in-out infinite alternate;
+}
+
+@keyframes plantSway {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(2deg); }
+}
+
+/* 3. Stat Cards 3D Icons */
+.pastel-stat-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.icon-3d-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 14px rgba(41, 35, 61, 0.08);
+  flex-shrink: 0;
+}
+
+.stat-icon-3d-img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.12));
+}
+
+/* 4. Bottom Banner 3D Star Badge */
+.bottom-banner-star-badge-3d {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(212, 152, 38, 0.22);
+  flex-shrink: 0;
+}
+
+.bottom-banner-star-img-3d {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 5px rgba(212, 152, 38, 0.3));
+  animation: starPulse 4s ease-in-out infinite alternate;
+}
+
+@keyframes starPulse {
+  0% { transform: scale(0.96) rotate(-2deg); }
+  100% { transform: scale(1.06) rotate(2deg); }
+}
+
+/* 5. Recently Played & Daily Mix Row */
+.recently-daily-mix-wrapper {
+  width: 100%;
+}
+
+.recently-daily-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 20px;
+  width: 100%;
+}
+
+.recent-played-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+}
+
+.recent-played-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.recent-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.recent-card-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.recent-card-sub {
+  font-size: 0.74rem;
+  color: var(--text-sub);
+}
+
+.btn-recent-see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: var(--bg-card-subtle);
+  border: 1px solid var(--border-light);
+  font-size: 0.74rem;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-recent-see-all:hover {
+  background: var(--bg-hover);
+  color: var(--primary-dark);
+}
+
+.recent-played-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recent-item-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 14px;
+  border-radius: 18px;
+  background: var(--bg-card-subtle);
+  border: 1px solid transparent;
+  transition: all 0.2s var(--ease-spring);
+  cursor: pointer;
+}
+
+.recent-item-row:hover {
+  background: var(--bg-card);
+  border-color: var(--border-light);
+  transform: translateX(4px);
+  box-shadow: 0 4px 12px rgba(155, 122, 232, 0.08);
+}
+
+.recent-item-playing {
+  border-color: var(--primary-border);
+  background: var(--primary-subtle);
+}
+
+.recent-item-thumb-wrap {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.recent-item-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recent-thumb-eq-indicator {
+  position: absolute;
+  inset: 0;
+  background: rgba(98, 70, 143, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+}
+
+.eq-bar {
+  width: 3px;
+  background: #FFFFFF;
+  border-radius: 2px;
+  animation: eqBounce 0.8s ease-in-out infinite alternate;
+}
+.eq-bar-1 { height: 14px; animation-delay: 0.1s; }
+.eq-bar-2 { height: 20px; animation-delay: 0.3s; }
+.eq-bar-3 { height: 10px; animation-delay: 0.2s; }
+
+@keyframes eqBounce {
+  0% { transform: scaleY(0.4); }
+  100% { transform: scaleY(1); }
+}
+
+.recent-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.recent-item-name {
+  font-family: var(--font-heading);
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.recent-item-desc {
+  font-size: 0.74rem;
+  color: var(--text-sub);
+  margin: 2px 0 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.btn-recent-play-circle {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  cursor: pointer;
+  transition: all 0.2s var(--ease-spring);
+  flex-shrink: 0;
+}
+
+.btn-recent-play-circle:hover {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+  transform: scale(1.08);
+  box-shadow: 0 4px 12px rgba(155, 122, 232, 0.35);
+}
+
+.btn-recent-play-circle.playing {
+  background: var(--primary);
+  color: #FFFFFF;
+  border-color: var(--primary);
+}
+
+/* Daily Mix Card */
+.daily-mix-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-card);
+  border-radius: 24px;
+  padding: 22px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-card);
+  transition: transform 0.25s var(--ease-spring), box-shadow 0.25s ease;
+}
+
+.daily-mix-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.daily-mix-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.daily-mix-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-heading);
+  margin: 0;
+}
+
+.daily-mix-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: #FDF2D5;
+  border: 1px solid #FAE2B4;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #8C5B00;
+}
+
+.daily-mix-artwork-container {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  height: 200px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(98, 70, 143, 0.15);
+}
+
+.daily-mix-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.daily-mix-artwork-container:hover .daily-mix-cover-img {
+  transform: scale(1.04);
+}
+
+.daily-mix-overlay-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, rgba(41, 35, 61, 0.75) 100%);
+  pointer-events: none;
+}
+
+.btn-daily-mix-play-float {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--primary);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  transition: transform 0.22s var(--ease-spring), background 0.2s ease, color 0.2s ease;
+  z-index: 3;
+}
+
+.btn-daily-mix-play-float:hover {
+  transform: scale(1.12);
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+.btn-daily-mix-play-float.playing {
+  background: var(--primary);
+  color: #FFFFFF;
+}
+
+.daily-mix-bottom-meta {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  right: 18px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.daily-mix-pill-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: #FFFFFF;
+  font-size: 0.68rem;
+  font-weight: 700;
+  width: fit-content;
+}
+
+.daily-mix-track-title {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #FFFFFF;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.daily-mix-track-desc {
+  font-size: 0.74rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Mobile responsive rules for 3D elements */
+@media (max-width: 768px) {
+  .hero-banner-3d-layout {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 16px;
+    padding: 20px 16px;
+  }
+  .welcome-banner-char-left {
+    order: -1;
+  }
+  .hero-girl-3d-img {
+    width: 95px;
+    height: 95px;
+  }
+  .welcome-potted-plant-img {
+    width: 80px;
+    height: 80px;
+  }
+  .welcome-banner-actions {
+    justify-content: center;
+  }
+  .floating-music-notes {
+    justify-content: center;
+  }
+  .recently-daily-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+}

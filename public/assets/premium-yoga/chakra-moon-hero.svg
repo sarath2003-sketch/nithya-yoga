@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 900" fill="none">
+<defs>
+ <radialGradient id="bg"><stop stop-color="#29245B"/><stop offset=".56" stop-color="#11152F"/><stop offset="1" stop-color="#070B19"/></radialGradient>
+ <linearGradient id="moon" x1="280" y1="160" x2="610" y2="530"><stop stop-color="#FFF6D8"/><stop offset=".45" stop-color="#D7C9FF"/><stop offset="1" stop-color="#8C7AE6"/></linearGradient>
+ <linearGradient id="body" x1="340" y1="310" x2="550" y2="670"><stop stop-color="#F3D8FF"/><stop offset=".48" stop-color="#B7A5F8"/><stop offset="1" stop-color="#6D60BC"/></linearGradient>
+ <linearGradient id="halo" x1="200" y1="170" x2="700" y2="710"><stop stop-color="#C9B7FF" stop-opacity=".75"/><stop offset="1" stop-color="#7A6BFF" stop-opacity=".05"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="10"/></filter>
+ <filter id="soft"><feGaussianBlur stdDeviation="2"/></filter>
+</defs>
+<rect width="900" height="900" rx="56" fill="url(#bg)"/>
+<circle cx="450" cy="430" r="300" stroke="url(#halo)" stroke-width="2" opacity=".7"/>
+<circle cx="450" cy="430" r="252" stroke="#B9A7FF" stroke-opacity=".25" stroke-dasharray="4 14"/>
+<circle cx="450" cy="430" r="215" stroke="#A89BFF" stroke-opacity=".22"/>
+<path d="M450 116 A270 270 0 0 1 684 522 A230 230 0 0 0 450 116Z" fill="url(#moon)" opacity=".88"/>
+<circle cx="450" cy="430" r="240" stroke="#D7CCFF" stroke-opacity=".18"/>
+<g opacity=".75" fill="#F8F4FF"><circle cx="196" cy="240" r="2"/><circle cx="702" cy="260" r="3"/><circle cx="720" cy="555" r="2"/><circle cx="242" cy="670" r="3"/><circle cx="328" cy="135" r="2"/><circle cx="596" cy="722" r="2"/><circle cx="155" cy="460" r="2"/></g>
+<!-- lotus seat -->
+<g stroke="#BBAAFF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" opacity=".95">
+ <path d="M450 682 Q385 603 327 648 Q368 714 450 705 Q532 714 573 648 Q515 603 450 682Z" fill="#51458D" fill-opacity=".55"/>
+ <path d="M450 688 Q405 625 390 597 Q370 654 450 688Z" fill="#8D7BDB" fill-opacity=".55"/>
+ <path d="M450 688 Q495 625 510 597 Q530 654 450 688Z" fill="#8D7BDB" fill-opacity=".55"/>
+</g>
+<!-- meditating feminine silhouette -->
+<g stroke="#D8CBFF" stroke-width="3" stroke-linejoin="round">
+ <path d="M421 333 Q400 354 405 391 L420 452 Q430 482 410 520 L356 584 Q336 606 361 622 Q398 639 449 612 Q501 639 538 622 Q563 606 543 584 L489 520 Q469 482 479 452 L494 391 Q499 354 478 333Z" fill="url(#body)" fill-opacity=".94"/>
+ <ellipse cx="450" cy="280" rx="52" ry="64" fill="url(#body)"/>
+ <path d="M401 277 Q392 217 449 211 Q511 215 499 278 Q483 244 455 244 Q432 263 401 277Z" fill="#29224F"/>
+ <path d="M408 353 Q372 367 338 399 Q322 415 342 433 Q364 444 390 418 L420 393" fill="url(#body)"/>
+ <path d="M492 353 Q528 367 562 399 Q578 415 558 433 Q536 444 510 418 L480 393" fill="url(#body)"/>
+ <path d="M410 520 Q374 527 344 553 Q321 575 344 594 Q373 616 415 590 L450 571 L485 590 Q527 616 556 594 Q579 575 556 553 Q526 527 490 520" fill="url(#body)"/>
+</g>
+<!-- seven chakra points -->
+<g>
+ <circle cx="450" cy="305" r="24" fill="#F8B4FF" opacity=".22" filter="url(#glow)"/><circle cx="450" cy="305" r="10" fill="#F5C8FF" stroke="#FFF1FF" stroke-width="2"/>
+ <circle cx="450" cy="373" r="10" fill="#9F8BFF" stroke="#E7DEFF" stroke-width="2"/>
+ <circle cx="450" cy="421" r="10" fill="#5DD9FF" stroke="#D8FAFF" stroke-width="2"/>
+ <circle cx="450" cy="469" r="10" fill="#6EF0BE" stroke="#E1FFF3" stroke-width="2"/>
+ <circle cx="450" cy="515" r="10" fill="#FFE17A" stroke="#FFF7D6" stroke-width="2"/>
+ <circle cx="450" cy="557" r="10" fill="#FFAD78" stroke="#FFF0E5" stroke-width="2"/>
+ <circle cx="450" cy="595" r="10" fill="#FF7DAE" stroke="#FFE0EC" stroke-width="2"/>
+</g>
+<g stroke="#C7B8FF" stroke-width="1.5" opacity=".7">
+ <path d="M475 305 H596 L620 281"/><path d="M475 373 H625"/><path d="M475 421 H650 L669 402"/><path d="M475 469 H625"/><path d="M475 515 H603 L624 537"/><path d="M475 557 H590"/><path d="M475 595 H560 L580 615"/>
+</g>
+<g fill="#DCD4FF" opacity=".85"><circle cx="620" cy="281" r="4"/><circle cx="625" cy="373" r="4"/><circle cx="669" cy="402" r="4"/><circle cx="625" cy="469" r="4"/><circle cx="624" cy="537" r="4"/><circle cx="590" cy="557" r="4"/><circle cx="580" cy="615" r="4"/></g>
+<text x="450" y="788" text-anchor="middle" font-family="Arial,sans-serif" font-size="22" letter-spacing="7" fill="#E5DEFF">BREATHE • BALANCE • BLOOM</text>
+<text x="450" y="826" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" letter-spacing="4" fill="#A9A0D7">NITHYA YOGA • CHAKRA SERIES</text>
+</svg>

@@ -8178,3 +8178,51 @@ html, body, #root, .app-root-container, .app-main-layout {
   }
 }
 
+
+ 
+/* NITHYA Yoga — contrast repair for the Live Yoga Studio overview */
+.live-studio-card-container,
+.live-studio-card-container .live-studio-head,
+.live-studio-card-container .live-studio-brand,
+.live-studio-card-container .live-studio-meta,
+.live-studio-card-container .live-studio-title,
+.live-studio-card-container .live-studio-subtitle,
+.live-studio-card-container .live-roles-card-grid,
+.live-studio-card-container .live-role-card,
+.live-studio-card-container .live-role-card *,
+.live-studio-card-container .student-waiting-status-notice,
+.live-studio-card-container .live-studio-stage {
+  color: #f7f4ff;
+}
+.live-studio-card-container .live-studio-subtitle,
+.live-studio-card-container .student-waiting-status-notice {
+  color: #c7c3e4;
+}
+.live-studio-card-container .live-role-card {
+  background: rgba(255,255,255,.075);
+  border: 1px solid rgba(221,211,255,.2);
+  border-radius: 16px;
+  padding: 14px;
+}
+.live-studio-card-container .live-studio-stage {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.live-studio-card-container a,
+.live-studio-card-container .class-invite-link {
+  color: #e8d9ff;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+.live-studio-card-container button {
+  min-height: 42px;
+}
+@media (max-width: 640px) {
+  .live-studio-card-container { padding: 14px !important; }
+  .live-studio-card-container .live-roles-card-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  .live-studio-card-container .live-role-card { min-width: 0; }
+}

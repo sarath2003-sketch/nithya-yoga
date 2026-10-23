@@ -1047,6 +1047,7 @@ export default function App() {
                 user={user}
                 onJoinLive={() => handleJoinLive(activeClass)}
                 onViewSchedule={handleViewSchedule}
+                onTabChange={handleTabChange}
                 lang={lang}
               />
 

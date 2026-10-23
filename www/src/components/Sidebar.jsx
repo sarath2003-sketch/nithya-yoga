@@ -33,22 +33,21 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user =
 
   return (
     <aside className="app-sidebar-nav" aria-label="Sidebar Navigation">
-      {/* 3D Character Avatar & Brand Header matching Reference Image */}
+      {/* Official Brand Logo matching original user design */}
       <div className="sidebar-brand-container" onClick={() => setCurrentTab('home')}>
-        <div className="sidebar-user-avatar-pill avatar-3d-popout-wrap">
+        <div className="sidebar-brand-logo-wrap">
           <img 
-            src="assets/images/pastel/nithya_3d_avatar.png" 
-            alt="3D Character Avatar" 
-            className="sidebar-user-img-3d" 
+            src="assets/images/logo.png" 
+            alt="Nithya Yoga Logo" 
+            className="sidebar-official-logo-img" 
           />
         </div>
         <div className="brand-text-block">
           <div className="sidebar-greeting-row">
-            <span className="sidebar-hi-text">{lang === 'ta' ? `ஹாய், ${displayName}!` : `Hi, ${displayName}!`}</span>
-            <span className="sidebar-wave">👋</span>
+            <span className="sidebar-hi-text">{lang === 'ta' ? 'நித்யா யோகா' : 'NITHYA YOGA'}</span>
           </div>
           <span className="brand-subtitle">
-            {lang === 'ta' ? 'நித்யா யோகா & நலம்' : 'Yoga & Wellness'}
+            {lang === 'ta' ? `ஹாய், ${displayName}! 👋` : `Hi, ${displayName}! 👋`}
           </span>
         </div>
       </div>

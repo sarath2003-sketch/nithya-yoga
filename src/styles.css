@@ -1394,6 +1394,25 @@ input, select, textarea {
   transition: transform var(--duration-normal) var(--ease-spring);
 }
 
+.btn-curriculum-action {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 6px 12px;
+  border-radius: 9999px;
+  background: linear-gradient(135deg, #8F7CF6 0%, #7C3AED 100%);
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 10px rgba(124, 58, 237, 0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.2s ease;
+}
+
+.btn-curriculum-action:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(124, 58, 237, 0.4);
+}
+
 .class-row-item:hover .class-thumb-img {
   transform: scale(1.08);
 }
@@ -1496,6 +1515,50 @@ input, select, textarea {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+
+.live-studio-logo-emblem-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(143, 124, 246, 0.4) 0%, rgba(124, 58, 237, 0.2) 100%);
+  border: 1.5px solid rgba(185, 168, 255, 0.4);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.live-studio-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.sidebar-brand-logo-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  padding: 2px;
+  background: linear-gradient(135deg, rgba(143, 124, 246, 0.3) 0%, rgba(124, 58, 237, 0.15) 100%);
+  border: 1.5px solid rgba(185, 168, 255, 0.35);
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.sidebar-official-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .live-studio-lotus-mark {

@@ -6,6 +6,7 @@ export default function HeroSection({
   user,
   onJoinLive,
   onViewSchedule,
+  onTabChange,
   lang = 'en'
 }) {
   const displayName = user?.name ? user.name.split(' ')[0] : 'Nithya';
@@ -80,88 +81,112 @@ export default function HeroSection({
         </div>
       </div>
 
-      {/* 2. Four Distinct Pastel Statistics Cards with Crisp 3D Vector Icons */}
+      {/* 2. Four Interactive Practice & Feature Shortcut Cards */}
       <div className="pastel-stat-card-row">
-        {/* Card 1: Lavender - Songs Played / Classes Attended */}
-        <div className="pastel-stat-card card-tone-lavender">
+        {/* Card 1: Lavender - Live Yoga Studio Shortcut */}
+        <div 
+          className="pastel-stat-card card-tone-lavender ya-ripple cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
+          onClick={() => (onTabChange ? onTabChange('live') : onJoinLive())}
+          title={lang === 'ta' ? 'நேரலை வகுப்பறைக்குச் செல்லவும்' : 'Enter Live Yoga Studio'}
+        >
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-lavender icon-3d-wrap">
               <Stat3DMusicNote size={28} />
             </span>
-            <span className="stat-trend-tag tag-lavender">
-              +18% {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
+            <span className="stat-trend-tag tag-lavender font-bold">
+              ✨ {lang === 'ta' ? 'நேரலை' : 'Live'}
             </span>
           </div>
           <div className="stat-card-meta">
             <span className="stat-card-title">
-              {lang === 'ta' ? 'கலந்துகொண்ட வகுப்புகள்' : 'Songs Played / Classes'}
+              {lang === 'ta' ? 'நேரலை வகுப்புகள்' : 'Live Yoga Studio'}
             </span>
-            <strong className="stat-card-value">{user?.classesAttended ? (user.classesAttended * 100).toLocaleString() : '1,248'}</strong>
-            <span className="stat-card-subtext">
-              {lang === 'ta' ? '12 அமர்வுகள் நிறைவு' : '+18% this week'}
+            <strong className="stat-card-value text-base">
+              {lang === 'ta' ? 'அமர்வு தயார்' : 'Session Ready'}
+            </strong>
+            <span className="stat-card-subtext font-semibold text-primary flex items-center gap-1 mt-1">
+              {lang === 'ta' ? 'இணைய தட்டவும் ➔' : 'Tap to enter ➔'}
             </span>
           </div>
         </div>
 
-        {/* Card 2: Soft Rose Pink - Favorites / Attendance Rate */}
-        <div className="pastel-stat-card card-tone-pink">
+        {/* Card 2: Soft Rose Pink - Meditation Music Shortcut */}
+        <div 
+          className="pastel-stat-card card-tone-pink ya-ripple cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
+          onClick={() => (onTabChange ? onTabChange('classes') : null)}
+          title={lang === 'ta' ? 'தியான அமைதி இசையைக் கேட்க' : 'Listen to Meditation Sounds'}
+        >
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-pink icon-3d-wrap">
               <Stat3DHeart size={28} />
             </span>
-            <span className="stat-trend-tag tag-pink">
-              +8 {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
+            <span className="stat-trend-tag tag-pink font-bold">
+              🌿 {lang === 'ta' ? 'இசை' : 'Audio'}
             </span>
           </div>
           <div className="stat-card-meta">
             <span className="stat-card-title">
-              {lang === 'ta' ? 'விருப்பங்கள் / வருகை விகிதம்' : 'Favorites'}
+              {lang === 'ta' ? 'தியான அமைதி இசை' : 'Meditation Audio'}
             </span>
-            <strong className="stat-card-value">{user?.attendanceRate || 128}</strong>
-            <span className="stat-card-subtext">
-              {lang === 'ta' ? 'நிலையான தொடர்ச்சி' : '+8 this week'}
+            <strong className="stat-card-value text-base">
+              {lang === 'ta' ? '5 இசைத்தடங்கள்' : '5 Audio Tracks'}
+            </strong>
+            <span className="stat-card-subtext font-semibold text-pink-500 flex items-center gap-1 mt-1">
+              {lang === 'ta' ? 'இசையைக் கேள் ➔' : 'Tap to listen ➔'}
             </span>
           </div>
         </div>
 
-        {/* Card 3: Soft Cream Yellow - Hours Listened / Practiced */}
-        <div className="pastel-stat-card card-tone-yellow">
+        {/* Card 3: Soft Cream Yellow - Yoga Notes Shortcut */}
+        <div 
+          className="pastel-stat-card card-tone-yellow ya-ripple cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
+          onClick={() => (onTabChange ? onTabChange('notes') : null)}
+          title={lang === 'ta' ? 'யோகா குறிப்புகளைக் காண' : 'View Yoga Diary & Notes'}
+        >
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-yellow icon-3d-wrap">
               <Stat3DClock size={28} />
             </span>
-            <span className="stat-trend-tag tag-yellow">
-              +6.2 {lang === 'ta' ? 'இந்த வாரம்' : 'this week'}
+            <span className="stat-trend-tag tag-yellow font-bold">
+              📝 {lang === 'ta' ? 'குறிப்புகள்' : 'Journal'}
             </span>
           </div>
           <div className="stat-card-meta">
             <span className="stat-card-title">
-              {lang === 'ta' ? 'பயிற்சி நேரம்' : 'Hours Listened'}
+              {lang === 'ta' ? 'யோகா நாட்குறிப்பு' : 'Yoga Notes & Diary'}
             </span>
-            <strong className="stat-card-value">34.6</strong>
-            <span className="stat-card-subtext">
-              {lang === 'ta' ? 'தொடர்ந்து செய்யுங்கள்!' : '+6.2 this week'}
+            <strong className="stat-card-value text-base">
+              {lang === 'ta' ? 'தனிப்பயன் குறிப்புகள்' : 'Personal Notes'}
+            </strong>
+            <span className="stat-card-subtext font-semibold text-amber-600 flex items-center gap-1 mt-1">
+              {lang === 'ta' ? 'திறக்க தட்டவும் ➔' : 'Tap to view ➔'}
             </span>
           </div>
         </div>
 
-        {/* Card 4: Soft Sky Blue - Current Streak */}
-        <div className="pastel-stat-card card-tone-blue">
+        {/* Card 4: Soft Sky Blue - Reminders & Alarms Shortcut */}
+        <div 
+          className="pastel-stat-card card-tone-blue ya-ripple cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
+          onClick={() => (onTabChange ? onTabChange('reminders') : null)}
+          title={lang === 'ta' ? 'பயிற்சி நினைவூட்டல் அமைப்புகள்' : 'Practice Reminder Alarms'}
+        >
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-blue icon-3d-wrap">
               <Stat3DFlame size={28} />
             </span>
-            <span className="stat-trend-tag tag-blue">
-              🔥 {user?.dayStreak || 7} {lang === 'ta' ? 'நாட்கள்' : 'days'}
+            <span className="stat-trend-tag tag-blue font-bold">
+              ⏰ {lang === 'ta' ? 'அலாரம்' : 'Alarms'}
             </span>
           </div>
           <div className="stat-card-meta">
             <span className="stat-card-title">
-              {lang === 'ta' ? 'தொடர் பயிற்சி நாட்கள்' : 'Current Streak'}
+              {lang === 'ta' ? 'பயிற்சி நினைவூட்டல்' : 'Daily Reminders'}
             </span>
-            <strong className="stat-card-value">{user?.dayStreak || 7}</strong>
-            <span className="stat-card-subtext">
-              {lang === 'ta' ? 'தொடர்ச்சியான நாட்கள்' : 'days in a row'}
+            <strong className="stat-card-value text-base">
+              {lang === 'ta' ? 'அமைப்புகள் தயார்' : 'Schedule Alarms'}
+            </strong>
+            <span className="stat-card-subtext font-semibold text-blue-500 flex items-center gap-1 mt-1">
+              {lang === 'ta' ? 'அமைக்க தட்டவும் ➔' : 'Tap to set ➔'}
             </span>
           </div>
         </div>

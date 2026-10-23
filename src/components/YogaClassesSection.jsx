@@ -134,6 +134,7 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
   });
 
   const [activeAsanaModal, setActiveAsanaModal] = useState(null);
+  const [activeClassModal, setActiveClassModal] = useState(null);
   const [showAllModal, setShowAllModal] = useState(false);
   const [asanaTimer, setAsanaTimer] = useState(60);
   const [isTimerRunning, setIsTimerRunning] = useState(false);
@@ -215,7 +216,12 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
           {/* Class Items Stack */}
           <div className="classes-items-stack flex flex-col gap-2.5">
             {filtered.map((item) => (
-              <div key={item.id} className="class-row-item flex items-center gap-3 p-2.5 rounded-xl border border-subtle bg-card hover:border-primary transition-all">
+              <div 
+                key={item.id} 
+                className="class-row-item flex items-center gap-3 p-2.5 rounded-xl border border-subtle bg-card hover:border-primary transition-all cursor-pointer ya-ripple"
+                onClick={() => setActiveClassModal(item)}
+                title={lang === 'ta' ? 'பாடத்திட்டம் & நேரலை விவரங்களைக் காண' : 'View Curriculum & Class Details'}
+              >
                 <div className="class-thumb-wrap w-14 h-14 rounded-lg overflow-hidden flex-shrink-0 bg-subtle">
                   <img src={item.img} alt={item.title} className="class-thumb-img w-full h-full object-fit-cover" />
                 </div>
@@ -242,9 +248,17 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
                   </p>
                 </div>
 
-                <span className="text-[11px] font-bold px-2.5 py-1 rounded-full bg-violet-500/15 text-primary border border-violet-500/20 flex-shrink-0">
-                  {lang === 'ta' ? 'பாடத்திட்டம்' : 'Curriculum'}
-                </span>
+                <button
+                  type="button"
+                  className="btn-curriculum-action flex items-center gap-1 text-[11px] font-bold px-3 py-1.5 rounded-full bg-primary text-white border-none cursor-pointer hover:opacity-90 active:scale-95 transition-all flex-shrink-0 shadow-sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setActiveClassModal(item);
+                  }}
+                >
+                  <span>{lang === 'ta' ? 'பாடத்திட்டம்' : 'Curriculum'}</span>
+                  <ChevronRight size={12} />
+                </button>
               </div>
             ))}
           </div>
@@ -290,6 +304,91 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* MODAL 0: INTERACTIVE CLASS CURRICULUM & PRACTICE MODAL */}
+      {activeClassModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm ya-modal-overlay">
+          <div className="relative w-full max-w-md p-6 rounded-2xl border border-subtle bg-card shadow-2xl ya-modal-content">
+            <button
+              type="button"
+              onClick={() => setActiveClassModal(null)}
+              className="absolute top-4 right-4 p-1 rounded-full text-muted hover:text-heading hover:bg-subtle transition-all cursor-pointer"
+            >
+              <X size={18} />
+            </button>
+
+            {/* Modal Head */}
+            <div className="flex items-center gap-3 pb-3 border-b border-subtle">
+              <div className="w-12 h-12 rounded-xl bg-primary/15 text-primary flex items-center justify-center font-bold text-xl flex-shrink-0">
+                🧘
+              </div>
+              <div className="overflow-hidden">
+                <h3 className="text-base font-bold text-heading m-0 truncate">
+                  {lang === 'ta' && activeClassModal.titleTa ? activeClassModal.titleTa : activeClassModal.title}
+                </h3>
+                <span className="text-xs text-muted font-medium">
+                  {activeClassModal.duration} • {lang === 'ta' && activeClassModal.levelTa ? activeClassModal.levelTa : activeClassModal.level} • {lang === 'ta' && activeClassModal.instructorTa ? activeClassModal.instructorTa : activeClassModal.instructor}
+                </span>
+              </div>
+            </div>
+
+            {/* Description */}
+            <p className="text-xs text-sub leading-relaxed my-3">
+              {lang === 'ta' && activeClassModal.descTa ? activeClassModal.descTa : activeClassModal.desc}
+            </p>
+
+            {/* Detailed Curriculum Breakdown */}
+            <div className="p-3.5 rounded-xl bg-subtle border border-subtle flex flex-col gap-2.5 my-3">
+              <span className="text-xs font-black text-heading uppercase tracking-wider flex items-center gap-1.5">
+                <Sparkles size={13} className="text-primary" />
+                <span>{lang === 'ta' ? 'வகுப்பு பாடத்திட்டம் (Curriculum Outline):' : 'Class Curriculum Outline:'}</span>
+              </span>
+              <ul className="text-xs text-sub space-y-1.5 m-0 pl-1 list-none">
+                <li className="flex items-start gap-2">
+                  <span className="text-primary font-bold">1.</span>
+                  <span>{lang === 'ta' ? 'சூரிய நமஸ்காரம் & மூட்டு தளர்வுப் பயிற்சிகள்' : 'Surya Namaskar & Gentle Joint Mobility Warmup'}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary font-bold">2.</span>
+                  <span>{lang === 'ta' ? 'ஆசன நிலைகள் & உடல் சமநிலை பயிற்சிகள்' : 'Core Asana Series & Balance Alignment'}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary font-bold">3.</span>
+                  <span>{lang === 'ta' ? 'பிராணாயாமம் & நாடி சுத்தி மூச்சுப் பயிற்சி' : 'Pranayama & Nadi Shodhana Breathing Flow'}</span>
+                </li>
+                <li className="flex items-start gap-2">
+                  <span className="text-primary font-bold">4.</span>
+                  <span>{lang === 'ta' ? 'சாந்தி ஆசனம் & ஆழ்ந்த தியான அமைதி' : 'Savasana Restorative Meditation & Stillness'}</span>
+                </li>
+              </ul>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="flex items-center gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => {
+                  const target = activeClassModal;
+                  setActiveClassModal(null);
+                  if (onSelectClass) onSelectClass(target);
+                }}
+                className="ya-btn ya-btn--primary flex-1 py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/25"
+              >
+                <Video size={14} />
+                <span>{lang === 'ta' ? 'வகுப்பைத் தொடங்கு / இணையவும்' : 'Start & Enter Live Studio'}</span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setActiveClassModal(null)}
+                className="ya-btn ya-btn--soft px-4 py-2.5 rounded-xl text-xs font-bold cursor-pointer"
+              >
+                {lang === 'ta' ? 'மூடு' : 'Close'}
+              </button>
+            </div>
+          </div>
         </div>
       )}
 

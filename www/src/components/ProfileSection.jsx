@@ -355,7 +355,7 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
 
                 <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
                   {remoteUpdate?.version && (remoteUpdate.versionCode > CURRENT_BUILD_NUMBER || remoteUpdate.version !== CURRENT_APP_VERSION)
-                    ? (lang === 'ta' ? `புதிய பதிப்பு v${remoteUpdate.version} தயார்!` : `New v${remoteUpdate.version} Ready!`)
+                    ? (lang === 'ta' ? `புதிய பதிப்பு v${remoteUpdate.version} தயார்! (${remoteUpdate.size || '28 MB'})` : `New v${remoteUpdate.version} Ready! (${remoteUpdate.size || '28 MB'})`)
                     : (lang === 'ta' ? 'லேட்டஸ்ட் பதிப்பு ✓' : 'Latest Release ✓')}
                 </span>
               </div>

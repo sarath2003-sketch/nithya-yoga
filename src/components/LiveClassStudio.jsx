@@ -193,7 +193,6 @@ export default function LiveClassStudio({
   const studentInviteUrl = getProductionLiveUrl(activeClass?.id || 'cls-1', { join: 'student' });
 
   const handleCopyLiveLink = () => {
-    if (sessionStatus !== 'live') return;
     navigator.clipboard.writeText(studentInviteUrl).then(() => {
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2500);
@@ -206,12 +205,11 @@ export default function LiveClassStudio({
   };
 
   const handleWhatsAppShare = () => {
-    if (sessionStatus !== 'live') return;
     const className = activeClass?.title || activeClass?.name || 'Live Yoga Class';
     const text = encodeURIComponent(
       lang === 'ta'
-        ? `🧘‍♀️ NITHYA Yoga நேரலை வகுப்பு தொடங்கப்பட்டது!\nவகுப்பு: ${className}\nபயிற்றுநர்: ${activeClass?.instructor || 'NITHYA Master'}\n\nமாணவர்கள் இணைய இந்த லிங்க்கை பயன்படுத்தவும்:\n${studentInviteUrl}`
-        : `🧘‍♀️ NITHYA Yoga Live Class is NOW LIVE!\nClass: ${className}\nInstructor: ${activeClass?.instructor || 'NITHYA Master'}\n\nJoin the live session as a student:\n${studentInviteUrl}`
+        ? `🧘‍♀️ NITHYA Yoga ${sessionStatus === 'live' ? 'நேரலை வகுப்பு தொடங்கப்பட்டது!' : 'வகுப்பு இணைப்பு'}\nவகுப்பு: ${className}\nபயிற்றுநர்: ${activeClass?.instructor || 'NITHYA Master'}\n\nமாணவர்கள் இணைய இந்த லிங்க்கை பயன்படுத்தவும்:\n${studentInviteUrl}`
+        : `🧘‍♀️ NITHYA Yoga ${sessionStatus === 'live' ? 'Live Class is NOW LIVE!' : 'Class Invitation'}\nClass: ${className}\nInstructor: ${activeClass?.instructor || 'NITHYA Master'}\n\nJoin as a student (the class opens when the instructor starts):\n${studentInviteUrl}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
@@ -531,8 +529,8 @@ export default function LiveClassStudio({
         </div>
       </div>
 
-      {/* 5. Separate Invitation Controls Card (Visible ONLY when LIVE) */}
-      {sessionStatus === 'live' && (
+      {/* 5. Student invitation link is available before class starts; the room is still gated by actual session state. */}
+      {sessionStatus !== 'ended' && (
         <div className="live-invitation-card ya-reveal">
           <div className="invitation-card-head">
             <div className="flex items-center gap-2">
@@ -542,7 +540,7 @@ export default function LiveClassStudio({
                   {lang === 'ta' ? 'மாணவர் நேரலை இணைப்பு லிங்க்' : 'Student Class Invitation Link'}
                 </h4>
                 <p className="invitation-sub">
-                  {lang === 'ta' ? 'இந்த லிங்க் மாணவர் அணுகலை மட்டுமே கொண்டது (பாதுகாப்பானது).' : 'Student access link only. Secure & credential-free.'}
+                  {sessionStatus === 'live' ? (lang === 'ta' ? 'வகுப்பு நேரலையில் உள்ளது. இந்த இணைப்பை மாணவர்களுடன் பகிரலாம்.' : 'Class is live. Share this student-only link.') : (lang === 'ta' ? 'இணைப்பை முன்கூட்டியே பகிரலாம்; பயிற்றுநர் வகுப்பைத் தொடங்கியதும் மாணவர்கள் இணையலாம்.' : 'Share ahead of time; students can join when the instructor starts the class.')}
                 </p>
               </div>
             </div>

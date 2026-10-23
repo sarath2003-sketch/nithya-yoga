@@ -2370,14 +2370,12 @@ export default function LiveYogaClassRoom({
                     </div>
                   ))}
 
-                  {/* Typing Indicator */}
-                  <div className="figma-typing-indicator">
-                    <span className="figma-typing-avatar">N</span>
-                    <div className="figma-typing-dots">
-                      <span></span><span></span><span></span>
+                  {chatMessages.length === 0 && (
+                    <div className="figma-chat-empty-state">
+                      {lang === 'ta' ? 'இன்னும் செய்திகள் இல்லை. வகுப்பில் இணைந்த பிறகு இங்கே chat செய்யலாம்.' : 'No messages yet. Start chatting when participants join.'}
                     </div>
-                    <span className="figma-typing-label">Nithya is typing...</span>
-                  </div>
+                  )}
+
                 </div>
 
                 <form onSubmit={handleSendChatMessage} className="figma-chat-input-form">

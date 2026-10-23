@@ -2293,8 +2293,8 @@ export default function LiveYogaClassRoom({
                           <span className="figma-host-tag">Host</span>
                         </div>
                         <span className="figma-item-status">
-                          <span className="figma-status-green-dot"></span>
-                          Lead Instructor
+                          <span className={`figma-status-dot ${teacherOnline ? "is-online" : "is-offline"}`}></span>
+                          {teacherOnline ? (lang === "ta" ? "ஆன்லைன் பயிற்றுநர்" : "Instructor online") : (lang === "ta" ? "இணைவதற்காக காத்திருக்கிறது" : "Waiting to connect")}
                         </span>
                       </div>
                     </div>

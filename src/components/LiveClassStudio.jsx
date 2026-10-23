@@ -182,17 +182,6 @@ export default function LiveClassStudio({
         );
       }
     }
-    return;
-
-    /* The successful path above owns the state transition. */
-    if (showToast) {
-      showToast(
-        lang === 'ta' ? 'வகுப்பு முடிந்தது' : 'Class Ended',
-        lang === 'ta' ? 'இன்றைய நேரலை வகுப்பு நிறைவடைந்தது.' : 'The live class has ended for all participants.',
-        'info'
-      );
-    }
-    if (onLeaveClass) onLeaveClass();
   };
 
   const handleResetSession = () => {

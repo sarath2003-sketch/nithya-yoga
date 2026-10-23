@@ -1076,10 +1076,11 @@ export default function LiveYogaClassRoom({
       }
     }
 
-    // 2. If using WebRTC fallback localStream
-    if (localStream) {
+    // Use fallback capture only when LiveKit is not managing the camera.
+    // Avoid acquiring the same camera through two paths, which can cause preview flicker.
+    if (!room?.localParticipant && localStream) {
       try {
-        localStream.getVideoTracks().forEach(t => t.stop());
+        const oldTracks = localStream.getVideoTracks();
         if (isVideoOn && navigator.mediaDevices?.getUserMedia) {
           const newStream = await navigator.mediaDevices.getUserMedia({
             video: {
@@ -1091,14 +1092,19 @@ export default function LiveYogaClassRoom({
           });
           const newVTrack = newStream.getVideoTracks()[0];
           if (newVTrack) {
-            const oldVTrack = localStream.getVideoTracks()[0];
-            if (oldVTrack) localStream.removeTrack(oldVTrack);
+            oldTracks.forEach(track => {
+              localStream.removeTrack(track);
+              track.stop();
+            });
             localStream.addTrack(newVTrack);
             setLocalStream(new MediaStream(localStream.getTracks()));
           }
+        } else if (!isVideoOn) {
+          oldTracks.forEach(track => track.stop());
         }
       } catch (err) {
         console.warn('[WebRTC] Switch camera fallback error:', err);
+        setErrorMessage(lang === 'ta' ? 'கேமராவை மாற்ற முடியவில்லை. அனுமதியைச் சரிபார்க்கவும்.' : 'Could not switch camera. Please check camera permissions.');
       }
     }
   };

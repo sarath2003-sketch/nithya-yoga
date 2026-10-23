@@ -6928,3 +6928,456 @@ html, body, #root, .app-root-container, .app-main-layout {
   transform: scale(1.08);
 }
 
+
+
+/* ==========================================================================
+   PREMIUM 3D YOGA THEME — DEEP NAVY, INDIGO, PURPLE LIGHTING & GLASS EFFECTS
+   ========================================================================== */
+
+/* Enhanced Deep Navy & Subtle Purple Lighting Container */
+.figma-live-classroom-container {
+  background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, rgba(139, 92, 246, 0.05) 40%, transparent 75%),
+              linear-gradient(180deg, #090D1A 0%, #0D1326 100%);
+  border-radius: 24px;
+  padding: 20px 24px 56px;
+  box-shadow: 0 24px 64px rgba(4, 7, 18, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.15);
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+/* 3D Glass Header with Indigo Specular Border */
+.figma-live-class-header {
+  background: linear-gradient(180deg, rgba(20, 26, 48, 0.88) 0%, rgba(14, 19, 38, 0.94) 100%) !important;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(167, 139, 250, 0.22) !important;
+  border-radius: 20px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+.figma-class-main-title {
+  color: #F8FAFC !important;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+}
+
+.figma-instructor-pill {
+  color: #CBD5E1 !important;
+}
+
+.figma-instructor-name strong {
+  color: #EDE9FE !important;
+}
+
+/* 3D Primary Stage with Purple Edge Glow */
+.figma-featured-video-card {
+  background: linear-gradient(180deg, #080C1A 0%, #0B1024 100%) !important;
+  border: 1px solid rgba(147, 112, 219, 0.28) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.55), 
+              0 0 35px rgba(124, 58, 237, 0.15),
+              inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Stage Waiting & Standby Container */
+.figma-stage-waiting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 24px;
+  text-align: center;
+  z-index: 5;
+  width: 100%;
+}
+
+.stage-lotus-pulse-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+.stage-pulse-glow-ring {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.35) 0%, rgba(99, 102, 241, 0) 70%);
+  animation: stagePulse 2.8s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes stagePulse {
+  0%, 100% {
+    transform: scale(0.9);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0.9;
+  }
+}
+
+.stage-waiting-title {
+  color: #F8FAFC !important;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 0 0 6px;
+  letter-spacing: -0.2px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.stage-waiting-subtitle {
+  color: #94A3B8 !important;
+  font-size: 12px;
+  line-height: 1.5;
+  margin: 0 auto 16px;
+  max-width: 420px;
+}
+
+.stage-waiting-badges-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.stage-waiting-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(99, 102, 241, 0.16);
+  border: 1px solid rgba(99, 102, 241, 0.3);
+  color: #C7D2FE;
+  font-size: 11px;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+}
+
+.stage-online-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(16, 185, 129, 0.16);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #6EE7B7;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.stage-online-chip .online-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+}
+
+.stage-offline-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: rgba(245, 158, 11, 0.16);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #FCD34D;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Floating Glass Dock with Specular Depth */
+.figma-stage-floating-dock {
+  background: rgba(13, 18, 36, 0.85) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.18) !important;
+}
+
+.figma-dock-round-btn {
+  background: rgba(255, 255, 255, 0.95) !important;
+  color: #0F172A !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+.figma-dock-round-btn:hover {
+  background: #FFFFFF !important;
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.4) !important;
+}
+
+/* 3D Student Video Tiles */
+.figma-student-tile {
+  background: linear-gradient(145deg, #10162B 0%, #0A0E1D 100%) !important;
+  border: 1px solid rgba(167, 139, 250, 0.2) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.08) !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
+}
+
+.figma-student-tile:hover {
+  transform: translateY(-3px);
+  border-color: rgba(167, 139, 250, 0.4) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45), 0 0 20px rgba(139, 92, 246, 0.15) !important;
+}
+
+.figma-student-tile.is-active-speaker {
+  border-color: #10B981 !important;
+  box-shadow: 0 0 0 2px #10B981, 0 8px 25px rgba(16, 185, 129, 0.45) !important;
+}
+
+/* Mirror Mode for Natural Front Camera View */
+.participant-video-stream.is-mirrored {
+  transform: scaleX(-1);
+}
+
+/* Clean Invite Classmates Tile */
+.figma-invite-prompt-tile {
+  border: 1.5px dashed rgba(167, 139, 250, 0.35) !important;
+  background: rgba(19, 25, 48, 0.45) !important;
+  cursor: pointer;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+.figma-invite-prompt-tile:hover {
+  border-color: #A78BFA !important;
+  background: rgba(139, 92, 246, 0.12) !important;
+}
+
+.invite-tile-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.invite-tile-icon-wrap {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(139, 92, 246, 0.18);
+  display: grid;
+  place-items: center;
+  color: #C4B5FD;
+  box-shadow: 0 0 16px rgba(139, 92, 246, 0.3);
+}
+
+.invite-tile-title {
+  color: #EDE9FE;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.invite-tile-btn {
+  font-size: 10px;
+  font-weight: 600;
+  color: #A78BFA;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(139, 92, 246, 0.2);
+  border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+/* Glass Toolbar Actions */
+.figma-actions-toolbar {
+  background: linear-gradient(180deg, rgba(20, 26, 48, 0.88) 0%, rgba(14, 19, 38, 0.94) 100%) !important;
+  border: 1px solid rgba(167, 139, 250, 0.2) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.figma-toolbar-action-btn {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  color: #E2E8F0 !important;
+}
+
+.figma-toolbar-action-btn:hover {
+  background: rgba(139, 92, 246, 0.25) !important;
+  border-color: #A78BFA !important;
+  color: #FFFFFF !important;
+}
+
+/* Glass Meeting & Info Cards */
+.figma-meeting-card {
+  background: linear-gradient(180deg, rgba(20, 26, 48, 0.88) 0%, rgba(14, 19, 38, 0.94) 100%) !important;
+  border: 1px solid rgba(167, 139, 250, 0.2) !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.figma-card-title {
+  color: #F8FAFC !important;
+}
+
+.figma-card-date {
+  color: #94A3B8 !important;
+}
+
+.figma-schedule-tag {
+  font-size: 11px;
+  font-weight: 600;
+  color: #C4B5FD;
+  background: rgba(139, 92, 246, 0.15);
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(139, 92, 246, 0.25);
+}
+
+/* Glass Right Column Sidebar (Roster & Chat) */
+.figma-participants-roster-card,
+.figma-chats-card {
+  background: linear-gradient(180deg, rgba(20, 26, 48, 0.88) 0%, rgba(14, 19, 38, 0.94) 100%) !important;
+  border: 1px solid rgba(167, 139, 250, 0.2) !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+.figma-roster-heading,
+.figma-chats-heading {
+  color: #F8FAFC !important;
+}
+
+.figma-roster-count-badge {
+  background: rgba(139, 92, 246, 0.22) !important;
+  color: #DDD6FE !important;
+  border: 1px solid rgba(139, 92, 246, 0.3) !important;
+}
+
+.figma-participant-item {
+  background: rgba(15, 23, 42, 0.6) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.figma-participant-item:hover {
+  background: rgba(139, 92, 246, 0.14) !important;
+  border-color: rgba(167, 139, 250, 0.25) !important;
+}
+
+.figma-participant-item.is-local-row {
+  border-color: rgba(139, 92, 246, 0.35) !important;
+  background: rgba(139, 92, 246, 0.1) !important;
+}
+
+.figma-item-name {
+  color: #F8FAFC !important;
+}
+
+.figma-item-status {
+  color: #94A3B8 !important;
+}
+
+/* Roster Empty Box */
+.figma-roster-empty-notice {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.figma-roster-empty-box {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px dashed rgba(167, 139, 250, 0.25);
+  border-radius: 14px;
+  padding: 16px 12px;
+}
+
+.figma-empty-text {
+  color: #94A3B8 !important;
+  font-size: 11px;
+}
+
+.figma-roster-invite-btn {
+  background: linear-gradient(135deg, #7C3AED, #6366F1);
+  color: #FFFFFF;
+  border: none;
+  box-shadow: 0 4px 12px rgba(124, 58, 237, 0.35);
+  transition: transform 0.2s ease;
+}
+
+.figma-roster-invite-btn:hover {
+  transform: scale(1.04);
+}
+
+/* Chat Bubbles High Contrast */
+.figma-chat-bubble-wrap.received .figma-chat-bubble {
+  background: rgba(255, 255, 255, 0.1) !important;
+  color: #F8FAFC !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+.figma-chat-bubble-wrap.sent .figma-chat-bubble {
+  background: linear-gradient(135deg, #7C3AED, #6366F1) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.35) !important;
+}
+
+.figma-chat-input-form {
+  background: rgba(15, 23, 42, 0.7) !important;
+  border: 1px solid rgba(167, 139, 250, 0.25) !important;
+}
+
+.figma-chat-input {
+  color: #F8FAFC !important;
+}
+
+.figma-chat-input::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Mobile Usability & Responsiveness */
+@media (max-width: 768px) {
+  .figma-live-classroom-container {
+    padding: 12px 12px 40px;
+    border-radius: 16px;
+    margin-top: 6px;
+  }
+  
+  .figma-live-class-header {
+    padding: 12px 14px !important;
+  }
+  
+  .figma-featured-video-card {
+    min-height: 220px !important;
+    max-height: 360px !important;
+    border-radius: 14px !important;
+  }
+  
+  .figma-participant-tiles-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 8px;
+  }
+  
+  .figma-student-tile {
+    height: 105px !important;
+  }
+  
+  .figma-stage-floating-dock {
+    bottom: 10px !important;
+    padding: 6px 12px !important;
+    gap: 8px !important;
+  }
+  
+  .figma-dock-round-btn {
+    width: 38px !important;
+    height: 38px !important;
+  }
+  
+  .figma-dock-end-pill-btn {
+    height: 38px !important;
+    padding: 0 14px !important;
+    font-size: 11px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .figma-participant-tiles-grid {
+    grid-template-columns: 1fr !important;
+  }
+}

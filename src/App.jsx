@@ -169,7 +169,7 @@ export default function App() {
           const cleaned = parsed.filter(p => 
             p && 
             p.name && 
-            !['Yoga Member', 'Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Student'].includes(p.name) &&
+            !['Yoga Member', 'Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Student', 'Laura Williams', 'Jessica Behringer'].includes(p.name) &&
             (p.phone || '').replace(/\D/g, '').length >= 10
           );
           localStorage.setItem('nithya_live_participants', JSON.stringify(cleaned));

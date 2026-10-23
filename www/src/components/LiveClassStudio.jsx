@@ -71,7 +71,7 @@ export default function LiveClassStudio({
       if (stored) {
         const parsed = JSON.parse(stored);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          const validStudents = parsed.filter(p => p && p.name && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(p.name));
+          const validStudents = parsed.filter(p => p && p.name && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'Laura Williams', 'Jessica Behringer'].includes(p.name));
           return [host, ...validStudents];
         }
       }

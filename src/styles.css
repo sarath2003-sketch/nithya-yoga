@@ -6327,6 +6327,53 @@ html, body, #root, .app-root-container, .app-main-layout {
   z-index: 5;
 }
 
+.figma-student-tile.figma-empty-waiting-slot {
+  background: #131127;
+  border: 1.5px dashed rgba(155, 122, 232, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.figma-empty-waiting-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+}
+
+.figma-empty-waiting-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #CBD5E1;
+  font-weight: 700;
+  font-size: 13px;
+  margin-bottom: 6px;
+}
+
+.figma-empty-waiting-title {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #E2E8F0;
+  line-height: 1.3;
+}
+
+.figma-empty-waiting-desc {
+  display: block;
+  font-size: 10px;
+  color: #94A3B8;
+  margin-top: 2px;
+}
+
 .figma-actions-toolbar {
   display: flex;
   align-items: center;

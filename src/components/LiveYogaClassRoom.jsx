@@ -417,23 +417,9 @@ export default function LiveYogaClassRoom({
     {
       id: 'msg-welcome',
       sender: 'NITHYA Yoga Bot',
-      text: lang === 'ta' ? 'நேரலை வகுப்பிற்கு நல்வரவு! ஆடியோ, வீடியோ செயல்படுகிறது.' : 'Welcome to Live Yoga Class! Real-time WebRTC audio & video active.',
+      text: lang === 'ta' ? 'நேரலை வகுப்பிற்கு நல்வரவு! வகுப்பு அரட்டை நேரலையில் உள்ளது.' : 'Welcome to Live Yoga Class! Class chat is active.',
       time: 'Just now',
       isSystem: true
-    },
-    {
-      id: 'msg-1',
-      sender: 'Laura Williams',
-      text: lang === 'ta' ? 'வணக்கம் மாஸ்டர்! இன்றைய ஆசனப் பயிற்சிக்கு தயாராக உள்ளேன் 🙏' : 'Good morning Master! Ready for today\'s Surya Namaskar & Prana flow 🙏',
-      time: '10:02 AM',
-      isLocal: false
-    },
-    {
-      id: 'msg-2',
-      sender: 'NITHYA Master',
-      text: lang === 'ta' ? 'அனைவருக்கும் நல்வரவு! ஆழ்ந்த மூச்சுடன் தொடங்குவோம்.' : 'Welcome everyone! Let us begin with deep mindful breathing.',
-      time: '10:03 AM',
-      isLocal: false
     }
   ]);
   const [chatInput, setChatInput] = useState('');
@@ -2152,107 +2138,284 @@ export default function LiveYogaClassRoom({
 
               {/* Row of 3 Participant Video Tiles (underneath teacher video) */}
               <div className="figma-participant-tiles-grid">
-                {/* Tile 1: Laura Williams (or First Peer) */}
-                <div className="figma-student-tile">
-                  {realStudentsList[0]?.stream ? (
-                    <video
-                      ref={el => {
-                        if (el && realStudentsList[0].stream) {
-                          el.srcObject = realStudentsList[0].stream;
-                          el.playsInline = true;
-                          el.play().catch(() => {});
-                        }
-                      }}
-                      autoPlay
-                      playsInline
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <div className="participant-avatar-fallback">
-                      <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #0284C7, #0369A1)' }}>
-                        <span>{(realStudentsList[0]?.name || 'LW').charAt(0).toUpperCase()}</span>
+                {isInstructorRole ? (
+                  /* Instructor Mode: 3 Student Slots (Real students or clean waiting slots) */
+                  <>
+                    {/* Slot 1 */}
+                    {realStudentsList[0] ? (
+                      <div className="figma-student-tile">
+                        {realStudentsList[0].stream ? (
+                          <video
+                            ref={el => {
+                              if (el && realStudentsList[0].stream) {
+                                el.srcObject = realStudentsList[0].stream;
+                                el.playsInline = true;
+                                el.play().catch(() => {});
+                              }
+                            }}
+                            autoPlay
+                            playsInline
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                        ) : (
+                          <div className="participant-avatar-fallback">
+                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #0284C7, #0369A1)' }}>
+                              <span>{(realStudentsList[0].name || 'S').charAt(0).toUpperCase()}</span>
+                            </div>
+                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                              {realStudentsList[0].name}
+                            </span>
+                          </div>
+                        )}
+                        <div className="figma-student-tile-overlay-bottom">
+                          <span>👤 {realStudentsList[0].name}</span>
+                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
+                            <Mic size={10} />
+                          </span>
+                        </div>
                       </div>
-                      <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
-                        {realStudentsList[0]?.name || 'Laura Williams'}
-                      </span>
-                    </div>
-                  )}
-                  <div className="figma-student-tile-overlay-bottom">
-                    <span>👤 {realStudentsList[0]?.name || 'Laura Williams'}</span>
-                    <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
-                      <Mic size={10} />
-                    </span>
-                  </div>
-                </div>
+                    ) : (
+                      <div className="figma-student-tile figma-empty-waiting-slot">
+                        <div className="figma-empty-waiting-content">
+                          <div className="figma-empty-waiting-icon">1</div>
+                          <span className="figma-empty-waiting-title">
+                            {lang === 'ta' ? 'மாணவர் இடம் 1' : 'Student Slot 1'}
+                          </span>
+                          <span className="figma-empty-waiting-desc">
+                            {lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}
+                          </span>
+                        </div>
+                      </div>
+                    )}
 
-                {/* Tile 2: You (Local Participant with active speaking wave) */}
-                <div className="figma-student-tile is-active-speaker">
-                  {localStream && isVideoOn ? (
-                    <video
-                      ref={el => {
-                        if (el && localStream) {
-                          el.srcObject = localStream;
-                          el.muted = true;
-                          el.playsInline = true;
-                          el.play().catch(() => {});
-                        }
-                      }}
-                      autoPlay
-                      playsInline
-                      muted
-                      className={`participant-video-stream ${isMirrored ? 'is-mirrored' : ''}`}
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <div className="participant-avatar-fallback">
-                      <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16 }}>
-                        <span>{(user?.name || 'Y').charAt(0).toUpperCase()}</span>
+                    {/* Slot 2 */}
+                    {realStudentsList[1] ? (
+                      <div className="figma-student-tile">
+                        {realStudentsList[1].stream ? (
+                          <video
+                            ref={el => {
+                              if (el && realStudentsList[1].stream) {
+                                el.srcObject = realStudentsList[1].stream;
+                                el.playsInline = true;
+                                el.play().catch(() => {});
+                              }
+                            }}
+                            autoPlay
+                            playsInline
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                        ) : (
+                          <div className="participant-avatar-fallback">
+                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #7C3AED, #4F46E5)' }}>
+                              <span>{(realStudentsList[1].name || 'S').charAt(0).toUpperCase()}</span>
+                            </div>
+                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                              {realStudentsList[1].name}
+                            </span>
+                          </div>
+                        )}
+                        <div className="figma-student-tile-overlay-bottom">
+                          <span>👤 {realStudentsList[1].name}</span>
+                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
+                            <Mic size={10} />
+                          </span>
+                        </div>
                       </div>
-                      <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
-                        {user?.name || (lang === 'ta' ? 'நீங்கள்' : 'You')}
-                      </span>
-                    </div>
-                  )}
-                  <div className="figma-student-tile-overlay-bottom">
-                    <span>👤 {lang === 'ta' ? 'நீங்கள்' : 'You'}</span>
-                    <span className={`status-icon-pill ${isMicOn ? 'active-speaking' : 'audio-muted'}`} style={{ width: 18, height: 18 }}>
-                      {isMicOn ? <Mic size={10} /> : <MicOff size={10} />}
-                    </span>
-                  </div>
-                </div>
+                    ) : (
+                      <div className="figma-student-tile figma-empty-waiting-slot">
+                        <div className="figma-empty-waiting-content">
+                          <div className="figma-empty-waiting-icon">2</div>
+                          <span className="figma-empty-waiting-title">
+                            {lang === 'ta' ? 'மாணவர் இடம் 2' : 'Student Slot 2'}
+                          </span>
+                          <span className="figma-empty-waiting-desc">
+                            {lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}
+                          </span>
+                        </div>
+                      </div>
+                    )}
 
-                {/* Tile 3: Jessica Behringer (or Second Peer) */}
-                <div className="figma-student-tile">
-                  {realStudentsList[1]?.stream ? (
-                    <video
-                      ref={el => {
-                        if (el && realStudentsList[1].stream) {
-                          el.srcObject = realStudentsList[1].stream;
-                          el.playsInline = true;
-                          el.play().catch(() => {});
-                        }
-                      }}
-                      autoPlay
-                      playsInline
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
-                  ) : (
-                    <div className="participant-avatar-fallback">
-                      <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #DB2777, #9D174D)' }}>
-                        <span>{(realStudentsList[1]?.name || 'JB').charAt(0).toUpperCase()}</span>
+                    {/* Slot 3 */}
+                    {realStudentsList[2] ? (
+                      <div className="figma-student-tile">
+                        {realStudentsList[2].stream ? (
+                          <video
+                            ref={el => {
+                              if (el && realStudentsList[2].stream) {
+                                el.srcObject = realStudentsList[2].stream;
+                                el.playsInline = true;
+                                el.play().catch(() => {});
+                              }
+                            }}
+                            autoPlay
+                            playsInline
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                        ) : (
+                          <div className="participant-avatar-fallback">
+                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #DB2777, #9D174D)' }}>
+                              <span>{(realStudentsList[2].name || 'S').charAt(0).toUpperCase()}</span>
+                            </div>
+                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                              {realStudentsList[2].name}
+                            </span>
+                          </div>
+                        )}
+                        <div className="figma-student-tile-overlay-bottom">
+                          <span>👤 {realStudentsList[2].name}</span>
+                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
+                            <Mic size={10} />
+                          </span>
+                        </div>
                       </div>
-                      <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
-                        {realStudentsList[1]?.name || 'Jessica Behringer'}
-                      </span>
+                    ) : (
+                      <div className="figma-student-tile figma-empty-waiting-slot">
+                        <div className="figma-empty-waiting-content">
+                          <div className="figma-empty-waiting-icon">3</div>
+                          <span className="figma-empty-waiting-title">
+                            {lang === 'ta' ? 'மாணவர் இடம் 3' : 'Student Slot 3'}
+                          </span>
+                          <span className="figma-empty-waiting-desc">
+                            {lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  /* Student Mode: Tile 1 is You, Tile 2 & 3 are other real classmates */
+                  <>
+                    {/* Tile 1: You */}
+                    <div className="figma-student-tile is-active-speaker">
+                      {localStream && isVideoOn ? (
+                        <video
+                          ref={el => {
+                            if (el && localStream) {
+                              el.srcObject = localStream;
+                              el.muted = true;
+                              el.playsInline = true;
+                              el.play().catch(() => {});
+                            }
+                          }}
+                          autoPlay
+                          playsInline
+                          muted
+                          className={`participant-video-stream ${isMirrored ? 'is-mirrored' : ''}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      ) : (
+                        <div className="participant-avatar-fallback">
+                          <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16 }}>
+                            <span>{(user?.name || 'Y').charAt(0).toUpperCase()}</span>
+                          </div>
+                          <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                            {user?.name || (lang === 'ta' ? 'நீங்கள்' : 'You')}
+                          </span>
+                        </div>
+                      )}
+                      <div className="figma-student-tile-overlay-bottom">
+                        <span>👤 {lang === 'ta' ? 'நீங்கள்' : 'You'}</span>
+                        <span className={`status-icon-pill ${isMicOn ? 'active-speaking' : 'audio-muted'}`} style={{ width: 18, height: 18 }}>
+                          {isMicOn ? <Mic size={10} /> : <MicOff size={10} />}
+                        </span>
+                      </div>
                     </div>
-                  )}
-                  <div className="figma-student-tile-overlay-bottom">
-                    <span>👤 {realStudentsList[1]?.name || 'Jessica Behringer'}</span>
-                    <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
-                      <Mic size={10} />
-                    </span>
-                  </div>
-                </div>
+
+                    {/* Tile 2: Classmate 1 */}
+                    {realStudentsList[0] ? (
+                      <div className="figma-student-tile">
+                        {realStudentsList[0].stream ? (
+                          <video
+                            ref={el => {
+                              if (el && realStudentsList[0].stream) {
+                                el.srcObject = realStudentsList[0].stream;
+                                el.playsInline = true;
+                                el.play().catch(() => {});
+                              }
+                            }}
+                            autoPlay
+                            playsInline
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                        ) : (
+                          <div className="participant-avatar-fallback">
+                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #0284C7, #0369A1)' }}>
+                              <span>{(realStudentsList[0].name || 'S').charAt(0).toUpperCase()}</span>
+                            </div>
+                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                              {realStudentsList[0].name}
+                            </span>
+                          </div>
+                        )}
+                        <div className="figma-student-tile-overlay-bottom">
+                          <span>👤 {realStudentsList[0].name}</span>
+                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
+                            <Mic size={10} />
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="figma-student-tile figma-empty-waiting-slot">
+                        <div className="figma-empty-waiting-content">
+                          <div className="figma-empty-waiting-icon">1</div>
+                          <span className="figma-empty-waiting-title">
+                            {lang === 'ta' ? 'வகுப்புத் தோழர் இடம் 1' : 'Classmate Slot 1'}
+                          </span>
+                          <span className="figma-empty-waiting-desc">
+                            {lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Tile 3: Classmate 2 */}
+                    {realStudentsList[1] ? (
+                      <div className="figma-student-tile">
+                        {realStudentsList[1].stream ? (
+                          <video
+                            ref={el => {
+                              if (el && realStudentsList[1].stream) {
+                                el.srcObject = realStudentsList[1].stream;
+                                el.playsInline = true;
+                                el.play().catch(() => {});
+                              }
+                            }}
+                            autoPlay
+                            playsInline
+                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                          />
+                        ) : (
+                          <div className="participant-avatar-fallback">
+                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #DB2777, #9D174D)' }}>
+                              <span>{(realStudentsList[1].name || 'S').charAt(0).toUpperCase()}</span>
+                            </div>
+                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
+                              {realStudentsList[1].name}
+                            </span>
+                          </div>
+                        )}
+                        <div className="figma-student-tile-overlay-bottom">
+                          <span>👤 {realStudentsList[1].name}</span>
+                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
+                            <Mic size={10} />
+                          </span>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="figma-student-tile figma-empty-waiting-slot">
+                        <div className="figma-empty-waiting-content">
+                          <div className="figma-empty-waiting-icon">2</div>
+                          <span className="figma-empty-waiting-title">
+                            {lang === 'ta' ? 'வகுப்புத் தோழர் இடம் 2' : 'Classmate Slot 2'}
+                          </span>
+                          <span className="figma-empty-waiting-desc">
+                            {lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}
+                          </span>
+                        </div>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
 
               {/* Control Actions Toolbar Bar */}
@@ -2326,10 +2489,15 @@ export default function LiveYogaClassRoom({
                   </div>
                   <div className="figma-avatar-stack-row">
                     <div className="figma-avatar-stack">
-                      <span className="figma-stack-avatar" style={{ background: '#8B5CF6' }}>LW</span>
-                      <span className="figma-stack-avatar" style={{ background: '#0EA5E9' }}>JB</span>
-                      <span className="figma-stack-avatar" style={{ background: '#F59E0B' }}>MK</span>
-                      <span className="figma-stack-avatar figma-stack-more">+3</span>
+                      <span className="figma-stack-avatar" style={{ background: '#F59E0B' }} title={activeClass?.instructor || 'Host'}>👑</span>
+                      {realStudentsList.slice(0, 3).map((st, i) => (
+                        <span key={st.phone || i} className="figma-stack-avatar" style={{ background: ['#8B5CF6', '#0EA5E9', '#10B981'][i % 3] }} title={st.name}>
+                          {(st.name || 'S').charAt(0).toUpperCase()}
+                        </span>
+                      ))}
+                      {realStudentsList.length > 3 && (
+                        <span className="figma-stack-avatar figma-stack-more">+{realStudentsList.length - 3}</span>
+                      )}
                     </div>
                     <button
                       type="button"
@@ -2349,12 +2517,11 @@ export default function LiveYogaClassRoom({
                   </div>
                   <div className="figma-avatar-stack-row">
                     <div className="figma-avatar-stack">
-                      <span className="figma-stack-avatar" style={{ background: '#EC4899' }}>NY</span>
-                      <span className="figma-stack-avatar" style={{ background: '#10B981' }}>PS</span>
-                      <span className="figma-stack-avatar" style={{ background: '#6366F1' }}>AR</span>
+                      <span className="figma-stack-avatar" style={{ background: '#7C3AED' }} title="Nithya Yoga">🧘‍♀️</span>
+                      <span className="figma-stack-avatar" style={{ background: '#F59E0B' }} title="Master Class">👑</span>
                     </div>
                     <span className="figma-waiting-badge">
-                      Waiting Meeting
+                      {lang === 'ta' ? 'காலை 06:00 AM' : 'Daily 06:00 AM'}
                     </span>
                   </div>
                 </div>
@@ -2415,98 +2582,84 @@ export default function LiveYogaClassRoom({
                     </div>
                   </div>
 
+                  {/* For Students: Show You in Roster */}
+                  {!isInstructorRole && (
+                    <div className="figma-participant-item">
+                      <div className="figma-item-left">
+                        <div className="figma-item-avatar" style={{ background: '#7C3AED', color: '#FFF' }}>
+                          {(user?.name || 'Y').charAt(0).toUpperCase()}
+                        </div>
+                        <div className="figma-item-info">
+                          <div className="figma-item-name-row">
+                            <span className="figma-item-name">{user?.name || (lang === 'ta' ? 'நீங்கள்' : 'You')}</span>
+                            <span className="figma-host-tag" style={{ background: 'rgba(124, 58, 237, 0.1)', color: '#7C3AED' }}>You</span>
+                          </div>
+                          <span className="figma-item-status">
+                            <span className="figma-status-green-dot"></span>
+                            {lang === 'ta' ? 'வகுப்பில் உள்ளீர்கள்' : 'Active Practitioner'}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="figma-item-media-status">
+                        <span className={`figma-media-pill ${isMicOn ? 'active' : 'muted'}`}>
+                          {isMicOn ? <Mic size={13} /> : <MicOff size={13} />}
+                        </span>
+                        <span className={`figma-media-pill ${isVideoOn ? 'active' : 'muted'}`}>
+                          {isVideoOn ? <VideoIcon size={13} /> : <VideoOff size={13} />}
+                        </span>
+                      </div>
+                    </div>
+                  )}
+
                   {/* Connected Students List */}
                   {realStudentsList.length > 0 ? (
-                    realStudentsList.map((st, idx) => (
-                      <div key={st.phone || idx} className="figma-participant-item">
-                        <div className="figma-item-left">
-                          <div className="figma-item-avatar" style={{ background: '#8B5CF6', color: '#FFF' }}>
-                            {(st.name || 'S').charAt(0).toUpperCase()}
+                    realStudentsList
+                      .filter(st => isInstructorRole || st.phone !== user?.phone)
+                      .map((st, idx) => (
+                        <div key={st.phone || idx} className="figma-participant-item">
+                          <div className="figma-item-left">
+                            <div className="figma-item-avatar" style={{ background: '#8B5CF6', color: '#FFF' }}>
+                              {(st.name || 'S').charAt(0).toUpperCase()}
+                            </div>
+                            <div className="figma-item-info">
+                              <span className="figma-item-name">{st.name || 'Student'}</span>
+                              <span className="figma-item-status">
+                                <span className="figma-status-green-dot"></span>
+                                {st.phone ? `+91 ${st.phone.slice(-4).padStart(st.phone.length, '•')}` : 'Online'}
+                              </span>
+                            </div>
                           </div>
-                          <div className="figma-item-info">
-                            <span className="figma-item-name">{st.name || 'Student'}</span>
-                            <span className="figma-item-status">
-                              <span className="figma-status-green-dot"></span>
-                              {st.phone ? `+91 ${st.phone.slice(-4).padStart(st.phone.length, '•')}` : 'Online'}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="figma-item-media-status">
-                          <span className="figma-media-pill active"><Mic size={13} /></span>
-                          <span className="figma-media-pill active"><VideoIcon size={13} /></span>
-                          {isInstructorRole && (
-                            <button
-                              type="button"
-                              className="figma-item-delete-btn"
-                              onClick={() => handleDeleteLiveStudent(st.phone)}
-                              title="Remove Student"
-                            >
-                              <Trash2 size={13} />
-                            </button>
-                          )}
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    /* Default Active Students matching Figma Frame 2955 */
-                    <>
-                      <div className="figma-participant-item">
-                        <div className="figma-item-left">
-                          <div className="figma-item-avatar" style={{ background: '#0EA5E9', color: '#FFF' }}>LW</div>
-                          <div className="figma-item-info">
-                            <span className="figma-item-name">Laura Williams</span>
-                            <span className="figma-item-status">
-                              <span className="figma-status-green-dot"></span>
-                              {lang === 'ta' ? 'வகுப்பில் உள்ளார்' : 'In Class'}
-                            </span>
+                          <div className="figma-item-media-status">
+                            <span className="figma-media-pill active"><Mic size={13} /></span>
+                            <span className="figma-media-pill active"><VideoIcon size={13} /></span>
+                            {isInstructorRole && (
+                              <button
+                                type="button"
+                                className="figma-item-delete-btn"
+                                onClick={() => handleDeleteLiveStudent(st.phone)}
+                                title="Remove Student"
+                              >
+                                <Trash2 size={13} />
+                              </button>
+                            )}
                           </div>
                         </div>
-                        <div className="figma-item-media-status">
-                          <span className="figma-media-pill active"><Mic size={13} /></span>
-                          <span className="figma-media-pill active"><VideoIcon size={13} /></span>
-                        </div>
-                      </div>
+                      ))
+                  ) : null}
 
-                      <div className="figma-participant-item">
-                        <div className="figma-item-left">
-                          <div className="figma-item-avatar" style={{ background: '#7C3AED', color: '#FFF' }}>
-                            {(user?.name || 'Y').charAt(0).toUpperCase()}
-                          </div>
-                          <div className="figma-item-info">
-                            <span className="figma-item-name">{user?.name || (lang === 'ta' ? 'நீங்கள்' : 'You')} (You)</span>
-                            <span className="figma-item-status">
-                              <span className="figma-status-green-dot"></span>
-                              Active Practitioner
-                            </span>
-                          </div>
-                        </div>
-                        <div className="figma-item-media-status">
-                          <span className={`figma-media-pill ${isMicOn ? 'active' : 'muted'}`}>
-                            {isMicOn ? <Mic size={13} /> : <MicOff size={13} />}
-                          </span>
-                          <span className={`figma-media-pill ${isVideoOn ? 'active' : 'muted'}`}>
-                            {isVideoOn ? <VideoIcon size={13} /> : <VideoOff size={13} />}
-                          </span>
-                        </div>
+                  {/* Empty state if 0 real students joined */}
+                  {realStudentsList.length === 0 && (
+                    <div className="figma-roster-empty-notice" style={{ padding: '24px 16px', textAlign: 'center' }}>
+                      <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>🧘‍♀️</div>
+                      <div style={{ fontWeight: 600, fontSize: '0.86rem', color: 'var(--heading, #29233D)', marginBottom: '4px' }}>
+                        {lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை (0)' : 'No students joined yet (0)'}
                       </div>
-
-                      <div className="figma-participant-item">
-                        <div className="figma-item-left">
-                          <div className="figma-item-avatar" style={{ background: '#EC4899', color: '#FFF' }}>JB</div>
-                          <div className="figma-item-info">
-                            <span className="figma-item-name">Jessica Behringer</span>
-                            <span className="figma-item-status">
-                              <span className="figma-status-green-dot"></span>
-                              {lang === 'ta' ? 'வகுப்பில் உள்ளார்' : 'In Class'}
-                            </span>
-                          </div>
-                        </div>
-                        <div className="figma-item-media-status">
-                          <span className="figma-media-pill active"><Mic size={13} /></span>
-                          <span className="figma-media-pill active"><VideoIcon size={13} /></span>
-                        </div>
-                      </div>
-                    </>
+                      <p style={{ margin: 0, fontSize: '0.76rem', color: 'var(--subtle, #777184)', lineHeight: 1.4 }}>
+                        {lang === 'ta'
+                          ? 'மாணவர்கள் லிங்க்கைப் பயன்படுத்தி அல்லது மொபைல் எண் மூலம் இணைந்ததும் இங்கு தோன்றுவர்.'
+                          : 'Students will appear here live once they register and join the room.'}
+                      </p>
+                    </div>
                   )}
                 </div>
               </div>
@@ -2538,15 +2691,6 @@ export default function LiveYogaClassRoom({
                       </div>
                     </div>
                   ))}
-
-                  {/* Typing Indicator */}
-                  <div className="figma-typing-indicator">
-                    <span className="figma-typing-avatar">N</span>
-                    <div className="figma-typing-dots">
-                      <span></span><span></span><span></span>
-                    </div>
-                    <span className="figma-typing-label">Nithya is typing...</span>
-                  </div>
                 </div>
 
                 <form onSubmit={handleSendChatMessage} className="figma-chat-input-form">

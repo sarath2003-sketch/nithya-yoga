@@ -27138,34 +27138,34 @@
       if (!isInstructorRole) return;
       if (isStartingSession || sessionStatus === "live") return;
       setIsStartingSession(true);
+      setSessionStatus("starting");
       try {
-        const adminToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") || "nithya_master_active";
-        const res = await apiFetch2(`/api/trainer/classes/${activeClass?.id || "cls-1"}/start`, {
+        const adminToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token");
+        if (!adminToken) {
+          throw new Error(lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8. \u0BAE\u0BC1\u0BA4\u0BB2\u0BBF\u0BB2\u0BCD \u0B85\u0B99\u0BCD\u0B95\u0BC0\u0B95\u0BB0\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Instructor session missing. Please sign in with an authorized instructor account.");
+        }
+        await apiFetch2(`/api/trainer/classes/${activeClass?.id || "cls-1"}/start`, {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${adminToken}`
           }
         });
-        if (res && res.ok) {
-          setSessionStatus("live");
-          setSessionSeconds(0);
-          if (showToast) {
-            showToast(
-              lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1!" : "Live Class Started!",
-              lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0B87\u0BA3\u0BC8\u0BAF\u0BB2\u0BBE\u0BAE\u0BCD." : "Class is live. Students can now join.",
-              "success"
-            );
-          }
-        } else {
-          setSessionStatus("live");
-        }
-      } catch (err) {
         setSessionStatus("live");
+        setSessionSeconds(0);
         if (showToast) {
           showToast(
-            lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1" : "Class Marked Live",
-            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "Live session active.",
-            "info"
+            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1!" : "Live Class Started!",
+            lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BA4\u0BC1." : "The server confirmed the class started.",
+            "success"
+          );
+        }
+      } catch (err) {
+        setSessionStatus("idle");
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8" : "Could Not Start Live Class",
+            err?.message || (lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BC8\u0B9A\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0BAF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Check the backend connection and try again."),
+            "error"
           );
         }
       } finally {
@@ -27175,24 +27175,34 @@
     const handleEndLiveClass = async () => {
       if (sessionStatus === "ended") return;
       try {
-        const adminToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token") || "nithya_master_active";
+        const adminToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token");
+        if (!adminToken) {
+          throw new Error(lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "Instructor session missing.");
+        }
         await apiFetch2(`/api/trainer/classes/${activeClass?.id || "cls-1"}/end`, {
           method: "POST",
           headers: {
             "Authorization": `Bearer ${adminToken}`
           }
         });
-      } catch (_2) {
+        setSessionStatus("ended");
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Class Ended",
+            lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BA4\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BA4\u0BC1." : "The server confirmed the class ended.",
+            "info"
+          );
+        }
+        if (onLeaveClass) onLeaveClass();
+      } catch (err) {
+        if (showToast) {
+          showToast(
+            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0B95\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8" : "Could Not End Class",
+            err?.message || (lang === "ta" ? "\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0BAF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Please try again."),
+            "error"
+          );
+        }
       }
-      setSessionStatus("ended");
-      if (showToast) {
-        showToast(
-          lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Class Ended",
-          lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1." : "The live class has ended for all participants.",
-          "info"
-        );
-      }
-      if (onLeaveClass) onLeaveClass();
     };
     const handleResetSession = () => {
       setSessionStatus("idle");

@@ -2143,17 +2143,17 @@ export default function LiveYogaClassRoom({
               {/* Row of 3 Participant Video Tiles (underneath teacher video) */}
               <div className="figma-participant-tiles-grid">
                 {isInstructorRole ? (
-                  /* Instructor Mode: 3 Student Slots (Real students or clean waiting slots) */
+                  /* Show all connected students; the first three are the initial visual slots, extras flow into the grid. */
                   <>
-                    {/* Slot 1 */}
-                    {realStudentsList[0] ? (
-                      <div className="figma-student-tile">
-                        {realStudentsList[0].stream ? (
+                    {realStudentsList.length > 0 ? realStudentsList.map((student, index) => (
+                      <div className="figma-student-tile" key={student.phone || student.identity || student.id || `student-${index}`}>
+                        {student.stream ? (
                           <video
                             ref={el => {
-                              if (el && realStudentsList[0].stream) {
-                                el.srcObject = realStudentsList[0].stream;
+                              if (el && student.stream && el.srcObject !== student.stream) {
+                                el.srcObject = student.stream;
                                 el.playsInline = true;
+                                el.muted = false;
                                 el.play().catch(() => {});
                               }
                             }}
@@ -2163,127 +2163,27 @@ export default function LiveYogaClassRoom({
                           />
                         ) : (
                           <div className="participant-avatar-fallback">
-                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #0284C7, #0369A1)' }}>
-                              <span>{(realStudentsList[0].name || 'S').charAt(0).toUpperCase()}</span>
+                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16 }}>
+                              <span>{(student.name || 'S').charAt(0).toUpperCase()}</span>
                             </div>
-                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
-                              {realStudentsList[0].name}
-                            </span>
+                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>{student.name || (lang === 'ta' ? 'மாணவர்' : 'Student')}</span>
                           </div>
                         )}
                         <div className="figma-student-tile-overlay-bottom">
-                          <span>👤 {realStudentsList[0].name}</span>
-                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
-                            <Mic size={10} />
-                          </span>
+                          <span>👤 {student.name || (lang === 'ta' ? 'மாணவர்' : 'Student')}</span>
+                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}><Mic size={10} /></span>
                         </div>
                       </div>
-                    ) : (
-                      <div className="figma-student-tile figma-empty-waiting-slot">
-                        <div className="figma-empty-waiting-content">
-                          <div className="figma-empty-waiting-icon">1</div>
-                          <span className="figma-empty-waiting-title">
-                            {lang === 'ta' ? 'மாணவர் இடம் 1' : 'Student Slot 1'}
-                          </span>
-                          <span className="figma-empty-waiting-desc">
-                            {lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Slot 2 */}
-                    {realStudentsList[1] ? (
-                      <div className="figma-student-tile">
-                        {realStudentsList[1].stream ? (
-                          <video
-                            ref={el => {
-                              if (el && realStudentsList[1].stream) {
-                                el.srcObject = realStudentsList[1].stream;
-                                el.playsInline = true;
-                                el.play().catch(() => {});
-                              }
-                            }}
-                            autoPlay
-                            playsInline
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          />
-                        ) : (
-                          <div className="participant-avatar-fallback">
-                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #7C3AED, #4F46E5)' }}>
-                              <span>{(realStudentsList[1].name || 'S').charAt(0).toUpperCase()}</span>
-                            </div>
-                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
-                              {realStudentsList[1].name}
-                            </span>
+                    )) : (
+                      [1, 2, 3].map(slot => (
+                        <div className="figma-student-tile figma-empty-waiting-slot" key={`waiting-${slot}`}>
+                          <div className="figma-empty-waiting-content">
+                            <div className="figma-empty-waiting-icon">{slot}</div>
+                            <span className="figma-empty-waiting-title">{lang === 'ta' ? `மாணவர் இடம் ${slot}` : `Student Slot ${slot}`}</span>
+                            <span className="figma-empty-waiting-desc">{lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}</span>
                           </div>
-                        )}
-                        <div className="figma-student-tile-overlay-bottom">
-                          <span>👤 {realStudentsList[1].name}</span>
-                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
-                            <Mic size={10} />
-                          </span>
                         </div>
-                      </div>
-                    ) : (
-                      <div className="figma-student-tile figma-empty-waiting-slot">
-                        <div className="figma-empty-waiting-content">
-                          <div className="figma-empty-waiting-icon">2</div>
-                          <span className="figma-empty-waiting-title">
-                            {lang === 'ta' ? 'மாணவர் இடம் 2' : 'Student Slot 2'}
-                          </span>
-                          <span className="figma-empty-waiting-desc">
-                            {lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}
-                          </span>
-                        </div>
-                      </div>
-                    )}
-
-                    {/* Slot 3 */}
-                    {realStudentsList[2] ? (
-                      <div className="figma-student-tile">
-                        {realStudentsList[2].stream ? (
-                          <video
-                            ref={el => {
-                              if (el && realStudentsList[2].stream) {
-                                el.srcObject = realStudentsList[2].stream;
-                                el.playsInline = true;
-                                el.play().catch(() => {});
-                              }
-                            }}
-                            autoPlay
-                            playsInline
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                          />
-                        ) : (
-                          <div className="participant-avatar-fallback">
-                            <div className="avatar-circle" style={{ width: 44, height: 44, fontSize: 16, background: 'linear-gradient(135deg, #DB2777, #9D174D)' }}>
-                              <span>{(realStudentsList[2].name || 'S').charAt(0).toUpperCase()}</span>
-                            </div>
-                            <span className="avatar-fallback-name" style={{ fontSize: 11 }}>
-                              {realStudentsList[2].name}
-                            </span>
-                          </div>
-                        )}
-                        <div className="figma-student-tile-overlay-bottom">
-                          <span>👤 {realStudentsList[2].name}</span>
-                          <span className="status-icon-pill active-speaking" style={{ width: 18, height: 18 }}>
-                            <Mic size={10} />
-                          </span>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="figma-student-tile figma-empty-waiting-slot">
-                        <div className="figma-empty-waiting-content">
-                          <div className="figma-empty-waiting-icon">3</div>
-                          <span className="figma-empty-waiting-title">
-                            {lang === 'ta' ? 'மாணவர் இடம் 3' : 'Student Slot 3'}
-                          </span>
-                          <span className="figma-empty-waiting-desc">
-                            {lang === 'ta' ? 'இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting to join...'}
-                          </span>
-                        </div>
-                      </div>
+                      ))
                     )}
                   </>
                 ) : (

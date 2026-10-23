@@ -1099,6 +1099,8 @@ export default function App() {
                 <div className="grid-col col-live">
                   <LiveClassStudio
                     activeClass={activeClass}
+                    user={user}
+                    showToast={showToast}
                     onLeaveClass={() => showToast(lang === 'ta' ? 'அமர்வு முடிந்தது' : 'Session Ended', lang === 'ta' ? 'நீங்கள் அமர்விலிருந்து வெளியேறினீர்கள்' : 'You left the live session', 'info')}
                     onRecordAttendance={handleRecordAttendance}
                     onScheduleClass={handleScheduleClass}

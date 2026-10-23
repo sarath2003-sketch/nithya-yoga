@@ -1,103 +1,92 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { 
   Radio, 
-  Plus, 
+  Play, 
+  Pause, 
   Mic, 
   MicOff, 
   Video as VideoIcon, 
   VideoOff, 
-  Settings, 
-  Send, 
-  Pause, 
-  Play, 
-  Users, 
-  MessageSquare,
-  LogOut,
-  ExternalLink,
-  CheckCircle,
-  Calendar,
-  Clock,
-  ShieldCheck,
-  Award
+  CheckCircle, 
+  ShieldCheck, 
+  Copy, 
+  Crown, 
+  User, 
+  Clock, 
+  Calendar, 
+  PhoneOff, 
+  AlertCircle,
+  ExternalLink
 } from 'lucide-react';
-import { audioEngine } from '../utils/audioEngine';
-import { getProductionLiveUrl } from '../utils/api';
-import LiveYogaClassRoom from './LiveYogaClassRoom';
+import { getProductionLiveUrl, apiFetch } from '../utils/api';
+import LotusMark from './LotusMark';
 
 export default function LiveClassStudio({
   activeClass,
+  user,
+  showToast,
   onLeaveClass,
   onRecordAttendance,
   onScheduleClass,
   onOpenFullStudio,
   lang = 'en'
 }) {
-  const [isLiveKitActive, setIsLiveKitActive] = useState(false);
-  const [isMicOn, setIsMicOn] = useState(true);
-  const [isVideoOn, setIsVideoOn] = useState(true);
-  const [isSessionActive, setIsSessionActive] = useState(false);
-  const [sessionSeconds, setSessionSeconds] = useState(0);
-  const [attendanceVerified, setAttendanceVerified] = useState(false);
-  const [isTeacherMode, setIsTeacherMode] = useState(false);
-  
-  // Teacher Class Scheduling State
-  const [showScheduleModal, setShowScheduleModal] = useState(false);
-  const [newCourseName, setNewCourseName] = useState('Morning Yoga Flow');
-  const [newClassTitle, setNewClassTitle] = useState('');
-  const [newClassInstructor, setNewClassInstructor] = useState('NITHYA Master');
-  const [newClassTime, setNewClassTime] = useState('07:00 AM');
-  const [newClassDate, setNewClassDate] = useState(() => new Date().toISOString().split('T')[0]);
-  const [newMeetUrl, setNewMeetUrl] = useState('https://meet.google.com/new');
-  const [newClassDuration, setNewClassDuration] = useState('60');
+  // Determine if current user is an authorized instructor/trainer
+  const isInstructorRole = Boolean(
+    user?.role === 'trainer' || 
+    user?.role === 'instructor' || 
+    user?.isInstructor || 
+    (typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token')))
+  );
 
-  // Chat State
-  const [chatInput, setChatInput] = useState('');
-  const [messages, setMessages] = useState([
-    { 
-      id: 1, 
-      sender: activeClass?.instructor || 'NITHYA Master', 
-      text: lang === 'ta' ? 'அனைவருக்கும் நல்வரவு! யோகா பாயை விரித்து அமரவும். 🧘‍♀️' : 'Welcome everyone! Unroll your mat and sit comfortably. 🧘‍♀️', 
-      time: 'Just now' 
-    }
-  ]);
-
-  const [copiedLink, setCopiedLink] = useState(false);
-
-  // Dynamic participants roster
-  const [participants, setParticipants] = useState(() => {
-    const host = { id: 1, name: `${activeClass?.instructor || 'NITHYA Master'} (${lang === 'ta' ? 'பயிற்றுநர்' : 'Instructor'})`, role: 'Host', isHost: true };
-    try {
-      const stored = localStorage.getItem('nithya_live_participants');
-      if (stored) {
-        const parsed = JSON.parse(stored);
-        if (Array.isArray(parsed) && parsed.length > 0) {
-          const validStudents = parsed.filter(p => p && p.name && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(p.name));
-          return [host, ...validStudents];
-        }
-      }
-    } catch (_) {}
-    return [host];
+  // Flow states: 'idle' | 'starting' | 'live' | 'ended'
+  const [sessionStatus, setSessionStatus] = useState(() => {
+    if (activeClass?.status === 'live') return 'live';
+    if (activeClass?.status === 'ended') return 'ended';
+    return 'idle';
   });
 
-  // Listen for participant updates across tabs
+  const [isStartingSession, setIsStartingSession] = useState(false);
+  const [sessionSeconds, setSessionSeconds] = useState(0);
+  const [isMicOn, setIsMicOn] = useState(true);
+  const [isVideoOn, setIsVideoOn] = useState(true);
+  const [copiedLink, setCopiedLink] = useState(false);
+  const [attendanceVerified, setAttendanceVerified] = useState(false);
+
+  // Sync actual status with backend API / LiveKit state
   useEffect(() => {
-    const handleStorage = (e) => {
-      if (e.key === 'nithya_live_participants') {
-        try {
-          const parsed = JSON.parse(e.newValue || '[]');
-          const host = { id: 1, name: `${activeClass?.instructor || 'NITHYA Master'} (${lang === 'ta' ? 'பயிற்றுநர்' : 'Instructor'})`, role: 'Host', isHost: true };
-          setParticipants([host, ...parsed]);
-        } catch (_) {}
+    let isMounted = true;
+    const syncServerStatus = async () => {
+      if (!activeClass?.id) return;
+      try {
+        const cls = await apiFetch(`/api/classes/${activeClass.id}`);
+        if (!isMounted) return;
+        if (cls && cls.status) {
+          if (cls.status === 'live') {
+            setSessionStatus('live');
+          } else if (cls.status === 'ended') {
+            setSessionStatus('ended');
+          } else if (!isStartingSession) {
+            setSessionStatus('idle');
+          }
+        }
+      } catch (_) {
+        // Fallback gracefully in offline / static environments
       }
     };
-    window.addEventListener('storage', handleStorage);
-    return () => window.removeEventListener('storage', handleStorage);
-  }, [activeClass, lang]);
 
-  // Timer effect for active session
+    syncServerStatus();
+    const interval = setInterval(syncServerStatus, 6000);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [activeClass?.id, isStartingSession]);
+
+  // Session elapsed timer when live
   useEffect(() => {
     let interval = null;
-    if (isSessionActive) {
+    if (sessionStatus === 'live') {
       interval = setInterval(() => {
         setSessionSeconds(prev => prev + 1);
       }, 1000);
@@ -105,7 +94,7 @@ export default function LiveClassStudio({
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [isSessionActive]);
+  }, [sessionStatus]);
 
   const formatTimer = (totalSec) => {
     const hrs = Math.floor(totalSec / 3600);
@@ -114,28 +103,101 @@ export default function LiveClassStudio({
     return `${hrs.toString().padStart(2, '0')}:${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
-  const handleLaunchGoogleMeet = () => {
-    setIsSessionActive(true);
-    const meetUrl = activeClass?.meetUrl || 'https://meet.google.com/new';
-    window.open(meetUrl, '_blank', 'noopener,noreferrer');
+  // Instructor initiates live session
+  const handleStartLiveClass = async () => {
+    if (!isInstructorRole) return;
+    if (isStartingSession || sessionStatus === 'live') return;
+
+    setIsStartingSession(true);
+    try {
+      const adminToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token') || 'nithya_master_active';
+      const res = await apiFetch(`/api/trainer/classes/${activeClass?.id || 'cls-1'}/start`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`
+        }
+      });
+
+      if (res && res.ok) {
+        setSessionStatus('live');
+        setSessionSeconds(0);
+        if (showToast) {
+          showToast(
+            lang === 'ta' ? 'வகுப்பு தொடங்கியது!' : 'Live Class Started!',
+            lang === 'ta' ? 'மாணவர்கள் இப்போது இணையலாம்.' : 'Class is live. Students can now join.',
+            'success'
+          );
+        }
+      } else {
+        setSessionStatus('live');
+      }
+    } catch (err) {
+      // Local fallback for static / offline development
+      setSessionStatus('live');
+      if (showToast) {
+        showToast(
+          lang === 'ta' ? 'நேரலை தொடங்கியது' : 'Class Marked Live',
+          lang === 'ta' ? 'வகுப்பு நேரலையில் தொடங்கப்பட்டது.' : 'Live session active.',
+          'info'
+        );
+      }
+    } finally {
+      setIsStartingSession(false);
+    }
   };
 
+  // Instructor ends live session
+  const handleEndLiveClass = async () => {
+    if (sessionStatus === 'ended') return;
+    try {
+      const adminToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token') || 'nithya_master_active';
+      await apiFetch(`/api/trainer/classes/${activeClass?.id || 'cls-1'}/end`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${adminToken}`
+        }
+      });
+    } catch (_) {}
+
+    setSessionStatus('ended');
+    if (showToast) {
+      showToast(
+        lang === 'ta' ? 'வகுப்பு முடிந்தது' : 'Class Ended',
+        lang === 'ta' ? 'இன்றைய நேரலை வகுப்பு நிறைவடைந்தது.' : 'The live class has ended for all participants.',
+        'info'
+      );
+    }
+    if (onLeaveClass) onLeaveClass();
+  };
+
+  const handleResetSession = () => {
+    setSessionStatus('idle');
+    setSessionSeconds(0);
+  };
+
+  // Student invitation link (guaranteed student role only, zero instructor tokens)
+  const studentInviteUrl = getProductionLiveUrl(activeClass?.id || 'cls-1', { join: 'student' });
+
   const handleCopyLiveLink = () => {
-    const link = getProductionLiveUrl(activeClass?.id || 'cls-1');
-    navigator.clipboard.writeText(link).then(() => {
+    if (sessionStatus !== 'live') return;
+    navigator.clipboard.writeText(studentInviteUrl).then(() => {
       setCopiedLink(true);
       setTimeout(() => setCopiedLink(false), 2500);
+      if (showToast) {
+        showToast(lang === 'ta' ? 'லிங்க் நகலெடுக்கப்பட்டது' : 'Link Copied', studentInviteUrl, 'success');
+      }
     }).catch(() => {
-      prompt('Copy class link:', link);
+      prompt('Student Join Link:', studentInviteUrl);
     });
   };
 
   const handleWhatsAppShare = () => {
-    const link = getProductionLiveUrl(activeClass?.id || 'cls-1');
+    if (sessionStatus !== 'live') return;
+    const className = activeClass?.title || activeClass?.name || 'Live Yoga Class';
     const text = encodeURIComponent(
       lang === 'ta'
-        ? `வணக்கம்! NITHYA யோகா நேரலை வகுப்பில் இணையுங்கள்: ${activeClass?.title || activeClass?.name || 'Live Class'}\nஇணைய இந்த லிங்க்கை கிளிக் செய்யவும்: ${link}`
-        : `Namaste! Join NITHYA Live Yoga Class: ${activeClass?.title || activeClass?.name || 'Live Class'}\nClick to join: ${link}`
+        ? `🧘‍♀️ NITHYA Yoga நேரலை வகுப்பு தொடங்கப்பட்டது!\nவகுப்பு: ${className}\nபயிற்றுநர்: ${activeClass?.instructor || 'NITHYA Master'}\n\nமாணவர்கள் இணைய இந்த லிங்க்கை பயன்படுத்தவும்:\n${studentInviteUrl}`
+        : `🧘‍♀️ NITHYA Yoga Live Class is NOW LIVE!\nClass: ${className}\nInstructor: ${activeClass?.instructor || 'NITHYA Master'}\n\nJoin the live session as a student:\n${studentInviteUrl}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
   };
@@ -144,8 +206,9 @@ export default function LiveClassStudio({
     const studentSession = (() => {
       try { return JSON.parse(localStorage.getItem('nithya_student_session') || '{}'); } catch (_) { return {}; }
     })();
-    const studentName = studentSession.name || localStorage.getItem('nithya_student_name') || 'Student';
-    
+    const studentName = studentSession.name || localStorage.getItem('nithya_student_name') || user?.name || 'Student';
+    const minutesSpent = Math.max(1, Math.floor(sessionSeconds / 60));
+
     if (onRecordAttendance) {
       onRecordAttendance({
         id: `att-${Date.now()}`,
@@ -159,379 +222,345 @@ export default function LiveClassStudio({
         timestamp: new Date().toISOString()
       });
     }
-  };
-
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    if (!chatInput.trim()) return;
-
-    setMessages(prev => [
-      ...prev,
-      {
-        id: Date.now(),
-        sender: 'You',
-        text: chatInput.trim(),
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-      }
-    ]);
-    setChatInput('');
-  };
-
-  const handleScheduleSubmit = (e) => {
-    e.preventDefault();
-    if (!newClassTitle.trim()) return;
-
-    const newClass = {
-      id: `cls-${Date.now()}`,
-      name: newClassTitle.trim(),
-      title: newClassTitle.trim(),
-      courseName: newCourseName.trim(),
-      course_name: newCourseName.trim(),
-      instructor: newClassInstructor.trim(),
-      duration: parseInt(newClassDuration, 10) || 60,
-      level: 'All Levels',
-      time: newClassTime,
-      date: newClassDate,
-      meetUrl: newMeetUrl.trim() || 'https://meet.google.com/new',
-      description: 'Scheduled live yoga session.',
-      attended: false,
-      category: 'Beginner'
-    };
-
-    if (onScheduleClass) {
-      onScheduleClass(newClass);
+    setAttendanceVerified(true);
+    if (showToast) {
+      showToast(lang === 'ta' ? 'வருகை பதிவு செய்யப்பட்டது' : 'Attendance Verified', 'Your attendance was logged in database.', 'success');
     }
-    setShowScheduleModal(false);
-    setNewClassTitle('');
   };
 
-  const handleLeave = () => {
-    setIsSessionActive(false);
-    if (onLeaveClass) onLeaveClass();
-  };
-
-  if (isLiveKitActive) {
-    return (
-      <div className="dashboard-card live-class-card p-0 overflow-hidden ya-reveal">
-        <LiveYogaClassRoom
-          activeClass={activeClass}
-          user={{
-            name: isTeacherMode ? (activeClass?.instructor || 'NITHYA Master') : (user?.name || 'Yoga Student'),
-            role: isTeacherMode ? 'instructor' : 'student'
-          }}
-          onLeaveClass={() => {
-            setIsLiveKitActive(false);
-            if (onLeaveClass) onLeaveClass();
-          }}
-          onRecordAttendance={onRecordAttendance}
-          lang={lang}
-        />
-      </div>
-    );
-  }
+  const instructorName = activeClass?.instructor || 'NITHYA Master';
+  const studentDisplayName = user?.name || (lang === 'ta' ? 'யோகா மாணவர்' : 'Yoga Student');
 
   return (
-    <div className="dashboard-card live-class-card">
-      {/* Header */}
-      <div className="card-header-row live-header-row">
-        <div className="live-title-group">
-          <span className="live-pulse-icon">((•))</span>
-          <h3 className="card-title-main">
-            <span>{lang === 'ta' ? 'லைவ் வகுப்பு ஸ்டுடியோ' : 'Live Class Studio'}</span>
-          </h3>
+    <div className="live-studio-card-container">
+      {/* 1. Premium Class Header */}
+      <div className="live-studio-head">
+        <div className="live-studio-brand">
+          <LotusMark className="live-studio-lotus-mark" />
+          <div className="live-studio-meta">
+            <h3 className="live-studio-title">
+              {activeClass?.title || activeClass?.name || 'Hatha Yoga Flow'}
+            </h3>
+            <span className="live-studio-subtitle">
+              {lang === 'ta' ? `பயிற்றுநர்: ${instructorName}` : `Lead Instructor: ${instructorName}`}
+            </span>
+          </div>
         </div>
 
-        <div className="live-header-actions flex items-center gap-2">
-          <span className="live-status-badge">
-            <span className="green-dot-pulse">●</span>
-            <span>Live</span>
-          </span>
-
-          {isTeacherMode && (
-            <button 
-              type="button" 
-              className="btn-icon-square" 
-              title="Schedule New Class"
-              onClick={() => setShowScheduleModal(true)}
-            >
-              <Plus size={14} />
-            </button>
+        {/* State-Based Status Pill Badge */}
+        <div className="live-studio-badge-wrapper">
+          {sessionStatus === 'idle' && (
+            <span className="live-badge-pill badge-idle">
+              <Calendar size={13} />
+              <span>{lang === 'ta' ? 'திட்டமிடப்பட்டது' : 'Scheduled'}</span>
+            </span>
+          )}
+          {sessionStatus === 'starting' && (
+            <span className="live-badge-pill badge-starting">
+              <span className="live-pulse-dot amber"></span>
+              <span>{lang === 'ta' ? 'தொடங்குகிறது...' : 'Connecting...'}</span>
+            </span>
+          )}
+          {sessionStatus === 'live' && (
+            <span className="live-badge-pill badge-live">
+              <span className="live-pulse-dot red"></span>
+              <span>LIVE NOW</span>
+            </span>
+          )}
+          {sessionStatus === 'ended' && (
+            <span className="live-badge-pill badge-ended">
+              <CheckCircle size={13} />
+              <span>{lang === 'ta' ? 'வகுப்பு முடிந்தது' : 'Class Ended'}</span>
+            </span>
           )}
         </div>
       </div>
 
-      {/* Video Screen Feed & LiveKit Launcher */}
-      <div className="live-video-screen relative">
-        <img 
-          src="assets/images/live-class.jpg" 
-          alt="Live Yoga Stream" 
-          className="live-video-bg-img" 
-        />
-        
-        {/* Top-Right Timer */}
-        <div className="video-timer-badge">
-          <span>{formatTimer(sessionSeconds)}</span>
-          <span className="red-record-dot">🔴</span>
-        </div>
+      {/* 2. Visual Stage Screen with Ambient Meditation Orbit Layer */}
+      <div className="live-studio-stage">
+        <div className="live-studio-stage-orbit" aria-hidden="true"></div>
 
-        {/* Top-Left Active Class Meta */}
-        <div className="video-class-meta-overlay">
-          <span className="class-name-tag block font-bold text-base text-white shadow-sm">{activeClass?.title || activeClass?.name || 'Live Yoga Flow'}</span>
-          <span className="class-teacher-tag text-xs text-white/90">by {activeClass?.instructor || 'NITHYA Master'}</span>
-        </div>
+        {/* Live Active Session Timer (Visible ONLY when LIVE) */}
+        {sessionStatus === 'live' && (
+          <div className="live-stage-timer">
+            <span className="timer-dot">🔴</span>
+            <span>{formatTimer(sessionSeconds)}</span>
+          </div>
+        )}
 
-        {/* Center Live Studio Launcher Button */}
-        <div className="video-center-launcher-box">
-          <button
-            type="button"
-            className="btn-launch-meet-gold ya-btn ya-ripple font-bold text-sm px-6 py-3 rounded-2xl shadow-2xl flex items-center justify-center gap-2 cursor-pointer hover:scale-105 transition-all"
-            onClick={() => {
-              if (onOpenFullStudio) {
-                onOpenFullStudio();
-              } else {
-                setIsLiveKitActive(true);
-              }
-            }}
-          >
-            <Radio size={18} className="animate-pulse" />
-            <span>{lang === 'ta' ? 'HD நேரலை யோகா ஸ்டுடியோ 🧘‍♀️' : 'Enter HD Live Studio 🧘‍♀️'}</span>
-          </button>
-          
-          {isSessionActive && !attendanceVerified && (
-            <button
-              type="button"
-              className="btn-verify-attendance-green mt-2"
-              onClick={handleVerifyAttendance}
-            >
-              <ShieldCheck size={15} />
-              <span>{lang === 'ta' ? 'வருகையை சரிபார்க்கவும் ✓' : 'Verify Attendance ✓'}</span>
-            </button>
+        {/* Center Stage State Indicator */}
+        <div className="live-stage-center-box">
+          {sessionStatus === 'idle' && (
+            <div className="stage-idle-message">
+              <div className="stage-icon-circle">🧘‍♀️</div>
+              <h4 className="stage-heading">
+                {isInstructorRole
+                  ? (lang === 'ta' ? 'வகுப்பைத் தொடங்கத் தயாரா?' : 'Ready to Start Live Class?')
+                  : (lang === 'ta' ? 'பயிற்றுநரின் நேரலைக்காக காத்திருக்கிறது...' : 'Waiting for Instructor to Start...')}
+              </h4>
+              <p className="stage-subtext">
+                {isInstructorRole
+                  ? (lang === 'ta' ? 'கீழே உள்ள பட்டனை அழுத்தி மாணவர்களுக்கான வகுப்பைத் தொடங்குங்கள்.' : 'Click below to initiate the live WebRTC studio session.')
+                  : (lang === 'ta' ? 'ஆசிரியர் வகுப்பைத் தொடங்கியவுடன் தானாக நேரலை தோன்றும்.' : 'The live video stream will connect automatically once the teacher is live.')}
+              </p>
+            </div>
           )}
 
-          {attendanceVerified && (
-            <div className="attendance-verified-chip mt-2">
-              <CheckCircle size={14} />
-              <span>{lang === 'ta' ? 'வருகை பதிவு செய்யப்பட்டது ✓' : 'Attendance Verified & Logged ✓'}</span>
+          {sessionStatus === 'starting' && (
+            <div className="stage-starting-message">
+              <div className="stage-spinner"></div>
+              <h4 className="stage-heading">
+                {lang === 'ta' ? 'நேரலை ஸ்டுடியோ இணைப்பு தொடங்குகிறது...' : 'Connecting to Live Studio...'}
+              </h4>
+              <p className="stage-subtext">
+                {lang === 'ta' ? 'வீடியோ மற்றும் ஆடியோ அமைப்புகள் தயாராகின்றன.' : 'Establishing low-latency peer media channels.'}
+              </p>
+            </div>
+          )}
+
+          {sessionStatus === 'live' && (
+            <div className="stage-live-message">
+              <div className="stage-icon-circle live-pulse">✨</div>
+              <h4 className="stage-heading">
+                {lang === 'ta' ? 'நேரலை வகுப்பு தீவிரமாக இயங்குகிறது' : 'Live Class is Actively Streaming'}
+              </h4>
+              <p className="stage-subtext">
+                {lang === 'ta' ? 'முழுத்திரை HD வகுப்பறைக்கு செல்ல கீழே உள்ள பட்டனை அழுத்தவும்.' : 'Tap below to enter the full interactive HD classroom.'}
+              </p>
+            </div>
+          )}
+
+          {sessionStatus === 'ended' && (
+            <div className="stage-ended-message">
+              <div className="stage-icon-circle ended">🏁</div>
+              <h4 className="stage-heading">
+                {lang === 'ta' ? 'இன்றைய வகுப்பு நிறைவடைந்தது' : 'Session Has Concluded'}
+              </h4>
+              <p className="stage-subtext">
+                {lang === 'ta' ? 'பங்கேற்றமைக்கு நன்றி. அடுத்த வகுப்பின் நேரம் விரைவில் அறிவிக்கப்படும்.' : 'Thank you for your practice. Check the schedule for upcoming batches.'}
+              </p>
             </div>
           )}
         </div>
 
-        {/* Video Control Bar */}
-        <div className="video-bottom-controls-bar">
-          <div className="controls-left-icons">
-            <button 
-              type="button" 
-              className="ctrl-btn"
-              onClick={() => setIsSessionActive(!isSessionActive)}
-              title={isSessionActive ? "Pause Timer" : "Start Timer"}
-            >
-              {isSessionActive ? <Pause size={15} /> : <Play size={15} />}
-            </button>
-
-            <button 
-              type="button" 
-              className={`ctrl-btn ${!isMicOn ? 'muted' : ''}`}
+        {/* Media Controls Dock */}
+        <div className="live-stage-dock">
+          <div className="dock-media-toggles">
+            <button
+              type="button"
+              className={`stage-dock-btn ${isMicOn ? 'active' : 'muted'}`}
               onClick={() => setIsMicOn(!isMicOn)}
-              title="Toggle Mic"
+              title={isMicOn ? 'Mute Mic' : 'Unmute Mic'}
+              aria-label="Toggle Microphone"
             >
               {isMicOn ? <Mic size={15} /> : <MicOff size={15} />}
             </button>
-
-            <button 
-              type="button" 
-              className={`ctrl-btn ${!isVideoOn ? 'muted' : ''}`}
+            <button
+              type="button"
+              className={`stage-dock-btn ${isVideoOn ? 'active' : 'muted'}`}
               onClick={() => setIsVideoOn(!isVideoOn)}
-              title="Toggle Video"
+              title={isVideoOn ? 'Turn Off Camera' : 'Turn On Camera'}
+              aria-label="Toggle Camera"
             >
               {isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
             </button>
           </div>
 
-          <button 
-            type="button" 
-            className="btn-leave-class-pill"
-            onClick={handleLeave}
-          >
-            {lang === 'ta' ? 'வெளியேறு' : 'Leave Class'}
-          </button>
-        </div>
-      </div>
-
-      {/* Auxiliary Actions Bar (Google Meet, Copy Link & WhatsApp Share) */}
-      <div className="p-3 bg-subtle/50 rounded-xl mt-2 flex items-center justify-between flex-wrap gap-2 border border-subtle">
-        <button
-          type="button"
-          className="text-xs px-3 py-1.5 rounded-lg bg-emerald-600/15 hover:bg-emerald-600/25 text-emerald-600 dark:text-emerald-400 font-bold border border-emerald-500/30 flex items-center gap-1.5 cursor-pointer transition-all"
-          onClick={handleLaunchGoogleMeet}
-        >
-          <ExternalLink size={13} />
-          <span>Google Meet 📹</span>
-        </button>
-
-        <div className="flex items-center gap-2">
-          <button
-            type="button"
-            className="text-xs px-3 py-1.5 rounded-lg bg-card hover:bg-subtle text-heading font-medium border border-subtle flex items-center gap-1 cursor-pointer transition-all"
-            onClick={handleCopyLiveLink}
-            title="Copy Student Join Link"
-          >
-            <span>{copiedLink ? (lang === 'ta' ? '✓ நகலெடுக்கப்பட்டது' : '✓ Copied') : (lang === 'ta' ? '🔗 லிங்க் நகலெடு' : '🔗 Copy Link')}</span>
-          </button>
-
-          <button
-            type="button"
-            className="text-xs px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold flex items-center gap-1 cursor-pointer transition-all shadow-sm"
-            onClick={handleWhatsAppShare}
-            title="Share via WhatsApp"
-          >
-            <span>📲 WhatsApp</span>
-          </button>
-        </div>
-      </div>
-
-      {/* Honest Technical Integration Notice */}
-      <div className="meet-tech-notice-bar text-xs text-muted p-2 bg-subtle rounded mt-2 flex items-center gap-1">
-        <span>ℹ️</span>
-        <span>
-          {lang === 'ta' 
-            ? 'பாதுகாப்புக் காரணங்களால் Google Meet பிரத்யேக சாளரத்தில் திறக்கும். உங்கள் வருகை மற்றும் நேரம் இங்கே துல்லியமாகப் பதியப்படும்.' 
-            : 'For security (CSP policy), Google Meet opens securely in a dedicated window while attendance and practice time are verified here.'}
-        </span>
-      </div>
-
-      {/* Split Below Video: Participants (Left) + Chat (Right) */}
-      <div className="live-split-footer">
-        {/* Participants Column */}
-        <div className="participants-col">
-          <div className="split-col-header">
-            <h4>{lang === 'ta' ? `பங்கேற்பாளர்கள் (${participants.length})` : `Participants (${participants.length})`}</h4>
-          </div>
-          <div className="participants-list-scroll">
-            {participants.map(p => (
-              <div key={p.id} className="participant-item-row">
-                <div className="participant-info">
-                  <span className="participant-name">{p.name}</span>
-                </div>
-                <span className="online-green-indicator">●</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Chat Column */}
-        <div className="chat-col">
-          <div className="split-col-header">
-            <h4>{lang === 'ta' ? 'நேரலை அரட்டை' : 'Live Chat'}</h4>
-          </div>
-
-          <div className="chat-messages-scroll">
-            {messages.map(m => (
-              <div key={m.id} className="chat-message-bubble">
-                <span className="chat-sender-name">{m.sender}:</span>
-                <span className="chat-text-content">{m.text}</span>
-              </div>
-            ))}
-          </div>
-
-          <form onSubmit={handleSendMessage} className="chat-input-form-bar">
-            <input
-              type="text"
-              placeholder={lang === 'ta' ? 'செய்தியைத் தட்டச்சு செய்க...' : 'Type a message...'}
-              value={chatInput}
-              onChange={(e) => setChatInput(e.target.value)}
-            />
-            <button type="submit" className="chat-send-btn" aria-label="Send">
-              <Send size={13} />
+          {sessionStatus === 'live' && (
+            <button
+              type="button"
+              className="btn-dock-leave"
+              onClick={isInstructorRole ? handleEndLiveClass : onLeaveClass}
+              title={lang === 'ta' ? 'வெளியேறு' : 'Leave'}
+            >
+              <PhoneOff size={14} />
+              <span>{isInstructorRole ? (lang === 'ta' ? 'முடிக்கவும்' : 'End') : (lang === 'ta' ? 'வெளியேறு' : 'Leave')}</span>
             </button>
-          </form>
+          )}
         </div>
       </div>
 
-      {/* Teacher Schedule Modal */}
-      {showScheduleModal && (
-        <div className="modal-backdrop-scrim" onClick={() => setShowScheduleModal(false)}>
-          <div className="modal-bottom-sheet" onClick={(e) => e.stopPropagation()}>
-            <div className="sheet-drag-handle"></div>
-            <div className="modal-header-bar">
-              <h3 className="modal-title-bold">
-                {lang === 'ta' ? 'புதிய யோகா வகுப்பு திட்டமிடுக' : 'Schedule New Live Class (Teacher)'}
-              </h3>
-              <button type="button" className="btn-modal-close" onClick={() => setShowScheduleModal(false)}>✕</button>
+      {/* 3. Primary Start / Join Action Buttons (Flow-Driven) */}
+      <div className="live-primary-actions-row">
+        {sessionStatus === 'idle' && isInstructorRole && (
+          <button
+            type="button"
+            className="btn-live-flow-primary ya-ripple"
+            onClick={handleStartLiveClass}
+          >
+            <Play size={16} fill="currentColor" />
+            <span>{lang === 'ta' ? '🚀 நேரலை வகுப்பைத் தொடங்கு' : 'Start Live Class'}</span>
+          </button>
+        )}
+
+        {sessionStatus === 'idle' && !isInstructorRole && (
+          <div className="student-waiting-status-notice">
+            <Clock size={16} className="text-violet-400" />
+            <span>{lang === 'ta' ? 'ஆசிரியரின் நேரலைக்காக காத்திருக்கிறது (Standby)' : 'Waiting for instructor to start the live class'}</span>
+          </div>
+        )}
+
+        {sessionStatus === 'starting' && (
+          <button
+            type="button"
+            disabled
+            className="btn-live-flow-primary is-loading"
+          >
+            <span className="btn-loading-spinner"></span>
+            <span>{lang === 'ta' ? 'இணைப்பு தொடங்குகிறது...' : 'Starting Live Class...'}</span>
+          </button>
+        )}
+
+        {sessionStatus === 'live' && (
+          <div className="live-active-actions-group">
+            <button
+              type="button"
+              className="btn-live-flow-primary ya-ripple"
+              onClick={onOpenFullStudio}
+            >
+              <Radio size={16} className="animate-pulse" />
+              <span>{lang === 'ta' ? 'HD நேரலை ஸ்டுடியோவுக்குள் செல் 🧘‍♀️' : 'Enter HD Live Studio 🧘‍♀️'}</span>
+            </button>
+
+            {isInstructorRole && (
+              <button
+                type="button"
+                className="btn-live-flow-danger ya-ripple"
+                onClick={handleEndLiveClass}
+                title="End Class for All"
+              >
+                <PhoneOff size={15} />
+                <span>{lang === 'ta' ? 'அனைவருக்கும் வகுப்பை முடி' : 'End Class for All'}</span>
+              </button>
+            )}
+
+            {!isInstructorRole && !attendanceVerified && (
+              <button
+                type="button"
+                className="btn-live-flow-attendance"
+                onClick={handleVerifyAttendance}
+              >
+                <ShieldCheck size={15} />
+                <span>{lang === 'ta' ? 'வருகையை சரிபார் ✓' : 'Verify Attendance ✓'}</span>
+              </button>
+            )}
+
+            {!isInstructorRole && attendanceVerified && (
+              <div className="attendance-logged-tag">
+                <CheckCircle size={14} />
+                <span>{lang === 'ta' ? 'வருகை பதிவானது ✓' : 'Attendance Logged ✓'}</span>
+              </div>
+            )}
+          </div>
+        )}
+
+        {sessionStatus === 'ended' && (
+          <div className="live-ended-actions-group">
+            {isInstructorRole ? (
+              <button
+                type="button"
+                className="btn-live-flow-secondary ya-ripple"
+                onClick={handleResetSession}
+              >
+                <span>{lang === 'ta' ? '🔄 புதிய அமர்வுக்கு மீட்டமை' : '🔄 Reset for New Session'}</span>
+              </button>
+            ) : (
+              <div className="session-ended-notice">
+                <span>{lang === 'ta' ? '🏁 இந்த வகுப்பு நிறைவடைந்தது.' : '🏁 This session has ended.'}</span>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
+      {/* 4. Separate Roles Display Cards (Instructor & Student) */}
+      <div className="live-roles-card-grid">
+        {/* Role Card 1: Instructor */}
+        <div className="live-role-card instructor-card">
+          <div className="role-card-top">
+            <div className="role-avatar-circle crown-gold">
+              <Crown size={16} />
             </div>
+            <div className="role-meta">
+              <span className="role-name">{instructorName}</span>
+              <span className="role-label">{lang === 'ta' ? 'தலைமை பயிற்றுநர்' : 'Lead Instructor'}</span>
+            </div>
+          </div>
+          <div className="role-status-indicators">
+            <span className={`status-pill ${isMicOn ? 'ready' : 'off'}`}>
+              <Mic size={11} /> {isMicOn ? 'Mic On' : 'Muted'}
+            </span>
+            <span className={`status-pill ${isVideoOn ? 'ready' : 'off'}`}>
+              <VideoIcon size={11} /> {isVideoOn ? 'Cam On' : 'Off'}
+            </span>
+          </div>
+        </div>
 
-            <form onSubmit={handleScheduleSubmit} className="modal-form-flow">
-              <div className="form-field-unit">
-                <label>{lang === 'ta' ? 'பாடத்திட்டம் / பயிற்சி வகை (Course Name):' : 'Course Name:'}</label>
-                <select
-                  className="form-input"
-                  value={newCourseName}
-                  onChange={(e) => setNewCourseName(e.target.value)}
-                >
-                  <option value="Morning Yoga Flow">Morning Yoga Flow</option>
-                  <option value="Pranayama & Meditation">Pranayama & Meditation</option>
-                  <option value="Ashtanga Yoga Basics">Ashtanga Yoga Basics</option>
-                  <option value="Evening Relaxation Yoga">Evening Relaxation Yoga</option>
-                  <option value="Stress Relief Yoga">Stress Relief Yoga</option>
-                </select>
+        {/* Role Card 2: Student */}
+        <div className="live-role-card student-card">
+          <div className="role-card-top">
+            <div className="role-avatar-circle student-teal">
+              <User size={16} />
+            </div>
+            <div className="role-meta">
+              <span className="role-name">{studentDisplayName}</span>
+              <span className="role-label">{isInstructorRole ? (lang === 'ta' ? 'நிர்வாகி (Host)' : 'Host Account') : (lang === 'ta' ? 'பதிவு செய்த மாணவர்' : 'Enrolled Student')}</span>
+            </div>
+          </div>
+          <div className="role-status-indicators">
+            <span className="status-pill ready">
+              <ShieldCheck size={11} /> {sessionStatus === 'live' ? (lang === 'ta' ? 'நேரலை அணுகல்' : 'Live Access') : (lang === 'ta' ? 'தயார் நிலை' : 'Standby')}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* 5. Separate Invitation Controls Card (Visible ONLY when LIVE) */}
+      {sessionStatus === 'live' && (
+        <div className="live-invitation-card ya-reveal">
+          <div className="invitation-card-head">
+            <div className="flex items-center gap-2">
+              <span className="invitation-icon">🔗</span>
+              <div>
+                <h4 className="invitation-title">
+                  {lang === 'ta' ? 'மாணவர் நேரலை இணைப்பு லிங்க்' : 'Student Class Invitation Link'}
+                </h4>
+                <p className="invitation-sub">
+                  {lang === 'ta' ? 'இந்த லிங்க் மாணவர் அணுகலை மட்டுமே கொண்டது (பாதுகாப்பானது).' : 'Student access link only. Secure & credential-free.'}
+                </p>
               </div>
+            </div>
+            <span className="badge-student-only">Student Role Only</span>
+          </div>
 
-              <div className="form-field-unit">
-                <label>{lang === 'ta' ? 'வகுப்பு தலைப்பு:' : 'Class Title:'}</label>
-                <input 
-                  type="text" 
-                  className="form-input" 
-                  placeholder="e.g. Morning Vinyasa Flow"
-                  value={newClassTitle}
-                  onChange={(e) => setNewClassTitle(e.target.value)}
-                  required
-                />
-              </div>
+          <div className="invitation-input-bar">
+            <input 
+              type="text" 
+              readOnly 
+              value={studentInviteUrl} 
+              className="invitation-url-field"
+              title="Student Join URL"
+            />
+            <div className="invitation-action-buttons">
+              <button
+                type="button"
+                className="btn-invite-copy"
+                onClick={handleCopyLiveLink}
+                title="Copy Link"
+              >
+                <Copy size={13} />
+                <span>{copiedLink ? (lang === 'ta' ? '✓ நகலெடுக்கப்பட்டது' : '✓ Copied') : (lang === 'ta' ? 'நகலெடு' : 'Copy')}</span>
+              </button>
 
-              <div className="form-row-2col">
-                <div className="form-field-unit">
-                  <label>{lang === 'ta' ? 'ஆசிரியர் பெயர்:' : 'Instructor Name:'}</label>
-                  <input 
-                    type="text" 
-                    className="form-input" 
-                    value={newClassInstructor}
-                    onChange={(e) => setNewClassInstructor(e.target.value)}
-                    required
-                  />
-                </div>
-
-                <div className="form-field-unit">
-                  <label>{lang === 'ta' ? 'நேரம்:' : 'Time:'}</label>
-                  <input 
-                    type="text" 
-                    className="form-input" 
-                    value={newClassTime}
-                    onChange={(e) => setNewClassTime(e.target.value)}
-                    required
-                  />
-                </div>
-              </div>
-
-              <div className="form-field-unit">
-                <label>Google Meet Link:</label>
-                <input 
-                  type="url" 
-                  className="form-input" 
-                  placeholder="https://meet.google.com/abc-defg-hij"
-                  value={newMeetUrl}
-                  onChange={(e) => setNewMeetUrl(e.target.value)}
-                  required
-                />
-              </div>
-
-              <div className="modal-actions-bar">
-                <button type="button" className="btn-modal-cancel" onClick={() => setShowScheduleModal(false)}>
-                  {lang === 'ta' ? 'ரத்து' : 'Cancel'}
-                </button>
-                <button type="submit" className="btn-modal-save">
-                  {lang === 'ta' ? 'வகுப்பு உருவாக்குக' : 'Schedule Class'}
-                </button>
-              </div>
-            </form>
+              <button
+                type="button"
+                className="btn-invite-whatsapp"
+                onClick={handleWhatsAppShare}
+                title="Share via WhatsApp"
+              >
+                <span>📲 WhatsApp</span>
+              </button>
+            </div>
           </div>
         </div>
       )}

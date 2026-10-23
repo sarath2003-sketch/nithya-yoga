@@ -93,24 +93,43 @@ h1, h2, h3, h4, h5, h6, .font-heading {
   font-family: 'Noto Sans Tamil', 'Poppins', sans-serif !important;
 }
 
-/* Dark Mode Palette Overrides - Deep Lavender Slate */
+/* Dark Mode Palette Overrides - Deep Midnight Navy & Violet Aura */
 [data-theme="dark"] {
-  --primary: #B298F5;
-  --primary-dark: #9B7AE8;
-  --primary-light: rgba(155, 122, 232, 0.2);
-  --bg-app: #12101F;
-  --bg-card: #1C1930;
-  --bg-card-subtle: #25213F;
-  --text-main: #F4F1FA;
+  --primary: #8F7CF6;
+  --primary-dark: #6D5BDB;
+  --primary-light: rgba(143, 124, 246, 0.22);
+  --primary-purple: #8F7CF6;
+  --primary-purple-hover: #A08EFF;
+  --primary-purple-light: rgba(143, 124, 246, 0.16);
+
+  --bg-app: #080C1D;
+  --bg-card: #111831;
+  --bg-card-subtle: #192142;
+  --bg-subtle: #151D3B;
+  --bg-hover: #1E2850;
+
+  --bg-sidebar: linear-gradient(180deg, #18153A 0%, #0F132C 100%);
+  --sidebar-text: #EDEAFF;
+  --sidebar-hover: rgba(143, 124, 246, 0.16);
+  --sidebar-active-bg: #8F7CF6;
+  --sidebar-active-text: #FFFFFF;
+  --sidebar-active-shadow: 0 8px 24px -4px rgba(143, 124, 246, 0.45);
+
+  --text-main: #EDEAFF;
   --text-heading: #FFFFFF;
-  --text-sub: #A8A1BA;
-  --text-muted: #7B738F;
-  --border-color: #2F2A4A;
-  --border-light: #2F2A4A;
-  --border-card: #2B2644;
-  --bg-subtle: #25213F;
-  --bg-hover: #312B52;
-  --shadow-card: 0 8px 24px -4px rgba(0, 0, 0, 0.5);
+  --text-sub: #B9A8FF;
+  --text-muted: #857DA5;
+
+  --accent-teal: #74E4D1;
+  --accent-teal-dark: #3EC4AE;
+  --accent-pink: rgba(246, 214, 227, 0.15);
+  --accent-pink-dark: #F6A8C8;
+
+  --border-color: rgba(143, 124, 246, 0.2);
+  --border-light: rgba(185, 168, 255, 0.12);
+  --border-card: rgba(143, 124, 246, 0.18);
+  --shadow-card: 0 12px 32px -4px rgba(4, 6, 18, 0.65), 0 0 1px 1px rgba(143, 124, 246, 0.12);
+  --shadow-card-hover: 0 18px 40px -4px rgba(4, 6, 18, 0.8), 0 0 2px 1px rgba(143, 124, 246, 0.28);
 }
 
 /* Global Reset */
@@ -5426,6 +5445,117 @@ video::-webkit-media-controls-enclosure {
 @keyframes plantSway {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(2deg); }
+}
+
+/* Premium Yoga Visual Pack: Chakra Moon Hero & Sacred Geometry */
+.chakra-moon-hero-frame {
+  position: relative;
+  width: 145px;
+  height: 145px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.chakra-hero-halo-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(185, 168, 255, 0.45);
+  box-shadow: 0 0 24px rgba(143, 124, 246, 0.25);
+  animation: orbitHalo 45s linear infinite;
+  pointer-events: none;
+}
+
+@keyframes orbitHalo {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.chakra-moon-hero-img {
+  width: 100%;
+  height: 100%;
+  border-radius: 28px;
+  object-fit: cover;
+  filter: drop-shadow(0 12px 28px rgba(37, 32, 82, 0.35));
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chakra-moon-hero-frame:hover .chakra-moon-hero-img {
+  transform: scale(1.03);
+}
+
+/* Ambient Orbit Background Layers */
+.figma-live-connecting-placeholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 32px 16px;
+  background: radial-gradient(circle at center, #1B1838 0%, #080C1D 100%);
+  overflow: hidden;
+  border-radius: 20px;
+}
+
+.figma-ambient-orbit-bg-layer {
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/premium-yoga/meditation-orbit-bg.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.28;
+  pointer-events: none;
+}
+
+.figma-placeholder-content {
+  position: relative;
+  z-index: 2;
+}
+
+.participant-ambient-orbit-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('assets/premium-yoga/meditation-orbit-bg.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: 0.22;
+  pointer-events: none;
+}
+
+.breathing-orbit-backdrop {
+  position: absolute;
+  inset: -10px;
+  background-image: url('assets/premium-yoga/meditation-orbit-bg.svg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+@media (max-width: 768px) {
+  .chakra-moon-hero-frame {
+    width: 105px;
+    height: 105px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .chakra-hero-halo-ring,
+  .hero-girl-3d-img,
+  .welcome-potted-plant-img,
+  .note-pink,
+  .note-purple {
+    animation: none !important;
+    transition: none !important;
+  }
 }
 
 /* 3. Stat Cards 3D Icons */

@@ -149,6 +149,7 @@ export default function PranayamaBreathingOrb({ lang = 'en' }) {
 
       {/* 3D Animated Breathing Orb Visual */}
       <div className="breathing-visual-stage relative flex flex-col items-center justify-center my-3">
+        <div className="breathing-orbit-backdrop" aria-hidden="true"></div>
         <div className={`breathing-outer-aura ${isActive ? phase.toLowerCase() : 'idle'}`}>
           <div className={`breathing-inner-orb ${isActive ? phase.toLowerCase() : 'idle'}`}>
             <div className="orb-center-content">

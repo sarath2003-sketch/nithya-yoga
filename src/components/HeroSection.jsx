@@ -60,13 +60,16 @@ export default function HeroSection({
           </div>
         </div>
 
-        {/* Right: 3D Potted Plant & Zen Flora matching Reference Image */}
+        {/* Right: Featured Chakra Moon Vector Artwork + Preserved Test Elements */}
         <div className="welcome-banner-art-wrap hero-right-visual-wrapper">
-          <img 
-            src="assets/images/pastel/potted_plant_3d.png" 
-            alt="Zen Potted Plant" 
-            className="welcome-potted-plant-img" 
-          />
+          <div className="chakra-moon-hero-frame">
+            <div className="chakra-hero-halo-ring" aria-hidden="true"></div>
+            <img 
+              src="assets/premium-yoga/chakra-moon-hero.svg" 
+              alt="Nithya Yoga 7 Chakras Moon Meditation" 
+              className="chakra-moon-hero-img" 
+            />
+          </div>
           {/* Preserved cross-device test element */}
           <img 
             src="assets/images/chakra-meditation.jpg" 

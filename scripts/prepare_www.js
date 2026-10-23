@@ -44,6 +44,7 @@ for (const file of filesToCopy) {
 // Copy directories
 copyRecursive(path.join(rootDir, 'dist'), path.join(wwwDir, 'dist'));
 copyRecursive(path.join(rootDir, 'assets'), path.join(wwwDir, 'assets'));
+copyRecursive(path.join(rootDir, 'public'), path.join(wwwDir, 'public'));
 copyRecursive(path.join(rootDir, 'src'), path.join(wwwDir, 'src'));
 
 console.log('✓ Successfully prepared www directory for Android build!');

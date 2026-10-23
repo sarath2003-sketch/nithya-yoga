@@ -192,6 +192,7 @@ function ParticipantTile({
       {/* Avatar Fallback when camera is off */}
       {!effectiveHasVideo && (
         <div className="participant-avatar-fallback">
+          <div className="participant-ambient-orbit-bg" aria-hidden="true"></div>
           <div className="avatar-orb-glow"></div>
           <div className="avatar-circle">
             <span>{initial}</span>
@@ -1923,16 +1924,19 @@ export default function LiveYogaClassRoom({
                       lang={lang}
                     />
                   ) : (
-                    <div className="text-center p-8 text-white/80">
-                      <div className="flex justify-center mb-3">
-                        <ThreeDLotus size={64} />
+                    <div className="figma-live-connecting-placeholder">
+                      <div className="figma-ambient-orbit-bg-layer" aria-hidden="true"></div>
+                      <div className="figma-placeholder-content">
+                        <div className="flex justify-center mb-3">
+                          <ThreeDLotus size={64} />
+                        </div>
+                        <h4 className="font-bold text-base text-white mb-1">
+                          {lang === 'ta' ? 'பயிற்றுநர் வீடியோ தயாராகிறது...' : 'Connecting to Live Teacher Video...'}
+                        </h4>
+                        <p className="text-xs text-slate-300">
+                          {lang === 'ta' ? 'நித்யா யோகா ஸ்டுடியோ நேரலை ஸ்ட்ரீம்' : 'Low-latency peer-to-peer WebRTC video active'}
+                        </p>
                       </div>
-                      <h4 className="font-bold text-base text-white mb-1">
-                        {lang === 'ta' ? 'பயிற்றுநர் வீடியோ தயாராகிறது...' : 'Connecting to Live Teacher Video...'}
-                      </h4>
-                      <p className="text-xs text-slate-400">
-                        {lang === 'ta' ? 'நித்யா யோகா ஸ்டுடியோ நேரலை ஸ்ட்ரீம்' : 'Low-latency peer-to-peer WebRTC video active'}
-                      </p>
                     </div>
                   )}
 

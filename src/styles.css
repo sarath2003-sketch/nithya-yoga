@@ -6928,3 +6928,254 @@ html, body, #root, .app-root-container, .app-main-layout {
   transform: scale(1.08);
 }
 
+
+
+
+/* NITHYA YOGA — premium live-class room refresh (scoped to connected classroom only) */
+.figma-live-classroom-container {
+  --ny-ink: #f7f4ff;
+  --ny-muted: #a9a7c7;
+  --ny-line: rgba(181, 169, 255, .16);
+  --ny-panel: rgba(20, 22, 49, .88);
+  width: min(100%, 1680px);
+  margin: 0 auto;
+  padding: clamp(12px, 2vw, 28px);
+  color: var(--ny-ink);
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(111, 76, 214, .20), transparent 38%),
+    radial-gradient(ellipse at 95% 20%, rgba(42, 117, 191, .13), transparent 34%),
+    linear-gradient(145deg, #090d20 0%, #10132d 52%, #11142a 100%);
+  border: 1px solid rgba(176, 158, 255, .12);
+  border-radius: 26px;
+  box-shadow: 0 24px 80px rgba(3, 5, 18, .30);
+  box-sizing: border-box;
+}
+.figma-live-classroom-container * { box-sizing: border-box; }
+.figma-live-class-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 4px 2px 20px;
+  border-bottom: 1px solid var(--ny-line);
+  margin-bottom: 20px;
+}
+.figma-live-classroom-container .figma-header-title-col { min-width: 0; }
+.figma-live-classroom-container .figma-course-tag {
+  color: #e5deff;
+  background: rgba(139, 111, 255, .14);
+  border: 1px solid rgba(175, 153, 255, .24);
+  border-radius: 999px;
+}
+.figma-live-classroom-container .figma-live-indicator {
+  color: #fff;
+  background: rgba(239, 68, 101, .16);
+  border: 1px solid rgba(255, 106, 130, .28);
+  border-radius: 999px;
+  letter-spacing: .12em;
+}
+.figma-live-classroom-container .figma-live-pulse-dot {
+  box-shadow: 0 0 0 5px rgba(255, 75, 112, .13), 0 0 16px rgba(255, 75, 112, .85);
+}
+.figma-live-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, .78fr);
+  gap: 20px;
+  align-items: start;
+}
+.figma-left-stage-column, .figma-right-sidebar-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.figma-featured-video-card {
+  position: relative;
+  overflow: hidden;
+  padding: 8px;
+  border-radius: 24px;
+  background: linear-gradient(145deg, rgba(115, 92, 202, .23), rgba(26, 32, 65, .86));
+  border: 1px solid rgba(175, 160, 255, .25);
+  box-shadow: 0 20px 55px rgba(0, 0, 0, .25), inset 0 1px rgba(255,255,255,.08);
+}
+.figma-video-viewport-wrapper {
+  position: relative;
+  min-height: 300px;
+  overflow: hidden;
+  border-radius: 18px;
+  background: radial-gradient(ellipse at 50% 30%, #282a54 0%, #151932 48%, #090d1d 100%);
+}
+.figma-video-viewport-wrapper .livekit-participant-card {
+  border-radius: 18px;
+  border: 1px solid rgba(191, 178, 255, .18);
+  background: #10152d;
+}
+.figma-video-viewport-wrapper video,
+.figma-video-viewport-wrapper .participant-video-stream {
+  border-radius: inherit;
+  object-fit: cover;
+}
+.figma-live-classroom-container .tile-top-overlay { padding: 14px; }
+.figma-live-classroom-container .tile-bottom-overlay {
+  padding: 34px 14px 13px;
+  background: linear-gradient(transparent, rgba(5, 8, 23, .86));
+}
+.figma-live-classroom-container .participant-label-name {
+  color: #fff;
+  font-size: 13px;
+  font-weight: 650;
+}
+.figma-stage-floating-dock {
+  gap: 10px;
+  padding: 10px 13px;
+  border: 1px solid rgba(206, 195, 255, .24);
+  border-radius: 20px;
+  background: rgba(12, 16, 39, .78);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, .32), inset 0 1px rgba(255,255,255,.08);
+  backdrop-filter: blur(18px);
+}
+.figma-live-classroom-container .figma-dock-round-btn {
+  width: 44px;
+  height: 44px;
+  color: #f7f4ff;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(207, 198, 255, .15);
+  border-radius: 15px;
+  transition: transform .18s ease, background .18s ease, border-color .18s ease;
+}
+.figma-live-classroom-container .figma-dock-round-btn:hover {
+  transform: translateY(-2px);
+  background: rgba(139, 111, 255, .24);
+  border-color: rgba(195, 177, 255, .45);
+}
+.figma-live-classroom-container .figma-dock-round-btn.btn-danger-muted {
+  color: #ffb5c0;
+  background: rgba(239, 68, 101, .18);
+  border-color: rgba(255, 106, 130, .25);
+}
+.figma-participant-tiles-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.figma-live-classroom-container .figma-student-tile,
+.figma-live-classroom-container .livekit-participant-card {
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #202447, #12172f);
+  border: 1px solid rgba(180, 169, 255, .17);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, .16);
+}
+.figma-live-classroom-container .figma-participants-roster-card,
+.figma-live-classroom-container .figma-chats-card {
+  min-width: 0;
+  padding: 18px;
+  border-radius: 22px;
+  color: var(--ny-ink);
+  background: linear-gradient(145deg, rgba(27, 31, 66, .92), rgba(16, 20, 45, .96));
+  border: 1px solid var(--ny-line);
+  box-shadow: 0 14px 35px rgba(0, 0, 0, .18), inset 0 1px rgba(255,255,255,.035);
+}
+.figma-live-classroom-container .figma-roster-heading,
+.figma-live-classroom-container .figma-chats-heading { color: #f7f4ff; }
+.figma-live-classroom-container .figma-roster-count-badge {
+  color: #e4dcff;
+  background: rgba(139, 111, 255, .18);
+  border: 1px solid rgba(175, 153, 255, .16);
+}
+.figma-live-classroom-container .figma-participant-item {
+  background: rgba(255,255,255,.035);
+  border-color: rgba(181,169,255,.10);
+  border-radius: 14px;
+}
+.figma-live-classroom-container .figma-participant-item:hover {
+  background: rgba(139,111,255,.12);
+  border-color: rgba(181,169,255,.25);
+}
+.figma-live-classroom-container .figma-item-name { color: #f4f1ff; }
+.figma-live-classroom-container .figma-item-status { color: #aaa9ca; }
+.figma-live-classroom-container .figma-media-pill {
+  color: #d8ceff;
+  background: rgba(139,111,255,.17);
+}
+.figma-live-classroom-container .figma-media-pill.active {
+  color: #6ee7b7;
+  background: rgba(16,185,129,.13);
+}
+.figma-live-classroom-container .figma-media-pill.muted {
+  color: #fda4af;
+  background: rgba(244,63,94,.14);
+}
+.figma-live-classroom-container .figma-chats-stream {
+  max-height: 340px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(160,140,255,.42) transparent;
+}
+.figma-live-classroom-container .figma-chat-bubble-wrap.received .figma-chat-bubble {
+  color: #eeebff;
+  background: rgba(255,255,255,.075);
+  border: 1px solid rgba(181,169,255,.08);
+}
+.figma-live-classroom-container .figma-chat-bubble-wrap.sent .figma-chat-bubble {
+  background: linear-gradient(135deg, #8065ef, #6546d7);
+  box-shadow: 0 5px 18px rgba(101,70,215,.22);
+}
+.figma-live-classroom-container .figma-chat-input-form {
+  background: rgba(7, 11, 29, .68);
+  border-color: rgba(181,169,255,.20);
+}
+.figma-live-classroom-container .figma-chat-input { color: #fff; }
+.figma-live-classroom-container .figma-chat-input::placeholder { color: #9695b7; }
+.figma-live-classroom-container .figma-chat-send-btn {
+  background: linear-gradient(135deg, #9a80ff, #6749dd);
+}
+@media (max-width: 980px) {
+  .figma-live-main-grid { grid-template-columns: minmax(0, 1fr); }
+  .figma-right-sidebar-column { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .figma-video-viewport-wrapper { min-height: 280px; }
+  .figma-live-classroom-container .figma-chats-stream { max-height: 260px; }
+}
+@media (max-width: 620px) {
+  .figma-live-classroom-container {
+    padding: 10px;
+    border-radius: 18px;
+    margin: 0;
+  }
+  .figma-live-class-header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 14px;
+    margin-bottom: 14px;
+  }
+  .figma-live-main-grid { gap: 14px; }
+  .figma-featured-video-card { padding: 5px; border-radius: 18px; }
+  .figma-video-viewport-wrapper { min-height: 230px; border-radius: 14px; }
+  .figma-stage-floating-dock {
+    gap: 6px;
+    padding: 7px;
+    border-radius: 16px;
+    max-width: calc(100% - 16px);
+  }
+  .figma-live-classroom-container .figma-dock-round-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+  .figma-participant-tiles-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .figma-right-sidebar-column { display: flex; }
+  .figma-live-classroom-container .figma-participants-roster-card,
+  .figma-live-classroom-container .figma-chats-card { padding: 14px; border-radius: 18px; }
+  .figma-live-classroom-container .figma-roster-list { max-height: 210px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .figma-live-classroom-container *,
+  .figma-live-classroom-container *::before,
+  .figma-live-classroom-container *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

@@ -831,7 +831,7 @@ export default function App() {
                   <div className="h-4 w-px bg-white/20 hidden sm:block"></div>
                   <div className="flex items-center gap-2">
                     <span className="live-indicator-dot animate-pulse"></span>
-                    <span className="font-black text-sm tracking-wide text-white">
+                    <span className="live-studio-heading-title font-black text-sm sm:text-base tracking-wide text-white">
                       {lang === 'ta' ? 'நேரலை யோகா வகுப்பறை' : 'Live Yoga Studio'}
                     </span>
                     <span className="badge-private-hd">HD WebRTC</span>
@@ -839,7 +839,7 @@ export default function App() {
                 </div>
 
                 <div className="flex items-center gap-2 ml-auto">
-                  <span className="text-xs text-white/70 font-semibold hidden sm:inline">
+                  <span className="studio-class-label text-xs text-[#E2D9F3] font-bold hidden sm:inline">
                     {lang === 'ta' ? 'வகுப்பு:' : 'Class:'}
                   </span>
                   <select

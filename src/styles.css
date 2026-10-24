@@ -8436,49 +8436,139 @@ button:active,
 }
 
 /* ==========================================================================
-   Clean & Accessible Live Studio Lobby & Share Modal
+   Live Class Dedicated Premium Dark-Purple Theme & Modal System
    ========================================================================== */
-.livekit-lobby-card {
-  background: var(--bg-card, #FFFFFF);
-  color: var(--text-heading, #29233D);
-  border: 1px solid var(--border-color, #EAE3F2);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 620px;
-  box-sizing: border-box;
-  transition: all 0.2s ease;
+.dedicated-live-class-viewport {
+  background: #0B0819 !important;
+  color: #FFFFFF !important;
+  min-height: 100vh;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
 }
 
-[data-theme="dark"] .livekit-lobby-card {
-  background: #181428;
-  border-color: rgba(155, 122, 232, 0.25);
-  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+.live-studio-premium-frame {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 20px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #231647 0%, #170E30 100%) !important;
+  border: 1.5px solid rgba(167, 139, 250, 0.35) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
 }
 
-.livekit-lobby-card .lobby-headline {
-  color: var(--text-heading, #29233D);
+.live-studio-premium-frame .live-studio-heading-title {
+  color: #FFFFFF !important;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
-[data-theme="dark"] .livekit-lobby-card .lobby-headline {
+.live-studio-premium-frame .studio-class-label {
+  color: #E2D9F3 !important;
+  font-weight: 700;
+}
+
+.studio-class-dropdown {
+  background: #120B26 !important;
+  border: 1.5px solid rgba(167, 139, 250, 0.45) !important;
+  color: #FFFFFF !important;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 12px;
+  padding: 8px 14px;
+  outline: none;
+  cursor: pointer;
+}
+
+.studio-class-dropdown option {
+  background: #1A1238;
   color: #FFFFFF;
 }
 
+/* Lobby Card - Consistent Luxury Dark Purple */
+.livekit-lobby-card {
+  background: linear-gradient(145deg, #1C143B 0%, #120D27 100%) !important;
+  border: 1.5px solid rgba(167, 139, 250, 0.3) !important;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.12) !important;
+  color: #FFFFFF !important;
+  border-radius: 28px !important;
+  padding: 36px 28px !important;
+  max-width: 620px;
+  margin: 16px auto;
+  box-sizing: border-box;
+}
+
+.livekit-lobby-card .lobby-headline {
+  color: #FFFFFF !important;
+  font-family: 'Poppins', sans-serif;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  margin-bottom: 8px;
+}
+
 .livekit-lobby-card .lobby-subtext {
-  color: var(--text-muted, #777184);
+  color: #C5BCDC !important;
+  font-size: 13px;
+  line-height: 1.6;
+  max-width: 480px;
+  margin: 0 auto 24px;
 }
 
-[data-theme="dark"] .livekit-lobby-card .lobby-subtext {
-  color: #C5BCDC;
+/* Media Check Buttons (Mic & Cam Toggles) */
+.media-check-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
 }
 
-/* Share Modal Overlay & Card */
+.media-check-btn.active {
+  background: rgba(16, 185, 129, 0.18) !important;
+  border: 1.5px solid #10B981 !important;
+  color: #34D399 !important;
+  box-shadow: 0 4px 16px rgba(16, 185, 129, 0.25);
+}
+
+.media-check-btn.active svg {
+  color: #10B981 !important;
+}
+
+.media-check-btn.muted {
+  background: rgba(239, 68, 68, 0.18) !important;
+  border: 1.5px solid #EF4444 !important;
+  color: #F87171 !important;
+  box-shadow: 0 4px 16px rgba(239, 68, 68, 0.2);
+}
+
+.media-check-btn.muted svg {
+  color: #EF4444 !important;
+}
+
+.media-check-btn:hover {
+  transform: translateY(-1px);
+}
+
+.media-check-btn:active {
+  transform: translateY(1px);
+}
+
+/* Live Share Modal Redesign */
 .live-share-modal-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
-  background: rgba(15, 12, 24, 0.75);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  background: rgba(7, 5, 16, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -8488,35 +8578,361 @@ button:active,
 }
 
 .live-share-modal-card {
-  background: var(--bg-card, #FFFFFF);
-  color: var(--text-heading, #29233D);
-  border: 1px solid var(--border-color, #EAE3F2);
+  background: linear-gradient(155deg, #1E153E 0%, #130D29 100%) !important;
+  color: #FFFFFF !important;
+  border: 1.5px solid rgba(167, 139, 250, 0.35) !important;
   border-radius: 28px;
   width: 100%;
   max-width: 480px;
+  max-height: 90vh;
+  overflow-y: auto;
   box-sizing: border-box;
-  padding: 24px;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+  padding: 26px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7), inset 0 1px 0 rgba(255, 255, 255, 0.15);
   animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-[data-theme="dark"] .live-share-modal-card {
-  background: #1E1833;
-  border-color: rgba(155, 122, 232, 0.3);
+.modal-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.modal-header-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.modal-header-icon-box {
+  width: 42px;
+  height: 42px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #7C3AED 0%, #9333EA 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   color: #FFFFFF;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
+  flex-shrink: 0;
 }
 
-.figma-share-link-pill-btn {
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+.modal-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  margin: 0;
+  line-height: 1.25;
 }
 
-.figma-share-link-pill-btn:hover {
+.modal-subtitle {
+  font-size: 12px;
+  color: #C5BCDC !important;
+  margin: 3px 0 0 0;
+}
+
+.modal-close-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: #C5BCDC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.modal-close-btn:hover {
+  background: rgba(255, 255, 255, 0.16);
+  color: #FFFFFF;
+}
+
+.modal-class-info-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  border-radius: 18px;
+  background: rgba(124, 58, 237, 0.12);
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.modal-class-info-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.modal-info-label {
+  font-size: 11px;
+  color: #C5BCDC !important;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.modal-class-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.modal-instructor-text {
+  font-size: 12px;
+  color: #DDD6FE !important;
+}
+
+.modal-instructor-text strong {
+  color: #FFFFFF !important;
+}
+
+.modal-badge-container {
+  flex-shrink: 0;
+}
+
+.modal-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.modal-status-badge.badge-ready {
+  background: rgba(124, 58, 237, 0.35);
+  border: 1px solid rgba(167, 139, 250, 0.5);
+  color: #E2D9F3;
+}
+
+.modal-status-badge.badge-live {
+  background: rgba(16, 185, 129, 0.2);
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  color: #34D399;
+}
+
+.modal-pulse-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px #10B981;
+  animation: pulse-ring 1.8s infinite;
+}
+
+.modal-invite-section {
+  margin-bottom: 22px;
+}
+
+.modal-invite-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #E2D9F3 !important;
+  margin-bottom: 8px;
+}
+
+.modal-invite-field-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  background: #0E0921;
+  border: 1.5px solid rgba(167, 139, 250, 0.3);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.modal-invite-url-scroll {
+  flex: 1;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  color: #C4B5FD;
+  overflow-x: auto;
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.modal-invite-url-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.modal-copy-field-btn,
+.modal-copy-icon-btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: #7C3AED;
+  border: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.modal-copy-field-btn:hover,
+.modal-copy-icon-btn:hover {
+  background: #6D28D9;
+}
+
+.modal-copy-toast,
+.modal-copy-feedback-toast {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #34D399;
+  margin-top: 6px;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-actions-grid,
+.modal-actions-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modal-action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  text-decoration: none;
+  box-sizing: border-box;
+}
+
+.modal-action-btn.btn-whatsapp {
+  background: #059669;
+  color: #FFFFFF;
+  padding: 14px 20px;
+  box-shadow: 0 4px 14px rgba(5, 150, 105, 0.3);
+}
+
+.modal-action-btn.btn-whatsapp:hover {
+  background: #047857;
   transform: translateY(-1px);
 }
 
-.figma-share-link-pill-btn:active {
-  transform: translateY(1px);
+.modal-action-btn-row,
+.modal-secondary-actions-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-action-btn.btn-secondary-pill {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  color: #FFFFFF;
+  padding: 12px 16px;
+}
+
+.modal-action-btn.btn-secondary-pill:hover {
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.modal-action-btn.btn-continue-primary {
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%);
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 15px 22px;
+  box-shadow: 0 6px 20px rgba(124, 58, 237, 0.4);
+  margin-top: 4px;
+}
+
+.modal-action-btn.btn-continue-primary:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%);
+  transform: translateY(-1px);
+}
+
+/* Connected Room Head & Panels */
+.figma-live-classroom-container {
+  color: #FFFFFF !important;
+}
+
+.figma-live-class-header {
+  background: linear-gradient(135deg, #1E153E 0%, #140E2A 100%) !important;
+  border: 1.5px solid rgba(167, 139, 250, 0.28) !important;
+  color: #FFFFFF !important;
+}
+
+.figma-class-main-title {
+  color: #FFFFFF !important;
+  font-weight: 800;
+}
+
+.figma-instructor-name {
+  color: #C5BCDC !important;
+}
+
+.figma-instructor-name strong {
+  color: #FFFFFF !important;
+}
+
+.figma-time-remaining-card {
+  background: rgba(124, 58, 237, 0.22) !important;
+  border: 1px solid rgba(167, 139, 250, 0.38) !important;
+  color: #E2D9F3 !important;
+}
+
+.figma-time-remaining-card .time-val {
+  color: #34D399 !important;
+}
+
+.figma-share-link-pill-btn {
+  background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%) !important;
+  border: 1px solid rgba(167, 139, 250, 0.4) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+}
+
+.figma-participants-roster-card,
+.figma-chats-card {
+  background: #140E2A !important;
+  border: 1.5px solid rgba(167, 139, 250, 0.22) !important;
+  color: #FFFFFF !important;
+}
+
+.figma-roster-heading,
+.figma-chats-heading {
+  color: #FFFFFF !important;
+}
+
+.figma-participant-item .figma-item-name {
+  color: #FFFFFF !important;
+}
+
+.figma-participant-item .figma-item-status {
+  color: #C5BCDC !important;
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {

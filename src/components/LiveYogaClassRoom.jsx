@@ -314,6 +314,76 @@ export default function LiveYogaClassRoom({
     return activeClass?.id || 'live-session';
   });
   const [showShareModal, setShowShareModal] = useState(false);
+  const [sessionStage, setSessionStage] = useState('idle'); // 'idle' | 'ready' | 'connecting' | 'live' | 'ended'
+  const [isMediaLoading, setIsMediaLoading] = useState(false);
+  const [mediaErrorMsg, setMediaErrorMsg] = useState('');
+
+  // Hardware-aware Lobby Mic & Video Toggles
+  const handleLobbyToggleMic = async () => {
+    setMediaErrorMsg('');
+    if (isMicOn) {
+      setIsMicOn(false);
+      return;
+    }
+    setIsMediaLoading(true);
+    try {
+      if (!navigator?.mediaDevices?.getUserMedia) {
+        throw new Error(lang === 'ta' ? 'உங்கள் உலாவியில் மைக் ஆதரிக்கப்படவில்லை' : 'Audio capture not supported in this browser');
+      }
+      const testStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+      testStream.getTracks().forEach(t => t.stop());
+      setIsMicOn(true);
+      setMediaErrorMsg('');
+    } catch (err) {
+      setIsMicOn(false);
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        setMediaErrorMsg(lang === 'ta' 
+          ? 'மைக் அணுகல் மறுக்கப்பட்டது. உங்கள் உலாவி அமைப்புகளில் மைக்கை அனுமதிக்கவும்.' 
+          : 'Microphone permission denied. Please allow microphone access in browser settings.');
+      } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+        setMediaErrorMsg(lang === 'ta' 
+          ? 'மைக் சாதனம் எதுவும் கண்டறியப்படவில்லை.' 
+          : 'No microphone found on this device.');
+      } else {
+        setMediaErrorMsg(err.message || (lang === 'ta' ? 'மைக்கை இயக்குவதில் பிழை ஏற்பட்டது' : 'Failed to enable microphone'));
+      }
+    } finally {
+      setIsMediaLoading(false);
+    }
+  };
+
+  const handleLobbyToggleVideo = async () => {
+    setMediaErrorMsg('');
+    if (isVideoOn) {
+      setIsVideoOn(false);
+      return;
+    }
+    setIsMediaLoading(true);
+    try {
+      if (!navigator?.mediaDevices?.getUserMedia) {
+        throw new Error(lang === 'ta' ? 'உங்கள் உலாவியில் கேமரா ஆதரிக்கப்படவில்லை' : 'Video capture not supported in this browser');
+      }
+      const testStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+      testStream.getTracks().forEach(t => t.stop());
+      setIsVideoOn(true);
+      setMediaErrorMsg('');
+    } catch (err) {
+      setIsVideoOn(false);
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError') {
+        setMediaErrorMsg(lang === 'ta' 
+          ? 'கேமரா அணுகல் மறுக்கப்பட்டது. உங்கள் உலாவி அமைப்புகளில் கேமராவை அனுமதிக்கவும்.' 
+          : 'Camera permission denied. Please allow camera access in browser settings.');
+      } else if (err.name === 'NotFoundError' || err.name === 'DevicesNotFoundError') {
+        setMediaErrorMsg(lang === 'ta' 
+          ? 'கேமரா சாதனம் எதுவும் கண்டறியப்படவில்லை.' 
+          : 'No camera found on this device.');
+      } else {
+        setMediaErrorMsg(err.message || (lang === 'ta' ? 'கேமராவை இயக்குவதில் பிழை ஏற்பட்டது' : 'Failed to enable camera'));
+      }
+    } finally {
+      setIsMediaLoading(false);
+    }
+  };
 
   // Role: Teacher if authenticated token or trainer role; Student otherwise (strict role separation)
   const [isInstructorRole, setIsInstructorRole] = useState(() => {
@@ -892,6 +962,7 @@ export default function LiveYogaClassRoom({
 
           liveRoom.on(RoomEvent.Connected, () => {
             setConnectionState('connected');
+            setSessionStage('live');
             setStudioMode('livekit');
             setParticipants(Array.from(liveRoom.remoteParticipants.values()));
 
@@ -907,6 +978,7 @@ export default function LiveYogaClassRoom({
 
           liveRoom.on(RoomEvent.Disconnected, () => {
             setConnectionState('disconnected');
+            setSessionStage('ended');
             setParticipants([]);
           });
 
@@ -917,6 +989,7 @@ export default function LiveYogaClassRoom({
 
           liveRoom.on(RoomEvent.Reconnected, () => {
             setConnectionState('connected');
+            setSessionStage('live');
           });
 
           liveRoom.on(RoomEvent.ParticipantConnected, () => {
@@ -990,6 +1063,7 @@ export default function LiveYogaClassRoom({
         setLocalStream(stream);
         setStudioMode('webrtc');
         setConnectionState('connected');
+        setSessionStage('live');
 
         // Register participant in live roster
         if (!isInstructorRole) {
@@ -1017,6 +1091,7 @@ export default function LiveYogaClassRoom({
       } catch (fallbackErr) {
         console.error('Studio startup error:', fallbackErr);
         setConnectionState('error');
+        setSessionStage('idle');
         setErrorMessage(fallbackErr.message || 'Could not start yoga studio.');
       }
     }
@@ -1317,6 +1392,7 @@ export default function LiveYogaClassRoom({
     setLocalStream(null);
     setScreenStream(null);
     setConnectionState('disconnected');
+    setSessionStage('ended');
     if (onLeaveClass) onLeaveClass();
   };
 
@@ -1479,23 +1555,46 @@ export default function LiveYogaClassRoom({
   const handleStartNewClassSession = () => {
     const uniqueRoomId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
     setActiveRoomSessionId(uniqueRoomId);
-    connectToRoom(uniqueRoomId);
+    setSessionStage('ready');
     setShowShareModal(true);
   };
 
+  const handleContinueToClassroom = () => {
+    setShowShareModal(false);
+    setSessionStage('connecting');
+    if (connectionState !== 'connected' && connectionState !== 'connecting') {
+      connectToRoom(activeRoomSessionId);
+    }
+  };
+
   // Phase 4: Copy link with feedback
-  const handleCopyShareLink = () => {
+  const handleCopyShareLink = async () => {
     const url = getShareableClassLink();
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(url).then(() => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(url);
         setCopiedLink(true);
         setTimeout(() => setCopiedLink(false), 2500);
-      }).catch(() => {
-        prompt('Copy class link:', url);
-      });
-    } else {
-      prompt('Copy class link:', url);
-    }
+        return;
+      }
+    } catch (_) {}
+    try {
+      const input = document.createElement('textarea');
+      input.value = url;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.focus();
+      input.select();
+      const successful = document.execCommand('copy');
+      document.body.removeChild(input);
+      if (successful) {
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 2500);
+        return;
+      }
+    } catch (_) {}
+    prompt(lang === 'ta' ? 'நேரலை வகுப்பு லிங்க்:' : 'Live Class Link:', url);
   };
 
   // Phase 4: Share via WhatsApp
@@ -1506,7 +1605,7 @@ export default function LiveYogaClassRoom({
     const text = lang === 'ta'
       ? `🧘 *நித்யா யோகா நேரலை வகுப்பிற்கு உங்களை அன்புடன் அழைக்கிறோம்!*\n\nவகுப்பு: *${title}*\nபயிற்றுநர்: *${instructor}*\n\nமாணவர்கள் உடனடியாக நேரலை வகுப்பில் இணைய கீழே உள்ள லிங்கை கிளிக் செய்யவும்:\n${url}`
       : `🧘 *Join Live Yoga Class with NITHYA Yoga Studio*\n\nClass: *${title}*\nInstructor: *${instructor}*\n\nTap here to enter the live yoga room:\n${url}`;
-    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
   };
 
   const handleNativeShare = async () => {
@@ -1519,10 +1618,12 @@ export default function LiveYogaClassRoom({
           text: lang === 'ta' ? `🧘 நித்யா யோகா நேரலை வகுப்பில் இணையுங்கள்:` : `🧘 Join NITHYA Yoga Live Class:`,
           url
         });
-      } catch (_) {}
-    } else {
-      handleWhatsAppShare();
+        return;
+      } catch (err) {
+        if (err.name === 'AbortError') return;
+      }
     }
+    handleCopyShareLink();
   };
 
   // Phase 10 Test 12: Network drop & reconnect simulation
@@ -1698,23 +1799,24 @@ export default function LiveYogaClassRoom({
       {showShareModal && (
         <div className="live-share-modal-overlay" onClick={() => setShowShareModal(false)}>
           <div className="live-share-modal-card" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-500 to-purple-600 text-white flex items-center justify-center shadow-md shrink-0">
+            {/* Header: Title and Close button */}
+            <div className="modal-header-row">
+              <div className="modal-header-title-wrap">
+                <div className="modal-header-icon-box">
                   <Sparkles size={20} />
                 </div>
                 <div>
-                  <h3 className="font-bold text-base sm:text-lg text-[#29233D] dark:text-white leading-tight">
-                    {lang === 'ta' ? '🎉 புதிய நேரலை வகுப்பு லிங்க் தயார்!' : '🎉 Live Class Link Ready!'}
+                  <h3 className="modal-title">
+                    {lang === 'ta' ? '🎉 நேரலை வகுப்பு லிங்க் தயார்!' : '🎉 Live Class Link Ready!'}
                   </h3>
-                  <span className="text-[11px] text-[#777184] dark:text-[#C5BCDC]">
-                    {lang === 'ta' ? 'மாணவர்களுடன் பகிர்ந்து வகுப்பைத் தொடங்குங்கள்' : 'Share with students & start practicing'}
-                  </span>
+                  <p className="modal-subtitle">
+                    {lang === 'ta' ? 'மாணவர்களுடன் பகிரவும்' : 'Share the invitation with your students.'}
+                  </p>
                 </div>
               </div>
               <button
                 type="button"
-                className="w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center cursor-pointer transition-colors"
+                className="modal-close-btn"
                 onClick={() => setShowShareModal(false)}
                 aria-label="Close"
               >
@@ -1722,90 +1824,99 @@ export default function LiveYogaClassRoom({
               </button>
             </div>
 
-            {/* Class Details summary chip */}
-            <div className="p-3 rounded-2xl bg-violet-50/70 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900/40 mb-4 flex items-center justify-between">
-              <div>
-                <strong className="block text-xs font-bold text-[#29233D] dark:text-white">
+            {/* Class Details summary chip with accurate status badge */}
+            <div className="modal-class-info-card">
+              <div className="modal-class-info-meta">
+                <span className="modal-info-label">
+                  {lang === 'ta' ? 'யோகா வகுப்பு' : 'Yoga Class'}
+                </span>
+                <strong className="modal-class-title">
                   {activeClass?.title || activeClass?.name || 'Hatha Yoga Flow'}
                 </strong>
-                <span className="text-[11px] text-[#777184] dark:text-[#C5BCDC]">
-                  {lang === 'ta' ? 'பயிற்றுநர்:' : 'Instructor:'} {activeClass?.instructor || 'NITHYA Master'}
+                <span className="modal-instructor-text">
+                  {lang === 'ta' ? 'பயிற்றுநர்:' : 'Instructor:'} <strong>{activeClass?.instructor || 'NITHYA Master'}</strong>
                 </span>
               </div>
-              <span className="px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-violet-600 text-white">
-                LIVE
-              </span>
+              <div className="modal-badge-container">
+                <span className={`modal-status-badge ${(sessionStage === 'live' || connectionState === 'connected') ? 'badge-live' : 'badge-ready'}`}>
+                  {(sessionStage === 'live' || connectionState === 'connected') ? (
+                    <>
+                      <span className="modal-pulse-dot"></span>
+                      LIVE
+                    </>
+                  ) : (
+                    'READY'
+                  )}
+                </span>
+              </div>
             </div>
 
-            {/* Unique Link Box */}
-            <div className="mb-4">
-              <label className="block text-xs font-bold text-[#29233D] dark:text-white mb-1.5">
+            {/* Unique Link Monospace Box with Dedicated Copy Button */}
+            <div className="modal-invite-section">
+              <label className="modal-invite-label">
                 {lang === 'ta' ? '🔗 வகுப்புக்கான தனித்துவமான நேரலை லிங்க்:' : '🔗 Unique Live Invite Link:'}
               </label>
-              <div className="p-3 bg-slate-50 dark:bg-slate-900/70 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-mono text-violet-700 dark:text-violet-300 break-all select-all flex items-center justify-between gap-2">
-                <span className="truncate">{getShareableClassLink()}</span>
+              <div className="modal-invite-field-box">
+                <span className="modal-invite-url-scroll select-all font-mono">
+                  {getShareableClassLink()}
+                </span>
                 <button
                   type="button"
-                  className="shrink-0 p-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white cursor-pointer"
+                  className="modal-copy-field-btn"
                   onClick={handleCopyShareLink}
-                  title="Copy Link"
+                  title={lang === 'ta' ? 'லிங்க்கை நகலெடு' : 'Copy Link'}
+                  aria-label="Copy Link"
                 >
-                  {copiedLink ? <Check size={14} /> : <Copy size={14} />}
+                  {copiedLink ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
                 </button>
               </div>
               {copiedLink && (
-                <span className="block text-[11px] text-emerald-600 dark:text-emerald-400 font-bold mt-1">
-                  ✓ {lang === 'ta' ? 'லிங்க் நகலெடுக்கப்பட்டது!' : 'Link copied to clipboard!'}
+                <span className="modal-copy-toast">
+                  ✓ {lang === 'ta' ? 'லிங்க் வெற்றிகரமாக நகலெடுக்கப்பட்டது!' : 'Link copied successfully!'}
                 </span>
               )}
             </div>
 
-            {/* Action Buttons: WhatsApp & Copy & Mobile Share */}
-            <div className="flex flex-col gap-2.5 mb-5">
+            {/* 4 Action Buttons: WhatsApp, Copy, Native Share, Continue */}
+            <div className="modal-actions-grid">
               <button
                 type="button"
-                className="w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 cursor-pointer transition-all hover:scale-[1.01]"
+                className="modal-action-btn btn-whatsapp"
                 onClick={handleWhatsAppShare}
               >
                 <Share2 size={16} />
                 <span>{lang === 'ta' ? '🟢 WhatsApp-ல் மாணவர்களுக்கு பகிருங்கள்' : '🟢 Share with Students on WhatsApp'}</span>
               </button>
 
-              <div className="flex items-center gap-2">
+              <div className="modal-action-btn-row">
                 <button
                   type="button"
-                  className="flex-1 py-2.5 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 text-heading font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="modal-action-btn btn-secondary-pill"
                   onClick={handleCopyShareLink}
                 >
-                  {copiedLink ? <Check size={14} className="text-emerald-500" /> : <Copy size={14} />}
-                  <span>{copiedLink ? (lang === 'ta' ? 'காப்பி செய்யப்பட்டது!' : 'Copied!') : (lang === 'ta' ? 'லிங்க்கை காப்பி செய்' : 'Copy Link')}</span>
+                  {copiedLink ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                  <span>{copiedLink ? (lang === 'ta' ? 'நகலெடுக்கப்பட்டது!' : 'Copied!') : (lang === 'ta' ? 'லிங்க்கை காப்பி செய்' : 'Copy Link')}</span>
                 </button>
 
                 <button
                   type="button"
-                  className="flex-1 py-2.5 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 text-heading font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="modal-action-btn btn-secondary-pill"
                   onClick={handleNativeShare}
                 >
                   <Share2 size={14} />
-                  <span>{lang === 'ta' ? 'போனில் ஷேர் செய்' : 'Share Link'}</span>
+                  <span>{lang === 'ta' ? 'போனில் பகிரவும்' : 'Share Link'}</span>
                 </button>
               </div>
-            </div>
 
-            {/* Step 2 Primary Action: Continue into Live Room */}
-            <button
-              type="button"
-              className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-600 text-white font-black text-sm shadow-xl shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2 transition-all"
-              onClick={() => {
-                setShowShareModal(false);
-                if (connectionState !== 'connected' && connectionState !== 'connecting') {
-                  connectToRoom(activeRoomSessionId);
-                }
-              }}
-            >
-              <span>{lang === 'ta' ? '🚀 நேரலை வகுப்பிற்குள் செல் (Continue to Class)' : '🚀 Continue to Live Classroom'}</span>
-              <ArrowRight size={16} />
-            </button>
+              <button
+                type="button"
+                className="modal-action-btn btn-continue-primary"
+                onClick={handleContinueToClassroom}
+              >
+                <span>{lang === 'ta' ? '🚀 நேரலை வகுப்பிற்குள் செல் (Continue to Class)' : '🚀 Continue to Live Classroom'}</span>
+                <ArrowRight size={16} />
+              </button>
+            </div>
           </div>
         </div>
       )}
@@ -1825,49 +1936,61 @@ export default function LiveYogaClassRoom({
             <ThreeDLotus size={64} />
           </div>
 
+          {/* Media Permission Warning Banner if device or permission error */}
+          {mediaErrorMsg && (
+            <div className="flex items-center gap-2 p-3.5 mb-5 rounded-2xl bg-rose-950/60 border border-rose-500/50 text-rose-200 text-xs text-left max-w-md mx-auto shadow-lg animate-fadeIn">
+              <AlertCircle size={18} className="shrink-0 text-rose-400" />
+              <span className="flex-1 font-medium">{mediaErrorMsg}</span>
+              <button 
+                type="button" 
+                onClick={() => setMediaErrorMsg('')}
+                className="text-rose-400 hover:text-white p-1 cursor-pointer transition-colors"
+                aria-label="Dismiss error"
+              >
+                <X size={14} />
+              </button>
+            </div>
+          )}
+
           {isInstructorRole ? (
             /* Instructor / Master Host View */
             <div className="instructor-lobby-content">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-violet-100 dark:bg-violet-950/70 text-violet-700 dark:text-violet-200 text-xs font-bold mb-3 border border-violet-200 dark:border-violet-800/50">
-                <Crown size={14} className="text-amber-500" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-violet-950/70 text-violet-200 text-xs font-bold mb-3 border border-violet-800/50">
+                <Crown size={14} className="text-amber-400" />
                 <span>{lang === 'ta' ? 'நித்யா மாஸ்டர் - நேரலை கட்டுப்பாட்டு மையம்' : 'NITHYA Master - Host Studio'}</span>
               </div>
 
-              <h3 className="lobby-headline font-bold text-2xl text-[#29233D] dark:text-white mb-2 font-['Poppins']">
+              <h3 className="lobby-headline font-bold text-2xl text-white mb-2 font-['Poppins']">
                 {activeClass?.title || activeClass?.name || (lang === 'ta' ? 'ஹட யோகா ஃப்ளோ & ஆசனங்கள்' : 'Hatha Yoga Flow & Alignment')}
               </h3>
-              <p className="lobby-subtext text-xs sm:text-sm text-[#777184] dark:text-[#C5BCDC] mb-6 max-w-md mx-auto">
+              <p className="lobby-subtext text-xs sm:text-sm text-[#C5BCDC] mb-6 max-w-md mx-auto leading-relaxed">
                 {lang === 'ta'
-                  ? 'புதிய நேரலை வகுப்பைத் தொடங்க கீழே உள்ள பட்டனை அழுத்தவும். உங்களுக்கான புதிய தனித்துவமான லிங்க் உடனடியாக உருவாக்கப்பட்டு வாட்ஸ்அப்பில் பகிர தயாராகும்.'
+                  ? 'புதிய நேரலை வகுப்பைத் தொடங்க கீழே உள்ள பட்டனை அழுத்தவும். உங்களுக்கான புதிய தனித்துவமான லிங்க் உடனடியாக உருவாக்கப்பட்டு மாணவர்களுக்கு பகிர தயாராகும்.'
                   : 'Start a fresh live session with a unique student invite link. Check your camera and microphone below before going live.'}
               </p>
 
-              {/* Quick Media Check */}
+              {/* Hardware-Aware Media Check Toggles */}
               <div className="flex items-center justify-center gap-3 mb-6 flex-wrap">
                 <button
                   type="button"
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold cursor-pointer transition-all ${
-                    isMicOn 
-                      ? 'bg-emerald-50 border-emerald-300 text-emerald-700 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-300' 
-                      : 'bg-rose-50 border-rose-300 text-rose-700 dark:bg-rose-950/40 dark:border-rose-600 dark:text-rose-300'
-                  }`}
-                  onClick={() => setIsMicOn(!isMicOn)}
+                  className={`media-check-btn ${isMicOn ? 'active' : 'muted'}`}
+                  onClick={handleLobbyToggleMic}
+                  disabled={isMediaLoading}
+                  aria-label={isMicOn ? 'Turn Microphone Off' : 'Turn Microphone On'}
                 >
-                  {isMicOn ? <Mic size={15} /> : <MicOff size={15} />}
-                  <span>{isMicOn ? (lang === 'ta' ? 'மைக் ஆன்' : 'Mic On') : (lang === 'ta' ? 'மைக் ஆஃப்' : 'Mic Off')}</span>
+                  {isMediaLoading ? <RefreshCw size={15} className="animate-spin text-purple-400" /> : isMicOn ? <Mic size={15} /> : <MicOff size={15} />}
+                  <span>{isMediaLoading ? (lang === 'ta' ? 'சரிபார்க்கிறது...' : 'Checking...') : isMicOn ? (lang === 'ta' ? 'மைக் ஆன்' : 'Mic On') : (lang === 'ta' ? 'மைக் ஆஃப்' : 'Mic Off')}</span>
                 </button>
 
                 <button
                   type="button"
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold cursor-pointer transition-all ${
-                    isVideoOn 
-                      ? 'bg-emerald-50 border-emerald-300 text-emerald-700 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-300' 
-                      : 'bg-rose-50 border-rose-300 text-rose-700 dark:bg-rose-950/40 dark:border-rose-600 dark:text-rose-300'
-                  }`}
-                  onClick={() => setIsVideoOn(!isVideoOn)}
+                  className={`media-check-btn ${isVideoOn ? 'active' : 'muted'}`}
+                  onClick={handleLobbyToggleVideo}
+                  disabled={isMediaLoading}
+                  aria-label={isVideoOn ? 'Turn Camera Off' : 'Turn Camera On'}
                 >
-                  {isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
-                  <span>{isVideoOn ? (lang === 'ta' ? 'கேமரா ஆன்' : 'Camera On') : (lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off')}</span>
+                  {isMediaLoading ? <RefreshCw size={15} className="animate-spin text-purple-400" /> : isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
+                  <span>{isMediaLoading ? (lang === 'ta' ? 'சரிபார்க்கிறது...' : 'Checking...') : isVideoOn ? (lang === 'ta' ? 'கேமரா ஆன்' : 'Camera On') : (lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off')}</span>
                 </button>
               </div>
 
@@ -1888,7 +2011,7 @@ export default function LiveYogaClassRoom({
                 <button
                   type="button"
                   onClick={handleToggleRole}
-                  className="text-xs text-muted hover:text-heading underline cursor-pointer inline-flex items-center gap-1"
+                  className="text-xs text-[#C5BCDC] hover:text-white underline cursor-pointer inline-flex items-center gap-1 transition-colors"
                 >
                   <span>{lang === 'ta' ? 'மாணவர் பார்வையில் சோதிக்க வேண்டுமா? மாணவர் முறைக்கு மாறு' : 'Switch to Student View'}</span>
                 </button>
@@ -1897,46 +2020,42 @@ export default function LiveYogaClassRoom({
           ) : (
             /* Student Practitioner Pre-Join View */
             <div className="student-lobby-content">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-200 text-xs font-bold mb-3 border border-indigo-200 dark:border-indigo-800/50">
-                <Users size={14} className="text-indigo-500" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/70 text-indigo-200 text-xs font-bold mb-3 border border-indigo-800/50">
+                <Users size={14} className="text-indigo-400" />
                 <span>{lang === 'ta' ? 'மாணவர் நேரலை யோகா வகுப்பறை' : 'Live Yoga Practitioner Session'}</span>
               </div>
 
-              <h3 className="lobby-headline font-bold text-2xl text-[#29233D] dark:text-white mb-2 font-['Poppins']">
+              <h3 className="lobby-headline font-bold text-2xl text-white mb-2 font-['Poppins']">
                 {activeClass?.title || activeClass?.name || (lang === 'ta' ? 'ஹட யோகா ஃப்ளோ & ஆசனங்கள்' : 'Hatha Yoga Flow & Alignment')}
               </h3>
-              <p className="lobby-subtext text-xs sm:text-sm text-[#777184] dark:text-[#C5BCDC] mb-6 max-w-md mx-auto">
+              <p className="lobby-subtext text-xs sm:text-sm text-[#C5BCDC] mb-6 max-w-md mx-auto leading-relaxed">
                 {lang === 'ta'
                   ? `பயிற்றுநர் ${activeClass?.instructor || 'நித்யா மாஸ்டர்'} அவர்களின் வழிகாட்டுதலில் நேரலை வகுப்பில் இணையுங்கள். உங்கள் கேமரா மற்றும் மைக்கை கீழே சரிபார்க்கவும்.`
                   : `Join certified master ${activeClass?.instructor || 'NITHYA Master'} in live yoga practice. Check your media settings below.`}
               </p>
 
-              {/* Quick Media Check */}
+              {/* Hardware-Aware Media Check Toggles */}
               <div className="flex items-center justify-center gap-3 mb-6 flex-wrap">
                 <button
                   type="button"
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold cursor-pointer transition-all ${
-                    isMicOn 
-                      ? 'bg-emerald-50 border-emerald-300 text-emerald-700 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-300' 
-                      : 'bg-rose-50 border-rose-300 text-rose-700 dark:bg-rose-950/40 dark:border-rose-600 dark:text-rose-300'
-                  }`}
-                  onClick={() => setIsMicOn(!isMicOn)}
+                  className={`media-check-btn ${isMicOn ? 'active' : 'muted'}`}
+                  onClick={handleLobbyToggleMic}
+                  disabled={isMediaLoading}
+                  aria-label={isMicOn ? 'Turn Microphone Off' : 'Turn Microphone On'}
                 >
-                  {isMicOn ? <Mic size={15} /> : <MicOff size={15} />}
-                  <span>{isMicOn ? (lang === 'ta' ? 'மைக் ஆன்' : 'Mic On') : (lang === 'ta' ? 'மைக் ஆஃப்' : 'Mic Muted')}</span>
+                  {isMediaLoading ? <RefreshCw size={15} className="animate-spin text-purple-400" /> : isMicOn ? <Mic size={15} /> : <MicOff size={15} />}
+                  <span>{isMediaLoading ? (lang === 'ta' ? 'சரிபார்க்கிறது...' : 'Checking...') : isMicOn ? (lang === 'ta' ? 'மைக் ஆன்' : 'Mic On') : (lang === 'ta' ? 'மைக் ஆஃப்' : 'Mic Muted')}</span>
                 </button>
 
                 <button
                   type="button"
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold cursor-pointer transition-all ${
-                    isVideoOn 
-                      ? 'bg-emerald-50 border-emerald-300 text-emerald-700 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-300' 
-                      : 'bg-rose-50 border-rose-300 text-rose-700 dark:bg-rose-950/40 dark:border-rose-600 dark:text-rose-300'
-                  }`}
-                  onClick={() => setIsVideoOn(!isVideoOn)}
+                  className={`media-check-btn ${isVideoOn ? 'active' : 'muted'}`}
+                  onClick={handleLobbyToggleVideo}
+                  disabled={isMediaLoading}
+                  aria-label={isVideoOn ? 'Turn Camera Off' : 'Turn Camera On'}
                 >
-                  {isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
-                  <span>{isVideoOn ? (lang === 'ta' ? 'கேமரா ஆன்' : 'Camera On') : (lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off')}</span>
+                  {isMediaLoading ? <RefreshCw size={15} className="animate-spin text-purple-400" /> : isVideoOn ? <VideoIcon size={15} /> : <VideoOff size={15} />}
+                  <span>{isMediaLoading ? (lang === 'ta' ? 'சரிபார்க்கிறது...' : 'Checking...') : isVideoOn ? (lang === 'ta' ? 'கேமரா ஆன்' : 'Camera On') : (lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off')}</span>
                 </button>
               </div>
 
@@ -1957,7 +2076,7 @@ export default function LiveYogaClassRoom({
                 <button
                   type="button"
                   onClick={handleToggleRole}
-                  className="text-xs text-muted hover:text-heading underline cursor-pointer inline-flex items-center gap-1"
+                  className="text-xs text-[#C5BCDC] hover:text-white underline cursor-pointer inline-flex items-center gap-1 transition-colors"
                 >
                   <span>{lang === 'ta' ? 'பயிற்றுநரா? மாஸ்டர் முறைக்கு மாறுக' : 'Trainer? Switch to Master Host Mode'}</span>
                 </button>
@@ -1969,14 +2088,14 @@ export default function LiveYogaClassRoom({
 
       {/* State 2: CONNECTING / LOADING */}
       {connectionState === 'connecting' && (
-        <div className="livekit-loading-state p-12 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-[#EAE3F2] shadow-xl">
+        <div className="livekit-loading-state p-12 text-center max-w-md mx-auto my-12 bg-gradient-to-b from-[#1E153E] to-[#120D27] text-white rounded-3xl border border-violet-500/30 shadow-2xl">
           <div className="spinner-lotus-wrap flex justify-center mb-4">
             <ThreeDLotus size={56} />
           </div>
-          <h4 className="loading-title font-bold text-lg text-[#29233D] mb-2 font-['Poppins']">
+          <h4 className="loading-title font-bold text-lg text-white mb-2 font-['Poppins']">
             {lang === 'ta' ? 'யோகா ஸ்டுடியோவுடன் இணைகிறது...' : 'Connecting to Live Studio...'}
           </h4>
-          <p className="loading-sub text-xs text-[#777184]">
+          <p className="loading-sub text-xs text-[#C5BCDC]">
             {lang === 'ta' ? 'பாதுகாப்பான வீடியோ பரிமாற்றம் தொடங்குகிறது...' : 'Negotiating secure WebRTC channels & connecting live feed...'}
           </p>
         </div>
@@ -1984,20 +2103,20 @@ export default function LiveYogaClassRoom({
 
       {/* State 3: ERROR STATE */}
       {connectionState === 'error' && (
-        <div className="livekit-error-state p-8 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-rose-200 shadow-xl">
-          <AlertCircle size={42} className="error-icon text-rose-500 mx-auto mb-3" />
-          <h4 className="error-heading font-bold text-lg text-[#29233D] mb-2">
+        <div className="livekit-error-state p-8 text-center max-w-md mx-auto my-12 bg-gradient-to-b from-[#1E153E] to-[#120D27] text-white rounded-3xl border border-rose-500/40 shadow-2xl">
+          <AlertCircle size={42} className="error-icon text-rose-400 mx-auto mb-3" />
+          <h4 className="error-heading font-bold text-lg text-white mb-2">
             {lang === 'ta' ? 'இணைப்பு தோல்வி' : 'Connection Failed'}
           </h4>
-          <p className="error-detail-text text-xs text-[#777184] mb-6">{errorMessage}</p>
+          <p className="error-detail-text text-xs text-[#C5BCDC] mb-6">{errorMessage || (lang === 'ta' ? 'மீண்டும் முயற்சிக்கவும் அல்லது வகுப்பறை அமைப்புகளை சரிபார்க்கவும்.' : 'Please verify camera permissions or retry.')}</p>
           <div className="flex justify-center gap-3">
             <button
               type="button"
-              className="px-4 py-2 rounded-xl bg-[#9B7AE8] text-white font-bold text-xs cursor-pointer flex items-center gap-2"
-              onClick={connectToRoom}
+              className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#9B7AE8] to-[#7C3AED] text-white font-bold text-xs cursor-pointer flex items-center gap-2 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all"
+              onClick={() => connectToRoom(activeRoomSessionId)}
             >
               <RefreshCw size={14} />
-              <span>Retry</span>
+              <span>{lang === 'ta' ? 'மீண்டும் முயற்சி செய்' : 'Retry Connection'}</span>
             </button>
           </div>
         </div>
@@ -2232,7 +2351,7 @@ export default function LiveYogaClassRoom({
                     </button>
                   </div>
 
-                  {/* Tool Menu Dropdown */}
+                  {/* Tool Menu Dropdown (Luxury Dark Purple) */}
                   {showToolMenu && (
                     <div
                       style={{
@@ -2240,11 +2359,11 @@ export default function LiveYogaClassRoom({
                         bottom: '72px',
                         left: '50%',
                         transform: 'translateX(-50%)',
-                        background: '#FFFFFF',
-                        border: '1px solid #EAE3F2',
+                        background: '#1C143B',
+                        border: '1.5px solid rgba(167, 139, 250, 0.3)',
                         borderRadius: '16px',
                         padding: '8px',
-                        boxShadow: '0 12px 32px rgba(100, 80, 160, 0.2)',
+                        boxShadow: '0 16px 40px rgba(0, 0, 0, 0.7)',
                         zIndex: 50,
                         display: 'flex',
                         flexDirection: 'column',
@@ -2258,11 +2377,11 @@ export default function LiveYogaClassRoom({
                           display: 'flex',
                           alignItems: 'center',
                           gap: '8px',
-                          padding: '8px 12px',
-                          borderRadius: '8px',
+                          padding: '10px 14px',
+                          borderRadius: '10px',
                           border: 'none',
-                          background: 'transparent',
-                          color: '#29233D',
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          color: '#FFFFFF',
                           fontSize: '12px',
                           fontWeight: 600,
                           cursor: 'pointer',
@@ -2273,7 +2392,7 @@ export default function LiveYogaClassRoom({
                           setShowToolMenu(false);
                         }}
                       >
-                        <SwitchCamera size={15} className="text-violet-500" />
+                        <SwitchCamera size={15} className="text-purple-400" />
                         <span>{cameraFacing === 'user' ? 'Switch to Rear Camera' : 'Switch to Front Camera'}</span>
                       </button>
 
@@ -2283,11 +2402,11 @@ export default function LiveYogaClassRoom({
                           display: 'flex',
                           alignItems: 'center',
                           gap: '8px',
-                          padding: '8px 12px',
-                          borderRadius: '8px',
+                          padding: '10px 14px',
+                          borderRadius: '10px',
                           border: 'none',
-                          background: 'transparent',
-                          color: '#29233D',
+                          background: 'rgba(255, 255, 255, 0.05)',
+                          color: '#FFFFFF',
                           fontSize: '12px',
                           fontWeight: 600,
                           cursor: 'pointer',
@@ -2298,7 +2417,7 @@ export default function LiveYogaClassRoom({
                           setShowToolMenu(false);
                         }}
                       >
-                        <FlipHorizontal size={15} className="text-violet-500" />
+                        <FlipHorizontal size={15} className="text-purple-400" />
                         <span>{isMirrored ? 'Disable Mirror View' : 'Enable Natural Mirror'}</span>
                       </button>
 
@@ -2309,11 +2428,11 @@ export default function LiveYogaClassRoom({
                             display: 'flex',
                             alignItems: 'center',
                             gap: '8px',
-                            padding: '8px 12px',
-                            borderRadius: '8px',
+                            padding: '10px 14px',
+                            borderRadius: '10px',
                             border: 'none',
-                            background: 'transparent',
-                            color: '#29233D',
+                            background: 'rgba(255, 255, 255, 0.05)',
+                            color: '#FFFFFF',
                             fontSize: '12px',
                             fontWeight: 600,
                             cursor: 'pointer',
@@ -2324,7 +2443,7 @@ export default function LiveYogaClassRoom({
                             setShowToolMenu(false);
                           }}
                         >
-                          <Settings size={15} className="text-violet-500" />
+                          <Settings size={15} className="text-purple-400" />
                           <span>Server Credentials</span>
                         </button>
                       )}
@@ -2652,13 +2771,13 @@ export default function LiveYogaClassRoom({
             {/* Right Column (Meeting Participants & Chats Cards) */}
             <div className="figma-right-sidebar-column">
               {/* Tab Selector: Participants (Default) / Chats */}
-              <div className="flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-800/80 rounded-2xl mb-3">
+              <div className="flex items-center gap-1.5 p-1 bg-[#1C143B] border border-violet-500/20 rounded-2xl mb-3">
                 <button
                   type="button"
                   className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     activeSidebarTab === 'participants'
-                      ? 'bg-white dark:bg-slate-700 text-[#29233D] dark:text-white shadow-sm'
-                      : 'text-[#777184] hover:text-[#29233D]'
+                      ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md'
+                      : 'text-[#C5BCDC] hover:text-white'
                   }`}
                   onClick={() => setActiveSidebarTab('participants')}
                 >
@@ -2669,8 +2788,8 @@ export default function LiveYogaClassRoom({
                   type="button"
                   className={`flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
                     activeSidebarTab === 'chat'
-                      ? 'bg-white dark:bg-slate-700 text-[#29233D] dark:text-white shadow-sm'
-                      : 'text-[#777184] hover:text-[#29233D]'
+                      ? 'bg-gradient-to-r from-violet-600 to-purple-600 text-white shadow-md'
+                      : 'text-[#C5BCDC] hover:text-white'
                   }`}
                   onClick={() => setActiveSidebarTab('chat')}
                 >
@@ -2781,10 +2900,10 @@ export default function LiveYogaClassRoom({
                   {realStudentsList.length === 0 && (
                     <div className="figma-roster-empty-notice" style={{ padding: '24px 16px', textAlign: 'center' }}>
                       <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>🧘‍♀️</div>
-                      <div style={{ fontWeight: 600, fontSize: '0.86rem', color: 'var(--heading, #29233D)', marginBottom: '4px' }}>
+                      <div style={{ fontWeight: 700, fontSize: '0.88rem', color: '#FFFFFF', marginBottom: '4px' }}>
                         {lang === 'ta' ? 'மாணவர்கள் யாரும் இன்னும் இணையவில்லை (0)' : 'No students joined yet (0)'}
                       </div>
-                      <p style={{ margin: 0, fontSize: '0.76rem', color: 'var(--subtle, #777184)', lineHeight: 1.4 }}>
+                      <p style={{ margin: 0, fontSize: '0.76rem', color: '#C5BCDC', lineHeight: 1.4 }}>
                         {lang === 'ta'
                           ? 'மாணவர்கள் லிங்க்கைப் பயன்படுத்தி அல்லது மொபைல் எண் மூலம் இணைந்ததும் இங்கு தோன்றுவர்.'
                           : 'Students will appear here live once they register and join the room.'}

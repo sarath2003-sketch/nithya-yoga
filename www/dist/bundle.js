@@ -25678,8 +25678,8 @@
   var APP_VERSION, APP_BUILD_NUMBER;
   var init_versionManager = __esm({
     "src/utils/versionManager.js"() {
-      APP_VERSION = "1.4.0";
-      APP_BUILD_NUMBER = 7;
+      APP_VERSION = "1.4.1";
+      APP_BUILD_NUMBER = 8;
     }
   });
 
@@ -27200,34 +27200,51 @@
     };
     const studentInviteUrl = getProductionLiveUrl(activeClass?.id || "cls-1", { join: "student" });
     const handleCopyLiveLink = () => {
-      if (sessionStatus !== "live") return;
-      navigator.clipboard.writeText(studentInviteUrl).then(() => {
-        setCopiedLink(true);
-        setTimeout(() => setCopiedLink(false), 2500);
-        if (showToast) {
-          showToast(lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Link Copied", studentInviteUrl, "success");
-        }
-      }).catch(() => {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(studentInviteUrl).then(() => {
+          setCopiedLink(true);
+          setTimeout(() => setCopiedLink(false), 2500);
+          if (showToast) {
+            showToast(lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Link Copied \u2713", studentInviteUrl, "success");
+          }
+        }).catch(() => {
+          prompt("Student Join Link:", studentInviteUrl);
+        });
+      } else {
         prompt("Student Join Link:", studentInviteUrl);
-      });
+      }
     };
     const handleWhatsAppShare = () => {
-      if (sessionStatus !== "live") return;
       const className = activeClass?.title || activeClass?.name || "Live Yoga Class";
       const text = encodeURIComponent(
-        lang === "ta" ? `\u{1F9D8}\u200D\u2640\uFE0F NITHYA Yoga \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!
+        lang === "ta" ? `\u{1F9D8}\u200D\u2640\uFE0F NITHYA Yoga \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1!
 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1: ${className}
 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD: ${activeClass?.instructor || "NITHYA Master"}
 
 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B87\u0BA8\u0BCD\u0BA4 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BB5\u0BC1\u0BAE\u0BCD:
-${studentInviteUrl}` : `\u{1F9D8}\u200D\u2640\uFE0F NITHYA Yoga Live Class is NOW LIVE!
+${studentInviteUrl}` : `\u{1F9D8}\u200D\u2640\uFE0F NITHYA Yoga Live Class!
 Class: ${className}
 Instructor: ${activeClass?.instructor || "NITHYA Master"}
 
-Join the live session as a student:
+Join the live yoga session as a student:
 ${studentInviteUrl}`
       );
       window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+    };
+    const handleNativeShare = async () => {
+      const className = activeClass?.title || activeClass?.name || "Live Yoga Class";
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: `NITHYA Yoga: ${className}`,
+            text: lang === "ta" ? `\u{1F9D8}\u200D\u2640\uFE0F \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD:` : `\u{1F9D8}\u200D\u2640\uFE0F Join NITHYA Yoga Live Class:`,
+            url: studentInviteUrl
+          });
+        } catch (_2) {
+        }
+      } else {
+        handleWhatsAppShare();
+      }
     };
     const handleVerifyAttendance = () => {
       const studentSession = (() => {
@@ -27343,14 +27360,15 @@ ${studentInviteUrl}`
         onClick: handleResetSession
       },
       /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u{1F504} \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8" : "\u{1F504} Reset for New Session")
-    ) : /* @__PURE__ */ import_react11.default.createElement("div", { className: "session-ended-notice" }, /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u{1F3C1} \u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1." : "\u{1F3C1} This session has ended.")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-roles-card-grid" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-role-card instructor-card" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-card-top" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-avatar-circle crown-gold" }, /* @__PURE__ */ import_react11.default.createElement(Crown, { size: 16 })), /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-meta" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-name" }, instructorName), /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-label" }, lang === "ta" ? "\u0BA4\u0BB2\u0BC8\u0BAE\u0BC8 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Lead Instructor"))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-status-indicators" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `status-pill ${isMicOn ? "ready" : "off"}` }, /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 11 }), " ", isMicOn ? "Mic On" : "Muted"), /* @__PURE__ */ import_react11.default.createElement("span", { className: `status-pill ${isVideoOn ? "ready" : "off"}` }, /* @__PURE__ */ import_react11.default.createElement(Video, { size: 11 }), " ", isVideoOn ? "Cam On" : "Off"))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-role-card student-card" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-card-top" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-avatar-circle student-teal" }, /* @__PURE__ */ import_react11.default.createElement(User, { size: 16 })), /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-meta" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-name" }, studentDisplayName), /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-label" }, isInstructorRole ? lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF (Host)" : "Host Account" : lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Enrolled Student"))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-status-indicators" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "status-pill ready" }, /* @__PURE__ */ import_react11.default.createElement(ShieldCheck, { size: 11 }), " ", sessionStatus === "live" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BA3\u0BC1\u0B95\u0BB2\u0BCD" : "Live Access" : lang === "ta" ? "\u0BA4\u0BAF\u0BBE\u0BB0\u0BCD \u0BA8\u0BBF\u0BB2\u0BC8" : "Standby")))), sessionStatus === "live" && /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-invitation-card ya-reveal" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "invitation-card-head" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "invitation-icon" }, "\u{1F517}"), /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("h4", { className: "invitation-title" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD" : "Student Class Invitation Link"), /* @__PURE__ */ import_react11.default.createElement("p", { className: "invitation-sub" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B85\u0BA3\u0BC1\u0B95\u0BB2\u0BC8 \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BC7 \u0B95\u0BCA\u0BA3\u0BCD\u0B9F\u0BA4\u0BC1 (\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0BA9\u0BA4\u0BC1)." : "Student access link only. Secure & credential-free."))), /* @__PURE__ */ import_react11.default.createElement("span", { className: "badge-student-only" }, "Student Role Only")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "invitation-input-bar" }, /* @__PURE__ */ import_react11.default.createElement(
+    ) : /* @__PURE__ */ import_react11.default.createElement("div", { className: "session-ended-notice" }, /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u{1F3C1} \u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1." : "\u{1F3C1} This session has ended.")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-roles-card-grid" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-role-card instructor-card" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-card-top" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-avatar-circle crown-gold" }, /* @__PURE__ */ import_react11.default.createElement(Crown, { size: 16 })), /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-meta" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-name" }, instructorName), /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-label" }, lang === "ta" ? "\u0BA4\u0BB2\u0BC8\u0BAE\u0BC8 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Lead Instructor"))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-status-indicators" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: `status-pill ${isMicOn ? "ready" : "off"}` }, /* @__PURE__ */ import_react11.default.createElement(Mic, { size: 11 }), " ", isMicOn ? "Mic On" : "Muted"), /* @__PURE__ */ import_react11.default.createElement("span", { className: `status-pill ${isVideoOn ? "ready" : "off"}` }, /* @__PURE__ */ import_react11.default.createElement(Video, { size: 11 }), " ", isVideoOn ? "Cam On" : "Off"))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-role-card student-card" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-card-top" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-avatar-circle student-teal" }, /* @__PURE__ */ import_react11.default.createElement(User, { size: 16 })), /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-meta" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-name" }, studentDisplayName), /* @__PURE__ */ import_react11.default.createElement("span", { className: "role-label" }, isInstructorRole ? lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF (Host)" : "Host Account" : lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Enrolled Student"))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "role-status-indicators" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "status-pill ready" }, /* @__PURE__ */ import_react11.default.createElement(ShieldCheck, { size: 11 }), " ", sessionStatus === "live" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BA3\u0BC1\u0B95\u0BB2\u0BCD" : "Live Access" : lang === "ta" ? "\u0BA4\u0BAF\u0BBE\u0BB0\u0BCD \u0BA8\u0BBF\u0BB2\u0BC8" : "Standby")))), /* @__PURE__ */ import_react11.default.createElement("div", { className: "live-invitation-card ya-reveal" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "invitation-card-head" }, /* @__PURE__ */ import_react11.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react11.default.createElement("span", { className: "invitation-icon" }, "\u{1F517}"), /* @__PURE__ */ import_react11.default.createElement("div", null, /* @__PURE__ */ import_react11.default.createElement("h4", { className: "invitation-title" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD" : "Student Class Invitation Link"), /* @__PURE__ */ import_react11.default.createElement("p", { className: "invitation-sub" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B8E\u0BB3\u0BBF\u0BA4\u0BBE\u0B95 \u0B87\u0BA3\u0BC8\u0BAF \u0B87\u0BA8\u0BCD\u0BA4 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BAA\u0B95\u0BBF\u0BB0\u0BCD\u0BA4\u0BB2\u0BCD \u0BAE\u0BC2\u0BB2\u0BAE\u0BCD \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BB2\u0BBE\u0BAE\u0BCD." : "Direct student access link. Students join without trainer credentials."))), /* @__PURE__ */ import_react11.default.createElement("span", { className: "badge-student-only" }, "Student Role Only")), /* @__PURE__ */ import_react11.default.createElement("div", { className: "invitation-input-bar" }, /* @__PURE__ */ import_react11.default.createElement(
       "input",
       {
         type: "text",
         readOnly: true,
         value: studentInviteUrl,
         className: "invitation-url-field",
-        title: "Student Join URL"
+        title: "Student Join URL",
+        onClick: (e2) => e2.target.select()
       }
     ), /* @__PURE__ */ import_react11.default.createElement("div", { className: "invitation-action-buttons" }, /* @__PURE__ */ import_react11.default.createElement(
       "button",
@@ -27371,6 +27389,16 @@ ${studentInviteUrl}`
         title: "Share via WhatsApp"
       },
       /* @__PURE__ */ import_react11.default.createElement("span", null, "\u{1F4F2} WhatsApp")
+    ), /* @__PURE__ */ import_react11.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-invite-share",
+        onClick: handleNativeShare,
+        title: "Share Link"
+      },
+      /* @__PURE__ */ import_react11.default.createElement(Share2, { size: 13 }),
+      /* @__PURE__ */ import_react11.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0B95\u0BBF\u0BB0\u0BCD" : "Share")
     )))));
   }
   var import_react11;
@@ -29095,7 +29123,7 @@ ${studentInviteUrl}`
       }
     ))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-edit-actions-row" }, /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setIsEditing(false) }, lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel"), /* @__PURE__ */ import_react18.default.createElement("button", { type: "submit", className: "btn-modal-save" }, /* @__PURE__ */ import_react18.default.createElement(Check, { size: 14 }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD (Submit)" : "Save / Submit")))) : (
       /* Tab Content Switching */
-      activeTab === "Settings" ? /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-settings-view flex flex-col gap-4 p-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col gap-3" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold" }, "\u{1F680}"), /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "text-xs font-black text-heading uppercase tracking-wide" }, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD" : "App Version & In-App Updates"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted font-medium" }, lang === "ta" ? "\u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1:" : "Installed Version:", " ", /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-heading" }, "v", CURRENT_APP_VERSION)))), /* @__PURE__ */ import_react18.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, remoteUpdate?.version && (remoteUpdate.versionCode > CURRENT_BUILD_NUMBER || remoteUpdate.version !== CURRENT_APP_VERSION) ? lang === "ta" ? `\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 v${remoteUpdate.version} \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD! (${remoteUpdate.size || "28 MB"})` : `New v${remoteUpdate.version} Ready! (${remoteUpdate.size || "28 MB"})` : lang === "ta" ? "\u0BB2\u0BC7\u0B9F\u0BCD\u0B9F\u0BB8\u0BCD\u0B9F\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u2713" : "Latest Release \u2713")), remoteUpdate?.notesTa && /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-2.5 rounded-lg bg-card border border-subtle text-xs text-sub leading-relaxed" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "font-bold text-heading block mb-1" }, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD:" : "Update Notes:"), lang === "ta" ? remoteUpdate.notesTa : remoteUpdate.notes), /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2 flex-wrap pt-1" }, /* @__PURE__ */ import_react18.default.createElement(
+      activeTab === "Settings" ? /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-settings-view flex flex-col gap-4 p-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col gap-3" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold" }, "\u{1F680}"), /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "text-xs font-black text-heading uppercase tracking-wide" }, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD" : "App Version & In-App Updates"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted font-medium" }, lang === "ta" ? "\u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1:" : "Installed Version:", " ", /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-heading" }, "v", CURRENT_APP_VERSION)))), /* @__PURE__ */ import_react18.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, remoteUpdate?.version && (remoteUpdate.versionCode > CURRENT_BUILD_NUMBER || remoteUpdate.version !== CURRENT_APP_VERSION) ? lang === "ta" ? `\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 v${remoteUpdate.version} \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD! (${remoteUpdate.size || "25 MB"})` : `New v${remoteUpdate.version} Ready! (${remoteUpdate.size || "25 MB"})` : lang === "ta" ? "\u0BB2\u0BC7\u0B9F\u0BCD\u0B9F\u0BB8\u0BCD\u0B9F\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u2713" : "Latest Release \u2713")), remoteUpdate?.notesTa && /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-2.5 rounded-lg bg-card border border-subtle text-xs text-sub leading-relaxed" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "font-bold text-heading block mb-1" }, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD:" : "Update Notes:"), lang === "ta" ? remoteUpdate.notesTa : remoteUpdate.notes), /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2 flex-wrap pt-1" }, /* @__PURE__ */ import_react18.default.createElement(
         "button",
         {
           type: "button",
@@ -67157,6 +67185,22 @@ Tap here to register and enter the live yoga room:
 ${url}`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
     };
+    const handleNativeShare = async () => {
+      const url = getShareableClassLink();
+      const title = activeClass?.title || activeClass?.name || "Hatha Yoga Flow";
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: `NITHYA Yoga: ${title}`,
+            text: lang === "ta" ? `\u{1F9D8} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD:` : `\u{1F9D8} Join NITHYA Yoga Live Class:`,
+            url
+          });
+        } catch (_2) {
+        }
+      } else {
+        handleWhatsAppShare();
+      }
+    };
     const handleSimulateNetworkDrop = () => {
       setIsSimulatingDisconnect(true);
       setConnectionState("connecting");
@@ -67727,9 +67771,13 @@ ${url}`;
       {
         type: "button",
         className: "figma-btn-create-meeting",
-        onClick: handleCopyShareLink
+        onClick: () => {
+          handleCopyShareLink();
+          handleNativeShare();
+        },
+        title: "Copy & Share Live Meeting Link"
       },
-      "+ Create Meeting"
+      copiedLink ? "\u2713 Link Copied!" : "+ Share Meeting"
     ))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-meeting-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-meeting-card-head" }, /* @__PURE__ */ import_react22.default.createElement("h4", { className: "figma-card-title" }, "Weekly Meetings"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-card-date" }, "\u{1F4C5} Every Morning 06:00 AM")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-avatar-stack-row" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-avatar-stack" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#7C3AED" }, title: "Nithya Yoga" }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#F59E0B" }, title: "Master Class" }, "\u{1F451}")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-waiting-badge" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 06:00 AM" : "Daily 06:00 AM"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-promo-course-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-promo-top" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-promo-badge" }, "\u{1F393} 43 Courses")), /* @__PURE__ */ import_react22.default.createElement("h4", { className: "figma-promo-title" }, "Elevate your yoga practice"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "figma-promo-sub" }, "Guided Asanas & Pranayama Modules"), /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
@@ -67953,6 +68001,7 @@ Verified WebRTC Attendance Session`;
     const [isCreatingClass, setIsCreatingClass] = (0, import_react23.useState)(false);
     const [inviteUrls, setInviteUrls] = (0, import_react23.useState)({});
     const [copiedId, setCopiedId] = (0, import_react23.useState)(null);
+    const [newlyCreatedClassInfo, setNewlyCreatedClassInfo] = (0, import_react23.useState)(null);
     const [attendanceLogs, setAttendanceLogs] = (0, import_react23.useState)([]);
     const [attendanceLoading, setAttendanceLoading] = (0, import_react23.useState)(false);
     const [materialsList, setMaterialsList] = (0, import_react23.useState)([]);
@@ -68143,10 +68192,13 @@ Verified WebRTC Attendance Session`;
         });
         setClassesList((prev) => [data, ...prev]);
         setNewTitle("");
+        const newlyCreatedLiveUrl = getProductionLiveUrl(data.id, { join: "student" });
+        setInviteUrls((prev) => ({ ...prev, [data.id]: newlyCreatedLiveUrl }));
+        setNewlyCreatedClassInfo({ id: data.id, title: data.title, url: newlyCreatedLiveUrl });
         if (showToast) {
           showToast(
             lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Yoga Class Created \u2713",
-            data.title,
+            lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1. \u0B95\u0BC0\u0BB4\u0BC7 \u0BAA\u0B95\u0BBF\u0BB0\u0BB2\u0BBE\u0BAE\u0BCD." : "Invitation link is ready to share below.",
             "success"
           );
         }
@@ -68587,6 +68639,53 @@ ${liveUrl}`;
       },
       isCreatingClass ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 14 }),
       /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Create Live Class")
+    ))), newlyCreatedClassInfo && /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 mt-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col gap-2" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-emerald-500 font-bold text-xs" }, "\u{1F389} ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Class Created Successfully!"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-xs text-heading font-bold" }, newlyCreatedClassInfo.title)), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setNewlyCreatedClassInfo(null),
+        className: "text-xs text-muted hover:text-heading cursor-pointer px-1.5",
+        title: "Dismiss"
+      },
+      "\u2715"
+    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-[11px] text-muted" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B87\u0BA8\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BB5\u0BC1\u0BAE\u0BCD:" : "Share this live student link directly via WhatsApp or copy:"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-wrap sm:flex-nowrap" }, /* @__PURE__ */ import_react23.default.createElement(
+      "input",
+      {
+        type: "text",
+        readOnly: true,
+        value: newlyCreatedClassInfo.url,
+        className: "w-full text-xs font-mono p-2 rounded-lg bg-card border border-primary/20 text-heading select-all",
+        onClick: (e2) => e2.target.select()
+      }
+    ), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          navigator.clipboard.writeText(newlyCreatedClassInfo.url);
+          setCopiedId(`new-${newlyCreatedClassInfo.id}`);
+          setTimeout(() => setCopiedId(null), 2500);
+          if (showToast) showToast("Link Copied \u2713", newlyCreatedClassInfo.url, "success");
+        },
+        className: "ya-btn ya-btn--primary text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+      },
+      copiedId === `new-${newlyCreatedClassInfo.id}` ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 13 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === `new-${newlyCreatedClassInfo.id}` ? "Copied!" : "Copy Link")
+    ), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          const text = encodeURIComponent(`\u{1F9D8} *NITHYA Yoga Live Class: ${newlyCreatedClassInfo.title}*
+
+Join the live yoga session as a student:
+${newlyCreatedClassInfo.url}`);
+          window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+        },
+        className: "ya-btn text-xs px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-md shadow-emerald-500/20"
+      },
+      /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 13 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, "WhatsApp")
     )))), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between mb-3" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BAE\u0BC7\u0BB2\u0BBE\u0BA3\u0BCD\u0BAE\u0BC8" : "Manage Classes & Student Invitations")), /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
@@ -68655,16 +68754,27 @@ ${liveUrl}`;
           title: "Delete class"
         },
         /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 14 })
-      ))), currentInvite && /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-2 rounded-lg bg-subtle border border-primary/20 flex items-center justify-between gap-2 mt-1" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-1 overflow-hidden" }, /* @__PURE__ */ import_react23.default.createElement(Link, { size: 13, className: "text-primary flex-shrink-0" }), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] font-mono text-heading truncate" }, currentInvite)), /* @__PURE__ */ import_react23.default.createElement(
+      ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-2.5 rounded-lg bg-subtle/80 border border-primary/20 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 mt-1" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-1 overflow-hidden" }, /* @__PURE__ */ import_react23.default.createElement(Link, { size: 13, className: "text-primary flex-shrink-0" }), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] font-mono text-heading truncate select-all" }, currentInvite || liveUrl)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-1.5 flex-shrink-0 self-end sm:self-center" }, /* @__PURE__ */ import_react23.default.createElement(
         "button",
         {
           type: "button",
-          onClick: () => handleCopyLink(currentInvite, c.id),
-          className: "ya-btn ya-btn--primary text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1 cursor-pointer flex-shrink-0"
+          onClick: () => handleCopyLink(currentInvite || liveUrl, c.id),
+          className: "ya-btn ya-btn--primary text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1 cursor-pointer",
+          title: "Copy student invite link"
         },
         copiedId === c.id ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 12 }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 12 }),
         /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === c.id ? "Copied!" : "Copy")
-      )));
+      ), /* @__PURE__ */ import_react23.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: () => handleWhatsAppShare(c),
+          className: "ya-btn text-[11px] px-2.5 py-1 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1 cursor-pointer",
+          title: "Share on WhatsApp"
+        },
+        /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 12 }),
+        /* @__PURE__ */ import_react23.default.createElement("span", null, "WhatsApp")
+      ))));
     })))), activeTab === "attendance" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-4" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(Users, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0BA4\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8" : "Student Attendance Records & 70% Verification")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mt-0.5" }, "Records accumulated from verified WebRTC live sessions and persistent SQLite database.")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {

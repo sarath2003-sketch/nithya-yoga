@@ -16,7 +16,8 @@ import {
   Calendar, 
   PhoneOff, 
   AlertCircle,
-  ExternalLink
+  ExternalLink,
+  Share2
 } from 'lucide-react';
 import { getProductionLiveUrl, apiFetch } from '../utils/api';
 import LotusMark from './LotusMark';
@@ -179,27 +180,44 @@ export default function LiveClassStudio({
   const studentInviteUrl = getProductionLiveUrl(activeClass?.id || 'cls-1', { join: 'student' });
 
   const handleCopyLiveLink = () => {
-    if (sessionStatus !== 'live') return;
-    navigator.clipboard.writeText(studentInviteUrl).then(() => {
-      setCopiedLink(true);
-      setTimeout(() => setCopiedLink(false), 2500);
-      if (showToast) {
-        showToast(lang === 'ta' ? 'லிங்க் நகலெடுக்கப்பட்டது' : 'Link Copied', studentInviteUrl, 'success');
-      }
-    }).catch(() => {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(studentInviteUrl).then(() => {
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 2500);
+        if (showToast) {
+          showToast(lang === 'ta' ? 'லிங்க் நகலெடுக்கப்பட்டது ✓' : 'Link Copied ✓', studentInviteUrl, 'success');
+        }
+      }).catch(() => {
+        prompt('Student Join Link:', studentInviteUrl);
+      });
+    } else {
       prompt('Student Join Link:', studentInviteUrl);
-    });
+    }
   };
 
   const handleWhatsAppShare = () => {
-    if (sessionStatus !== 'live') return;
     const className = activeClass?.title || activeClass?.name || 'Live Yoga Class';
     const text = encodeURIComponent(
       lang === 'ta'
-        ? `🧘‍♀️ NITHYA Yoga நேரலை வகுப்பு தொடங்கப்பட்டது!\nவகுப்பு: ${className}\nபயிற்றுநர்: ${activeClass?.instructor || 'NITHYA Master'}\n\nமாணவர்கள் இணைய இந்த லிங்க்கை பயன்படுத்தவும்:\n${studentInviteUrl}`
-        : `🧘‍♀️ NITHYA Yoga Live Class is NOW LIVE!\nClass: ${className}\nInstructor: ${activeClass?.instructor || 'NITHYA Master'}\n\nJoin the live session as a student:\n${studentInviteUrl}`
+        ? `🧘‍♀️ NITHYA Yoga நேரலை வகுப்பு!\nவகுப்பு: ${className}\nபயிற்றுநர்: ${activeClass?.instructor || 'NITHYA Master'}\n\nமாணவர்கள் இணைய இந்த லிங்க்கை பயன்படுத்தவும்:\n${studentInviteUrl}`
+        : `🧘‍♀️ NITHYA Yoga Live Class!\nClass: ${className}\nInstructor: ${activeClass?.instructor || 'NITHYA Master'}\n\nJoin the live yoga session as a student:\n${studentInviteUrl}`
     );
     window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  };
+
+  const handleNativeShare = async () => {
+    const className = activeClass?.title || activeClass?.name || 'Live Yoga Class';
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `NITHYA Yoga: ${className}`,
+          text: lang === 'ta' ? `🧘‍♀️ நித்யா யோகா நேரலை வகுப்பில் இணையுங்கள்:` : `🧘‍♀️ Join NITHYA Yoga Live Class:`,
+          url: studentInviteUrl
+        });
+      } catch (_) {}
+    } else {
+      handleWhatsAppShare();
+    }
   };
 
   const handleVerifyAttendance = () => {
@@ -517,55 +535,64 @@ export default function LiveClassStudio({
         </div>
       </div>
 
-      {/* 5. Separate Invitation Controls Card (Visible ONLY when LIVE) */}
-      {sessionStatus === 'live' && (
-        <div className="live-invitation-card ya-reveal">
-          <div className="invitation-card-head">
-            <div className="flex items-center gap-2">
-              <span className="invitation-icon">🔗</span>
-              <div>
-                <h4 className="invitation-title">
-                  {lang === 'ta' ? 'மாணவர் நேரலை இணைப்பு லிங்க்' : 'Student Class Invitation Link'}
-                </h4>
-                <p className="invitation-sub">
-                  {lang === 'ta' ? 'இந்த லிங்க் மாணவர் அணுகலை மட்டுமே கொண்டது (பாதுகாப்பானது).' : 'Student access link only. Secure & credential-free.'}
-                </p>
-              </div>
+      {/* 5. Student Invitation Controls Card (Always Available with 1-Tap Copy & Share) */}
+      <div className="live-invitation-card ya-reveal">
+        <div className="invitation-card-head">
+          <div className="flex items-center gap-2">
+            <span className="invitation-icon">🔗</span>
+            <div>
+              <h4 className="invitation-title">
+                {lang === 'ta' ? 'மாணவர் நேரலை இணைப்பு லிங்க்' : 'Student Class Invitation Link'}
+              </h4>
+              <p className="invitation-sub">
+                {lang === 'ta' ? 'மாணவர்கள் எளிதாக இணைய இந்த லிங்க்கை வாட்ஸ்அப் அல்லது பகிர்தல் மூலம் அனுப்பலாம்.' : 'Direct student access link. Students join without trainer credentials.'}
+              </p>
             </div>
-            <span className="badge-student-only">Student Role Only</span>
           </div>
+          <span className="badge-student-only">Student Role Only</span>
+        </div>
 
-          <div className="invitation-input-bar">
-            <input 
-              type="text" 
-              readOnly 
-              value={studentInviteUrl} 
-              className="invitation-url-field"
-              title="Student Join URL"
-            />
-            <div className="invitation-action-buttons">
-              <button
-                type="button"
-                className="btn-invite-copy"
-                onClick={handleCopyLiveLink}
-                title="Copy Link"
-              >
-                <Copy size={13} />
-                <span>{copiedLink ? (lang === 'ta' ? '✓ நகலெடுக்கப்பட்டது' : '✓ Copied') : (lang === 'ta' ? 'நகலெடு' : 'Copy')}</span>
-              </button>
+        <div className="invitation-input-bar">
+          <input 
+            type="text" 
+            readOnly 
+            value={studentInviteUrl} 
+            className="invitation-url-field"
+            title="Student Join URL"
+            onClick={(e) => e.target.select()}
+          />
+          <div className="invitation-action-buttons">
+            <button
+              type="button"
+              className="btn-invite-copy"
+              onClick={handleCopyLiveLink}
+              title="Copy Link"
+            >
+              <Copy size={13} />
+              <span>{copiedLink ? (lang === 'ta' ? '✓ நகலெடுக்கப்பட்டது' : '✓ Copied') : (lang === 'ta' ? 'நகலெடு' : 'Copy')}</span>
+            </button>
 
-              <button
-                type="button"
-                className="btn-invite-whatsapp"
-                onClick={handleWhatsAppShare}
-                title="Share via WhatsApp"
-              >
-                <span>📲 WhatsApp</span>
-              </button>
-            </div>
+            <button
+              type="button"
+              className="btn-invite-whatsapp"
+              onClick={handleWhatsAppShare}
+              title="Share via WhatsApp"
+            >
+              <span>📲 WhatsApp</span>
+            </button>
+
+            <button
+              type="button"
+              className="btn-invite-share"
+              onClick={handleNativeShare}
+              title="Share Link"
+            >
+              <Share2 size={13} />
+              <span>{lang === 'ta' ? 'பகிர்' : 'Share'}</span>
+            </button>
           </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

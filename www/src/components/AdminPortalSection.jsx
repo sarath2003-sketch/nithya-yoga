@@ -58,6 +58,7 @@ export default function AdminPortalSection({
   const [isCreatingClass, setIsCreatingClass] = useState(false);
   const [inviteUrls, setInviteUrls] = useState({});
   const [copiedId, setCopiedId] = useState(null);
+  const [newlyCreatedClassInfo, setNewlyCreatedClassInfo] = useState(null);
 
   // Attendance state
   const [attendanceLogs, setAttendanceLogs] = useState([]);
@@ -276,10 +277,13 @@ export default function AdminPortalSection({
 
       setClassesList(prev => [data, ...prev]);
       setNewTitle('');
+      const newlyCreatedLiveUrl = getProductionLiveUrl(data.id, { join: 'student' });
+      setInviteUrls(prev => ({ ...prev, [data.id]: newlyCreatedLiveUrl }));
+      setNewlyCreatedClassInfo({ id: data.id, title: data.title, url: newlyCreatedLiveUrl });
       if (showToast) {
         showToast(
           lang === 'ta' ? 'வகுப்பு உருவாக்கப்பட்டது ✓' : 'Yoga Class Created ✓',
-          data.title,
+          lang === 'ta' ? 'அழைப்பு லிங்க் தயாராக உள்ளது. கீழே பகிரலாம்.' : 'Invitation link is ready to share below.',
           'success'
         );
       }
@@ -837,6 +841,62 @@ export default function AdminPortalSection({
                 </button>
               </div>
             </form>
+
+            {/* Instant Share Link Banner on Newly Created Class */}
+            {newlyCreatedClassInfo && (
+              <div className="p-3.5 mt-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col gap-2">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-emerald-500 font-bold text-xs">🎉 {lang === 'ta' ? 'வகுப்பு உருவாக்கப்பட்டது!' : 'Class Created Successfully!'}</span>
+                    <span className="text-xs text-heading font-bold">{newlyCreatedClassInfo.title}</span>
+                  </div>
+                  <button 
+                    type="button" 
+                    onClick={() => setNewlyCreatedClassInfo(null)}
+                    className="text-xs text-muted hover:text-heading cursor-pointer px-1.5"
+                    title="Dismiss"
+                  >
+                    ✕
+                  </button>
+                </div>
+                <div className="text-[11px] text-muted">
+                  {lang === 'ta' ? 'மாணவர்கள் இணைய இந்த நேரலை அழைப்பு லிங்க்கை வாட்ஸ்அப் அல்லது காப்பி செய்து அனுப்பவும்:' : 'Share this live student link directly via WhatsApp or copy:'}
+                </div>
+                <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
+                  <input 
+                    type="text" 
+                    readOnly 
+                    value={newlyCreatedClassInfo.url}
+                    className="w-full text-xs font-mono p-2 rounded-lg bg-card border border-primary/20 text-heading select-all"
+                    onClick={(e) => e.target.select()}
+                  />
+                  <button
+                    type="button"
+                    onClick={() => {
+                      navigator.clipboard.writeText(newlyCreatedClassInfo.url);
+                      setCopiedId(`new-${newlyCreatedClassInfo.id}`);
+                      setTimeout(() => setCopiedId(null), 2500);
+                      if (showToast) showToast('Link Copied ✓', newlyCreatedClassInfo.url, 'success');
+                    }}
+                    className="ya-btn ya-btn--primary text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+                  >
+                    {copiedId === `new-${newlyCreatedClassInfo.id}` ? <Check size={13} /> : <Copy size={13} />}
+                    <span>{copiedId === `new-${newlyCreatedClassInfo.id}` ? 'Copied!' : 'Copy Link'}</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const text = encodeURIComponent(`🧘 *NITHYA Yoga Live Class: ${newlyCreatedClassInfo.title}*\n\nJoin the live yoga session as a student:\n${newlyCreatedClassInfo.url}`);
+                      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+                    }}
+                    className="ya-btn text-xs px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-md shadow-emerald-500/20"
+                  >
+                    <Share2 size={13} />
+                    <span>WhatsApp</span>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Scheduled Classes List */}
@@ -970,25 +1030,35 @@ export default function AdminPortalSection({
                         </div>
                       </div>
 
-                      {/* Display generated invite URL */}
-                      {currentInvite && (
-                        <div className="p-2 rounded-lg bg-subtle border border-primary/20 flex items-center justify-between gap-2 mt-1">
-                          <div className="flex items-center gap-2 flex-1 overflow-hidden">
-                            <Link size={13} className="text-primary flex-shrink-0" />
-                            <span className="text-[11px] font-mono text-heading truncate">
-                              {currentInvite}
-                            </span>
-                          </div>
+                      {/* Always-visible Student Invitation URL & Quick Share Bar */}
+                      <div className="p-2.5 rounded-lg bg-subtle/80 border border-primary/20 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 mt-1">
+                        <div className="flex items-center gap-2 flex-1 overflow-hidden">
+                          <Link size={13} className="text-primary flex-shrink-0" />
+                          <span className="text-[11px] font-mono text-heading truncate select-all">
+                            {currentInvite || liveUrl}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-1.5 flex-shrink-0 self-end sm:self-center">
                           <button
                             type="button"
-                            onClick={() => handleCopyLink(currentInvite, c.id)}
-                            className="ya-btn ya-btn--primary text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1 cursor-pointer flex-shrink-0"
+                            onClick={() => handleCopyLink(currentInvite || liveUrl, c.id)}
+                            className="ya-btn ya-btn--primary text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1 cursor-pointer"
+                            title="Copy student invite link"
                           >
                             {copiedId === c.id ? <Check size={12} /> : <Copy size={12} />}
                             <span>{copiedId === c.id ? 'Copied!' : 'Copy'}</span>
                           </button>
+                          <button
+                            type="button"
+                            onClick={() => handleWhatsAppShare(c)}
+                            className="ya-btn text-[11px] px-2.5 py-1 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1 cursor-pointer"
+                            title="Share on WhatsApp"
+                          >
+                            <Share2 size={12} />
+                            <span>WhatsApp</span>
+                          </button>
                         </div>
-                      )}
+                      </div>
                     </div>
                   );
                 })

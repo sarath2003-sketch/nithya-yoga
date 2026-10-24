@@ -2251,6 +2251,28 @@ input, select, textarea {
   transform: translateY(-1px);
 }
 
+.btn-invite-share {
+  min-height: 40px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+  border: none;
+  color: #FFFFFF !important;
+  font-size: 0.78rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.35);
+  transition: all 0.2s ease;
+}
+
+.btn-invite-share:hover {
+  background: linear-gradient(135deg, #7C3AED, #5B21B6);
+  transform: translateY(-1px);
+}
+
 @media (max-width: 480px) {
   .invitation-input-bar {
     flex-direction: column;

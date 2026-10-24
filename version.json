@@ -1,12 +1,12 @@
 {
-  "version": "1.4.0",
-  "versionCode": 7,
-  "releaseDate": "2026-10-23",
-  "size": "28 MB",
-  "title": "NITHYA Yoga v1.4.0 (Build 7) Release",
-  "titleTa": "நித்யா யோகா v1.4.0 நேரலை & ஆப் மேம்பாடுகள்",
-  "notes": "Official Nithya Yoga logo restored, interactive yoga class curriculum guide, direct card shortcuts, high-contrast Live Studio, and instant update sync.",
-  "notesTa": "அதிகாரப்பூர்வ லோகோ புதுப்பித்தல், யோகா வகுப்பு முழு பாடத்திட்டம், நேரடி கார்டு குறுக்குவழிகள், மேம்பட்ட நேரலை ஸ்டுடியோ மற்றும் உடனடி அப்டேட் வசதி.",
+  "version": "1.4.1",
+  "versionCode": 8,
+  "releaseDate": "2026-10-24",
+  "size": "25 MB",
+  "title": "NITHYA Yoga v1.4.1 (Build 8) Official Release",
+  "titleTa": "நித்யா யோகா v1.4.1 (Build 8) அதிகாரப்பூர்வ வெளியீடு",
+  "notes": "Latest 24-Oct Android APK build, instant live class share links with WhatsApp & mobile share, official logo emblem, and full smooth animations.",
+  "notesTa": "அக்டோபர் 24 புதிய ஆண்ட்ராய்டு APK, உடனடி நேரலை வகுப்பு வாட்ஸ்அப் பகிர்வு லிங்க், அதிகாரப்பூர்வ லோகோ மற்றும் முழு அனிமேஷன் மேம்பாடுகள்.",
   "updateType": "ota_sync",
   "apkUrl": "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
 }

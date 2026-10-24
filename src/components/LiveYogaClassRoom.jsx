@@ -1473,6 +1473,22 @@ export default function LiveYogaClassRoom({
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
   };
 
+  const handleNativeShare = async () => {
+    const url = getShareableClassLink();
+    const title = activeClass?.title || activeClass?.name || 'Hatha Yoga Flow';
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: `NITHYA Yoga: ${title}`,
+          text: lang === 'ta' ? `🧘 நித்யா யோகா நேரலை வகுப்பில் இணையுங்கள்:` : `🧘 Join NITHYA Yoga Live Class:`,
+          url
+        });
+      } catch (_) {}
+    } else {
+      handleWhatsAppShare();
+    }
+  };
+
   // Phase 10 Test 12: Network drop & reconnect simulation
   const handleSimulateNetworkDrop = () => {
     setIsSimulatingDisconnect(true);
@@ -2506,9 +2522,13 @@ export default function LiveYogaClassRoom({
                     <button
                       type="button"
                       className="figma-btn-create-meeting"
-                      onClick={handleCopyShareLink}
+                      onClick={() => {
+                        handleCopyShareLink();
+                        handleNativeShare();
+                      }}
+                      title="Copy & Share Live Meeting Link"
                     >
-                      + Create Meeting
+                      {copiedLink ? '✓ Link Copied!' : '+ Share Meeting'}
                     </button>
                   </div>
                 </div>

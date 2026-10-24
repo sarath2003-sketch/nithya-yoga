@@ -5,8 +5,8 @@
  * and state-aware update checking (idle, checking, available, current, error).
  */
 
-export const APP_VERSION = '1.5.0';
-export const APP_BUILD_NUMBER = 9;
+export const APP_VERSION = '1.6.0';
+export const APP_BUILD_NUMBER = 10;
 
 /**
  * Compare two semantic version strings (e.g. "1.2.1" vs "1.2.0")
@@ -69,8 +69,9 @@ export async function checkRemoteAppVersion() {
 
     // Is there a genuinely newer version deployed?
     // We compare remote build vs both bundled build and stored build
-    const isBuildNewer = remoteBuild > Math.max(APP_BUILD_NUMBER, storedBuild);
-    const isVersionNewer = compareVersions(remoteVer, APP_VERSION) > 0 && remoteBuild >= APP_BUILD_NUMBER;
+    const effectiveBuild = Math.max(APP_BUILD_NUMBER, storedBuild);
+    const isBuildNewer = remoteBuild > effectiveBuild;
+    const isVersionNewer = compareVersions(remoteVer, APP_VERSION) > 0 && compareVersions(remoteVer, storedVer) > 0 && remoteBuild > effectiveBuild;
 
     const isUpdateAvailable = isBuildNewer || isVersionNewer;
 
@@ -155,7 +156,10 @@ export async function applyAppUpdate(remoteVersion = APP_VERSION, remoteBuild = 
       if (isCapacitorOrLocal) {
         window.location.reload();
       } else {
-        window.location.replace(`${window.location.origin}${window.location.pathname}?updated=${Date.now()}`);
+        const currentSearch = window.location.search || '';
+        const searchWithoutUpdated = currentSearch.replace(/([?&])updated=[^&]*(&|$)/g, '$1').replace(/[?&]$/, '');
+        const sep = searchWithoutUpdated ? (searchWithoutUpdated.includes('?') ? '&' : '?') : '?';
+        window.location.replace(`${window.location.origin}${window.location.pathname}${searchWithoutUpdated}${sep}updated=${Date.now()}`);
       }
     }
   }, 400);

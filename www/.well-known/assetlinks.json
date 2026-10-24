@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.nithya.yoga",
+      "sha256_cert_fingerprints": [
+        "3B:D4:27:1E:FF:B4:8E:69:02:2C:6D:FB:74:30:A8:76:DC:D1:DB:B1:2A:A2:70:E7:25:F5:25:A6:5D:01:23:BA"
+      ]
+    }
+  }
+]

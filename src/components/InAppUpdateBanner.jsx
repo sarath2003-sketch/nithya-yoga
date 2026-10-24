@@ -47,9 +47,37 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
   const [updateInfo, setUpdateInfo] = useState(null);
   const [isUpdating, setIsUpdating] = useState(false);
   const [updateDone, setUpdateDone] = useState(false);
-  const [dismissed, setDismissed] = useState(false);
+  const [dismissed, setDismissed] = useState(() => {
+    try {
+      return sessionStorage.getItem('nithya_update_dismissed') === '1';
+    } catch (_) {
+      return false;
+    }
+  });
 
   useEffect(() => {
+    // 1. Never show APK update modal if arriving via Live Class link (student or teacher)
+    if (typeof window !== 'undefined' && window.location) {
+      const search = window.location.search || '';
+      if (search.includes('live=') || search.includes('room=') || search.includes('join=student')) {
+        return;
+      }
+    }
+
+    // 2. APK update modal with backdrop scrim is strictly for the native Android app.
+    // Web users on GitHub Pages/browser receive live web updates automatically via HTTP.
+    const isNativeApp = typeof window !== 'undefined' && (
+      Boolean(window.AndroidNativeUpdater) ||
+      window.location.protocol === 'capacitor:' ||
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1' ||
+      (window.Capacitor && typeof window.Capacitor.isNativePlatform === 'function' && window.Capacitor.isNativePlatform())
+    );
+
+    if (!isNativeApp) {
+      return;
+    }
+
     checkRemoteUpdate();
   }, []);
 
@@ -64,6 +92,14 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
     } catch (err) {
       console.warn('Could not check remote version:', err);
     }
+  };
+
+  const handleDismiss = () => {
+    setDismissed(true);
+    try {
+      sessionStorage.setItem('nithya_update_dismissed', '1');
+    } catch (_) {}
+    if (onDismiss) onDismiss();
   };
 
   const handleUpdateNow = async () => {
@@ -86,7 +122,7 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
   if (!updateInfo || dismissed) return null;
 
   return (
-    <div className="update-modal-backdrop-scrim ya-reveal" onClick={() => setDismissed(true)}>
+    <div className="update-modal-backdrop-scrim ya-reveal" onClick={handleDismiss}>
       <div className="update-modal-centered-card" onClick={(e) => e.stopPropagation()}>
         {/* Top Floating Badge & Close Button */}
         <div className="update-modal-top-bar">
@@ -98,10 +134,7 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
           <button
             type="button"
             className="update-close-round-btn"
-            onClick={() => {
-              setDismissed(true);
-              if (onDismiss) onDismiss();
-            }}
+            onClick={handleDismiss}
             title={lang === 'ta' ? 'மூடு' : 'Close'}
           >
             <X size={16} />
@@ -204,10 +237,7 @@ export default function InAppUpdateBanner({ lang = 'en', onDismiss }) {
             <button
               type="button"
               className="update-btn-dismiss"
-              onClick={() => {
-                setDismissed(true);
-                if (onDismiss) onDismiss();
-              }}
+              onClick={handleDismiss}
             >
               {lang === 'ta' ? 'பிறகு' : 'Later'}
             </button>

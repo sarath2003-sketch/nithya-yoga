@@ -167,6 +167,33 @@ export default function StudentJoinModal({
     }
   };
 
+  const handleJoinConfirmed = () => {
+    const cleanName = (name || '').trim();
+    const cleanPhone = (phone || '').replace(/[^\d+]/g, '');
+    const session = {
+      name: cleanName || 'Student',
+      phone: cleanPhone || '9876543210',
+      role: 'student',
+      joinedAt: new Date().toISOString()
+    };
+    onJoin(session);
+  };
+
+  const handleLaunchApp = () => {
+    const classId = activeClass?.id || 'cls-1';
+    const intentUrl = `intent://sarath2003-sketch.github.io/nithya-yoga/?live=${encodeURIComponent(classId)}&join=student#Intent;scheme=https;package=com.nithya.yoga;end`;
+    const customSchemeUrl = `nithyayoga://live?id=${encodeURIComponent(classId)}&join=student`;
+
+    try {
+      window.location.href = customSchemeUrl;
+      setTimeout(() => {
+        window.location.href = intentUrl;
+      }, 400);
+    } catch (_) {
+      window.location.href = intentUrl;
+    }
+  };
+
   return (
     <div className="modal-backdrop-scrim ya-reveal" onClick={onClose}>
       <div className="modal-bottom-sheet max-w-md mx-auto" onClick={(e) => e.stopPropagation()}>
@@ -301,19 +328,29 @@ export default function StudentJoinModal({
               </button>
             </div>
 
-            {/* Direct App APK Download banner for mobile users */}
-            <div className="pt-2 border-t border-subtle/50 text-center">
-              <span className="text-[11px] text-muted block mb-1">
-                {lang === 'ta' ? 'ஆண்ட்ராய்டு மொபைலில் ஆப்பாகப் பயன்படுத்த விரும்புகிறீர்களா?' : 'Prefer using the Android mobile app?'}
+            {/* Smart App Handoff / Direct APK Download */}
+            <div className="pt-2 border-t border-subtle/50 text-center flex flex-col gap-1.5">
+              <span className="text-[11px] text-muted block">
+                {lang === 'ta' ? 'மொபைலில் ஆப் பயன்படுத்த விரும்புகிறீர்களா?' : 'Prefer using the Android mobile app?'}
               </span>
-              <a
-                href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
-                download="NITHYA-Yoga-v1.0.apk"
-                className="w-full py-2 px-3 rounded-xl border border-primary/30 bg-primary/5 text-primary text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-primary/10 transition-all"
-              >
-                <Download size={13} />
-                <span>{lang === 'ta' ? '📲 NITHYA Yoga ஆப் (APK) டவுன்லோட்' : '📲 Download NITHYA Yoga App (APK)'}</span>
-              </a>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={handleLaunchApp}
+                  className="w-1/2 py-2 px-2 rounded-xl border border-primary/40 bg-primary/10 text-primary text-xs font-bold flex items-center justify-center gap-1 hover:bg-primary/20 transition-all cursor-pointer"
+                >
+                  <span>📲</span>
+                  <span>{lang === 'ta' ? 'ஆப்பில் திறக்க' : 'Open in App'}</span>
+                </button>
+                <a
+                  href="https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
+                  download="NITHYA-Yoga-v1.0.apk"
+                  className="w-1/2 py-2 px-2 rounded-xl border border-subtle bg-subtle/40 text-heading text-xs font-semibold flex items-center justify-center gap-1 hover:bg-subtle/70 transition-all"
+                >
+                  <Download size={12} />
+                  <span>{lang === 'ta' ? 'APK டவுன்லோட்' : 'Download APK'}</span>
+                </a>
+              </div>
             </div>
           </form>
         ) : classStatus === 'ended' ? (

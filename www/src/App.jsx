@@ -52,8 +52,11 @@ export default function App() {
   const [currentTab, setCurrentTab] = useState(() => {
     try {
       const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
-      const tabParam = params ? params.get('tab') : null;
-      if (tabParam) return tabParam;
+      if (params) {
+        if (params.get('live') || params.get('room')) return 'live';
+        const tabParam = params.get('tab');
+        if (tabParam) return tabParam;
+      }
     } catch (_) {}
     return loadStorage('nithya_active_tab', 'home');
   });
@@ -364,39 +367,65 @@ export default function App() {
     }, 100);
   };
 
-  // URL query parameter (?live=cls-1 or ?room=... or ?join=student) listener
+  // URL query parameter (?live=cls-1 or ?room=... or ?join=student) and Android Deep Link listener
   useEffect(() => {
-    try {
-      const params = new URLSearchParams(window.location.search);
-      const liveId = (params.get('live') || params.get('room') || '').trim();
-      const isStudentExplicit = params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite'));
-      const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
+    const processDeepLinkUrl = (rawUrl) => {
+      try {
+        if (!rawUrl) return;
+        let liveId = '';
+        let isStudentExplicit = false;
 
-      if (liveId || isStudentExplicit) {
-        if (liveId) {
-          const found = classes.find(c => c.id === liveId);
-          if (found) {
-            setActiveClass(found);
-          } else {
-            // Fetch exact class from backend; do NOT fall back to classes[0]
-            apiFetch(`/api/classes/${encodeURIComponent(liveId)}`)
-              .then(backendCls => {
-                if (backendCls && backendCls.id) {
-                  const clsObj = {
-                    id: backendCls.id,
-                    title: backendCls.title,
-                    name: backendCls.title,
-                    courseName: backendCls.course_name,
-                    course_name: backendCls.course_name,
-                    room_name: backendCls.room_name || (backendCls.id.startsWith('nithya-') ? backendCls.id : `nithya-${backendCls.id}`),
-                    status: backendCls.status || 'live',
-                    duration: backendCls.duration_minutes || 60,
-                    instructor: 'NITHYA Master'
-                  };
-                  setActiveClass(clsObj);
-                  setClasses(prev => [clsObj, ...prev.filter(c => c.id !== clsObj.id)]);
-                } else {
-                  // Fallback: create dynamic activeClass with exact specified ID
+        if (rawUrl.startsWith('nithyayoga://')) {
+          const fakeUrl = rawUrl.replace('nithyayoga://', 'https://nithya.local/');
+          const parsed = new URL(fakeUrl);
+          liveId = (parsed.searchParams.get('id') || parsed.searchParams.get('live') || parsed.searchParams.get('room') || '').trim();
+          isStudentExplicit = parsed.searchParams.get('join') === 'student' || parsed.searchParams.get('role') === 'student' || Boolean(parsed.searchParams.get('invite'));
+        } else if (rawUrl.startsWith('http://') || rawUrl.startsWith('https://')) {
+          const parsed = new URL(rawUrl);
+          liveId = (parsed.searchParams.get('live') || parsed.searchParams.get('room') || parsed.searchParams.get('id') || '').trim();
+          isStudentExplicit = parsed.searchParams.get('join') === 'student' || parsed.searchParams.get('role') === 'student' || Boolean(parsed.searchParams.get('invite'));
+        }
+
+        const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
+
+        if (liveId || isStudentExplicit) {
+          setCurrentTab('live');
+          if (liveId) {
+            const found = classes.find(c => c.id === liveId);
+            if (found) {
+              setActiveClass(found);
+            } else {
+              apiFetch(`/api/classes/${encodeURIComponent(liveId)}`)
+                .then(backendCls => {
+                  if (backendCls && backendCls.id) {
+                    const clsObj = {
+                      id: backendCls.id,
+                      title: backendCls.title,
+                      name: backendCls.title,
+                      courseName: backendCls.course_name,
+                      course_name: backendCls.course_name,
+                      room_name: backendCls.room_name || (backendCls.id.startsWith('nithya-') ? backendCls.id : `nithya-${backendCls.id}`),
+                      status: backendCls.status || 'live',
+                      duration: backendCls.duration_minutes || 60,
+                      instructor: 'NITHYA Master'
+                    };
+                    setActiveClass(clsObj);
+                    setClasses(prev => [clsObj, ...prev.filter(c => c.id !== clsObj.id)]);
+                  } else {
+                    const dynCls = {
+                      id: liveId,
+                      title: 'Live Yoga Class',
+                      name: 'Live Yoga Class',
+                      courseName: 'Live Yoga Flow',
+                      room_name: liveId.startsWith('nithya-') ? liveId : `nithya-${liveId}`,
+                      status: 'live',
+                      duration: 60,
+                      instructor: 'NITHYA Master'
+                    };
+                    setActiveClass(dynCls);
+                  }
+                })
+                .catch(() => {
                   const dynCls = {
                     id: liveId,
                     title: 'Live Yoga Class',
@@ -408,59 +437,68 @@ export default function App() {
                     instructor: 'NITHYA Master'
                   };
                   setActiveClass(dynCls);
-                }
-              })
-              .catch(() => {
-                const dynCls = {
-                  id: liveId,
-                  title: 'Live Yoga Class',
-                  name: 'Live Yoga Class',
-                  courseName: 'Live Yoga Flow',
-                  room_name: liveId.startsWith('nithya-') ? liveId : `nithya-${liveId}`,
-                  status: 'live',
-                  duration: 60,
-                  instructor: 'NITHYA Master'
-                };
-                setActiveClass(dynCls);
-              });
+                });
+            }
           }
-        }
-        // Check if user is instructor or student:
-        const rawSession = loadStorage('nithya_student_session', null);
-        const isValidSession = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
-        const session = isValidSession ? rawSession : null;
-        if (!isValidSession) {
-          try {
-            localStorage.removeItem('nithya_student_session');
-          } catch (_) {}
-        }
 
-        const activeRole = localStorage.getItem('nithya_active_role');
-        const isTrainerMode = !isStudentExplicit && activeRole !== 'student' && hasTeacherToken && user?.role === 'trainer';
+          // Check if user is instructor or student:
+          const rawSession = loadStorage('nithya_student_session', null);
+          const isValidSession = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
+          const session = isValidSession ? rawSession : null;
+          if (!isValidSession) {
+            try {
+              localStorage.removeItem('nithya_student_session');
+            } catch (_) {}
+          }
 
-        if (isTrainerMode) {
-          localStorage.setItem('nithya_active_role', 'instructor');
-          setShowStudentJoinModal(false);
-          setCurrentTab('live');
-        } else {
-          localStorage.setItem('nithya_active_role', 'student');
-          // Always prompt the Student Join modal when arriving via student link
-          if (isStudentExplicit || !session) {
-            setShowStudentJoinModal(true);
-          } else {
-            setUser(prev => ({
-              ...prev,
-              name: session.name,
-              phone: session.phone,
-              role: 'student',
-              isInstructor: false
-            }));
+          const activeRole = localStorage.getItem('nithya_active_role');
+          const isTrainerMode = !isStudentExplicit && activeRole !== 'student' && hasTeacherToken && user?.role === 'trainer';
+
+          if (isTrainerMode) {
+            localStorage.setItem('nithya_active_role', 'instructor');
             setShowStudentJoinModal(false);
             setCurrentTab('live');
+          } else {
+            localStorage.setItem('nithya_active_role', 'student');
+            if (isStudentExplicit || !session) {
+              setShowStudentJoinModal(true);
+            } else {
+              setUser(prev => ({
+                ...prev,
+                name: session.name,
+                phone: session.phone,
+                role: 'student',
+                isInstructor: false
+              }));
+              setShowStudentJoinModal(false);
+              setCurrentTab('live');
+            }
           }
         }
+      } catch (err) {
+        console.warn('Error processing deep link / URL params:', err);
       }
-    } catch (_) {}
+    };
+
+    // 1. Initial page load URL
+    if (typeof window !== 'undefined' && window.location) {
+      processDeepLinkUrl(window.location.href);
+    }
+
+    // 2. Android cold-start deep link
+    if (typeof window !== 'undefined' && window.AndroidNativeUpdater && typeof window.AndroidNativeUpdater.getInitialDeepLink === 'function') {
+      const initialLink = window.AndroidNativeUpdater.getInitialDeepLink();
+      if (initialLink) {
+        processDeepLinkUrl(initialLink);
+      }
+    }
+
+    // 3. Android warm-start deep link (onNewIntent)
+    if (typeof window !== 'undefined') {
+      window.__handleDeepLink = (deepLinkUri) => {
+        processDeepLinkUrl(deepLinkUri);
+      };
+    }
   }, [classes]);
 
   const handleTestSound = async () => {

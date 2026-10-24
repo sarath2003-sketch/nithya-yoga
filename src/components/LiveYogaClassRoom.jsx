@@ -335,6 +335,26 @@ export default function LiveYogaClassRoom({
   const [isMediaLoading, setIsMediaLoading] = useState(false);
   const [mediaErrorMsg, setMediaErrorMsg] = useState('');
 
+  // Detect mobile web browser to provide Smart App Handoff option
+  const isMobileWebBrowser = typeof window !== 'undefined' && 
+    !window.AndroidNativeUpdater && 
+    window.location.protocol !== 'capacitor:' && 
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent || '');
+
+  const handleLaunchNativeApp = () => {
+    const classId = activeRoomSessionId || activeClass?.id || 'live-session';
+    const intentUrl = `intent://sarath2003-sketch.github.io/nithya-yoga/?live=${encodeURIComponent(classId)}&join=student#Intent;scheme=https;package=com.nithya.yoga;end`;
+    const customScheme = `nithyayoga://live?id=${encodeURIComponent(classId)}&join=student`;
+    try {
+      window.location.href = customScheme;
+      setTimeout(() => {
+        window.location.href = intentUrl;
+      }, 400);
+    } catch (_) {
+      window.location.href = intentUrl;
+    }
+  };
+
   // Hardware-aware Lobby Mic & Video Toggles
   const handleLobbyToggleMic = async () => {
     setMediaErrorMsg('');
@@ -1624,14 +1644,16 @@ export default function LiveYogaClassRoom({
     prompt(lang === 'ta' ? 'நேரலை வகுப்பு லிங்க்:' : 'Live Class Link:', url);
   };
 
-  // Phase 4: Share via WhatsApp
+  // Phase 4: Share via WhatsApp (includes web link and direct app deep link)
   const handleWhatsAppShare = () => {
     const url = getShareableClassLink();
+    const classId = activeRoomSessionId || activeClass?.id || 'live-session';
+    const appLaunchScheme = `nithyayoga://live?id=${encodeURIComponent(classId)}&join=student`;
     const title = activeClass?.title || activeClass?.name || 'Hatha Yoga Flow';
     const instructor = activeClass?.instructor || 'NITHYA Master';
     const text = lang === 'ta'
-      ? `🧘 *நித்யா யோகா நேரலை வகுப்பிற்கு உங்களை அன்புடன் அழைக்கிறோம்!*\n\nவகுப்பு: *${title}*\nபயிற்றுநர்: *${instructor}*\n\nமாணவர்கள் உடனடியாக நேரலை வகுப்பில் இணைய கீழே உள்ள லிங்கை கிளிக் செய்யவும்:\n${url}`
-      : `🧘 *Join Live Yoga Class with NITHYA Yoga Studio*\n\nClass: *${title}*\nInstructor: *${instructor}*\n\nTap here to enter the live yoga room:\n${url}`;
+      ? `🧘 *நித்யா யோகா நேரலை வகுப்பிற்கு உங்களை அன்புடன் அழைக்கிறோம்!*\n\nவகுப்பு: *${title}*\nபயிற்றுநர்: *${instructor}*\n\n🌐 *நேரலை வகுப்பில் இணைய லிங்க் (Web & App):*\n${url}\n\n📲 *ஆப் வைத்திருப்பவர்கள் நேரடியாகத் திறக்க:*\n${appLaunchScheme}`
+      : `🧘 *Join Live Yoga Class with NITHYA Yoga Studio*\n\nClass: *${title}*\nInstructor: *${instructor}*\n\n🌐 *Tap to Join Live Class (Web & App):*\n${url}\n\n📲 *Direct App Launch (If App Installed):*\n${appLaunchScheme}`;
     window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank', 'noopener,noreferrer');
   };
 
@@ -2374,6 +2396,26 @@ export default function LiveYogaClassRoom({
       {/* State 4: CONNECTED VIDEO ROOM (Figma Frame 2955 Design) */}
       {connectionState === 'connected' && (
         <div className="figma-live-classroom-container">
+          {/* Smart App Handoff Banner for Mobile Web Users */}
+          {isMobileWebBrowser && (
+            <div className="mobile-web-app-handoff-banner flex items-center justify-between p-2.5 px-3 rounded-xl bg-violet-950/90 border border-violet-500/40 text-xs mb-3 text-violet-100 shadow-lg">
+              <div className="flex items-center gap-2">
+                <span className="text-base">📲</span>
+                <div>
+                  <p className="font-bold text-white text-[12px]">{lang === 'ta' ? 'நித்யா யோகா ஆப் உள்ளதா?' : 'Have the NITHYA Yoga App?'}</p>
+                  <p className="text-[10px] text-violet-300">{lang === 'ta' ? 'ஆப்பில் தடையின்றி வீடியோவில் இணையலாம்' : 'Open in app for full native experience'}</p>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={handleLaunchNativeApp}
+                className="px-3 py-1.5 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold rounded-lg text-[11px] shadow-sm transition-all cursor-pointer whitespace-nowrap"
+              >
+                {lang === 'ta' ? 'ஆப்பில் திறக்க' : 'Open App'}
+              </button>
+            </div>
+          )}
+
           {/* Header Bar matching Figma Frame 2955 */}
           <div className="figma-live-class-header">
             <div className="figma-header-title-col">

@@ -22,10 +22,16 @@ import com.getcapacitor.BridgeActivity;
 
 public class MainActivity extends BridgeActivity {
     public static final String NOTIFICATION_CHANNEL_ID = "nithya_reminders";
+    private String pendingDeepLinkUrl = null;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Capture incoming deep link if launched directly from a link (cold start)
+        if (getIntent() != null && getIntent().getData() != null) {
+            pendingDeepLinkUrl = getIntent().getData().toString();
+        }
 
         // 1. Create High-Priority Notification Channel for Android 8.0+
         createNotificationChannel();
@@ -55,6 +61,13 @@ public class MainActivity extends BridgeActivity {
 
             // JavaScript Interface: directly callable from React/JS as window.AndroidNativeUpdater
             webView.addJavascriptInterface(new Object() {
+                @JavascriptInterface
+                public String getInitialDeepLink() {
+                    String url = pendingDeepLinkUrl;
+                    pendingDeepLinkUrl = null;
+                    return url != null ? url : "";
+                }
+
                 @JavascriptInterface
                 public void openInChrome(String url) {
                     openInExternalBrowser(url);
@@ -152,6 +165,26 @@ public class MainActivity extends BridgeActivity {
             manager.notify((int) System.currentTimeMillis(), builder.build());
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        if (intent != null && intent.getData() != null) {
+            final String deepLink = intent.getData().toString();
+            if (getBridge() != null && getBridge().getWebView() != null) {
+                getBridge().getWebView().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        getBridge().getWebView().evaluateJavascript(
+                            "if (typeof window !== 'undefined' && window.__handleDeepLink) { window.__handleDeepLink('" + deepLink.replace("'", "\\'") + "'); }",
+                            null
+                        );
+                    }
+                });
+            }
         }
     }
 

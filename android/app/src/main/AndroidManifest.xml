@@ -22,15 +22,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
-            <!-- App Links & Deep Links: Opens NITHYA Yoga App directly from WhatsApp/Browser links -->
-            <intent-filter android:autoVerify="true">
+            <!-- Standard Web Deep Link: Opens NITHYA Yoga App directly from WhatsApp / Browser links -->
+            <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data android:scheme="https" android:host="sarath2003-sketch.github.io" android:pathPrefix="/nithya-yoga" />
+                <data android:scheme="http" android:host="sarath2003-sketch.github.io" android:pathPrefix="/nithya-yoga" />
             </intent-filter>
 
-            <!-- Custom Scheme: nithyayoga://live?id=... -->
+            <!-- Custom Scheme: nithyayoga://live?id=... and nithyayoga://open?live=... -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />

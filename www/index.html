@@ -39,21 +39,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+Tamil:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
   
   <!-- Core Design System CSS -->
-  <link rel="stylesheet" href="./src/styles.css?v=4.4.0">
-  <link rel="stylesheet" href="./assets/yoga-ui.css?v=4.4.0">
+  <link rel="stylesheet" href="./src/styles.css?v=4.5.0">
+  <link rel="stylesheet" href="./assets/yoga-ui.css?v=4.5.0">
 </head>
 <body>
   <div id="root"></div>
 
   <!-- React 18 Application Bundle -->
-  <script src="./dist/bundle.js?v=4.4.0"></script>
-  <script src="./assets/yoga-ui.js?v=4.4.0" defer></script>
+  <script src="./dist/bundle.js?v=4.5.0"></script>
+  <script src="./assets/yoga-ui.js?v=4.5.0" defer></script>
 
   <!-- Production Service Worker Registration with Lifecycle & Update Listeners -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=4.4.0', { scope: './' })
+        navigator.serviceWorker.register('./sw.js?v=4.5.0', { scope: './' })
           .then((registration) => {
             console.log('[PWA] ServiceWorker active on scope:', registration.scope);
 

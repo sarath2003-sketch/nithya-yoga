@@ -68,3 +68,6 @@ dist/screenshots/
 www/dist/screenshots/
 
 android/.kotlin/
+www/*.apk
+assets/apk/
+www/assets/apk/

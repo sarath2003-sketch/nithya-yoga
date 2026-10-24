@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { createPortal } from 'react-dom';
 import {
   Room,
   RoomEvent,
@@ -1559,6 +1560,16 @@ export default function LiveYogaClassRoom({
     setShowShareModal(true);
   };
 
+  useEffect(() => {
+    if (showShareModal && typeof document !== 'undefined') {
+      const prevOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      return () => {
+        document.body.style.overflow = prevOverflow;
+      };
+    }
+  }, [showShareModal]);
+
   const handleContinueToClassroom = () => {
     setShowShareModal(false);
     setSessionStage('connecting');
@@ -1796,7 +1807,7 @@ export default function LiveYogaClassRoom({
   return (
     <div className={`livekit-yoga-studio-container ${isFullscreen ? 'fullscreen-mode' : ''}`} ref={containerRef}>
       {/* 2-Step Share Modal — Exact Match to User's 3D Celestial Glass Prototype */}
-      {showShareModal && (
+      {showShareModal && (typeof document !== 'undefined' && document.body ? createPortal(
         <div className="live-share-modal-overlay" onClick={() => setShowShareModal(false)}>
           <div className="user-live-ready-viewport live-share-modal-card" onClick={e => e.stopPropagation()}>
             {/* Header: Brand + 3D Chakra Meditating Hero */}
@@ -1846,8 +1857,8 @@ export default function LiveYogaClassRoom({
             </section>
 
             {/* Card 2: Main Class Card */}
-            <section className="user-glass-card user-class-card modal-class-info-card">
-              <div className="user-class-info-row modal-class-info-meta">
+            <section className="user-glass-card user-class-card">
+              <div className="user-class-info-row modal-class-info-card">
                 <div className="user-class-image-box">
                   <img
                     src="assets/images/chakra-meditation.jpg"
@@ -1855,7 +1866,7 @@ export default function LiveYogaClassRoom({
                   />
                 </div>
 
-                <div className="user-class-meta-col">
+                <div className="user-class-meta-col modal-class-info-meta">
                   <p className="user-class-eyebrow modal-info-label">YOGA CLASS</p>
                   <h3 className="user-class-headline modal-class-title">{activeClass?.title || activeClass?.name || 'Hatha Yoga'}</h3>
                   <p className="user-class-instructor modal-instructor-text">
@@ -1914,7 +1925,7 @@ export default function LiveYogaClassRoom({
                   id="whatsappBtn"
                 >
                   <div className="flex items-center justify-between w-full">
-                    <div className="flex items-center gap-2.5">
+                    <div className="user-btn-label-cluster">
                       <span className="text-lg">☎</span>
                       <span>Share with Students on WhatsApp</span>
                     </div>
@@ -1972,8 +1983,176 @@ export default function LiveYogaClassRoom({
               <span className="user-floating-petal user-petal-4" aria-hidden="true">🌸</span>
             </section>
           </div>
+        </div>,
+        document.body
+      ) : (
+        <div className="live-share-modal-overlay" onClick={() => setShowShareModal(false)}>
+          <div className="user-live-ready-viewport live-share-modal-card" onClick={e => e.stopPropagation()}>
+            <header className="user-live-ready-header">
+              <div className="user-live-brand-col">
+                <div className="user-live-brand-title-row">
+                  <span className="user-live-logo-icon">❀</span>
+                  <h1 className="user-live-brand-title">Nithya</h1>
+                </div>
+                <p className="user-live-brand-tagline">Breathe · Balance · Be You</p>
+              </div>
+              <div className="user-live-hero-avatar-wrap">
+                <img
+                  src="assets/images/chakra-meditation.jpg"
+                  alt="Nithya 7 Chakras Yoga Meditation Visual"
+                  className="user-live-chakra-avatar-img"
+                />
+              </div>
+            </header>
+
+            <section className="user-glass-card user-ready-card modal-header-row" id="readyCard">
+              <div className="user-broadcast-box modal-header-icon-box">
+                <Radio size={36} className="text-white animate-pulse" />
+              </div>
+
+              <div className="user-ready-content modal-header-title-wrap">
+                <h2 className="user-ready-title modal-title" title="Live Class Link Ready!">
+                  🎉 Live Class Link<br />
+                  <span>Ready!</span>
+                </h2>
+                <p className="user-ready-desc modal-subtitle">Share the invitation with your students.</p>
+              </div>
+
+              <button
+                type="button"
+                className="user-close-btn modal-close-btn"
+                onClick={() => {
+                  setShowShareModal(false);
+                  setSessionStage('idle');
+                }}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </section>
+
+            <section className="user-glass-card user-class-card">
+              <div className="user-class-info-row modal-class-info-card">
+                <div className="user-class-image-box">
+                  <img
+                    src="assets/images/chakra-meditation.jpg"
+                    alt="Yoga Class 3D Visual"
+                  />
+                </div>
+
+                <div className="user-class-meta-col modal-class-info-meta">
+                  <p className="user-class-eyebrow modal-info-label">YOGA CLASS</p>
+                  <h3 className="user-class-headline modal-class-title">{activeClass?.title || activeClass?.name || 'Hatha Yoga'}</h3>
+                  <p className="user-class-instructor modal-instructor-text">
+                    Instructor:<br />
+                    <strong>{activeClass?.instructor || 'NITHYA Master'}</strong>
+                  </p>
+                </div>
+
+                <div className="modal-badge-container">
+                  <span className={`user-status-badge modal-status-badge ${(sessionStage === 'live' || connectionState === 'connected') ? 'badge-live' : 'badge-ready'}`}>
+                    {(sessionStage === 'live' || connectionState === 'connected') ? (
+                      <>
+                        <span className="modal-pulse-dot"></span>
+                        LIVE
+                      </>
+                    ) : (
+                      '● READY'
+                    )}
+                  </span>
+                </div>
+              </div>
+
+              <section className="user-link-section modal-invite-section">
+                <p className="user-link-title modal-invite-label">🔗 Unique Live Invite Link:</p>
+
+                <div className="user-link-box modal-invite-field-box">
+                  <span className="user-invite-url-text modal-invite-url-scroll select-all font-mono" id="inviteLink">
+                    {getShareableClassLink()}
+                  </span>
+
+                  <button
+                    type="button"
+                    className="user-copy-icon-btn modal-copy-field-btn"
+                    onClick={handleCopyShareLink}
+                    aria-label="Copy invite link"
+                    title="Copy Link"
+                  >
+                    {copiedLink ? <Check size={18} className="text-emerald-300" /> : <Copy size={18} />}
+                  </button>
+                </div>
+                {copiedLink && (
+                  <div className="modal-copy-toast mt-2 text-xs font-bold text-emerald-400">
+                    ✓ {lang === 'ta' ? 'லிங்க் வெற்றிகரமாக நகலெடுக்கப்பட்டது!' : 'Invite link copied successfully!'}
+                  </div>
+                )}
+              </section>
+
+              <div className="modal-actions-grid">
+                <button
+                  type="button"
+                  className="user-action-btn user-btn-whatsapp modal-action-btn btn-whatsapp"
+                  onClick={handleWhatsAppShare}
+                  id="whatsappBtn"
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <div className="user-btn-label-cluster">
+                      <span className="text-lg">☎</span>
+                      <span>Share with Students on WhatsApp</span>
+                    </div>
+                    <ArrowRight size={18} />
+                  </div>
+                </button>
+
+                <div className="user-small-actions-row modal-action-btn-row">
+                  <button
+                    type="button"
+                    className="user-action-btn user-btn-secondary modal-action-btn btn-secondary-pill"
+                    onClick={handleCopyShareLink}
+                    id="copyBtn"
+                  >
+                    {copiedLink ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
+                    <span>{copiedLink ? 'Copied!' : 'Copy Link'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    className="user-action-btn user-btn-secondary modal-action-btn btn-secondary-pill"
+                    onClick={handleNativeShare}
+                    id="shareBtn"
+                  >
+                    <Share2 size={16} />
+                    <span>Share Link</span>
+                  </button>
+                </div>
+
+                <button
+                  type="button"
+                  className="user-action-btn user-btn-continue modal-action-btn btn-continue-primary"
+                  onClick={handleContinueToClassroom}
+                  id="continueBtn"
+                >
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">🚀</span>
+                      <div className="text-left leading-snug">
+                        <div>Continue to Live</div>
+                        <div>Classroom</div>
+                      </div>
+                    </div>
+                    <ArrowRight size={22} />
+                  </div>
+                </button>
+              </div>
+
+              <span className="user-floating-petal user-petal-1" aria-hidden="true">🌸</span>
+              <span className="user-floating-petal user-petal-2" aria-hidden="true">🌸</span>
+              <span className="user-floating-petal user-petal-3" aria-hidden="true">🌸</span>
+              <span className="user-floating-petal user-petal-4" aria-hidden="true">🌸</span>
+            </section>
+          </div>
         </div>
-      )}
+      ))}
 
       {/* Floating Hand Raise Notification */}
       {handAlertMsg && (

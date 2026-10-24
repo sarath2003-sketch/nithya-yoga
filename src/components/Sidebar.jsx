@@ -37,7 +37,7 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user =
       <div className="sidebar-brand-container" onClick={() => setCurrentTab('home')}>
         <div className="sidebar-brand-logo-wrap">
           <img 
-            src="assets/images/logo.png" 
+            src="assets/brand/nithya-yoga-3d-logo.svg" 
             alt="Nithya Yoga Logo" 
             className="sidebar-official-logo-img" 
           />

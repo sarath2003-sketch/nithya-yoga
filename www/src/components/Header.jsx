@@ -14,14 +14,16 @@ export default function Header({
   onTestSound,
   onOpenProfile,
   onQuickUpdate,
-  updateAvailable = false
+  updateAvailable = false,
+  uiMode = 'stitch',
+  onToggleUiMode
 }) {
   return (
     <header className="dashboard-top-header">
       {/* Left: Page Title / Mobile Brand */}
       <div className="header-left-cluster">
         <div className="header-mobile-brand-wrap" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <img src="assets/images/logo.png" alt="Nithya Yoga" className="header-mobile-logo-img" />
+          <img src="assets/images/logo.png?v=20261024" alt="Nithya Yoga" className="header-mobile-logo-img" />
           <span className="header-mobile-title">NITHYA</span>
         </div>
         <div className="header-page-title-block hidden md:flex">
@@ -48,6 +50,23 @@ export default function Header({
 
       {/* Right: Header Tools & User Profile */}
       <div className="header-tools-cluster">
+        {/* UI Mode Switcher Pill */}
+        {onToggleUiMode && (
+          <button
+            type="button"
+            className="header-tool-btn header-ui-switcher-pill cursor-pointer"
+            onClick={onToggleUiMode}
+            title={uiMode === 'stitch'
+              ? (lang === 'ta' ? 'கிளாசிக் 3D UI-க்கு மாற்றவும்' : 'Switch to Classic 3D Dashboard')
+              : (lang === 'ta' ? 'Google Stitch UI-க்கு மாற்றவும்' : 'Switch to Google Stitch Sanctuary')}
+          >
+            <Sparkles size={14} className="text-amber-400" />
+            <span className="hidden sm:inline font-bold text-xs">
+              {uiMode === 'stitch' ? '🌟 Stitch' : '📊 Classic'}
+            </span>
+          </button>
+        )}
+
         {/* Quick App Update Pill */}
         <button
           type="button"

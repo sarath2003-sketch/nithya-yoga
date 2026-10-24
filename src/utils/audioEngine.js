@@ -36,6 +36,41 @@ class SoundEngine {
     }
   }
 
+  // Solfeggio / Chakra Tone Synthesizer (e.g. 528 Hz Heart Tone, 432 Hz Healing Tone)
+  playChakraTone(freq = 528, duration = 3.8) {
+    try {
+      const ctx = this.init();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+      const masterGain = ctx.createGain();
+      masterGain.gain.setValueAtTime(0.001, now);
+      masterGain.gain.linearRampToValueAtTime(this.volume * 0.75, now + 0.35);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      masterGain.connect(ctx.destination);
+
+      // Warm solfeggio harmonic layering (Fundamental + 5th harmonic overtone)
+      [
+        { f: freq, weight: 0.8 },
+        { f: freq * 1.5, weight: 0.22 },
+        { f: freq * 2, weight: 0.1 }
+      ].forEach(({ f, weight }) => {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f, now);
+        
+        const oscGain = ctx.createGain();
+        oscGain.gain.setValueAtTime(weight, now);
+        osc.connect(oscGain);
+        oscGain.connect(masterGain);
+        
+        osc.start(now);
+        osc.stop(now + duration);
+      });
+    } catch (e) {
+      console.warn('playChakraTone error:', e);
+    }
+  }
+
   // 1. Soft Bell - Warm, peaceful harmonic bell
   playSoftBell() {
     try {

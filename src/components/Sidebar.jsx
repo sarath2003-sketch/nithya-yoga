@@ -16,7 +16,7 @@ import {
   Settings
 } from 'lucide-react';
 
-export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user = { name: 'Nithya' } }) {
+export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user = { name: 'Nithya' }, uiMode = 'stitch', onToggleUiMode }) {
   const navItems = [
     { id: 'home', label: 'Dashboard', labelTa: 'டாஷ்போர்டு', icon: Home },
     { id: 'classes', label: 'My Music & Yoga', labelTa: 'யோகா & இசை', icon: Music },
@@ -37,7 +37,7 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user =
       <div className="sidebar-brand-container" onClick={() => setCurrentTab('home')}>
         <div className="sidebar-brand-logo-wrap">
           <img 
-            src="assets/images/logo.png" 
+            src="assets/images/logo.png?v=20261024" 
             alt="Nithya Yoga Logo" 
             className="sidebar-official-logo-img" 
           />

@@ -269,7 +269,7 @@ export default function LiveClassStudio({
       <div className="live-studio-head">
         <div className="live-studio-brand">
           <div className="live-studio-logo-emblem-wrap">
-            <img src="assets/images/logo.png" alt="Nithya Yoga" className="live-studio-logo-img" />
+            <img src="assets/images/logo.png?v=20261024" alt="Nithya Yoga" className="live-studio-logo-img" />
           </div>
           <div className="live-studio-meta">
             <h3 className="live-studio-title">

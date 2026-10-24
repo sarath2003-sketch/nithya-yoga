@@ -21,7 +21,7 @@ export default function Header({
       {/* Left: Page Title / Mobile Brand */}
       <div className="header-left-cluster">
         <div className="header-mobile-brand-wrap" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-          <img src="assets/images/logo.png" alt="Nithya Yoga" className="header-mobile-logo-img" />
+          <img src="assets/images/logo.png?v=20261024" alt="Nithya Yoga" className="header-mobile-logo-img" />
           <span className="header-mobile-title">NITHYA</span>
         </div>
         <div className="header-page-title-block hidden md:flex">

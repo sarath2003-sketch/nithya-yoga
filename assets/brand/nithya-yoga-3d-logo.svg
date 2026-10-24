@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+<title>Nithya Yoga — original chakra lotus mark</title>
+<desc>Original violet and lilac lotus with a calm seated meditation silhouette and seven chakra lights.</desc>
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#17134b"/><stop offset=".55" stop-color="#4c1d95"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+ <linearGradient id="petal" x1="0" y1="0" x2="0.9" y2="1"><stop stop-color="#fff"/><stop offset=".45" stop-color="#e9d5ff"/><stop offset="1" stop-color="#a78bfa"/></linearGradient>
+ <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#fff7ad"/><stop offset="1" stop-color="#f59e0b"/></linearGradient>
+ <filter id="glow"><feGaussianBlur stdDeviation="7" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+ <radialGradient id="halo"><stop stop-color="#c4b5fd" stop-opacity=".7"/><stop offset="1" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient>
+</defs>
+<circle cx="256" cy="256" r="244" fill="url(#bg)"/>
+<circle cx="256" cy="226" r="164" fill="url(#halo)"/>
+<circle cx="256" cy="226" r="142" fill="none" stroke="#ddd6fe" stroke-opacity=".45" stroke-width="3"/>
+<circle cx="256" cy="226" r="126" fill="none" stroke="#c4b5fd" stroke-opacity=".5" stroke-width="2" stroke-dasharray="4 10"/>
+<g fill="url(#petal)" stroke="#fff" stroke-opacity=".8" stroke-width="4" filter="url(#glow)">
+ <path d="M256 51 C205 106 213 149 256 190 C299 149 307 106 256 51Z"/>
+ <path d="M256 51 C205 106 213 149 256 190 C299 149 307 106 256 51Z" transform="rotate(-34 256 226)"/>
+ <path d="M256 51 C205 106 213 149 256 190 C299 149 307 106 256 51Z" transform="rotate(34 256 226)"/>
+ <path d="M256 51 C205 106 213 149 256 190 C299 149 307 106 256 51Z" transform="rotate(-68 256 226)"/>
+ <path d="M256 51 C205 106 213 149 256 190 C299 149 307 106 256 51Z" transform="rotate(68 256 226)"/>
+</g>
+<g fill="none" stroke="url(#petal)" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">
+ <path d="M218 214 Q218 186 240 184 Q256 185 256 205 Q256 184 273 184 Q295 187 294 214"/>
+ <path d="M256 205 L256 262"/>
+ <path d="M256 232 Q231 246 211 265 Q196 283 218 294 Q237 302 256 284 Q275 302 294 294 Q316 283 301 265 Q281 246 256 232Z"/>
+ <path d="M206 310 Q256 329 306 310"/>
+</g>
+<g filter="url(#glow)">
+ <circle cx="256" cy="206" r="9" fill="#c084fc"/>
+ <circle cx="256" cy="226" r="9" fill="#60a5fa"/>
+ <circle cx="256" cy="246" r="9" fill="#34d399"/>
+ <circle cx="256" cy="266" r="9" fill="#fde047"/>
+ <circle cx="256" cy="286" r="9" fill="#fb923c"/>
+ <circle cx="256" cy="306" r="9" fill="#f472b6"/>
+</g>
+<path d="M115 352 Q256 430 397 352 Q367 431 256 440 Q145 431 115 352Z" fill="url(#petal)" stroke="#fff" stroke-opacity=".7" stroke-width="3"/>
+<path d="M142 365 Q256 412 370 365" fill="none" stroke="url(#gold)" stroke-width="5" stroke-linecap="round"/>
+<text x="256" y="474" text-anchor="middle" font-family="Poppins,Arial,sans-serif" font-weight="700" font-size="28" fill="#fff" letter-spacing="2">NITHYA YOGA</text>
+</svg>

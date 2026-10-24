@@ -67,3 +67,4 @@ data/
 dist/screenshots/
 www/dist/screenshots/
 
+android/.kotlin/

@@ -8277,3 +8277,59 @@ html, body, #root, .app-root-container, .app-main-layout {
   .figma-participant-tiles-grid { grid-template-columns: minmax(0, 1fr); }
 }
 }
+
+/* NITHYA Yoga premium depth system — subtle 3D surfaces, not heavy animation */
+:root {
+  --nithya-violet-950: #17132f;
+  --nithya-violet-800: #3b2475;
+  --nithya-violet-600: #7c3aed;
+  --nithya-lilac: #c4b5fd;
+  --nithya-glass: rgba(255,255,255,.74);
+}
+.sidebar img[alt*="logo" i],
+.sidebar img[alt*="nithya" i],
+.brand-logo,
+.app-logo {
+  filter: drop-shadow(0 5px 12px rgba(70, 34, 130, .26));
+}
+.dashboard-card,
+.stat-card,
+.feature-card,
+.yoga-card,
+.music-card,
+.reminder-card {
+  transform: translateZ(0);
+  transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+  box-shadow: 0 10px 28px rgba(67, 42, 120, .09), inset 0 1px 0 rgba(255,255,255,.72);
+}
+.dashboard-card:hover,
+.stat-card:hover,
+.feature-card:hover,
+.yoga-card:hover,
+.music-card:hover,
+.reminder-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 34px rgba(67, 42, 120, .15), inset 0 1px 0 rgba(255,255,255,.82);
+}
+button,
+.btn,
+.primary-button,
+button[class*="primary"] {
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+}
+button:active,
+.btn:active,
+.primary-button:active {
+  transform: translateY(1px) scale(.99);
+}
+.live-studio-card-container {
+  box-shadow: 0 20px 55px rgba(14, 12, 38, .28), inset 0 1px 0 rgba(255,255,255,.08);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}

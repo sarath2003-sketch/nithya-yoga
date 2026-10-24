@@ -8934,6 +8934,485 @@ button:active,
 .figma-participant-item .figma-item-status {
   color: #C5BCDC !important;
 }
+
+/* ======================================================================
+   NITHYA YOGA — USER 3D CELESTIAL GLASS DESIGN (EXACT PROTOTYPE MATCH)
+   ====================================================================== */
+
+:root {
+  --user-bg: #05051b;
+  --user-card: rgba(21, 25, 86, 0.78);
+  --user-purple: #792cff;
+  --user-pink: #d35cff;
+  --user-text: #f5f2ff;
+  --user-muted: #aaa9e8;
+}
+
+.user-live-ready-viewport {
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  position: relative;
+  box-sizing: border-box;
+  padding: 10px 4px 30px;
+}
+
+.live-share-modal-card.user-live-ready-viewport {
+  background:
+    radial-gradient(ellipse at 50% 0%, #202a80 0%, transparent 45%),
+    radial-gradient(ellipse at 80% 65%, #24105b 0%, transparent 45%),
+    #05051b !important;
+  border: 1px solid rgba(151, 112, 255, 0.45) !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), 0 0 50px rgba(121, 44, 255, 0.28) !important;
+  max-width: 520px;
+  padding: 18px 14px 28px;
+}
+
+.user-live-ready-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 8px 24px;
+  gap: 12px;
+  position: relative;
+  overflow: visible;
+}
+
+.user-live-brand-col {
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.user-live-brand-title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.user-live-logo-icon {
+  font-size: 34px;
+  color: #ba85ff;
+  filter: drop-shadow(0 0 12px #8c42ff);
+  display: inline-block;
+  line-height: 1;
+}
+
+.user-live-brand-title {
+  font-size: 28px;
+  font-weight: 700;
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #FFFFFF !important;
+  margin: 0;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+}
+
+.user-live-brand-tagline {
+  margin-top: 6px;
+  color: #b9b8f8;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.user-live-hero-avatar-wrap {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.user-live-chakra-avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  filter: drop-shadow(0 0 20px rgba(186, 133, 255, 0.65));
+  mask-image: radial-gradient(circle at 50% 50%, black 50%, transparent 80%);
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, black 50%, transparent 80%);
+}
+
+/* Glassmorphism Surface Token */
+.user-glass-card {
+  background: linear-gradient(
+    135deg,
+    rgba(53, 49, 139, 0.65),
+    rgba(10, 13, 54, 0.92)
+  ) !important;
+  border: 1px solid rgba(151, 112, 255, 0.5) !important;
+  border-radius: 28px !important;
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, 0.4),
+    inset 0 1px 1px rgba(255, 255, 255, 0.15) !important;
+  box-sizing: border-box;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+/* Ready Card */
+.user-ready-card {
+  padding: 22px 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.user-broadcast-box {
+  width: 72px;
+  height: 72px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #bd56ff, #5525ff);
+  box-shadow: 0 0 28px rgba(132, 45, 255, 0.6);
+  color: #FFFFFF;
+}
+
+.user-ready-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-ready-title {
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+  color: #FFFFFF !important;
+  margin: 0;
+}
+
+.user-ready-title span {
+  color: #c77aff !important;
+}
+
+.user-ready-desc {
+  color: #aaa9e8 !important;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.user-close-btn {
+  border: 1px solid #57519b;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-size: 22px;
+  line-height: 1;
+}
+
+.user-close-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: scale(1.05);
+}
+
+/* Main Class Card */
+.user-class-card {
+  padding: 20px;
+  position: relative;
+  overflow: visible;
+}
+
+.user-class-info-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.user-class-image-box {
+  width: 96px;
+  height: 108px;
+  flex-shrink: 0;
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at 50% 40%, #f6baff, transparent 25%),
+    linear-gradient(145deg, #9239ff, #151a64);
+  border: 1px solid #9e72ff;
+  box-shadow: 0 8px 24px rgba(146, 57, 255, 0.35);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.user-class-image-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.user-class-meta-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.user-class-eyebrow {
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: #aaa5ff !important;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.user-class-headline {
+  font-size: 23px;
+  font-weight: 800;
+  color: #FFFFFF !important;
+  margin: 0 0 8px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.user-class-instructor {
+  color: #b9b9f5 !important;
+  font-size: 13px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.user-class-instructor strong {
+  color: #FFFFFF !important;
+}
+
+.user-status-badge {
+  background: rgba(0, 221, 181, 0.15) !important;
+  color: #5dffdb !important;
+  border: 1px solid rgba(0, 255, 208, 0.35) !important;
+  padding: 8px 14px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* Link Section */
+.user-link-section {
+  background: rgba(49, 43, 130, 0.35);
+  border: 1px solid rgba(130, 105, 255, 0.35);
+  border-radius: 24px;
+  padding: 16px 14px;
+  margin-bottom: 18px;
+}
+
+.user-link-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #d8d4ff !important;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.user-link-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid #6550b5;
+  border-radius: 18px;
+  background: #070820;
+}
+
+.user-invite-url-text {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #d2b5ff !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  user-select: all;
+}
+
+.user-copy-icon-btn {
+  border: 0;
+  background: linear-gradient(135deg, #a13cff, #622aff);
+  color: #FFFFFF;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.4);
+}
+
+.user-copy-icon-btn:hover {
+  filter: brightness(1.15);
+  transform: scale(1.03);
+}
+
+/* Actions */
+.user-action-btn {
+  width: 100%;
+  box-sizing: border-box;
+  font: inherit;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-action-btn:active {
+  transform: scale(0.98);
+}
+
+.user-btn-whatsapp {
+  min-height: 60px;
+  padding: 14px 20px;
+  border-radius: 22px;
+  background: linear-gradient(110deg, #10d8c0, #00a783);
+  box-shadow: 0 8px 28px rgba(0, 218, 170, 0.25);
+  color: #FFFFFF !important;
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 13px;
+}
+
+.user-btn-whatsapp:hover {
+  filter: brightness(1.08);
+}
+
+.user-small-actions-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 15px;
+}
+
+.user-btn-secondary {
+  min-height: 56px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #29245f, #171746);
+  border: 1px solid #5e50b3;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #FFFFFF !important;
+  justify-content: center;
+  gap: 8px;
+}
+
+.user-btn-secondary:hover {
+  background: linear-gradient(135deg, #362f7d, #1f1f5e);
+}
+
+.user-btn-continue {
+  min-height: 80px;
+  padding: 16px 22px;
+  background: linear-gradient(105deg, #9a36ff, #642cff, #bd43ff);
+  border: 1px solid #d078ff;
+  border-radius: 24px;
+  box-shadow: 0 8px 32px rgba(132, 41, 255, 0.35);
+  font-size: 17px;
+  font-weight: 900;
+  line-height: 1.35;
+  color: #FFFFFF !important;
+}
+
+.user-btn-continue:hover {
+  filter: brightness(1.12);
+  box-shadow: 0 10px 38px rgba(132, 41, 255, 0.5);
+}
+
+/* Floating 3D Petals matching image */
+.user-floating-petal {
+  position: absolute;
+  pointer-events: none;
+  z-index: 10;
+  width: 24px;
+  height: 24px;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 10px rgba(199, 122, 255, 0.75));
+  animation: userPetalFloat 5s ease-in-out infinite alternate;
+}
+
+.user-petal-1 {
+  top: 18%;
+  left: -14px;
+  animation-delay: 0s;
+  transform: rotate(-15deg);
+}
+
+.user-petal-2 {
+  top: 22%;
+  right: -12px;
+  animation-delay: 1.2s;
+  transform: rotate(25deg);
+}
+
+.user-petal-3 {
+  top: 60%;
+  left: -16px;
+  animation-delay: 2.4s;
+  transform: rotate(40deg);
+}
+
+.user-petal-4 {
+  top: 78%;
+  right: -14px;
+  animation-delay: 3.6s;
+  transform: rotate(-30deg);
+}
+
+@keyframes userPetalFloat {
+  0% { transform: translateY(0px) rotate(0deg); }
+  100% { transform: translateY(-10px) rotate(18deg); }
+}
+
+@media (max-width: 380px) {
+  .user-ready-card {
+    padding: 16px 12px;
+    gap: 10px;
+  }
+  .user-broadcast-box {
+    width: 55px;
+    height: 55px;
+  }
+  .user-ready-title {
+    font-size: 18px;
+  }
+  .user-class-card {
+    padding: 14px;
+  }
+  .user-class-image-box {
+    width: 75px;
+    height: 90px;
+  }
+  .user-class-headline {
+    font-size: 19px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     scroll-behavior: auto !important;

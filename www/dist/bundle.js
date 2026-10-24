@@ -67443,62 +67443,80 @@ ${url}`;
       (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && s.identity !== "instructor-lead" && s.identity !== "instructor-local" && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Yoga Member", "Yoga Student", "Student"].includes(s.name) && Boolean(s.phone && String(s.phone).replace(/\D/g, "").length >= 10)
     );
     const currentStudentCount = isInstructorRole ? realStudentsList.length : Math.max(1, realStudentsList.length);
-    return /* @__PURE__ */ import_react22.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, showShareModal && /* @__PURE__ */ import_react22.default.createElement("div", { className: "live-share-modal-overlay", onClick: () => setShowShareModal(false) }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "live-share-modal-card", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-header-row" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-header-title-wrap" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-header-icon-box" }, /* @__PURE__ */ import_react22.default.createElement(Sparkles, { size: 20 })), /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "modal-title" }, lang === "ta" ? "\u{1F389} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD!" : "\u{1F389} Live Class Link Ready!"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "modal-subtitle" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BB5\u0BC1\u0BAE\u0BCD" : "Share the invitation with your students."))), /* @__PURE__ */ import_react22.default.createElement(
+    return /* @__PURE__ */ import_react22.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, showShareModal && /* @__PURE__ */ import_react22.default.createElement("div", { className: "live-share-modal-overlay", onClick: () => setShowShareModal(false) }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-live-ready-viewport live-share-modal-card", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react22.default.createElement("header", { className: "user-live-ready-header" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-live-brand-col" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-live-brand-title-row" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "user-live-logo-icon" }, "\u2740"), /* @__PURE__ */ import_react22.default.createElement("h1", { className: "user-live-brand-title" }, "Nithya")), /* @__PURE__ */ import_react22.default.createElement("p", { className: "user-live-brand-tagline" }, "Breathe \xB7 Balance \xB7 Be You")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-live-hero-avatar-wrap" }, /* @__PURE__ */ import_react22.default.createElement(
+      "img",
+      {
+        src: "assets/images/chakra-meditation.jpg",
+        alt: "Nithya 7 Chakras Yoga Meditation Visual",
+        className: "user-live-chakra-avatar-img"
+      }
+    ))), /* @__PURE__ */ import_react22.default.createElement("section", { className: "user-glass-card user-ready-card modal-header-row", id: "readyCard" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-broadcast-box modal-header-icon-box" }, /* @__PURE__ */ import_react22.default.createElement(Radio, { size: 36, className: "text-white animate-pulse" })), /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-ready-content modal-header-title-wrap" }, /* @__PURE__ */ import_react22.default.createElement("h2", { className: "user-ready-title modal-title", title: "Live Class Link Ready!" }, "\u{1F389} Live Class Link", /* @__PURE__ */ import_react22.default.createElement("br", null), /* @__PURE__ */ import_react22.default.createElement("span", null, "Ready!")), /* @__PURE__ */ import_react22.default.createElement("p", { className: "user-ready-desc modal-subtitle" }, "Share the invitation with your students.")), /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: "modal-close-btn",
-        onClick: () => setShowShareModal(false),
+        className: "user-close-btn modal-close-btn",
+        onClick: () => {
+          setShowShareModal(false);
+          setSessionStage("idle");
+        },
         "aria-label": "Close"
       },
-      /* @__PURE__ */ import_react22.default.createElement(X, { size: 16 })
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-class-info-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-class-info-meta" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "modal-info-label" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Yoga Class"), /* @__PURE__ */ import_react22.default.createElement("strong", { className: "modal-class-title" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "modal-instructor-text" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Instructor:", " ", /* @__PURE__ */ import_react22.default.createElement("strong", null, activeClass?.instructor || "NITHYA Master"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-badge-container" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: `modal-status-badge ${sessionStage === "live" || connectionState === "connected" ? "badge-live" : "badge-ready"}` }, sessionStage === "live" || connectionState === "connected" ? /* @__PURE__ */ import_react22.default.createElement(import_react22.default.Fragment, null, /* @__PURE__ */ import_react22.default.createElement("span", { className: "modal-pulse-dot" }), "LIVE") : "READY"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-invite-section" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "modal-invite-label" }, lang === "ta" ? "\u{1F517} \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0BA4\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BAE\u0BBE\u0BA9 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD:" : "\u{1F517} Unique Live Invite Link:"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-invite-field-box" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "modal-invite-url-scroll select-all font-mono" }, getShareableClassLink()), /* @__PURE__ */ import_react22.default.createElement(
+      "\xD7"
+    )), /* @__PURE__ */ import_react22.default.createElement("section", { className: "user-glass-card user-class-card modal-class-info-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-class-info-row modal-class-info-meta" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-class-image-box" }, /* @__PURE__ */ import_react22.default.createElement(
+      "img",
+      {
+        src: "assets/images/chakra-meditation.jpg",
+        alt: "Yoga Class 3D Visual"
+      }
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-class-meta-col" }, /* @__PURE__ */ import_react22.default.createElement("p", { className: "user-class-eyebrow modal-info-label" }, "YOGA CLASS"), /* @__PURE__ */ import_react22.default.createElement("h3", { className: "user-class-headline modal-class-title" }, activeClass?.title || activeClass?.name || "Hatha Yoga"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "user-class-instructor modal-instructor-text" }, "Instructor:", /* @__PURE__ */ import_react22.default.createElement("br", null), /* @__PURE__ */ import_react22.default.createElement("strong", null, activeClass?.instructor || "NITHYA Master"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-badge-container" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: `user-status-badge modal-status-badge ${sessionStage === "live" || connectionState === "connected" ? "badge-live" : "badge-ready"}` }, sessionStage === "live" || connectionState === "connected" ? /* @__PURE__ */ import_react22.default.createElement(import_react22.default.Fragment, null, /* @__PURE__ */ import_react22.default.createElement("span", { className: "modal-pulse-dot" }), "LIVE") : "\u25CF READY"))), /* @__PURE__ */ import_react22.default.createElement("section", { className: "user-link-section modal-invite-section" }, /* @__PURE__ */ import_react22.default.createElement("p", { className: "user-link-title modal-invite-label" }, "\u{1F517} Unique Live Invite Link:"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-link-box modal-invite-field-box" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "user-invite-url-text modal-invite-url-scroll select-all font-mono", id: "inviteLink" }, getShareableClassLink()), /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: "modal-copy-field-btn",
+        className: "user-copy-icon-btn modal-copy-field-btn",
         onClick: handleCopyShareLink,
-        title: lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1" : "Copy Link",
-        "aria-label": "Copy Link"
+        "aria-label": "Copy invite link",
+        title: "Copy Link"
       },
-      copiedLink ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 14, className: "text-emerald-400" }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 14 })
-    )), copiedLink && /* @__PURE__ */ import_react22.default.createElement("span", { className: "modal-copy-toast" }, "\u2713 ", lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95 \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Link copied successfully!")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-actions-grid" }, /* @__PURE__ */ import_react22.default.createElement(
+      copiedLink ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 18, className: "text-emerald-300" }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 18 })
+    )), copiedLink && /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-copy-toast mt-2 text-xs font-bold text-emerald-400" }, "\u2713 ", lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95 \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Invite link copied successfully!")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-actions-grid" }, /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: "modal-action-btn btn-whatsapp",
-        onClick: handleWhatsAppShare
+        className: "user-action-btn user-btn-whatsapp modal-action-btn btn-whatsapp",
+        onClick: handleWhatsAppShare,
+        id: "whatsappBtn"
       },
-      /* @__PURE__ */ import_react22.default.createElement(Share2, { size: 16 }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u{1F7E2} WhatsApp-\u0BB2\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAA\u0B95\u0BBF\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "\u{1F7E2} Share with Students on WhatsApp")
-    ), /* @__PURE__ */ import_react22.default.createElement("div", { className: "modal-action-btn-row" }, /* @__PURE__ */ import_react22.default.createElement(
+      /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between w-full" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-lg" }, "\u260E"), /* @__PURE__ */ import_react22.default.createElement("span", null, "Share with Students on WhatsApp")), /* @__PURE__ */ import_react22.default.createElement(ArrowRight, { size: 18 }))
+    ), /* @__PURE__ */ import_react22.default.createElement("div", { className: "user-small-actions-row modal-action-btn-row" }, /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: "modal-action-btn btn-secondary-pill",
-        onClick: handleCopyShareLink
+        className: "user-action-btn user-btn-secondary modal-action-btn btn-secondary-pill",
+        onClick: handleCopyShareLink,
+        id: "copyBtn"
       },
-      copiedLink ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 14, className: "text-emerald-400" }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 14 }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Copied!" : lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD" : "Copy Link")
+      copiedLink ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 16, className: "text-emerald-400" }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 16 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, copiedLink ? "Copied!" : "Copy Link")
     ), /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: "modal-action-btn btn-secondary-pill",
-        onClick: handleNativeShare
+        className: "user-action-btn user-btn-secondary modal-action-btn btn-secondary-pill",
+        onClick: handleNativeShare,
+        id: "shareBtn"
       },
-      /* @__PURE__ */ import_react22.default.createElement(Share2, { size: 14 }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BCB\u0BA9\u0BBF\u0BB2\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BB5\u0BC1\u0BAE\u0BCD" : "Share Link")
+      /* @__PURE__ */ import_react22.default.createElement(Share2, { size: 16 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, "Share Link")
     )), /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: "modal-action-btn btn-continue-primary",
-        onClick: handleContinueToClassroom
+        className: "user-action-btn user-btn-continue modal-action-btn btn-continue-primary",
+        onClick: handleContinueToClassroom,
+        id: "continueBtn"
       },
-      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BB3\u0BCD \u0B9A\u0BC6\u0BB2\u0BCD (Continue to Class)" : "\u{1F680} Continue to Live Classroom"),
-      /* @__PURE__ */ import_react22.default.createElement(ArrowRight, { size: 16 })
-    )))), handAlertMsg && /* @__PURE__ */ import_react22.default.createElement("div", { className: "absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-full shadow-2xl backdrop-blur flex items-center gap-2 animate-bounce border border-amber-200" }, /* @__PURE__ */ import_react22.default.createElement(Hand, { size: 18, className: "text-slate-950" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-xs" }, handAlertMsg)), connectionState === "idle" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-lobby-card p-6 md:p-10 max-w-2xl mx-auto my-6 text-center rounded-3xl border shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "lobby-artwork-wrap flex justify-center mb-4" }, /* @__PURE__ */ import_react22.default.createElement(ThreeDLotus, { size: 64 })), mediaErrorMsg && /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 p-3.5 mb-5 rounded-2xl bg-rose-950/60 border border-rose-500/50 text-rose-200 text-xs text-left max-w-md mx-auto shadow-lg animate-fadeIn" }, /* @__PURE__ */ import_react22.default.createElement(CircleAlert, { size: 18, className: "shrink-0 text-rose-400" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "flex-1 font-medium" }, mediaErrorMsg), /* @__PURE__ */ import_react22.default.createElement(
+      /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between w-full" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-2xl" }, "\u{1F680}"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "text-left leading-snug" }, /* @__PURE__ */ import_react22.default.createElement("div", null, "Continue to Live"), /* @__PURE__ */ import_react22.default.createElement("div", null, "Classroom"))), /* @__PURE__ */ import_react22.default.createElement(ArrowRight, { size: 22 }))
+    )), /* @__PURE__ */ import_react22.default.createElement("span", { className: "user-floating-petal user-petal-1", "aria-hidden": "true" }, "\u{1F338}"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "user-floating-petal user-petal-2", "aria-hidden": "true" }, "\u{1F338}"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "user-floating-petal user-petal-3", "aria-hidden": "true" }, "\u{1F338}"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "user-floating-petal user-petal-4", "aria-hidden": "true" }, "\u{1F338}")))), handAlertMsg && /* @__PURE__ */ import_react22.default.createElement("div", { className: "absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-full shadow-2xl backdrop-blur flex items-center gap-2 animate-bounce border border-amber-200" }, /* @__PURE__ */ import_react22.default.createElement(Hand, { size: 18, className: "text-slate-950" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-xs" }, handAlertMsg)), connectionState === "idle" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-lobby-card p-6 md:p-10 max-w-2xl mx-auto my-6 text-center rounded-3xl border shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "lobby-artwork-wrap flex justify-center mb-4" }, /* @__PURE__ */ import_react22.default.createElement(ThreeDLotus, { size: 64 })), mediaErrorMsg && /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 p-3.5 mb-5 rounded-2xl bg-rose-950/60 border border-rose-500/50 text-rose-200 text-xs text-left max-w-md mx-auto shadow-lg animate-fadeIn" }, /* @__PURE__ */ import_react22.default.createElement(CircleAlert, { size: 18, className: "shrink-0 text-rose-400" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "flex-1 font-medium" }, mediaErrorMsg), /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",

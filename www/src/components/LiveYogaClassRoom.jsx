@@ -1795,128 +1795,182 @@ export default function LiveYogaClassRoom({
 
   return (
     <div className={`livekit-yoga-studio-container ${isFullscreen ? 'fullscreen-mode' : ''}`} ref={containerRef}>
-      {/* 2-Step Share Modal (Pop-up after Create Room or on Share Button click) */}
+      {/* 2-Step Share Modal — Exact Match to User's 3D Celestial Glass Prototype */}
       {showShareModal && (
         <div className="live-share-modal-overlay" onClick={() => setShowShareModal(false)}>
-          <div className="live-share-modal-card" onClick={e => e.stopPropagation()}>
-            {/* Header: Title and Close button */}
-            <div className="modal-header-row">
-              <div className="modal-header-title-wrap">
-                <div className="modal-header-icon-box">
-                  <Sparkles size={20} />
+          <div className="user-live-ready-viewport live-share-modal-card" onClick={e => e.stopPropagation()}>
+            {/* Header: Brand + 3D Chakra Meditating Hero */}
+            <header className="user-live-ready-header">
+              <div className="user-live-brand-col">
+                <div className="user-live-brand-title-row">
+                  <span className="user-live-logo-icon">❀</span>
+                  <h1 className="user-live-brand-title">Nithya</h1>
                 </div>
-                <div>
-                  <h3 className="modal-title">
-                    {lang === 'ta' ? '🎉 நேரலை வகுப்பு லிங்க் தயார்!' : '🎉 Live Class Link Ready!'}
-                  </h3>
-                  <p className="modal-subtitle">
-                    {lang === 'ta' ? 'மாணவர்களுடன் பகிரவும்' : 'Share the invitation with your students.'}
-                  </p>
-                </div>
+                <p className="user-live-brand-tagline">Breathe · Balance · Be You</p>
               </div>
+              <div className="user-live-hero-avatar-wrap">
+                <img
+                  src="assets/images/chakra-meditation.jpg"
+                  alt="Nithya 7 Chakras Yoga Meditation Visual"
+                  className="user-live-chakra-avatar-img"
+                />
+              </div>
+            </header>
+
+            {/* Card 1: Ready Card */}
+            <section className="user-glass-card user-ready-card modal-header-row" id="readyCard">
+              <div className="user-broadcast-box modal-header-icon-box">
+                <Radio size={36} className="text-white animate-pulse" />
+              </div>
+
+              <div className="user-ready-content modal-header-title-wrap">
+                <h2 className="user-ready-title modal-title" title="Live Class Link Ready!">
+                  🎉 Live Class Link<br />
+                  <span>Ready!</span>
+                  {/* Live Class Link Ready! */}
+                </h2>
+                <p className="user-ready-desc modal-subtitle">Share the invitation with your students.</p>
+              </div>
+
               <button
                 type="button"
-                className="modal-close-btn"
-                onClick={() => setShowShareModal(false)}
+                className="user-close-btn modal-close-btn"
+                onClick={() => {
+                  setShowShareModal(false);
+                  setSessionStage('idle');
+                }}
                 aria-label="Close"
               >
-                <X size={16} />
+                ×
               </button>
-            </div>
+            </section>
 
-            {/* Class Details summary chip with accurate status badge */}
-            <div className="modal-class-info-card">
-              <div className="modal-class-info-meta">
-                <span className="modal-info-label">
-                  {lang === 'ta' ? 'யோகா வகுப்பு' : 'Yoga Class'}
-                </span>
-                <strong className="modal-class-title">
-                  {activeClass?.title || activeClass?.name || 'Hatha Yoga Flow'}
-                </strong>
-                <span className="modal-instructor-text">
-                  {lang === 'ta' ? 'பயிற்றுநர்:' : 'Instructor:'} <strong>{activeClass?.instructor || 'NITHYA Master'}</strong>
-                </span>
-              </div>
-              <div className="modal-badge-container">
-                <span className={`modal-status-badge ${(sessionStage === 'live' || connectionState === 'connected') ? 'badge-live' : 'badge-ready'}`}>
-                  {(sessionStage === 'live' || connectionState === 'connected') ? (
-                    <>
-                      <span className="modal-pulse-dot"></span>
-                      LIVE
-                    </>
-                  ) : (
-                    'READY'
-                  )}
-                </span>
-              </div>
-            </div>
+            {/* Card 2: Main Class Card */}
+            <section className="user-glass-card user-class-card modal-class-info-card">
+              <div className="user-class-info-row modal-class-info-meta">
+                <div className="user-class-image-box">
+                  <img
+                    src="assets/images/chakra-meditation.jpg"
+                    alt="Yoga Class 3D Visual"
+                  />
+                </div>
 
-            {/* Unique Link Monospace Box with Dedicated Copy Button */}
-            <div className="modal-invite-section">
-              <label className="modal-invite-label">
-                {lang === 'ta' ? '🔗 வகுப்புக்கான தனித்துவமான நேரலை லிங்க்:' : '🔗 Unique Live Invite Link:'}
-              </label>
-              <div className="modal-invite-field-box">
-                <span className="modal-invite-url-scroll select-all font-mono">
-                  {getShareableClassLink()}
-                </span>
+                <div className="user-class-meta-col">
+                  <p className="user-class-eyebrow modal-info-label">YOGA CLASS</p>
+                  <h3 className="user-class-headline modal-class-title">{activeClass?.title || activeClass?.name || 'Hatha Yoga'}</h3>
+                  <p className="user-class-instructor modal-instructor-text">
+                    Instructor:<br />
+                    <strong>{activeClass?.instructor || 'NITHYA Master'}</strong>
+                  </p>
+                </div>
+
+                <div className="modal-badge-container">
+                  <span className={`user-status-badge modal-status-badge ${(sessionStage === 'live' || connectionState === 'connected') ? 'badge-live' : 'badge-ready'}`}>
+                    {(sessionStage === 'live' || connectionState === 'connected') ? (
+                      <>
+                        <span className="modal-pulse-dot"></span>
+                        LIVE
+                      </>
+                    ) : (
+                      '● READY'
+                    )}
+                  </span>
+                </div>
+              </div>
+
+              {/* Unique Live Invite Link Section */}
+              <section className="user-link-section modal-invite-section">
+                <p className="user-link-title modal-invite-label">🔗 Unique Live Invite Link:</p>
+
+                <div className="user-link-box modal-invite-field-box">
+                  <span className="user-invite-url-text modal-invite-url-scroll select-all font-mono" id="inviteLink">
+                    {getShareableClassLink()}
+                  </span>
+
+                  <button
+                    type="button"
+                    className="user-copy-icon-btn modal-copy-field-btn"
+                    onClick={handleCopyShareLink}
+                    aria-label="Copy invite link"
+                    title="Copy Link"
+                  >
+                    {copiedLink ? <Check size={18} className="text-emerald-300" /> : <Copy size={18} />}
+                  </button>
+                </div>
+                {copiedLink && (
+                  <div className="modal-copy-toast mt-2 text-xs font-bold text-emerald-400">
+                    ✓ {lang === 'ta' ? 'லிங்க் வெற்றிகரமாக நகலெடுக்கப்பட்டது!' : 'Invite link copied successfully!'}
+                  </div>
+                )}
+              </section>
+
+              {/* Action Buttons Matching User Prototype */}
+              <div className="modal-actions-grid">
+                {/* 1. WhatsApp Button */}
                 <button
                   type="button"
-                  className="modal-copy-field-btn"
-                  onClick={handleCopyShareLink}
-                  title={lang === 'ta' ? 'லிங்க்கை நகலெடு' : 'Copy Link'}
-                  aria-label="Copy Link"
+                  className="user-action-btn user-btn-whatsapp modal-action-btn btn-whatsapp"
+                  onClick={handleWhatsAppShare}
+                  id="whatsappBtn"
                 >
-                  {copiedLink ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-2.5">
+                      <span className="text-lg">☎</span>
+                      <span>Share with Students on WhatsApp</span>
+                    </div>
+                    <ArrowRight size={18} />
+                  </div>
                 </button>
-              </div>
-              {copiedLink && (
-                <span className="modal-copy-toast">
-                  ✓ {lang === 'ta' ? 'லிங்க் வெற்றிகரமாக நகலெடுக்கப்பட்டது!' : 'Link copied successfully!'}
-                </span>
-              )}
-            </div>
 
-            {/* 4 Action Buttons: WhatsApp, Copy, Native Share, Continue */}
-            <div className="modal-actions-grid">
-              <button
-                type="button"
-                className="modal-action-btn btn-whatsapp"
-                onClick={handleWhatsAppShare}
-              >
-                <Share2 size={16} />
-                <span>{lang === 'ta' ? '🟢 WhatsApp-ல் மாணவர்களுக்கு பகிருங்கள்' : '🟢 Share with Students on WhatsApp'}</span>
-              </button>
+                {/* 2 & 3. Small Action Buttons Grid */}
+                <div className="user-small-actions-row modal-action-btn-row">
+                  <button
+                    type="button"
+                    className="user-action-btn user-btn-secondary modal-action-btn btn-secondary-pill"
+                    onClick={handleCopyShareLink}
+                    id="copyBtn"
+                  >
+                    {copiedLink ? <Check size={16} className="text-emerald-400" /> : <Copy size={16} />}
+                    <span>{copiedLink ? 'Copied!' : 'Copy Link'}</span>
+                  </button>
 
-              <div className="modal-action-btn-row">
+                  <button
+                    type="button"
+                    className="user-action-btn user-btn-secondary modal-action-btn btn-secondary-pill"
+                    onClick={handleNativeShare}
+                    id="shareBtn"
+                  >
+                    <Share2 size={16} />
+                    <span>Share Link</span>
+                  </button>
+                </div>
+
+                {/* 4. Continue to Live Classroom Large Button */}
                 <button
                   type="button"
-                  className="modal-action-btn btn-secondary-pill"
-                  onClick={handleCopyShareLink}
+                  className="user-action-btn user-btn-continue modal-action-btn btn-continue-primary"
+                  onClick={handleContinueToClassroom}
+                  id="continueBtn"
                 >
-                  {copiedLink ? <Check size={14} className="text-emerald-400" /> : <Copy size={14} />}
-                  <span>{copiedLink ? (lang === 'ta' ? 'நகலெடுக்கப்பட்டது!' : 'Copied!') : (lang === 'ta' ? 'லிங்க்கை காப்பி செய்' : 'Copy Link')}</span>
-                </button>
-
-                <button
-                  type="button"
-                  className="modal-action-btn btn-secondary-pill"
-                  onClick={handleNativeShare}
-                >
-                  <Share2 size={14} />
-                  <span>{lang === 'ta' ? 'போனில் பகிரவும்' : 'Share Link'}</span>
+                  <div className="flex items-center justify-between w-full">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">🚀</span>
+                      <div className="text-left leading-snug">
+                        <div>Continue to Live</div>
+                        <div>Classroom</div>
+                      </div>
+                    </div>
+                    <ArrowRight size={22} />
+                  </div>
                 </button>
               </div>
 
-              <button
-                type="button"
-                className="modal-action-btn btn-continue-primary"
-                onClick={handleContinueToClassroom}
-              >
-                <span>{lang === 'ta' ? '🚀 நேரலை வகுப்பிற்குள் செல் (Continue to Class)' : '🚀 Continue to Live Classroom'}</span>
-                <ArrowRight size={16} />
-              </button>
-            </div>
+              {/* Floating 3D Glowing Petals matching the image */}
+              <span className="user-floating-petal user-petal-1" aria-hidden="true">🌸</span>
+              <span className="user-floating-petal user-petal-2" aria-hidden="true">🌸</span>
+              <span className="user-floating-petal user-petal-3" aria-hidden="true">🌸</span>
+              <span className="user-floating-petal user-petal-4" aria-hidden="true">🌸</span>
+            </section>
           </div>
         </div>
       )}

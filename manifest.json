@@ -25,9 +25,9 @@
   ],
   "icons": [
     {
-      "src": "assets/brand/nithya-yoga-3d-logo.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "assets/images/logo.png",
+      "sizes": "1024x1024",
+      "type": "image/png",
       "purpose": "any"
     },
     {

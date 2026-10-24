@@ -335,33 +335,33 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
       ) : (
         /* Tab Content Switching */
         activeTab === 'Settings' ? (
-          <div className="profile-settings-view flex flex-col gap-4 p-2">
+          <div className="profile-settings-view flex flex-col gap-4 p-2 w-full max-w-full overflow-hidden">
             {/* App Version & In-App Updater Box */}
-            <div className="p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col gap-3">
-              <div className="flex items-center justify-between flex-wrap gap-2">
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold">
+            <div className="p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col gap-3 w-full max-w-full box-border">
+              <div className="flex items-center justify-between flex-wrap gap-2 w-full">
+                <div className="flex items-center gap-2 min-w-0">
+                  <div className="w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold shrink-0">
                     🚀
                   </div>
-                  <div>
-                    <h4 className="text-xs font-black text-heading uppercase tracking-wide">
+                  <div className="min-w-0">
+                    <h4 className="text-xs font-black text-heading uppercase tracking-wide truncate">
                       {lang === 'ta' ? 'ஆப் பதிப்பு & நேரடி அப்டேட்' : 'App Version & In-App Updates'}
                     </h4>
-                    <span className="text-[11px] text-muted font-medium">
+                    <span className="text-[11px] text-muted font-medium block truncate">
                       {lang === 'ta' ? 'தற்போதைய பதிப்பு:' : 'Installed Version:'} <strong className="text-heading">v{CURRENT_APP_VERSION}</strong>
                     </span>
                   </div>
                 </div>
 
-                <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 shrink-0">
                   {remoteUpdate?.version && (remoteUpdate.versionCode > CURRENT_BUILD_NUMBER || remoteUpdate.version !== CURRENT_APP_VERSION)
-                    ? (lang === 'ta' ? `புதிய பதிப்பு v${remoteUpdate.version} தயார்! (${remoteUpdate.size || '24 MB'})` : `New v${remoteUpdate.version} Ready! (${remoteUpdate.size || '24 MB'})`)
+                    ? (lang === 'ta' ? `புதிய பதிப்பு v${remoteUpdate.version} தயார்!` : `New v${remoteUpdate.version} Ready!`)
                     : (lang === 'ta' ? 'லேட்டஸ்ட் பதிப்பு ✓' : 'Latest Release ✓')}
                 </span>
               </div>
 
               {remoteUpdate?.notesTa && (
-                <div className="p-2.5 rounded-lg bg-card border border-subtle text-xs text-sub leading-relaxed">
+                <div className="p-2.5 rounded-lg bg-card border border-subtle text-xs text-sub leading-relaxed break-words">
                   <span className="font-bold text-heading block mb-1">
                     {lang === 'ta' ? 'அப்டேட் குறிப்புகள்:' : 'Update Notes:'}
                   </span>
@@ -369,10 +369,10 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
                 </div>
               )}
 
-              <div className="flex items-center gap-2 flex-wrap pt-1">
+              <div className="flex items-center gap-2 flex-wrap pt-1 w-full">
                 <button
                   type="button"
-                  className="ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold"
+                  className="ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold shrink-0"
                   onClick={handleCheckUpdates}
                   disabled={isCheckingUpdate}
                 >
@@ -386,7 +386,7 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
 
                 <button
                   type="button"
-                  className="ya-btn ya-btn--primary text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer font-black shadow-md shadow-primary/20"
+                  className="ya-btn ya-btn--primary text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer font-black shadow-md shadow-primary/20 shrink-0"
                   onClick={handleTriggerUpdate}
                   disabled={isUpdatingApp}
                 >
@@ -400,7 +400,7 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
 
                 <button
                   type="button"
-                  className="ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-violet hover:bg-subtle/70"
+                  className="ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-violet hover:bg-subtle/70 shrink-0"
                   onClick={() => {
                     triggerApkDownload(remoteUpdate?.apkUrl);
                     if (showToast) {
@@ -420,7 +420,7 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
                 <button
                   type="button"
                   onClick={handleClearCache}
-                  className="ya-btn text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold border border-subtle bg-card text-heading hover:bg-subtle/50 ml-auto"
+                  className="ya-btn text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold border border-subtle bg-card text-heading hover:bg-subtle/50 shrink-0"
                 >
                   <RefreshCw size={13} />
                   <span>{lang === 'ta' ? 'நேரலை புதுப்பித்தல்' : 'Live Sync'}</span>

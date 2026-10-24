@@ -22,7 +22,7 @@ export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user =
     { id: 'classes', label: 'My Music & Yoga', labelTa: 'யோகா & இசை', icon: Music },
     { id: 'notes', label: 'Favorites', labelTa: 'விருப்பங்கள்', icon: Heart },
     { id: 'student', label: 'Playlists', labelTa: 'பயிற்சிப் பட்டியல்', icon: Flower2 },
-    { id: 'live', label: 'Podcasts & Live', labelTa: 'நேரலை வகுப்புகள்', icon: Radio },
+    { id: 'live', label: 'Live Yoga Studio', labelTa: 'நேரலை வகுப்புகள்', icon: Radio },
     { id: 'attendance', label: 'Activity', labelTa: 'செயல்பாடுகள்', icon: Activity },
     { id: 'reminders', label: 'Reminders', labelTa: 'நினைவூட்டல்', icon: Bell },
     { id: 'profile', label: 'Settings', labelTa: 'அமைப்புகள்', icon: Settings },

@@ -25511,7 +25511,7 @@
       { id: "classes", label: "My Music & Yoga", labelTa: "\u0BAF\u0BCB\u0B95\u0BBE & \u0B87\u0B9A\u0BC8", icon: Music },
       { id: "notes", label: "Favorites", labelTa: "\u0BB5\u0BBF\u0BB0\u0BC1\u0BAA\u0BCD\u0BAA\u0B99\u0BCD\u0B95\u0BB3\u0BCD", icon: Heart },
       { id: "student", label: "Playlists", labelTa: "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF\u0BAA\u0BCD \u0BAA\u0B9F\u0BCD\u0B9F\u0BBF\u0BAF\u0BB2\u0BCD", icon: Flower2 },
-      { id: "live", label: "Podcasts & Live", labelTa: "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD", icon: Radio },
+      { id: "live", label: "Live Yoga Studio", labelTa: "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD", icon: Radio },
       { id: "attendance", label: "Activity", labelTa: "\u0B9A\u0BC6\u0BAF\u0BB2\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1\u0B95\u0BB3\u0BCD", icon: Activity },
       { id: "reminders", label: "Reminders", labelTa: "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD", icon: Bell },
       { id: "profile", label: "Settings", labelTa: "\u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD", icon: Settings },
@@ -29133,11 +29133,11 @@ ${studentInviteUrl}`
       }
     ))), /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-edit-actions-row" }, /* @__PURE__ */ import_react18.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setIsEditing(false) }, lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel"), /* @__PURE__ */ import_react18.default.createElement("button", { type: "submit", className: "btn-modal-save" }, /* @__PURE__ */ import_react18.default.createElement(Check, { size: 14 }), /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD (Submit)" : "Save / Submit")))) : (
       /* Tab Content Switching */
-      activeTab === "Settings" ? /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-settings-view flex flex-col gap-4 p-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col gap-3" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold" }, "\u{1F680}"), /* @__PURE__ */ import_react18.default.createElement("div", null, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "text-xs font-black text-heading uppercase tracking-wide" }, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD" : "App Version & In-App Updates"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted font-medium" }, lang === "ta" ? "\u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1:" : "Installed Version:", " ", /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-heading" }, "v", CURRENT_APP_VERSION)))), /* @__PURE__ */ import_react18.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, remoteUpdate?.version && (remoteUpdate.versionCode > CURRENT_BUILD_NUMBER || remoteUpdate.version !== CURRENT_APP_VERSION) ? lang === "ta" ? `\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 v${remoteUpdate.version} \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD! (${remoteUpdate.size || "24 MB"})` : `New v${remoteUpdate.version} Ready! (${remoteUpdate.size || "24 MB"})` : lang === "ta" ? "\u0BB2\u0BC7\u0B9F\u0BCD\u0B9F\u0BB8\u0BCD\u0B9F\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u2713" : "Latest Release \u2713")), remoteUpdate?.notesTa && /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-2.5 rounded-lg bg-card border border-subtle text-xs text-sub leading-relaxed" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "font-bold text-heading block mb-1" }, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD:" : "Update Notes:"), lang === "ta" ? remoteUpdate.notesTa : remoteUpdate.notes), /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2 flex-wrap pt-1" }, /* @__PURE__ */ import_react18.default.createElement(
+      activeTab === "Settings" ? /* @__PURE__ */ import_react18.default.createElement("div", { className: "profile-settings-view flex flex-col gap-4 p-2 w-full max-w-full overflow-hidden" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-4 rounded-xl border border-primary/20 bg-primary/5 flex flex-col gap-3 w-full max-w-full box-border" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2 w-full" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2 min-w-0" }, /* @__PURE__ */ import_react18.default.createElement("div", { className: "w-8 h-8 rounded-lg bg-primary/20 text-primary flex items-center justify-center font-bold shrink-0" }, "\u{1F680}"), /* @__PURE__ */ import_react18.default.createElement("div", { className: "min-w-0" }, /* @__PURE__ */ import_react18.default.createElement("h4", { className: "text-xs font-black text-heading uppercase tracking-wide truncate" }, lang === "ta" ? "\u0B86\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD" : "App Version & In-App Updates"), /* @__PURE__ */ import_react18.default.createElement("span", { className: "text-[11px] text-muted font-medium block truncate" }, lang === "ta" ? "\u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1:" : "Installed Version:", " ", /* @__PURE__ */ import_react18.default.createElement("strong", { className: "text-heading" }, "v", CURRENT_APP_VERSION)))), /* @__PURE__ */ import_react18.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/10 text-emerald-600 border border-emerald-500/20 shrink-0" }, remoteUpdate?.version && (remoteUpdate.versionCode > CURRENT_BUILD_NUMBER || remoteUpdate.version !== CURRENT_APP_VERSION) ? lang === "ta" ? `\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 v${remoteUpdate.version} \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD!` : `New v${remoteUpdate.version} Ready!` : lang === "ta" ? "\u0BB2\u0BC7\u0B9F\u0BCD\u0B9F\u0BB8\u0BCD\u0B9F\u0BCD \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u2713" : "Latest Release \u2713")), remoteUpdate?.notesTa && /* @__PURE__ */ import_react18.default.createElement("div", { className: "p-2.5 rounded-lg bg-card border border-subtle text-xs text-sub leading-relaxed break-words" }, /* @__PURE__ */ import_react18.default.createElement("span", { className: "font-bold text-heading block mb-1" }, lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD:" : "Update Notes:"), lang === "ta" ? remoteUpdate.notesTa : remoteUpdate.notes), /* @__PURE__ */ import_react18.default.createElement("div", { className: "flex items-center gap-2 flex-wrap pt-1 w-full" }, /* @__PURE__ */ import_react18.default.createElement(
         "button",
         {
           type: "button",
-          className: "ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold",
+          className: "ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold shrink-0",
           onClick: handleCheckUpdates,
           disabled: isCheckingUpdate
         },
@@ -29147,7 +29147,7 @@ ${studentInviteUrl}`
         "button",
         {
           type: "button",
-          className: "ya-btn ya-btn--primary text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer font-black shadow-md shadow-primary/20",
+          className: "ya-btn ya-btn--primary text-xs px-4 py-2 flex items-center gap-1.5 cursor-pointer font-black shadow-md shadow-primary/20 shrink-0",
           onClick: handleTriggerUpdate,
           disabled: isUpdatingApp
         },
@@ -29157,7 +29157,7 @@ ${studentInviteUrl}`
         "button",
         {
           type: "button",
-          className: "ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-violet hover:bg-subtle/70",
+          className: "ya-btn ya-btn--soft text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-violet hover:bg-subtle/70 shrink-0",
           onClick: () => {
             triggerApkDownload(remoteUpdate?.apkUrl);
             if (showToast) {
@@ -29177,7 +29177,7 @@ ${studentInviteUrl}`
         {
           type: "button",
           onClick: handleClearCache,
-          className: "ya-btn text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold border border-subtle bg-card text-heading hover:bg-subtle/50 ml-auto"
+          className: "ya-btn text-xs px-3 py-2 flex items-center gap-1.5 cursor-pointer font-bold border border-subtle bg-card text-heading hover:bg-subtle/50 shrink-0"
         },
         /* @__PURE__ */ import_react18.default.createElement(RefreshCw, { size: 13 }),
         /* @__PURE__ */ import_react18.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA4\u0BCD\u0BA4\u0BB2\u0BCD" : "Live Sync")
@@ -66139,6 +66139,16 @@ ${studentInviteUrl}`
     const [teacherGraceRemaining, setTeacherGraceRemaining] = (0, import_react22.useState)(null);
     const [backendActiveCount, setBackendActiveCount] = (0, import_react22.useState)(0);
     const [backendStudentCount, setBackendStudentCount] = (0, import_react22.useState)(0);
+    const [activeRoomSessionId, setActiveRoomSessionId] = (0, import_react22.useState)(() => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const liveParam = params.get("live");
+        if (liveParam) return liveParam;
+      } catch (_2) {
+      }
+      return activeClass?.id || "live-session";
+    });
+    const [showShareModal, setShowShareModal] = (0, import_react22.useState)(false);
     const [isInstructorRole, setIsInstructorRole] = (0, import_react22.useState)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
@@ -66232,6 +66242,7 @@ ${studentInviteUrl}`
     const [sessionSeconds, setSessionSeconds] = (0, import_react22.useState)(0);
     const [hasAttendanceRecorded, setHasAttendanceRecorded] = (0, import_react22.useState)(false);
     const [showChat, setShowChat] = (0, import_react22.useState)(false);
+    const [activeSidebarTab, setActiveSidebarTab] = (0, import_react22.useState)("participants");
     const [isRecording, setIsRecording] = (0, import_react22.useState)(false);
     const [showAsanaGuide, setShowAsanaGuide] = (0, import_react22.useState)(false);
     const [showToolMenu, setShowToolMenu] = (0, import_react22.useState)(false);
@@ -66329,7 +66340,8 @@ ${studentInviteUrl}`
     }, [isInstructorRole]);
     (0, import_react22.useEffect)(() => {
       if (!localStream) return;
-      const classIdClean = String(activeClass?.id || "cls-1").toLowerCase().replace(/[^a-z0-9]/g, "");
+      const effectiveClassId = activeRoomSessionId || activeClass?.id || "cls-1";
+      const classIdClean = String(effectiveClassId).toLowerCase().replace(/[^a-z0-9]/g, "");
       const trainerPeerId = `nithya-yoga-live-${classIdClean}-trainer`;
       const rawStudentInfo = loadStorage("nithya_student_session", null);
       const cleanPhone = (rawStudentInfo?.phone || user?.phone || "").replace(/\D/g, "") || Math.floor(Math.random() * 899999 + 1e5);
@@ -66500,7 +66512,7 @@ ${studentInviteUrl}`
           }
         }
       };
-    }, [localStream, isInstructorRole, activeClass?.id]);
+    }, [localStream, isInstructorRole, activeClass?.id, activeRoomSessionId]);
     (0, import_react22.useEffect)(() => {
       if (isInstructorRole && activeClass?.id) {
         try {
@@ -66601,10 +66613,14 @@ ${studentInviteUrl}`
       window.addEventListener("beforeunload", handleUnload);
       return () => window.removeEventListener("beforeunload", handleUnload);
     }, [activeClass?.id, isInstructorRole, user]);
-    const connectToRoom = (0, import_react22.useCallback)(async () => {
+    const connectToRoom = (0, import_react22.useCallback)(async (customRoomId) => {
       setConnectionState("connecting");
       setErrorMessage("");
-      const roomName = (activeClass?.room_name || activeClass?.roomName || (activeClass?.id ? activeClass.id.startsWith("nithya-") ? activeClass.id : `nithya-${activeClass.id}` : "nithya-live-studio")).toLowerCase().replace(/[^a-z0-9_-]/g, "-");
+      const effectiveId = customRoomId || activeRoomSessionId || activeClass?.id || "live-session";
+      if (customRoomId && customRoomId !== activeRoomSessionId) {
+        setActiveRoomSessionId(customRoomId);
+      }
+      const roomName = (effectiveId.startsWith("nithya-") ? effectiveId : `nithya-${effectiveId}`).toLowerCase().replace(/[^a-z0-9_-]/g, "-");
       const studentInfo = loadStorage("nithya_student_session", null);
       const participantName2 = (isInstructorRole ? "NITHYA Master" : studentInfo?.name || (user?.name && user.name !== "Kavitha Ram" && user.name !== "Yoga Practitioner" && user.name !== "NITHYA Master" ? user.name : "Yoga Student")).trim();
       let connectedViaLiveKit = false;
@@ -66758,7 +66774,7 @@ ${studentInviteUrl}`
           setErrorMessage(fallbackErr.message || "Could not start yoga studio.");
         }
       }
-    }, [activeClass, user, isInstructorRole, isMicOn, isVideoOn]);
+    }, [activeClass, user, isInstructorRole, isMicOn, isVideoOn, activeRoomSessionId]);
     (0, import_react22.useEffect)(() => {
       return () => {
         if (room) {
@@ -67171,8 +67187,14 @@ ${studentInviteUrl}`
       }
     }, [sessionSeconds, connectionState, isInstructorRole, activeClass, user]);
     const getShareableClassLink = () => {
-      const classId = activeClass?.id || "cls-1";
+      const classId = activeRoomSessionId || activeClass?.id || "live-session";
       return getProductionLiveUrl(classId, { join: "student" });
+    };
+    const handleStartNewClassSession = () => {
+      const uniqueRoomId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
+      setActiveRoomSessionId(uniqueRoomId);
+      connectToRoom(uniqueRoomId);
+      setShowShareModal(true);
     };
     const handleCopyShareLink = () => {
       const url = getShareableClassLink();
@@ -67191,12 +67213,18 @@ ${studentInviteUrl}`
       const url = getShareableClassLink();
       const title = activeClass?.title || activeClass?.name || "Hatha Yoga Flow";
       const instructor = activeClass?.instructor || "NITHYA Master";
-      const text = `\u{1F9D8} *Join Live Yoga Class with NITHYA Yoga Studio*
+      const text = lang === "ta" ? `\u{1F9D8} *\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BA9\u0BCD\u0BAA\u0BC1\u0B9F\u0BA9\u0BCD \u0B85\u0BB4\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BCB\u0BAE\u0BCD!*
+
+\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1: *${title}*
+\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD: *${instructor}*
+
+\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B89\u0B9F\u0BA9\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BC8 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD:
+${url}` : `\u{1F9D8} *Join Live Yoga Class with NITHYA Yoga Studio*
 
 Class: *${title}*
 Instructor: *${instructor}*
 
-Tap here to register and enter the live yoga room:
+Tap here to enter the live yoga room:
 ${url}`;
       window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
     };
@@ -67325,84 +67353,144 @@ ${url}`;
       (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && s.identity !== "instructor-lead" && s.identity !== "instructor-local" && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Yoga Member", "Yoga Student", "Student"].includes(s.name) && Boolean(s.phone && String(s.phone).replace(/\D/g, "").length >= 10)
     );
     const currentStudentCount = isInstructorRole ? realStudentsList.length : Math.max(1, realStudentsList.length);
-    return /* @__PURE__ */ import_react22.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, handAlertMsg && /* @__PURE__ */ import_react22.default.createElement("div", { className: "absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-full shadow-2xl backdrop-blur flex items-center gap-2 animate-bounce border border-amber-200" }, /* @__PURE__ */ import_react22.default.createElement(Hand, { size: 18, className: "text-slate-950" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-xs" }, handAlertMsg)), connectionState === "idle" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-lobby-card p-6 md:p-10 max-w-2xl mx-auto my-6 text-center bg-white rounded-3xl border border-[#EAE3F2] shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "lobby-artwork-wrap flex justify-center mb-4" }, /* @__PURE__ */ import_react22.default.createElement(ThreeDLotus, { size: 64 })), /* @__PURE__ */ import_react22.default.createElement("h3", { className: "lobby-headline font-bold text-2xl text-[#29233D] mb-2 font-['Poppins']" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga & Asanas Flow"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "lobby-subtext text-sm text-[#777184] mb-6 max-w-md mx-auto" }, lang === "ta" ? "\u0B89\u0BAF\u0BB0\u0BCD\u0BA4\u0BB0 \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0BA4\u0BCD \u0BA4\u0BCB\u0BB4\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Interactive low-latency WebRTC live stream with certified instructor NITHYA Master."), /* @__PURE__ */ import_react22.default.createElement("div", { className: "lobby-role-selector grid grid-cols-1 sm:grid-cols-2 gap-3 mb-6" }, /* @__PURE__ */ import_react22.default.createElement(
+    return /* @__PURE__ */ import_react22.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, showShareModal && /* @__PURE__ */ import_react22.default.createElement("div", { className: "live-share-modal-overlay", onClick: () => setShowShareModal(false) }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "live-share-modal-card", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "w-10 h-10 rounded-2xl bg-gradient-to-tr from-violet-500 to-purple-600 text-white flex items-center justify-center shadow-md shrink-0" }, /* @__PURE__ */ import_react22.default.createElement(Sparkles, { size: 20 })), /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "font-bold text-base sm:text-lg text-[#29233D] dark:text-white leading-tight" }, lang === "ta" ? "\u{1F389} \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD!" : "\u{1F389} Live Class Link Ready!"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-[11px] text-[#777184] dark:text-[#C5BCDC]" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC1 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Share with students & start practicing"))), /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: `p-3.5 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer ${isInstructorRole ? "border-[#9B7AE8] bg-[#F8F5FF] shadow-sm" : "border-[#EAE3F2] bg-white hover:border-[#9B7AE8]/40"}`,
-        onClick: () => {
-          setIsInstructorRole(true);
-          try {
-            localStorage.setItem("nithya_active_role", "instructor");
-            localStorage.removeItem("nithya_student_session");
-            localStorage.setItem("nithya_trainer_token", "nithya_master_active");
-          } catch (_2) {
-          }
-        }
+        className: "w-8 h-8 rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:text-slate-800 dark:hover:text-white flex items-center justify-center cursor-pointer transition-colors",
+        onClick: () => setShowShareModal(false),
+        "aria-label": "Close"
       },
-      /* @__PURE__ */ import_react22.default.createElement(Crown, { size: 22, className: "text-amber-500 shrink-0" }),
-      /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("strong", { className: "block text-xs font-bold text-[#29233D]" }, lang === "ta" ? "\u{1F451} \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD" : "\u{1F451} Host (Trainer)"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-[11px] text-[#777184]" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Broadcast camera & guide"))
-    ), /* @__PURE__ */ import_react22.default.createElement(
+      /* @__PURE__ */ import_react22.default.createElement(X, { size: 16 })
+    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "p-3 rounded-2xl bg-violet-50/70 dark:bg-violet-950/30 border border-violet-100 dark:border-violet-900/40 mb-4 flex items-center justify-between" }, /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("strong", { className: "block text-xs font-bold text-[#29233D] dark:text-white" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-[11px] text-[#777184] dark:text-[#C5BCDC]" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Instructor:", " ", activeClass?.instructor || "NITHYA Master")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-[10px] font-black uppercase tracking-wider bg-violet-600 text-white" }, "LIVE")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "mb-4" }, /* @__PURE__ */ import_react22.default.createElement("label", { className: "block text-xs font-bold text-[#29233D] dark:text-white mb-1.5" }, lang === "ta" ? "\u{1F517} \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0BA4\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BAE\u0BBE\u0BA9 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD:" : "\u{1F517} Unique Live Invite Link:"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "p-3 bg-slate-50 dark:bg-slate-900/70 rounded-xl border border-slate-200 dark:border-slate-800 text-xs font-mono text-violet-700 dark:text-violet-300 break-all select-all flex items-center justify-between gap-2" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "truncate" }, getShareableClassLink()), /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: `p-3.5 rounded-2xl border text-left flex items-center gap-3 transition-all cursor-pointer ${!isInstructorRole ? "border-[#9B7AE8] bg-[#F8F5FF] shadow-sm" : "border-[#EAE3F2] bg-white hover:border-[#9B7AE8]/40"}`,
-        onClick: () => {
-          setIsInstructorRole(false);
-          try {
-            localStorage.setItem("nithya_active_role", "student");
-          } catch (_2) {
-          }
-        }
+        className: "shrink-0 p-1.5 rounded-lg bg-violet-600 hover:bg-violet-700 text-white cursor-pointer",
+        onClick: handleCopyShareLink,
+        title: "Copy Link"
       },
-      /* @__PURE__ */ import_react22.default.createElement(Users, { size: 22, className: "text-indigo-500 shrink-0" }),
-      /* @__PURE__ */ import_react22.default.createElement("div", null, /* @__PURE__ */ import_react22.default.createElement("strong", { className: "block text-xs font-bold text-[#29233D]" }, lang === "ta" ? "\u{1F465} \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAE\u0BC1\u0BB1\u0BC8" : "\u{1F465} Student Practitioner"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-[11px] text-[#777184]" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF\u0BAF\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Join class & follow guidance"))
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-center gap-3 mb-6" }, /* @__PURE__ */ import_react22.default.createElement(
+      copiedLink ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 14 }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 14 })
+    )), copiedLink && /* @__PURE__ */ import_react22.default.createElement("span", { className: "block text-[11px] text-emerald-600 dark:text-emerald-400 font-bold mt-1" }, "\u2713 ", lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Link copied to clipboard!")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex flex-col gap-2.5 mb-5" }, /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: `flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold cursor-pointer transition-all ${isMicOn ? "bg-[#EAF7EE] border-[#C3EBCF] text-[#10B981]" : "bg-[#FFF1F0] border-[#FFD8D6] text-[#EF4444]"}`,
-        onClick: () => setIsMicOn(!isMicOn)
-      },
-      isMicOn ? /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 15 }) : /* @__PURE__ */ import_react22.default.createElement(MicOff, { size: 15 }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, isMicOn ? lang === "ta" ? "\u0BAE\u0BC8\u0B95\u0BCD \u0B86\u0BA9\u0BCD" : "Mic On" : lang === "ta" ? "\u0BAE\u0BC8\u0B95\u0BCD \u0B86\u0B83\u0BAA\u0BCD" : "Mic Muted")
-    ), /* @__PURE__ */ import_react22.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-semibold cursor-pointer transition-all ${isVideoOn ? "bg-[#EAF7EE] border-[#C3EBCF] text-[#10B981]" : "bg-[#FFF1F0] border-[#FFD8D6] text-[#EF4444]"}`,
-        onClick: () => setIsVideoOn(!isVideoOn)
-      },
-      isVideoOn ? /* @__PURE__ */ import_react22.default.createElement(Video, { size: 15 }) : /* @__PURE__ */ import_react22.default.createElement(VideoOff, { size: 15 }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, isVideoOn ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0BA9\u0BCD" : "Camera On" : lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "mb-4" }, /* @__PURE__ */ import_react22.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-join-studio ya-btn w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#9B7AE8] to-[#7C3AED] text-white font-bold text-sm shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 cursor-pointer flex items-center justify-center gap-2",
-        onClick: connectToRoom
-      },
-      /* @__PURE__ */ import_react22.default.createElement(Radio, { size: 18 }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Enter Live Yoga Room")
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "mt-4 p-3.5 bg-[#F8F5FF] rounded-2xl border border-[#EAE3F2] text-left" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "block text-xs font-bold text-[#29233D] mb-1" }, lang === "ta" ? "\u{1F517} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD:" : "\u{1F517} Class Invite Link:"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "p-2 bg-white rounded-xl border border-[#EAE3F2] text-[11px] text-[#777184] truncate mb-2 select-all font-mono" }, getShareableClassLink()), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, /* @__PURE__ */ import_react22.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "px-3 py-1.5 rounded-full bg-[#9B7AE8] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer",
-        onClick: handleCopyShareLink
-      },
-      copiedLink ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 13 }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, copiedLink ? "Copied!" : "Copy Live Link")
-    ), /* @__PURE__ */ import_react22.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "px-3 py-1.5 rounded-full bg-[#10B981] text-white text-xs font-bold flex items-center gap-1.5 cursor-pointer",
+        className: "w-full py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-600/25 cursor-pointer transition-all hover:scale-[1.01]",
         onClick: handleWhatsAppShare
       },
-      /* @__PURE__ */ import_react22.default.createElement(Share2, { size: 13 }),
-      /* @__PURE__ */ import_react22.default.createElement("span", null, "Share WhatsApp")
-    )))), connectionState === "connecting" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-loading-state p-12 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-[#EAE3F2] shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "spinner-lotus-wrap flex justify-center mb-4" }, /* @__PURE__ */ import_react22.default.createElement(ThreeDLotus, { size: 56 })), /* @__PURE__ */ import_react22.default.createElement("h4", { className: "loading-title font-bold text-lg text-[#29233D] mb-2 font-['Poppins']" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Studio..."), /* @__PURE__ */ import_react22.default.createElement("p", { className: "loading-sub text-xs text-[#777184]" }, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0BA9 \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAA\u0BB0\u0BBF\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Negotiating secure WebRTC channels & connecting live feed...")), connectionState === "error" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-error-state p-8 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-rose-200 shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement(CircleAlert, { size: 42, className: "error-icon text-rose-500 mx-auto mb-3" }), /* @__PURE__ */ import_react22.default.createElement("h4", { className: "error-heading font-bold text-lg text-[#29233D] mb-2" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF" : "Connection Failed"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "error-detail-text text-xs text-[#777184] mb-6" }, errorMessage), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex justify-center gap-3" }, /* @__PURE__ */ import_react22.default.createElement(
+      /* @__PURE__ */ import_react22.default.createElement(Share2, { size: 16 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u{1F7E2} WhatsApp-\u0BB2\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAA\u0B95\u0BBF\u0BB0\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "\u{1F7E2} Share with Students on WhatsApp")
+    ), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "flex-1 py-2.5 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 text-heading font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer",
+        onClick: handleCopyShareLink
+      },
+      copiedLink ? /* @__PURE__ */ import_react22.default.createElement(Check, { size: 14, className: "text-emerald-500" }) : /* @__PURE__ */ import_react22.default.createElement(Copy, { size: 14 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Copied!" : lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD" : "Copy Link")
+    ), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "flex-1 py-2.5 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-50 text-heading font-bold text-xs flex items-center justify-center gap-1.5 cursor-pointer",
+        onClick: handleNativeShare
+      },
+      /* @__PURE__ */ import_react22.default.createElement(Share2, { size: 14 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BCB\u0BA9\u0BBF\u0BB2\u0BCD \u0BB7\u0BC7\u0BB0\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD" : "Share Link")
+    ))), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "w-full py-3.5 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-600 text-white font-black text-sm shadow-xl shadow-purple-500/25 hover:shadow-purple-500/40 hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2 transition-all",
+        onClick: () => {
+          setShowShareModal(false);
+          if (connectionState !== "connected" && connectionState !== "connecting") {
+            connectToRoom(activeRoomSessionId);
+          }
+        }
+      },
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BB3\u0BCD \u0B9A\u0BC6\u0BB2\u0BCD (Continue to Class)" : "\u{1F680} Continue to Live Classroom"),
+      /* @__PURE__ */ import_react22.default.createElement(ArrowRight, { size: 16 })
+    ))), handAlertMsg && /* @__PURE__ */ import_react22.default.createElement("div", { className: "absolute top-16 left-1/2 -translate-x-1/2 z-50 bg-amber-400 text-slate-950 font-bold px-4 py-2 rounded-full shadow-2xl backdrop-blur flex items-center gap-2 animate-bounce border border-amber-200" }, /* @__PURE__ */ import_react22.default.createElement(Hand, { size: 18, className: "text-slate-950" }), /* @__PURE__ */ import_react22.default.createElement("span", { className: "text-xs" }, handAlertMsg)), connectionState === "idle" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-lobby-card p-6 md:p-10 max-w-2xl mx-auto my-6 text-center rounded-3xl border shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "lobby-artwork-wrap flex justify-center mb-4" }, /* @__PURE__ */ import_react22.default.createElement(ThreeDLotus, { size: 64 })), isInstructorRole ? (
+      /* Instructor / Master Host View */
+      /* @__PURE__ */ import_react22.default.createElement("div", { className: "instructor-lobby-content" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-violet-100 dark:bg-violet-950/70 text-violet-700 dark:text-violet-200 text-xs font-bold mb-3 border border-violet-200 dark:border-violet-800/50" }, /* @__PURE__ */ import_react22.default.createElement(Crown, { size: 14, className: "text-amber-500" }), /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD - \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0BAE\u0BC8\u0BAF\u0BAE\u0BCD" : "NITHYA Master - Host Studio")), /* @__PURE__ */ import_react22.default.createElement("h3", { className: "lobby-headline font-bold text-2xl text-[#29233D] dark:text-white mb-2 font-['Poppins']" }, activeClass?.title || activeClass?.name || (lang === "ta" ? "\u0BB9\u0B9F \u0BAF\u0BCB\u0B95\u0BBE \u0B83\u0BAA\u0BCD\u0BB3\u0BCB & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Hatha Yoga Flow & Alignment")), /* @__PURE__ */ import_react22.default.createElement("p", { className: "lobby-subtext text-xs sm:text-sm text-[#777184] dark:text-[#C5BCDC] mb-6 max-w-md mx-auto" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95 \u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAA\u0B9F\u0BCD\u0B9F\u0BA9\u0BC8 \u0B85\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BB5\u0BC1\u0BAE\u0BCD. \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA4\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BAE\u0BBE\u0BA9 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B89\u0B9F\u0BA9\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1 \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BAA\u0B95\u0BBF\u0BB0 \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BC1\u0BAE\u0BCD." : "Start a fresh live session with a unique student invite link. Check your camera and microphone below before going live."), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-center gap-3 mb-6 flex-wrap" }, /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: `flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold cursor-pointer transition-all ${isMicOn ? "bg-emerald-50 border-emerald-300 text-emerald-700 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-300" : "bg-rose-50 border-rose-300 text-rose-700 dark:bg-rose-950/40 dark:border-rose-600 dark:text-rose-300"}`,
+          onClick: () => setIsMicOn(!isMicOn)
+        },
+        isMicOn ? /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 15 }) : /* @__PURE__ */ import_react22.default.createElement(MicOff, { size: 15 }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, isMicOn ? lang === "ta" ? "\u0BAE\u0BC8\u0B95\u0BCD \u0B86\u0BA9\u0BCD" : "Mic On" : lang === "ta" ? "\u0BAE\u0BC8\u0B95\u0BCD \u0B86\u0B83\u0BAA\u0BCD" : "Mic Off")
+      ), /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: `flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold cursor-pointer transition-all ${isVideoOn ? "bg-emerald-50 border-emerald-300 text-emerald-700 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-300" : "bg-rose-50 border-rose-300 text-rose-700 dark:bg-rose-950/40 dark:border-rose-600 dark:text-rose-300"}`,
+          onClick: () => setIsVideoOn(!isVideoOn)
+        },
+        isVideoOn ? /* @__PURE__ */ import_react22.default.createElement(Video, { size: 15 }) : /* @__PURE__ */ import_react22.default.createElement(VideoOff, { size: 15 }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, isVideoOn ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0BA9\u0BCD" : "Camera On" : lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")
+      )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "mb-4" }, /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "btn-join-studio ya-btn w-full py-4 rounded-2xl bg-gradient-to-r from-[#9B7AE8] to-[#7C3AED] text-white font-black text-sm sm:text-base shadow-xl shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2.5 transition-all",
+          onClick: handleStartNewClassSession
+        },
+        /* @__PURE__ */ import_react22.default.createElement(Radio, { size: 20, className: "animate-pulse" }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u2728 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BB0\u0BC2\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BBF \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1 (Create & Start Class)" : "\u2728 Create Live Room & Start Class"),
+        /* @__PURE__ */ import_react22.default.createElement(ArrowRight, { size: 18 })
+      )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "pt-2" }, /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: handleToggleRole,
+          className: "text-xs text-muted hover:text-heading underline cursor-pointer inline-flex items-center gap-1"
+        },
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0BB5\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0B9A\u0BCB\u0BA4\u0BBF\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BBE? \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAE\u0BC1\u0BB1\u0BC8\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BBE\u0BB1\u0BC1" : "Switch to Student View")
+      )))
+    ) : (
+      /* Student Practitioner Pre-Join View */
+      /* @__PURE__ */ import_react22.default.createElement("div", { className: "student-lobby-content" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-100 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-200 text-xs font-bold mb-3 border border-indigo-200 dark:border-indigo-800/50" }, /* @__PURE__ */ import_react22.default.createElement(Users, { size: 14, className: "text-indigo-500" }), /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Practitioner Session")), /* @__PURE__ */ import_react22.default.createElement("h3", { className: "lobby-headline font-bold text-2xl text-[#29233D] dark:text-white mb-2 font-['Poppins']" }, activeClass?.title || activeClass?.name || (lang === "ta" ? "\u0BB9\u0B9F \u0BAF\u0BCB\u0B95\u0BBE \u0B83\u0BAA\u0BCD\u0BB3\u0BCB & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Hatha Yoga Flow & Alignment")), /* @__PURE__ */ import_react22.default.createElement("p", { className: "lobby-subtext text-xs sm:text-sm text-[#777184] dark:text-[#C5BCDC] mb-6 max-w-md mx-auto" }, lang === "ta" ? `\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD ${activeClass?.instructor || "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD"} \u0B85\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BBF\u0BA9\u0BCD \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1\u0BA4\u0BB2\u0BBF\u0BB2\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD. \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BC8\u0B95\u0BCD\u0B95\u0BC8 \u0B95\u0BC0\u0BB4\u0BC7 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD.` : `Join certified master ${activeClass?.instructor || "NITHYA Master"} in live yoga practice. Check your media settings below.`), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-center gap-3 mb-6 flex-wrap" }, /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: `flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold cursor-pointer transition-all ${isMicOn ? "bg-emerald-50 border-emerald-300 text-emerald-700 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-300" : "bg-rose-50 border-rose-300 text-rose-700 dark:bg-rose-950/40 dark:border-rose-600 dark:text-rose-300"}`,
+          onClick: () => setIsMicOn(!isMicOn)
+        },
+        isMicOn ? /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 15 }) : /* @__PURE__ */ import_react22.default.createElement(MicOff, { size: 15 }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, isMicOn ? lang === "ta" ? "\u0BAE\u0BC8\u0B95\u0BCD \u0B86\u0BA9\u0BCD" : "Mic On" : lang === "ta" ? "\u0BAE\u0BC8\u0B95\u0BCD \u0B86\u0B83\u0BAA\u0BCD" : "Mic Muted")
+      ), /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: `flex items-center gap-2 px-4 py-2.5 rounded-full border text-xs font-bold cursor-pointer transition-all ${isVideoOn ? "bg-emerald-50 border-emerald-300 text-emerald-700 dark:bg-emerald-950/40 dark:border-emerald-600 dark:text-emerald-300" : "bg-rose-50 border-rose-300 text-rose-700 dark:bg-rose-950/40 dark:border-rose-600 dark:text-rose-300"}`,
+          onClick: () => setIsVideoOn(!isVideoOn)
+        },
+        isVideoOn ? /* @__PURE__ */ import_react22.default.createElement(Video, { size: 15 }) : /* @__PURE__ */ import_react22.default.createElement(VideoOff, { size: 15 }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, isVideoOn ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0BA9\u0BCD" : "Camera On" : lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")
+      )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "mb-4" }, /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "btn-join-studio ya-btn w-full py-4 rounded-2xl bg-gradient-to-r from-[#9B7AE8] to-[#7C3AED] text-white font-black text-sm sm:text-base shadow-xl shadow-purple-500/30 hover:shadow-purple-500/50 hover:scale-[1.01] active:scale-[0.99] cursor-pointer flex items-center justify-center gap-2 transition-all",
+          onClick: () => connectToRoom(activeRoomSessionId)
+        },
+        /* @__PURE__ */ import_react22.default.createElement(Radio, { size: 20 }),
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95 (Enter Live Class)" : "\u{1F680} Enter Live Yoga Room"),
+        /* @__PURE__ */ import_react22.default.createElement(ArrowRight, { size: 18 })
+      )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "pt-2" }, /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: handleToggleRole,
+          className: "text-xs text-muted hover:text-heading underline cursor-pointer inline-flex items-center gap-1"
+        },
+        /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0BAE\u0BBE\u0BB8\u0BCD\u0B9F\u0BB0\u0BCD \u0BAE\u0BC1\u0BB1\u0BC8\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BBE\u0BB1\u0BC1\u0B95" : "Trainer? Switch to Master Host Mode")
+      )))
+    )), connectionState === "connecting" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-loading-state p-12 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-[#EAE3F2] shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "spinner-lotus-wrap flex justify-center mb-4" }, /* @__PURE__ */ import_react22.default.createElement(ThreeDLotus, { size: 56 })), /* @__PURE__ */ import_react22.default.createElement("h4", { className: "loading-title font-bold text-lg text-[#29233D] mb-2 font-['Poppins']" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Studio..."), /* @__PURE__ */ import_react22.default.createElement("p", { className: "loading-sub text-xs text-[#777184]" }, lang === "ta" ? "\u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0BA9 \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAA\u0BB0\u0BBF\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Negotiating secure WebRTC channels & connecting live feed...")), connectionState === "error" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-error-state p-8 text-center max-w-md mx-auto my-12 bg-white rounded-3xl border border-rose-200 shadow-xl" }, /* @__PURE__ */ import_react22.default.createElement(CircleAlert, { size: 42, className: "error-icon text-rose-500 mx-auto mb-3" }), /* @__PURE__ */ import_react22.default.createElement("h4", { className: "error-heading font-bold text-lg text-[#29233D] mb-2" }, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF" : "Connection Failed"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "error-detail-text text-xs text-[#777184] mb-6" }, errorMessage), /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex justify-center gap-3" }, /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
@@ -67411,7 +67499,17 @@ ${url}`;
       },
       /* @__PURE__ */ import_react22.default.createElement(RefreshCw, { size: 14 }),
       /* @__PURE__ */ import_react22.default.createElement("span", null, "Retry")
-    ))), connectionState === "connected" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-live-classroom-container" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-live-class-header" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-header-title-col" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-header-badge-row" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-live-indicator" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-live-pulse-dot" }), "LIVE"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-course-tag" }, courseName || activeClass?.courseName || activeClass?.course_name || "Live Yoga & Asanas Flow")), /* @__PURE__ */ import_react22.default.createElement("h2", { className: "figma-class-main-title" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow & Alignment"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-instructor-pill" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-instructor-avatar-mini" }, /* @__PURE__ */ import_react22.default.createElement("span", null, "\u{1F451}")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-instructor-name" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Instructor:", " ", /* @__PURE__ */ import_react22.default.createElement("strong", null, activeClass?.instructor || "NITHYA Master")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-role-chip" }, isInstructorRole ? "Host (You)" : "Certified Master"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-header-controls-col" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-time-remaining-card" }, /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC0\u0BA4\u0BAE\u0BC1\u0BB3\u0BCD\u0BB3 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD:" : "Time remaining:"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "time-val" }, "\u23F1 ", formatTimer(Math.max(0, 7200 - sessionSeconds)))), /* @__PURE__ */ import_react22.default.createElement(
+    ))), connectionState === "connected" && /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-live-classroom-container" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-live-class-header" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-header-title-col" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-header-badge-row" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-live-indicator" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-live-pulse-dot" }), "LIVE"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-course-tag" }, courseName || activeClass?.courseName || activeClass?.course_name || "Live Yoga & Asanas Flow")), /* @__PURE__ */ import_react22.default.createElement("h2", { className: "figma-class-main-title" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow & Alignment"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-instructor-pill" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-instructor-avatar-mini" }, /* @__PURE__ */ import_react22.default.createElement("span", null, "\u{1F451}")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-instructor-name" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Instructor:", " ", /* @__PURE__ */ import_react22.default.createElement("strong", null, activeClass?.instructor || "NITHYA Master")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-role-chip" }, isInstructorRole ? "Host (You)" : "Certified Master"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-header-controls-col" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-time-remaining-card" }, /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD:" : "Duration:"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "time-val" }, "\u23F1 ", formatTimer(sessionSeconds))), isInstructorRole && /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-share-link-pill-btn flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gradient-to-r from-[#9B7AE8] to-[#7C3AED] text-white font-bold text-xs shadow-md shadow-purple-500/20 hover:shadow-purple-500/35 cursor-pointer shrink-0",
+        onClick: () => setShowShareModal(true),
+        title: lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BCD\u0B95" : "Share Link with Students"
+      },
+      /* @__PURE__ */ import_react22.default.createElement(Share2, { size: 13 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAA\u0B95\u0BBF\u0BB0\u0BCD" : "Share Link")
+    ), /* @__PURE__ */ import_react22.default.createElement(
       "div",
       {
         className: `figma-attendance-pill ${currentAttendancePct >= 70 ? "present" : ""}`,
@@ -67776,33 +67874,57 @@ ${url}`;
         }
       },
       "Add Course"
-    )))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-right-sidebar-column" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-participants-roster-card", id: "figma-participants-roster" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-roster-header" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-roster-title-wrap" }, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "figma-roster-heading" }, "Meeting Participants"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-roster-count-badge" }, currentStudentCount)), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "figma-dots-btn" }, "\u22EF")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-roster-list" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-participant-item" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-avatar", style: { background: "#F59E0B", color: "#FFF" } }, "\u{1F451}"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-name-row" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-name" }, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-host-tag" }, "Host")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-status-green-dot" }), "Lead Instructor"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react22.default.createElement(Video, { size: 13 })))), !isInstructorRole && /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-participant-item" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-avatar", style: { background: "#7C3AED", color: "#FFF" } }, (user?.name || "Y").charAt(0).toUpperCase()), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-name-row" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-name" }, user?.name || (lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-host-tag", style: { background: "rgba(124, 58, 237, 0.1)", color: "#7C3AED" } }, "You")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-status-green-dot" }), lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Active Practitioner"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: `figma-media-pill ${isMicOn ? "active" : "muted"}` }, isMicOn ? /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 13 }) : /* @__PURE__ */ import_react22.default.createElement(MicOff, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", { className: `figma-media-pill ${isVideoOn ? "active" : "muted"}` }, isVideoOn ? /* @__PURE__ */ import_react22.default.createElement(Video, { size: 13 }) : /* @__PURE__ */ import_react22.default.createElement(VideoOff, { size: 13 })))), realStudentsList.length > 0 ? realStudentsList.filter((st) => isInstructorRole || st.phone !== user?.phone).map((st, idx) => /* @__PURE__ */ import_react22.default.createElement("div", { key: st.phone || idx, className: "figma-participant-item" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-avatar", style: { background: "#8B5CF6", color: "#FFF" } }, (st.name || "S").charAt(0).toUpperCase()), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-name" }, st.name || "Student"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-status-green-dot" }), st.phone ? `+91 ${st.phone.slice(-4).padStart(st.phone.length, "\u2022")}` : "Online"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react22.default.createElement(Video, { size: 13 })), isInstructorRole && /* @__PURE__ */ import_react22.default.createElement(
+    )))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-right-sidebar-column" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-1.5 p-1 bg-slate-100 dark:bg-slate-800/80 rounded-2xl mb-3" }, /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
-        className: "figma-item-delete-btn",
-        onClick: () => handleDeleteLiveStudent(st.phone),
-        title: "Remove Student"
+        className: `flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeSidebarTab === "participants" ? "bg-white dark:bg-slate-700 text-[#29233D] dark:text-white shadow-sm" : "text-[#777184] hover:text-[#29233D]"}`,
+        onClick: () => setActiveSidebarTab("participants")
       },
-      /* @__PURE__ */ import_react22.default.createElement(Trash, { size: 13 })
-    )))) : null, realStudentsList.length === 0 && /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-roster-empty-notice", style: { padding: "24px 16px", textAlign: "center" } }, /* @__PURE__ */ import_react22.default.createElement("div", { style: { fontSize: "1.8rem", marginBottom: "8px" } }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react22.default.createElement("div", { style: { fontWeight: 600, fontSize: "0.86rem", color: "var(--heading, #29233D)", marginBottom: "4px" } }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BBE\u0BB0\u0BC1\u0BAE\u0BCD \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 (0)" : "No students joined yet (0)"), /* @__PURE__ */ import_react22.default.createElement("p", { style: { margin: 0, fontSize: "0.76rem", color: "var(--subtle, #777184)", lineHeight: 1.4 } }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD \u0BAE\u0BC2\u0BB2\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1\u0BAE\u0BCD \u0B87\u0B99\u0BCD\u0B95\u0BC1 \u0BA4\u0BCB\u0BA9\u0BCD\u0BB1\u0BC1\u0BB5\u0BB0\u0BCD." : "Students will appear here live once they register and join the room.")))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chats-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chats-header" }, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "figma-chats-heading" }, "Chats"), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "figma-dots-btn" }, "\u22EF")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chats-stream", ref: chatStreamRef }, chatMessages.map((msg) => /* @__PURE__ */ import_react22.default.createElement(
-      "div",
+      /* @__PURE__ */ import_react22.default.createElement(Users, { size: 13 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? `\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD (${currentStudentCount})` : `Students (${currentStudentCount})`)
+    ), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
       {
-        key: msg.id,
-        className: `figma-chat-bubble-wrap ${msg.isLocal ? "sent" : "received"} ${msg.isSystem ? "system" : ""}`
+        type: "button",
+        className: `flex-1 py-1.5 px-3 rounded-xl text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeSidebarTab === "chat" ? "bg-white dark:bg-slate-700 text-[#29233D] dark:text-white shadow-sm" : "text-[#777184] hover:text-[#29233D]"}`,
+        onClick: () => setActiveSidebarTab("chat")
       },
-      !msg.isLocal && !msg.isSystem && /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chat-author-avatar" }, (msg.sender || "U").charAt(0).toUpperCase()),
-      /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chat-bubble" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-bubble-meta" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-bubble-sender" }, msg.sender), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-bubble-time" }, msg.time)), /* @__PURE__ */ import_react22.default.createElement("p", { className: "figma-bubble-text" }, msg.text))
-    ))), /* @__PURE__ */ import_react22.default.createElement("form", { onSubmit: handleSendChatMessage, className: "figma-chat-input-form" }, /* @__PURE__ */ import_react22.default.createElement(
-      "input",
-      {
-        type: "text",
-        className: "figma-chat-input",
-        placeholder: lang === "ta" ? "\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BBF\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0B9F\u0BCD\u0B9F\u0B9A\u0BCD\u0B9A\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95..." : "Type a message...",
-        value: chatInput,
-        onChange: (e2) => setChatInput(e2.target.value)
-      }
-    ), /* @__PURE__ */ import_react22.default.createElement("button", { type: "submit", className: "figma-chat-send-btn", "aria-label": "Send Message" }, /* @__PURE__ */ import_react22.default.createElement(Send, { size: 15 }))))))), showAsanaGuide && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-modal-backdrop", onClick: () => setShowAsanaGuide(false) }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-modal-card max-w-xl p-6 ya-card bg-card border border-subtle shadow-2xl rounded-2xl", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between pb-3 border-b border-subtle mb-4" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement(Layers, { size: 20, className: "text-violet-500" }), /* @__PURE__ */ import_react22.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, "Live Asana Posture Reference")), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "close-x-btn", onClick: () => setShowAsanaGuide(false) }, "\u2715")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto pr-1" }, [
+      /* @__PURE__ */ import_react22.default.createElement(MessageSquare, { size: 13 }),
+      /* @__PURE__ */ import_react22.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BBE\u0B9F\u0BCD (\u0BB5\u0BBF\u0BB0\u0BC1\u0BAA\u0BCD\u0BAA\u0BA4\u0BCD\u0BA4\u0BC7\u0BB0\u0BCD\u0BB5\u0BC1)" : "Chats")
+    )), activeSidebarTab === "participants" ? (
+      /* Card 1: Meeting Participants (${currentStudentCount}) */
+      /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-participants-roster-card", id: "figma-participants-roster" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-roster-header" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-roster-title-wrap" }, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "figma-roster-heading" }, "Meeting Participants"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-roster-count-badge" }, currentStudentCount)), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "figma-dots-btn" }, "\u22EF")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-roster-list" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-participant-item" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-avatar", style: { background: "#F59E0B", color: "#FFF" } }, "\u{1F451}"), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-name-row" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-name" }, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-host-tag" }, "Host")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-status-green-dot" }), "Lead Instructor"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react22.default.createElement(Video, { size: 13 })))), !isInstructorRole && /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-participant-item" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-avatar", style: { background: "#7C3AED", color: "#FFF" } }, (user?.name || "Y").charAt(0).toUpperCase()), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-name-row" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-name" }, user?.name || (lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-host-tag", style: { background: "rgba(124, 58, 237, 0.1)", color: "#7C3AED" } }, "You")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-status-green-dot" }), lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Active Practitioner"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: `figma-media-pill ${isMicOn ? "active" : "muted"}` }, isMicOn ? /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 13 }) : /* @__PURE__ */ import_react22.default.createElement(MicOff, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", { className: `figma-media-pill ${isVideoOn ? "active" : "muted"}` }, isVideoOn ? /* @__PURE__ */ import_react22.default.createElement(Video, { size: 13 }) : /* @__PURE__ */ import_react22.default.createElement(VideoOff, { size: 13 })))), realStudentsList.length > 0 ? realStudentsList.filter((st) => isInstructorRole || st.phone !== user?.phone).map((st, idx) => /* @__PURE__ */ import_react22.default.createElement("div", { key: st.phone || idx, className: "figma-participant-item" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-left" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-avatar", style: { background: "#8B5CF6", color: "#FFF" } }, (st.name || "S").charAt(0).toUpperCase()), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-info" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-name" }, st.name || "Student"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-item-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-status-green-dot" }), st.phone ? `+91 ${st.phone.slice(-4).padStart(st.phone.length, "\u2022")}` : "Online"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-item-media-status" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react22.default.createElement(Mic, { size: 13 })), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-media-pill active" }, /* @__PURE__ */ import_react22.default.createElement(Video, { size: 13 })), isInstructorRole && /* @__PURE__ */ import_react22.default.createElement(
+        "button",
+        {
+          type: "button",
+          className: "figma-item-delete-btn",
+          onClick: () => handleDeleteLiveStudent(st.phone),
+          title: "Remove Student"
+        },
+        /* @__PURE__ */ import_react22.default.createElement(Trash, { size: 13 })
+      )))) : null, realStudentsList.length === 0 && /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-roster-empty-notice", style: { padding: "24px 16px", textAlign: "center" } }, /* @__PURE__ */ import_react22.default.createElement("div", { style: { fontSize: "1.8rem", marginBottom: "8px" } }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react22.default.createElement("div", { style: { fontWeight: 600, fontSize: "0.86rem", color: "var(--heading, #29233D)", marginBottom: "4px" } }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BBE\u0BB0\u0BC1\u0BAE\u0BCD \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 (0)" : "No students joined yet (0)"), /* @__PURE__ */ import_react22.default.createElement("p", { style: { margin: 0, fontSize: "0.76rem", color: "var(--subtle, #777184)", lineHeight: 1.4 } }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD \u0BAE\u0BC2\u0BB2\u0BAE\u0BCD \u0B87\u0BA3\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1\u0BAE\u0BCD \u0B87\u0B99\u0BCD\u0B95\u0BC1 \u0BA4\u0BCB\u0BA9\u0BCD\u0BB1\u0BC1\u0BB5\u0BB0\u0BCD." : "Students will appear here live once they register and join the room."))))
+    ) : (
+      /* Card 2: Chats */
+      /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chats-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chats-header" }, /* @__PURE__ */ import_react22.default.createElement("h3", { className: "figma-chats-heading" }, "Chats"), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "figma-dots-btn" }, "\u22EF")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chats-stream", ref: chatStreamRef }, chatMessages.map((msg) => /* @__PURE__ */ import_react22.default.createElement(
+        "div",
+        {
+          key: msg.id,
+          className: `figma-chat-bubble-wrap ${msg.isLocal ? "sent" : "received"} ${msg.isSystem ? "system" : ""}`
+        },
+        !msg.isLocal && !msg.isSystem && /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chat-author-avatar" }, (msg.sender || "U").charAt(0).toUpperCase()),
+        /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-chat-bubble" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-bubble-meta" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-bubble-sender" }, msg.sender), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-bubble-time" }, msg.time)), /* @__PURE__ */ import_react22.default.createElement("p", { className: "figma-bubble-text" }, msg.text))
+      ))), /* @__PURE__ */ import_react22.default.createElement("form", { onSubmit: handleSendChatMessage, className: "figma-chat-input-form" }, /* @__PURE__ */ import_react22.default.createElement(
+        "input",
+        {
+          type: "text",
+          className: "figma-chat-input",
+          placeholder: lang === "ta" ? "\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BBF\u0BAF\u0BC8\u0BA4\u0BCD \u0BA4\u0B9F\u0BCD\u0B9F\u0B9A\u0BCD\u0B9A\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95..." : "Type a message...",
+          value: chatInput,
+          onChange: (e2) => setChatInput(e2.target.value)
+        }
+      ), /* @__PURE__ */ import_react22.default.createElement("button", { type: "submit", className: "figma-chat-send-btn", "aria-label": "Send Message" }, /* @__PURE__ */ import_react22.default.createElement(Send, { size: 15 }))))
+    )))), showAsanaGuide && /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-modal-backdrop", onClick: () => setShowAsanaGuide(false) }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "livekit-modal-card max-w-xl p-6 ya-card bg-card border border-subtle shadow-2xl rounded-2xl", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center justify-between pb-3 border-b border-subtle mb-4" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react22.default.createElement(Layers, { size: 20, className: "text-violet-500" }), /* @__PURE__ */ import_react22.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, "Live Asana Posture Reference")), /* @__PURE__ */ import_react22.default.createElement("button", { type: "button", className: "close-x-btn", onClick: () => setShowAsanaGuide(false) }, "\u2715")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[60vh] overflow-y-auto pr-1" }, [
       { name: "Surya Namaskar", sanskrit: "\u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD", tip: "Sync movement with inhalation and exhalation.", duration: "5 - 10 Rounds" },
       { name: "Vrikshasana (Tree Pose)", sanskrit: "\u0BB5\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0BB7\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", tip: "Fix your gaze on a steady point ahead for balance.", duration: "30s per leg" },
       { name: "Bhujangasana (Cobra Pose)", sanskrit: "\u0BAA\u0BC1\u0B9C\u0B99\u0BCD\u0B95\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", tip: "Roll shoulders back, gently expand the chest.", duration: "3 - 5 Breaths" },

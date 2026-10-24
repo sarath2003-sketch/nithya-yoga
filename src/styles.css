@@ -8049,3 +8049,200 @@ html, body, #root, .app-root-container, .app-main-layout {
     transition-duration: .01ms !important;
   }
 }
+
+/* Live Class Studio: accessible contrast and mobile-safe layout */
+.live-studio-card-container {
+  color: var(--text-main);
+  min-width: 0;
+  overflow: hidden;
+}
+.live-studio-head,
+.live-studio-brand,
+.live-studio-meta,
+.live-studio-badge-wrapper,
+.live-primary-actions-row,
+.live-active-actions-group,
+.live-ended-actions-group,
+.invitation-card-head,
+.invitation-input-bar,
+.invitation-action-buttons {
+  min-width: 0;
+}
+.live-studio-head {
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.live-studio-meta { flex: 1 1 180px; }
+.live-studio-title,
+.stage-heading,
+.invitation-title,
+.role-name {
+  overflow-wrap: anywhere;
+}
+.live-studio-subtitle,
+.stage-subtext,
+.invitation-sub,
+.student-waiting-status-notice,
+.session-ended-notice {
+  color: var(--text-main);
+  opacity: 0.88;
+}
+.live-badge-pill,
+.badge-student-only,
+.role-tag,
+.status-pill {
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+.live-primary-actions-row,
+.live-active-actions-group,
+.invitation-action-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+.live-primary-actions-row > *,
+.live-active-actions-group > *,
+.invitation-action-buttons > * {
+  min-width: 0;
+  max-width: 100%;
+}
+.invitation-input-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.invitation-url-field {
+  min-width: 0;
+  width: 100%;
+  max-width: 100%;
+}
+.live-studio-stage {
+  min-width: 0;
+}
+.stage-heading {
+  color: #fff;
+  line-height: 1.35;
+}
+.stage-subtext {
+  color: rgba(255,255,255,0.88);
+  line-height: 1.6;
+}
+@media (max-width: 640px) {
+  .live-studio-card-container {
+    padding: 14px;
+    border-radius: 18px;
+  }
+  .live-studio-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .live-studio-brand {
+    width: 100%;
+    align-items: center;
+  }
+  .live-studio-badge-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+  }
+  .live-studio-stage {
+    min-height: 260px;
+    padding: 18px 12px;
+  }
+  .live-stage-center-box {
+    width: 100%;
+    max-width: 100%;
+    padding: 8px;
+  }
+  .live-primary-actions-row,
+  .live-active-actions-group,
+  .live-ended-actions-group {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .live-primary-actions-row button,
+  .live-active-actions-group button,
+  .live-ended-actions-group button,
+  .student-waiting-status-notice,
+  .session-ended-notice {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+  }
+  .live-roles-card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .live-role-card {
+    min-width: 0;
+  }
+  .invitation-card-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .invitation-input-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .invitation-action-buttons {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .invitation-action-buttons button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+
+/* Live class reliability & responsive participant wall */
+.figma-participant-tiles-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+.figma-participant-tiles-grid .figma-student-tile {
+  min-width: 0;
+  min-height: 150px;
+}
+.figma-participant-tiles-grid .figma-student-tile video {
+  display: block;
+  max-width: 100%;
+  background: #11142a;
+}
+.figma-participant-tiles-grid .figma-student-tile-overlay-bottom {
+  z-index: 2;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0,0,0,.8);
+}
+.live-studio-card-container,
+.live-studio-card-container .live-studio-head,
+.live-studio-card-container .live-studio-brand,
+.live-studio-card-container .live-studio-meta,
+.live-studio-card-container .live-studio-title,
+.live-studio-card-container .live-studio-subtitle,
+.live-studio-card-container .live-role-card,
+.live-studio-card-container .live-role-card * {
+  color: #f7f4ff;
+}
+.live-studio-card-container .live-studio-subtitle { color: #c7c3e4; }
+.live-studio-card-container .live-role-card {
+  background: rgba(255,255,255,.075);
+  border: 1px solid rgba(221,211,255,.2);
+  border-radius: 16px;
+  padding: 14px;
+}
+@media (max-width: 760px) {
+  .figma-participant-tiles-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .figma-participant-tiles-grid .figma-student-tile { min-height: 125px; }
+}
+@media (max-width: 420px) {
+  .figma-participant-tiles-grid { grid-template-columns: minmax(0, 1fr); }
+}

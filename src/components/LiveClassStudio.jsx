@@ -110,36 +110,40 @@ export default function LiveClassStudio({
     if (isStartingSession || sessionStatus === 'live') return;
 
     setIsStartingSession(true);
+    setSessionStatus('starting');
     try {
-      const adminToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token') || 'nithya_master_active';
-      const res = await apiFetch(`/api/trainer/classes/${activeClass?.id || 'cls-1'}/start`, {
+      const adminToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token');
+      if (!adminToken) {
+        throw new Error(lang === 'ta'
+          ? 'பயிற்றுநர் உள்நுழைவு இல்லை. முதலில் அங்கீகரிக்கப்பட்ட பயிற்றுநராக உள்நுழையவும்.'
+          : 'Instructor session missing. Please sign in with an authorized instructor account.');
+      }
+
+      // apiFetch returns parsed JSON and throws for HTTP/network errors.
+      // Never mark a class live when the backend request fails.
+      await apiFetch(`/api/trainer/classes/${activeClass?.id || 'cls-1'}/start`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${adminToken}`
         }
       });
 
-      if (res && res.ok) {
-        setSessionStatus('live');
-        setSessionSeconds(0);
-        if (showToast) {
-          showToast(
-            lang === 'ta' ? 'வகுப்பு தொடங்கியது!' : 'Live Class Started!',
-            lang === 'ta' ? 'மாணவர்கள் இப்போது இணையலாம்.' : 'Class is live. Students can now join.',
-            'success'
-          );
-        }
-      } else {
-        setSessionStatus('live');
-      }
-    } catch (err) {
-      // Local fallback for static / offline development
       setSessionStatus('live');
+      setSessionSeconds(0);
       if (showToast) {
         showToast(
-          lang === 'ta' ? 'நேரலை தொடங்கியது' : 'Class Marked Live',
-          lang === 'ta' ? 'வகுப்பு நேரலையில் தொடங்கப்பட்டது.' : 'Live session active.',
-          'info'
+          lang === 'ta' ? 'வகுப்பு தொடங்கியது!' : 'Live Class Started!',
+          lang === 'ta' ? 'சர்வர் வகுப்பைத் தொடங்கியதை உறுதிப்படுத்தியது.' : 'The server confirmed the class started.',
+          'success'
+        );
+      }
+    } catch (err) {
+      setSessionStatus('idle');
+      if (showToast) {
+        showToast(
+          lang === 'ta' ? 'நேரலை தொடங்கவில்லை' : 'Could Not Start Live Class',
+          err?.message || (lang === 'ta' ? 'சர்வரைச் சரிபார்த்து மீண்டும் முயற்சிக்கவும்.' : 'Check the backend connection and try again.'),
+          'error'
         );
       }
     } finally {
@@ -151,24 +155,34 @@ export default function LiveClassStudio({
   const handleEndLiveClass = async () => {
     if (sessionStatus === 'ended') return;
     try {
-      const adminToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token') || 'nithya_master_active';
+      const adminToken = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token');
+      if (!adminToken) {
+        throw new Error(lang === 'ta' ? 'பயிற்றுநர் உள்நுழைவு இல்லை.' : 'Instructor session missing.');
+      }
       await apiFetch(`/api/trainer/classes/${activeClass?.id || 'cls-1'}/end`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${adminToken}`
         }
       });
-    } catch (_) {}
-
-    setSessionStatus('ended');
-    if (showToast) {
-      showToast(
-        lang === 'ta' ? 'வகுப்பு முடிந்தது' : 'Class Ended',
-        lang === 'ta' ? 'இன்றைய நேரலை வகுப்பு நிறைவடைந்தது.' : 'The live class has ended for all participants.',
-        'info'
-      );
+      setSessionStatus('ended');
+      if (showToast) {
+        showToast(
+          lang === 'ta' ? 'வகுப்பு முடிந்தது' : 'Class Ended',
+          lang === 'ta' ? 'சர்வர் வகுப்பை முடித்ததை உறுதிப்படுத்தியது.' : 'The server confirmed the class ended.',
+          'info'
+        );
+      }
+      if (onLeaveClass) onLeaveClass();
+    } catch (err) {
+      if (showToast) {
+        showToast(
+          lang === 'ta' ? 'வகுப்பை முடிக்க முடியவில்லை' : 'Could Not End Class',
+          err?.message || (lang === 'ta' ? 'மீண்டும் முயற்சிக்கவும்.' : 'Please try again.'),
+          'error'
+        );
+      }
     }
-    if (onLeaveClass) onLeaveClass();
   };
 
   const handleResetSession = () => {

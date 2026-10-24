@@ -23,7 +23,6 @@ import StudentDashboard from './components/StudentDashboard';
 import InAppUpdateBanner from './components/InAppUpdateBanner';
 import BottomBanner from './components/BottomBanner';
 import RecentlyPlayedDailyMix from './components/RecentlyPlayedDailyMix';
-import StitchSanctuaryView from './components/StitchSanctuaryView';
 import { ArrowLeft } from 'lucide-react';
 
 import { 
@@ -62,28 +61,6 @@ export default function App() {
   const [lang, setLang] = useState(() => loadStorage('nithya_lang', 'en'));
   const [searchQuery, setSearchQuery] = useState('');
   const [updateAvailable, setUpdateAvailable] = useState(false);
-
-  // UI Mode: 'stitch' (Google Stitch Sanctuary AI Design) vs 'classic' (3D Dashboard)
-  const [uiMode, setUiMode] = useState(() => {
-    try {
-      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
-      const modeParam = params ? params.get('mode') : null;
-      if (modeParam === 'stitch' || modeParam === 'classic') return modeParam;
-    } catch (_) {}
-    return loadStorage('nithya_ui_mode', 'stitch');
-  });
-
-  const toggleUiMode = () => {
-    const next = uiMode === 'stitch' ? 'classic' : 'stitch';
-    setUiMode(next);
-    saveStorage('nithya_ui_mode', next);
-    showToast(
-      lang === 'ta'
-        ? (next === 'stitch' ? '🌟 Google Stitch Sanctuary UI-க்கு மாற்றப்பட்டது' : '📊 Classic 3D Dashboard UI-க்கு மாற்றப்பட்டது')
-        : (next === 'stitch' ? '🌟 Switched to Google Stitch Sanctuary UI' : '📊 Switched to Classic 3D Dashboard UI'),
-      'info'
-    );
-  };
 
   // Active in-app alarm trigger state
   const [activeAlarm, setActiveAlarm] = useState(null);
@@ -757,8 +734,6 @@ export default function App() {
           setCurrentTab={handleTabChange} 
           lang={lang} 
           user={user}
-          uiMode={uiMode}
-          onToggleUiMode={toggleUiMode}
         />
 
         {/* Main Content Area */}
@@ -777,8 +752,6 @@ export default function App() {
             onOpenProfile={handleOpenProfile}
             onQuickUpdate={handleTriggerAppUpdate}
             updateAvailable={updateAvailable}
-            uiMode={uiMode}
-            onToggleUiMode={toggleUiMode}
           />
 
           {currentTab === 'student' ? (
@@ -1068,21 +1041,6 @@ export default function App() {
               </div>
             </main>
           ) : (
-            uiMode === 'stitch' ? (
-              <main className="dashboard-content-grid-wrapper stitch-wrapper ya-reveal">
-                <StitchSanctuaryView
-                  user={user}
-                  activeClass={activeClass}
-                  onJoinLive={() => handleJoinLive(activeClass)}
-                  onViewSchedule={handleViewSchedule}
-                  onTabChange={handleTabChange}
-                  onToggleUiMode={toggleUiMode}
-                  uiMode={uiMode}
-                  lang={lang}
-                  showToast={showToast}
-                />
-              </main>
-            ) : (
             <main className="dashboard-content-grid-wrapper ya-reveal">
               {/* Row 1: Panoramic 3D Hero Banner + 4 Pastel Stat Cards (Master Reference Design) */}
               <HeroSection
@@ -1195,7 +1153,6 @@ export default function App() {
               lang={lang}
             />
           </main>
-          )
         )}
         </div>
       </div>

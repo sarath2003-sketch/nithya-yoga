@@ -6877,12 +6877,15 @@ html, body, #root, .app-root-container, .app-main-layout {
 }
 
 .figma-role-chip {
-  padding: 2px 8px;
+  padding: 3px 10px;
   border-radius: 999px;
-  background: #EFE9FB;
-  color: #62468F;
-  font-size: 10px;
+  background: rgba(124, 58, 237, 0.25) !important;
+  border: 1px solid rgba(167, 139, 250, 0.4) !important;
+  color: #DDD6FE !important;
+  font-size: 11px;
   font-weight: 700;
+  display: inline-flex;
+  align-items: center;
 }
 
 .figma-header-controls-col {
@@ -7884,6 +7887,31 @@ html, body, #root, .app-root-container, .app-main-layout {
 .figma-video-viewport-wrapper .participant-video-stream {
   border-radius: inherit;
   object-fit: cover;
+  background: #0B0819;
+}
+
+/* Suppress Android Chromium default tap-to-play icon and grey box */
+.figma-video-viewport-wrapper video::-webkit-media-controls,
+.livekit-participant-card video::-webkit-media-controls {
+  display: none !important;
+}
+.figma-video-viewport-wrapper video::-webkit-media-controls-enclosure,
+.livekit-participant-card video::-webkit-media-controls-enclosure {
+  display: none !important;
+}
+.figma-video-viewport-wrapper video::-webkit-media-controls-panel,
+.livekit-participant-card video::-webkit-media-controls-panel {
+  display: none !important;
+}
+.figma-video-viewport-wrapper video::-webkit-media-controls-play-button,
+.livekit-participant-card video::-webkit-media-controls-play-button {
+  display: none !important;
+  -webkit-appearance: none;
+}
+.figma-video-viewport-wrapper video::-webkit-media-controls-start-playback-button,
+.livekit-participant-card video::-webkit-media-controls-start-playback-button {
+  display: none !important;
+  -webkit-appearance: none;
 }
 .figma-live-classroom-container .tile-top-overlay { padding: 14px; }
 .figma-live-classroom-container .tile-bottom-overlay {
@@ -8008,7 +8036,7 @@ html, body, #root, .app-root-container, .app-main-layout {
 }
 @media (max-width: 620px) {
   .figma-live-classroom-container {
-    padding: 10px;
+    padding: 10px 10px calc(48px + env(safe-area-inset-bottom, 24px));
     border-radius: 18px;
     margin: 0;
   }
@@ -8444,6 +8472,8 @@ button:active,
   min-height: 100vh;
   box-sizing: border-box !important;
   overflow-x: hidden !important;
+  padding-top: max(calc(env(safe-area-inset-top, 0px) + 8px), 16px) !important;
+  padding-bottom: calc(48px + env(safe-area-inset-bottom, 24px)) !important;
 }
 
 .live-studio-premium-frame {
@@ -8919,9 +8949,24 @@ button:active,
 
 .figma-share-link-pill-btn {
   background: linear-gradient(135deg, #7C3AED 0%, #6D28D9 100%) !important;
-  border: 1px solid rgba(167, 139, 250, 0.4) !important;
+  border: 1px solid rgba(167, 139, 250, 0.45) !important;
+  border-radius: 9999px !important;
   color: #FFFFFF !important;
-  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  padding: 6px 14px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+}
+
+.figma-share-link-pill-btn:hover {
+  background: linear-gradient(135deg, #8B5CF6 0%, #7C3AED 100%) !important;
+  transform: translateY(-1px);
 }
 
 .figma-participants-roster-card,

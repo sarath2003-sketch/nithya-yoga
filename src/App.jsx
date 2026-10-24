@@ -1157,12 +1157,14 @@ export default function App() {
         </div>
       </div>
 
-      {/* Floating Safe-Area Bottom Nav on Mobile */}
-      <MobileBottomNav 
-        currentTab={currentTab} 
-        setCurrentTab={handleTabChange} 
-        lang={lang} 
-      />
+      {/* Floating Safe-Area Bottom Nav on Mobile (hidden during Live Studio / Class to avoid covering WebRTC call controls) */}
+      {currentTab !== 'live' && currentTab !== 'live-classes' && (
+        <MobileBottomNav 
+          currentTab={currentTab} 
+          setCurrentTab={handleTabChange} 
+          lang={lang} 
+        />
+      )}
 
       {/* Edit / Add Reminder Modal */}
       <ReminderModal

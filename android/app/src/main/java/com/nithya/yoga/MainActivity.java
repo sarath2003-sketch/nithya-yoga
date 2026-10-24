@@ -42,6 +42,8 @@ public class MainActivity extends BridgeActivity {
             WebView webView = getBridge().getWebView();
             webView.getSettings().setDomStorageEnabled(true);
             webView.getSettings().setCacheMode(android.webkit.WebSettings.LOAD_DEFAULT);
+            webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+            webView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
 
             // Android DownloadListener: opens any APK or external download in Google Chrome
             webView.setDownloadListener(new DownloadListener() {

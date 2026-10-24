@@ -66018,10 +66018,11 @@ ${studentInviteUrl}`
     (0, import_react22.useEffect)(() => {
       const el = videoRef.current;
       if (!el) return;
-      el.muted = Boolean(isLocal);
-      el.defaultMuted = Boolean(isLocal);
+      el.muted = true;
+      el.defaultMuted = true;
       el.playsInline = true;
       try {
+        el.setAttribute("muted", "");
         el.setAttribute("playsinline", "");
         el.setAttribute("webkit-playsinline", "true");
         el.setAttribute("x5-playsinline", "true");
@@ -66065,8 +66066,8 @@ ${studentInviteUrl}`
     const isInstructor = meta.role === "instructor" || participant.isInstructor || participant.role === "instructor" || participant.identity?.includes("instructor");
     const displayName = participant.name || participant.displayName || participant.identity || (isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Student");
     const initial = displayName.charAt(0).toUpperCase();
-    const effectiveHasVideo = isLocal ? isLocalVideoOn : hasVideo || Boolean(participant?.stream?.getVideoTracks()[0]?.enabled);
-    const effectiveHasAudio = isLocal ? isLocalMicOn : hasAudio || Boolean(participant?.stream?.getAudioTracks()[0]?.enabled);
+    const effectiveHasVideo = isLocal ? isLocalVideoOn && Boolean(videoTrack || participant?.stream?.getVideoTracks()?.some((t) => t.enabled) || participant?.stream) : hasVideo || Boolean(participant?.stream?.getVideoTracks()?.some((t) => t.enabled));
+    const effectiveHasAudio = isLocal ? isLocalMicOn : hasAudio || Boolean(participant?.stream?.getAudioTracks()?.some((t) => t.enabled));
     return /* @__PURE__ */ import_react22.default.createElement(
       "div",
       {
@@ -66082,9 +66083,21 @@ ${studentInviteUrl}`
           playsInline: true,
           "webkit-playsinline": "true",
           "x5-playsinline": "true",
-          muted: isLocal,
+          muted: true,
           className: `participant-video-stream ${effectiveHasVideo ? "visible" : "hidden"} ${isLocal && isMirrored ? "is-mirrored" : ""}`,
-          style: { display: effectiveHasVideo ? "block" : "none" }
+          style: {
+            display: effectiveHasVideo ? "block" : "none",
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+            background: "#0B0819"
+          },
+          onClick: (e2) => {
+            if (e2.target && typeof e2.target.play === "function") {
+              e2.target.play().catch(() => {
+              });
+            }
+          }
         }
       ),
       !isLocal && /* @__PURE__ */ import_react22.default.createElement("audio", { ref: audioRef, autoPlay: true }),
@@ -72142,7 +72155,7 @@ ${newlyCreatedClassInfo.url}`);
         onExplore: () => handleTabChange("yoga"),
         lang
       }
-    )))), /* @__PURE__ */ import_react30.default.createElement(
+    )))), currentTab !== "live" && currentTab !== "live-classes" && /* @__PURE__ */ import_react30.default.createElement(
       MobileBottomNav,
       {
         currentTab,

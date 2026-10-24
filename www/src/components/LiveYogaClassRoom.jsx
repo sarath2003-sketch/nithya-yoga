@@ -119,10 +119,11 @@ function ParticipantTile({
     if (!el) return;
 
     // Enforce inline playback and muted state to eliminate Android Chromium tap-to-play overlay
-    el.muted = Boolean(isLocal);
-    el.defaultMuted = Boolean(isLocal);
+    el.muted = true;
+    el.defaultMuted = true;
     el.playsInline = true;
     try {
+      el.setAttribute('muted', '');
       el.setAttribute('playsinline', '');
       el.setAttribute('webkit-playsinline', 'true');
       el.setAttribute('x5-playsinline', 'true');
@@ -168,8 +169,12 @@ function ParticipantTile({
   const displayName = participant.name || participant.displayName || participant.identity || (isLocal ? (lang === 'ta' ? 'நீங்கள்' : 'You') : (lang === 'ta' ? 'மாணவர்' : 'Student'));
   const initial = displayName.charAt(0).toUpperCase();
 
-  const effectiveHasVideo = isLocal ? isLocalVideoOn : (hasVideo || Boolean(participant?.stream?.getVideoTracks()[0]?.enabled));
-  const effectiveHasAudio = isLocal ? isLocalMicOn : (hasAudio || Boolean(participant?.stream?.getAudioTracks()[0]?.enabled));
+  const effectiveHasVideo = isLocal
+    ? (isLocalVideoOn && Boolean(videoTrack || participant?.stream?.getVideoTracks()?.some(t => t.enabled) || participant?.stream))
+    : (hasVideo || Boolean(participant?.stream?.getVideoTracks()?.some(t => t.enabled)));
+  const effectiveHasAudio = isLocal
+    ? isLocalMicOn
+    : (hasAudio || Boolean(participant?.stream?.getAudioTracks()?.some(t => t.enabled)));
 
   return (
     <div
@@ -184,9 +189,20 @@ function ParticipantTile({
         playsInline
         webkit-playsinline="true"
         x5-playsinline="true"
-        muted={isLocal} // Avoid local echo
+        muted={true}
         className={`participant-video-stream ${effectiveHasVideo ? 'visible' : 'hidden'} ${isLocal && isMirrored ? 'is-mirrored' : ''}`}
-        style={{ display: effectiveHasVideo ? 'block' : 'none' }}
+        style={{
+          display: effectiveHasVideo ? 'block' : 'none',
+          objectFit: 'cover',
+          width: '100%',
+          height: '100%',
+          background: '#0B0819'
+        }}
+        onClick={(e) => {
+          if (e.target && typeof e.target.play === 'function') {
+            e.target.play().catch(() => {});
+          }
+        }}
       />
 
       {/* Hidden audio element for remote stream */}

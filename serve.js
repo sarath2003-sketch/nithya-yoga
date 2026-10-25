@@ -140,6 +140,16 @@ CREATE TABLE IF NOT EXISTS live_sessions (
   created_at TEXT NOT NULL,
   UNIQUE(class_id, identity)
 );
+
+CREATE TABLE IF NOT EXISTS trainers (
+  id TEXT PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL UNIQUE,
+  phone TEXT,
+  password_hash TEXT NOT NULL,
+  role TEXT DEFAULT 'trainer',
+  created_at TEXT NOT NULL
+);
 `);
 try {
   db.exec(`ALTER TABLE live_sessions ADD COLUMN phone TEXT`);
@@ -288,87 +298,138 @@ app.get('/api/health', (req, res) => {
 });
 
 // -------------------------------------------------------------
-// 2. TRAINER & ADMIN AUTHENTICATION
+// 2. TRAINER & ADMIN AUTHENTICATION (Register & Login)
 // -------------------------------------------------------------
-app.post('/api/admin/login', async (req, res) => {
+app.post('/api/admin/register', async (req, res) => {
+  const name = String(req.body?.name || '').trim();
+  const email = String(req.body?.email || '').trim().toLowerCase();
+  const phone = String(req.body?.phone || '').trim();
+  const password = String(req.body?.password || '');
+
+  if (!email || !password) {
+    return res.status(400).json({ error: 'Please provide Email and Password.' });
+  }
+
+  if (name.length < 2) {
+    return res.status(400).json({ error: 'Please enter your full name (at least 2 letters).' });
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({ error: 'Please enter a valid Gmail / Email address.' });
+  }
+
+  if (password.length < 6) {
+    return res.status(400).json({ error: 'Password must be at least 6 characters long.' });
+  }
+
+  try {
+    const existing = db.prepare('SELECT id, email FROM trainers WHERE email = ?').get(email);
+    if (existing) {
+      return res.status(409).json({ error: 'This email is already registered. Please Sign In.' });
+    }
+
+    const passwordHash = await bcrypt.hash(password, 10);
+    const trainerId = `tr-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
+    const nowTime = new Date().toISOString();
+
+    db.prepare(`
+      INSERT INTO trainers (id, name, email, phone, password_hash, role, created_at)
+      VALUES (?, ?, ?, ?, ?, 'trainer', ?)
+    `).run(trainerId, name, email, phone, passwordHash, nowTime);
+
+    const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
+    const token = jwt.sign(
+      { id: trainerId, role: 'trainer', email, name },
+      jwtSecret,
+      { expiresIn: '8h' }
+    );
+
+    res.status(201).json({
+      ok: true,
+      token,
+      id: trainerId,
+      name,
+      email,
+      role: 'trainer',
+      expiresIn: '8h'
+    });
+  } catch (err) {
+    console.error('Trainer registration error:', err);
+    res.status(500).json({ error: 'Registration failed. Please try again.' });
+  }
+});
+
+const handleTrainerLogin = async (req, res) => {
   const email = String(req.body?.email || '').trim().toLowerCase();
   const password = String(req.body?.password || '');
   const adminEmail = (process.env.ADMIN_EMAIL || 'admin@nithyayoga.com').trim().toLowerCase();
   const passwordHash = process.env.ADMIN_PASSWORD_HASH;
 
   if (!email || !password) {
-    return res.status(400).json({ error: 'Provide admin email and password.' });
-  }
-
-  if (email !== adminEmail) {
-    return res.status(401).json({ error: 'Invalid admin credentials.' });
-  }
-
-  let isMatch = false;
-  if (passwordHash) {
-    isMatch = await bcrypt.compare(password, passwordHash);
-  } else if (password === 'NithyaAdmin2026!') {
-    isMatch = true;
-  }
-
-  if (!isMatch) {
-    return res.status(401).json({ error: 'Invalid admin credentials.' });
+    return res.status(400).json({ error: 'Provide email and password.' });
   }
 
   const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
-  const token = jwt.sign(
-    { role: 'admin', email: adminEmail },
-    jwtSecret,
-    { expiresIn: '8h' }
-  );
 
-  res.json({
-    token,
-    role: 'admin',
-    email: adminEmail,
-    expiresIn: '8h'
-  });
-});
-
-app.post('/api/trainer/login', async (req, res) => {
-  const email = String(req.body?.email || '').trim().toLowerCase();
-  const password = String(req.body?.password || '');
-  const adminEmail = (process.env.ADMIN_EMAIL || 'admin@nithyayoga.com').trim().toLowerCase();
-  const passwordHash = process.env.ADMIN_PASSWORD_HASH;
-
-  if (!email || !password) {
-    return res.status(400).json({ error: 'Provide trainer email and password.' });
+  // 1. Check registered trainers in SQLite database
+  try {
+    const trainer = db.prepare('SELECT * FROM trainers WHERE email = ?').get(email);
+    if (trainer && trainer.password_hash) {
+      const match = await bcrypt.compare(password, trainer.password_hash);
+      if (match) {
+        const token = jwt.sign(
+          { id: trainer.id, role: 'trainer', email: trainer.email, name: trainer.name },
+          jwtSecret,
+          { expiresIn: '8h' }
+        );
+        return res.json({
+          ok: true,
+          token,
+          id: trainer.id,
+          role: 'trainer',
+          email: trainer.email,
+          name: trainer.name,
+          expiresIn: '8h'
+        });
+      }
+    }
+  } catch (e) {
+    console.warn('Trainer lookup error:', e);
   }
 
-  if (email !== adminEmail) {
-    return res.status(401).json({ error: 'Invalid trainer credentials.' });
+  // 2. Check default master admin
+  if (email === adminEmail) {
+    let isMatch = false;
+    if (passwordHash) {
+      isMatch = await bcrypt.compare(password, passwordHash);
+    } else if (password === 'NithyaAdmin2026!') {
+      isMatch = true;
+    }
+
+    if (isMatch) {
+      const token = jwt.sign(
+        { id: 'admin', role: 'admin', email: adminEmail, name: 'NITHYA Master' },
+        jwtSecret,
+        { expiresIn: '8h' }
+      );
+      return res.json({
+        ok: true,
+        token,
+        id: 'admin',
+        role: 'admin',
+        email: adminEmail,
+        name: 'NITHYA Master',
+        expiresIn: '8h'
+      });
+    }
   }
 
-  let isMatch = false;
-  if (passwordHash) {
-    isMatch = await bcrypt.compare(password, passwordHash);
-  } else if (password === 'NithyaAdmin2026!') {
-    isMatch = true;
-  }
+  return res.status(401).json({ error: 'Invalid credentials. If you are a new instructor, please create an account.' });
+};
 
-  if (!isMatch) {
-    return res.status(401).json({ error: 'Invalid trainer credentials.' });
-  }
-
-  const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
-  const token = jwt.sign(
-    { role: 'trainer', email: adminEmail },
-    jwtSecret,
-    { expiresIn: '8h' }
-  );
-
-  res.json({
-    token,
-    role: 'trainer',
-    email: adminEmail,
-    expiresIn: '8h'
-  });
-});
+app.post('/api/admin/login', handleTrainerLogin);
+app.post('/api/trainer/login', handleTrainerLogin);
 
 // -------------------------------------------------------------
 // 3. STUDENT REGISTRATION & AUTHENTICATION

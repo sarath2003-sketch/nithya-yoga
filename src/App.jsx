@@ -82,7 +82,17 @@ export default function App() {
   const [studentSession, setStudentSession] = useState(() => {
     return loadStorage('nithya_student_session', null);
   });
-  const [showStudentJoinModal, setShowStudentJoinModal] = useState(false);
+  const [showStudentJoinModal, setShowStudentJoinModal] = useState(() => {
+    try {
+      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+      if (params && (params.get('live') || params.get('room') || params.get('join') === 'student')) {
+        const rawSession = loadStorage('nithya_student_session', null);
+        const isValid = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
+        return !isValid;
+      }
+    } catch (_) {}
+    return false;
+  });
 
   // States - Default role is Yoga Student; trainer only when verified with trainer/admin token
   const [user, setUser] = useState(() => {
@@ -137,7 +147,28 @@ export default function App() {
   });
   const [reminders, setReminders] = useState(() => loadStorage('nithya_reminders', DEFAULT_REMINDERS));
   const [classes, setClasses] = useState(() => loadStorage('nithya_classes', DEFAULT_CLASSES));
-  const [activeClass, setActiveClass] = useState(() => classes[0] || DEFAULT_CLASSES[0]);
+  const [activeClass, setActiveClass] = useState(() => {
+    try {
+      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+      const liveId = params ? (params.get('live') || params.get('room')) : null;
+      if (liveId) {
+        const initialClasses = loadStorage('nithya_classes', DEFAULT_CLASSES);
+        const match = initialClasses.find(c => c.id === liveId);
+        if (match) return match;
+        return {
+          id: liveId,
+          title: 'Live Yoga Class',
+          name: 'Live Yoga Class',
+          courseName: 'Live Yoga Flow',
+          room_name: liveId.startsWith('nithya-') ? liveId : `nithya-${liveId}`,
+          status: 'live',
+          duration: 60,
+          instructor: 'NITHYA Master'
+        };
+      }
+    } catch (_) {}
+    return classes[0] || DEFAULT_CLASSES[0];
+  });
   const [attendanceLogs, setAttendanceLogs] = useState(() => loadStorage('nithya_attendance', DEFAULT_ATTENDANCE_LOGS));
   const [toasts, setToasts] = useState([]);
 
@@ -845,7 +876,22 @@ export default function App() {
                 </span>
               </div>
               <AdminPortalSection
+                onAuthSuccess={(trainer) => {
+                  setUser(prev => ({
+                    ...prev,
+                    name: trainer?.name || 'NITHYA Master',
+                    email: trainer?.email || prev.email,
+                    role: 'trainer',
+                    isInstructor: true
+                  }));
+                }}
                 onLaunchInstructorStudio={(cls) => {
+                  setUser(prev => ({
+                    ...prev,
+                    role: 'trainer',
+                    isInstructor: true,
+                    name: cls?.instructor || 'NITHYA Master'
+                  }));
                   if (cls) setActiveClass(cls);
                   handleTabChange('live');
                 }}
@@ -910,6 +956,7 @@ export default function App() {
                   handleTabChange('home');
                 }}
                 onRecordAttendance={handleRecordAttendance}
+                onNavigateAdmin={() => handleTabChange('admin')}
                 lang={lang}
               />
             </main>
@@ -1013,6 +1060,7 @@ export default function App() {
               <ProfileSection
                 user={user}
                 onUpdateUser={handleUpdateUser}
+                onNavigateAdmin={() => handleTabChange('admin')}
                 showToast={showToast}
                 lang={lang}
               />
@@ -1179,6 +1227,7 @@ export default function App() {
                 <ProfileSection
                   user={user}
                   onUpdateUser={handleUpdateUser}
+                  onNavigateAdmin={() => handleTabChange('admin')}
                   showToast={showToast}
                   lang={lang}
                 />

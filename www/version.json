@@ -1,12 +1,12 @@
 {
-  "version": "1.6.0",
-  "versionCode": 10,
-  "releaseDate": "2026-10-24",
+  "version": "1.7.0",
+  "versionCode": 11,
+  "releaseDate": "2026-10-25",
   "size": "24 MB",
-  "title": "NITHYA Yoga v1.6.0 Live Studio & App Icon Redesign",
-  "titleTa": "நித்யா யோகா v1.6.0 புதிய ஆப் ஐகான் & நேரலை ஸ்டுடியோ மேம்பாடு",
-  "notes": "Updated app launcher icon, unique room generation per session, 2-step WhatsApp sharing flow, count-up duration timer, and mobile profile overflow fixes.",
-  "notesTa": "மொபைல் திரையில் புதிய ஆப் லோகோ ஐகான், ஒவ்வொரு வகுப்புக்கும் புதிய தனித்துவமான லிங்க், 2-படி வாட்ஸ்அப் பகிர்வு, வகுப்பு நேரம் (Count-up timer), மற்றும் மொபைல் சுயவிவரத் திரை சரிசெய்தல்.",
+  "title": "NITHYA Yoga v1.7.0 Admin Portal & Public Separation",
+  "titleTa": "நித்யா யோகா v1.7.0 அட்மின் பதிவு/உள்நுழைவு & பப்ளிக் நேரலை தனிப்பிரிவு",
+  "notes": "Distinct public student view and secure admin portal. Instructors can register with Gmail and password, login securely, launch live classes, and share unique room links, while students enter via public join.",
+  "notesTa": "பொது மாணவர் பகுதி மற்றும் பயிற்றுநர் அட்மின் பகுதி தனித்தனியாக பிரிக்கப்பட்டுள்ளது. பயிற்றுநர்கள் ஜிமெயில் மூலம் கணக்கு உருவாக்கி உள்நுழைந்து புதிய நேரலை வகுப்பைத் தொடங்கலாம்; மாணவர்கள் பப்ளிக் வியூ மூலம் எளிய முறையில் இணையலாம்.",
   "updateType": "ota_sync",
   "apkUrl": "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
 }

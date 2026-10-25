@@ -272,6 +272,7 @@ export default function LiveYogaClassRoom({
   user,
   onLeaveClass,
   onRecordAttendance,
+  onNavigateAdmin,
   lang = 'en'
 }) {
   const [room, setRoom] = useState(null);
@@ -423,50 +424,33 @@ export default function LiveYogaClassRoom({
   };
 
   // Role: Teacher if authenticated token or trainer role; Student otherwise (strict role separation)
-  const [isInstructorRole, setIsInstructorRole] = useState(() => {
+  const checkIsInstructor = () => {
     try {
-      const params = new URLSearchParams(window.location.search);
-      if (params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite'))) {
+      const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+      if (params && (params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite')))) {
         return false;
       }
-      const activeRole = localStorage.getItem('nithya_active_role');
+      const activeRole = typeof localStorage !== 'undefined' ? localStorage.getItem('nithya_active_role') : null;
       if (activeRole === 'student') return false;
-      const studentSession = localStorage.getItem('nithya_student_session');
-      if (studentSession) return false;
-      const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
-      return Boolean(hasTeacherToken && user?.role === 'trainer');
+      const studentSession = typeof localStorage !== 'undefined' ? localStorage.getItem('nithya_student_session') : null;
+      if (studentSession && activeRole !== 'instructor') return false;
+      const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
+      return Boolean(hasTeacherToken && (activeRole === 'instructor' || user?.role === 'trainer' || user?.isInstructor));
     } catch (_) {}
     return false;
-  });
+  };
 
-  const handleToggleRole = () => {
-    if (isInstructorRole) {
-      setIsInstructorRole(false);
-      try {
-        localStorage.setItem('nithya_active_role', 'student');
-      } catch (_) {}
-    } else {
-      const hasTeacherToken = Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
-      if (hasTeacherToken) {
-        setIsInstructorRole(true);
-        try {
-          localStorage.setItem('nithya_active_role', 'instructor');
-        } catch (_) {}
-      } else {
-        const pin = prompt(lang === 'ta' ? 'நித்யா மாஸ்டர் கடவுச்சொல்லை உள்ளிடவும்:' : 'Enter NITHYA Master / Trainer Passcode:');
-        if (pin === 'nithya2026' || pin === 'admin123' || pin === 'master') {
-          try {
-            localStorage.setItem('nithya_trainer_token', 'nithya_master_active');
-            localStorage.setItem('nithya_active_role', 'instructor');
-            localStorage.removeItem('nithya_student_session');
-          } catch (_) {}
-          setIsInstructorRole(true);
-          alert(lang === 'ta' ? '👑 நித்யா மாஸ்டர் பயன்முறை செயல்படுத்தப்பட்டது!' : '👑 NITHYA Master Mode activated!');
-        } else if (pin !== null) {
-          alert(lang === 'ta' ? 'தவறான கடவுச்சொல்! நீங்கள் மாணவராக மட்டுமே தொடரலாம்.' : 'Invalid passcode. Access restricted to students.');
-        }
-      }
-    }
+  const [isInstructorRole, setIsInstructorRole] = useState(checkIsInstructor);
+
+  useEffect(() => {
+    setIsInstructorRole(checkIsInstructor());
+  }, [user]);
+
+  const handleSwitchToStudentView = () => {
+    setIsInstructorRole(false);
+    try {
+      localStorage.setItem('nithya_active_role', 'student');
+    } catch (_) {}
   };
   const [classEndedNotice, setClassEndedNotice] = useState(false);
   const [handAlertMsg, setHandAlertMsg] = useState('');
@@ -1590,6 +1574,10 @@ export default function LiveYogaClassRoom({
 
   // Phase 4: Create a brand new unique session room and show share modal
   const handleStartNewClassSession = () => {
+    if (!isInstructorRole) {
+      if (onNavigateAdmin) onNavigateAdmin();
+      return;
+    }
     const uniqueRoomId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
     setActiveRoomSessionId(uniqueRoomId);
     setSessionStage('ready');
@@ -2281,10 +2269,10 @@ export default function LiveYogaClassRoom({
               <div className="pt-2">
                 <button
                   type="button"
-                  onClick={handleToggleRole}
+                  onClick={handleSwitchToStudentView}
                   className="text-xs text-[#C5BCDC] hover:text-white underline cursor-pointer inline-flex items-center gap-1 transition-colors"
                 >
-                  <span>{lang === 'ta' ? 'மாணவர் பார்வையில் சோதிக்க வேண்டுமா? மாணவர் முறைக்கு மாறு' : 'Switch to Student View'}</span>
+                  <span>{lang === 'ta' ? 'மாணவர் பார்வையில் சோதிக்க வேண்டுமா? மாணவர் முறைக்கு மாறு' : 'Preview as Student View'}</span>
                 </button>
               </div>
             </div>
@@ -2343,13 +2331,29 @@ export default function LiveYogaClassRoom({
                 </button>
               </div>
 
-              <div className="pt-2">
+              {/* Instructor Portal Entry Link for Instructors */}
+              <div className="pt-3 border-t border-white/10 mt-4 text-center">
+                <p className="text-xs text-[#C5BCDC] mb-2">
+                  {lang === 'ta' 
+                    ? 'நீங்கள் பயிற்றுநரா? புதிய நேரலை ரூம் உருவாக்க மற்றும் வகுப்பைத் தொடங்க அட்மின் போர்ட்டலில் உள்நுழையவும்.'
+                    : 'Are you an instructor? Sign in to the Admin Portal to create and host live classes.'}
+                </p>
                 <button
                   type="button"
-                  onClick={handleToggleRole}
-                  className="text-xs text-[#C5BCDC] hover:text-white underline cursor-pointer inline-flex items-center gap-1 transition-colors"
+                  onClick={() => {
+                    if (onNavigateAdmin) {
+                      onNavigateAdmin();
+                    } else {
+                      try {
+                        localStorage.setItem('nithya_active_tab', 'admin');
+                        window.location.reload();
+                      } catch (_) {}
+                    }
+                  }}
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-violet-950/70 hover:bg-violet-900 border border-violet-500/40 text-violet-200 hover:text-white text-xs font-semibold cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span>{lang === 'ta' ? 'பயிற்றுநரா? மாஸ்டர் முறைக்கு மாறுக' : 'Trainer? Switch to Master Host Mode'}</span>
+                  <Crown size={14} className="text-amber-400" />
+                  <span>{lang === 'ta' ? '👩‍🏫 பயிற்றுநர் / அட்மின் உள்நுழைவு ➡️' : '👩‍🏫 Instructor / Admin Sign In ➡️'}</span>
                 </button>
               </div>
             </div>

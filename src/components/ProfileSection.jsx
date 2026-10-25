@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { User, Edit3, Flower2, Mail, Calendar, Target, Heart, Camera, Check, X, Trash2, RefreshCw, Download, Sparkles } from 'lucide-react';
+import { User, Edit3, Flower2, Mail, Calendar, Target, Heart, Camera, Check, X, Trash2, RefreshCw, Download, Sparkles, ShieldCheck } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER, triggerApkDownload } from './InAppUpdateBanner';
 
-export default function ProfileSection({ user, onUpdateUser, showToast, lang = 'en' }) {
+export default function ProfileSection({ user, onUpdateUser, onNavigateAdmin, showToast, lang = 'en' }) {
   const [activeTab, setActiveTab] = useState('Personal Info');
   const [isEditing, setIsEditing] = useState(false);
   const [remoteUpdate, setRemoteUpdate] = useState(null);
@@ -465,6 +465,35 @@ export default function ProfileSection({ user, onUpdateUser, showToast, lang = '
                   🔔 {lang === 'ta' ? 'ஒலி எழுப்பு' : 'Play Bell'}
                 </button>
               </div>
+            </div>
+
+            {/* Instructor & Admin Portal Card */}
+            <div className="p-4 rounded-xl border border-violet-500/30 bg-violet-500/10 flex items-center justify-between flex-wrap gap-3">
+              <div className="min-w-0">
+                <strong className="text-xs text-heading flex items-center gap-1.5 text-violet-700 dark:text-violet-300 font-bold">
+                  <ShieldCheck size={16} className="text-violet-600 dark:text-violet-400 shrink-0" />
+                  <span>{lang === 'ta' ? 'யோகா பயிற்றுநர் & அட்மின் போர்ட்டல்' : 'Instructor & Admin Portal'}</span>
+                </strong>
+                <span className="text-[11px] text-muted block mt-0.5">
+                  {lang === 'ta' ? 'புதிய நேரலை வகுப்பை உருவாக்க மற்றும் நிர்வகிக்க உள்நுழையவும்' : 'Sign in or register to create and host live sessions'}
+                </span>
+              </div>
+              <button
+                type="button"
+                className="ya-btn ya-btn--primary text-xs px-3.5 py-2 cursor-pointer font-bold shrink-0 shadow-md shadow-violet-500/20"
+                onClick={() => {
+                  if (onNavigateAdmin) {
+                    onNavigateAdmin();
+                  } else {
+                    try {
+                      localStorage.setItem('nithya_active_tab', 'admin');
+                      window.location.reload();
+                    } catch (_) {}
+                  }
+                }}
+              >
+                {lang === 'ta' ? 'அட்மின் போர்ட்டல் ➡️' : 'Open Admin Portal ➡️'}
+              </button>
             </div>
           </div>
         ) : activeTab === 'Preferences' ? (

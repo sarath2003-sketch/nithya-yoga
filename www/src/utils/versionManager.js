@@ -5,8 +5,8 @@
  * and state-aware update checking (idle, checking, available, current, error).
  */
 
-export const APP_VERSION = '1.6.0';
-export const APP_BUILD_NUMBER = 10;
+export const APP_VERSION = '1.7.0';
+export const APP_BUILD_NUMBER = 11;
 
 /**
  * Compare two semantic version strings (e.g. "1.2.1" vs "1.2.0")

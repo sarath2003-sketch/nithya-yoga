@@ -258,20 +258,20 @@
           {
             Object.freeze(emptyObject);
           }
-          function Component(props, context, updater) {
+          function Component4(props, context, updater) {
             this.props = props;
             this.context = context;
             this.refs = emptyObject;
             this.updater = updater || ReactNoopUpdateQueue;
           }
-          Component.prototype.isReactComponent = {};
-          Component.prototype.setState = function(partialState, callback) {
+          Component4.prototype.isReactComponent = {};
+          Component4.prototype.setState = function(partialState, callback) {
             if (typeof partialState !== "object" && typeof partialState !== "function" && partialState != null) {
               throw new Error("setState(...): takes an object of state variables to update or a function which returns an object of state variables.");
             }
             this.updater.enqueueSetState(this, partialState, callback, "setState");
           };
-          Component.prototype.forceUpdate = function(callback) {
+          Component4.prototype.forceUpdate = function(callback) {
             this.updater.enqueueForceUpdate(this, callback, "forceUpdate");
           };
           {
@@ -280,7 +280,7 @@
               replaceState: ["replaceState", "Refactor your code to use setState instead (see https://github.com/facebook/react/issues/3236)."]
             };
             var defineDeprecationWarning = function(methodName, info) {
-              Object.defineProperty(Component.prototype, methodName, {
+              Object.defineProperty(Component4.prototype, methodName, {
                 get: function() {
                   warn("%s(...) is deprecated in plain JavaScript React classes. %s", info[0], info[1]);
                   return void 0;
@@ -295,7 +295,7 @@
           }
           function ComponentDummy() {
           }
-          ComponentDummy.prototype = Component.prototype;
+          ComponentDummy.prototype = Component4.prototype;
           function PureComponent(props, context, updater) {
             this.props = props;
             this.context = context;
@@ -304,7 +304,7 @@
           }
           var pureComponentPrototype = PureComponent.prototype = new ComponentDummy();
           pureComponentPrototype.constructor = PureComponent;
-          assign(pureComponentPrototype, Component.prototype);
+          assign(pureComponentPrototype, Component4.prototype);
           pureComponentPrototype.isPureReactComponent = true;
           function createRef() {
             var refObject = {
@@ -530,7 +530,7 @@
             }
             return element;
           };
-          function createElement4(type, config, children) {
+          function createElement14(type, config, children) {
             var propName;
             var props = {};
             var key = null;
@@ -598,7 +598,7 @@
             var newElement = ReactElement(oldElement.type, newKey, oldElement.ref, oldElement._self, oldElement._source, oldElement._owner, oldElement.props);
             return newElement;
           }
-          function cloneElement(element, config, children) {
+          function cloneElement2(element, config, children) {
             if (element === null || element === void 0) {
               throw new Error("React.cloneElement(...): The argument must be a React element, but you passed " + element + ".");
             }
@@ -646,7 +646,7 @@
             }
             return ReactElement(element.type, key, ref, self2, source, owner, props);
           }
-          function isValidElement(object) {
+          function isValidElement2(object) {
             return typeof object === "object" && object !== null && object.$$typeof === REACT_ELEMENT_TYPE;
           }
           var SEPARATOR = ".";
@@ -711,7 +711,7 @@
                   return c;
                 });
               } else if (mappedChild != null) {
-                if (isValidElement(mappedChild)) {
+                if (isValidElement2(mappedChild)) {
                   {
                     if (mappedChild.key && (!_child || _child.key !== mappedChild.key)) {
                       checkKeyStringCoercion(mappedChild.key);
@@ -799,12 +799,12 @@
             }) || [];
           }
           function onlyChild(children) {
-            if (!isValidElement(children)) {
+            if (!isValidElement2(children)) {
               throw new Error("React.Children.only expected to receive a single React element child.");
             }
             return children;
           }
-          function createContext2(defaultValue) {
+          function createContext6(defaultValue) {
             var context = {
               $$typeof: REACT_CONTEXT_TYPE,
               // As a workaround to support multiple concurrent renderers, we categorize
@@ -991,7 +991,7 @@
             }
             return lazyType;
           }
-          function forwardRef3(render) {
+          function forwardRef4(render) {
             {
               if (render != null && render.$$typeof === REACT_MEMO_TYPE) {
                 error("forwardRef requires a render function but received a `memo` component. Instead of forwardRef(memo(...)), use memo(forwardRef(...)).");
@@ -1052,7 +1052,7 @@
             }
             return false;
           }
-          function memo(type, compare) {
+          function memo2(type, compare) {
             {
               if (!isValidElementType(type)) {
                 error("memo: The first argument must be a component. Instead received: %s", type === null ? "null" : typeof type);
@@ -1090,7 +1090,7 @@
             }
             return dispatcher;
           }
-          function useContext2(Context) {
+          function useContext7(Context) {
             var dispatcher = resolveDispatcher();
             {
               if (Context._context !== void 0) {
@@ -1104,7 +1104,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState18(initialState) {
+          function useState28(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1112,11 +1112,11 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef8(initialValue) {
+          function useRef12(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
-          function useEffect16(create, deps) {
+          function useEffect25(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useEffect(create, deps);
           }
@@ -1124,15 +1124,15 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useInsertionEffect(create, deps);
           }
-          function useLayoutEffect(create, deps) {
+          function useLayoutEffect4(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useLayoutEffect(create, deps);
           }
-          function useCallback2(callback, deps) {
+          function useCallback5(callback, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useCallback(callback, deps);
           }
-          function useMemo2(create, deps) {
+          function useMemo6(create, deps) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useMemo(create, deps);
           }
@@ -1154,7 +1154,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useDeferredValue(value);
           }
-          function useId() {
+          function useId2() {
             var dispatcher = resolveDispatcher();
             return dispatcher.useId();
           }
@@ -1369,8 +1369,8 @@
               return describeNativeComponentFrame(fn, false);
             }
           }
-          function shouldConstruct(Component2) {
-            var prototype = Component2.prototype;
+          function shouldConstruct(Component5) {
+            var prototype = Component5.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
           function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
@@ -1530,11 +1530,11 @@
             if (isArray(node)) {
               for (var i = 0; i < node.length; i++) {
                 var child = node[i];
-                if (isValidElement(child)) {
+                if (isValidElement2(child)) {
                   validateExplicitKey(child, parentType);
                 }
               }
-            } else if (isValidElement(node)) {
+            } else if (isValidElement2(node)) {
               if (node._store) {
                 node._store.validated = true;
               }
@@ -1545,7 +1545,7 @@
                   var iterator = iteratorFn.call(node);
                   var step;
                   while (!(step = iterator.next()).done) {
-                    if (isValidElement(step.value)) {
+                    if (isValidElement2(step.value)) {
                       validateExplicitKey(step.value, parentType);
                     }
                   }
@@ -1629,7 +1629,7 @@
                 error("React.createElement: type is invalid -- expected a string (for built-in components) or a class/function (for composite components) but got: %s.%s", typeString, info);
               }
             }
-            var element = createElement4.apply(this, arguments);
+            var element = createElement14.apply(this, arguments);
             if (element == null) {
               return element;
             }
@@ -1668,14 +1668,14 @@
             return validatedFactory;
           }
           function cloneElementWithValidation(element, props, children) {
-            var newElement = cloneElement.apply(this, arguments);
+            var newElement = cloneElement2.apply(this, arguments);
             for (var i = 2; i < arguments.length; i++) {
               validateChildKeys(arguments[i], newElement.type);
             }
             validatePropTypes(newElement);
             return newElement;
           }
-          function startTransition(scope, options) {
+          function startTransition3(scope, options) {
             var prevTransition = ReactCurrentBatchConfig.transition;
             ReactCurrentBatchConfig.transition = {};
             var currentTransition = ReactCurrentBatchConfig.transition;
@@ -1868,15 +1868,15 @@
           var createElement$1 = createElementWithValidation;
           var cloneElement$1 = cloneElementWithValidation;
           var createFactory = createFactoryWithValidation;
-          var Children = {
+          var Children2 = {
             map: mapChildren,
             forEach: forEachChildren,
             count: countChildren,
             toArray,
             only: onlyChild
           };
-          exports.Children = Children;
-          exports.Component = Component;
+          exports.Children = Children2;
+          exports.Component = Component4;
           exports.Fragment = REACT_FRAGMENT_TYPE;
           exports.Profiler = REACT_PROFILER_TYPE;
           exports.PureComponent = PureComponent;
@@ -1885,29 +1885,29 @@
           exports.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED = ReactSharedInternals;
           exports.act = act;
           exports.cloneElement = cloneElement$1;
-          exports.createContext = createContext2;
+          exports.createContext = createContext6;
           exports.createElement = createElement$1;
           exports.createFactory = createFactory;
           exports.createRef = createRef;
-          exports.forwardRef = forwardRef3;
-          exports.isValidElement = isValidElement;
+          exports.forwardRef = forwardRef4;
+          exports.isValidElement = isValidElement2;
           exports.lazy = lazy;
-          exports.memo = memo;
-          exports.startTransition = startTransition;
+          exports.memo = memo2;
+          exports.startTransition = startTransition3;
           exports.unstable_act = act;
-          exports.useCallback = useCallback2;
-          exports.useContext = useContext2;
+          exports.useCallback = useCallback5;
+          exports.useContext = useContext7;
           exports.useDebugValue = useDebugValue;
           exports.useDeferredValue = useDeferredValue;
-          exports.useEffect = useEffect16;
-          exports.useId = useId;
+          exports.useEffect = useEffect25;
+          exports.useId = useId2;
           exports.useImperativeHandle = useImperativeHandle;
           exports.useInsertionEffect = useInsertionEffect;
-          exports.useLayoutEffect = useLayoutEffect;
-          exports.useMemo = useMemo2;
+          exports.useLayoutEffect = useLayoutEffect4;
+          exports.useMemo = useMemo6;
           exports.useReducer = useReducer;
-          exports.useRef = useRef8;
-          exports.useState = useState18;
+          exports.useRef = useRef12;
+          exports.useState = useState28;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2403,9 +2403,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React28 = require_react();
+          var React45 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React28.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React45.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -2454,7 +2454,7 @@
           var HostPortal = 4;
           var HostComponent = 5;
           var HostText = 6;
-          var Fragment = 7;
+          var Fragment7 = 7;
           var Mode = 8;
           var ContextConsumer = 9;
           var ContextProvider = 10;
@@ -3441,8 +3441,8 @@
               return describeNativeComponentFrame(fn, false);
             }
           }
-          function shouldConstruct(Component) {
-            var prototype = Component.prototype;
+          function shouldConstruct(Component4) {
+            var prototype = Component4.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
           function describeUnknownElementTypeFrameInDEV(type, source, ownerFn) {
@@ -3611,7 +3611,7 @@
                 return "DehydratedFragment";
               case ForwardRef:
                 return getWrappedName$1(type, type.render, "ForwardRef");
-              case Fragment:
+              case Fragment7:
                 return "Fragment";
               case HostComponent:
                 return type;
@@ -4012,7 +4012,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React28.Children.forEach(props.children, function(child) {
+                  React45.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -9436,7 +9436,7 @@
               }
             }
           }
-          function createElement4(type, props, rootContainerElement, parentNamespace) {
+          function createElement14(type, props, rootContainerElement, parentNamespace) {
             var isCustomComponentTag;
             var ownerDocument = getOwnerDocumentFromRootContainer(rootContainerElement);
             var domElement;
@@ -10306,7 +10306,7 @@
               }
               parentNamespace = hostContextDev.namespace;
             }
-            var domElement = createElement4(type, props, rootContainerInstance, parentNamespace);
+            var domElement = createElement14(type, props, rootContainerInstance, parentNamespace);
             precacheFiberNode(internalInstanceHandle, domElement);
             updateFiberProps(domElement, props);
             return domElement;
@@ -10442,8 +10442,8 @@
               var nextNode = node.nextSibling;
               parentInstance.removeChild(node);
               if (nextNode && nextNode.nodeType === COMMENT_NODE) {
-                var data = nextNode.data;
-                if (data === SUSPENSE_END_DATA) {
+                var data2 = nextNode.data;
+                if (data2 === SUSPENSE_END_DATA) {
                   if (depth === 0) {
                     parentInstance.removeChild(nextNode);
                     retryIfBlockedOn(suspenseInstance);
@@ -10451,7 +10451,7 @@
                   } else {
                     depth--;
                   }
-                } else if (data === SUSPENSE_START_DATA || data === SUSPENSE_PENDING_START_DATA || data === SUSPENSE_FALLBACK_START_DATA) {
+                } else if (data2 === SUSPENSE_START_DATA || data2 === SUSPENSE_PENDING_START_DATA || data2 === SUSPENSE_FALLBACK_START_DATA) {
                   depth++;
                 }
               }
@@ -10596,14 +10596,14 @@
             var depth = 0;
             while (node) {
               if (node.nodeType === COMMENT_NODE) {
-                var data = node.data;
-                if (data === SUSPENSE_END_DATA) {
+                var data2 = node.data;
+                if (data2 === SUSPENSE_END_DATA) {
                   if (depth === 0) {
                     return getNextHydratableSibling(node);
                   } else {
                     depth--;
                   }
-                } else if (data === SUSPENSE_START_DATA || data === SUSPENSE_FALLBACK_START_DATA || data === SUSPENSE_PENDING_START_DATA) {
+                } else if (data2 === SUSPENSE_START_DATA || data2 === SUSPENSE_FALLBACK_START_DATA || data2 === SUSPENSE_PENDING_START_DATA) {
                   depth++;
                 }
               }
@@ -10616,14 +10616,14 @@
             var depth = 0;
             while (node) {
               if (node.nodeType === COMMENT_NODE) {
-                var data = node.data;
-                if (data === SUSPENSE_START_DATA || data === SUSPENSE_FALLBACK_START_DATA || data === SUSPENSE_PENDING_START_DATA) {
+                var data2 = node.data;
+                if (data2 === SUSPENSE_START_DATA || data2 === SUSPENSE_FALLBACK_START_DATA || data2 === SUSPENSE_PENDING_START_DATA) {
                   if (depth === 0) {
                     return node;
                   } else {
                     depth--;
                   }
-                } else if (data === SUSPENSE_END_DATA) {
+                } else if (data2 === SUSPENSE_END_DATA) {
                   depth++;
                 }
               }
@@ -10905,9 +10905,9 @@
           var contextStackCursor = createCursor(emptyContextObject);
           var didPerformWorkStackCursor = createCursor(false);
           var previousContext = emptyContextObject;
-          function getUnmaskedContext(workInProgress2, Component, didPushOwnContextIfProvider) {
+          function getUnmaskedContext(workInProgress2, Component4, didPushOwnContextIfProvider) {
             {
-              if (didPushOwnContextIfProvider && isContextProvider(Component)) {
+              if (didPushOwnContextIfProvider && isContextProvider(Component4)) {
                 return previousContext;
               }
               return contextStackCursor.current;
@@ -11044,8 +11044,8 @@
                   case HostRoot:
                     return node.stateNode.context;
                   case ClassComponent: {
-                    var Component = node.type;
-                    if (isContextProvider(Component)) {
+                    var Component4 = node.type;
+                    if (isContextProvider(Component4)) {
                       return node.stateNode.__reactInternalMemoizedMergedChildContext;
                     }
                     break;
@@ -12040,7 +12040,7 @@
               }
             }
             function updateFragment2(returnFiber, current2, fragment, lanes, key) {
-              if (current2 === null || current2.tag !== Fragment) {
+              if (current2 === null || current2.tag !== Fragment7) {
                 var created = createFiberFromFragment(fragment, returnFiber.mode, lanes, key);
                 created.return = returnFiber;
                 return created;
@@ -12443,7 +12443,7 @@
                 if (child.key === key) {
                   var elementType = element.type;
                   if (elementType === REACT_FRAGMENT_TYPE) {
-                    if (child.tag === Fragment) {
+                    if (child.tag === Fragment7) {
                       deleteRemainingChildren(returnFiber, child.sibling);
                       var existing = useFiber(child, element.props.children);
                       existing.return = returnFiber;
@@ -13499,7 +13499,7 @@
             }
             return true;
           }
-          function renderWithHooks(current2, workInProgress2, Component, props, secondArg, nextRenderLanes) {
+          function renderWithHooks(current2, workInProgress2, Component4, props, secondArg, nextRenderLanes) {
             renderLanes = nextRenderLanes;
             currentlyRenderingFiber$1 = workInProgress2;
             {
@@ -13519,7 +13519,7 @@
                 ReactCurrentDispatcher$1.current = HooksDispatcherOnMountInDEV;
               }
             }
-            var children = Component(props, secondArg);
+            var children = Component4(props, secondArg);
             if (didScheduleRenderPhaseUpdateDuringThisPass) {
               var numberOfReRenders = 0;
               do {
@@ -13539,7 +13539,7 @@
                   hookTypesUpdateIndexDev = -1;
                 }
                 ReactCurrentDispatcher$1.current = HooksDispatcherOnRerenderInDEV;
-                children = Component(props, secondArg);
+                children = Component4(props, secondArg);
               } while (didScheduleRenderPhaseUpdateDuringThisPass);
             }
             ReactCurrentDispatcher$1.current = ContextOnlyDispatcher;
@@ -14225,7 +14225,7 @@
               return value;
             }
           }
-          function startTransition(setPending, callback, options2) {
+          function startTransition3(setPending, callback, options2) {
             var previousPriority = getCurrentUpdatePriority();
             setCurrentUpdatePriority(higherEventPriority(previousPriority, ContinuousEventPriority));
             setPending(true);
@@ -14254,7 +14254,7 @@
           }
           function mountTransition() {
             var _mountState = mountState(false), isPending = _mountState[0], setPending = _mountState[1];
-            var start = startTransition.bind(null, setPending);
+            var start = startTransition3.bind(null, setPending);
             var hook = mountWorkInProgressHook();
             hook.memoizedState = start;
             return [isPending, start];
@@ -15338,10 +15338,10 @@
               child = child.sibling;
             }
           }
-          function resolveDefaultProps(Component, baseProps) {
-            if (Component && Component.defaultProps) {
+          function resolveDefaultProps(Component4, baseProps) {
+            if (Component4 && Component4.defaultProps) {
               var props = assign({}, baseProps);
-              var defaultProps = Component.defaultProps;
+              var defaultProps = Component4.defaultProps;
               for (var propName in defaultProps) {
                 if (props[propName] === void 0) {
                   props[propName] = defaultProps[propName];
@@ -16270,22 +16270,22 @@
             workInProgress2.child = reconcileChildFibers(workInProgress2, current2.child, null, renderLanes2);
             workInProgress2.child = reconcileChildFibers(workInProgress2, null, nextChildren, renderLanes2);
           }
-          function updateForwardRef(current2, workInProgress2, Component, nextProps, renderLanes2) {
+          function updateForwardRef(current2, workInProgress2, Component4, nextProps, renderLanes2) {
             {
               if (workInProgress2.type !== workInProgress2.elementType) {
-                var innerPropTypes = Component.propTypes;
+                var innerPropTypes = Component4.propTypes;
                 if (innerPropTypes) {
                   checkPropTypes(
                     innerPropTypes,
                     nextProps,
                     // Resolved props
                     "prop",
-                    getComponentNameFromType(Component)
+                    getComponentNameFromType(Component4)
                   );
                 }
               }
             }
-            var render2 = Component.render;
+            var render2 = Component4.render;
             var ref = workInProgress2.ref;
             var nextChildren;
             var hasId;
@@ -16323,11 +16323,11 @@
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
-          function updateMemoComponent(current2, workInProgress2, Component, nextProps, renderLanes2) {
+          function updateMemoComponent(current2, workInProgress2, Component4, nextProps, renderLanes2) {
             if (current2 === null) {
-              var type = Component.type;
-              if (isSimpleFunctionComponent(type) && Component.compare === null && // SimpleMemoComponent codepath doesn't resolve outer props either.
-              Component.defaultProps === void 0) {
+              var type = Component4.type;
+              if (isSimpleFunctionComponent(type) && Component4.compare === null && // SimpleMemoComponent codepath doesn't resolve outer props either.
+              Component4.defaultProps === void 0) {
                 var resolvedType = type;
                 {
                   resolvedType = resolveFunctionForHotReloading(type);
@@ -16350,7 +16350,7 @@
                     getComponentNameFromType(type)
                   );
                 }
-                if (Component.defaultProps !== void 0) {
+                if (Component4.defaultProps !== void 0) {
                   var componentName = getComponentNameFromType(type) || "Unknown";
                   if (!didWarnAboutDefaultPropsOnFunctionComponent[componentName]) {
                     error("%s: Support for defaultProps will be removed from memo components in a future major release. Use JavaScript default parameters instead.", componentName);
@@ -16358,14 +16358,14 @@
                   }
                 }
               }
-              var child = createFiberFromTypeAndProps(Component.type, null, nextProps, workInProgress2, workInProgress2.mode, renderLanes2);
+              var child = createFiberFromTypeAndProps(Component4.type, null, nextProps, workInProgress2, workInProgress2.mode, renderLanes2);
               child.ref = workInProgress2.ref;
               child.return = workInProgress2;
               workInProgress2.child = child;
               return child;
             }
             {
-              var _type = Component.type;
+              var _type = Component4.type;
               var _innerPropTypes = _type.propTypes;
               if (_innerPropTypes) {
                 checkPropTypes(
@@ -16381,7 +16381,7 @@
             var hasScheduledUpdateOrContext = checkScheduledUpdateOrContext(current2, renderLanes2);
             if (!hasScheduledUpdateOrContext) {
               var prevProps = currentChild.memoizedProps;
-              var compare = Component.compare;
+              var compare = Component4.compare;
               compare = compare !== null ? compare : shallowEqual;
               if (compare(prevProps, nextProps) && current2.ref === workInProgress2.ref) {
                 return bailoutOnAlreadyFinishedWork(current2, workInProgress2, renderLanes2);
@@ -16394,7 +16394,7 @@
             workInProgress2.child = newChild;
             return newChild;
           }
-          function updateSimpleMemoComponent(current2, workInProgress2, Component, nextProps, renderLanes2) {
+          function updateSimpleMemoComponent(current2, workInProgress2, Component4, nextProps, renderLanes2) {
             {
               if (workInProgress2.type !== workInProgress2.elementType) {
                 var outerMemoType = workInProgress2.elementType;
@@ -16434,7 +16434,7 @@
                 }
               }
             }
-            return updateFunctionComponent(current2, workInProgress2, Component, nextProps, renderLanes2);
+            return updateFunctionComponent(current2, workInProgress2, Component4, nextProps, renderLanes2);
           }
           function updateOffscreenComponent(current2, workInProgress2, renderLanes2) {
             var nextProps = workInProgress2.pendingProps;
@@ -16524,24 +16524,24 @@
               }
             }
           }
-          function updateFunctionComponent(current2, workInProgress2, Component, nextProps, renderLanes2) {
+          function updateFunctionComponent(current2, workInProgress2, Component4, nextProps, renderLanes2) {
             {
               if (workInProgress2.type !== workInProgress2.elementType) {
-                var innerPropTypes = Component.propTypes;
+                var innerPropTypes = Component4.propTypes;
                 if (innerPropTypes) {
                   checkPropTypes(
                     innerPropTypes,
                     nextProps,
                     // Resolved props
                     "prop",
-                    getComponentNameFromType(Component)
+                    getComponentNameFromType(Component4)
                   );
                 }
               }
             }
             var context;
             {
-              var unmaskedContext = getUnmaskedContext(workInProgress2, Component, true);
+              var unmaskedContext = getUnmaskedContext(workInProgress2, Component4, true);
               context = getMaskedContext(workInProgress2, unmaskedContext);
             }
             var nextChildren;
@@ -16553,12 +16553,12 @@
             {
               ReactCurrentOwner$1.current = workInProgress2;
               setIsRendering(true);
-              nextChildren = renderWithHooks(current2, workInProgress2, Component, nextProps, context, renderLanes2);
+              nextChildren = renderWithHooks(current2, workInProgress2, Component4, nextProps, context, renderLanes2);
               hasId = checkDidRenderIdHook();
               if (workInProgress2.mode & StrictLegacyMode) {
                 setIsStrictModeForDevtools(true);
                 try {
-                  nextChildren = renderWithHooks(current2, workInProgress2, Component, nextProps, context, renderLanes2);
+                  nextChildren = renderWithHooks(current2, workInProgress2, Component4, nextProps, context, renderLanes2);
                   hasId = checkDidRenderIdHook();
                 } finally {
                   setIsStrictModeForDevtools(false);
@@ -16580,7 +16580,7 @@
             reconcileChildren(current2, workInProgress2, nextChildren, renderLanes2);
             return workInProgress2.child;
           }
-          function updateClassComponent(current2, workInProgress2, Component, nextProps, renderLanes2) {
+          function updateClassComponent(current2, workInProgress2, Component4, nextProps, renderLanes2) {
             {
               switch (shouldError(workInProgress2)) {
                 case false: {
@@ -16603,20 +16603,20 @@
                 }
               }
               if (workInProgress2.type !== workInProgress2.elementType) {
-                var innerPropTypes = Component.propTypes;
+                var innerPropTypes = Component4.propTypes;
                 if (innerPropTypes) {
                   checkPropTypes(
                     innerPropTypes,
                     nextProps,
                     // Resolved props
                     "prop",
-                    getComponentNameFromType(Component)
+                    getComponentNameFromType(Component4)
                   );
                 }
               }
             }
             var hasContext;
-            if (isContextProvider(Component)) {
+            if (isContextProvider(Component4)) {
               hasContext = true;
               pushContextProvider(workInProgress2);
             } else {
@@ -16627,15 +16627,15 @@
             var shouldUpdate;
             if (instance === null) {
               resetSuspendedCurrentOnMountInLegacyMode(current2, workInProgress2);
-              constructClassInstance(workInProgress2, Component, nextProps);
-              mountClassInstance(workInProgress2, Component, nextProps, renderLanes2);
+              constructClassInstance(workInProgress2, Component4, nextProps);
+              mountClassInstance(workInProgress2, Component4, nextProps, renderLanes2);
               shouldUpdate = true;
             } else if (current2 === null) {
-              shouldUpdate = resumeMountClassInstance(workInProgress2, Component, nextProps, renderLanes2);
+              shouldUpdate = resumeMountClassInstance(workInProgress2, Component4, nextProps, renderLanes2);
             } else {
-              shouldUpdate = updateClassInstance(current2, workInProgress2, Component, nextProps, renderLanes2);
+              shouldUpdate = updateClassInstance(current2, workInProgress2, Component4, nextProps, renderLanes2);
             }
-            var nextUnitOfWork = finishClassComponent(current2, workInProgress2, Component, shouldUpdate, hasContext, renderLanes2);
+            var nextUnitOfWork = finishClassComponent(current2, workInProgress2, Component4, shouldUpdate, hasContext, renderLanes2);
             {
               var inst = workInProgress2.stateNode;
               if (shouldUpdate && inst.props !== nextProps) {
@@ -16647,19 +16647,19 @@
             }
             return nextUnitOfWork;
           }
-          function finishClassComponent(current2, workInProgress2, Component, shouldUpdate, hasContext, renderLanes2) {
+          function finishClassComponent(current2, workInProgress2, Component4, shouldUpdate, hasContext, renderLanes2) {
             markRef(current2, workInProgress2);
             var didCaptureError = (workInProgress2.flags & DidCapture) !== NoFlags;
             if (!shouldUpdate && !didCaptureError) {
               if (hasContext) {
-                invalidateContextProvider(workInProgress2, Component, false);
+                invalidateContextProvider(workInProgress2, Component4, false);
               }
               return bailoutOnAlreadyFinishedWork(current2, workInProgress2, renderLanes2);
             }
             var instance = workInProgress2.stateNode;
             ReactCurrentOwner$1.current = workInProgress2;
             var nextChildren;
-            if (didCaptureError && typeof Component.getDerivedStateFromError !== "function") {
+            if (didCaptureError && typeof Component4.getDerivedStateFromError !== "function") {
               nextChildren = null;
               {
                 stopProfilerTimerIfRunning();
@@ -16693,7 +16693,7 @@
             }
             workInProgress2.memoizedState = instance.state;
             if (hasContext) {
-              invalidateContextProvider(workInProgress2, Component, true);
+              invalidateContextProvider(workInProgress2, Component4, true);
             }
             return workInProgress2.child;
           }
@@ -16793,45 +16793,45 @@
             var lazyComponent = elementType;
             var payload = lazyComponent._payload;
             var init = lazyComponent._init;
-            var Component = init(payload);
-            workInProgress2.type = Component;
-            var resolvedTag = workInProgress2.tag = resolveLazyComponentTag(Component);
-            var resolvedProps = resolveDefaultProps(Component, props);
+            var Component4 = init(payload);
+            workInProgress2.type = Component4;
+            var resolvedTag = workInProgress2.tag = resolveLazyComponentTag(Component4);
+            var resolvedProps = resolveDefaultProps(Component4, props);
             var child;
             switch (resolvedTag) {
               case FunctionComponent: {
                 {
-                  validateFunctionComponentInDev(workInProgress2, Component);
-                  workInProgress2.type = Component = resolveFunctionForHotReloading(Component);
+                  validateFunctionComponentInDev(workInProgress2, Component4);
+                  workInProgress2.type = Component4 = resolveFunctionForHotReloading(Component4);
                 }
-                child = updateFunctionComponent(null, workInProgress2, Component, resolvedProps, renderLanes2);
+                child = updateFunctionComponent(null, workInProgress2, Component4, resolvedProps, renderLanes2);
                 return child;
               }
               case ClassComponent: {
                 {
-                  workInProgress2.type = Component = resolveClassForHotReloading(Component);
+                  workInProgress2.type = Component4 = resolveClassForHotReloading(Component4);
                 }
-                child = updateClassComponent(null, workInProgress2, Component, resolvedProps, renderLanes2);
+                child = updateClassComponent(null, workInProgress2, Component4, resolvedProps, renderLanes2);
                 return child;
               }
               case ForwardRef: {
                 {
-                  workInProgress2.type = Component = resolveForwardRefForHotReloading(Component);
+                  workInProgress2.type = Component4 = resolveForwardRefForHotReloading(Component4);
                 }
-                child = updateForwardRef(null, workInProgress2, Component, resolvedProps, renderLanes2);
+                child = updateForwardRef(null, workInProgress2, Component4, resolvedProps, renderLanes2);
                 return child;
               }
               case MemoComponent: {
                 {
                   if (workInProgress2.type !== workInProgress2.elementType) {
-                    var outerPropTypes = Component.propTypes;
+                    var outerPropTypes = Component4.propTypes;
                     if (outerPropTypes) {
                       checkPropTypes(
                         outerPropTypes,
                         resolvedProps,
                         // Resolved for outer only
                         "prop",
-                        getComponentNameFromType(Component)
+                        getComponentNameFromType(Component4)
                       );
                     }
                   }
@@ -16839,8 +16839,8 @@
                 child = updateMemoComponent(
                   null,
                   workInProgress2,
-                  Component,
-                  resolveDefaultProps(Component.type, resolvedProps),
+                  Component4,
+                  resolveDefaultProps(Component4.type, resolvedProps),
                   // The inner type can have defaults too
                   renderLanes2
                 );
@@ -16849,33 +16849,33 @@
             }
             var hint = "";
             {
-              if (Component !== null && typeof Component === "object" && Component.$$typeof === REACT_LAZY_TYPE) {
+              if (Component4 !== null && typeof Component4 === "object" && Component4.$$typeof === REACT_LAZY_TYPE) {
                 hint = " Did you wrap a component in React.lazy() more than once?";
               }
             }
-            throw new Error("Element type is invalid. Received a promise that resolves to: " + Component + ". " + ("Lazy element type must resolve to a class or function." + hint));
+            throw new Error("Element type is invalid. Received a promise that resolves to: " + Component4 + ". " + ("Lazy element type must resolve to a class or function." + hint));
           }
-          function mountIncompleteClassComponent(_current, workInProgress2, Component, nextProps, renderLanes2) {
+          function mountIncompleteClassComponent(_current, workInProgress2, Component4, nextProps, renderLanes2) {
             resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress2);
             workInProgress2.tag = ClassComponent;
             var hasContext;
-            if (isContextProvider(Component)) {
+            if (isContextProvider(Component4)) {
               hasContext = true;
               pushContextProvider(workInProgress2);
             } else {
               hasContext = false;
             }
             prepareToReadContext(workInProgress2, renderLanes2);
-            constructClassInstance(workInProgress2, Component, nextProps);
-            mountClassInstance(workInProgress2, Component, nextProps, renderLanes2);
-            return finishClassComponent(null, workInProgress2, Component, true, hasContext, renderLanes2);
+            constructClassInstance(workInProgress2, Component4, nextProps);
+            mountClassInstance(workInProgress2, Component4, nextProps, renderLanes2);
+            return finishClassComponent(null, workInProgress2, Component4, true, hasContext, renderLanes2);
           }
-          function mountIndeterminateComponent(_current, workInProgress2, Component, renderLanes2) {
+          function mountIndeterminateComponent(_current, workInProgress2, Component4, renderLanes2) {
             resetSuspendedCurrentOnMountInLegacyMode(_current, workInProgress2);
             var props = workInProgress2.pendingProps;
             var context;
             {
-              var unmaskedContext = getUnmaskedContext(workInProgress2, Component, false);
+              var unmaskedContext = getUnmaskedContext(workInProgress2, Component4, false);
               context = getMaskedContext(workInProgress2, unmaskedContext);
             }
             prepareToReadContext(workInProgress2, renderLanes2);
@@ -16885,8 +16885,8 @@
               markComponentRenderStarted(workInProgress2);
             }
             {
-              if (Component.prototype && typeof Component.prototype.render === "function") {
-                var componentName = getComponentNameFromType(Component) || "Unknown";
+              if (Component4.prototype && typeof Component4.prototype.render === "function") {
+                var componentName = getComponentNameFromType(Component4) || "Unknown";
                 if (!didWarnAboutBadClass[componentName]) {
                   error("The <%s /> component appears to have a render method, but doesn't extend React.Component. This is likely to cause errors. Change %s to extend React.Component instead.", componentName, componentName);
                   didWarnAboutBadClass[componentName] = true;
@@ -16897,7 +16897,7 @@
               }
               setIsRendering(true);
               ReactCurrentOwner$1.current = workInProgress2;
-              value = renderWithHooks(null, workInProgress2, Component, props, context, renderLanes2);
+              value = renderWithHooks(null, workInProgress2, Component4, props, context, renderLanes2);
               hasId = checkDidRenderIdHook();
               setIsRendering(false);
             }
@@ -16907,7 +16907,7 @@
             workInProgress2.flags |= PerformedWork;
             {
               if (typeof value === "object" && value !== null && typeof value.render === "function" && value.$$typeof === void 0) {
-                var _componentName = getComponentNameFromType(Component) || "Unknown";
+                var _componentName = getComponentNameFromType(Component4) || "Unknown";
                 if (!didWarnAboutModulePatternComponent[_componentName]) {
                   error("The <%s /> component appears to be a function component that returns a class instance. Change %s to a class that extends React.Component instead. If you can't use a class try assigning the prototype on the function as a workaround. `%s.prototype = React.Component.prototype`. Don't use an arrow function since it cannot be called with `new` by React.", _componentName, _componentName, _componentName);
                   didWarnAboutModulePatternComponent[_componentName] = true;
@@ -16920,7 +16920,7 @@
               typeof value === "object" && value !== null && typeof value.render === "function" && value.$$typeof === void 0
             ) {
               {
-                var _componentName2 = getComponentNameFromType(Component) || "Unknown";
+                var _componentName2 = getComponentNameFromType(Component4) || "Unknown";
                 if (!didWarnAboutModulePatternComponent[_componentName2]) {
                   error("The <%s /> component appears to be a function component that returns a class instance. Change %s to a class that extends React.Component instead. If you can't use a class try assigning the prototype on the function as a workaround. `%s.prototype = React.Component.prototype`. Don't use an arrow function since it cannot be called with `new` by React.", _componentName2, _componentName2, _componentName2);
                   didWarnAboutModulePatternComponent[_componentName2] = true;
@@ -16930,7 +16930,7 @@
               workInProgress2.memoizedState = null;
               workInProgress2.updateQueue = null;
               var hasContext = false;
-              if (isContextProvider(Component)) {
+              if (isContextProvider(Component4)) {
                 hasContext = true;
                 pushContextProvider(workInProgress2);
               } else {
@@ -16939,15 +16939,15 @@
               workInProgress2.memoizedState = value.state !== null && value.state !== void 0 ? value.state : null;
               initializeUpdateQueue(workInProgress2);
               adoptClassInstance(workInProgress2, value);
-              mountClassInstance(workInProgress2, Component, props, renderLanes2);
-              return finishClassComponent(null, workInProgress2, Component, true, hasContext, renderLanes2);
+              mountClassInstance(workInProgress2, Component4, props, renderLanes2);
+              return finishClassComponent(null, workInProgress2, Component4, true, hasContext, renderLanes2);
             } else {
               workInProgress2.tag = FunctionComponent;
               {
                 if (workInProgress2.mode & StrictLegacyMode) {
                   setIsStrictModeForDevtools(true);
                   try {
-                    value = renderWithHooks(null, workInProgress2, Component, props, context, renderLanes2);
+                    value = renderWithHooks(null, workInProgress2, Component4, props, context, renderLanes2);
                     hasId = checkDidRenderIdHook();
                   } finally {
                     setIsStrictModeForDevtools(false);
@@ -16959,16 +16959,16 @@
               }
               reconcileChildren(null, workInProgress2, value, renderLanes2);
               {
-                validateFunctionComponentInDev(workInProgress2, Component);
+                validateFunctionComponentInDev(workInProgress2, Component4);
               }
               return workInProgress2.child;
             }
           }
-          function validateFunctionComponentInDev(workInProgress2, Component) {
+          function validateFunctionComponentInDev(workInProgress2, Component4) {
             {
-              if (Component) {
-                if (Component.childContextTypes) {
-                  error("%s(...): childContextTypes cannot be defined on a function component.", Component.displayName || Component.name || "Component");
+              if (Component4) {
+                if (Component4.childContextTypes) {
+                  error("%s(...): childContextTypes cannot be defined on a function component.", Component4.displayName || Component4.name || "Component");
                 }
               }
               if (workInProgress2.ref !== null) {
@@ -16987,22 +16987,22 @@
                   error("Function components cannot be given refs. Attempts to access this ref will fail. Did you mean to use React.forwardRef()?%s", info);
                 }
               }
-              if (Component.defaultProps !== void 0) {
-                var componentName = getComponentNameFromType(Component) || "Unknown";
+              if (Component4.defaultProps !== void 0) {
+                var componentName = getComponentNameFromType(Component4) || "Unknown";
                 if (!didWarnAboutDefaultPropsOnFunctionComponent[componentName]) {
                   error("%s: Support for defaultProps will be removed from function components in a future major release. Use JavaScript default parameters instead.", componentName);
                   didWarnAboutDefaultPropsOnFunctionComponent[componentName] = true;
                 }
               }
-              if (typeof Component.getDerivedStateFromProps === "function") {
-                var _componentName3 = getComponentNameFromType(Component) || "Unknown";
+              if (typeof Component4.getDerivedStateFromProps === "function") {
+                var _componentName3 = getComponentNameFromType(Component4) || "Unknown";
                 if (!didWarnAboutGetDerivedStateOnFunctionComponent[_componentName3]) {
                   error("%s: Function components do not support getDerivedStateFromProps.", _componentName3);
                   didWarnAboutGetDerivedStateOnFunctionComponent[_componentName3] = true;
                 }
               }
-              if (typeof Component.contextType === "object" && Component.contextType !== null) {
-                var _componentName4 = getComponentNameFromType(Component) || "Unknown";
+              if (typeof Component4.contextType === "object" && Component4.contextType !== null) {
+                var _componentName4 = getComponentNameFromType(Component4) || "Unknown";
                 if (!didWarnAboutContextTypeOnFunctionComponent[_componentName4]) {
                   error("%s: Function components do not support contextType.", _componentName4);
                   didWarnAboutContextTypeOnFunctionComponent[_componentName4] = true;
@@ -17764,8 +17764,8 @@
                 pushHostContext(workInProgress2);
                 break;
               case ClassComponent: {
-                var Component = workInProgress2.type;
-                if (isContextProvider(Component)) {
+                var Component4 = workInProgress2.type;
+                if (isContextProvider(Component4)) {
                   pushContextProvider(workInProgress2);
                 }
                 break;
@@ -17892,10 +17892,10 @@
                 return mountLazyComponent(current2, workInProgress2, elementType, renderLanes2);
               }
               case FunctionComponent: {
-                var Component = workInProgress2.type;
+                var Component4 = workInProgress2.type;
                 var unresolvedProps = workInProgress2.pendingProps;
-                var resolvedProps = workInProgress2.elementType === Component ? unresolvedProps : resolveDefaultProps(Component, unresolvedProps);
-                return updateFunctionComponent(current2, workInProgress2, Component, resolvedProps, renderLanes2);
+                var resolvedProps = workInProgress2.elementType === Component4 ? unresolvedProps : resolveDefaultProps(Component4, unresolvedProps);
+                return updateFunctionComponent(current2, workInProgress2, Component4, resolvedProps, renderLanes2);
               }
               case ClassComponent: {
                 var _Component = workInProgress2.type;
@@ -17919,7 +17919,7 @@
                 var _resolvedProps2 = workInProgress2.elementType === type ? _unresolvedProps2 : resolveDefaultProps(type, _unresolvedProps2);
                 return updateForwardRef(current2, workInProgress2, type, _resolvedProps2, renderLanes2);
               }
-              case Fragment:
+              case Fragment7:
                 return updateFragment(current2, workInProgress2, renderLanes2);
               case Mode:
                 return updateMode(current2, workInProgress2, renderLanes2);
@@ -18191,7 +18191,7 @@
               case SimpleMemoComponent:
               case FunctionComponent:
               case ForwardRef:
-              case Fragment:
+              case Fragment7:
               case Mode:
               case Profiler:
               case ContextConsumer:
@@ -18199,8 +18199,8 @@
                 bubbleProperties(workInProgress2);
                 return null;
               case ClassComponent: {
-                var Component = workInProgress2.type;
-                if (isContextProvider(Component)) {
+                var Component4 = workInProgress2.type;
+                if (isContextProvider(Component4)) {
                   popContext(workInProgress2);
                 }
                 bubbleProperties(workInProgress2);
@@ -18518,8 +18518,8 @@
             popTreeContext(workInProgress2);
             switch (workInProgress2.tag) {
               case ClassComponent: {
-                var Component = workInProgress2.type;
-                if (isContextProvider(Component)) {
+                var Component4 = workInProgress2.type;
+                if (isContextProvider(Component4)) {
                   popContext(workInProgress2);
                 }
                 var flags = workInProgress2.flags;
@@ -22204,18 +22204,18 @@
           var createFiber = function(tag, pendingProps, key, mode) {
             return new FiberNode(tag, pendingProps, key, mode);
           };
-          function shouldConstruct$1(Component) {
-            var prototype = Component.prototype;
+          function shouldConstruct$1(Component4) {
+            var prototype = Component4.prototype;
             return !!(prototype && prototype.isReactComponent);
           }
           function isSimpleFunctionComponent(type) {
             return typeof type === "function" && !shouldConstruct$1(type) && type.defaultProps === void 0;
           }
-          function resolveLazyComponentTag(Component) {
-            if (typeof Component === "function") {
-              return shouldConstruct$1(Component) ? ClassComponent : FunctionComponent;
-            } else if (Component !== void 0 && Component !== null) {
-              var $$typeof = Component.$$typeof;
+          function resolveLazyComponentTag(Component4) {
+            if (typeof Component4 === "function") {
+              return shouldConstruct$1(Component4) ? ClassComponent : FunctionComponent;
+            } else if (Component4 !== void 0 && Component4 !== null) {
+              var $$typeof = Component4.$$typeof;
               if ($$typeof === REACT_FORWARD_REF_TYPE) {
                 return ForwardRef;
               }
@@ -22452,7 +22452,7 @@
             return fiber;
           }
           function createFiberFromFragment(elements, mode, lanes, key) {
-            var fiber = createFiber(Fragment, elements, key, mode);
+            var fiber = createFiber(Fragment7, elements, key, mode);
             fiber.lanes = lanes;
             return fiber;
           }
@@ -22656,9 +22656,9 @@
             var fiber = get(parentComponent);
             var parentContext = findCurrentUnmaskedContext(fiber);
             if (fiber.tag === ClassComponent) {
-              var Component = fiber.type;
-              if (isContextProvider(Component)) {
-                return processChildContext(fiber, Component, parentContext);
+              var Component4 = fiber.type;
+              if (isContextProvider(Component4)) {
+                return processChildContext(fiber, Component4, parentContext);
               }
             }
             return parentContext;
@@ -23601,6 +23601,2872 @@
     }
   });
 
+  // node_modules/react-router/dist/development/chunk-OB3PAWPO.mjs
+  function normalizeProtocolRelativeUrl(url, protocol) {
+    return protocol + url.replace(/\\/g, "/");
+  }
+  function isLocation(obj) {
+    return typeof obj === "object" && obj != null && "pathname" in obj && "search" in obj && "hash" in obj && "state" in obj && "key" in obj;
+  }
+  function createHashHistory(options = {}) {
+    function createHashLocation(window2, globalHistory) {
+      let {
+        pathname = "/",
+        search = "",
+        hash = ""
+      } = parsePath(window2.location.hash.substring(1));
+      if (!pathname.startsWith("/") && !pathname.startsWith(".")) {
+        pathname = "/" + pathname;
+      }
+      return createLocation(
+        "",
+        { pathname, search, hash },
+        // state defaults to `null` because `window.history.state` does
+        globalHistory.state && globalHistory.state.usr || null,
+        globalHistory.state && globalHistory.state.key || "default"
+      );
+    }
+    function createHashHref(window2, to) {
+      let base = window2.document.querySelector("base");
+      let href = "";
+      if (base && base.getAttribute("href")) {
+        let url = window2.location.href;
+        let hashIndex = url.indexOf("#");
+        href = hashIndex === -1 ? url : url.slice(0, hashIndex);
+      }
+      return href + "#" + (typeof to === "string" ? to : createPath(to));
+    }
+    function validateHashLocation(location2, to) {
+      warning(
+        location2.pathname.charAt(0) === "/",
+        `relative pathnames are not supported in hash history.push(${JSON.stringify(
+          to
+        )})`
+      );
+    }
+    return getUrlBasedHistory(
+      createHashLocation,
+      createHashHref,
+      validateHashLocation,
+      options
+    );
+  }
+  function invariant(value, message) {
+    if (value === false || value === null || typeof value === "undefined") {
+      throw new Error(message);
+    }
+  }
+  function warning(cond, message) {
+    if (!cond) {
+      if (typeof console !== "undefined") console.warn(message);
+      try {
+        throw new Error(message);
+      } catch (e2) {
+      }
+    }
+  }
+  function createKey() {
+    return Math.random().toString(36).substring(2, 10);
+  }
+  function getHistoryState(location2, index) {
+    return {
+      usr: location2.state,
+      key: location2.key,
+      idx: index,
+      masked: location2.mask ? {
+        pathname: location2.pathname,
+        search: location2.search,
+        hash: location2.hash
+      } : void 0
+    };
+  }
+  function createLocation(current, to, state = null, key, mask) {
+    let location2 = {
+      pathname: typeof current === "string" ? current : current.pathname,
+      search: "",
+      hash: "",
+      ...typeof to === "string" ? parsePath(to) : to,
+      state,
+      // TODO: This could be cleaned up.  push/replace should probably just take
+      // full Locations now and avoid the need to run through this flow at all
+      // But that's a pretty big refactor to the current test suite so going to
+      // keep as is for the time being and just let any incoming keys take precedence
+      key: to && to.key || key || createKey(),
+      mask
+    };
+    return location2;
+  }
+  function createPath({
+    pathname = "/",
+    search = "",
+    hash = ""
+  }) {
+    if (search && search !== "?")
+      pathname += search.charAt(0) === "?" ? search : "?" + search;
+    if (hash && hash !== "#")
+      pathname += hash.charAt(0) === "#" ? hash : "#" + hash;
+    return pathname;
+  }
+  function parsePath(path) {
+    let parsedPath = {};
+    if (path) {
+      let hashIndex = path.indexOf("#");
+      if (hashIndex >= 0) {
+        parsedPath.hash = path.substring(hashIndex);
+        path = path.substring(0, hashIndex);
+      }
+      let searchIndex = path.indexOf("?");
+      if (searchIndex >= 0) {
+        parsedPath.search = path.substring(searchIndex);
+        path = path.substring(0, searchIndex);
+      }
+      if (path) {
+        parsedPath.pathname = path;
+      }
+    }
+    return parsedPath;
+  }
+  function getUrlBasedHistory(getLocation, createHref2, validateLocation, options = {}) {
+    let { window: window2 = document.defaultView, v5Compat = false } = options;
+    let globalHistory = window2.history;
+    let action = "POP";
+    let listener = null;
+    let index = getIndex();
+    if (index == null) {
+      index = 0;
+      globalHistory.replaceState({ ...globalHistory.state, idx: index }, "");
+    }
+    function getIndex() {
+      let state = globalHistory.state || { idx: null };
+      return state.idx;
+    }
+    function handlePop() {
+      action = "POP";
+      let nextIndex = getIndex();
+      let delta = nextIndex == null ? null : nextIndex - index;
+      index = nextIndex;
+      if (listener) {
+        listener({ action, location: history.location, delta });
+      }
+    }
+    function push(to, state) {
+      action = "PUSH";
+      let location2 = isLocation(to) ? to : createLocation(history.location, to, state);
+      if (validateLocation) validateLocation(location2, to);
+      index = getIndex() + 1;
+      let historyState = getHistoryState(location2, index);
+      let url = history.createHref(location2.mask || location2);
+      try {
+        globalHistory.pushState(historyState, "", url);
+      } catch (error) {
+        if (error instanceof DOMException && error.name === "DataCloneError") {
+          throw error;
+        }
+        window2.location.assign(url);
+      }
+      if (v5Compat && listener) {
+        listener({ action, location: history.location, delta: 1 });
+      }
+    }
+    function replace2(to, state) {
+      action = "REPLACE";
+      let location2 = isLocation(to) ? to : createLocation(history.location, to, state);
+      if (validateLocation) validateLocation(location2, to);
+      index = getIndex();
+      let historyState = getHistoryState(location2, index);
+      let url = history.createHref(location2.mask || location2);
+      globalHistory.replaceState(historyState, "", url);
+      if (v5Compat && listener) {
+        listener({ action, location: history.location, delta: 0 });
+      }
+    }
+    function createURL(to) {
+      return createBrowserURLImpl(window2, to);
+    }
+    let history = {
+      get action() {
+        return action;
+      },
+      get location() {
+        return getLocation(window2, globalHistory);
+      },
+      listen(fn) {
+        if (listener) {
+          throw new Error("A history only accepts one active listener");
+        }
+        window2.addEventListener(PopStateEventType, handlePop);
+        listener = fn;
+        return () => {
+          window2.removeEventListener(PopStateEventType, handlePop);
+          listener = null;
+        };
+      },
+      createHref(to) {
+        return createHref2(window2, to);
+      },
+      createURL,
+      encodeLocation(to) {
+        let url = createURL(to);
+        return {
+          pathname: url.pathname,
+          search: url.search,
+          hash: url.hash
+        };
+      },
+      push,
+      replace: replace2,
+      go(n) {
+        return globalHistory.go(n);
+      }
+    };
+    return history;
+  }
+  function createBrowserURLImpl(windowImpl, to, isAbsolute = false) {
+    let base = "http://localhost";
+    if (windowImpl) {
+      base = windowImpl.location.origin !== "null" ? windowImpl.location.origin : windowImpl.location.href;
+    }
+    invariant(base, "No window.location.(origin|href) available to create URL");
+    let href = typeof to === "string" ? to : createPath(to);
+    href = href.replace(/ $/, "%20");
+    if (!isAbsolute && PROTOCOL_RELATIVE_URL_REGEX.test(href)) {
+      href = base + href;
+    }
+    return new URL(href, base);
+  }
+  function matchRoutes(routes, locationArg, basename = "/") {
+    return matchRoutesImpl(routes, locationArg, basename, false);
+  }
+  function matchRoutesImpl(routes, locationArg, basename, allowPartial, precomputedBranches) {
+    let location2 = typeof locationArg === "string" ? parsePath(locationArg) : locationArg;
+    let pathname = stripBasename(location2.pathname || "/", basename);
+    if (pathname == null) {
+      return null;
+    }
+    let branches = precomputedBranches ?? flattenAndRankRoutes(routes);
+    let matches = null;
+    let decoded = decodePath(pathname);
+    for (let i = 0; matches == null && i < branches.length; ++i) {
+      matches = matchRouteBranch(
+        branches[i],
+        decoded,
+        allowPartial
+      );
+    }
+    return matches;
+  }
+  function convertRouteMatchToUiMatch(match, loaderData) {
+    let { route, pathname, params } = match;
+    return {
+      id: route.id,
+      pathname,
+      params,
+      data: loaderData[route.id],
+      loaderData: loaderData[route.id],
+      handle: route.handle
+    };
+  }
+  function flattenAndRankRoutes(routes) {
+    let branches = flattenRoutes(routes);
+    rankRouteBranches(branches);
+    return branches;
+  }
+  function flattenRoutes(routes, branches = [], parentsMeta = [], parentPath = "", _hasParentOptionalSegments = false) {
+    let flattenRoute = (route, index, hasParentOptionalSegments = _hasParentOptionalSegments, relativePath) => {
+      let meta = {
+        relativePath: relativePath === void 0 ? route.path || "" : relativePath,
+        caseSensitive: route.caseSensitive === true,
+        childrenIndex: index,
+        route
+      };
+      if (meta.relativePath.startsWith("/")) {
+        if (!meta.relativePath.startsWith(parentPath) && hasParentOptionalSegments) {
+          return;
+        }
+        invariant(
+          meta.relativePath.startsWith(parentPath),
+          `Absolute route path "${meta.relativePath}" nested under path "${parentPath}" is not valid. An absolute child route path must start with the combined path of all its parent routes.`
+        );
+        meta.relativePath = meta.relativePath.slice(parentPath.length);
+      }
+      let path = joinPaths([parentPath, meta.relativePath]);
+      let routesMeta = parentsMeta.concat(meta);
+      if (route.children && route.children.length > 0) {
+        invariant(
+          // Our types know better, but runtime JS may not!
+          // @ts-expect-error
+          route.index !== true,
+          `Index routes must not have child routes. Please remove all child routes from route path "${path}".`
+        );
+        flattenRoutes(
+          route.children,
+          branches,
+          routesMeta,
+          path,
+          hasParentOptionalSegments
+        );
+      }
+      if (route.path == null && !route.index) {
+        return;
+      }
+      branches.push({
+        path,
+        score: computeScore(path, route.index),
+        routesMeta: routesMeta.map((meta2, i) => {
+          let [matcher, params] = compilePath(
+            meta2.relativePath,
+            meta2.caseSensitive,
+            i === routesMeta.length - 1
+          );
+          return {
+            ...meta2,
+            matcher,
+            compiledParams: params
+          };
+        })
+      });
+    };
+    routes.forEach((route, index) => {
+      if (route.path === "" || !route.path?.includes("?")) {
+        flattenRoute(route, index);
+      } else {
+        for (let exploded of explodeOptionalSegments(route.path)) {
+          flattenRoute(route, index, true, exploded);
+        }
+      }
+    });
+    return branches;
+  }
+  function explodeOptionalSegments(path) {
+    let segments = path.split("/");
+    if (segments.length === 0) return [];
+    let [first, ...rest] = segments;
+    let isOptional = first.endsWith("?");
+    let required = first.replace(/\?$/, "");
+    if (rest.length === 0) {
+      return isOptional ? [required, ""] : [required];
+    }
+    let restExploded = explodeOptionalSegments(rest.join("/"));
+    let result = [];
+    result.push(
+      ...restExploded.map(
+        (subpath) => subpath === "" ? required : [required, subpath].join("/")
+      )
+    );
+    if (isOptional) {
+      result.push(...restExploded);
+    }
+    return result.map(
+      (exploded) => path.startsWith("/") && exploded === "" ? "/" : exploded
+    );
+  }
+  function rankRouteBranches(branches) {
+    branches.sort(
+      (a, b) => a.score !== b.score ? b.score - a.score : compareIndexes(
+        a.routesMeta.map((meta) => meta.childrenIndex),
+        b.routesMeta.map((meta) => meta.childrenIndex)
+      )
+    );
+  }
+  function computeScore(path, index) {
+    let segments = path.split("/");
+    let initialScore = segments.length;
+    if (segments.some(isSplat)) {
+      initialScore += splatPenalty;
+    }
+    if (index) {
+      initialScore += indexRouteValue;
+    }
+    return segments.filter((s) => !isSplat(s)).reduce(
+      (score, segment) => score + (paramRe.test(segment) ? dynamicSegmentValue : segment === "" ? emptySegmentValue : staticSegmentValue),
+      initialScore
+    );
+  }
+  function compareIndexes(a, b) {
+    let siblings = a.length === b.length && a.slice(0, -1).every((n, i) => n === b[i]);
+    return siblings ? (
+      // If two routes are siblings, we should try to match the earlier sibling
+      // first. This allows people to have fine-grained control over the matching
+      // behavior by simply putting routes with identical paths in the order they
+      // want them tried.
+      a[a.length - 1] - b[b.length - 1]
+    ) : (
+      // Otherwise, it doesn't really make sense to rank non-siblings by index,
+      // so they sort equally.
+      0
+    );
+  }
+  function matchRouteBranch(branch, pathname, allowPartial = false) {
+    let { routesMeta } = branch;
+    let matchedParams = {};
+    let matchedPathname = "/";
+    let matches = [];
+    for (let i = 0; i < routesMeta.length; ++i) {
+      let meta = routesMeta[i];
+      let end = i === routesMeta.length - 1;
+      let remainingPathname = matchedPathname === "/" ? pathname : pathname.slice(matchedPathname.length) || "/";
+      let pattern = {
+        path: meta.relativePath,
+        caseSensitive: meta.caseSensitive,
+        end
+      };
+      let match = (
+        // Use precomputed matcher if it exists
+        meta.matcher && meta.compiledParams ? matchPathImpl(
+          pattern,
+          remainingPathname,
+          meta.matcher,
+          meta.compiledParams
+        ) : matchPath(pattern, remainingPathname)
+      );
+      let route = meta.route;
+      if (!match && end && allowPartial && !routesMeta[routesMeta.length - 1].route.index) {
+        match = matchPath(
+          {
+            path: meta.relativePath,
+            caseSensitive: meta.caseSensitive,
+            end: false
+          },
+          remainingPathname
+        );
+      }
+      if (!match) {
+        return null;
+      }
+      Object.assign(matchedParams, match.params);
+      matches.push({
+        // TODO: Can this as be avoided?
+        params: matchedParams,
+        pathname: joinPaths([matchedPathname, match.pathname]),
+        pathnameBase: normalizePathname(
+          joinPaths([matchedPathname, match.pathnameBase])
+        ),
+        route
+      });
+      if (match.pathnameBase !== "/") {
+        matchedPathname = joinPaths([matchedPathname, match.pathnameBase]);
+      }
+    }
+    return matches;
+  }
+  function matchPath(pattern, pathname) {
+    if (typeof pattern === "string") {
+      pattern = { path: pattern, caseSensitive: false, end: true };
+    }
+    let [matcher, compiledParams] = compilePath(
+      pattern.path,
+      pattern.caseSensitive,
+      pattern.end
+    );
+    return matchPathImpl(pattern, pathname, matcher, compiledParams);
+  }
+  function matchPathImpl(pattern, pathname, matcher, compiledParams) {
+    let match = pathname.match(matcher);
+    if (!match) return null;
+    let matchedPathname = match[0];
+    let pathnameBase = removeTrailingSlash(matchedPathname, 1);
+    let captureGroups = match.slice(1);
+    let params = compiledParams.reduce(
+      (memo2, { paramName, isOptional }, index) => {
+        if (paramName === "*") {
+          let splatValue = captureGroups[index] || "";
+          pathnameBase = removeTrailingSlash(
+            matchedPathname.slice(0, matchedPathname.length - splatValue.length),
+            1
+          );
+        }
+        const value = captureGroups[index];
+        if (isOptional && !value) {
+          memo2[paramName] = void 0;
+        } else {
+          memo2[paramName] = (value || "").replace(/%2F/g, "/");
+        }
+        return memo2;
+      },
+      {}
+    );
+    return {
+      params,
+      pathname: matchedPathname,
+      pathnameBase,
+      pattern
+    };
+  }
+  function compilePath(path, caseSensitive = false, end = true) {
+    warning(
+      path === "*" || !path.endsWith("*") || path.endsWith("/*"),
+      `Route path "${path}" will be treated as if it were "${path.replace(/\*$/, "/*")}" because the \`*\` character must always follow a \`/\` in the pattern. To get rid of this warning, please change the route path to "${path.replace(/\*$/, "/*")}".`
+    );
+    let params = [];
+    let regexpSource = "^" + path.replace(/\/*\*?$/, "").replace(/^\/*/, "/").replace(/[\\.*+^${}|()[\]]/g, "\\$&").replace(
+      /\/:([\w-]+)(\?)?/g,
+      (match, paramName, isOptional, index, str) => {
+        params.push({ paramName, isOptional: isOptional != null });
+        if (isOptional) {
+          let nextChar = str.charAt(index + match.length);
+          if (nextChar && nextChar !== "/") {
+            return "/([^\\/]*)";
+          }
+          return "(?:/([^\\/]*))?";
+        }
+        return "/([^\\/]+)";
+      }
+    ).replace(/\/([\w-]+)\?(\/|$)/g, "(/$1)?$2");
+    if (path.endsWith("*")) {
+      params.push({ paramName: "*" });
+      regexpSource += path === "*" || path === "/*" ? "(.*)$" : "(?:\\/(.+)|\\/*)$";
+    } else if (end) {
+      regexpSource += "\\/*$";
+    } else if (path !== "" && path !== "/") {
+      regexpSource += "(?:(?=\\/|$))";
+    } else {
+    }
+    let matcher = new RegExp(regexpSource, caseSensitive ? void 0 : "i");
+    return [matcher, params];
+  }
+  function decodePath(value) {
+    try {
+      return value.split("/").map((v) => decodeURIComponent(v).replace(/\//g, "%2F")).join("/");
+    } catch (error) {
+      warning(
+        false,
+        `The URL path "${value}" could not be decoded because it is a malformed URL segment. This is probably due to a bad percent encoding (${error}).`
+      );
+      return value;
+    }
+  }
+  function stripBasename(pathname, basename) {
+    if (basename === "/") return pathname;
+    if (!pathname.toLowerCase().startsWith(basename.toLowerCase())) {
+      return null;
+    }
+    let startIndex = basename.endsWith("/") ? basename.length - 1 : basename.length;
+    let nextChar = pathname.charAt(startIndex);
+    if (nextChar && nextChar !== "/") {
+      return null;
+    }
+    return pathname.slice(startIndex) || "/";
+  }
+  function resolvePath(to, fromPathname = "/") {
+    let {
+      pathname: toPathname,
+      search = "",
+      hash = ""
+    } = typeof to === "string" ? parsePath(to) : to;
+    let pathname;
+    if (toPathname) {
+      toPathname = removeDoubleSlashes(toPathname);
+      if (toPathname.startsWith("/") || toPathname.startsWith("\\")) {
+        pathname = resolvePathname(toPathname.substring(1), "/");
+      } else {
+        pathname = resolvePathname(toPathname, fromPathname);
+      }
+    } else {
+      pathname = fromPathname;
+    }
+    return {
+      pathname,
+      search: normalizeSearch(search),
+      hash: normalizeHash(hash)
+    };
+  }
+  function resolvePathname(relativePath, fromPathname) {
+    let segments = removeTrailingSlash(fromPathname).split("/");
+    let relativeSegments = relativePath.split("/");
+    relativeSegments.forEach((segment) => {
+      if (segment === "..") {
+        if (segments.length > 1) segments.pop();
+      } else if (segment !== ".") {
+        segments.push(segment);
+      }
+    });
+    return segments.length > 1 ? segments.join("/") : "/";
+  }
+  function getInvalidPathError(char, field, dest, path) {
+    return `Cannot include a '${char}' character in a manually specified \`to.${field}\` field [${JSON.stringify(
+      path
+    )}].  Please separate it out to the \`to.${dest}\` field. Alternatively you may provide the full path as a string in <Link to="..."> and the router will parse it for you.`;
+  }
+  function getPathContributingMatches(matches) {
+    return matches.filter(
+      (match, index) => index === 0 || match.route.path && match.route.path.length > 0
+    );
+  }
+  function getResolveToMatches(matches) {
+    let pathMatches = getPathContributingMatches(matches);
+    return pathMatches.map(
+      (match, idx) => idx === pathMatches.length - 1 ? match.pathname : match.pathnameBase
+    );
+  }
+  function resolveTo(toArg, routePathnames, locationPathname, isPathRelative = false) {
+    let to;
+    if (typeof toArg === "string") {
+      to = parsePath(toArg);
+    } else {
+      to = { ...toArg };
+      invariant(
+        !to.pathname || !to.pathname.includes("?"),
+        getInvalidPathError("?", "pathname", "search", to)
+      );
+      invariant(
+        !to.pathname || !to.pathname.includes("#"),
+        getInvalidPathError("#", "pathname", "hash", to)
+      );
+      invariant(
+        !to.search || !to.search.includes("#"),
+        getInvalidPathError("#", "search", "hash", to)
+      );
+    }
+    let isEmptyPath = toArg === "" || to.pathname === "";
+    let toPathname = isEmptyPath ? "/" : to.pathname;
+    let from;
+    if (toPathname == null) {
+      from = locationPathname;
+    } else {
+      let routePathnameIndex = routePathnames.length - 1;
+      if (!isPathRelative && toPathname.startsWith("..")) {
+        let toSegments = toPathname.split("/");
+        while (toSegments[0] === "..") {
+          toSegments.shift();
+          routePathnameIndex -= 1;
+        }
+        to.pathname = toSegments.join("/");
+      }
+      from = routePathnameIndex >= 0 ? routePathnames[routePathnameIndex] : "/";
+    }
+    let path = resolvePath(to, from);
+    let hasExplicitTrailingSlash = toPathname && toPathname !== "/" && toPathname.endsWith("/");
+    let hasCurrentTrailingSlash = (isEmptyPath || toPathname === ".") && locationPathname.endsWith("/");
+    if (!path.pathname.endsWith("/") && (hasExplicitTrailingSlash || hasCurrentTrailingSlash)) {
+      path.pathname += "/";
+    }
+    return path;
+  }
+  function removeTrailingSlash(path, minLength = 0) {
+    let end = path.length;
+    while (end > minLength && path.charCodeAt(end - 1) === 47) {
+      end--;
+    }
+    return end === path.length ? path : path.slice(0, end);
+  }
+  function isRouteErrorResponse(error) {
+    return error != null && typeof error.status === "number" && typeof error.statusText === "string" && typeof error.internal === "boolean" && "data" in error;
+  }
+  function getRoutePattern(matches) {
+    let parts = matches.map((m) => m.route.path).filter(Boolean);
+    return joinPaths(parts) || "/";
+  }
+  function parseToInfo(_to, basename) {
+    let to = _to;
+    if (typeof to !== "string" || !ABSOLUTE_URL_REGEX.test(to)) {
+      return {
+        absoluteURL: void 0,
+        isExternal: false,
+        to
+      };
+    }
+    let absoluteURL = to;
+    let isExternal = false;
+    if (isBrowser) {
+      try {
+        let currentUrl = new URL(window.location.href);
+        let targetUrl = PROTOCOL_RELATIVE_URL_REGEX.test(to) ? new URL(normalizeProtocolRelativeUrl(to, currentUrl.protocol)) : new URL(to);
+        let path = stripBasename(targetUrl.pathname, basename);
+        if (targetUrl.origin === currentUrl.origin && path != null) {
+          to = path + targetUrl.search + targetUrl.hash;
+        } else {
+          isExternal = true;
+        }
+      } catch (e2) {
+        warning(
+          false,
+          `<Link to="${to}"> contains an invalid URL which will probably break when clicked - please update to a valid URL path.`
+        );
+      }
+    }
+    return {
+      absoluteURL,
+      isExternal,
+      to
+    };
+  }
+  function getNavigatorCurrentUrl(navigator2) {
+    if (navigator2.createURL) {
+      return navigator2.createURL("/");
+    }
+    try {
+      return new URL(navigator2.createHref("/"), DEFAULT_NAVIGATION_URL);
+    } catch {
+      return DEFAULT_NAVIGATION_URL;
+    }
+  }
+  function isSameOrigin(a, b) {
+    return a.origin === b.origin && (a.origin !== "null" || a.protocol === b.protocol && a.host === b.host);
+  }
+  function isExplicitUrl(destination, target) {
+    if (destination.startsWith("//")) {
+      return true;
+    }
+    let protocol = target.protocol.toLowerCase();
+    if (!destination.toLowerCase().startsWith(protocol)) {
+      return false;
+    }
+    return target.host === "" || destination.slice(protocol.length).startsWith("//");
+  }
+  function validateNavigationTarget(original, resolved, currentUrl, externalPolicy) {
+    let originalUrl = null;
+    try {
+      originalUrl = original == null ? null : new URL(original, currentUrl);
+    } catch {
+    }
+    let resolvedUrl = new URL(resolved, currentUrl);
+    let originalIsExternal = originalUrl != null && !isSameOrigin(originalUrl, currentUrl);
+    let resolvedIsExternal = !isSameOrigin(resolvedUrl, currentUrl);
+    if (externalPolicy === "reject") {
+      if (originalIsExternal || resolvedIsExternal) {
+        throw new Error("External navigation is not allowed");
+      }
+    } else if (resolvedIsExternal) {
+      if (originalUrl == null || !isExplicitUrl(original, originalUrl) || !isSameOrigin(originalUrl, resolvedUrl)) {
+        throw new Error("External navigation is not allowed");
+      }
+    }
+  }
+  function hasInvalidProtocol(location2) {
+    try {
+      return invalidProtocols.includes(new URL(location2).protocol);
+    } catch {
+      return false;
+    }
+  }
+  function useIsRSCRouterContext() {
+    return React.useContext(RSCRouterContext);
+  }
+  function decodeRedirectErrorDigest(digest) {
+    if (digest.startsWith(`${ERROR_DIGEST_BASE}:${ERROR_DIGEST_REDIRECT}:{`)) {
+      try {
+        let parsed = JSON.parse(digest.slice(28));
+        if (typeof parsed === "object" && parsed && typeof parsed.status === "number" && typeof parsed.statusText === "string" && typeof parsed.location === "string" && typeof parsed.reloadDocument === "boolean" && typeof parsed.replace === "boolean") {
+          return parsed;
+        }
+      } catch {
+      }
+    }
+  }
+  function decodeRouteErrorResponseDigest(digest) {
+    if (digest.startsWith(
+      `${ERROR_DIGEST_BASE}:${ERROR_DIGEST_ROUTE_ERROR_RESPONSE}:{`
+    )) {
+      try {
+        let parsed = JSON.parse(digest.slice(40));
+        if (typeof parsed === "object" && parsed && typeof parsed.status === "number" && typeof parsed.statusText === "string") {
+          return new ErrorResponseImpl(
+            parsed.status,
+            parsed.statusText,
+            parsed.data
+          );
+        }
+      } catch {
+      }
+    }
+  }
+  function useHref(to, { relative } = {}) {
+    invariant(
+      useInRouterContext(),
+      // TODO: This error is probably because they somehow have 2 versions of the
+      // router loaded. We can help them understand how to avoid that.
+      `useHref() may be used only in the context of a <Router> component.`
+    );
+    let { basename, navigator: navigator2 } = React2.useContext(NavigationContext);
+    let { hash, pathname, search } = useResolvedPath(to, { relative });
+    let joinedPathname = pathname;
+    if (basename !== "/") {
+      joinedPathname = pathname === "/" ? basename : joinPaths([basename, pathname]);
+    }
+    return navigator2.createHref({ pathname: joinedPathname, search, hash });
+  }
+  function useInRouterContext() {
+    return React2.useContext(LocationContext) != null;
+  }
+  function useLocation() {
+    invariant(
+      useInRouterContext(),
+      // TODO: This error is probably because they somehow have 2 versions of the
+      // router loaded. We can help them understand how to avoid that.
+      `useLocation() may be used only in the context of a <Router> component.`
+    );
+    return React2.useContext(LocationContext).location;
+  }
+  function useIsomorphicLayoutEffect(cb) {
+    let isStatic = React2.useContext(NavigationContext).static;
+    if (!isStatic) {
+      React2.useLayoutEffect(cb);
+    }
+  }
+  function useNavigate() {
+    let { isDataRoute } = React2.useContext(RouteContext);
+    return isDataRoute ? useNavigateStable() : useNavigateUnstable();
+  }
+  function useNavigateUnstable() {
+    invariant(
+      useInRouterContext(),
+      // TODO: This error is probably because they somehow have 2 versions of the
+      // router loaded. We can help them understand how to avoid that.
+      `useNavigate() may be used only in the context of a <Router> component.`
+    );
+    let dataRouterContext = React2.useContext(DataRouterContext);
+    let { basename, navigator: navigator2 } = React2.useContext(NavigationContext);
+    let { matches } = React2.useContext(RouteContext);
+    let { pathname: locationPathname } = useLocation();
+    let routePathnamesJson = JSON.stringify(getResolveToMatches(matches));
+    let activeRef = React2.useRef(false);
+    useIsomorphicLayoutEffect(() => {
+      activeRef.current = true;
+    });
+    let navigate = React2.useCallback(
+      (to, options = {}) => {
+        warning(activeRef.current, navigateEffectWarning);
+        if (!activeRef.current) return;
+        if (typeof to === "number") {
+          navigator2.go(to);
+          return;
+        }
+        let path = resolveTo(
+          to,
+          JSON.parse(routePathnamesJson),
+          locationPathname,
+          options.relative === "path"
+        );
+        if (dataRouterContext == null && basename !== "/") {
+          path.pathname = path.pathname === "/" ? basename : joinPaths([basename, path.pathname]);
+        }
+        validateNavigationTarget(
+          typeof to === "string" ? to : createPath(to),
+          navigator2.createHref(path),
+          getNavigatorCurrentUrl(navigator2),
+          "reject"
+        );
+        (!!options.replace ? navigator2.replace : navigator2.push)(
+          path,
+          options.state,
+          options
+        );
+      },
+      [
+        basename,
+        navigator2,
+        routePathnamesJson,
+        locationPathname,
+        dataRouterContext
+      ]
+    );
+    return navigate;
+  }
+  function useParams() {
+    let { matches } = React2.useContext(RouteContext);
+    let routeMatch = matches[matches.length - 1];
+    return routeMatch?.params ?? {};
+  }
+  function useResolvedPath(to, { relative } = {}) {
+    let { matches } = React2.useContext(RouteContext);
+    let { pathname: locationPathname } = useLocation();
+    let routePathnamesJson = JSON.stringify(getResolveToMatches(matches));
+    return React2.useMemo(
+      () => resolveTo(
+        to,
+        JSON.parse(routePathnamesJson),
+        locationPathname,
+        relative === "path"
+      ),
+      [to, routePathnamesJson, locationPathname, relative]
+    );
+  }
+  function useRoutes(routes, locationArg) {
+    return useRoutesImpl(routes, locationArg);
+  }
+  function useRoutesImpl(routes, locationArg, dataRouterOpts) {
+    invariant(
+      useInRouterContext(),
+      // TODO: This error is probably because they somehow have 2 versions of the
+      // router loaded. We can help them understand how to avoid that.
+      `useRoutes() may be used only in the context of a <Router> component.`
+    );
+    let { navigator: navigator2 } = React2.useContext(NavigationContext);
+    let { matches: parentMatches } = React2.useContext(RouteContext);
+    let routeMatch = parentMatches[parentMatches.length - 1];
+    let parentParams = routeMatch ? routeMatch.params : {};
+    let parentPathname = routeMatch ? routeMatch.pathname : "/";
+    let parentPathnameBase = routeMatch ? routeMatch.pathnameBase : "/";
+    let parentRoute = routeMatch && routeMatch.route;
+    if (ENABLE_DEV_WARNINGS) {
+      let parentPath = parentRoute && parentRoute.path || "";
+      warningOnce(
+        parentPathname,
+        !parentRoute || parentPath.endsWith("*") || parentPath.endsWith("*?"),
+        `You rendered descendant <Routes> (or called \`useRoutes()\`) at "${parentPathname}" (under <Route path="${parentPath}">) but the parent route path has no trailing "*". This means if you navigate deeper, the parent won't match anymore and therefore the child routes will never render.
+
+Please change the parent <Route path="${parentPath}"> to <Route path="${parentPath === "/" ? "*" : `${parentPath}/*`}">.`
+      );
+    }
+    let locationFromContext = useLocation();
+    let location2;
+    if (locationArg) {
+      let parsedLocationArg = typeof locationArg === "string" ? parsePath(locationArg) : locationArg;
+      invariant(
+        parentPathnameBase === "/" || parsedLocationArg.pathname?.startsWith(parentPathnameBase),
+        `When overriding the location using \`<Routes location>\` or \`useRoutes(routes, location)\`, the location pathname must begin with the portion of the URL pathname that was matched by all parent routes. The current pathname base is "${parentPathnameBase}" but pathname "${parsedLocationArg.pathname}" was given in the \`location\` prop.`
+      );
+      location2 = parsedLocationArg;
+    } else {
+      location2 = locationFromContext;
+    }
+    let pathname = location2.pathname || "/";
+    let remainingPathname = pathname;
+    if (parentPathnameBase !== "/") {
+      let parentSegments = parentPathnameBase.replace(/^\//, "").split("/");
+      let segments = pathname.replace(/^\//, "").split("/");
+      remainingPathname = "/" + segments.slice(parentSegments.length).join("/");
+    }
+    let matches = dataRouterOpts && dataRouterOpts.state.matches.length ? (
+      // If we're in a data router, use the matches we've already identified but ensure
+      // we have the latest route instances from the manifest in case elements have changed
+      dataRouterOpts.state.matches.map(
+        (m) => Object.assign(m, {
+          route: dataRouterOpts.manifest[m.route.id] || m.route
+        })
+      )
+    ) : matchRoutes(routes, { pathname: remainingPathname });
+    if (ENABLE_DEV_WARNINGS) {
+      warning(
+        parentRoute || matches != null,
+        `No routes matched location "${location2.pathname}${location2.search}${location2.hash}" `
+      );
+      warning(
+        matches == null || matches[matches.length - 1].route.element !== void 0 || matches[matches.length - 1].route.Component !== void 0 || matches[matches.length - 1].route.lazy !== void 0,
+        `Matched leaf route at location "${location2.pathname}${location2.search}${location2.hash}" does not have an element or Component. This means it will render an <Outlet /> with a null value by default resulting in an "empty" page.`
+      );
+    }
+    let renderedMatches = _renderMatches(
+      matches && matches.map(
+        (match) => Object.assign({}, match, {
+          params: Object.assign({}, parentParams, match.params),
+          pathname: joinPaths([
+            parentPathnameBase,
+            // Re-encode pathnames that were decoded inside matchRoutes.
+            // Pre-encode `%`, `?` and `#` ahead of `encodeLocation` because it uses
+            // `new URL()` internally and we need to prevent it from treating
+            // them as separators
+            navigator2.encodeLocation ? navigator2.encodeLocation(
+              match.pathname.replace(/%/g, "%25").replace(/\?/g, "%3F").replace(/#/g, "%23")
+            ).pathname : match.pathname
+          ]),
+          pathnameBase: match.pathnameBase === "/" ? parentPathnameBase : joinPaths([
+            parentPathnameBase,
+            // Re-encode pathnames that were decoded inside matchRoutes
+            // Pre-encode `%`, `?` and `#` ahead of `encodeLocation` because it uses
+            // `new URL()` internally and we need to prevent it from treating
+            // them as separators
+            navigator2.encodeLocation ? navigator2.encodeLocation(
+              match.pathnameBase.replace(/%/g, "%25").replace(/\?/g, "%3F").replace(/#/g, "%23")
+            ).pathname : match.pathnameBase
+          ])
+        })
+      ),
+      parentMatches,
+      dataRouterOpts
+    );
+    if (locationArg && renderedMatches) {
+      return /* @__PURE__ */ React2.createElement(
+        LocationContext.Provider,
+        {
+          value: {
+            location: {
+              pathname: "/",
+              search: "",
+              hash: "",
+              state: null,
+              key: "default",
+              mask: void 0,
+              ...location2
+            },
+            navigationType: "POP"
+            /* Pop */
+          }
+        },
+        renderedMatches
+      );
+    }
+    return renderedMatches;
+  }
+  function DefaultErrorComponent() {
+    let error = useRouteError();
+    let message = isRouteErrorResponse(error) ? `${error.status} ${error.statusText}` : error instanceof Error ? error.message : JSON.stringify(error);
+    let stack = error instanceof Error ? error.stack : null;
+    let lightgrey = "rgba(200,200,200, 0.5)";
+    let preStyles = { padding: "0.5rem", backgroundColor: lightgrey };
+    let codeStyles = { padding: "2px 4px", backgroundColor: lightgrey };
+    let devInfo = null;
+    if (ENABLE_DEV_WARNINGS) {
+      console.error(
+        "Error handled by React Router default ErrorBoundary:",
+        error
+      );
+      devInfo = /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("p", null, "\u{1F4BF} Hey developer \u{1F44B}"), /* @__PURE__ */ React2.createElement("p", null, "You can provide a way better UX than this when your app throws errors by providing your own ", /* @__PURE__ */ React2.createElement("code", { style: codeStyles }, "ErrorBoundary"), " or", " ", /* @__PURE__ */ React2.createElement("code", { style: codeStyles }, "errorElement"), " prop on your route."));
+    }
+    return /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("h2", null, "Unexpected Application Error!"), /* @__PURE__ */ React2.createElement("h3", { style: { fontStyle: "italic" } }, message), stack ? /* @__PURE__ */ React2.createElement("pre", { style: preStyles }, stack) : null, devInfo);
+  }
+  function RSCErrorHandler({
+    children,
+    error
+  }) {
+    let { basename, navigator: navigator2 } = React2.useContext(NavigationContext);
+    if (typeof error === "object" && error && "digest" in error && typeof error.digest === "string") {
+      let redirect2 = decodeRedirectErrorDigest(error.digest);
+      if (redirect2) {
+        let existingRedirect = errorRedirectHandledMap.get(error);
+        if (existingRedirect) throw existingRedirect;
+        let parsed = parseToInfo(redirect2.location, basename);
+        let target = parsed.absoluteURL || parsed.to;
+        validateNavigationTarget(
+          redirect2.location,
+          target,
+          getNavigatorCurrentUrl(navigator2),
+          "allow-explicit"
+        );
+        if (hasInvalidProtocol(target)) {
+          throw new Error("Invalid redirect location");
+        }
+        if (isBrowser && !errorRedirectHandledMap.get(error)) {
+          if (parsed.isExternal || redirect2.reloadDocument) {
+            window.location.href = target;
+          } else {
+            const redirectPromise = Promise.resolve().then(
+              () => window.__reactRouterDataRouter.navigate(parsed.to, {
+                replace: redirect2.replace
+              })
+            );
+            errorRedirectHandledMap.set(error, redirectPromise);
+            throw redirectPromise;
+          }
+        }
+        return /* @__PURE__ */ React2.createElement("meta", { httpEquiv: "refresh", content: `0;url=${target}` });
+      }
+    }
+    return children;
+  }
+  function RenderedRoute({ routeContext, match, children }) {
+    let dataRouterContext = React2.useContext(DataRouterContext);
+    if (dataRouterContext && dataRouterContext.static && dataRouterContext.staticContext && (match.route.errorElement || match.route.ErrorBoundary)) {
+      dataRouterContext.staticContext._deepestRenderedBoundaryId = match.route.id;
+    }
+    return /* @__PURE__ */ React2.createElement(RouteContext.Provider, { value: routeContext }, children);
+  }
+  function _renderMatches(matches, parentMatches = [], dataRouterOpts) {
+    let dataRouterState = dataRouterOpts?.state;
+    if (matches == null) {
+      if (!dataRouterState) {
+        return null;
+      }
+      if (dataRouterState.errors) {
+        matches = dataRouterState.matches;
+      } else if (parentMatches.length === 0 && !dataRouterState.initialized && dataRouterState.matches.length > 0) {
+        matches = dataRouterState.matches;
+      } else {
+        return null;
+      }
+    }
+    let renderedMatches = matches;
+    let errors = dataRouterState?.errors;
+    if (errors != null) {
+      let errorIndex = renderedMatches.findIndex(
+        (m) => m.route.id && errors?.[m.route.id] !== void 0
+      );
+      invariant(
+        errorIndex >= 0,
+        `Could not find a matching route for errors on route IDs: ${Object.keys(
+          errors
+        ).join(",")}`
+      );
+      renderedMatches = renderedMatches.slice(
+        0,
+        Math.min(renderedMatches.length, errorIndex + 1)
+      );
+    }
+    let renderFallback = false;
+    let fallbackIndex = -1;
+    if (dataRouterOpts && dataRouterState) {
+      renderFallback = dataRouterState.renderFallback;
+      for (let i = 0; i < renderedMatches.length; i++) {
+        let match = renderedMatches[i];
+        if (match.route.HydrateFallback || match.route.hydrateFallbackElement) {
+          fallbackIndex = i;
+        }
+        if (match.route.id) {
+          let { loaderData, errors: errors2 } = dataRouterState;
+          let needsToRunLoader = match.route.loader && !loaderData.hasOwnProperty(match.route.id) && (!errors2 || errors2[match.route.id] === void 0);
+          if (match.route.lazy || needsToRunLoader) {
+            if (dataRouterOpts.isStatic) {
+              renderFallback = true;
+            }
+            if (fallbackIndex >= 0) {
+              renderedMatches = renderedMatches.slice(0, fallbackIndex + 1);
+            } else {
+              renderedMatches = [renderedMatches[0]];
+            }
+            break;
+          }
+        }
+      }
+    }
+    let onErrorHandler = dataRouterOpts?.onError;
+    let onError = dataRouterState && onErrorHandler ? (error, errorInfo) => {
+      onErrorHandler(error, {
+        location: dataRouterState.location,
+        params: dataRouterState.matches?.[0]?.params ?? {},
+        pattern: getRoutePattern(dataRouterState.matches),
+        errorInfo
+      });
+    } : void 0;
+    return renderedMatches.reduceRight(
+      (outlet, match, index) => {
+        let error;
+        let shouldRenderHydrateFallback = false;
+        let errorElement = null;
+        let hydrateFallbackElement = null;
+        if (dataRouterState) {
+          error = errors && match.route.id ? errors[match.route.id] : void 0;
+          errorElement = match.route.errorElement || defaultErrorElement;
+          if (renderFallback) {
+            if (fallbackIndex < 0 && index === 0) {
+              warningOnce(
+                "route-fallback",
+                false,
+                "No `HydrateFallback` element provided to render during initial hydration"
+              );
+              shouldRenderHydrateFallback = true;
+              hydrateFallbackElement = null;
+            } else if (fallbackIndex === index) {
+              shouldRenderHydrateFallback = true;
+              hydrateFallbackElement = match.route.hydrateFallbackElement || null;
+            }
+          }
+        }
+        let matches2 = parentMatches.concat(renderedMatches.slice(0, index + 1));
+        let getChildren = () => {
+          let children;
+          if (error) {
+            children = errorElement;
+          } else if (shouldRenderHydrateFallback) {
+            children = hydrateFallbackElement;
+          } else if (match.route.Component) {
+            children = /* @__PURE__ */ React2.createElement(match.route.Component, null);
+          } else if (match.route.element) {
+            children = match.route.element;
+          } else {
+            children = outlet;
+          }
+          return /* @__PURE__ */ React2.createElement(
+            RenderedRoute,
+            {
+              match,
+              routeContext: {
+                outlet,
+                matches: matches2,
+                isDataRoute: dataRouterState != null
+              },
+              children
+            }
+          );
+        };
+        return dataRouterState && (match.route.ErrorBoundary || match.route.errorElement || index === 0) ? /* @__PURE__ */ React2.createElement(
+          RenderErrorBoundary,
+          {
+            location: dataRouterState.location,
+            revalidation: dataRouterState.revalidation,
+            component: errorElement,
+            error,
+            children: getChildren(),
+            routeContext: { outlet: null, matches: matches2, isDataRoute: true },
+            onError
+          }
+        ) : getChildren();
+      },
+      null
+    );
+  }
+  function getDataRouterConsoleError(hookName) {
+    return `${hookName} must be used within a data router.  See https://reactrouter.com/en/main/routers/picking-a-router.`;
+  }
+  function useDataRouterContext(hookName) {
+    let ctx = React2.useContext(DataRouterContext);
+    invariant(ctx, getDataRouterConsoleError(hookName));
+    return ctx;
+  }
+  function useDataRouterState(hookName) {
+    let state = React2.useContext(DataRouterStateContext);
+    invariant(state, getDataRouterConsoleError(hookName));
+    return state;
+  }
+  function useRouteContext(hookName) {
+    let route = React2.useContext(RouteContext);
+    invariant(route, getDataRouterConsoleError(hookName));
+    return route;
+  }
+  function useCurrentRouteId(hookName) {
+    let route = useRouteContext(hookName);
+    let thisRoute = route.matches[route.matches.length - 1];
+    invariant(
+      thisRoute.route.id,
+      `${hookName} can only be used on routes that contain a unique "id"`
+    );
+    return thisRoute.route.id;
+  }
+  function useRouteId() {
+    return useCurrentRouteId(
+      "useRouteId"
+      /* UseRouteId */
+    );
+  }
+  function useNavigation() {
+    let state = useDataRouterState(
+      "useNavigation"
+      /* UseNavigation */
+    );
+    return React2.useMemo(() => {
+      let { matches, historyAction, ...rest } = state.navigation;
+      return rest;
+    }, [state.navigation]);
+  }
+  function useMatches() {
+    let { matches, loaderData } = useDataRouterState(
+      "useMatches"
+      /* UseMatches */
+    );
+    return React2.useMemo(
+      () => matches.map((m) => convertRouteMatchToUiMatch(m, loaderData)),
+      [matches, loaderData]
+    );
+  }
+  function useRouteError() {
+    let error = React2.useContext(RouteErrorContext);
+    let state = useDataRouterState(
+      "useRouteError"
+      /* UseRouteError */
+    );
+    let routeId = useCurrentRouteId(
+      "useRouteError"
+      /* UseRouteError */
+    );
+    if (error !== void 0) {
+      return error;
+    }
+    return state.errors?.[routeId];
+  }
+  function useNavigateStable() {
+    let { router } = useDataRouterContext(
+      "useNavigate"
+      /* UseNavigateStable */
+    );
+    let id = useCurrentRouteId(
+      "useNavigate"
+      /* UseNavigateStable */
+    );
+    let activeRef = React2.useRef(false);
+    useIsomorphicLayoutEffect(() => {
+      activeRef.current = true;
+    });
+    let navigate = React2.useCallback(
+      async (to, options = {}) => {
+        warning(activeRef.current, navigateEffectWarning);
+        if (!activeRef.current) return;
+        if (typeof to === "number") {
+          await router.navigate(to);
+        } else {
+          await router.navigate(to, { fromRouteId: id, ...options });
+        }
+      },
+      [router, id]
+    );
+    return navigate;
+  }
+  function warningOnce(key, cond, message) {
+    if (!cond && !alreadyWarned[key]) {
+      alreadyWarned[key] = true;
+      warning(false, message);
+    }
+  }
+  function DataRoutes2({
+    routes,
+    manifest,
+    future,
+    state,
+    isStatic,
+    onError
+  }) {
+    return useRoutesImpl(routes, void 0, {
+      manifest,
+      state,
+      isStatic,
+      onError,
+      future
+    });
+  }
+  function Navigate({
+    to,
+    replace: replace2,
+    state,
+    relative
+  }) {
+    invariant(
+      useInRouterContext(),
+      // TODO: This error is probably because they somehow have 2 versions of
+      // the router loaded. We can help them understand how to avoid that.
+      `<Navigate> may be used only in the context of a <Router> component.`
+    );
+    let { static: isStatic, navigator: navigator2 } = React3.useContext(NavigationContext);
+    warning(
+      !isStatic,
+      `<Navigate> must not be used on the initial render in a <StaticRouter>. This is a no-op, but you should modify your code so the <Navigate> is only ever rendered in response to some user interaction or state change.`
+    );
+    let { matches } = React3.useContext(RouteContext);
+    let { pathname: locationPathname } = useLocation();
+    let navigate = useNavigate();
+    let path = resolveTo(
+      to,
+      getResolveToMatches(matches),
+      locationPathname,
+      relative === "path"
+    );
+    validateNavigationTarget(
+      typeof to === "string" ? to : createPath(to),
+      navigator2.createHref(path),
+      getNavigatorCurrentUrl(navigator2),
+      "reject"
+    );
+    let jsonPath = JSON.stringify(path);
+    React3.useEffect(() => {
+      navigate(JSON.parse(jsonPath), { replace: replace2, state, relative });
+    }, [navigate, jsonPath, relative, replace2, state]);
+    return null;
+  }
+  function Route(props) {
+    invariant(
+      false,
+      `A <Route> is only ever to be used as the child of <Routes> element, never rendered directly. Please wrap your <Route> in a <Routes>.`
+    );
+  }
+  function Router({
+    basename: basenameProp = "/",
+    children = null,
+    location: locationProp,
+    navigationType = "POP",
+    navigator: navigator2,
+    static: staticProp = false,
+    useTransitions
+  }) {
+    invariant(
+      !useInRouterContext(),
+      `You cannot render a <Router> inside another <Router>. You should never have more than one in your app.`
+    );
+    let basename = basenameProp.replace(/^\/*/, "/");
+    let navigationContext = React3.useMemo(
+      () => ({
+        basename,
+        navigator: navigator2,
+        static: staticProp,
+        useTransitions,
+        future: {}
+      }),
+      [basename, navigator2, staticProp, useTransitions]
+    );
+    if (typeof locationProp === "string") {
+      locationProp = parsePath(locationProp);
+    }
+    let {
+      pathname = "/",
+      search = "",
+      hash = "",
+      state = null,
+      key = "default",
+      mask
+    } = locationProp;
+    let locationContext = React3.useMemo(() => {
+      let trailingPathname = stripBasename(pathname, basename);
+      if (trailingPathname == null) {
+        return null;
+      }
+      return {
+        location: {
+          pathname: trailingPathname,
+          search,
+          hash,
+          state,
+          key,
+          mask
+        },
+        navigationType
+      };
+    }, [basename, pathname, search, hash, state, key, navigationType, mask]);
+    warning(
+      locationContext != null,
+      `<Router basename="${basename}"> is not able to match the URL "${pathname}${search}${hash}" because it does not start with the basename, so the <Router> won't render anything.`
+    );
+    if (locationContext == null) {
+      return null;
+    }
+    return /* @__PURE__ */ React3.createElement(NavigationContext.Provider, { value: navigationContext }, /* @__PURE__ */ React3.createElement(LocationContext.Provider, { children, value: locationContext }));
+  }
+  function Routes({
+    children,
+    location: location2
+  }) {
+    return useRoutes(createRoutesFromChildren(children), location2);
+  }
+  function createRoutesFromChildren(children, parentPath = []) {
+    let routes = [];
+    React3.Children.forEach(children, (element, index) => {
+      if (!React3.isValidElement(element)) {
+        return;
+      }
+      let treePath = [...parentPath, index];
+      if (element.type === React3.Fragment) {
+        routes.push.apply(
+          routes,
+          createRoutesFromChildren(element.props.children, treePath)
+        );
+        return;
+      }
+      invariant(
+        element.type === Route,
+        `[${typeof element.type === "string" ? element.type : element.type.name}] is not a <Route> component. All component children of <Routes> must be a <Route> or <React.Fragment>`
+      );
+      invariant(
+        !element.props.index || !element.props.children,
+        "An index route cannot have child routes."
+      );
+      let route = {
+        id: element.props.id || treePath.join("-"),
+        caseSensitive: element.props.caseSensitive,
+        element: element.props.element,
+        Component: element.props.Component,
+        index: element.props.index,
+        path: element.props.path,
+        middleware: element.props.middleware,
+        loader: element.props.loader,
+        action: element.props.action,
+        hydrateFallbackElement: element.props.hydrateFallbackElement,
+        HydrateFallback: element.props.HydrateFallback,
+        errorElement: element.props.errorElement,
+        ErrorBoundary: element.props.ErrorBoundary,
+        hasErrorBoundary: element.props.hasErrorBoundary === true || element.props.ErrorBoundary != null || element.props.errorElement != null,
+        shouldRevalidate: element.props.shouldRevalidate,
+        handle: element.props.handle,
+        lazy: element.props.lazy
+      };
+      if (element.props.children) {
+        route.children = createRoutesFromChildren(
+          element.props.children,
+          treePath
+        );
+      }
+      routes.push(route);
+    });
+    return routes;
+  }
+  function isHtmlElement(object) {
+    return typeof HTMLElement !== "undefined" && object instanceof HTMLElement;
+  }
+  function isButtonElement(object) {
+    return isHtmlElement(object) && object.tagName.toLowerCase() === "button";
+  }
+  function isFormElement(object) {
+    return isHtmlElement(object) && object.tagName.toLowerCase() === "form";
+  }
+  function isInputElement(object) {
+    return isHtmlElement(object) && object.tagName.toLowerCase() === "input";
+  }
+  function isModifiedEvent(event) {
+    return !!(event.metaKey || event.altKey || event.ctrlKey || event.shiftKey);
+  }
+  function shouldProcessLinkClick(event, target) {
+    return event.button === 0 && // Ignore everything but left clicks
+    (!target || target === "_self") && // Let browser handle "target=_blank" etc.
+    !isModifiedEvent(event);
+  }
+  function isFormDataSubmitterSupported() {
+    if (_formDataSupportsSubmitter === null) {
+      try {
+        new FormData(
+          document.createElement("form"),
+          // @ts-expect-error if FormData supports the submitter parameter, this will throw
+          0
+        );
+        _formDataSupportsSubmitter = false;
+      } catch (e2) {
+        _formDataSupportsSubmitter = true;
+      }
+    }
+    return _formDataSupportsSubmitter;
+  }
+  function getFormEncType(encType) {
+    if (encType != null && !supportedFormEncTypes.has(encType)) {
+      warning(
+        false,
+        `"${encType}" is not a valid \`encType\` for \`<Form>\`/\`<fetcher.Form>\` and will default to "${defaultEncType}"`
+      );
+      return null;
+    }
+    return encType;
+  }
+  function getFormSubmissionInfo(target, basename) {
+    let method;
+    let action;
+    let encType;
+    let formData;
+    let body;
+    if (isFormElement(target)) {
+      let attr = target.getAttribute("action");
+      action = attr ? stripBasename(attr, basename) : null;
+      method = target.getAttribute("method") || defaultMethod;
+      encType = getFormEncType(target.getAttribute("enctype")) || defaultEncType;
+      formData = new FormData(target);
+    } else if (isButtonElement(target) || isInputElement(target) && (target.type === "submit" || target.type === "image")) {
+      let form = target.form;
+      if (form == null) {
+        throw new Error(
+          `Cannot submit a <button> or <input type="submit"> without a <form>`
+        );
+      }
+      let attr = target.getAttribute("formaction") || form.getAttribute("action");
+      action = attr ? stripBasename(attr, basename) : null;
+      method = target.getAttribute("formmethod") || form.getAttribute("method") || defaultMethod;
+      encType = getFormEncType(target.getAttribute("formenctype")) || getFormEncType(form.getAttribute("enctype")) || defaultEncType;
+      formData = new FormData(form, target);
+      if (!isFormDataSubmitterSupported()) {
+        let { name, type, value } = target;
+        if (type === "image") {
+          let prefix = name ? `${name}.` : "";
+          formData.append(`${prefix}x`, "0");
+          formData.append(`${prefix}y`, "0");
+        } else if (name) {
+          formData.append(name, value);
+        }
+      }
+    } else if (isHtmlElement(target)) {
+      throw new Error(
+        `Cannot submit element that is not <form>, <button>, or <input type="submit|image">`
+      );
+    } else {
+      method = defaultMethod;
+      action = null;
+      encType = defaultEncType;
+      body = target;
+    }
+    if (formData && encType === "text/plain") {
+      body = formData;
+      formData = void 0;
+    }
+    return { action, method: method.toLowerCase(), encType, formData, body };
+  }
+  function escapeHtml(html) {
+    return html.replace(ESCAPE_REGEX, (match) => ESCAPE_LOOKUP[match]);
+  }
+  function invariant2(value, message) {
+    if (value === false || value === null || typeof value === "undefined") {
+      throw new Error(message);
+    }
+  }
+  function singleFetchUrl(reqUrl, basename, trailingSlashAware, extension) {
+    let url = typeof reqUrl === "string" ? new URL(
+      reqUrl,
+      // This can be called during the SSR flow via PrefetchPageLinksImpl so
+      // don't assume window is available
+      typeof window === "undefined" ? "server://singlefetch/" : window.location.origin
+    ) : reqUrl;
+    if (trailingSlashAware) {
+      if (url.pathname.endsWith("/")) {
+        url.pathname = `${url.pathname}_.${extension}`;
+      } else {
+        url.pathname = `${url.pathname}.${extension}`;
+      }
+    } else {
+      if (url.pathname === "/") {
+        url.pathname = `_root.${extension}`;
+      } else if (basename && stripBasename(url.pathname, basename) === "/") {
+        url.pathname = `${removeTrailingSlash(basename)}/_root.${extension}`;
+      } else {
+        url.pathname = `${removeTrailingSlash(url.pathname)}.${extension}`;
+      }
+    }
+    return url;
+  }
+  async function loadRouteModule(route, routeModulesCache) {
+    if (route.id in routeModulesCache) {
+      return routeModulesCache[route.id];
+    }
+    try {
+      let routeModule = await import(
+        /* @vite-ignore */
+        /* webpackIgnore: true */
+        route.module
+      );
+      routeModulesCache[route.id] = routeModule;
+      return routeModule;
+    } catch (error) {
+      console.error(
+        `Error loading route module \`${route.module}\`, reloading page...`
+      );
+      console.error(error);
+      if (window.__reactRouterContext && window.__reactRouterContext.isSpaMode && // @ts-expect-error
+      import_meta.hot) {
+        throw error;
+      }
+      window.location.reload();
+      return new Promise(() => {
+      });
+    }
+  }
+  function isPageLinkDescriptor(object) {
+    return object != null && typeof object.page === "string";
+  }
+  function isHtmlLinkDescriptor(object) {
+    if (object == null) {
+      return false;
+    }
+    if (object.href == null) {
+      return object.rel === "preload" && typeof object.imageSrcSet === "string" && typeof object.imageSizes === "string";
+    }
+    return typeof object.rel === "string" && typeof object.href === "string";
+  }
+  async function getKeyedPrefetchLinks(matches, manifest, routeModules) {
+    let links = await Promise.all(
+      matches.map(async (match) => {
+        let route = manifest.routes[match.route.id];
+        if (route) {
+          let mod = await loadRouteModule(route, routeModules);
+          return mod.links ? mod.links() : [];
+        }
+        return [];
+      })
+    );
+    return dedupeLinkDescriptors(
+      links.flat(1).filter(isHtmlLinkDescriptor).filter((link) => link.rel === "stylesheet" || link.rel === "preload").map(
+        (link) => link.rel === "stylesheet" ? { ...link, rel: "prefetch", as: "style" } : { ...link, rel: "prefetch" }
+      )
+    );
+  }
+  function getNewMatchesForLinks(page, nextMatches, currentMatches, manifest, location2, mode) {
+    let isNew = (match, index) => {
+      if (!currentMatches[index]) return true;
+      return match.route.id !== currentMatches[index].route.id;
+    };
+    let matchPathChanged = (match, index) => {
+      return (
+        // param change, /users/123 -> /users/456
+        currentMatches[index].pathname !== match.pathname || // splat param changed, which is not present in match.path
+        // e.g. /files/images/avatar.jpg -> files/finances.xls
+        currentMatches[index].route.path?.endsWith("*") && currentMatches[index].params["*"] !== match.params["*"]
+      );
+    };
+    if (mode === "assets") {
+      return nextMatches.filter(
+        (match, index) => isNew(match, index) || matchPathChanged(match, index)
+      );
+    }
+    if (mode === "data") {
+      return nextMatches.filter((match, index) => {
+        let manifestRoute = manifest.routes[match.route.id];
+        if (!manifestRoute || !manifestRoute.hasLoader) {
+          return false;
+        }
+        if (isNew(match, index) || matchPathChanged(match, index)) {
+          return true;
+        }
+        if (match.route.shouldRevalidate) {
+          let routeChoice = match.route.shouldRevalidate({
+            currentUrl: new URL(
+              location2.pathname + location2.search + location2.hash,
+              window.origin
+            ),
+            currentParams: currentMatches[0]?.params || {},
+            nextUrl: new URL(page, window.origin),
+            nextParams: match.params,
+            defaultShouldRevalidate: true
+          });
+          if (typeof routeChoice === "boolean") {
+            return routeChoice;
+          }
+        }
+        return true;
+      });
+    }
+    return [];
+  }
+  function getModuleLinkHrefs(matches, manifest, { includeHydrateFallback } = {}) {
+    return dedupeHrefs(
+      matches.map((match) => {
+        let route = manifest.routes[match.route.id];
+        if (!route) return [];
+        let hrefs = [route.module];
+        if (route.clientActionModule) {
+          hrefs = hrefs.concat(route.clientActionModule);
+        }
+        if (route.clientLoaderModule) {
+          hrefs = hrefs.concat(route.clientLoaderModule);
+        }
+        if (includeHydrateFallback && route.hydrateFallbackModule) {
+          hrefs = hrefs.concat(route.hydrateFallbackModule);
+        }
+        if (route.imports) {
+          hrefs = hrefs.concat(route.imports);
+        }
+        return hrefs;
+      }).flat(1)
+    );
+  }
+  function dedupeHrefs(hrefs) {
+    return [...new Set(hrefs)];
+  }
+  function sortKeys(obj) {
+    let sorted = {};
+    let keys = Object.keys(obj).sort();
+    for (let key of keys) {
+      sorted[key] = obj[key];
+    }
+    return sorted;
+  }
+  function dedupeLinkDescriptors(descriptors, preloads) {
+    let set = /* @__PURE__ */ new Set();
+    let preloadsSet = new Set(preloads);
+    return descriptors.reduce((deduped, descriptor) => {
+      let alreadyModulePreload = preloads && !isPageLinkDescriptor(descriptor) && descriptor.as === "script" && descriptor.href && preloadsSet.has(descriptor.href);
+      if (alreadyModulePreload) {
+        return deduped;
+      }
+      let key = JSON.stringify(sortKeys(descriptor));
+      if (!set.has(key)) {
+        set.add(key);
+        deduped.push({ key, link: descriptor });
+      }
+      return deduped;
+    }, []);
+  }
+  function useDataRouterContext2() {
+    let context = React8.useContext(DataRouterContext);
+    invariant2(
+      context,
+      "You must render this element inside a <DataRouterContext.Provider> element"
+    );
+    return context;
+  }
+  function useDataRouterStateContext() {
+    let context = React8.useContext(DataRouterStateContext);
+    invariant2(
+      context,
+      "You must render this element inside a <DataRouterStateContext.Provider> element"
+    );
+    return context;
+  }
+  function useFrameworkContext() {
+    let context = React8.useContext(FrameworkContext);
+    invariant2(
+      context,
+      "You must render this element inside a <HydratedRouter> element"
+    );
+    return context;
+  }
+  function usePrefetchBehavior(prefetch, theirElementProps) {
+    let frameworkContext = React8.useContext(FrameworkContext);
+    let [maybePrefetch, setMaybePrefetch] = React8.useState(false);
+    let [shouldPrefetch, setShouldPrefetch] = React8.useState(false);
+    let { onFocus, onBlur, onMouseEnter, onMouseLeave, onTouchStart } = theirElementProps;
+    let ref = React8.useRef(null);
+    React8.useEffect(() => {
+      if (prefetch === "render") {
+        setShouldPrefetch(true);
+      }
+      if (prefetch === "viewport") {
+        let callback = (entries) => {
+          entries.forEach((entry) => {
+            setShouldPrefetch(entry.isIntersecting);
+          });
+        };
+        let observer = new IntersectionObserver(callback, { threshold: 0.5 });
+        if (ref.current) observer.observe(ref.current);
+        return () => {
+          observer.disconnect();
+        };
+      }
+    }, [prefetch]);
+    React8.useEffect(() => {
+      if (maybePrefetch) {
+        let id = setTimeout(() => {
+          setShouldPrefetch(true);
+        }, 100);
+        return () => {
+          clearTimeout(id);
+        };
+      }
+    }, [maybePrefetch]);
+    let setIntent = () => {
+      setMaybePrefetch(true);
+    };
+    let cancelIntent = () => {
+      setMaybePrefetch(false);
+      setShouldPrefetch(false);
+    };
+    if (!frameworkContext) {
+      return [false, ref, {}];
+    }
+    if (prefetch !== "intent") {
+      return [shouldPrefetch, ref, {}];
+    }
+    return [
+      shouldPrefetch,
+      ref,
+      {
+        onFocus: composeEventHandlers(onFocus, setIntent),
+        onBlur: composeEventHandlers(onBlur, cancelIntent),
+        onMouseEnter: composeEventHandlers(onMouseEnter, setIntent),
+        onMouseLeave: composeEventHandlers(onMouseLeave, cancelIntent),
+        onTouchStart: composeEventHandlers(onTouchStart, setIntent)
+      }
+    ];
+  }
+  function composeEventHandlers(theirHandler, ourHandler) {
+    return (event) => {
+      theirHandler && theirHandler(event);
+      if (!event.defaultPrevented) {
+        ourHandler(event);
+      }
+    };
+  }
+  function PrefetchPageLinks({ page, ...linkProps }) {
+    let rsc = useIsRSCRouterContext();
+    let { nonce: contextNonce } = useFrameworkContext();
+    let { router } = useDataRouterContext2();
+    let matches = React8.useMemo(
+      () => matchRoutes(router.routes, page, router.basename),
+      [router.routes, page, router.basename]
+    );
+    if (!matches) {
+      return null;
+    }
+    if (linkProps.nonce == null && contextNonce) {
+      linkProps = { ...linkProps, nonce: contextNonce };
+    }
+    if (rsc) {
+      return /* @__PURE__ */ React8.createElement(RSCPrefetchPageLinksImpl, { page, matches, ...linkProps });
+    }
+    return /* @__PURE__ */ React8.createElement(PrefetchPageLinksImpl, { page, matches, ...linkProps });
+  }
+  function useKeyedPrefetchLinks(matches) {
+    let { manifest, routeModules } = useFrameworkContext();
+    let [keyedPrefetchLinks, setKeyedPrefetchLinks] = React8.useState([]);
+    React8.useEffect(() => {
+      let interrupted = false;
+      void getKeyedPrefetchLinks(matches, manifest, routeModules).then(
+        (links) => {
+          if (!interrupted) {
+            setKeyedPrefetchLinks(links);
+          }
+        }
+      );
+      return () => {
+        interrupted = true;
+      };
+    }, [matches, manifest, routeModules]);
+    return keyedPrefetchLinks;
+  }
+  function RSCPrefetchPageLinksImpl({
+    page,
+    matches: nextMatches,
+    ...linkProps
+  }) {
+    let location2 = useLocation();
+    let { future } = useFrameworkContext();
+    let { basename } = useDataRouterContext2();
+    let dataHrefs = React8.useMemo(() => {
+      if (page === location2.pathname + location2.search + location2.hash) {
+        return [];
+      }
+      let url = singleFetchUrl(
+        page,
+        basename,
+        future.v8_trailingSlashAwareDataRequests,
+        "rsc"
+      );
+      let hasSomeRoutesWithShouldRevalidate = false;
+      let targetRoutes = [];
+      for (let match of nextMatches) {
+        if (typeof match.route.shouldRevalidate === "function") {
+          hasSomeRoutesWithShouldRevalidate = true;
+        } else {
+          targetRoutes.push(match.route.id);
+        }
+      }
+      if (hasSomeRoutesWithShouldRevalidate && targetRoutes.length > 0) {
+        url.searchParams.set("_routes", targetRoutes.join(","));
+      }
+      return [url.pathname + url.search];
+    }, [
+      basename,
+      future.v8_trailingSlashAwareDataRequests,
+      page,
+      location2,
+      nextMatches
+    ]);
+    return /* @__PURE__ */ React8.createElement(React8.Fragment, null, dataHrefs.map((href) => /* @__PURE__ */ React8.createElement("link", { key: href, rel: "prefetch", as: "fetch", href, ...linkProps })));
+  }
+  function PrefetchPageLinksImpl({
+    page,
+    matches: nextMatches,
+    ...linkProps
+  }) {
+    let location2 = useLocation();
+    let { future, manifest, routeModules } = useFrameworkContext();
+    let { basename } = useDataRouterContext2();
+    let { loaderData, matches } = useDataRouterStateContext();
+    let newMatchesForData = React8.useMemo(
+      () => getNewMatchesForLinks(
+        page,
+        nextMatches,
+        matches,
+        manifest,
+        location2,
+        "data"
+      ),
+      [page, nextMatches, matches, manifest, location2]
+    );
+    let newMatchesForAssets = React8.useMemo(
+      () => getNewMatchesForLinks(
+        page,
+        nextMatches,
+        matches,
+        manifest,
+        location2,
+        "assets"
+      ),
+      [page, nextMatches, matches, manifest, location2]
+    );
+    let dataHrefs = React8.useMemo(() => {
+      if (page === location2.pathname + location2.search + location2.hash) {
+        return [];
+      }
+      let routesParams = /* @__PURE__ */ new Set();
+      let foundOptOutRoute = false;
+      nextMatches.forEach((m) => {
+        let manifestRoute = manifest.routes[m.route.id];
+        if (!manifestRoute || !manifestRoute.hasLoader) {
+          return;
+        }
+        if (!newMatchesForData.some((m2) => m2.route.id === m.route.id) && m.route.id in loaderData && routeModules[m.route.id]?.shouldRevalidate) {
+          foundOptOutRoute = true;
+        } else if (manifestRoute.hasClientLoader) {
+          foundOptOutRoute = true;
+        } else {
+          routesParams.add(m.route.id);
+        }
+      });
+      if (routesParams.size === 0) {
+        return [];
+      }
+      let url = singleFetchUrl(
+        page,
+        basename,
+        future.v8_trailingSlashAwareDataRequests,
+        "data"
+      );
+      if (foundOptOutRoute && routesParams.size > 0) {
+        url.searchParams.set(
+          "_routes",
+          nextMatches.filter((m) => routesParams.has(m.route.id)).map((m) => m.route.id).join(",")
+        );
+      }
+      return [url.pathname + url.search];
+    }, [
+      basename,
+      future.v8_trailingSlashAwareDataRequests,
+      loaderData,
+      location2,
+      manifest,
+      newMatchesForData,
+      nextMatches,
+      page,
+      routeModules
+    ]);
+    let moduleHrefs = React8.useMemo(
+      () => getModuleLinkHrefs(newMatchesForAssets, manifest),
+      [newMatchesForAssets, manifest]
+    );
+    let keyedPrefetchLinks = useKeyedPrefetchLinks(newMatchesForAssets);
+    return /* @__PURE__ */ React8.createElement(React8.Fragment, null, dataHrefs.map((href) => /* @__PURE__ */ React8.createElement("link", { key: href, rel: "prefetch", as: "fetch", href, ...linkProps })), moduleHrefs.map((href) => /* @__PURE__ */ React8.createElement("link", { key: href, rel: "modulepreload", href, ...linkProps })), keyedPrefetchLinks.map(({ key, link }) => (
+      // these don't spread `linkProps` because they are full link descriptors
+      // already with their own props
+      /* @__PURE__ */ React8.createElement(
+        "link",
+        {
+          key,
+          nonce: linkProps.nonce,
+          ...link,
+          crossOrigin: link.crossOrigin ?? linkProps.crossOrigin
+        }
+      )
+    )));
+  }
+  function mergeRefs(...refs) {
+    return (value) => {
+      refs.forEach((ref) => {
+        if (typeof ref === "function") {
+          ref(value);
+        } else if (ref != null) {
+          ref.current = value;
+        }
+      });
+    };
+  }
+  function HashRouter({
+    basename,
+    children,
+    useTransitions,
+    window: window2
+  }) {
+    let historyRef = React10.useRef();
+    if (historyRef.current == null) {
+      historyRef.current = createHashHistory({ window: window2, v5Compat: true });
+    }
+    let history = historyRef.current;
+    let [state, setStateImpl] = React10.useState({
+      action: history.action,
+      location: history.location
+    });
+    let setState = React10.useCallback(
+      (newState) => {
+        if (useTransitions === false) {
+          setStateImpl(newState);
+        } else {
+          React10.startTransition(() => setStateImpl(newState));
+        }
+      },
+      [useTransitions]
+    );
+    React10.useLayoutEffect(() => history.listen(setState), [history, setState]);
+    return /* @__PURE__ */ React10.createElement(
+      Router,
+      {
+        basename,
+        children,
+        location: state.location,
+        navigationType: state.action,
+        navigator: history,
+        useTransitions
+      }
+    );
+  }
+  function HistoryRouter({
+    basename,
+    children,
+    history,
+    useTransitions
+  }) {
+    let [state, setStateImpl] = React10.useState({
+      action: history.action,
+      location: history.location
+    });
+    let setState = React10.useCallback(
+      (newState) => {
+        if (useTransitions === false) {
+          setStateImpl(newState);
+        } else {
+          React10.startTransition(() => setStateImpl(newState));
+        }
+      },
+      [useTransitions]
+    );
+    React10.useLayoutEffect(() => history.listen(setState), [history, setState]);
+    return /* @__PURE__ */ React10.createElement(
+      Router,
+      {
+        basename,
+        children,
+        location: state.location,
+        navigationType: state.action,
+        navigator: history,
+        useTransitions
+      }
+    );
+  }
+  function ScrollRestoration({
+    getKey,
+    storageKey,
+    ...props
+  }) {
+    let remixContext = React10.useContext(FrameworkContext);
+    let { basename } = React10.useContext(NavigationContext);
+    let location2 = useLocation();
+    let matches = useMatches();
+    useScrollRestoration({ getKey, storageKey });
+    let ssrKey = React10.useMemo(
+      () => {
+        if (!remixContext || !getKey) return null;
+        let userKey = getScrollRestorationKey(
+          location2,
+          matches,
+          basename,
+          getKey
+        );
+        return userKey !== location2.key ? userKey : null;
+      },
+      // Nah, we only need this the first time for the SSR render
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      []
+    );
+    if (!remixContext || remixContext.isSpaMode) {
+      return null;
+    }
+    let restoreScroll = ((storageKey2, restoreKey) => {
+      if (!window.history.state || !window.history.state.key) {
+        let key = Math.random().toString(32).slice(2);
+        window.history.replaceState({ key }, "");
+      }
+      try {
+        let positions = JSON.parse(sessionStorage.getItem(storageKey2) || "{}");
+        let storedY = positions[restoreKey || window.history.state.key];
+        if (typeof storedY === "number") {
+          window.scrollTo(0, storedY);
+        }
+      } catch (error) {
+        console.error(error);
+        sessionStorage.removeItem(storageKey2);
+      }
+    }).toString();
+    if (props.nonce == null && remixContext?.nonce) {
+      props.nonce = remixContext.nonce;
+    }
+    return /* @__PURE__ */ React10.createElement(
+      "script",
+      {
+        ...props,
+        suppressHydrationWarning: true,
+        dangerouslySetInnerHTML: {
+          __html: `(${restoreScroll})(${escapeHtml(
+            JSON.stringify(storageKey || SCROLL_RESTORATION_STORAGE_KEY)
+          )}, ${escapeHtml(JSON.stringify(ssrKey))})`
+        }
+      }
+    );
+  }
+  function getDataRouterConsoleError2(hookName) {
+    return `${hookName} must be used within a data router.  See https://reactrouter.com/en/main/routers/picking-a-router.`;
+  }
+  function useDataRouterContext3(hookName) {
+    let ctx = React10.useContext(DataRouterContext);
+    invariant(ctx, getDataRouterConsoleError2(hookName));
+    return ctx;
+  }
+  function useDataRouterState2(hookName) {
+    let state = React10.useContext(DataRouterStateContext);
+    invariant(state, getDataRouterConsoleError2(hookName));
+    return state;
+  }
+  function useLinkClickHandler(to, {
+    target,
+    replace: replaceProp,
+    mask,
+    state,
+    preventScrollReset,
+    relative,
+    viewTransition,
+    defaultShouldRevalidate,
+    useTransitions
+  } = {}) {
+    let navigate = useNavigate();
+    let location2 = useLocation();
+    let path = useResolvedPath(to, { relative });
+    return React10.useCallback(
+      (event) => {
+        if (shouldProcessLinkClick(event, target)) {
+          event.preventDefault();
+          let replace2 = replaceProp !== void 0 ? replaceProp : createPath(location2) === createPath(path);
+          let doNavigate = () => navigate(to, {
+            replace: replace2,
+            mask,
+            state,
+            preventScrollReset,
+            relative,
+            viewTransition,
+            defaultShouldRevalidate
+          });
+          if (useTransitions) {
+            React10.startTransition(() => doNavigate());
+          } else {
+            doNavigate();
+          }
+        }
+      },
+      [
+        location2,
+        navigate,
+        path,
+        replaceProp,
+        mask,
+        state,
+        target,
+        to,
+        preventScrollReset,
+        relative,
+        viewTransition,
+        defaultShouldRevalidate,
+        useTransitions
+      ]
+    );
+  }
+  function useSubmit() {
+    let { router } = useDataRouterContext3(
+      "useSubmit"
+      /* UseSubmit */
+    );
+    let { basename } = React10.useContext(NavigationContext);
+    let currentRouteId = useRouteId();
+    let routerFetch = router.fetch;
+    let routerNavigate = router.navigate;
+    return React10.useCallback(
+      async (target, options = {}) => {
+        let { action, method, encType, formData, body } = getFormSubmissionInfo(
+          target,
+          basename
+        );
+        if (options.navigate === false) {
+          let key = options.fetcherKey || getUniqueFetcherId();
+          await routerFetch(key, currentRouteId, options.action || action, {
+            defaultShouldRevalidate: options.defaultShouldRevalidate,
+            preventScrollReset: options.preventScrollReset,
+            formData,
+            body,
+            formMethod: options.method || method,
+            formEncType: options.encType || encType,
+            flushSync: options.flushSync
+          });
+        } else {
+          await routerNavigate(options.action || action, {
+            defaultShouldRevalidate: options.defaultShouldRevalidate,
+            preventScrollReset: options.preventScrollReset,
+            formData,
+            body,
+            formMethod: options.method || method,
+            formEncType: options.encType || encType,
+            replace: options.replace,
+            state: options.state,
+            fromRouteId: currentRouteId,
+            flushSync: options.flushSync,
+            viewTransition: options.viewTransition
+          });
+        }
+      },
+      [routerFetch, routerNavigate, basename, currentRouteId]
+    );
+  }
+  function useFormAction(action, { relative } = {}) {
+    let { basename } = React10.useContext(NavigationContext);
+    let routeContext = React10.useContext(RouteContext);
+    invariant(routeContext, "useFormAction must be used inside a RouteContext");
+    let [match] = routeContext.matches.slice(-1);
+    let path = { ...useResolvedPath(action ? action : ".", { relative }) };
+    let location2 = useLocation();
+    if (action == null) {
+      path.search = location2.search;
+      let params = new URLSearchParams(path.search);
+      let indexValues = params.getAll("index");
+      let hasNakedIndexParam = indexValues.some((v) => v === "");
+      if (hasNakedIndexParam) {
+        params.delete("index");
+        indexValues.filter((v) => v).forEach((v) => params.append("index", v));
+        let qs = params.toString();
+        path.search = qs ? `?${qs}` : "";
+      }
+    }
+    if ((!action || action === ".") && match.route.index) {
+      path.search = path.search ? path.search.replace(/^\?/, "?index&") : "?index";
+    }
+    if (basename !== "/") {
+      path.pathname = path.pathname === "/" ? basename : joinPaths([basename, path.pathname]);
+    }
+    return createPath(path);
+  }
+  function getScrollRestorationKey(location2, matches, basename, getKey) {
+    let key = null;
+    if (getKey) {
+      if (basename !== "/") {
+        key = getKey(
+          {
+            ...location2,
+            pathname: stripBasename(location2.pathname, basename) || location2.pathname
+          },
+          matches
+        );
+      } else {
+        key = getKey(location2, matches);
+      }
+    }
+    if (key == null) {
+      key = location2.key;
+    }
+    return key;
+  }
+  function useScrollRestoration({
+    getKey,
+    storageKey
+  } = {}) {
+    let { router } = useDataRouterContext3(
+      "useScrollRestoration"
+      /* UseScrollRestoration */
+    );
+    let { restoreScrollPosition, preventScrollReset } = useDataRouterState2(
+      "useScrollRestoration"
+      /* UseScrollRestoration */
+    );
+    let { basename } = React10.useContext(NavigationContext);
+    let location2 = useLocation();
+    let matches = useMatches();
+    let navigation = useNavigation();
+    React10.useEffect(() => {
+      window.history.scrollRestoration = "manual";
+      return () => {
+        window.history.scrollRestoration = "auto";
+      };
+    }, []);
+    usePageHide(
+      React10.useCallback(() => {
+        if (navigation.state === "idle") {
+          let key = getScrollRestorationKey(location2, matches, basename, getKey);
+          savedScrollPositions[key] = window.scrollY;
+        }
+        try {
+          sessionStorage.setItem(
+            storageKey || SCROLL_RESTORATION_STORAGE_KEY,
+            JSON.stringify(savedScrollPositions)
+          );
+        } catch (error) {
+          warning(
+            false,
+            `Failed to save scroll positions in sessionStorage, <ScrollRestoration /> will not work properly (${error}).`
+          );
+        }
+        window.history.scrollRestoration = "auto";
+      }, [navigation.state, getKey, basename, location2, matches, storageKey])
+    );
+    if (typeof document !== "undefined") {
+      React10.useLayoutEffect(() => {
+        try {
+          let sessionPositions = sessionStorage.getItem(
+            storageKey || SCROLL_RESTORATION_STORAGE_KEY
+          );
+          if (sessionPositions) {
+            savedScrollPositions = JSON.parse(sessionPositions);
+          }
+        } catch (e2) {
+        }
+      }, [storageKey]);
+      React10.useLayoutEffect(() => {
+        let disableScrollRestoration = router?.enableScrollRestoration(
+          savedScrollPositions,
+          () => window.scrollY,
+          getKey ? (location22, matches2) => getScrollRestorationKey(location22, matches2, basename, getKey) : void 0
+        );
+        return () => disableScrollRestoration && disableScrollRestoration();
+      }, [router, basename, getKey]);
+      React10.useLayoutEffect(() => {
+        if (restoreScrollPosition === false) {
+          return;
+        }
+        if (typeof restoreScrollPosition === "number") {
+          window.scrollTo(0, restoreScrollPosition);
+          return;
+        }
+        try {
+          if (location2.hash) {
+            let el = document.getElementById(
+              decodeURIComponent(location2.hash.slice(1))
+            );
+            if (el) {
+              el.scrollIntoView();
+              return;
+            }
+          }
+        } catch {
+          warning(
+            false,
+            `"${location2.hash.slice(
+              1
+            )}" is not a decodable element ID. The view will not scroll to it.`
+          );
+        }
+        if (preventScrollReset === true) {
+          return;
+        }
+        window.scrollTo(0, 0);
+      }, [location2, restoreScrollPosition, preventScrollReset]);
+    }
+  }
+  function usePageHide(callback, options) {
+    let { capture } = options || {};
+    React10.useEffect(() => {
+      let opts = capture != null ? { capture } : void 0;
+      window.addEventListener("pagehide", callback, opts);
+      return () => {
+        window.removeEventListener("pagehide", callback, opts);
+      };
+    }, [callback, capture]);
+  }
+  function useViewTransitionState(to, { relative } = {}) {
+    let vtContext = React10.useContext(ViewTransitionContext);
+    invariant(
+      vtContext != null,
+      "`useViewTransitionState` must be used within `react-router-dom`'s `RouterProvider`.  Did you accidentally import `RouterProvider` from `react-router`?"
+    );
+    let { basename } = useDataRouterContext3(
+      "useViewTransitionState"
+      /* useViewTransitionState */
+    );
+    let path = useResolvedPath(to, { relative });
+    if (!vtContext.isTransitioning) {
+      return false;
+    }
+    let currentPath = stripBasename(vtContext.currentLocation.pathname, basename) || vtContext.currentLocation.pathname;
+    let nextPath = stripBasename(vtContext.nextLocation.pathname, basename) || vtContext.nextLocation.pathname;
+    return matchPath(path.pathname, nextPath) != null || matchPath(path.pathname, currentPath) != null;
+  }
+  var React, React2, React3, React4, React9, React8, React7, React6, React5, React10, React11, import_meta, ABSOLUTE_URL_REGEX, PROTOCOL_RELATIVE_URL_REGEX, PopStateEventType, _map, paramRe, dynamicSegmentValue, indexRouteValue, emptySegmentValue, staticSegmentValue, splatPenalty, isSplat, removeDoubleSlashes, joinPaths, normalizePathname, normalizeSearch, normalizeHash, ErrorResponseImpl, isBrowser, objectProtoNames, DEFAULT_NAVIGATION_URL, validMutationMethodsArr, validMutationMethods, validRequestMethodsArr, validRequestMethods, _routes, _branches, _hmrRoutes, _hmrBranches, invalidProtocols, DataRouterContext, DataRouterStateContext, RSCRouterContext, ViewTransitionContext, FetchersContext, AwaitContext, NavigationContext, LocationContext, RouteContext, RouteErrorContext, ENABLE_DEV_WARNINGS, ERROR_DIGEST_BASE, ERROR_DIGEST_REDIRECT, ERROR_DIGEST_ROUTE_ERROR_RESPONSE, navigateEffectWarning, OutletContext, defaultErrorElement, RenderErrorBoundary, errorRedirectHandledMap, alreadyWarned, USE_OPTIMISTIC, useOptimisticImpl, MemoizedDataRoutes, defaultMethod, defaultEncType, _formDataSupportsSubmitter, supportedFormEncTypes, objectProtoNames2, ESCAPE_LOOKUP, ESCAPE_REGEX, FrameworkContext, isBrowser2, Link, NavLink, Form, fetcherId, getUniqueFetcherId, SCROLL_RESTORATION_STORAGE_KEY, savedScrollPositions;
+  var init_chunk_OB3PAWPO = __esm({
+    "node_modules/react-router/dist/development/chunk-OB3PAWPO.mjs"() {
+      React = __toESM(require_react(), 1);
+      React2 = __toESM(require_react(), 1);
+      React3 = __toESM(require_react(), 1);
+      React4 = __toESM(require_react(), 1);
+      React9 = __toESM(require_react(), 1);
+      React8 = __toESM(require_react(), 1);
+      React7 = __toESM(require_react(), 1);
+      React6 = __toESM(require_react(), 1);
+      React5 = __toESM(require_react(), 1);
+      React10 = __toESM(require_react(), 1);
+      React11 = __toESM(require_react(), 1);
+      import_meta = {};
+      ABSOLUTE_URL_REGEX = /^(?:[a-z][a-z0-9+.-]*:|[\\/]{2})/i;
+      PROTOCOL_RELATIVE_URL_REGEX = /^[\\/]{2}/;
+      PopStateEventType = "popstate";
+      _map = /* @__PURE__ */ new WeakMap();
+      paramRe = /^:[\w-]+$/;
+      dynamicSegmentValue = 3;
+      indexRouteValue = 2;
+      emptySegmentValue = 1;
+      staticSegmentValue = 10;
+      splatPenalty = -2;
+      isSplat = (s) => s === "*";
+      removeDoubleSlashes = (path) => path.replace(/[\\/]{2,}/g, "/");
+      joinPaths = (paths) => removeDoubleSlashes(paths.join("/"));
+      normalizePathname = (pathname) => removeTrailingSlash(pathname).replace(/^\/*/, "/");
+      normalizeSearch = (search) => !search || search === "?" ? "" : search.startsWith("?") ? search : "?" + search;
+      normalizeHash = (hash) => !hash || hash === "#" ? "" : hash.startsWith("#") ? hash : "#" + hash;
+      ErrorResponseImpl = class {
+        constructor(status, statusText, data2, internal = false) {
+          this.status = status;
+          this.statusText = statusText || "";
+          this.internal = internal;
+          if (data2 instanceof Error) {
+            this.data = data2.toString();
+            this.error = data2;
+          } else {
+            this.data = data2;
+          }
+        }
+      };
+      isBrowser = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
+      objectProtoNames = Object.getOwnPropertyNames(Object.prototype).sort().join("\0");
+      DEFAULT_NAVIGATION_URL = new URL("http://localhost");
+      validMutationMethodsArr = [
+        "POST",
+        "PUT",
+        "PATCH",
+        "DELETE"
+      ];
+      validMutationMethods = new Set(
+        validMutationMethodsArr
+      );
+      validRequestMethodsArr = [
+        "GET",
+        ...validMutationMethodsArr
+      ];
+      validRequestMethods = new Set(validRequestMethodsArr);
+      _routes = /* @__PURE__ */ new WeakMap();
+      _branches = /* @__PURE__ */ new WeakMap();
+      _hmrRoutes = /* @__PURE__ */ new WeakMap();
+      _hmrBranches = /* @__PURE__ */ new WeakMap();
+      invalidProtocols = [
+        "about:",
+        "blob:",
+        "chrome:",
+        "chrome-untrusted:",
+        "content:",
+        "data:",
+        "devtools:",
+        "file:",
+        "filesystem:",
+        // eslint-disable-next-line no-script-url
+        "javascript:"
+      ];
+      DataRouterContext = React.createContext(null);
+      DataRouterContext.displayName = "DataRouter";
+      DataRouterStateContext = React.createContext(null);
+      DataRouterStateContext.displayName = "DataRouterState";
+      RSCRouterContext = React.createContext(false);
+      ViewTransitionContext = React.createContext({
+        isTransitioning: false
+      });
+      ViewTransitionContext.displayName = "ViewTransition";
+      FetchersContext = React.createContext(
+        /* @__PURE__ */ new Map()
+      );
+      FetchersContext.displayName = "Fetchers";
+      AwaitContext = React.createContext(null);
+      AwaitContext.displayName = "Await";
+      NavigationContext = React.createContext(
+        null
+      );
+      NavigationContext.displayName = "Navigation";
+      LocationContext = React.createContext(
+        null
+      );
+      LocationContext.displayName = "Location";
+      RouteContext = React.createContext({
+        outlet: null,
+        matches: [],
+        isDataRoute: false
+      });
+      RouteContext.displayName = "Route";
+      RouteErrorContext = React.createContext(null);
+      RouteErrorContext.displayName = "RouteError";
+      ENABLE_DEV_WARNINGS = true;
+      ERROR_DIGEST_BASE = "REACT_ROUTER_ERROR";
+      ERROR_DIGEST_REDIRECT = "REDIRECT";
+      ERROR_DIGEST_ROUTE_ERROR_RESPONSE = "ROUTE_ERROR_RESPONSE";
+      navigateEffectWarning = `You should call navigate() in a React.useEffect(), not when your component is first rendered.`;
+      OutletContext = React2.createContext(null);
+      defaultErrorElement = /* @__PURE__ */ React2.createElement(DefaultErrorComponent, null);
+      RenderErrorBoundary = class extends React2.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            location: props.location,
+            revalidation: props.revalidation,
+            error: props.error
+          };
+        }
+        static getDerivedStateFromError(error) {
+          return { error };
+        }
+        static getDerivedStateFromProps(props, state) {
+          if (state.location !== props.location || state.revalidation !== "idle" && props.revalidation === "idle") {
+            return {
+              error: props.error,
+              location: props.location,
+              revalidation: props.revalidation
+            };
+          }
+          return {
+            error: props.error !== void 0 ? props.error : state.error,
+            location: state.location,
+            revalidation: props.revalidation || state.revalidation
+          };
+        }
+        componentDidCatch(error, errorInfo) {
+          if (this.props.onError) {
+            this.props.onError(error, errorInfo);
+          } else {
+            console.error(
+              "React Router caught the following error during render",
+              error
+            );
+          }
+        }
+        render() {
+          let error = this.state.error;
+          if (this.context && typeof error === "object" && error && "digest" in error && typeof error.digest === "string") {
+            const decoded = decodeRouteErrorResponseDigest(error.digest);
+            if (decoded) error = decoded;
+          }
+          let result = error !== void 0 ? /* @__PURE__ */ React2.createElement(RouteContext.Provider, { value: this.props.routeContext }, /* @__PURE__ */ React2.createElement(
+            RouteErrorContext.Provider,
+            {
+              value: error,
+              children: this.props.component
+            }
+          )) : this.props.children;
+          if (this.context) {
+            return /* @__PURE__ */ React2.createElement(RSCErrorHandler, { error }, result);
+          }
+          return result;
+        }
+      };
+      RenderErrorBoundary.contextType = RSCRouterContext;
+      errorRedirectHandledMap = /* @__PURE__ */ new WeakMap();
+      alreadyWarned = {};
+      USE_OPTIMISTIC = "useOptimistic";
+      useOptimisticImpl = React3[USE_OPTIMISTIC];
+      MemoizedDataRoutes = React3.memo(DataRoutes2);
+      defaultMethod = "get";
+      defaultEncType = "application/x-www-form-urlencoded";
+      _formDataSupportsSubmitter = null;
+      supportedFormEncTypes = /* @__PURE__ */ new Set([
+        "application/x-www-form-urlencoded",
+        "multipart/form-data",
+        "text/plain"
+      ]);
+      objectProtoNames2 = Object.getOwnPropertyNames(Object.prototype).sort().join("\0");
+      ESCAPE_LOOKUP = {
+        "&": "\\u0026",
+        ">": "\\u003e",
+        "<": "\\u003c",
+        "\u2028": "\\u2028",
+        "\u2029": "\\u2029"
+      };
+      ESCAPE_REGEX = /[&><\u2028\u2029]/g;
+      FrameworkContext = React8.createContext(void 0);
+      FrameworkContext.displayName = "FrameworkContext";
+      isBrowser2 = typeof window !== "undefined" && typeof window.document !== "undefined" && typeof window.document.createElement !== "undefined";
+      try {
+        if (isBrowser2) {
+          window.__reactRouterVersion = // @ts-expect-error
+          "7.18.4";
+        }
+      } catch (e2) {
+      }
+      HistoryRouter.displayName = "unstable_HistoryRouter";
+      Link = React10.forwardRef(
+        function LinkWithRef({
+          onClick,
+          discover = "render",
+          prefetch = "none",
+          relative,
+          reloadDocument,
+          replace: replace2,
+          mask,
+          state,
+          target,
+          to,
+          preventScrollReset,
+          viewTransition,
+          defaultShouldRevalidate,
+          ...rest
+        }, forwardedRef) {
+          let { basename, navigator: navigator2, useTransitions } = React10.useContext(NavigationContext);
+          let isAbsolute = typeof to === "string" && ABSOLUTE_URL_REGEX.test(to);
+          let parsed = parseToInfo(to, basename);
+          to = parsed.to;
+          let href = useHref(to, { relative });
+          let location2 = useLocation();
+          let maskedHref = null;
+          if (mask) {
+            let resolved = resolveTo(
+              mask,
+              [],
+              location2.mask ? location2.mask.pathname : "/",
+              true
+            );
+            if (basename !== "/") {
+              resolved.pathname = resolved.pathname === "/" ? basename : joinPaths([basename, resolved.pathname]);
+            }
+            maskedHref = navigator2.createHref(resolved);
+          }
+          let [shouldPrefetch, prefetchRef, prefetchHandlers] = usePrefetchBehavior(
+            prefetch,
+            rest
+          );
+          let internalOnClick = useLinkClickHandler(to, {
+            replace: replace2,
+            mask,
+            state,
+            target,
+            preventScrollReset,
+            relative,
+            viewTransition,
+            defaultShouldRevalidate,
+            useTransitions
+          });
+          function handleClick(event) {
+            if (onClick) onClick(event);
+            if (!event.defaultPrevented) {
+              internalOnClick(event);
+            }
+          }
+          let isSpaLink = !(parsed.isExternal || reloadDocument);
+          let link = (
+            // eslint-disable-next-line jsx-a11y/anchor-has-content
+            /* @__PURE__ */ React10.createElement(
+              "a",
+              {
+                ...rest,
+                ...prefetchHandlers,
+                href: (isSpaLink ? maskedHref : void 0) || parsed.absoluteURL || href,
+                onClick: isSpaLink ? handleClick : onClick,
+                ref: mergeRefs(forwardedRef, prefetchRef),
+                target,
+                "data-discover": !isAbsolute && discover === "render" ? "true" : void 0
+              }
+            )
+          );
+          return shouldPrefetch && !isAbsolute ? /* @__PURE__ */ React10.createElement(React10.Fragment, null, link, /* @__PURE__ */ React10.createElement(PrefetchPageLinks, { page: href })) : link;
+        }
+      );
+      Link.displayName = "Link";
+      NavLink = React10.forwardRef(
+        function NavLinkWithRef({
+          "aria-current": ariaCurrentProp = "page",
+          caseSensitive = false,
+          className: classNameProp = "",
+          end = false,
+          style: styleProp,
+          to,
+          viewTransition,
+          children,
+          ...rest
+        }, ref) {
+          let path = useResolvedPath(to, { relative: rest.relative });
+          let location2 = useLocation();
+          let routerState = React10.useContext(DataRouterStateContext);
+          let { navigator: navigator2, basename } = React10.useContext(NavigationContext);
+          let isTransitioning = routerState != null && // Conditional usage is OK here because the usage of a data router is static
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          useViewTransitionState(path) && viewTransition === true;
+          let toPathname = navigator2.encodeLocation ? navigator2.encodeLocation(path).pathname : path.pathname;
+          let locationPathname = location2.pathname;
+          let nextLocationPathname = routerState && routerState.navigation && routerState.navigation.location ? routerState.navigation.location.pathname : null;
+          if (!caseSensitive) {
+            locationPathname = locationPathname.toLowerCase();
+            nextLocationPathname = nextLocationPathname ? nextLocationPathname.toLowerCase() : null;
+            toPathname = toPathname.toLowerCase();
+          }
+          if (nextLocationPathname && basename) {
+            nextLocationPathname = stripBasename(nextLocationPathname, basename) || nextLocationPathname;
+          }
+          const endSlashPosition = toPathname !== "/" && toPathname.endsWith("/") ? toPathname.length - 1 : toPathname.length;
+          let isActive = locationPathname === toPathname || !end && locationPathname.startsWith(toPathname) && locationPathname.charAt(endSlashPosition) === "/";
+          let isPending = nextLocationPathname != null && (nextLocationPathname === toPathname || !end && nextLocationPathname.startsWith(toPathname) && nextLocationPathname.charAt(toPathname.length) === "/");
+          let renderProps = {
+            isActive,
+            isPending,
+            isTransitioning
+          };
+          let ariaCurrent = isActive ? ariaCurrentProp : void 0;
+          let className;
+          if (typeof classNameProp === "function") {
+            className = classNameProp(renderProps);
+          } else {
+            className = [
+              classNameProp,
+              isActive ? "active" : null,
+              isPending ? "pending" : null,
+              isTransitioning ? "transitioning" : null
+            ].filter(Boolean).join(" ");
+          }
+          let style = typeof styleProp === "function" ? styleProp(renderProps) : styleProp;
+          return /* @__PURE__ */ React10.createElement(
+            Link,
+            {
+              ...rest,
+              "aria-current": ariaCurrent,
+              className,
+              ref,
+              style,
+              to,
+              viewTransition
+            },
+            typeof children === "function" ? children(renderProps) : children
+          );
+        }
+      );
+      NavLink.displayName = "NavLink";
+      Form = React10.forwardRef(
+        ({
+          discover = "render",
+          fetcherKey,
+          navigate,
+          reloadDocument,
+          replace: replace2,
+          state,
+          method = defaultMethod,
+          action,
+          onSubmit,
+          relative,
+          preventScrollReset,
+          viewTransition,
+          defaultShouldRevalidate,
+          ...props
+        }, forwardedRef) => {
+          let { useTransitions } = React10.useContext(NavigationContext);
+          let submit = useSubmit();
+          let formAction = useFormAction(action, { relative });
+          let formMethod = method.toLowerCase() === "get" ? "get" : "post";
+          let isAbsolute = typeof action === "string" && ABSOLUTE_URL_REGEX.test(action);
+          let submitHandler = (event) => {
+            onSubmit && onSubmit(event);
+            if (event.defaultPrevented) return;
+            event.preventDefault();
+            let submitter = event.nativeEvent.submitter;
+            let submitMethod = submitter?.getAttribute("formmethod") || method;
+            let doSubmit = () => submit(submitter || event.currentTarget, {
+              fetcherKey,
+              method: submitMethod,
+              navigate,
+              replace: replace2,
+              state,
+              relative,
+              preventScrollReset,
+              viewTransition,
+              defaultShouldRevalidate
+            });
+            if (useTransitions && navigate !== false) {
+              React10.startTransition(() => doSubmit());
+            } else {
+              doSubmit();
+            }
+          };
+          return /* @__PURE__ */ React10.createElement(
+            "form",
+            {
+              ref: forwardedRef,
+              method: formMethod,
+              action: formAction,
+              onSubmit: reloadDocument ? onSubmit : submitHandler,
+              ...props,
+              "data-discover": !isAbsolute && discover === "render" ? "true" : void 0
+            }
+          );
+        }
+      );
+      Form.displayName = "Form";
+      ScrollRestoration.displayName = "ScrollRestoration";
+      fetcherId = 0;
+      getUniqueFetcherId = () => `__${String(++fetcherId)}__`;
+      SCROLL_RESTORATION_STORAGE_KEY = "react-router-scroll-positions";
+      savedScrollPositions = {};
+    }
+  });
+
+  // node_modules/react-router/dist/development/index.mjs
+  var init_development = __esm({
+    "node_modules/react-router/dist/development/index.mjs"() {
+      "use client";
+      init_chunk_OB3PAWPO();
+    }
+  });
+
+  // node_modules/react-router-dom/dist/index.mjs
+  var init_dist = __esm({
+    "node_modules/react-router-dom/dist/index.mjs"() {
+      init_development();
+    }
+  });
+
   // node_modules/lucide-react/dist/esm/shared/src/utils/toKebabCase.mjs
   var toKebabCase;
   var init_toKebabCase = __esm({
@@ -23866,7 +26732,7 @@
   // node_modules/lucide-react/dist/esm/createLucideIcon.mjs
   function createLucideIcon(iconDataOrName, iconNode = [], aliases = []) {
     const iconData = typeof iconDataOrName === "string" ? toLucideIconData(iconDataOrName, iconNode, aliases) : iconDataOrName;
-    const Component = (0, import_react3.forwardRef)(
+    const Component4 = (0, import_react3.forwardRef)(
       ({ className, ...props }, ref) => (0, import_react3.createElement)(Icon, {
         ref,
         icon: iconData,
@@ -23875,9 +26741,9 @@
       })
     );
     if (iconData.name) {
-      Component.displayName = toPascalCase(iconData.name);
+      Component4.displayName = toPascalCase(iconData.name);
     }
-    return Component;
+    return Component4;
   }
   var import_react3;
   var init_createLucideIcon = __esm({
@@ -24522,34 +27388,12 @@
     }
   });
 
-  // node_modules/lucide-react/dist/esm/icons/key.mjs
-  var __iconData30, Key;
-  var init_key = __esm({
-    "node_modules/lucide-react/dist/esm/icons/key.mjs"() {
-      init_createLucideIcon();
-      __iconData30 = {
-        name: "key",
-        size: 24,
-        node: [
-          ["path", { d: "m2 21 9.6-9.6", key: "9l79m3" }],
-          [
-            "path",
-            { d: "m7.5 15.5 2.3 2.3a1 1 0 0 1 0 1.4l-2.1 2.1a1 1 0 0 1-1.4 0L4 19", key: "fw8biw" }
-          ],
-          ["circle", { cx: "15.5", cy: "7.5", r: "5.5", key: "4wxmhb" }]
-        ]
-      };
-      __iconData30.node;
-      Key = createLucideIcon(__iconData30);
-    }
-  });
-
   // node_modules/lucide-react/dist/esm/icons/layers.mjs
-  var __iconData31, Layers;
+  var __iconData30, Layers;
   var init_layers = __esm({
     "node_modules/lucide-react/dist/esm/icons/layers.mjs"() {
       init_createLucideIcon();
-      __iconData31 = {
+      __iconData30 = {
         name: "layers",
         size: 24,
         node: [
@@ -24577,17 +27421,17 @@
         ],
         aliases: ["layers-3"]
       };
-      __iconData31.node;
-      Layers = createLucideIcon(__iconData31);
+      __iconData30.node;
+      Layers = createLucideIcon(__iconData30);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/link.mjs
-  var __iconData32, Link;
+  var __iconData31, Link2;
   var init_link = __esm({
     "node_modules/lucide-react/dist/esm/icons/link.mjs"() {
       init_createLucideIcon();
-      __iconData32 = {
+      __iconData31 = {
         name: "link",
         size: 24,
         node: [
@@ -24595,17 +27439,17 @@
           ["path", { d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71", key: "19qd67" }]
         ]
       };
-      __iconData32.node;
-      Link = createLucideIcon(__iconData32);
+      __iconData31.node;
+      Link2 = createLucideIcon(__iconData31);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/lock.mjs
-  var __iconData33, Lock;
+  var __iconData32, Lock;
   var init_lock = __esm({
     "node_modules/lucide-react/dist/esm/icons/lock.mjs"() {
       init_createLucideIcon();
-      __iconData33 = {
+      __iconData32 = {
         name: "lock",
         size: 24,
         node: [
@@ -24613,17 +27457,17 @@
           ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
         ]
       };
-      __iconData33.node;
-      Lock = createLucideIcon(__iconData33);
+      __iconData32.node;
+      Lock = createLucideIcon(__iconData32);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/log-out.mjs
-  var __iconData34, LogOut;
+  var __iconData33, LogOut;
   var init_log_out = __esm({
     "node_modules/lucide-react/dist/esm/icons/log-out.mjs"() {
       init_createLucideIcon();
-      __iconData34 = {
+      __iconData33 = {
         name: "log-out",
         size: 24,
         node: [
@@ -24632,17 +27476,17 @@
           ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
         ]
       };
-      __iconData34.node;
-      LogOut = createLucideIcon(__iconData34);
+      __iconData33.node;
+      LogOut = createLucideIcon(__iconData33);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mail.mjs
-  var __iconData35, Mail;
+  var __iconData34, Mail;
   var init_mail = __esm({
     "node_modules/lucide-react/dist/esm/icons/mail.mjs"() {
       init_createLucideIcon();
-      __iconData35 = {
+      __iconData34 = {
         name: "mail",
         size: 24,
         node: [
@@ -24650,17 +27494,17 @@
           ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
         ]
       };
-      __iconData35.node;
-      Mail = createLucideIcon(__iconData35);
+      __iconData34.node;
+      Mail = createLucideIcon(__iconData34);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/maximize-2.mjs
-  var __iconData36, Maximize2;
+  var __iconData35, Maximize2;
   var init_maximize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/maximize-2.mjs"() {
       init_createLucideIcon();
-      __iconData36 = {
+      __iconData35 = {
         name: "maximize-2",
         size: 24,
         node: [
@@ -24670,17 +27514,17 @@
           ["path", { d: "M9 21H3v-6", key: "wtvkvv" }]
         ]
       };
-      __iconData36.node;
-      Maximize2 = createLucideIcon(__iconData36);
+      __iconData35.node;
+      Maximize2 = createLucideIcon(__iconData35);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/message-square.mjs
-  var __iconData37, MessageSquare;
+  var __iconData36, MessageSquare;
   var init_message_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/message-square.mjs"() {
       init_createLucideIcon();
-      __iconData37 = {
+      __iconData36 = {
         name: "message-square",
         size: 24,
         node: [
@@ -24693,17 +27537,17 @@
           ]
         ]
       };
-      __iconData37.node;
-      MessageSquare = createLucideIcon(__iconData37);
+      __iconData36.node;
+      MessageSquare = createLucideIcon(__iconData36);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic-off.mjs
-  var __iconData38, MicOff;
+  var __iconData37, MicOff;
   var init_mic_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic-off.mjs"() {
       init_createLucideIcon();
-      __iconData38 = {
+      __iconData37 = {
         name: "mic-off",
         size: 24,
         node: [
@@ -24715,17 +27559,17 @@
           ["path", { d: "M9 9v3a3 3 0 0 0 5.12 2.12", key: "r2i35w" }]
         ]
       };
-      __iconData38.node;
-      MicOff = createLucideIcon(__iconData38);
+      __iconData37.node;
+      MicOff = createLucideIcon(__iconData37);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic.mjs
-  var __iconData39, Mic;
+  var __iconData38, Mic;
   var init_mic = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic.mjs"() {
       init_createLucideIcon();
-      __iconData39 = {
+      __iconData38 = {
         name: "mic",
         size: 24,
         node: [
@@ -24734,17 +27578,17 @@
           ["rect", { x: "9", y: "2", width: "6", height: "13", rx: "3", key: "s6n7sd" }]
         ]
       };
-      __iconData39.node;
-      Mic = createLucideIcon(__iconData39);
+      __iconData38.node;
+      Mic = createLucideIcon(__iconData38);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/minimize-2.mjs
-  var __iconData40, Minimize2;
+  var __iconData39, Minimize2;
   var init_minimize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/minimize-2.mjs"() {
       init_createLucideIcon();
-      __iconData40 = {
+      __iconData39 = {
         name: "minimize-2",
         size: 24,
         node: [
@@ -24754,17 +27598,17 @@
           ["path", { d: "M4 14h6v6", key: "rmj7iw" }]
         ]
       };
-      __iconData40.node;
-      Minimize2 = createLucideIcon(__iconData40);
+      __iconData39.node;
+      Minimize2 = createLucideIcon(__iconData39);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/music.mjs
-  var __iconData41, Music;
+  var __iconData40, Music;
   var init_music = __esm({
     "node_modules/lucide-react/dist/esm/icons/music.mjs"() {
       init_createLucideIcon();
-      __iconData41 = {
+      __iconData40 = {
         name: "music",
         size: 24,
         node: [
@@ -24773,17 +27617,17 @@
           ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
         ]
       };
-      __iconData41.node;
-      Music = createLucideIcon(__iconData41);
+      __iconData40.node;
+      Music = createLucideIcon(__iconData40);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pause.mjs
-  var __iconData42, Pause;
+  var __iconData41, Pause;
   var init_pause = __esm({
     "node_modules/lucide-react/dist/esm/icons/pause.mjs"() {
       init_createLucideIcon();
-      __iconData42 = {
+      __iconData41 = {
         name: "pause",
         size: 24,
         node: [
@@ -24791,17 +27635,17 @@
           ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
         ]
       };
-      __iconData42.node;
-      Pause = createLucideIcon(__iconData42);
+      __iconData41.node;
+      Pause = createLucideIcon(__iconData41);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pen-line.mjs
-  var __iconData43, PenLine;
+  var __iconData42, PenLine;
   var init_pen_line = __esm({
     "node_modules/lucide-react/dist/esm/icons/pen-line.mjs"() {
       init_createLucideIcon();
-      __iconData43 = {
+      __iconData42 = {
         name: "pen-line",
         size: 24,
         node: [
@@ -24816,17 +27660,17 @@
         ],
         aliases: ["edit-3"]
       };
-      __iconData43.node;
-      PenLine = createLucideIcon(__iconData43);
+      __iconData42.node;
+      PenLine = createLucideIcon(__iconData42);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone-off.mjs
-  var __iconData44, PhoneOff;
+  var __iconData43, PhoneOff;
   var init_phone_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone-off.mjs"() {
       init_createLucideIcon();
-      __iconData44 = {
+      __iconData43 = {
         name: "phone-off",
         size: 24,
         node: [
@@ -24847,17 +27691,17 @@
           ]
         ]
       };
-      __iconData44.node;
-      PhoneOff = createLucideIcon(__iconData44);
+      __iconData43.node;
+      PhoneOff = createLucideIcon(__iconData43);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone.mjs
-  var __iconData45, Phone;
+  var __iconData44, Phone;
   var init_phone = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone.mjs"() {
       init_createLucideIcon();
-      __iconData45 = {
+      __iconData44 = {
         name: "phone",
         size: 24,
         node: [
@@ -24870,17 +27714,17 @@
           ]
         ]
       };
-      __iconData45.node;
-      Phone = createLucideIcon(__iconData45);
+      __iconData44.node;
+      Phone = createLucideIcon(__iconData44);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/play.mjs
-  var __iconData46, Play;
+  var __iconData45, Play;
   var init_play = __esm({
     "node_modules/lucide-react/dist/esm/icons/play.mjs"() {
       init_createLucideIcon();
-      __iconData46 = {
+      __iconData45 = {
         name: "play",
         size: 24,
         node: [
@@ -24893,17 +27737,17 @@
           ]
         ]
       };
-      __iconData46.node;
-      Play = createLucideIcon(__iconData46);
+      __iconData45.node;
+      Play = createLucideIcon(__iconData45);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/plus.mjs
-  var __iconData47, Plus;
+  var __iconData46, Plus;
   var init_plus = __esm({
     "node_modules/lucide-react/dist/esm/icons/plus.mjs"() {
       init_createLucideIcon();
-      __iconData47 = {
+      __iconData46 = {
         name: "plus",
         size: 24,
         node: [
@@ -24911,17 +27755,17 @@
           ["path", { d: "M12 5v14", key: "s699le" }]
         ]
       };
-      __iconData47.node;
-      Plus = createLucideIcon(__iconData47);
+      __iconData46.node;
+      Plus = createLucideIcon(__iconData46);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/radio.mjs
-  var __iconData48, Radio;
+  var __iconData47, Radio;
   var init_radio = __esm({
     "node_modules/lucide-react/dist/esm/icons/radio.mjs"() {
       init_createLucideIcon();
-      __iconData48 = {
+      __iconData47 = {
         name: "radio",
         size: 24,
         node: [
@@ -24932,17 +27776,17 @@
           ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
         ]
       };
-      __iconData48.node;
-      Radio = createLucideIcon(__iconData48);
+      __iconData47.node;
+      Radio = createLucideIcon(__iconData47);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs
-  var __iconData49, RefreshCw;
+  var __iconData48, RefreshCw;
   var init_refresh_cw = __esm({
     "node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs"() {
       init_createLucideIcon();
-      __iconData49 = {
+      __iconData48 = {
         name: "refresh-cw",
         size: 24,
         node: [
@@ -24952,17 +27796,17 @@
           ["path", { d: "M8 16H3v5", key: "1cv678" }]
         ]
       };
-      __iconData49.node;
-      RefreshCw = createLucideIcon(__iconData49);
+      __iconData48.node;
+      RefreshCw = createLucideIcon(__iconData48);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/repeat.mjs
-  var __iconData50, Repeat;
+  var __iconData49, Repeat;
   var init_repeat = __esm({
     "node_modules/lucide-react/dist/esm/icons/repeat.mjs"() {
       init_createLucideIcon();
-      __iconData50 = {
+      __iconData49 = {
         name: "repeat",
         size: 24,
         node: [
@@ -24972,17 +27816,17 @@
           ["path", { d: "M21 13v1a4 4 0 0 1-4 4H3", key: "1rx37r" }]
         ]
       };
-      __iconData50.node;
-      Repeat = createLucideIcon(__iconData50);
+      __iconData49.node;
+      Repeat = createLucideIcon(__iconData49);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs
-  var __iconData51, RotateCcw;
+  var __iconData50, RotateCcw;
   var init_rotate_ccw = __esm({
     "node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs"() {
       init_createLucideIcon();
-      __iconData51 = {
+      __iconData50 = {
         name: "rotate-ccw",
         size: 24,
         node: [
@@ -24990,17 +27834,17 @@
           ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
         ]
       };
-      __iconData51.node;
-      RotateCcw = createLucideIcon(__iconData51);
+      __iconData50.node;
+      RotateCcw = createLucideIcon(__iconData50);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/save.mjs
-  var __iconData52, Save;
+  var __iconData51, Save;
   var init_save = __esm({
     "node_modules/lucide-react/dist/esm/icons/save.mjs"() {
       init_createLucideIcon();
-      __iconData52 = {
+      __iconData51 = {
         name: "save",
         size: 24,
         node: [
@@ -25015,17 +27859,17 @@
           ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
         ]
       };
-      __iconData52.node;
-      Save = createLucideIcon(__iconData52);
+      __iconData51.node;
+      Save = createLucideIcon(__iconData51);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/search.mjs
-  var __iconData53, Search;
+  var __iconData52, Search;
   var init_search = __esm({
     "node_modules/lucide-react/dist/esm/icons/search.mjs"() {
       init_createLucideIcon();
-      __iconData53 = {
+      __iconData52 = {
         name: "search",
         size: 24,
         node: [
@@ -25033,17 +27877,17 @@
           ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
         ]
       };
-      __iconData53.node;
-      Search = createLucideIcon(__iconData53);
+      __iconData52.node;
+      Search = createLucideIcon(__iconData52);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/send.mjs
-  var __iconData54, Send;
+  var __iconData53, Send;
   var init_send = __esm({
     "node_modules/lucide-react/dist/esm/icons/send.mjs"() {
       init_createLucideIcon();
-      __iconData54 = {
+      __iconData53 = {
         name: "send",
         size: 24,
         node: [
@@ -25057,17 +27901,17 @@
           ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
         ]
       };
-      __iconData54.node;
-      Send = createLucideIcon(__iconData54);
+      __iconData53.node;
+      Send = createLucideIcon(__iconData53);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/settings.mjs
-  var __iconData55, Settings;
+  var __iconData54, Settings;
   var init_settings = __esm({
     "node_modules/lucide-react/dist/esm/icons/settings.mjs"() {
       init_createLucideIcon();
-      __iconData55 = {
+      __iconData54 = {
         name: "settings",
         size: 24,
         node: [
@@ -25081,17 +27925,17 @@
           ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
         ]
       };
-      __iconData55.node;
-      Settings = createLucideIcon(__iconData55);
+      __iconData54.node;
+      Settings = createLucideIcon(__iconData54);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/share-2.mjs
-  var __iconData56, Share2;
+  var __iconData55, Share2;
   var init_share_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/share-2.mjs"() {
       init_createLucideIcon();
-      __iconData56 = {
+      __iconData55 = {
         name: "share-2",
         size: 24,
         node: [
@@ -25102,8 +27946,33 @@
           ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49", key: "1n3mei" }]
         ]
       };
+      __iconData55.node;
+      Share2 = createLucideIcon(__iconData55);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/shield-alert.mjs
+  var __iconData56, ShieldAlert;
+  var init_shield_alert = __esm({
+    "node_modules/lucide-react/dist/esm/icons/shield-alert.mjs"() {
+      init_createLucideIcon();
+      __iconData56 = {
+        name: "shield-alert",
+        size: 24,
+        node: [
+          [
+            "path",
+            {
+              d: "M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z",
+              key: "oel41y"
+            }
+          ],
+          ["path", { d: "M12 8v4", key: "1got3b" }],
+          ["path", { d: "M12 16h.01", key: "1drbdi" }]
+        ]
+      };
       __iconData56.node;
-      Share2 = createLucideIcon(__iconData56);
+      ShieldAlert = createLucideIcon(__iconData56);
     }
   });
 
@@ -25514,7 +28383,6 @@
       init_hand();
       init_headphones();
       init_heart();
-      init_key();
       init_link();
       init_lock();
       init_log_out();
@@ -25539,6 +28407,7 @@
       init_send();
       init_settings();
       init_share_2();
+      init_shield_alert();
       init_shield_check();
       init_skip_back();
       init_skip_forward();
@@ -25633,19 +28502,19 @@
   }
   async function checkRemoteAppVersion() {
     try {
-      let data = null;
+      let data2 = null;
       try {
         const res = await fetch(`./version.json?t=${Date.now()}`, { cache: "no-store" });
-        if (res.ok) data = await res.json();
+        if (res.ok) data2 = await res.json();
       } catch (_2) {
       }
-      if (!data) {
+      if (!data2) {
         const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
           cache: "no-store"
         });
-        if (res.ok) data = await res.json();
+        if (res.ok) data2 = await res.json();
       }
-      if (!data) {
+      if (!data2) {
         return {
           status: "error",
           error: "Unable to reach update server.",
@@ -25653,8 +28522,8 @@
           currentBuild: APP_BUILD_NUMBER
         };
       }
-      const remoteVer = data.version || APP_VERSION;
-      const remoteBuild = parseInt(data.versionCode || APP_BUILD_NUMBER, 10);
+      const remoteVer = data2.version || APP_VERSION;
+      const remoteBuild = parseInt(data2.versionCode || APP_BUILD_NUMBER, 10);
       const storedVer = localStorage.getItem("nithya_installed_version") || APP_VERSION;
       const storedBuild = parseInt(localStorage.getItem("nithya_installed_build") || APP_BUILD_NUMBER.toString(), 10);
       const effectiveBuild = Math.max(APP_BUILD_NUMBER, storedBuild);
@@ -25669,11 +28538,11 @@
           remoteBuild,
           currentVersion: APP_VERSION,
           currentBuild: APP_BUILD_NUMBER,
-          title: data.title || "New Update Available",
-          titleTa: data.titleTa || "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B95\u0BBF\u0B9F\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1",
-          notes: data.notes || "",
-          notesTa: data.notesTa || "",
-          apkUrl: data.apkUrl || "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
+          title: data2.title || "New Update Available",
+          titleTa: data2.titleTa || "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B95\u0BBF\u0B9F\u0BC8\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1",
+          notes: data2.notes || "",
+          notesTa: data2.notesTa || "",
+          apkUrl: data2.apkUrl || "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk"
         };
       }
       localStorage.setItem("nithya_installed_version", APP_VERSION);
@@ -27099,15 +29968,7 @@
     if (!originBase.endsWith("/") && !originBase.includes("?")) {
       originBase += "/";
     }
-    const url = new URL(originBase.startsWith("http") ? originBase : PRODUCTION_BASE);
-    url.searchParams.set("live", classId);
-    if (!("join" in extraParams) && !("role" in extraParams)) {
-      url.searchParams.set("join", "student");
-    }
-    Object.entries(extraParams).forEach(([k, v]) => {
-      if (v) url.searchParams.set(k, v);
-    });
-    return url.toString();
+    return `${originBase}#/student/join/${encodeURIComponent(classId)}`;
   }
   var init_api = __esm({
     "src/utils/api.js"() {
@@ -28271,7 +31132,7 @@ ${studentInviteUrl}`
         className: `tab-pill-flex flex-1 text-xs py-1.5 px-2 rounded-lg font-semibold flex items-center justify-center gap-1.5 transition-all ${subMode === "url" ? "active bg-card shadow-sm text-heading" : "text-muted"}`,
         onClick: () => setSubMode("url")
       },
-      /* @__PURE__ */ import_react13.default.createElement(Link, { size: 13 }),
+      /* @__PURE__ */ import_react13.default.createElement(Link2, { size: 13 }),
       /* @__PURE__ */ import_react13.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAF URL" : "Audio URL")
     )), subMode === "curated" && /* @__PURE__ */ import_react13.default.createElement("div", { className: "curated-tracks-deck mb-3 space-y-2" }, /* @__PURE__ */ import_react13.default.createElement(
       "div",
@@ -28358,7 +31219,7 @@ ${studentInviteUrl}`
       },
       /* @__PURE__ */ import_react13.default.createElement(Play, { size: 12 }),
       /* @__PURE__ */ import_react13.default.createElement("span", null, lang === "ta" ? "\u0B89\u0B9F\u0BA9\u0BC7 \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BC1" : "Play Now")
-    ))), subMode === "url" && /* @__PURE__ */ import_react13.default.createElement("div", { className: "direct-url-box p-3 bg-subtle rounded-xl mb-3 border border-subtle" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center gap-2 mb-2" }, /* @__PURE__ */ import_react13.default.createElement(Link, { size: 16, className: "text-blue" }), /* @__PURE__ */ import_react13.default.createElement("h4", { className: "text-xs font-bold m-0" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B86\u0B9F\u0BBF\u0BAF\u0BCB URL \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Paste Direct Audio Stream URL")), /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-2" }, /* @__PURE__ */ import_react13.default.createElement(
+    ))), subMode === "url" && /* @__PURE__ */ import_react13.default.createElement("div", { className: "direct-url-box p-3 bg-subtle rounded-xl mb-3 border border-subtle" }, /* @__PURE__ */ import_react13.default.createElement("div", { className: "flex items-center gap-2 mb-2" }, /* @__PURE__ */ import_react13.default.createElement(Link2, { size: 16, className: "text-blue" }), /* @__PURE__ */ import_react13.default.createElement("h4", { className: "text-xs font-bold m-0" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0B9F\u0BBF \u0B86\u0B9F\u0BBF\u0BAF\u0BCB URL \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Paste Direct Audio Stream URL")), /* @__PURE__ */ import_react13.default.createElement("div", { className: "space-y-2" }, /* @__PURE__ */ import_react13.default.createElement(
       "input",
       {
         type: "text",
@@ -28989,24 +31850,24 @@ ${studentInviteUrl}`
     const handleCheckUpdates = async () => {
       setIsCheckingUpdate(true);
       try {
-        let data = null;
+        let data2 = null;
         try {
           const localRes = await fetch(`./version.json?t=${Date.now()}`, { cache: "no-store" });
-          if (localRes.ok) data = await localRes.json();
+          if (localRes.ok) data2 = await localRes.json();
         } catch (_2) {
         }
-        if (!data) {
+        if (!data2) {
           const res = await fetch(`https://sarath2003-sketch.github.io/nithya-yoga/version.json?t=${Date.now()}`, {
             cache: "no-store"
           });
-          if (res.ok) data = await res.json();
+          if (res.ok) data2 = await res.json();
         }
-        if (data) {
-          setRemoteUpdate(data);
+        if (data2) {
+          setRemoteUpdate(data2);
           if (showToast) {
             showToast(
               lang === "ta" ? "\u0B85\u0BAA\u0BCD\u0B9F\u0BC7\u0B9F\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Update Check Completed \u2713",
-              lang === "ta" ? `\u0B95\u0BBF\u0B9F\u0BC8\u0B95\u0BCD\u0B95\u0B95\u0BCD\u0B95\u0BC2\u0B9F\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1: v${data.version}` : `Available Version: v${data.version}`,
+              lang === "ta" ? `\u0B95\u0BBF\u0B9F\u0BC8\u0B95\u0BCD\u0B95\u0B95\u0BCD\u0B95\u0BC2\u0B9F\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1: v${data2.version}` : `Available Version: v${data2.version}`,
               "info"
             );
           }
@@ -29787,9 +32648,9 @@ ${studentInviteUrl}`
     var _a2;
     const localName = (_a2 = opt === null || opt === void 0 ? void 0 : opt.localName) !== null && _a2 !== void 0 ? _a2 : typeName.substring(typeName.lastIndexOf(".") + 1);
     const type = {
-      [localName]: function(data) {
+      [localName]: function(data2) {
         runtime.util.initFields(this);
-        runtime.util.initPartial(data, this);
+        runtime.util.initPartial(data2, this);
       }
     }[localName];
     Object.setPrototypeOf(type.prototype, new Message());
@@ -30382,8 +33243,8 @@ ${studentInviteUrl}`
     const reader = readOpt.readerFactory(writer2.finish());
     while (reader.pos < reader.len) {
       const _reader$tag = reader.tag(), _reader$tag2 = _slicedToArray(_reader$tag, 2), no = _reader$tag2[0], wireType = _reader$tag2[1];
-      const data = reader.skip(wireType, no);
-      message.getType().runtime.bin.onUnknownField(message, no, wireType, data);
+      const data2 = reader.skip(wireType, no);
+      message.getType().runtime.bin.onUnknownField(message, no, wireType, data2);
     }
   }
   function hasExtension(message, extension) {
@@ -31012,7 +33873,7 @@ ${studentInviteUrl}`
           }
         }
       },
-      onUnknownField(message, no, wireType, data) {
+      onUnknownField(message, no, wireType, data2) {
         const m = message;
         if (!Array.isArray(m[unknownFieldsSymbol])) {
           m[unknownFieldsSymbol] = [];
@@ -31020,7 +33881,7 @@ ${studentInviteUrl}`
         m[unknownFieldsSymbol].push({
           no,
           wireType,
-          data
+          data: data2
         });
       },
       readMessage(message, reader, lengthOrEndTagFieldNo, options, delimitedMessageEncoding) {
@@ -31037,9 +33898,9 @@ ${studentInviteUrl}`
           }
           const field = type.fields.find(fieldNo);
           if (!field) {
-            const data = reader.skip(wireType, fieldNo);
+            const data2 = reader.skip(wireType, fieldNo);
             if (options.readUnknownFields) {
-              this.onUnknownField(message, fieldNo, wireType, data);
+              this.onUnknownField(message, fieldNo, wireType, data2);
             }
             continue;
           }
@@ -32065,8 +34926,8 @@ ${studentInviteUrl}`
         return Object.getOwnPropertyNames(target);
       };
     }
-    function ProcessEmitWarning(warning) {
-      if (console && console.warn) console.warn(warning);
+    function ProcessEmitWarning(warning2) {
+      if (console && console.warn) console.warn(warning2);
     }
     var NumberIsNaN = Number.isNaN || function NumberIsNaN2(value) {
       return value !== value;
@@ -32540,13 +35401,13 @@ ${studentInviteUrl}`
   function isObject$1(val) {
     return Object.prototype.toString.call(val) === "[object Object]";
   }
-  function compactObject(data) {
-    if (!isObject$1(data)) {
-      return data;
+  function compactObject(data2) {
+    if (!isObject$1(data2)) {
+      return data2;
     }
-    return Object.keys(data).reduce(function(accumulator, key) {
-      const isObj = isObject$1(data[key]);
-      const value = isObj ? compactObject(data[key]) : data[key];
+    return Object.keys(data2).reduce(function(accumulator, key) {
+      const isObj = isObject$1(data2[key]);
+      const value = isObj ? compactObject(data2[key]) : data2[key];
       const isEmptyObject = isObj && !Object.keys(value).length;
       if (value === void 0 || isEmptyObject) {
         return accumulator;
@@ -34655,8 +37516,8 @@ ${studentInviteUrl}`
     function wrapDcSend(dc, pc) {
       const origDataChannelSend = dc.send;
       dc.send = function send() {
-        const data = arguments[0];
-        const length = data.length || data.size || data.byteLength;
+        const data2 = arguments[0];
+        const length = data2.length || data2.size || data2.byteLength;
         if (dc.readyState === "open" && pc.sctp && length > pc.sctp.maxMessageSize) {
           throw new TypeError("Message too large (can send a maximum of " + pc.sctp.maxMessageSize + " bytes)");
         }
@@ -37731,11 +40592,11 @@ ${studentInviteUrl}`
   function inflateRawTransform() {
     return new DecompressionStream("deflate-raw");
   }
-  function deflateRawDecompress(data, maxByteLength) {
+  function deflateRawDecompress(data2, maxByteLength) {
     return __awaiter(this, void 0, void 0, function* () {
       const ds = new DecompressionStream("deflate-raw");
       const writer2 = ds.writable.getWriter();
-      writer2.write(data).catch(() => {
+      writer2.write(data2).catch(() => {
       });
       writer2.close().catch(() => {
       });
@@ -39026,11 +41887,11 @@ ${studentInviteUrl}`
         }
       );
       Timestamp = class _Timestamp extends Message {
-        constructor(data) {
+        constructor(data2) {
           super();
           this.seconds = protoInt64.zero;
           this.nanos = 0;
-          proto3.util.initPartial(data, this);
+          proto3.util.initPartial(data2, this);
         }
         fromJson(json, options) {
           if (typeof json !== "string") {
@@ -44190,68 +47051,68 @@ ${studentInviteUrl}`
           this.log = getLogger(LoggerNames.E2EE, () => this.logContext);
           this.onWorkerMessage = (ev) => {
             var _a2, _b2;
-            const _ev$data = ev.data, kind = _ev$data.kind, data = _ev$data.data;
+            const _ev$data = ev.data, kind = _ev$data.kind, data2 = _ev$data.data;
             switch (kind) {
               case "error":
-                if (data.uuid) {
-                  const decryptFuture2 = this.decryptDataRequests.get(data.uuid);
+                if (data2.uuid) {
+                  const decryptFuture2 = this.decryptDataRequests.get(data2.uuid);
                   if (decryptFuture2 === null || decryptFuture2 === void 0 ? void 0 : decryptFuture2.reject) {
-                    decryptFuture2.reject(data.error);
+                    decryptFuture2.reject(data2.error);
                     break;
                   }
-                  const encryptFuture2 = this.encryptDataRequests.get(data.uuid);
+                  const encryptFuture2 = this.encryptDataRequests.get(data2.uuid);
                   if (encryptFuture2 === null || encryptFuture2 === void 0 ? void 0 : encryptFuture2.reject) {
-                    encryptFuture2.reject(data.error);
+                    encryptFuture2.reject(data2.error);
                     break;
                   }
                 }
-                this.log.error(data.error.message);
-                this.emit(EncryptionEvent.EncryptionError, data.error, data.participantIdentity);
+                this.log.error(data2.error.message);
+                this.emit(EncryptionEvent.EncryptionError, data2.error, data2.participantIdentity);
                 break;
               case "initAck":
-                if (data.enabled) {
+                if (data2.enabled) {
                   this.keyProvider.getKeys().forEach((keyInfo) => {
                     this.postKey(keyInfo, false);
                   });
                 }
                 break;
               case "enable":
-                if (data.enabled) {
+                if (data2.enabled) {
                   this.keyProvider.getKeys().forEach((keyInfo) => {
                     this.postKey(keyInfo, false);
                   });
                 }
-                if (this.encryptionEnabled !== data.enabled && data.participantIdentity === ((_a2 = this.room) === null || _a2 === void 0 ? void 0 : _a2.localParticipant.identity)) {
-                  this.emit(EncryptionEvent.ParticipantEncryptionStatusChanged, data.enabled, this.room.localParticipant);
-                  this.encryptionEnabled = data.enabled;
-                } else if (data.participantIdentity) {
-                  const participant = (_b2 = this.room) === null || _b2 === void 0 ? void 0 : _b2.getParticipantByIdentity(data.participantIdentity);
+                if (this.encryptionEnabled !== data2.enabled && data2.participantIdentity === ((_a2 = this.room) === null || _a2 === void 0 ? void 0 : _a2.localParticipant.identity)) {
+                  this.emit(EncryptionEvent.ParticipantEncryptionStatusChanged, data2.enabled, this.room.localParticipant);
+                  this.encryptionEnabled = data2.enabled;
+                } else if (data2.participantIdentity) {
+                  const participant = (_b2 = this.room) === null || _b2 === void 0 ? void 0 : _b2.getParticipantByIdentity(data2.participantIdentity);
                   if (!participant) {
-                    throw TypeError("couldn't set encryption status, participant not found".concat(data.participantIdentity));
+                    throw TypeError("couldn't set encryption status, participant not found".concat(data2.participantIdentity));
                   }
-                  this.emit(EncryptionEvent.ParticipantEncryptionStatusChanged, data.enabled, participant);
+                  this.emit(EncryptionEvent.ParticipantEncryptionStatusChanged, data2.enabled, participant);
                 }
                 break;
               case "ratchetKey":
-                this.keyProvider.emit(KeyProviderEvent.KeyRatcheted, data.ratchetResult, data.participantIdentity, data.keyIndex);
+                this.keyProvider.emit(KeyProviderEvent.KeyRatcheted, data2.ratchetResult, data2.participantIdentity, data2.keyIndex);
                 break;
               case "decryptDataResponse":
-                const decryptFuture = this.decryptDataRequests.get(data.uuid);
+                const decryptFuture = this.decryptDataRequests.get(data2.uuid);
                 if (decryptFuture === null || decryptFuture === void 0 ? void 0 : decryptFuture.resolve) {
-                  decryptFuture.resolve(data);
+                  decryptFuture.resolve(data2);
                 }
                 break;
               case "encryptDataResponse":
-                const encryptFuture = this.encryptDataRequests.get(data.uuid);
+                const encryptFuture = this.encryptDataRequests.get(data2.uuid);
                 if (encryptFuture === null || encryptFuture === void 0 ? void 0 : encryptFuture.resolve) {
-                  encryptFuture.resolve(data);
+                  encryptFuture.resolve(data2);
                 }
                 break;
               case "packetTrailerMetadata":
-                this.handleFrameMetadata(data.trackId, data.rtpTimestamp, data.ssrc, data.metadata);
+                this.handleFrameMetadata(data2.trackId, data2.rtpTimestamp, data2.ssrc, data2.metadata);
                 break;
               case "log":
-                workerLogger[data.level](data.msg, data.context);
+                workerLogger[data2.level](data2.msg, data2.context);
                 break;
             }
           };
@@ -44453,7 +47314,7 @@ ${studentInviteUrl}`
           });
           keyProvider.on(KeyProviderEvent.SetKey, (keyInfo, updateCurrentKeyIndex) => this.postKey(keyInfo, updateCurrentKeyIndex !== null && updateCurrentKeyIndex !== void 0 ? updateCurrentKeyIndex : true)).on(KeyProviderEvent.RatchetRequest, (participantId, keyIndex) => this.postRatchetRequest(participantId, keyIndex));
         }
-        encryptData(data) {
+        encryptData(data2) {
           return __awaiter(this, void 0, void 0, function* () {
             if (!this.worker) {
               throw Error("could not encrypt data, worker is missing");
@@ -44463,7 +47324,7 @@ ${studentInviteUrl}`
               kind: "encryptDataRequest",
               data: {
                 uuid,
-                payload: data,
+                payload: data2,
                 participantIdentity: this.room.localParticipant.identity
               }
             };
@@ -45298,11 +48159,11 @@ ${studentInviteUrl}`
         * it lets relay listeners (like Fsm's bfsm proxy) observe all events
         * before specific subscribers react.
         */
-        emit(event, data) {
+        emit(event, data2) {
           const wildcards = this.listeners.get("*");
-          if (wildcards) for (const cb of wildcards) cb(event, data);
+          if (wildcards) for (const cb of wildcards) cb(event, data2);
           const named = this.listeners.get(event);
-          if (named) for (const cb of named) cb(data);
+          if (named) for (const cb of named) cb(data2);
         }
         /**
         * Remove all listeners (named and wildcard).
@@ -45751,9 +48612,9 @@ ${studentInviteUrl}`
         * emitted automatically — this is for user-defined events from handlers.
         * No-ops when disposed.
         */
-        emit(eventName, data) {
+        emit(eventName, data2) {
           if (this.disposed) return;
-          this.emitter.emit(eventName, data);
+          this.emitter.emit(eventName, data2);
         }
         /**
         * Permanently shut down this FSM. Irreversible — all subsequent method
@@ -45814,10 +48675,10 @@ ${studentInviteUrl}`
             const childLink = (_this$states$stateNam4 = this.states[stateName]) === null || _this$states$stateNam4 === void 0 ? void 0 : _this$states$stateNam4._child;
             if (!childLink || seenInstances.has(childLink.instance)) continue;
             seenInstances.add(childLink.instance);
-            const sub = childLink.onAny((eventName, data) => {
+            const sub = childLink.onAny((eventName, data2) => {
               if (eventName === "nohandler") {
                 var _payload$args;
-                const payload2 = data;
+                const payload2 = data2;
                 if (payload2.client !== void 0) this.bubbleNohandler(payload2.client, childLink, payload2.inputName, (_payload$args = payload2.args) !== null && _payload$args !== void 0 ? _payload$args : []);
                 else for (const ref of this.knownClients) {
                   var _payload$args2;
@@ -45830,9 +48691,9 @@ ${studentInviteUrl}`
                 }
                 return;
               }
-              const payload = data;
+              const payload = data2;
               if (payload && typeof payload === "object" && "client" in payload) {
-                if (this.isChildActiveForClient(payload.client, childLink)) this.emitter.emit(eventName, data);
+                if (this.isChildActiveForClient(payload.client, childLink)) this.emitter.emit(eventName, data2);
               } else for (const ref of this.knownClients) {
                 const client = ref.deref();
                 if (!client) {
@@ -45840,7 +48701,7 @@ ${studentInviteUrl}`
                   continue;
                 }
                 if (this.isChildActiveForClient(client, childLink)) {
-                  this.emitter.emit(eventName, data);
+                  this.emitter.emit(eventName, data2);
                   break;
                 }
               }
@@ -45974,12 +48835,12 @@ ${studentInviteUrl}`
           this.context = (_config$context = config.context) !== null && _config$context !== void 0 ? _config$context : {};
           this.bfsm = new BehavioralFsm(config);
           this.states = config.states;
-          this.bfsm.on("*", (eventName, data) => {
-            if (data && typeof data === "object" && "client" in data) {
-              data.client;
-              const payload = _objectWithoutProperties(data, _excluded);
+          this.bfsm.on("*", (eventName, data2) => {
+            if (data2 && typeof data2 === "object" && "client" in data2) {
+              data2.client;
+              const payload = _objectWithoutProperties(data2, _excluded);
               this.emitter.emit(eventName, payload);
-            } else this.emitter.emit(eventName, data);
+            } else this.emitter.emit(eventName, data2);
           });
           this.bfsm.transition(this.context, config.initialState);
         }
@@ -46052,9 +48913,9 @@ ${studentInviteUrl}`
         * Routes through the BehavioralFsm so all relay paths are consistent.
         * No-ops when disposed.
         */
-        emit(eventName, data) {
+        emit(eventName, data2) {
           if (this.disposed) return;
-          this.bfsm.emit(eventName, data);
+          this.bfsm.emit(eventName, data2);
         }
         /**
         * Permanently shut down this FSM. Irreversible — all subsequent method
@@ -46171,8 +49032,8 @@ ${studentInviteUrl}`
                 readable: new ReadableStream({
                   start(controller) {
                     ws.onmessage = (_ref2) => {
-                      let data = _ref2.data;
-                      return controller.enqueue(data);
+                      let data2 = _ref2.data;
+                      return controller.enqueue(data2);
                     };
                     ws.onerror = (e2) => controller.error(ConnectionError.websocket(getErrorDescription(e2, "websocket")));
                     ws.onclose = (ev) => {
@@ -48766,19 +51627,19 @@ ${studentInviteUrl}`
             start: (controller) => {
               streamController = controller;
               dataListener = (event) => __awaiter(this, void 0, void 0, function* () {
-                let data;
+                let data2;
                 if (event.data.arrayBuffer) {
                   const arrayBuffer = yield event.data.arrayBuffer();
-                  data = new Uint8Array(arrayBuffer);
+                  data2 = new Uint8Array(arrayBuffer);
                 } else if (event.data.byteArray) {
-                  data = event.data.byteArray;
+                  data2 = event.data.byteArray;
                 } else {
                   throw new Error("no data available!");
                 }
                 if (isClosed()) {
                   return;
                 }
-                controller.enqueue(data);
+                controller.enqueue(data2);
               });
               this.addEventListener("dataavailable", dataListener);
             },
@@ -54975,11 +57836,11 @@ ${studentInviteUrl}`
          *
          * Error codes 1001-1999 are reserved for built-in errors (see RpcError.ErrorCode for their meanings).
          */
-        constructor(code, message, data, options) {
+        constructor(code, message, data2, options) {
           super(message);
           this.code = code;
           this.message = truncateBytes(message, _RpcError.MAX_MESSAGE_BYTES);
-          this.data = data ? truncateBytes(data, _RpcError.MAX_DATA_BYTES) : void 0;
+          this.data = data2 ? truncateBytes(data2, _RpcError.MAX_DATA_BYTES) : void 0;
           if (typeof (options === null || options === void 0 ? void 0 : options.cause) !== "undefined") {
             this.cause = options === null || options === void 0 ? void 0 : options.cause;
           }
@@ -55005,8 +57866,8 @@ ${studentInviteUrl}`
          *
          * @internal
          */
-        static builtIn(key, data, options) {
-          return new _RpcError(_RpcError.ErrorCode[key], _RpcError.ErrorMessage[key], data, options);
+        static builtIn(key, data2, options) {
+          return new _RpcError(_RpcError.ErrorCode[key], _RpcError.ErrorMessage[key], data2, options);
         }
       };
       RpcError.MAX_MESSAGE_BYTES = 256;
@@ -57453,7 +60314,7 @@ ${studentInviteUrl}`
          * @param options optionally specify a `reliable`, `topic` and `destination`
          */
         publishData(data_1) {
-          return __awaiter(this, arguments, void 0, function(data) {
+          return __awaiter(this, arguments, void 0, function(data2) {
             var _this4 = this;
             let options = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
             return (function* () {
@@ -57463,7 +60324,7 @@ ${studentInviteUrl}`
               const topic = options.topic;
               let userPacket = new UserPacket({
                 participantIdentity: _this4.identity,
-                payload: data,
+                payload: data2,
                 destinationIdentities,
                 topic
               });
@@ -60829,10 +63690,10 @@ ${studentInviteUrl}`
                   const ctx = canvas.getContext("2d");
                   ctx.drawImage(video, 0, 0);
                   const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-                  const data = imageData.data;
+                  const data2 = imageData.data;
                   let isAllBlack = true;
-                  for (let i = 0; i < data.length; i += 4) {
-                    if (data[i] !== 0 || data[i + 1] !== 0 || data[i + 2] !== 0) {
+                  for (let i = 0; i < data2.length; i += 4) {
+                    if (data2[i] !== 0 || data2[i + 1] !== 0 || data2[i + 2] !== 0) {
                       isAllBlack = false;
                       break;
                     }
@@ -61309,13 +64170,13 @@ ${studentInviteUrl}`
     }
     return result;
   }
-  function $0cfd7828ad59115f$export$417857010dc9287f(data) {
-    const unpacker = new $0cfd7828ad59115f$var$Unpacker(data);
+  function $0cfd7828ad59115f$export$417857010dc9287f(data2) {
+    const unpacker = new $0cfd7828ad59115f$var$Unpacker(data2);
     return unpacker.unpack();
   }
-  function $0cfd7828ad59115f$export$2a703dbb0cb35339(data) {
+  function $0cfd7828ad59115f$export$2a703dbb0cb35339(data2) {
     const packer = new $0cfd7828ad59115f$export$b9ec4b114aa40074();
-    const res = packer.pack(data);
+    const res = packer.pack(data2);
     if (res instanceof Promise) return res.then(() => packer.getBuffer());
     return packer.getBuffer();
   }
@@ -61328,12 +64189,12 @@ ${studentInviteUrl}`
           this._pieces = [];
           this._parts = [];
         }
-        append_buffer(data) {
+        append_buffer(data2) {
           this.flush();
-          this._parts.push(data);
+          this._parts.push(data2);
         }
-        append(data) {
-          this._pieces.push(data);
+        append(data2) {
+          this._pieces.push(data2);
         }
         flush() {
           if (this._pieces.length > 0) {
@@ -61349,9 +64210,9 @@ ${studentInviteUrl}`
         }
       };
       $0cfd7828ad59115f$var$Unpacker = class {
-        constructor(data) {
+        constructor(data2) {
           this.index = 0;
-          this.dataBuffer = data;
+          this.dataBuffer = data2;
           this.dataView = new Uint8Array(this.dataBuffer);
           this.length = this.dataBuffer.byteLength;
         }
@@ -61912,13 +64773,13 @@ ${studentInviteUrl}`
   function isObject(val) {
     return Object.prototype.toString.call(val) === "[object Object]";
   }
-  function compactObject2(data) {
-    if (!isObject(data)) {
-      return data;
+  function compactObject2(data2) {
+    if (!isObject(data2)) {
+      return data2;
     }
-    return Object.keys(data).reduce(function(accumulator, key) {
-      const isObj = isObject(data[key]);
-      const value = isObj ? compactObject2(data[key]) : data[key];
+    return Object.keys(data2).reduce(function(accumulator, key) {
+      const isObj = isObject(data2[key]);
+      const value = isObj ? compactObject2(data2[key]) : data2[key];
       const isEmptyObject = isObj && !Object.keys(value).length;
       if (value === void 0 || isEmptyObject) {
         return accumulator;
@@ -64188,8 +67049,8 @@ ${studentInviteUrl}`
     function wrapDcSend(dc, pc) {
       const origDataChannelSend = dc.send;
       dc.send = function send() {
-        const data = arguments[0];
-        const length = data.length || data.size || data.byteLength;
+        const data2 = arguments[0];
+        const length = data2.length || data2.size || data2.byteLength;
         if (dc.readyState === "open" && pc.sctp && length > pc.sctp.maxMessageSize) {
           throw new TypeError("Message too large (can send a maximum of " + pc.sctp.maxMessageSize + " bytes)");
         }
@@ -64941,15 +67802,15 @@ ${studentInviteUrl}`
           this._socket = new WebSocket(wsUrl + "&version=" + (0, $520832d44ba058c8$export$83d89fbfd8236492));
           this._disconnected = false;
           this._socket.onmessage = (event) => {
-            let data;
+            let data2;
             try {
-              data = JSON.parse(event.data);
-              (0, $257947e92926277a$export$2e2bcd8739ae039).log("Server message received:", data);
+              data2 = JSON.parse(event.data);
+              (0, $257947e92926277a$export$2e2bcd8739ae039).log("Server message received:", data2);
             } catch (e2) {
               (0, $257947e92926277a$export$2e2bcd8739ae039).log("Invalid server message", event.data);
               return;
             }
-            this.emit((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Message, data);
+            this.emit((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Message, data2);
           };
           this._socket.onclose = (event) => {
             if (this._disconnected) return;
@@ -64994,18 +67855,18 @@ ${studentInviteUrl}`
           for (const message of copiedQueue) this.send(message);
         }
         /** Exposed send for DC & Peer. */
-        send(data) {
+        send(data2) {
           if (this._disconnected) return;
           if (!this._id) {
-            this._messagesQueue.push(data);
+            this._messagesQueue.push(data2);
             return;
           }
-          if (!data.type) {
+          if (!data2.type) {
             this.emit((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Error, "Invalid message");
             return;
           }
           if (!this._wsOpen()) return;
-          const message = JSON.stringify(data);
+          const message = JSON.stringify(data2);
           this._socket.send(message);
         }
         close() {
@@ -65486,12 +68347,12 @@ ${studentInviteUrl}`
           super.emit("close");
         }
         /** Allows user to send data. */
-        send(data, chunked = false) {
+        send(data2, chunked = false) {
           if (!this.open) {
             this.emitError((0, $78455e22dea96b8c$export$49ae800c114df41d).NotOpenYet, "Connection is not open. You should listen for the `open` event before sending messages.");
             return;
           }
-          return this._send(data, chunked);
+          return this._send(data2, chunked);
         }
         async handleMessage(message) {
           const payload = message.payload;
@@ -65586,8 +68447,8 @@ ${studentInviteUrl}`
           super(peerId, provider, options), this.chunker = new (0, $fcbcc7538a6776d5$export$f1c5f4c9cb95390b)(), this.serialization = (0, $78455e22dea96b8c$export$89f507cf986a947).Binary, this._chunkedData = {};
         }
         // Handles a DataChannel message.
-        _handleDataMessage({ data }) {
-          const deserializedData = (0, $0cfd7828ad59115f$export$417857010dc9287f)(data);
+        _handleDataMessage({ data: data2 }) {
+          const deserializedData = (0, $0cfd7828ad59115f$export$417857010dc9287f)(data2);
           const peerData = deserializedData["__peerData"];
           if (peerData) {
             if (peerData.type === "close") {
@@ -65599,26 +68460,26 @@ ${studentInviteUrl}`
           }
           this.emit("data", deserializedData);
         }
-        _handleChunk(data) {
-          const id = data.__peerData;
+        _handleChunk(data2) {
+          const id = data2.__peerData;
           const chunkInfo = this._chunkedData[id] || {
             data: [],
             count: 0,
-            total: data.total
+            total: data2.total
           };
-          chunkInfo.data[data.n] = new Uint8Array(data.data);
+          chunkInfo.data[data2.n] = new Uint8Array(data2.data);
           chunkInfo.count++;
           this._chunkedData[id] = chunkInfo;
           if (chunkInfo.total === chunkInfo.count) {
             delete this._chunkedData[id];
-            const data2 = (0, $fcbcc7538a6776d5$export$52c89ebcdc4f53f2)(chunkInfo.data);
+            const data3 = (0, $fcbcc7538a6776d5$export$52c89ebcdc4f53f2)(chunkInfo.data);
             this._handleDataMessage({
-              data: data2
+              data: data3
             });
           }
         }
-        _send(data, chunked) {
-          const blob = (0, $0cfd7828ad59115f$export$2a703dbb0cb35339)(data);
+        _send(data2, chunked) {
+          const blob = (0, $0cfd7828ad59115f$export$2a703dbb0cb35339)(data2);
           if (blob instanceof Promise) return this._send_blob(blob);
           if (!chunked && blob.byteLength > this.chunker.chunkedMTU) {
             this._sendChunks(blob);
@@ -65641,11 +68502,11 @@ ${studentInviteUrl}`
         }
       };
       $bbaee3f15f714663$export$6f88fe47d32c9c94 = class extends (0, $a229bedbcaa6ca23$export$ff7c9d4c11d94e8b) {
-        _handleDataMessage({ data }) {
-          super.emit("data", data);
+        _handleDataMessage({ data: data2 }) {
+          super.emit("data", data2);
         }
-        _send(data, _chunked) {
-          this._bufferedSend(data);
+        _send(data2, _chunked) {
+          this._bufferedSend(data2);
         }
         constructor(...args) {
           super(...args), this.serialization = (0, $78455e22dea96b8c$export$89f507cf986a947).None;
@@ -65653,8 +68514,8 @@ ${studentInviteUrl}`
       };
       $817f931e3f9096cf$export$48880ac635f47186 = class extends (0, $a229bedbcaa6ca23$export$ff7c9d4c11d94e8b) {
         // Handles a DataChannel message.
-        _handleDataMessage({ data }) {
-          const deserializedData = this.parse(this.decoder.decode(data));
+        _handleDataMessage({ data: data2 }) {
+          const deserializedData = this.parse(this.decoder.decode(data2));
           const peerData = deserializedData["__peerData"];
           if (peerData && peerData.type === "close") {
             this.close();
@@ -65662,8 +68523,8 @@ ${studentInviteUrl}`
           }
           this.emit("data", deserializedData);
         }
-        _send(data, _chunked) {
-          const encodedData = this.encoder.encode(this.stringify(data));
+        _send(data2, _chunked) {
+          const encodedData = this.encoder.encode(this.stringify(data2));
           if (encodedData.byteLength >= (0, $4f4134156c446392$export$7debb50ef11d5e0b).chunkedMTU) {
             this.emitError((0, $78455e22dea96b8c$export$49ae800c114df41d).MessageToBig, "Message too big for JSON channel");
             return;
@@ -65771,8 +68632,8 @@ ${studentInviteUrl}`
         }
         _createServerConnection() {
           const socket = new (0, $8f5bfa60836d261d$export$4798917dbf149b79)(this._options.secure, this._options.host, this._options.port, this._options.path, this._options.key, this._options.pingInterval);
-          socket.on((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Message, (data) => {
-            this._handleMessage(data);
+          socket.on((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Message, (data2) => {
+            this._handleMessage(data2);
           });
           socket.on((0, $78455e22dea96b8c$export$3b5c4a4b6354f023).Error, (error) => {
             this._abort((0, $78455e22dea96b8c$export$9547aaa2e39030ff).SocketError, error);
@@ -66202,6 +69063,8 @@ ${studentInviteUrl}`
   function LiveYogaClassRoom({
     activeClass,
     user,
+    sessionId,
+    isTeacherMode,
     onLeaveClass,
     onRecordAttendance,
     onNavigateAdmin,
@@ -66246,9 +69109,10 @@ ${studentInviteUrl}`
     const [backendActiveCount, setBackendActiveCount] = (0, import_react22.useState)(0);
     const [backendStudentCount, setBackendStudentCount] = (0, import_react22.useState)(0);
     const [activeRoomSessionId, setActiveRoomSessionId] = (0, import_react22.useState)(() => {
+      if (sessionId) return sessionId;
       try {
         const params = new URLSearchParams(window.location.search);
-        const liveParam = params.get("live");
+        const liveParam = params.get("live") || params.get("room");
         if (liveParam) return liveParam;
       } catch (_2) {
       }
@@ -66329,6 +69193,7 @@ ${studentInviteUrl}`
       }
     };
     const checkIsInstructor = () => {
+      if (isTeacherMode === false) return false;
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         if (params && (params.get("join") === "student" || params.get("role") === "student" || Boolean(params.get("invite")))) {
@@ -66338,8 +69203,8 @@ ${studentInviteUrl}`
         if (activeRole === "student") return false;
         const studentSession = typeof localStorage !== "undefined" ? localStorage.getItem("nithya_student_session") : null;
         if (studentSession && activeRole !== "instructor") return false;
-        const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
-        return Boolean(hasTeacherToken && (activeRole === "instructor" || user?.role === "trainer" || user?.isInstructor));
+        const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
+        return Boolean(hasTeacherToken && (activeRole === "instructor" || user?.role === "trainer" || user?.isInstructor || isTeacherMode));
       } catch (_2) {
       }
       return false;
@@ -66442,11 +69307,11 @@ ${studentInviteUrl}`
       return `${hrs > 0 ? `${hrs}:` : ""}${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
     };
     (0, import_react22.useEffect)(() => {
-      apiFetch2("/api/livekit/status").then((data) => {
-        if (!data.configured) {
+      apiFetch2("/api/livekit/status").then((data2) => {
+        if (!data2.configured) {
           setNeedsSetup(true);
         }
-        if (data.serverUrl) setConfigUrl(data.serverUrl);
+        if (data2.serverUrl) setConfigUrl(data2.serverUrl);
       }).catch((err) => {
         console.warn("Backend LiveKit status check:", err.message);
       });
@@ -66545,19 +69410,19 @@ ${studentInviteUrl}`
                   }
                 });
               });
-              conn.on("data", (data) => {
-                if (data?.type === "chat" && data.text) {
+              conn.on("data", (data2) => {
+                if (data2?.type === "chat" && data2.text) {
                   setChatMessages((prev) => [
                     ...prev,
                     {
                       id: `msg-${Date.now()}-${Math.random()}`,
-                      sender: data.sender || "Instructor",
-                      text: data.text,
+                      sender: data2.sender || "Instructor",
+                      text: data2.text,
                       time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
                       isSystem: false
                     }
                   ]);
-                } else if (data?.type === "class-ended") {
+                } else if (data2?.type === "class-ended") {
                   setClassEndedNotice(true);
                 }
               });
@@ -66625,29 +69490,29 @@ ${studentInviteUrl}`
           });
           peer.on("connection", (conn) => {
             activeConnsRef.current.push(conn);
-            conn.on("data", (data) => {
-              if (data?.type === "student_joined" && data.student) {
+            conn.on("data", (data2) => {
+              if (data2?.type === "student_joined" && data2.student) {
                 setConnectedStudentsList((prev) => {
                   const updated = [
-                    data.student,
-                    ...prev.filter((s) => s.phone !== data.student.phone && s.identity !== data.student.identity)
+                    data2.student,
+                    ...prev.filter((s) => s.phone !== data2.student.phone && s.identity !== data2.student.identity)
                   ];
                   saveStorage("nithya_live_participants", updated);
                   return updated;
                 });
-              } else if (data?.type === "chat" && data.text) {
+              } else if (data2?.type === "chat" && data2.text) {
                 setChatMessages((prev) => [
                   ...prev,
                   {
                     id: `msg-${Date.now()}-${Math.random()}`,
-                    sender: data.sender || "Student",
-                    text: data.text,
+                    sender: data2.sender || "Student",
+                    text: data2.text,
                     time: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }),
                     isSystem: false
                   }
                 ]);
-              } else if (data?.type === "raise-hand") {
-                setRaisedHands((prev) => new Set(prev).add(data.identity || conn.peer));
+              } else if (data2?.type === "raise-hand") {
+                setRaisedHands((prev) => new Set(prev).add(data2.identity || conn.peer));
               }
             });
             conn.on("close", () => {
@@ -66790,7 +69655,7 @@ ${studentInviteUrl}`
           if (authToken) {
             reqHeaders["Authorization"] = `Bearer ${authToken}`;
           }
-          const data = await apiFetch2("/api/livekit/token", {
+          const data2 = await apiFetch2("/api/livekit/token", {
             method: "POST",
             headers: reqHeaders,
             body: JSON.stringify({
@@ -66800,7 +69665,7 @@ ${studentInviteUrl}`
               isInstructor: isInstructorRole
             })
           });
-          if (data.token && data.serverUrl && !data.needsConfig) {
+          if (data2.token && data2.serverUrl && !data2.needsConfig) {
             const liveRoom = new Room({
               adaptiveStream: true,
               dynacast: true,
@@ -66875,7 +69740,7 @@ ${studentInviteUrl}`
               } catch (_2) {
               }
             });
-            await liveRoom.connect(data.serverUrl, data.token);
+            await liveRoom.connect(data2.serverUrl, data2.token);
             await liveRoom.localParticipant.setMicrophoneEnabled(isMicOn).catch(() => {
             });
             await liveRoom.localParticipant.setCameraEnabled(isVideoOn, { facingMode: cameraFacing }).catch(() => {
@@ -67469,8 +70334,8 @@ ${appLaunchScheme}`;
         const clean = (backendUrl || "").trim().replace(/\/+$/, "");
         const testUrl = clean ? `${clean}/api/health` : "/api/health";
         const res = await fetch(testUrl);
-        const data = await res.json().catch(() => ({}));
-        if (res.ok && (data.status === "ok" || data.name)) {
+        const data2 = await res.json().catch(() => ({}));
+        if (res.ok && (data2.status === "ok" || data2.name)) {
           setTestBackendStatus("success");
         } else {
           setTestBackendStatus("error");
@@ -67488,7 +70353,7 @@ ${appLaunchScheme}`;
           const adminToken = localStorage.getItem("nithya_admin_token");
           const headers = {};
           if (adminToken) headers["Authorization"] = `Bearer ${adminToken}`;
-          const data = await apiFetch2("/api/livekit/config", {
+          const data2 = await apiFetch2("/api/livekit/config", {
             method: "POST",
             headers,
             body: JSON.stringify({
@@ -67497,7 +70362,7 @@ ${appLaunchScheme}`;
               apiSecret: configApiSecret
             })
           });
-          if (data.success) {
+          if (data2.success) {
             setNeedsSetup(false);
           }
         }
@@ -68423,1312 +71288,10 @@ Verified WebRTC Attendance Session`;
   });
 
   // src/components/AdminPortalSection.jsx
-  function AdminPortalSection({
-    onLaunchInstructorStudio,
-    onAuthSuccess,
-    showToast,
-    lang = "en"
-  }) {
-    const [adminToken, setAdminToken] = (0, import_react23.useState)(() => localStorage.getItem("nithya_admin_token") || "");
-    const [activeTab, setActiveTab] = (0, import_react23.useState)("classes");
-    const [authMode, setAuthMode] = (0, import_react23.useState)("login");
-    const [email, setEmail] = (0, import_react23.useState)("");
-    const [password, setPassword] = (0, import_react23.useState)("");
-    const [showPassword, setShowPassword] = (0, import_react23.useState)(false);
-    const [regName, setRegName] = (0, import_react23.useState)("");
-    const [regEmail, setRegEmail] = (0, import_react23.useState)("");
-    const [regPhone, setRegPhone] = (0, import_react23.useState)("");
-    const [regPassword, setRegPassword] = (0, import_react23.useState)("");
-    const [regConfirmPassword, setRegConfirmPassword] = (0, import_react23.useState)("");
-    const [showRegPassword, setShowRegPassword] = (0, import_react23.useState)(false);
-    const [showRegConfirmPassword, setShowRegConfirmPassword] = (0, import_react23.useState)(false);
-    const [loginLoading, setLoginLoading] = (0, import_react23.useState)(false);
-    const [loginError, setLoginError] = (0, import_react23.useState)("");
-    const [registerSuccess, setRegisterSuccess] = (0, import_react23.useState)("");
-    const [classesList, setClassesList] = (0, import_react23.useState)([]);
-    const [classesLoading, setClassesLoading] = (0, import_react23.useState)(false);
-    const [newTitle, setNewTitle] = (0, import_react23.useState)("");
-    const [newStartsAt, setNewStartsAt] = (0, import_react23.useState)(() => {
-      const d = /* @__PURE__ */ new Date();
-      d.setHours(d.getHours() + 1, 0, 0, 0);
-      return d.toISOString().slice(0, 16);
-    });
-    const [newDuration, setNewDuration] = (0, import_react23.useState)("60");
-    const [isCreatingClass, setIsCreatingClass] = (0, import_react23.useState)(false);
-    const [inviteUrls, setInviteUrls] = (0, import_react23.useState)({});
-    const [copiedId, setCopiedId] = (0, import_react23.useState)(null);
-    const [newlyCreatedClassInfo, setNewlyCreatedClassInfo] = (0, import_react23.useState)(null);
-    const [attendanceLogs, setAttendanceLogs] = (0, import_react23.useState)([]);
-    const [attendanceLoading, setAttendanceLoading] = (0, import_react23.useState)(false);
-    const [materialsList, setMaterialsList] = (0, import_react23.useState)([]);
-    const [materialsLoading, setMaterialsLoading] = (0, import_react23.useState)(false);
-    const [newMatTitle, setNewMatTitle] = (0, import_react23.useState)("");
-    const [newMatCategory, setNewMatCategory] = (0, import_react23.useState)("Yoga");
-    const [newMatDesc, setNewMatDesc] = (0, import_react23.useState)("");
-    const [newMatUrl, setNewMatUrl] = (0, import_react23.useState)("");
-    const [newMatContent, setNewMatContent] = (0, import_react23.useState)("");
-    const [isCreatingMat, setIsCreatingMat] = (0, import_react23.useState)(false);
-    const [videosList, setVideosList] = (0, import_react23.useState)([]);
-    const [videosLoading, setVideosLoading] = (0, import_react23.useState)(false);
-    const [newVidTitle, setNewVidTitle] = (0, import_react23.useState)("");
-    const [newVidDesc, setNewVidDesc] = (0, import_react23.useState)("");
-    const [newVidUrl, setNewVidUrl] = (0, import_react23.useState)("");
-    const [newVidDuration, setNewVidDuration] = (0, import_react23.useState)("30");
-    const [newVidLevel, setNewVidLevel] = (0, import_react23.useState)("All Levels");
-    const [newVidCategory, setNewVidCategory] = (0, import_react23.useState)("Vinyasa");
-    const [isCreatingVid, setIsCreatingVid] = (0, import_react23.useState)(false);
-    const [livekitStatus, setLivekitStatus] = (0, import_react23.useState)(null);
-    const [configUrl, setConfigUrl] = (0, import_react23.useState)("");
-    const [configApiKey, setConfigApiKey] = (0, import_react23.useState)("");
-    const [configApiSecret, setConfigApiSecret] = (0, import_react23.useState)("");
-    const [savingConfig, setSavingConfig] = (0, import_react23.useState)(false);
-    const fetchClasses = async () => {
-      if (!adminToken) return;
-      setClassesLoading(true);
-      try {
-        const data = await apiFetch2("/api/admin/classes", {
-          headers: { "Authorization": `Bearer ${adminToken}` }
-        });
-        if (Array.isArray(data)) {
-          setClassesList(data);
-        }
-      } catch (err) {
-        if (err.status === 401 || err.status === 403) {
-          handleLogout();
-          return;
-        }
-        console.error("Error fetching admin classes:", err);
-      } finally {
-        setClassesLoading(false);
-      }
-    };
-    const fetchAttendance = async () => {
-      if (!adminToken) return;
-      setAttendanceLoading(true);
-      try {
-        let serverLogs = [];
-        try {
-          const data = await apiFetch2("/api/admin/attendance", {
-            headers: { "Authorization": `Bearer ${adminToken}` }
-          });
-          if (Array.isArray(data)) {
-            serverLogs = data;
-          }
-        } catch (err) {
-          if (err.status === 401 || err.status === 403) {
-            handleLogout();
-            return;
-          }
-        }
-        let localLogs = [];
-        try {
-          const stored = localStorage.getItem("nithya_attendance_logs");
-          if (stored) {
-            const parsed = JSON.parse(stored);
-            localLogs = parsed.map((l) => ({
-              name: l.studentName || l.name || "Student",
-              studentName: l.studentName || l.name || "Student",
-              email: l.phone ? `+91 ${l.phone}` : "App User",
-              phone: l.phone || l.studentPhone || "N/A",
-              studentPhone: l.phone || l.studentPhone || "N/A",
-              classTitle: l.classTitle || l.className || "Hatha Yoga Flow",
-              joinedAt: l.joinedAt || l.timestamp || (/* @__PURE__ */ new Date()).toISOString(),
-              durationSeconds: l.durationSeconds || (l.durationMinutes || 1) * 60,
-              durationMinutes: l.durationMinutes || Math.round((l.durationSeconds || 60) / 60),
-              attendancePercent: l.attendancePercent || (l.status?.includes("70") ? 85 : 45),
-              status: l.status?.includes("70") ? "verified_70" : l.status || "in_progress"
-            }));
-          }
-        } catch (_2) {
-        }
-        const combined = [...serverLogs, ...localLogs.filter((loc) => !serverLogs.some((s) => (s.phone === loc.phone || s.studentPhone === loc.phone) && (s.classTitle === loc.classTitle || s.className === loc.classTitle)))];
-        setAttendanceLogs(combined);
-      } catch (err) {
-        console.error("Error fetching admin attendance:", err);
-      } finally {
-        setAttendanceLoading(false);
-      }
-    };
-    const fetchMaterials = async () => {
-      setMaterialsLoading(true);
-      try {
-        const data = await apiFetch2("/api/materials");
-        if (Array.isArray(data)) {
-          setMaterialsList(data);
-        }
-      } catch (e2) {
-        console.warn("Error fetching materials:", e2);
-      } finally {
-        setMaterialsLoading(false);
-      }
-    };
-    const fetchVideos = async () => {
-      setVideosLoading(true);
-      try {
-        const data = await apiFetch2("/api/videos");
-        if (Array.isArray(data)) {
-          setVideosList(data);
-        }
-      } catch (e2) {
-        console.warn("Error fetching videos:", e2);
-      } finally {
-        setVideosLoading(false);
-      }
-    };
-    const fetchLiveKitStatus = async () => {
-      try {
-        const data = await apiFetch2("/api/livekit/status");
-        setLivekitStatus(data);
-        if (data.serverUrl) setConfigUrl(data.serverUrl);
-      } catch (e2) {
-      }
-    };
-    (0, import_react23.useEffect)(() => {
-      if (adminToken) {
-        fetchClasses();
-        fetchAttendance();
-        fetchMaterials();
-        fetchVideos();
-        fetchLiveKitStatus();
-      }
-    }, [adminToken]);
-    const handleLogin = async (e2) => {
-      e2.preventDefault();
-      setLoginLoading(true);
-      setLoginError("");
-      setRegisterSuccess("");
-      const cleanEmail = email.trim().toLowerCase();
-      const cleanPass = password;
-      try {
-        let data = null;
-        try {
-          data = await apiFetch2("/api/admin/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email: cleanEmail, password: cleanPass })
-          });
-        } catch (backendErr) {
-          const saved = JSON.parse(localStorage.getItem("nithya_trainers_cache") || "[]");
-          const match = saved.find((t) => t.email === cleanEmail);
-          if (match || cleanPass === "NithyaAdmin2026!" || cleanEmail === "admin@nithyayoga.com") {
-            data = {
-              token: `nithya_jwt_trainer_${Date.now()}`,
-              email: cleanEmail,
-              role: "trainer",
-              name: match?.name || "NITHYA Instructor"
-            };
-          } else {
-            throw backendErr;
-          }
-        }
-        setAdminToken(data.token);
-        localStorage.setItem("nithya_admin_token", data.token);
-        localStorage.setItem("nithya_active_role", "instructor");
-        localStorage.removeItem("nithya_student_session");
-        if (onAuthSuccess) {
-          onAuthSuccess({
-            email: data.email,
-            name: data.name || "NITHYA Instructor",
-            role: data.role || "trainer"
-          });
-        }
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0BA9\u0BA4\u0BC1 \u2713" : "Trainer Login Successful \u2713",
-            `${data.email} (Verified Instructor)`,
-            "success"
-          );
-        }
-      } catch (err) {
-        setLoginError(err.message || (lang === "ta" ? "\u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD \u0BA4\u0BB5\u0BB1\u0BBE\u0BA9\u0BA4\u0BC1." : "Invalid email or password."));
-      } finally {
-        setLoginLoading(false);
-      }
-    };
-    const handleRegister = async (e2) => {
-      e2.preventDefault();
-      setLoginLoading(true);
-      setLoginError("");
-      setRegisterSuccess("");
-      const cleanName = regName.trim();
-      const cleanEmail = regEmail.trim().toLowerCase();
-      const cleanPhone = regPhone.replace(/[^\d+]/g, "");
-      const cleanPass = regPassword;
-      if (cleanName.length < 2) {
-        setLoginError(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 2 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BB3\u0BCD)." : "Please enter your full name (at least 2 letters).");
-        setLoginLoading(false);
-        return;
-      }
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(cleanEmail)) {
-        setLoginError(lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF\u0BAF\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Please enter a valid Gmail / Email address.");
-        setLoginLoading(false);
-        return;
-      }
-      if (cleanPass.length < 6) {
-        setLoginError(lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD \u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 6 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BB0\u0BC1\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD." : "Password must be at least 6 characters.");
-        setLoginLoading(false);
-        return;
-      }
-      if (cleanPass !== regConfirmPassword) {
-        setLoginError(lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8. \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Passwords do not match. Please verify.");
-        setLoginLoading(false);
-        return;
-      }
-      try {
-        let data = null;
-        try {
-          data = await apiFetch2("/api/admin/register", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              name: cleanName,
-              email: cleanEmail,
-              phone: cleanPhone,
-              password: cleanPass
-            })
-          });
-        } catch (backendErr) {
-          if (backendErr.message && !backendErr.message.includes("already registered")) {
-            data = {
-              ok: true,
-              token: `nithya_jwt_trainer_${Date.now()}`,
-              id: `tr-${Date.now()}`,
-              name: cleanName,
-              email: cleanEmail,
-              role: "trainer"
-            };
-          } else {
-            throw backendErr;
-          }
-        }
-        if (data && data.token) {
-          try {
-            const saved = JSON.parse(localStorage.getItem("nithya_trainers_cache") || "[]");
-            saved.push({ name: cleanName, email: cleanEmail, phone: cleanPhone, registeredAt: (/* @__PURE__ */ new Date()).toISOString() });
-            localStorage.setItem("nithya_trainers_cache", JSON.stringify(saved));
-          } catch (_2) {
-          }
-          setAdminToken(data.token);
-          localStorage.setItem("nithya_admin_token", data.token);
-          localStorage.setItem("nithya_active_role", "instructor");
-          localStorage.removeItem("nithya_student_session");
-          if (onAuthSuccess) {
-            onAuthSuccess({
-              email: data.email || cleanEmail,
-              name: data.name || cleanName,
-              role: data.role || "trainer"
-            });
-          }
-          if (showToast) {
-            showToast(
-              lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Trainer Account Created \u2713",
-              `${cleanName} (${cleanEmail})`,
-              "success"
-            );
-          }
-        }
-      } catch (err) {
-        setLoginError(err.message || (lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BB5\u0BA4\u0BBF\u0BB2\u0BCD \u0BAA\u0BBF\u0BB4\u0BC8 \u0B8F\u0BB1\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "Registration failed."));
-      } finally {
-        setLoginLoading(false);
-      }
-    };
-    const handleLogout = () => {
-      setAdminToken("");
-      localStorage.removeItem("nithya_admin_token");
-      localStorage.setItem("nithya_active_role", "student");
-      if (showToast) {
-        showToast(
-          lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BBF\u0BA9\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Logged Out",
-          lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Trainer session ended",
-          "info"
-        );
-      }
-    };
-    const handleCreateClass = async (e2) => {
-      e2.preventDefault();
-      if (!newTitle.trim()) return;
-      setIsCreatingClass(true);
-      try {
-        const data = await apiFetch2("/api/trainer/classes", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${adminToken}`
-          },
-          body: JSON.stringify({
-            title: newTitle.trim(),
-            startsAt: new Date(newStartsAt).toISOString(),
-            durationMinutes: Number(newDuration) || 60
-          })
-        });
-        setClassesList((prev) => [data, ...prev]);
-        setNewTitle("");
-        const newlyCreatedLiveUrl = getProductionLiveUrl(data.id, { join: "student" });
-        setInviteUrls((prev) => ({ ...prev, [data.id]: newlyCreatedLiveUrl }));
-        setNewlyCreatedClassInfo({ id: data.id, title: data.title, url: newlyCreatedLiveUrl });
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Yoga Class Created \u2713",
-            lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1. \u0B95\u0BC0\u0BB4\u0BC7 \u0BAA\u0B95\u0BBF\u0BB0\u0BB2\u0BBE\u0BAE\u0BCD." : "Invitation link is ready to share below.",
-            "success"
-          );
-        }
-      } catch (err) {
-        alert(err.message);
-      } finally {
-        setIsCreatingClass(false);
-      }
-    };
-    const handleStartClass = async (cls) => {
-      try {
-        localStorage.removeItem("nithya_student_session");
-        await apiFetch2(`/api/trainer/classes/${cls.id}/start`, {
-          method: "PUT",
-          headers: { "Authorization": `Bearer ${adminToken}` }
-        });
-        setClassesList((prev) => prev.map((c) => c.id === cls.id ? { ...c, status: "live" } : c));
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 (Live) \u{1F534}" : "Class Started Live \u{1F534}",
-            cls.title,
-            "success"
-          );
-        }
-        if (onLaunchInstructorStudio) {
-          onLaunchInstructorStudio({ ...cls, status: "live" });
-        }
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-    const handleEndClass = async (cls) => {
-      if (!window.confirm(lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0B95\u0BCD\u0B95 \u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BBE?" : "End this live class for all participants?")) {
-        return;
-      }
-      try {
-        await apiFetch2(`/api/trainer/classes/${cls.id}/end`, {
-          method: "PUT",
-          headers: { "Authorization": `Bearer ${adminToken}` }
-        });
-        setClassesList((prev) => prev.map((c) => c.id === cls.id ? { ...c, status: "ended" } : c));
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1\u0BAA\u0BC6\u0BB1\u0BCD\u0BB1\u0BA4\u0BC1 \u2713" : "Class Ended for All Participants \u2713",
-            cls.title,
-            "info"
-          );
-        }
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-    const handleDeleteClass = async (classId) => {
-      if (!window.confirm(lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BBE?" : "Delete this scheduled class?")) {
-        return;
-      }
-      try {
-        await apiFetch2(`/api/trainer/classes/${classId}`, {
-          method: "DELETE",
-          headers: { "Authorization": `Bearer ${adminToken}` }
-        });
-        setClassesList((prev) => prev.filter((c) => c.id !== classId));
-        if (showToast) showToast("Class Removed", "", "info");
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-    const handleGenerateInvite = async (classId) => {
-      try {
-        const data = await apiFetch2(`/api/trainer/classes/${classId}/invites`, {
-          method: "POST",
-          headers: { "Authorization": `Bearer ${adminToken}` }
-        });
-        const resolvedUrl = data.token ? getProductionLiveUrl(classId, { invite: data.token }) : data.inviteUrl || getProductionLiveUrl(classId);
-        setInviteUrls((prev) => ({ ...prev, [classId]: resolvedUrl }));
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u{1F517}" : "Invite Link Generated \u{1F517}",
-            data.classTitle || "7-day secure access token",
-            "success"
-          );
-        }
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-    const handleCopyLink = (url, classId) => {
-      navigator.clipboard.writeText(url).then(() => {
-        setCopiedId(classId);
-        setTimeout(() => setCopiedId(null), 2500);
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Copied to Clipboard \u2713",
-            url,
-            "success"
-          );
-        }
-      }).catch(() => {
-        prompt("Copy invite link:", url);
-      });
-    };
-    const handleWhatsAppShare = (cls) => {
-      const liveUrl = getProductionLiveUrl(cls.id);
-      const text = `\u{1F9D8} *Join Live Yoga Class with NITHYA Yoga Studio*
-
-Class: *${cls.title}*
-Time: *${new Date(cls.starts_at).toLocaleString()}*
-Duration: *${cls.duration_minutes} mins*
-
-Tap link to register and enter live yoga room:
-${liveUrl}`;
-      window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, "_blank");
-    };
-    const handleAddMaterial = async (e2) => {
-      e2.preventDefault();
-      if (!newMatTitle.trim()) return;
-      setIsCreatingMat(true);
-      try {
-        const data = await apiFetch2("/api/trainer/materials", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${adminToken}`
-          },
-          body: JSON.stringify({
-            title: newMatTitle.trim(),
-            category: newMatCategory,
-            description: newMatDesc.trim(),
-            fileUrl: newMatUrl.trim() || "assets/docs/yoga_note.pdf",
-            content: newMatContent.trim(),
-            accessLevel: "all"
-          })
-        });
-        setMaterialsList((prev) => [data, ...prev]);
-        setNewMatTitle("");
-        setNewMatDesc("");
-        setNewMatUrl("");
-        setNewMatContent("");
-        if (showToast) showToast("Material Saved \u2713", data.title, "success");
-      } catch (err) {
-        alert(err.message);
-      } finally {
-        setIsCreatingMat(false);
-      }
-    };
-    const handleDeleteMaterial = async (id) => {
-      if (!window.confirm("Delete this material?")) return;
-      try {
-        await apiFetch2(`/api/trainer/materials/${id}`, {
-          method: "DELETE",
-          headers: { "Authorization": `Bearer ${adminToken}` }
-        });
-        setMaterialsList((prev) => prev.filter((m) => m.id !== id));
-        if (showToast) showToast("Material Removed", "", "info");
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-    const handleAddVideo = async (e2) => {
-      e2.preventDefault();
-      if (!newVidTitle.trim() || !newVidUrl.trim()) return;
-      setIsCreatingVid(true);
-      try {
-        const data = await apiFetch2("/api/trainer/videos", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${adminToken}`
-          },
-          body: JSON.stringify({
-            title: newVidTitle.trim(),
-            description: newVidDesc.trim(),
-            videoUrl: newVidUrl.trim(),
-            durationMinutes: Number(newVidDuration) || 30,
-            level: newVidLevel,
-            category: newVidCategory
-          })
-        });
-        setVideosList((prev) => [data, ...prev]);
-        setNewVidTitle("");
-        setNewVidDesc("");
-        setNewVidUrl("");
-        if (showToast) showToast("Video Added \u2713", data.title, "success");
-      } catch (err) {
-        alert(err.message);
-      } finally {
-        setIsCreatingVid(false);
-      }
-    };
-    const handleDeleteVideo = async (id) => {
-      if (!window.confirm("Delete this video?")) return;
-      try {
-        await apiFetch2(`/api/trainer/videos/${id}`, {
-          method: "DELETE",
-          headers: { "Authorization": `Bearer ${adminToken}` }
-        });
-        setVideosList((prev) => prev.filter((v) => v.id !== id));
-        if (showToast) showToast("Video Removed", "", "info");
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-    const handleSaveLiveKitConfig = async (e2) => {
-      e2.preventDefault();
-      setSavingConfig(true);
-      try {
-        const data = await apiFetch2("/api/livekit/config", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Authorization": `Bearer ${adminToken}`
-          },
-          body: JSON.stringify({
-            serverUrl: configUrl.trim(),
-            apiKey: configApiKey.trim(),
-            apiSecret: configApiSecret.trim()
-          })
-        });
-        setLivekitStatus((prev) => ({
-          ...prev,
-          configured: data.configured,
-          serverUrl: data.serverUrl,
-          hasApiKey: Boolean(configApiKey),
-          hasApiSecret: Boolean(configApiSecret)
-        }));
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD\u0B95\u0BBF\u0B9F\u0BCD \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA9 \u2713" : "LiveKit Credentials Saved \u2713",
-            data.serverUrl,
-            "success"
-          );
-        }
-      } catch (err) {
-        alert(err.message);
-      } finally {
-        setSavingConfig(false);
-      }
-    };
-    const handleExportCSV = () => {
-      const headers = ["Student Name", "Mobile Phone", "Class Title", "Joined Time", "Duration (mins)", "Attendance %", "Status"];
-      const rows = attendanceLogs.map((l) => [
-        `"${l.studentName || l.name || "Student"}"`,
-        `"${l.studentPhone || l.phone || "N/A"}"`,
-        `"${l.classTitle || "Hatha Yoga"}"`,
-        `"${l.joinedAt || "Recent"}"`,
-        Math.round((l.durationSeconds || 60) / 60),
-        `${l.attendancePercent || 85}%`,
-        `"${l.status || "verified_70"}"`
-      ]);
-      const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((e2) => e2.join(","))].join("\n");
-      const encodedUri = encodeURI(csvContent);
-      const link = document.createElement("a");
-      link.setAttribute("href", encodedUri);
-      link.setAttribute("download", `nithya_yoga_attendance_${(/* @__PURE__ */ new Date()).toISOString().slice(0, 10)}.csv`);
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
-    const handleDeleteAttendance = async (logId) => {
-      if (!window.confirm(lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BBE?" : "Delete this student attendance record?")) {
-        return;
-      }
-      try {
-        if (adminToken) {
-          await apiFetch2(`/api/trainer/attendance/${encodeURIComponent(logId)}`, {
-            method: "DELETE",
-            headers: { "Authorization": `Bearer ${adminToken}` }
-          }).catch(() => {
-          });
-        }
-        const updated = attendanceLogs.filter((l) => l.id !== logId);
-        setAttendanceLogs(updated);
-        try {
-          localStorage.setItem("nithya_attendance_logs", JSON.stringify(updated));
-        } catch (_2) {
-        }
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Record Deleted \u2713",
-            lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Attendance record removed",
-            "info"
-          );
-        }
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-    const handleClearAllAttendance = async () => {
-      if (!window.confirm(lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95 \u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BBE (\u0B9F\u0BC6\u0BB8\u0BCD\u0B9F\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1)?" : "Clear all student attendance records (test data reset)?")) {
-        return;
-      }
-      try {
-        if (adminToken) {
-          await apiFetch2("/api/trainer/attendance", {
-            method: "DELETE",
-            headers: { "Authorization": `Bearer ${adminToken}` }
-          }).catch(() => {
-          });
-        }
-        setAttendanceLogs([]);
-        try {
-          localStorage.setItem("nithya_attendance_logs", JSON.stringify([]));
-        } catch (_2) {
-        }
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BC1\u0BAE\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA9 \u{1F9F9}" : "All Records Cleared \u{1F9F9}",
-            lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0B9F\u0BCD\u0B9F\u0BBF\u0BAF\u0BB2\u0BCD \u0BAE\u0BC1\u0BB1\u0BCD\u0BB1\u0BBF\u0BB2\u0BC1\u0BAE\u0BCD \u0B9A\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Attendance register reset for testing",
-            "success"
-          );
-        }
-      } catch (err) {
-        alert(err.message);
-      }
-    };
-    if (!adminToken) {
-      return /* @__PURE__ */ import_react23.default.createElement("div", { className: "dashboard-card admin-login-card max-w-lg mx-auto my-6 p-6 sm:p-8 rounded-3xl border border-subtle bg-card shadow-2xl ya-reveal" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "card-header-block text-center pb-5 border-b border-subtle" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "inline-flex p-3.5 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/10 text-primary mb-3 shadow-inner" }, /* @__PURE__ */ import_react23.default.createElement(ShieldCheck, { size: 36, className: "text-primary" })), /* @__PURE__ */ import_react23.default.createElement("h2", { className: "text-xl sm:text-2xl font-bold text-heading m-0 font-['Poppins']" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD & \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "NITHYA Yoga Trainer Portal"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mt-1.5 max-w-sm mx-auto leading-relaxed" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95, \u0BB2\u0BC8\u0BB5\u0BCD \u0BB0\u0BC2\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC8 \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0B95\u0BBF\u0B95\u0BCD\u0B95 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Sign in or register to create live yoga rooms, generate student links, stream live, and manage student attendance."), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex p-1.5 mt-5 rounded-2xl bg-subtle/70 border border-subtle/80 max-w-xs mx-auto" }, /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          className: `flex-1 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${authMode === "login" ? "bg-primary text-white shadow-md" : "text-muted hover:text-heading"}`,
-          onClick: () => {
-            setAuthMode("login");
-            setLoginError("");
-          }
-        },
-        /* @__PURE__ */ import_react23.default.createElement("span", null, "\u{1F511} ", lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1" : "Sign In")
-      ), /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          className: `flex-1 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${authMode === "register" ? "bg-primary text-white shadow-md" : "text-muted hover:text-heading"}`,
-          onClick: () => {
-            setAuthMode("register");
-            setLoginError("");
-          }
-        },
-        /* @__PURE__ */ import_react23.default.createElement("span", null, "\u{1F4DD} ", lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Create Account")
-      ))), loginError && /* @__PURE__ */ import_react23.default.createElement("div", { className: "alert-box-error flex items-center gap-2 p-3 my-4 rounded-xl bg-red-500/10 border border-red-500/25 text-red-500 text-xs" }, /* @__PURE__ */ import_react23.default.createElement(CircleAlert, { size: 16, className: "shrink-0" }), /* @__PURE__ */ import_react23.default.createElement("span", null, loginError)), registerSuccess && /* @__PURE__ */ import_react23.default.createElement("div", { className: "alert-box-success flex items-center gap-2 p-3 my-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs" }, /* @__PURE__ */ import_react23.default.createElement(CircleCheck, { size: 16, className: "shrink-0" }), /* @__PURE__ */ import_react23.default.createElement("span", null, registerSuccess)), authMode === "login" ? (
-        /* FORM 1: SIGN IN */
-        /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleLogin, className: "flex flex-col gap-4 mt-5" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-xs font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement(Mail, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF (Email ID)" : "Gmail / Email ID"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react23.default.createElement(
-          "input",
-          {
-            type: "email",
-            value: email,
-            onChange: (e2) => setEmail(e2.target.value),
-            required: true,
-            className: "ya-input w-full text-xs p-3 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
-            placeholder: lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD (\u0B8E.\u0B95\u0BBE. master@gmail.com)" : "e.g. master@gmail.com"
-          }
-        )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-xs font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement(Lock, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD (Password)" : "Password"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react23.default.createElement(
-          "input",
-          {
-            type: showPassword ? "text" : "password",
-            value: password,
-            onChange: (e2) => setPassword(e2.target.value),
-            required: true,
-            className: "ya-input w-full text-xs p-3 pr-10 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
-            placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
-          }
-        ), /* @__PURE__ */ import_react23.default.createElement(
-          "button",
-          {
-            type: "button",
-            onClick: () => setShowPassword(!showPassword),
-            className: "absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-heading cursor-pointer",
-            tabIndex: -1
-          },
-          showPassword ? /* @__PURE__ */ import_react23.default.createElement(EyeOff, { size: 16 }) : /* @__PURE__ */ import_react23.default.createElement(Eye, { size: 16 })
-        ))), /* @__PURE__ */ import_react23.default.createElement(
-          "button",
-          {
-            type: "submit",
-            disabled: loginLoading,
-            className: "ya-btn ya-btn--primary w-full py-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 mt-2 shadow-lg cursor-pointer transition-all hover:opacity-95"
-          },
-          loginLoading ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 15, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(Key, { size: 15 }),
-          /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95 (Sign In as Trainer)" : "Sign In as Trainer")
-        ), /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-center pt-2" }, /* @__PURE__ */ import_react23.default.createElement(
-          "button",
-          {
-            type: "button",
-            onClick: () => setAuthMode("register"),
-            className: "text-xs text-primary font-semibold hover:underline cursor-pointer"
-          },
-          lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0B95 \u27A1\uFE0F" : "New instructor? Create your account here \u27A1\uFE0F"
-        )))
-      ) : (
-        /* FORM 2: REGISTER NEW TRAINER ACCOUNT */
-        /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleRegister, className: "flex flex-col gap-3.5 mt-5" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-xs font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement(User, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1\u0BAA\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD (Full Name)" : "Full Name"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react23.default.createElement(
-          "input",
-          {
-            type: "text",
-            value: regName,
-            onChange: (e2) => setRegName(e2.target.value),
-            required: true,
-            className: "ya-input w-full text-xs p-3 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
-            placeholder: lang === "ta" ? "\u0B8E.\u0B95\u0BBE. \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BA4\u0BC7\u0BB5\u0BBF" : "e.g. Nithya Devi"
-          }
-        )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-xs font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement(Mail, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF (Gmail ID)" : "Gmail / Email ID"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react23.default.createElement(
-          "input",
-          {
-            type: "email",
-            value: regEmail,
-            onChange: (e2) => setRegEmail(e2.target.value),
-            required: true,
-            className: "ya-input w-full text-xs p-3 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
-            placeholder: "nithya.yoga@gmail.com"
-          }
-        )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-xs font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement(Phone, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (Mobile Phone)" : "Mobile Phone")), /* @__PURE__ */ import_react23.default.createElement(
-          "input",
-          {
-            type: "tel",
-            value: regPhone,
-            onChange: (e2) => setRegPhone(e2.target.value),
-            className: "ya-input w-full text-xs p-3 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
-            placeholder: lang === "ta" ? "\u0B8E.\u0B95\u0BBE. 9876543210" : "e.g. 9876543210"
-          }
-        )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-xs font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement(Lock, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD (Password - min 6 chars)" : "Password (min 6 characters)"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react23.default.createElement(
-          "input",
-          {
-            type: showRegPassword ? "text" : "password",
-            value: regPassword,
-            onChange: (e2) => setRegPassword(e2.target.value),
-            required: true,
-            className: "ya-input w-full text-xs p-3 pr-10 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
-            placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
-          }
-        ), /* @__PURE__ */ import_react23.default.createElement(
-          "button",
-          {
-            type: "button",
-            onClick: () => setShowRegPassword(!showRegPassword),
-            className: "absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-heading cursor-pointer",
-            tabIndex: -1
-          },
-          showRegPassword ? /* @__PURE__ */ import_react23.default.createElement(EyeOff, { size: 16 }) : /* @__PURE__ */ import_react23.default.createElement(Eye, { size: 16 })
-        ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-xs font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react23.default.createElement(Lock, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD" : "Confirm Password"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react23.default.createElement(
-          "input",
-          {
-            type: showRegConfirmPassword ? "text" : "password",
-            value: regConfirmPassword,
-            onChange: (e2) => setRegConfirmPassword(e2.target.value),
-            required: true,
-            className: "ya-input w-full text-xs p-3 pr-10 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none",
-            placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
-          }
-        ), /* @__PURE__ */ import_react23.default.createElement(
-          "button",
-          {
-            type: "button",
-            onClick: () => setShowRegConfirmPassword(!showRegConfirmPassword),
-            className: "absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-heading cursor-pointer",
-            tabIndex: -1
-          },
-          showRegConfirmPassword ? /* @__PURE__ */ import_react23.default.createElement(EyeOff, { size: 16 }) : /* @__PURE__ */ import_react23.default.createElement(Eye, { size: 16 })
-        ))), /* @__PURE__ */ import_react23.default.createElement(
-          "button",
-          {
-            type: "submit",
-            disabled: loginLoading,
-            className: "ya-btn ya-btn--primary w-full py-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 mt-2 shadow-lg cursor-pointer transition-all hover:opacity-95"
-          },
-          loginLoading ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 15, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(ShieldCheck, { size: 15 }),
-          /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95 (Create Account & Sign In)" : "Create Account & Sign In")
-        ), /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-center pt-2" }, /* @__PURE__ */ import_react23.default.createElement(
-          "button",
-          {
-            type: "button",
-            onClick: () => setAuthMode("login"),
-            className: "text-xs text-primary font-semibold hover:underline cursor-pointer"
-          },
-          lang === "ta" ? "\u0B8F\u0BB1\u0BCD\u0B95\u0BA9\u0BB5\u0BC7 \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE? \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0B95 \u27A1\uFE0F" : "Already have an account? Sign In here \u27A1\uFE0F"
-        )))
-      ));
-    }
-    return /* @__PURE__ */ import_react23.default.createElement("div", { className: "dashboard-card admin-dashboard-portal p-6 rounded-2xl border border-subtle bg-card shadow-lg" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "admin-portal-header flex items-center justify-between pb-4 border-b border-subtle flex-wrap gap-3 mb-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-2.5 rounded-xl bg-primary/10 text-primary" }, /* @__PURE__ */ import_react23.default.createElement(ShieldCheck, { size: 24 })), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("h2", { className: "text-lg font-bold text-heading m-0" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Trainer & Instructor Dashboard"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, "\u2713 Verified Instructor")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted m-0" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD, \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BB3\u0BCD, \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Manage live sessions, invite links, learning materials & student attendance."))), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: handleLogout,
-        className: "ya-btn ya-btn--soft text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-subtle hover:bg-red-500/10 hover:text-red-400 transition-all cursor-pointer"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(LogOut, { size: 14 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Log Out")
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "admin-live-creator-banner p-6 rounded-2xl bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 border border-violet-500/40 text-white shadow-2xl mb-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col md:flex-row md:items-center justify-between gap-4" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "max-w-xl" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold mb-2.5 border border-violet-400/30" }, /* @__PURE__ */ import_react23.default.createElement(Radio, { size: 14, className: "text-violet-300 animate-pulse" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BBF\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BC7\u0B95 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF" : "EXCLUSIVE INSTRUCTOR PRIVILEGE")), /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-xl sm:text-2xl font-bold text-white mb-1.5 font-['Poppins']" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Create & Host Live Yoga Class"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-violet-200 leading-relaxed" }, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BC7 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0BAE\u0BCD. \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA4\u0BBE\u0BA9\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Only authenticated instructors can generate live room sessions. Tapping below starts your instructor stream and generates student invite links.")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0" }, /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => {
-          const uniqueRoomId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
-          const instructorClass = {
-            id: uniqueRoomId,
-            title: "Hatha Yoga Flow & Mindful Alignment",
-            name: "Hatha Yoga Flow & Mindful Alignment",
-            courseName: "Master Hatha Yoga Flow",
-            room_name: `nithya-${uniqueRoomId}`,
-            status: "live",
-            duration: 60,
-            instructor: "NITHYA Master (You)"
-          };
-          localStorage.setItem("nithya_active_role", "instructor");
-          localStorage.removeItem("nithya_student_session");
-          if (onLaunchInstructorStudio) {
-            onLaunchInstructorStudio(instructorClass);
-          }
-        },
-        className: "px-6 py-3.5 rounded-xl bg-gradient-to-r from-violet-500 via-purple-600 to-fuchsia-600 hover:from-violet-400 hover:to-fuchsia-500 text-white font-black text-sm shadow-xl flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98]"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Video, { size: 18 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u{1F3A5} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F3A5} Launch Live Studio as Host")
-    )))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "admin-subtabs flex items-center gap-2 my-4 bg-subtle p-1 rounded-xl overflow-x-auto" }, /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "classes" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
-        onClick: () => setActiveTab("classes")
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Live Classes")
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "attendance" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
-        onClick: () => setActiveTab("attendance")
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Users, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Attendance")
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "notes" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
-        onClick: () => setActiveTab("notes")
-      },
-      /* @__PURE__ */ import_react23.default.createElement(FileText, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Notes & PDF")
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "videos" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
-        onClick: () => setActiveTab("videos")
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Video, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Videos")
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "settings" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
-        onClick: () => setActiveTab("settings")
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Settings, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "LiveKit Settings")
-    )), activeTab === "classes" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "create-class-card p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95" : "Create & Schedule Live Yoga Class")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleCreateClass, className: "grid grid-cols-1 md:grid-cols-4 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-2 flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Class Title"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        value: newTitle,
-        onChange: (e2) => setNewTitle(e2.target.value),
-        placeholder: "e.g. Morning Surya Namaskar & Pranayama",
-        required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BA4\u0BBF" : "Date & Start Time"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "datetime-local",
-        value: newStartsAt,
-        onChange: (e2) => setNewStartsAt(e2.target.value),
-        required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2 \u0B85\u0BB3\u0BB5\u0BC1 (\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD)" : "Duration (Minutes)"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "number",
-        min: "5",
-        max: "240",
-        value: newDuration,
-        onChange: (e2) => setNewDuration(e2.target.value),
-        required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-4 flex justify-end" }, /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "submit",
-        disabled: isCreatingClass,
-        className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer shadow"
-      },
-      isCreatingClass ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 14 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Create Live Class")
-    ))), newlyCreatedClassInfo && /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 mt-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col gap-2" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-emerald-500 font-bold text-xs" }, "\u{1F389} ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Class Created Successfully!"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-xs text-heading font-bold" }, newlyCreatedClassInfo.title)), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => setNewlyCreatedClassInfo(null),
-        className: "text-xs text-muted hover:text-heading cursor-pointer px-1.5",
-        title: "Dismiss"
-      },
-      "\u2715"
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-[11px] text-muted" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B87\u0BA8\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BB5\u0BC1\u0BAE\u0BCD:" : "Share this live student link directly via WhatsApp or copy:"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-wrap sm:flex-nowrap" }, /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        readOnly: true,
-        value: newlyCreatedClassInfo.url,
-        className: "w-full text-xs font-mono p-2 rounded-lg bg-card border border-primary/20 text-heading select-all",
-        onClick: (e2) => e2.target.select()
-      }
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => {
-          navigator.clipboard.writeText(newlyCreatedClassInfo.url);
-          setCopiedId(`new-${newlyCreatedClassInfo.id}`);
-          setTimeout(() => setCopiedId(null), 2500);
-          if (showToast) showToast("Link Copied \u2713", newlyCreatedClassInfo.url, "success");
-        },
-        className: "ya-btn ya-btn--primary text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
-      },
-      copiedId === `new-${newlyCreatedClassInfo.id}` ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === `new-${newlyCreatedClassInfo.id}` ? "Copied!" : "Copy Link")
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => {
-          const text = encodeURIComponent(`\u{1F9D8} *NITHYA Yoga Live Class: ${newlyCreatedClassInfo.title}*
-
-Join the live yoga session as a student:
-${newlyCreatedClassInfo.url}`);
-          window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
-        },
-        className: "ya-btn text-xs px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-md shadow-emerald-500/20"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, "WhatsApp")
-    )))), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between mb-3" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BAE\u0BC7\u0BB2\u0BBE\u0BA3\u0BCD\u0BAE\u0BC8" : "Manage Classes & Student Invitations")), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: fetchClasses,
-        className: "text-xs text-primary flex items-center gap-1 hover:underline cursor-pointer"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 12, className: classesLoading ? "animate-spin" : "" }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-3" }, classesList.length === 0 ? /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-center p-6 text-xs text-muted rounded-xl border border-subtle" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No scheduled classes found. Create your first class above!") : classesList.map((c) => {
-      const currentInvite = inviteUrls[c.id];
-      const isLive = c.status === "live";
-      const isEnded = c.status === "ended";
-      const liveUrl = getProductionLiveUrl(c.id);
-      return /* @__PURE__ */ import_react23.default.createElement("div", { key: c.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col gap-2.5" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, c.title), /* @__PURE__ */ import_react23.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${isLive ? "bg-red-500 text-white animate-pulse" : isEnded ? "bg-gray-500/20 text-muted" : "bg-primary/20 text-primary"}` }, isLive ? "\u25CF LIVE NOW" : isEnded ? "ENDED" : "SCHEDULED")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 text-[11px] text-muted mt-1" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react23.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react23.default.createElement("span", null, c.duration_minutes, " mins"), /* @__PURE__ */ import_react23.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "font-mono text-[10px] bg-subtle px-1.5 py-0.5 rounded" }, "Room: ", c.room_name))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, !isEnded && /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleStartClass(c),
-          className: `text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold cursor-pointer transition-all ${isLive ? "bg-red-500 text-white hover:bg-red-600" : "bg-emerald-600 text-white hover:bg-emerald-700"}`,
-          title: isLive ? "Resume Studio" : "Start Class and Broadcast"
-        },
-        /* @__PURE__ */ import_react23.default.createElement(Play, { size: 13, fill: "currentColor" }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, isLive ? "In Studio" : lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Start Class")
-      ), isLive && /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleEndClass(c),
-          className: "bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/30 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1 font-bold cursor-pointer transition-all",
-          title: "End class for all participants"
-        },
-        /* @__PURE__ */ import_react23.default.createElement(PhoneOff, { size: 13 }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class for All")
-      ), /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => {
-            navigator.clipboard.writeText(liveUrl);
-            setCopiedId(`live-${c.id}`);
-            setTimeout(() => setCopiedId(null), 2500);
-            if (showToast) showToast("Invitation Link Copied \u2713", liveUrl, "success");
-          },
-          className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer",
-          title: "Direct student joining link with name & mobile check"
-        },
-        copiedId === `live-${c.id}` ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 13, className: "text-emerald-500" }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 13, className: "text-primary" }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === `live-${c.id}` ? "Copied!" : "Copy Link")
-      ), /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleWhatsAppShare(c),
-          className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 text-emerald-600 cursor-pointer",
-          title: "Share on WhatsApp"
-        },
-        /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 13 }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, "WhatsApp")
-      ), /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleDeleteClass(c.id),
-          className: "p-1.5 rounded-lg text-muted hover:text-red-500 cursor-pointer",
-          title: "Delete class"
-        },
-        /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 14 })
-      ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-2.5 rounded-lg bg-subtle/80 border border-primary/20 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 mt-1" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-1 overflow-hidden" }, /* @__PURE__ */ import_react23.default.createElement(Link, { size: 13, className: "text-primary flex-shrink-0" }), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] font-mono text-heading truncate select-all" }, currentInvite || liveUrl)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-1.5 flex-shrink-0 self-end sm:self-center" }, /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleCopyLink(currentInvite || liveUrl, c.id),
-          className: "ya-btn ya-btn--primary text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1 cursor-pointer",
-          title: "Copy student invite link"
-        },
-        copiedId === c.id ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 12 }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 12 }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === c.id ? "Copied!" : "Copy")
-      ), /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleWhatsAppShare(c),
-          className: "ya-btn text-[11px] px-2.5 py-1 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1 cursor-pointer",
-          title: "Share on WhatsApp"
-        },
-        /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 12 }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, "WhatsApp")
-      ))));
-    })))), activeTab === "attendance" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-4" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(Users, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0BA4\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8" : "Student Attendance Records & 70% Verification")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mt-0.5" }, "Records accumulated from verified WebRTC live sessions and persistent SQLite database.")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: handleClearAllAttendance,
-        className: "ya-btn ya-btn--soft text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 cursor-pointer text-red-500 hover:bg-red-500/10 font-bold border border-red-500/20",
-        title: lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0B9F\u0BC6\u0BB8\u0BCD\u0B9F\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1" : "Clear all test records"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1 \u{1F9F9}" : "Clear All")
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: handleExportCSV,
-        className: "ya-btn ya-btn--soft text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 cursor-pointer font-bold"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Download, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, "Export CSV")
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: fetchAttendance,
-        className: "ya-btn ya-btn--soft text-xs px-3 py-1.5 rounded-xl flex items-center gap-1.5 cursor-pointer"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 13, className: attendanceLoading ? "animate-spin" : "" }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
-    ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "w-9 h-9 rounded-full bg-violet-500/15 text-primary flex items-center justify-center font-bold" }, /* @__PURE__ */ import_react23.default.createElement(Users, { size: 18 })), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] text-muted block font-semibold" }, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BBE\u0BA9 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Registered Students"), /* @__PURE__ */ import_react23.default.createElement("strong", { className: "text-base text-heading" }, new Set(attendanceLogs.map((l) => (l.phone || l.studentPhone || "").replace(/\D/g, "")).filter(Boolean)).size || attendanceLogs.length))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "w-9 h-9 rounded-full bg-emerald-500/15 text-emerald-600 flex items-center justify-center font-bold" }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 18 })), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] text-muted block font-semibold" }, lang === "ta" ? "\u0BAE\u0BCA\u0BA4\u0BCD\u0BA4 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Total Practice Time"), /* @__PURE__ */ import_react23.default.createElement("strong", { className: "text-base text-heading" }, Math.round(attendanceLogs.reduce((acc, l) => acc + (l.durationSeconds || 60), 0) / 60), " mins"))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 rounded-xl bg-card border border-subtle flex items-center gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "w-9 h-9 rounded-full bg-amber-500/15 text-amber-600 flex items-center justify-center font-bold" }, /* @__PURE__ */ import_react23.default.createElement(CircleCheck, { size: 18 })), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] text-muted block font-semibold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBE\u0B9A\u0BB0\u0BBF \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD" : "Avg Attendance Rate"), /* @__PURE__ */ import_react23.default.createElement("strong", { className: "text-base text-heading" }, attendanceLogs.length > 0 ? Math.round(attendanceLogs.reduce((acc, l) => acc + (l.attendancePercent || 85), 0) / attendanceLogs.length) : 100, "%")))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "rounded-xl border border-subtle overflow-x-auto bg-card" }, /* @__PURE__ */ import_react23.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react23.default.createElement("thead", null, /* @__PURE__ */ import_react23.default.createElement("tr", { className: "border-b border-subtle bg-subtle/50 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Student Name"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Mobile Phone"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Class Title"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Joined Time"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Duration"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Attendance %"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3" }, "Status"), /* @__PURE__ */ import_react23.default.createElement("th", { className: "p-3 text-center" }, "Action"))), /* @__PURE__ */ import_react23.default.createElement("tbody", null, attendanceLogs.length === 0 ? /* @__PURE__ */ import_react23.default.createElement("tr", null, /* @__PURE__ */ import_react23.default.createElement("td", { colSpan: 8, className: "text-center p-6 text-muted" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "No student attendance records found yet.")) : attendanceLogs.map((log3, index) => {
-      const isPresent = log3.status?.includes("70") || log3.attendancePercent >= 70;
-      return /* @__PURE__ */ import_react23.default.createElement("tr", { key: log3.id || index, className: "border-b border-subtle/50 hover:bg-subtle/30" }, /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-semibold text-heading" }, log3.studentName || log3.name || "Student"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-mono text-muted" }, log3.studentPhone || log3.phone || "N/A"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 text-heading" }, log3.classTitle || log3.className || "Hatha Flow"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 text-muted text-[11px]" }, log3.joinedAt ? new Date(log3.joinedAt).toLocaleString() : "Recent"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-mono" }, Math.round((log3.durationSeconds || 60) / 60), " mins"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 font-bold text-primary" }, log3.attendancePercent || 85, "%"), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${isPresent ? "bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/15 text-amber-600 border border-amber-500/30"}` }, isPresent ? "\u2713 Present (70%+)" : "Incomplete")), /* @__PURE__ */ import_react23.default.createElement("td", { className: "p-3 text-center" }, /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleDeleteAttendance(log3.id),
-          className: "p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 cursor-pointer transition-colors",
-          title: lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1" : "Delete Record"
-        },
-        /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 14 })
-      )));
-    }))))), activeTab === "notes" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 / PDF \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Upload Yoga Notes & PDF Material")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleAddMaterial, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Title"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        value: newMatTitle,
-        onChange: (e2) => setNewMatTitle(e2.target.value),
-        placeholder: "e.g. Asana Alignment & Breathing Guide",
-        required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Category"), /* @__PURE__ */ import_react23.default.createElement(
-      "select",
-      {
-        value: newMatCategory,
-        onChange: (e2) => setNewMatCategory(e2.target.value),
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
-      },
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "Yoga" }, "Yoga"),
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "Breathing" }, "Breathing / Pranayama"),
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "Asana" }, "Asana Alignment"),
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "Diet" }, "Sattvic Diet & Nutrition"),
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "Philosophy" }, "Yoga Philosophy")
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "File / Download URL"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        value: newMatUrl,
-        onChange: (e2) => setNewMatUrl(e2.target.value),
-        placeholder: "e.g. assets/docs/pranayama_guide.pdf",
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-3 flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Short Description"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        value: newMatDesc,
-        onChange: (e2) => setNewMatDesc(e2.target.value),
-        placeholder: "Brief summary for students...",
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-3 flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Note Content (Optional)"), /* @__PURE__ */ import_react23.default.createElement(
-      "textarea",
-      {
-        value: newMatContent,
-        onChange: (e2) => setNewMatContent(e2.target.value),
-        placeholder: "Detailed notes and instructions for student practice...",
-        rows: 3,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-3 flex justify-end" }, /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "submit",
-        disabled: isCreatingMat,
-        className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer shadow"
-      },
-      isCreatingMat ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 14 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, "Save Material")
-    )))), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading mb-3 flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(FileText, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, "Available Student Learning Materials")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-3" }, materialsList.map((mat) => /* @__PURE__ */ import_react23.default.createElement("div", { key: mat.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col justify-between gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[10px] font-bold text-primary uppercase" }, mat.category || "Yoga"), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => handleDeleteMaterial(mat.id),
-        className: "text-muted hover:text-red-500 cursor-pointer p-1"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 13 })
-    )), /* @__PURE__ */ import_react23.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, mat.title), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-[11px] text-muted mt-1" }, mat.description)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between text-[11px] pt-2 border-t border-subtle" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-muted font-mono" }, mat.file_url || "Note"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-primary font-bold" }, "\u2713 Accessible to Students"))))))), activeTab === "videos" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Add Yoga Video to Library")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleAddVideo, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video Title"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        value: newVidTitle,
-        onChange: (e2) => setNewVidTitle(e2.target.value),
-        placeholder: "e.g. Vinyasa Flow For Flexibility",
-        required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video URL (YouTube Embed / MP4)"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "url",
-        value: newVidUrl,
-        onChange: (e2) => setNewVidUrl(e2.target.value),
-        placeholder: "https://www.youtube.com/embed/...",
-        required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Duration (Minutes)"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "number",
-        min: "5",
-        max: "120",
-        value: newVidDuration,
-        onChange: (e2) => setNewVidDuration(e2.target.value),
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-2 flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Description"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        value: newVidDesc,
-        onChange: (e2) => setNewVidDesc(e2.target.value),
-        placeholder: "What will students learn in this session...",
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Level"), /* @__PURE__ */ import_react23.default.createElement(
-      "select",
-      {
-        value: newVidLevel,
-        onChange: (e2) => setNewVidLevel(e2.target.value),
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
-      },
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "Beginner" }, "Beginner"),
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "Intermediate" }, "Intermediate"),
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "Advanced" }, "Advanced"),
-      /* @__PURE__ */ import_react23.default.createElement("option", { value: "All Levels" }, "All Levels")
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-3 flex justify-end" }, /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "submit",
-        disabled: isCreatingVid,
-        className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer shadow"
-      },
-      isCreatingVid ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 14 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, "Save Video")
-    )))), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading mb-3 flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(Video, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, "Published Student Videos (", videosList.length, ")")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, videosList.map((vid) => /* @__PURE__ */ import_react23.default.createElement("div", { key: vid.id, className: "p-3 rounded-xl border border-subtle bg-card flex flex-col justify-between gap-2" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[10px] font-bold text-primary uppercase" }, vid.level, " \u2022 ", vid.duration_minutes || 30, "m"), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => handleDeleteVideo(vid.id),
-        className: "text-muted hover:text-red-500 cursor-pointer p-1"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 13 })
-    )), /* @__PURE__ */ import_react23.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, vid.title), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-[11px] text-muted line-clamp-2 mt-0.5" }, vid.description)), /* @__PURE__ */ import_react23.default.createElement(
-      "a",
-      {
-        href: vid.video_url,
-        target: "_blank",
-        rel: "noreferrer",
-        className: "text-xs text-primary font-bold flex items-center gap-1 hover:underline pt-1 border-t border-subtle"
-      },
-      /* @__PURE__ */ import_react23.default.createElement("span", null, "Preview Link"),
-      /* @__PURE__ */ import_react23.default.createElement(Play, { size: 11, fill: "currentColor" })
-    )))))), activeTab === "settings" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-4 max-w-xl" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-2" }, /* @__PURE__ */ import_react23.default.createElement(Settings, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, "LiveKit Server Credentials")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mb-4" }, "Enter LiveKit Cloud WebSocket URL, API Key, and Secret to generate secure access tokens for instructor and students."), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleSaveLiveKitConfig, className: "flex flex-col gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "Server URL (wss://...)"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        value: configUrl,
-        onChange: (e2) => setConfigUrl(e2.target.value),
-        placeholder: "wss://your-project.livekit.cloud",
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "API Key"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        value: configApiKey,
-        onChange: (e2) => setConfigApiKey(e2.target.value),
-        placeholder: "API...",
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "API Secret"), /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "password",
-        value: configApiSecret,
-        onChange: (e2) => setConfigApiSecret(e2.target.value),
-        placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-      }
-    )), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "submit",
-        disabled: savingConfig,
-        className: "ya-btn ya-btn--primary py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 mt-2 cursor-pointer shadow"
-      },
-      savingConfig ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(CircleCheck, { size: 14 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, "Save LiveKit Configuration")
-    )))));
-  }
   var import_react23;
   var init_AdminPortalSection = __esm({
     "src/components/AdminPortalSection.jsx"() {
       import_react23 = __toESM(require_react());
-      init_lucide_react();
       init_audioEngine();
       init_ThreeDIcons();
       init_api();
@@ -69756,8 +71319,8 @@ ${newlyCreatedClassInfo.url}`);
         setLoading(true);
         setError("");
         try {
-          const data = await apiFetch2(`/api/invites/${encodeURIComponent(inviteToken)}`);
-          setClassInfo(data.class);
+          const data2 = await apiFetch2(`/api/invites/${encodeURIComponent(inviteToken)}`);
+          setClassInfo(data2.class);
         } catch (err) {
           setError(err.message);
         } finally {
@@ -69771,7 +71334,7 @@ ${newlyCreatedClassInfo.url}`);
       setSubmitting(true);
       setSubmitError("");
       try {
-        const data = await apiFetch2("/api/members/register", {
+        const data2 = await apiFetch2("/api/members/register", {
           method: "POST",
           body: JSON.stringify({
             inviteToken,
@@ -69780,13 +71343,13 @@ ${newlyCreatedClassInfo.url}`);
             phone: phone.trim()
           })
         });
-        localStorage.setItem("nithya_auth_token", data.token);
-        localStorage.setItem("nithya_member", JSON.stringify(data.member));
+        localStorage.setItem("nithya_auth_token", data2.token);
+        localStorage.setItem("nithya_member", JSON.stringify(data2.member));
         if (onRegistrationSuccess) {
           onRegistrationSuccess({
-            token: data.token,
-            member: data.member,
-            classId: data.classId,
+            token: data2.token,
+            member: data2.member,
+            classId: data2.classId,
             classInfo
           });
         }
@@ -70086,8 +71649,8 @@ ${newlyCreatedClassInfo.url}`);
               name: cleanName,
               phone: cleanPhone
             })
-          }).then((data) => {
-            if (data?.token) localStorage.setItem("nithya_auth_token", data.token);
+          }).then((data2) => {
+            if (data2?.token) localStorage.setItem("nithya_auth_token", data2.token);
           }).catch(() => {
           });
         } catch (_2) {
@@ -70686,20 +72249,1106 @@ ${newlyCreatedClassInfo.url}`);
     }
   });
 
+  // src/components/TeacherLoginPage.jsx
+  function TeacherLoginPage({ onLoginSuccess, onNavigate, lang = "en" }) {
+    const [email, setEmail] = (0, import_react30.useState)("");
+    const [password, setPassword] = (0, import_react30.useState)("");
+    const [showPassword, setShowPassword] = (0, import_react30.useState)(false);
+    const [isLoading, setIsLoading] = (0, import_react30.useState)(false);
+    const [errorMessage, setErrorMessage] = (0, import_react30.useState)("");
+    const handleLogin = async (e2) => {
+      e2.preventDefault();
+      setErrorMessage("");
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanPassword = password;
+      if (!cleanEmail) {
+        setErrorMessage(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Please enter your Gmail / email address.");
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(cleanEmail)) {
+        setErrorMessage(lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF\u0BAF\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Please enter a valid email address.");
+        return;
+      }
+      if (!cleanPassword) {
+        setErrorMessage(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Please enter your password.");
+        return;
+      }
+      setIsLoading(true);
+      try {
+        const data2 = await apiFetch2("/api/admin/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: cleanEmail, password: cleanPassword })
+        });
+        if (!data2 || !data2.token) {
+          throw new Error(data2?.error || (lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF\u0BAF\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1." : "Login failed. Invalid response from server."));
+        }
+        const verifyRes = await apiFetch2("/api/teacher/verify", {
+          method: "GET",
+          headers: {
+            "Authorization": `Bearer ${data2.token}`
+          }
+        });
+        if (!verifyRes || !verifyRes.ok || !verifyRes.user) {
+          throw new Error(lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF\u0BAF\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1." : "Server rejected teacher authorization.");
+        }
+        localStorage.setItem("nithya_teacher_token", data2.token);
+        localStorage.setItem("nithya_admin_token", data2.token);
+        localStorage.setItem("nithya_active_role", "instructor");
+        localStorage.removeItem("nithya_student_session");
+        if (onLoginSuccess) {
+          onLoginSuccess(verifyRes.user);
+        } else if (onNavigate) {
+          onNavigate("/teacher/dashboard");
+        }
+      } catch (err) {
+        console.error("Teacher login failed:", err);
+        setErrorMessage(err.message || (lang === "ta" ? "\u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD \u0BA4\u0BB5\u0BB1\u0BBE\u0BA9\u0BA4\u0BC1." : "Invalid email or password."));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    return /* @__PURE__ */ import_react30.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif]" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]" }), /* @__PURE__ */ import_react30.default.createElement("div", { className: "absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-800/15 rounded-full blur-[100px]" })), /* @__PURE__ */ import_react30.default.createElement("div", { className: "relative w-full max-w-md bg-gradient-to-b from-[#181236]/90 to-[#0e0a24]/95 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center justify-between mb-6" }, /* @__PURE__ */ import_react30.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => onNavigate && onNavigate("/"),
+        className: "text-xs text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+      },
+      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14 }),
+      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-400/30 text-purple-300 text-[11px] font-bold" }, /* @__PURE__ */ import_react30.default.createElement(ShieldCheck, { size: 13, className: "text-purple-400" }), /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Teacher Portal"))), /* @__PURE__ */ import_react30.default.createElement("div", { className: "text-center mb-6" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "w-14 h-14 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-purple-600 to-violet-400 flex items-center justify-center shadow-lg shadow-purple-500/30" }, /* @__PURE__ */ import_react30.default.createElement("span", { className: "text-2xl" }, "\u2740")), /* @__PURE__ */ import_react30.default.createElement("h2", { className: "text-2xl font-black tracking-wide text-white font-['Georgia',serif]" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1" : "Teacher Login"), /* @__PURE__ */ import_react30.default.createElement("p", { className: "text-xs text-purple-200/70 mt-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8 \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0B95\u0BBF\u0B95\u0BCD\u0B95 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Sign in to create & host live yoga classes")), errorMessage && /* @__PURE__ */ import_react30.default.createElement("div", { className: "mb-5 p-3.5 rounded-2xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-2.5 text-rose-200 text-xs" }, /* @__PURE__ */ import_react30.default.createElement(CircleAlert, { size: 16, className: "text-rose-400 shrink-0" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "leading-snug" }, errorMessage)), /* @__PURE__ */ import_react30.default.createElement("form", { onSubmit: handleLogin, className: "flex flex-col gap-4" }, /* @__PURE__ */ import_react30.default.createElement("div", null, /* @__PURE__ */ import_react30.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1.5" }, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email Address"), /* @__PURE__ */ import_react30.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react30.default.createElement(Mail, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react30.default.createElement(
+      "input",
+      {
+        type: "email",
+        value: email,
+        onChange: (e2) => setEmail(e2.target.value),
+        placeholder: "teacher@nithyayoga.com",
+        required: true,
+        className: "w-full pl-10 pr-4 py-3 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ))), /* @__PURE__ */ import_react30.default.createElement("div", null, /* @__PURE__ */ import_react30.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1.5" }, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD" : "Password"), /* @__PURE__ */ import_react30.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react30.default.createElement(Lock, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react30.default.createElement(
+      "input",
+      {
+        type: showPassword ? "text" : "password",
+        value: password,
+        onChange: (e2) => setPassword(e2.target.value),
+        placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+        required: true,
+        className: "w-full pl-10 pr-11 py-3 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ), /* @__PURE__ */ import_react30.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setShowPassword(!showPassword),
+        className: "absolute right-3.5 top-1/2 -translate-y-1/2 text-purple-400/70 hover:text-white p-1",
+        "aria-label": showPassword ? "Hide password" : "Show password"
+      },
+      showPassword ? /* @__PURE__ */ import_react30.default.createElement(EyeOff, { size: 16 }) : /* @__PURE__ */ import_react30.default.createElement(Eye, { size: 16 })
+    ))), /* @__PURE__ */ import_react30.default.createElement(
+      "button",
+      {
+        type: "submit",
+        disabled: isLoading,
+        className: "w-full mt-2 py-3.5 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
+      },
+      isLoading ? /* @__PURE__ */ import_react30.default.createElement(import_react30.default.Fragment, null, /* @__PURE__ */ import_react30.default.createElement(RefreshCw, { size: 16, className: "animate-spin" }), /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Signing In...")) : /* @__PURE__ */ import_react30.default.createElement(import_react30.default.Fragment, null, /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Sign In as Teacher"), /* @__PURE__ */ import_react30.default.createElement(ArrowRight, { size: 16 }))
+    )), /* @__PURE__ */ import_react30.default.createElement("div", { className: "mt-6 pt-5 border-t border-purple-500/20 text-center" }, /* @__PURE__ */ import_react30.default.createElement("p", { className: "text-xs text-purple-200/70 mb-2" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8\u0BAF\u0BBE?" : "Don't have a teacher account?"), /* @__PURE__ */ import_react30.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => onNavigate && onNavigate("/teacher/register"),
+        className: "text-xs font-bold text-purple-300 hover:text-white hover:underline cursor-pointer"
+      },
+      lang === "ta" ? "\u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD \u27A1\uFE0F" : "Register New Teacher Account \u27A1\uFE0F"
+    ))));
+  }
+  var import_react30;
+  var init_TeacherLoginPage = __esm({
+    "src/components/TeacherLoginPage.jsx"() {
+      import_react30 = __toESM(require_react());
+      init_lucide_react();
+      init_api();
+    }
+  });
+
+  // src/components/TeacherRegisterPage.jsx
+  function TeacherRegisterPage({ onRegisterSuccess, onNavigate, lang = "en" }) {
+    const [name, setName] = (0, import_react31.useState)("");
+    const [email, setEmail] = (0, import_react31.useState)("");
+    const [phone, setPhone] = (0, import_react31.useState)("");
+    const [password, setPassword] = (0, import_react31.useState)("");
+    const [confirmPassword, setConfirmPassword] = (0, import_react31.useState)("");
+    const [showPassword, setShowPassword] = (0, import_react31.useState)(false);
+    const [showConfirmPassword, setShowConfirmPassword] = (0, import_react31.useState)(false);
+    const [isLoading, setIsLoading] = (0, import_react31.useState)(false);
+    const [errorMessage, setErrorMessage] = (0, import_react31.useState)("");
+    const [successMessage, setSuccessMessage] = (0, import_react31.useState)("");
+    const handleRegister = async (e2) => {
+      e2.preventDefault();
+      setErrorMessage("");
+      setSuccessMessage("");
+      const cleanName = name.trim().replace(/\s+/g, " ");
+      const cleanEmail = email.trim().toLowerCase();
+      const cleanPhone = phone.replace(/[^\d+]/g, "");
+      const cleanPassword = password;
+      const cleanConfirm = confirmPassword;
+      if (cleanName.length < 2) {
+        setErrorMessage(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 2 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BB3\u0BCD)." : "Please enter your full name (at least 2 characters).");
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(cleanEmail)) {
+        setErrorMessage(lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF\u0BAF\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Please enter a valid Gmail / email address.");
+        return;
+      }
+      if (cleanPhone.replace(/\D/g, "").length < 10) {
+        setErrorMessage(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 10-\u0B87\u0BB2\u0B95\u0BCD\u0B95 \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Please enter a valid 10-digit mobile number.");
+        return;
+      }
+      if (cleanPassword.length < 6) {
+        setErrorMessage(lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD \u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 6 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BB3\u0BBE\u0B95 \u0B87\u0BB0\u0BC1\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD." : "Password must be at least 6 characters long.");
+        return;
+      }
+      if (cleanPassword !== cleanConfirm) {
+        setErrorMessage(lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB1\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8. \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Passwords do not match. Please re-enter.");
+        return;
+      }
+      setIsLoading(true);
+      try {
+        const data2 = await apiFetch2("/api/admin/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            name: cleanName,
+            email: cleanEmail,
+            phone: cleanPhone,
+            password: cleanPassword
+          })
+        });
+        if (!data2 || !data2.token) {
+          throw new Error(data2?.error || (lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF\u0BAF\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1." : "Registration failed."));
+        }
+        const verifyRes = await apiFetch2("/api/teacher/verify", {
+          method: "GET",
+          headers: { "Authorization": `Bearer ${data2.token}` }
+        });
+        if (!verifyRes || !verifyRes.ok || !verifyRes.user) {
+          throw new Error(lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCB\u0BB2\u0BCD\u0BB5\u0BBF\u0BAF\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1." : "Failed to verify teacher authorization token.");
+        }
+        localStorage.setItem("nithya_teacher_token", data2.token);
+        localStorage.setItem("nithya_admin_token", data2.token);
+        localStorage.setItem("nithya_active_role", "instructor");
+        localStorage.removeItem("nithya_student_session");
+        setSuccessMessage(lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BB5\u0BC6\u0BB1\u0BCD\u0BB1\u0BBF\u0B95\u0BB0\u0BAE\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1! \u0BB5\u0BB4\u0BBF\u0BA8\u0B9F\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Teacher account created successfully! Redirecting...");
+        setTimeout(() => {
+          if (onRegisterSuccess) {
+            onRegisterSuccess(verifyRes.user);
+          } else if (onNavigate) {
+            onNavigate("/teacher/dashboard");
+          }
+        }, 700);
+      } catch (err) {
+        console.error("Teacher registration error:", err);
+        setErrorMessage(err.message || (lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BB5\u0BA4\u0BBF\u0BB2\u0BCD \u0BAA\u0BBF\u0BB4\u0BC8 \u0B8F\u0BB1\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "Registration failed."));
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    return /* @__PURE__ */ import_react31.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif]" }, /* @__PURE__ */ import_react31.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden" }, /* @__PURE__ */ import_react31.default.createElement("div", { className: "absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]" }), /* @__PURE__ */ import_react31.default.createElement("div", { className: "absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-800/15 rounded-full blur-[100px]" })), /* @__PURE__ */ import_react31.default.createElement("div", { className: "relative w-full max-w-md bg-gradient-to-b from-[#181236]/90 to-[#0e0a24]/95 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl my-6" }, /* @__PURE__ */ import_react31.default.createElement("div", { className: "flex items-center justify-between mb-6" }, /* @__PURE__ */ import_react31.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => onNavigate && onNavigate("/"),
+        className: "text-xs text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+      },
+      /* @__PURE__ */ import_react31.default.createElement(ArrowLeft, { size: 14 }),
+      /* @__PURE__ */ import_react31.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react31.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-400/30 text-purple-300 text-[11px] font-bold" }, /* @__PURE__ */ import_react31.default.createElement(ShieldCheck, { size: 13, className: "text-purple-400" }), /* @__PURE__ */ import_react31.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Teacher Registration"))), /* @__PURE__ */ import_react31.default.createElement("div", { className: "text-center mb-6" }, /* @__PURE__ */ import_react31.default.createElement("div", { className: "w-14 h-14 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-purple-600 to-violet-400 flex items-center justify-center shadow-lg shadow-purple-500/30" }, /* @__PURE__ */ import_react31.default.createElement("span", { className: "text-2xl" }, "\u2740")), /* @__PURE__ */ import_react31.default.createElement("h2", { className: "text-2xl font-black tracking-wide text-white font-['Georgia',serif]" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Create Teacher Account"), /* @__PURE__ */ import_react31.default.createElement("p", { className: "text-xs text-purple-200/70 mt-1" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95" : "Register to host live sessions and guide students")), errorMessage && /* @__PURE__ */ import_react31.default.createElement("div", { className: "mb-4 p-3.5 rounded-2xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-2.5 text-rose-200 text-xs" }, /* @__PURE__ */ import_react31.default.createElement(CircleAlert, { size: 16, className: "text-rose-400 shrink-0" }), /* @__PURE__ */ import_react31.default.createElement("span", { className: "leading-snug" }, errorMessage)), successMessage && /* @__PURE__ */ import_react31.default.createElement("div", { className: "mb-4 p-3.5 rounded-2xl bg-emerald-950/70 border border-emerald-500/50 flex items-center gap-2.5 text-emerald-200 text-xs" }, /* @__PURE__ */ import_react31.default.createElement(CircleCheck, { size: 16, className: "text-emerald-400 shrink-0" }), /* @__PURE__ */ import_react31.default.createElement("span", { className: "leading-snug" }, successMessage)), /* @__PURE__ */ import_react31.default.createElement("form", { onSubmit: handleRegister, className: "flex flex-col gap-3.5" }, /* @__PURE__ */ import_react31.default.createElement("div", null, /* @__PURE__ */ import_react31.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1" }, lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Full Name"), /* @__PURE__ */ import_react31.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react31.default.createElement(User, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react31.default.createElement(
+      "input",
+      {
+        type: "text",
+        value: name,
+        onChange: (e2) => setName(e2.target.value),
+        placeholder: "Nithya Teacher",
+        required: true,
+        className: "w-full pl-10 pr-4 py-2.5 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ))), /* @__PURE__ */ import_react31.default.createElement("div", null, /* @__PURE__ */ import_react31.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1" }, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email Address"), /* @__PURE__ */ import_react31.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react31.default.createElement(Mail, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react31.default.createElement(
+      "input",
+      {
+        type: "email",
+        value: email,
+        onChange: (e2) => setEmail(e2.target.value),
+        placeholder: "teacher@nithyayoga.com",
+        required: true,
+        className: "w-full pl-10 pr-4 py-2.5 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ))), /* @__PURE__ */ import_react31.default.createElement("div", null, /* @__PURE__ */ import_react31.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1" }, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (10 \u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BAE\u0BCD)" : "Mobile Number (10 Digits)"), /* @__PURE__ */ import_react31.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react31.default.createElement(Phone, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react31.default.createElement(
+      "input",
+      {
+        type: "tel",
+        value: phone,
+        onChange: (e2) => setPhone(e2.target.value),
+        placeholder: "9876543210",
+        required: true,
+        className: "w-full pl-10 pr-4 py-2.5 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ))), /* @__PURE__ */ import_react31.default.createElement("div", null, /* @__PURE__ */ import_react31.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1" }, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 6 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BB3\u0BCD)" : "Password (min. 6 characters)"), /* @__PURE__ */ import_react31.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react31.default.createElement(Lock, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react31.default.createElement(
+      "input",
+      {
+        type: showPassword ? "text" : "password",
+        value: password,
+        onChange: (e2) => setPassword(e2.target.value),
+        placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+        required: true,
+        className: "w-full pl-10 pr-11 py-2.5 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ), /* @__PURE__ */ import_react31.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setShowPassword(!showPassword),
+        className: "absolute right-3.5 top-1/2 -translate-y-1/2 text-purple-400/70 hover:text-white p-1",
+        "aria-label": showPassword ? "Hide password" : "Show password"
+      },
+      showPassword ? /* @__PURE__ */ import_react31.default.createElement(EyeOff, { size: 16 }) : /* @__PURE__ */ import_react31.default.createElement(Eye, { size: 16 })
+    ))), /* @__PURE__ */ import_react31.default.createElement("div", null, /* @__PURE__ */ import_react31.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1" }, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1" : "Confirm Password"), /* @__PURE__ */ import_react31.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react31.default.createElement(Lock, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react31.default.createElement(
+      "input",
+      {
+        type: showConfirmPassword ? "text" : "password",
+        value: confirmPassword,
+        onChange: (e2) => setConfirmPassword(e2.target.value),
+        placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
+        required: true,
+        className: "w-full pl-10 pr-11 py-2.5 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ), /* @__PURE__ */ import_react31.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setShowConfirmPassword(!showConfirmPassword),
+        className: "absolute right-3.5 top-1/2 -translate-y-1/2 text-purple-400/70 hover:text-white p-1",
+        "aria-label": showConfirmPassword ? "Hide password" : "Show password"
+      },
+      showConfirmPassword ? /* @__PURE__ */ import_react31.default.createElement(EyeOff, { size: 16 }) : /* @__PURE__ */ import_react31.default.createElement(Eye, { size: 16 })
+    ))), /* @__PURE__ */ import_react31.default.createElement(
+      "button",
+      {
+        type: "submit",
+        disabled: isLoading,
+        className: "w-full mt-3 py-3.5 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
+      },
+      isLoading ? /* @__PURE__ */ import_react31.default.createElement(import_react31.default.Fragment, null, /* @__PURE__ */ import_react31.default.createElement(RefreshCw, { size: 16, className: "animate-spin" }), /* @__PURE__ */ import_react31.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Registering Account...")) : /* @__PURE__ */ import_react31.default.createElement(import_react31.default.Fragment, null, /* @__PURE__ */ import_react31.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1" : "Create Teacher Account"), /* @__PURE__ */ import_react31.default.createElement(ArrowRight, { size: 16 }))
+    )), /* @__PURE__ */ import_react31.default.createElement("div", { className: "mt-5 pt-4 border-t border-purple-500/20 text-center" }, /* @__PURE__ */ import_react31.default.createElement("p", { className: "text-xs text-purple-200/70 mb-1.5" }, lang === "ta" ? "\u0B8F\u0BB1\u0BCD\u0B95\u0BA9\u0BB5\u0BC7 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE?" : "Already have a teacher account?"), /* @__PURE__ */ import_react31.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => onNavigate && onNavigate("/teacher/login"),
+        className: "text-xs font-bold text-purple-300 hover:text-white hover:underline cursor-pointer"
+      },
+      lang === "ta" ? "\u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD \u27A1\uFE0F" : "Sign In here \u27A1\uFE0F"
+    ))));
+  }
+  var import_react31;
+  var init_TeacherRegisterPage = __esm({
+    "src/components/TeacherRegisterPage.jsx"() {
+      import_react31 = __toESM(require_react());
+      init_lucide_react();
+      init_api();
+    }
+  });
+
+  // src/components/TeacherDashboardPage.jsx
+  function TeacherDashboardPage({ onNavigate, onLaunchLive, lang = "en" }) {
+    const [teacher, setTeacher] = (0, import_react32.useState)(null);
+    const [isVerifying, setIsVerifying] = (0, import_react32.useState)(true);
+    const [authError, setAuthError] = (0, import_react32.useState)("");
+    const [classTitle, setClassTitle] = (0, import_react32.useState)("Hatha Yoga Flow & Alignment");
+    const [isCreatingClass, setIsCreatingClass] = (0, import_react32.useState)(false);
+    const [createdSession, setCreatedSession] = (0, import_react32.useState)(null);
+    const [copiedLink, setCopiedLink] = (0, import_react32.useState)(false);
+    const [classList, setClassList] = (0, import_react32.useState)([]);
+    const [isLoadingClasses, setIsLoadingClasses] = (0, import_react32.useState)(false);
+    (0, import_react32.useEffect)(() => {
+      let isMounted = true;
+      async function verifyTeacher() {
+        const token = localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_admin_token");
+        if (!token) {
+          if (isMounted) {
+            setAuthError(lang === "ta" ? "\u0B85\u0B99\u0BCD\u0B95\u0BC0\u0B95\u0BB0\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B87\u0BB2\u0BCD\u0BB2\u0BC8. \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Unauthorized. Please sign in as a teacher.");
+            setIsVerifying(false);
+            if (onNavigate) onNavigate("/teacher/login");
+          }
+          return;
+        }
+        try {
+          const res = await apiFetch2("/api/teacher/verify", {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` }
+          });
+          if (isMounted) {
+            if (res && res.ok && res.user) {
+              setTeacher(res.user);
+              setIsVerifying(false);
+              loadClasses();
+            } else {
+              throw new Error(res?.error || "Server rejected authorization.");
+            }
+          }
+        } catch (err) {
+          console.warn("Teacher authorization rejected by server:", err);
+          if (isMounted) {
+            localStorage.removeItem("nithya_teacher_token");
+            localStorage.removeItem("nithya_admin_token");
+            setAuthError(err.message || "Session expired. Please log in again.");
+            setIsVerifying(false);
+            if (onNavigate) onNavigate("/teacher/login");
+          }
+        }
+      }
+      verifyTeacher();
+      return () => {
+        isMounted = false;
+      };
+    }, []);
+    const loadClasses = async () => {
+      setIsLoadingClasses(true);
+      try {
+        const data2 = await apiFetch2("/api/classes");
+        if (Array.isArray(data2)) {
+          setClassList(data2);
+        }
+      } catch (_2) {
+        const cached = JSON.parse(localStorage.getItem("nithya_classes") || "[]");
+        setClassList(cached);
+      } finally {
+        setIsLoadingClasses(false);
+      }
+    };
+    const handleCreateLiveClass = async () => {
+      setIsCreatingClass(true);
+      setCreatedSession(null);
+      setCopiedLink(false);
+      const token = localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_admin_token");
+      try {
+        const res = await apiFetch2("/api/teacher/live/create", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            title: classTitle.trim() || "Hatha Yoga Flow & Alignment",
+            courseName: "Master Hatha Yoga Flow",
+            durationMinutes: 60
+          })
+        });
+        if (!res || !res.sessionId) {
+          throw new Error(res?.error || "Failed to create live class session.");
+        }
+        const origin = window.location.origin;
+        const pathname = window.location.pathname.replace(/\/+$/, "");
+        const inviteUrl = `${origin}${pathname}/#/student/join/${res.sessionId}`;
+        setCreatedSession({
+          sessionId: res.sessionId,
+          class: res.class,
+          inviteUrl
+        });
+        loadClasses();
+      } catch (err) {
+        alert(err.message || "Failed to create live class.");
+      } finally {
+        setIsCreatingClass(false);
+      }
+    };
+    const handleCopyLink = async (url) => {
+      try {
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          await navigator.clipboard.writeText(url);
+        } else {
+          const ta = document.createElement("textarea");
+          ta.value = url;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          document.body.removeChild(ta);
+        }
+        setCopiedLink(true);
+        setTimeout(() => setCopiedLink(false), 3e3);
+      } catch (_2) {
+        prompt("Copy student invitation link:", url);
+      }
+    };
+    const handleWhatsAppShare = (url, title) => {
+      const text = encodeURIComponent(
+        `\u{1F9D8}\u200D\u2640\uFE0F *NITHYA Yoga Live Class Invitation*
+
+You are invited to join a live yoga class: *${title || classTitle}*.
+
+\u{1F517} *Tap to Join as Student:*
+${url}
+
+Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
+      );
+      window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
+    };
+    const handleNativeShare = async (url, title) => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: "NITHYA Yoga Live Class",
+            text: `Join our live yoga class: ${title}`,
+            url
+          });
+        } catch (_2) {
+        }
+      } else {
+        handleCopyLink(url);
+      }
+    };
+    const handleEndClass = async (classId) => {
+      if (!confirm(lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BBE?" : "End this live class for all participants?")) {
+        return;
+      }
+      const token = localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_admin_token");
+      try {
+        await apiFetch2(`/api/teacher/classes/${classId}/end`, {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${token}` }
+        });
+        loadClasses();
+        if (createdSession && createdSession.sessionId === classId) {
+          setCreatedSession(null);
+        }
+      } catch (err) {
+        alert(err.message || "Failed to end class.");
+      }
+    };
+    const handleLogout = () => {
+      localStorage.removeItem("nithya_teacher_token");
+      localStorage.removeItem("nithya_admin_token");
+      localStorage.removeItem("nithya_active_role");
+      if (onNavigate) onNavigate("/teacher/login");
+    };
+    if (isVerifying) {
+      return /* @__PURE__ */ import_react32.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react32.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react32.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying Teacher Authorization on Server..."), /* @__PURE__ */ import_react32.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "NITHYA Yoga Security Guard"));
+    }
+    return /* @__PURE__ */ import_react32.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white font-['Poppins',sans-serif] p-4 sm:p-6 md:p-8" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "absolute top-1/4 left-1/3 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px]" }), /* @__PURE__ */ import_react32.default.createElement("div", { className: "absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-800/15 rounded-full blur-[120px]" })), /* @__PURE__ */ import_react32.default.createElement("div", { className: "relative max-w-5xl mx-auto flex flex-col gap-6" }, /* @__PURE__ */ import_react32.default.createElement("header", { className: "flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#181236]/90 to-[#0e0a24]/90 border border-purple-500/30 backdrop-blur-xl shadow-xl flex-wrap gap-4" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-600 to-violet-400 flex items-center justify-center shadow-md" }, /* @__PURE__ */ import_react32.default.createElement("span", { className: "text-xl" }, "\u2740")), /* @__PURE__ */ import_react32.default.createElement("div", null, /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react32.default.createElement("h1", { className: "font-bold text-lg text-white font-['Georgia',serif]" }, "NITHYA Yoga"), /* @__PURE__ */ import_react32.default.createElement("span", { className: "px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-400/40 text-[10px] font-black text-purple-300 tracking-wider" }, "TEACHER")), /* @__PURE__ */ import_react32.default.createElement("p", { className: "text-xs text-purple-300/70" }, teacher?.name || "Verified Instructor", " \xB7 ", teacher?.email || "teacher@nithyayoga.com"))), /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react32.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => onNavigate && onNavigate("/"),
+        className: "text-xs px-3.5 py-2 rounded-xl bg-purple-950/60 hover:bg-purple-900 border border-purple-500/30 text-purple-200 hover:text-white transition-all cursor-pointer"
+      },
+      lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0BB5\u0BC8" : "Public App"
+    ), /* @__PURE__ */ import_react32.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: handleLogout,
+        className: "text-xs px-3.5 py-2 rounded-xl bg-rose-950/60 hover:bg-rose-900 border border-rose-500/30 text-rose-200 hover:text-white flex items-center gap-1.5 transition-all cursor-pointer"
+      },
+      /* @__PURE__ */ import_react32.default.createElement(LogOut, { size: 13 }),
+      /* @__PURE__ */ import_react32.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Logout")
+    ))), /* @__PURE__ */ import_react32.default.createElement("section", { className: "p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-violet-950/90 via-purple-900/90 to-indigo-950/90 border border-purple-400/40 shadow-2xl backdrop-blur-xl relative overflow-hidden" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "max-w-xl" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-bold mb-3" }, /* @__PURE__ */ import_react32.default.createElement(Radio, { size: 14, className: "text-purple-300 animate-pulse" }), /* @__PURE__ */ import_react32.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1" : "EXCLUSIVE INSTRUCTOR PRIVILEGE")), /* @__PURE__ */ import_react32.default.createElement("h2", { className: "text-2xl sm:text-3xl font-bold text-white mb-2 font-['Georgia',serif]" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Create & Host Live Yoga Class"), /* @__PURE__ */ import_react32.default.createElement("p", { className: "text-xs sm:text-sm text-purple-200/80 leading-relaxed" }, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BAE\u0BBE\u0BA9 \u0BB0\u0BC2\u0BAE\u0BCD \u0B90\u0B9F\u0BBF \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1, \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAA\u0B95\u0BBF\u0BB0\u0B95\u0BCD\u0B95\u0BC2\u0B9F\u0BBF\u0BAF \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B89\u0B9F\u0BA9\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BC1\u0BAE\u0BCD." : "Start a fresh live session with real-time video streaming. A unique student invitation link will be generated automatically."), /* @__PURE__ */ import_react32.default.createElement("div", { className: "mt-4 flex flex-col sm:flex-row gap-2 max-w-md" }, /* @__PURE__ */ import_react32.default.createElement(
+      "input",
+      {
+        type: "text",
+        value: classTitle,
+        onChange: (e2) => setClassTitle(e2.target.value),
+        placeholder: "Class Title (e.g., Hatha Yoga Flow)",
+        className: "flex-1 px-4 py-2.5 bg-[#0b081e]/80 border border-purple-500/40 rounded-xl text-white text-xs placeholder-purple-300/30 focus:outline-none focus:border-purple-300"
+      }
+    ))), /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex flex-col gap-2 shrink-0" }, /* @__PURE__ */ import_react32.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: handleCreateLiveClass,
+        disabled: isCreatingClass,
+        className: "px-6 py-4 rounded-2xl bg-gradient-to-r from-purple-500 via-violet-600 to-fuchsia-600 hover:from-purple-400 hover:to-fuchsia-500 text-white font-black text-sm sm:text-base shadow-xl shadow-purple-600/30 flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60"
+      },
+      isCreatingClass ? /* @__PURE__ */ import_react32.default.createElement(import_react32.default.Fragment, null, /* @__PURE__ */ import_react32.default.createElement(RefreshCw, { size: 18, className: "animate-spin" }), /* @__PURE__ */ import_react32.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Creating Room...")) : /* @__PURE__ */ import_react32.default.createElement(import_react32.default.Fragment, null, /* @__PURE__ */ import_react32.default.createElement(Video, { size: 20 }), /* @__PURE__ */ import_react32.default.createElement("span", null, lang === "ta" ? "\u{1F3A5} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F3A5} Start Live Class as Host"))
+    )))), createdSession && /* @__PURE__ */ import_react32.default.createElement("section", { className: "p-6 rounded-3xl bg-gradient-to-b from-[#1c1442] to-[#120c2e] border-2 border-purple-400/60 shadow-2xl animate-fadeIn" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react32.default.createElement("span", { className: "w-3 h-3 rounded-full bg-emerald-400 animate-ping" }), /* @__PURE__ */ import_react32.default.createElement("h3", { className: "font-bold text-lg text-white" }, lang === "ta" ? "\u{1F389} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "\u{1F389} Live Class Session Active!")), /* @__PURE__ */ import_react32.default.createElement("span", { className: "px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 font-mono text-xs border border-purple-500/30" }, "Session ID: ", createdSession.sessionId)), /* @__PURE__ */ import_react32.default.createElement("p", { className: "text-xs text-purple-200/80 mb-4" }, lang === "ta" ? "\u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BC8 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAE\u0BC2\u0BB2\u0BAE\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BB5\u0BC1\u0BAE\u0BCD. \u0B85\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0B95\u0BCD\u0B95\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0B9A\u0BCD \u0B9A\u0BC6\u0BA9\u0BCD\u0BB1\u0BC1 \u0B87\u0BA3\u0BC8\u0BB5\u0BBE\u0BB0\u0BCD\u0B95\u0BB3\u0BCD." : "Share this student invitation link with your students. Tapping this link will open the Student Join page directly."), /* @__PURE__ */ import_react32.default.createElement("div", { className: "p-3 bg-[#0a071c] border border-purple-500/40 rounded-2xl flex items-center justify-between gap-3 mb-4" }, /* @__PURE__ */ import_react32.default.createElement("span", { className: "text-xs font-mono text-purple-200 truncate select-all" }, createdSession.inviteUrl), /* @__PURE__ */ import_react32.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => handleCopyLink(createdSession.inviteUrl),
+        className: "px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-1.5 shrink-0 transition-colors cursor-pointer"
+      },
+      copiedLink ? /* @__PURE__ */ import_react32.default.createElement(Check, { size: 14, className: "text-emerald-300" }) : /* @__PURE__ */ import_react32.default.createElement(Copy, { size: 14 }),
+      /* @__PURE__ */ import_react32.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Copied!" : lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF" : "Copy Link")
+    )), /* @__PURE__ */ import_react32.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react32.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => handleWhatsAppShare(createdSession.inviteUrl, createdSession.class?.title),
+        className: "py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-emerald-600/20"
+      },
+      /* @__PURE__ */ import_react32.default.createElement("span", null, "\u260E Share on WhatsApp")
+    ), /* @__PURE__ */ import_react32.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => handleNativeShare(createdSession.inviteUrl, createdSession.class?.title),
+        className: "py-3 px-4 rounded-xl bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
+      },
+      /* @__PURE__ */ import_react32.default.createElement(Share2, { size: 15 }),
+      /* @__PURE__ */ import_react32.default.createElement("span", null, "Share Link")
+    ), /* @__PURE__ */ import_react32.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          if (onLaunchLive) {
+            onLaunchLive(createdSession.class);
+          } else if (onNavigate) {
+            onNavigate(`/teacher/live/${createdSession.sessionId}`);
+          }
+        },
+        className: "py-3 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-violet-600/20"
+      },
+      /* @__PURE__ */ import_react32.default.createElement("span", null, "\u{1F680} Enter Live Room as Host"),
+      /* @__PURE__ */ import_react32.default.createElement(ArrowRight, { size: 15 })
+    ))), /* @__PURE__ */ import_react32.default.createElement("section", { className: "p-6 rounded-3xl bg-[#130e2e]/90 border border-purple-500/30 backdrop-blur-xl" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react32.default.createElement(Calendar, { size: 18, className: "text-purple-400" }), /* @__PURE__ */ import_react32.default.createElement("h3", { className: "font-bold text-base text-white" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BB2\u0BBE\u0BB1\u0BC1 & \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BA8\u0BBF\u0BB2\u0BC8" : "Yoga Classes & Session Status")), /* @__PURE__ */ import_react32.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: loadClasses,
+        className: "text-xs text-purple-300 hover:text-white flex items-center gap-1 cursor-pointer"
+      },
+      /* @__PURE__ */ import_react32.default.createElement(RefreshCw, { size: 12, className: isLoadingClasses ? "animate-spin" : "" }),
+      /* @__PURE__ */ import_react32.default.createElement("span", null, "Refresh")
+    )), classList.length === 0 ? /* @__PURE__ */ import_react32.default.createElement("div", { className: "text-center py-8 text-xs text-purple-300/50" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No yoga classes found. Create your first live class above.") : /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex flex-col gap-3" }, classList.slice(0, 8).map((cls) => {
+      const isLive = cls.status === "live";
+      const isEnded = cls.status === "ended";
+      return /* @__PURE__ */ import_react32.default.createElement(
+        "div",
+        {
+          key: cls.id,
+          className: "p-4 rounded-2xl bg-[#0b071e]/80 border border-purple-500/20 flex items-center justify-between flex-wrap gap-3"
+        },
+        /* @__PURE__ */ import_react32.default.createElement("div", null, /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react32.default.createElement("h4", { className: "font-bold text-sm text-white" }, cls.title || cls.name), /* @__PURE__ */ import_react32.default.createElement(
+          "span",
+          {
+            className: `px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${isLive ? "bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse" : isEnded ? "bg-slate-700/40 text-slate-400 border border-slate-600/30" : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"}`
+          },
+          cls.status || "scheduled"
+        )), /* @__PURE__ */ import_react32.default.createElement("p", { className: "text-xs text-purple-300/60 mt-0.5" }, "Instructor: ", cls.instructor || "NITHYA Master", " \xB7 ID: ", /* @__PURE__ */ import_react32.default.createElement("span", { className: "font-mono" }, cls.id))),
+        /* @__PURE__ */ import_react32.default.createElement("div", { className: "flex items-center gap-2" }, isLive && /* @__PURE__ */ import_react32.default.createElement(import_react32.default.Fragment, null, /* @__PURE__ */ import_react32.default.createElement(
+          "button",
+          {
+            type: "button",
+            onClick: () => {
+              const origin = window.location.origin;
+              const pathname = window.location.pathname.replace(/\/+$/, "");
+              handleCopyLink(`${origin}${pathname}/#/student/join/${cls.id}`);
+            },
+            className: "text-xs px-3 py-1.5 rounded-xl bg-purple-950/60 hover:bg-purple-900 border border-purple-500/30 text-purple-200"
+          },
+          "Copy Student Link"
+        ), /* @__PURE__ */ import_react32.default.createElement(
+          "button",
+          {
+            type: "button",
+            onClick: () => {
+              if (onLaunchLive) {
+                onLaunchLive(cls);
+              } else if (onNavigate) {
+                onNavigate(`/teacher/live/${cls.id}`);
+              }
+            },
+            className: "text-xs px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold"
+          },
+          "Enter Host Room"
+        ), /* @__PURE__ */ import_react32.default.createElement(
+          "button",
+          {
+            type: "button",
+            onClick: () => handleEndClass(cls.id),
+            className: "text-xs px-3 py-1.5 rounded-xl bg-rose-950/60 hover:bg-rose-900 border border-rose-500/40 text-rose-300 font-bold"
+          },
+          "End Class"
+        )), !isLive && /* @__PURE__ */ import_react32.default.createElement(
+          "button",
+          {
+            type: "button",
+            onClick: () => {
+              setClassTitle(cls.title || cls.name || "Hatha Yoga Flow");
+              handleCreateLiveClass();
+            },
+            className: "text-xs px-3 py-1.5 rounded-xl bg-purple-950/50 hover:bg-purple-900 border border-purple-500/30 text-purple-200"
+          },
+          "Start New Session"
+        ))
+      );
+    })))));
+  }
+  var import_react32;
+  var init_TeacherDashboardPage = __esm({
+    "src/components/TeacherDashboardPage.jsx"() {
+      import_react32 = __toESM(require_react());
+      init_lucide_react();
+      init_api();
+    }
+  });
+
+  // src/components/StudentJoinPage.jsx
+  function StudentJoinPage({ sessionId: propSessionId, onJoinClass, onNavigate, lang = "en" }) {
+    const [resolvedSessionId, setResolvedSessionId] = (0, import_react33.useState)(() => {
+      if (propSessionId) return propSessionId;
+      try {
+        const hash = window.location.hash || "";
+        const hashMatch = hash.match(/\/student\/join\/([^?#/]+)/);
+        if (hashMatch && hashMatch[1]) return hashMatch[1];
+        const pathMatch = window.location.pathname.match(/\/student\/join\/([^?#/]+)/);
+        if (pathMatch && pathMatch[1]) return pathMatch[1];
+        const params = new URLSearchParams(window.location.search);
+        return params.get("room") || params.get("live") || params.get("sessionId") || "";
+      } catch (_2) {
+        return "";
+      }
+    });
+    const [isLoadingSession, setIsLoadingSession] = (0, import_react33.useState)(true);
+    const [sessionData, setSessionData] = (0, import_react33.useState)(null);
+    const [sessionError, setSessionError] = (0, import_react33.useState)("");
+    const [isClassEnded, setIsClassEnded] = (0, import_react33.useState)(false);
+    const [name, setName] = (0, import_react33.useState)(() => {
+      try {
+        const saved = JSON.parse(localStorage.getItem("nithya_student_session") || "{}");
+        return saved.name || localStorage.getItem("nithya_student_name") || "";
+      } catch (_2) {
+        return "";
+      }
+    });
+    const [phone, setPhone] = (0, import_react33.useState)(() => {
+      try {
+        const saved = JSON.parse(localStorage.getItem("nithya_student_session") || "{}");
+        return saved.phone || localStorage.getItem("nithya_student_phone") || "";
+      } catch (_2) {
+        return "";
+      }
+    });
+    const [formError, setFormError] = (0, import_react33.useState)("");
+    const [isJoining, setIsJoining] = (0, import_react33.useState)(false);
+    const [micActive, setMicActive] = (0, import_react33.useState)(true);
+    const [cameraActive, setCameraActive] = (0, import_react33.useState)(true);
+    (0, import_react33.useEffect)(() => {
+      let isMounted = true;
+      async function validateSession() {
+        if (!resolvedSessionId) {
+          if (isMounted) {
+            setSessionError(lang === "ta" ? "\u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BC1\u0BAA\u0B9F\u0BBF\u0BAF\u0BBE\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0B90\u0B9F\u0BBF \u0B95\u0BBF\u0B9F\u0BC8\u0B95\u0BCD\u0B95\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No live session ID specified in the link.");
+            setIsLoadingSession(false);
+          }
+          return;
+        }
+        setIsLoadingSession(true);
+        setSessionError("");
+        setIsClassEnded(false);
+        try {
+          const res = await apiFetch2(`/api/live/session/${encodeURIComponent(resolvedSessionId)}`);
+          if (isMounted) {
+            if (res && res.exists && res.class) {
+              setSessionData(res.class);
+              if (res.status === "ended" || res.ended) {
+                setIsClassEnded(true);
+              }
+            } else {
+              setSessionError(res?.error || (lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BA3\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0BBE\u0BB2\u0BBE\u0BB5\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BA4\u0BC1." : "Live session not found or link is invalid."));
+            }
+          }
+        } catch (err) {
+          console.warn("Session verification failed:", err);
+          if (isMounted) {
+            setSessionError(err.message || (lang === "ta" ? "\u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC8 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "Failed to verify live class session."));
+          }
+        } finally {
+          if (isMounted) {
+            setIsLoadingSession(false);
+          }
+        }
+      }
+      validateSession();
+      return () => {
+        isMounted = false;
+      };
+    }, [resolvedSessionId]);
+    const handleJoin = async (e2) => {
+      e2.preventDefault();
+      setFormError("");
+      const cleanName = name.trim().replace(/\s+/g, " ");
+      const cleanPhone = phone.replace(/[^\d+]/g, "");
+      if (cleanName.length < 2) {
+        setFormError(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 2 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BCD\u0B95\u0BB3\u0BCD)." : "Please enter your full name (at least 2 letters).");
+        return;
+      }
+      if (cleanPhone.replace(/\D/g, "").length < 10) {
+        setFormError(lang === "ta" ? "\u0BA4\u0BAF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 10-\u0B87\u0BB2\u0B95\u0BCD\u0B95 \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD." : "Please enter a valid 10-digit mobile number.");
+        return;
+      }
+      setIsJoining(true);
+      try {
+        const res = await apiFetch2("/api/student/join", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            sessionId: resolvedSessionId,
+            name: cleanName,
+            phone: cleanPhone
+          })
+        });
+        if (!res || !res.allowed) {
+          if (res?.ended) {
+            setIsClassEnded(true);
+            throw new Error(lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "This yoga class has already ended.");
+          }
+          throw new Error(res?.error || "Unable to join live class.");
+        }
+        const studentSession = {
+          name: cleanName,
+          phone: cleanPhone,
+          role: "student",
+          sessionId: resolvedSessionId,
+          micActive,
+          cameraActive,
+          joinedAt: (/* @__PURE__ */ new Date()).toISOString()
+        };
+        localStorage.setItem("nithya_student_session", JSON.stringify(studentSession));
+        localStorage.setItem("nithya_student_name", cleanName);
+        localStorage.setItem("nithya_student_phone", cleanPhone);
+        localStorage.setItem("nithya_active_role", "student");
+        localStorage.removeItem("nithya_teacher_token");
+        localStorage.removeItem("nithya_admin_token");
+        if (onJoinClass) {
+          onJoinClass(res.class || sessionData, studentSession);
+        } else if (onNavigate) {
+          onNavigate(`/student/live/${resolvedSessionId}`);
+        }
+      } catch (err) {
+        setFormError(err.message || "Error joining class.");
+      } finally {
+        setIsJoining(false);
+      }
+    };
+    return /* @__PURE__ */ import_react33.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif]" }, /* @__PURE__ */ import_react33.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden" }, /* @__PURE__ */ import_react33.default.createElement("div", { className: "absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px]" }), /* @__PURE__ */ import_react33.default.createElement("div", { className: "absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-800/15 rounded-full blur-[120px]" })), /* @__PURE__ */ import_react33.default.createElement("div", { className: "relative w-full max-w-lg bg-gradient-to-b from-[#181236]/90 to-[#0e0a24]/95 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl my-6" }, /* @__PURE__ */ import_react33.default.createElement("div", { className: "flex items-center justify-between mb-6" }, /* @__PURE__ */ import_react33.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => onNavigate && onNavigate("/"),
+        className: "text-xs text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+      },
+      /* @__PURE__ */ import_react33.default.createElement(ArrowLeft, { size: 14 }),
+      /* @__PURE__ */ import_react33.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react33.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/30 text-indigo-300 text-[11px] font-bold" }, /* @__PURE__ */ import_react33.default.createElement(Radio, { size: 13, className: "text-indigo-400" }), /* @__PURE__ */ import_react33.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Student Live Join"))), isLoadingSession && /* @__PURE__ */ import_react33.default.createElement("div", { className: "text-center py-12 flex flex-col items-center" }, /* @__PURE__ */ import_react33.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react33.default.createElement("h3", { className: "font-bold text-base text-purple-200" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Validating Live Yoga Class Link..."), /* @__PURE__ */ import_react33.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "Connecting to NITHYA Yoga Studio")), !isLoadingSession && sessionError && /* @__PURE__ */ import_react33.default.createElement("div", { className: "text-center py-8" }, /* @__PURE__ */ import_react33.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400" }, /* @__PURE__ */ import_react33.default.createElement(CircleAlert, { size: 32 })), /* @__PURE__ */ import_react33.default.createElement("h3", { className: "text-xl font-bold text-white mb-2" }, lang === "ta" ? "\u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BC1\u0BAA\u0B9F\u0BBF\u0BAF\u0BBE\u0B95\u0BBE\u0BA4 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Invalid Live Class Link"), /* @__PURE__ */ import_react33.default.createElement("p", { className: "text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6" }, sessionError), /* @__PURE__ */ import_react33.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => onNavigate && onNavigate("/"),
+        className: "px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all"
+      },
+      lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0B9A\u0BCD \u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BB5\u0BC1\u0BAE\u0BCD" : "Return to Home"
+    )), !isLoadingSession && !sessionError && isClassEnded && /* @__PURE__ */ import_react33.default.createElement("div", { className: "text-center py-8" }, /* @__PURE__ */ import_react33.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400" }, /* @__PURE__ */ import_react33.default.createElement(Clock, { size: 32 })), /* @__PURE__ */ import_react33.default.createElement("h3", { className: "text-xl font-bold text-white mb-2" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Live Class Has Ended"), /* @__PURE__ */ import_react33.default.createElement("p", { className: "text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BBE\u0BB0\u0BCD. \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9F\u0BBE\u0BB7\u0BCD\u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BC8\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "The instructor has concluded this live yoga session. Thank you for your practice. Check the schedule for upcoming classes."), /* @__PURE__ */ import_react33.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => onNavigate && onNavigate("/"),
+        className: "px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all"
+      },
+      lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0B9A\u0BCD \u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BB5\u0BC1\u0BAE\u0BCD" : "Go to Home"
+    )), !isLoadingSession && !sessionError && !isClassEnded && sessionData && /* @__PURE__ */ import_react33.default.createElement("div", null, /* @__PURE__ */ import_react33.default.createElement("div", { className: "p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 to-indigo-950/60 border border-purple-500/30 mb-6 flex items-center gap-4" }, /* @__PURE__ */ import_react33.default.createElement("div", { className: "w-14 h-14 rounded-xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0" }, /* @__PURE__ */ import_react33.default.createElement("span", { className: "text-2xl" }, "\u{1F9D8}\u200D\u2640\uFE0F")), /* @__PURE__ */ import_react33.default.createElement("div", { className: "min-w-0" }, /* @__PURE__ */ import_react33.default.createElement("span", { className: "text-[10px] uppercase font-black tracking-wider text-purple-300" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "LIVE YOGA CLASS"), /* @__PURE__ */ import_react33.default.createElement("h3", { className: "font-bold text-base text-white truncate" }, sessionData.title || sessionData.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react33.default.createElement("p", { className: "text-xs text-purple-200/70 truncate" }, "Instructor: ", /* @__PURE__ */ import_react33.default.createElement("strong", null, sessionData.instructor || "NITHYA Master")))), formError && /* @__PURE__ */ import_react33.default.createElement("div", { className: "mb-4 p-3.5 rounded-2xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-2.5 text-rose-200 text-xs" }, /* @__PURE__ */ import_react33.default.createElement(CircleAlert, { size: 16, className: "text-rose-400 shrink-0" }), /* @__PURE__ */ import_react33.default.createElement("span", { className: "leading-snug" }, formError)), /* @__PURE__ */ import_react33.default.createElement("form", { onSubmit: handleJoin, className: "flex flex-col gap-4" }, /* @__PURE__ */ import_react33.default.createElement("div", null, /* @__PURE__ */ import_react33.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1.5" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Your Full Name"), /* @__PURE__ */ import_react33.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react33.default.createElement(User, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react33.default.createElement(
+      "input",
+      {
+        type: "text",
+        value: name,
+        onChange: (e2) => setName(e2.target.value),
+        placeholder: "E.g., Priya Sundar",
+        required: true,
+        className: "w-full pl-10 pr-4 py-3 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ))), /* @__PURE__ */ import_react33.default.createElement("div", null, /* @__PURE__ */ import_react33.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1.5" }, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (10 \u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BAE\u0BCD)" : "Mobile Phone Number (10 Digits)"), /* @__PURE__ */ import_react33.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react33.default.createElement(Phone, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react33.default.createElement(
+      "input",
+      {
+        type: "tel",
+        value: phone,
+        onChange: (e2) => setPhone(e2.target.value),
+        placeholder: "9876543210",
+        required: true,
+        className: "w-full pl-10 pr-4 py-3 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+      }
+    ))), /* @__PURE__ */ import_react33.default.createElement("div", { className: "flex items-center justify-center gap-3 py-2" }, /* @__PURE__ */ import_react33.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setMicActive(!micActive),
+        className: `px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all cursor-pointer ${micActive ? "bg-purple-900/40 border-purple-400/50 text-purple-200" : "bg-rose-950/40 border-rose-500/40 text-rose-300"}`
+      },
+      micActive ? /* @__PURE__ */ import_react33.default.createElement(Mic, { size: 14 }) : /* @__PURE__ */ import_react33.default.createElement(MicOff, { size: 14 }),
+      /* @__PURE__ */ import_react33.default.createElement("span", null, micActive ? "Mic Ready" : "Mic Muted")
+    ), /* @__PURE__ */ import_react33.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => setCameraActive(!cameraActive),
+        className: `px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all cursor-pointer ${cameraActive ? "bg-purple-900/40 border-purple-400/50 text-purple-200" : "bg-rose-950/40 border-rose-500/40 text-rose-300"}`
+      },
+      cameraActive ? /* @__PURE__ */ import_react33.default.createElement(Video, { size: 14 }) : /* @__PURE__ */ import_react33.default.createElement(VideoOff, { size: 14 }),
+      /* @__PURE__ */ import_react33.default.createElement("span", null, cameraActive ? "Camera Ready" : "Camera Off")
+    )), /* @__PURE__ */ import_react33.default.createElement(
+      "button",
+      {
+        type: "submit",
+        disabled: isJoining,
+        className: "w-full mt-2 py-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base rounded-2xl shadow-xl shadow-purple-600/30 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
+      },
+      isJoining ? /* @__PURE__ */ import_react33.default.createElement(import_react33.default.Fragment, null, /* @__PURE__ */ import_react33.default.createElement(RefreshCw, { size: 18, className: "animate-spin" }), /* @__PURE__ */ import_react33.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Entering Classroom...")) : /* @__PURE__ */ import_react33.default.createElement(import_react33.default.Fragment, null, /* @__PURE__ */ import_react33.default.createElement(Radio, { size: 18, className: "animate-pulse" }), /* @__PURE__ */ import_react33.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "\u{1F680} Enter Live Yoga Room"), /* @__PURE__ */ import_react33.default.createElement(ArrowRight, { size: 18 }))
+    )))));
+  }
+  var import_react33;
+  var init_StudentJoinPage = __esm({
+    "src/components/StudentJoinPage.jsx"() {
+      import_react33 = __toESM(require_react());
+      init_lucide_react();
+      init_api();
+    }
+  });
+
+  // src/components/TeacherLiveStudioRoute.jsx
+  function TeacherLiveStudioRoute({ lang = "en" }) {
+    const { sessionId } = useParams();
+    const navigate = useNavigate();
+    const [isVerifying, setIsVerifying] = (0, import_react34.useState)(true);
+    const [authError, setAuthError] = (0, import_react34.useState)("");
+    const [teacher, setTeacher] = (0, import_react34.useState)(null);
+    const [classData, setClassData] = (0, import_react34.useState)(null);
+    (0, import_react34.useEffect)(() => {
+      let isMounted = true;
+      async function verifyAndLoad() {
+        const token = localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_admin_token");
+        if (!token) {
+          if (isMounted) {
+            navigate("/teacher/login");
+          }
+          return;
+        }
+        try {
+          const verifyRes = await apiFetch2("/api/teacher/verify", {
+            method: "GET",
+            headers: { "Authorization": `Bearer ${token}` }
+          });
+          if (!isMounted) return;
+          if (!verifyRes || !verifyRes.ok || !verifyRes.user) {
+            throw new Error("Teacher authorization rejected.");
+          }
+          setTeacher(verifyRes.user);
+          try {
+            const sessRes = await apiFetch2(`/api/live/session/${encodeURIComponent(sessionId)}`);
+            if (isMounted && sessRes && sessRes.class) {
+              setClassData(sessRes.class);
+            }
+          } catch (_2) {
+          }
+          setIsVerifying(false);
+        } catch (err) {
+          console.warn("Teacher live access denied:", err);
+          if (isMounted) {
+            localStorage.removeItem("nithya_teacher_token");
+            localStorage.removeItem("nithya_admin_token");
+            setAuthError(lang === "ta" ? "\u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0BAE\u0BB1\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1. \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Unauthorized. Please log in as a teacher.");
+            setIsVerifying(false);
+            setTimeout(() => navigate("/teacher/login"), 1200);
+          }
+        }
+      }
+      verifyAndLoad();
+      return () => {
+        isMounted = false;
+      };
+    }, [sessionId, navigate, lang]);
+    if (isVerifying) {
+      return /* @__PURE__ */ import_react34.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react34.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react34.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying Teacher Authorization on Server..."), /* @__PURE__ */ import_react34.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "Host Studio Security Guard"));
+    }
+    if (authError) {
+      return /* @__PURE__ */ import_react34.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react34.default.createElement(ShieldAlert, { size: 44, className: "text-rose-400 mb-3" }), /* @__PURE__ */ import_react34.default.createElement("h3", { className: "text-lg font-bold text-rose-300 mb-2" }, authError), /* @__PURE__ */ import_react34.default.createElement(
+        "button",
+        {
+          onClick: () => navigate("/teacher/login"),
+          className: "mt-4 px-5 py-2.5 rounded-xl bg-purple-600 hover:bg-purple-500 font-bold text-sm text-white"
+        },
+        lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1" : "Go to Teacher Login"
+      ));
+    }
+    const activeClass = classData || {
+      id: sessionId,
+      title: "Hatha Yoga Flow & Alignment",
+      name: "Hatha Yoga Flow & Alignment",
+      courseName: "Live Yoga Studio",
+      room_name: sessionId?.startsWith("nithya-") ? sessionId : `nithya-${sessionId}`,
+      status: "live",
+      instructor: teacher?.name || "NITHYA Master"
+    };
+    const user = {
+      ...DEFAULT_USER,
+      name: teacher?.name || "NITHYA Master",
+      email: teacher?.email || "master@nithyayoga.com",
+      role: "trainer",
+      isInstructor: true
+    };
+    return /* @__PURE__ */ import_react34.default.createElement("div", { className: "min-h-screen bg-[#05051B] text-white" }, /* @__PURE__ */ import_react34.default.createElement("div", { className: "bg-[#120E2C] border-b border-purple-500/20 px-4 py-3 flex items-center justify-between" }, /* @__PURE__ */ import_react34.default.createElement(
+      "button",
+      {
+        onClick: () => navigate("/teacher/dashboard"),
+        className: "flex items-center gap-2 text-xs font-semibold text-purple-300 hover:text-white transition-colors cursor-pointer"
+      },
+      /* @__PURE__ */ import_react34.default.createElement(ArrowLeft, { size: 16 }),
+      /* @__PURE__ */ import_react34.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8\u0B95\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Teacher Dashboard")
+    ), /* @__PURE__ */ import_react34.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react34.default.createElement("span", { className: "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react34.default.createElement("span", { className: "text-xs font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8 (Host)" : "Host Studio: Teacher Mode"))), /* @__PURE__ */ import_react34.default.createElement("div", { className: "p-2 sm:p-4 max-w-7xl mx-auto" }, /* @__PURE__ */ import_react34.default.createElement(
+      LiveYogaClassRoom,
+      {
+        activeClass,
+        user,
+        sessionId,
+        isTeacherMode: true,
+        onLeaveClass: () => navigate("/teacher/dashboard"),
+        onNavigateAdmin: () => navigate("/teacher/dashboard"),
+        onRecordAttendance: () => {
+        },
+        lang
+      }
+    )));
+  }
+  var import_react34;
+  var init_TeacherLiveStudioRoute = __esm({
+    "src/components/TeacherLiveStudioRoute.jsx"() {
+      import_react34 = __toESM(require_react());
+      init_dist();
+      init_lucide_react();
+      init_LiveYogaClassRoom();
+      init_api();
+      init_storage();
+    }
+  });
+
+  // src/components/StudentLiveStudioRoute.jsx
+  function StudentLiveStudioRoute({ lang = "en" }) {
+    const { sessionId } = useParams();
+    const navigate = useNavigate();
+    const [isLoading, setIsLoading] = (0, import_react35.useState)(true);
+    const [sessionData, setSessionData] = (0, import_react35.useState)(null);
+    const [studentSession, setStudentSession] = (0, import_react35.useState)(null);
+    (0, import_react35.useEffect)(() => {
+      let isMounted = true;
+      async function checkStudentAndSession() {
+        let storedStudent = null;
+        try {
+          const raw = localStorage.getItem("nithya_student_session");
+          if (raw) storedStudent = JSON.parse(raw);
+        } catch (_2) {
+        }
+        const cleanPhone = (storedStudent?.phone || "").replace(/\D/g, "");
+        const isValidStudent = storedStudent && storedStudent.name && cleanPhone.length >= 10 && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Student"].includes(storedStudent.name);
+        if (!isValidStudent) {
+          if (isMounted) {
+            navigate(`/student/join/${encodeURIComponent(sessionId)}`);
+          }
+          return;
+        }
+        setStudentSession(storedStudent);
+        try {
+          const res = await apiFetch2(`/api/live/session/${encodeURIComponent(sessionId)}`);
+          if (isMounted) {
+            if (res && res.exists && res.class) {
+              if (res.status === "ended" || res.ended) {
+                navigate(`/student/join/${encodeURIComponent(sessionId)}`);
+                return;
+              }
+              setSessionData(res.class);
+            }
+            setIsLoading(false);
+          }
+        } catch (err) {
+          console.warn("Live session lookup error:", err);
+          if (isMounted) {
+            setIsLoading(false);
+          }
+        }
+      }
+      checkStudentAndSession();
+      return () => {
+        isMounted = false;
+      };
+    }, [sessionId, navigate]);
+    if (isLoading) {
+      return /* @__PURE__ */ import_react35.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react35.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react35.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8\u0BAF\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Yoga Classroom..."), /* @__PURE__ */ import_react35.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "NITHYA Yoga Live Stream"));
+    }
+    const activeClass = sessionData || {
+      id: sessionId,
+      title: "Live Yoga Class",
+      name: "Live Yoga Class",
+      courseName: "Live Yoga Session",
+      room_name: sessionId?.startsWith("nithya-") ? sessionId : `nithya-${sessionId}`,
+      status: "live",
+      instructor: "NITHYA Master"
+    };
+    const user = {
+      ...DEFAULT_USER,
+      name: studentSession?.name || "Yoga Student",
+      phone: studentSession?.phone || "",
+      role: "student",
+      isInstructor: false
+    };
+    return /* @__PURE__ */ import_react35.default.createElement("div", { className: "min-h-screen bg-[#05051B] text-white" }, /* @__PURE__ */ import_react35.default.createElement("div", { className: "bg-[#120E2C] border-b border-purple-500/20 px-4 py-3 flex items-center justify-between" }, /* @__PURE__ */ import_react35.default.createElement(
+      "button",
+      {
+        onClick: () => navigate("/"),
+        className: "flex items-center gap-2 text-xs font-semibold text-purple-300 hover:text-white transition-colors cursor-pointer"
+      },
+      /* @__PURE__ */ import_react35.default.createElement(ArrowLeft, { size: 16 }),
+      /* @__PURE__ */ import_react35.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react35.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react35.default.createElement(Radio, { size: 14, className: "text-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react35.default.createElement("span", { className: "text-xs font-bold text-purple-200" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 (\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF)" : "Live Yoga Classroom (Student)"))), /* @__PURE__ */ import_react35.default.createElement("div", { className: "p-2 sm:p-4 max-w-7xl mx-auto" }, /* @__PURE__ */ import_react35.default.createElement(
+      LiveYogaClassRoom,
+      {
+        activeClass,
+        user,
+        sessionId,
+        isTeacherMode: false,
+        onLeaveClass: () => navigate("/"),
+        onNavigateAdmin: () => {
+        },
+        onRecordAttendance: () => {
+        },
+        lang
+      }
+    )));
+  }
+  var import_react35;
+  var init_StudentLiveStudioRoute = __esm({
+    "src/components/StudentLiveStudioRoute.jsx"() {
+      import_react35 = __toESM(require_react());
+      init_dist();
+      init_lucide_react();
+      init_LiveYogaClassRoom();
+      init_api();
+      init_storage();
+    }
+  });
+
   // node_modules/@capacitor/core/dist/index.js
   var ExceptionCode, CapacitorException, getPlatformId, createCapacitor, initCapacitorGlobal, Capacitor, registerPlugin, WebPlugin, encode, decode, CapacitorCookiesPluginWeb, CapacitorCookies, readBlobAsBase64, normalizeHttpHeaders, buildUrlParams, buildRequestInit, CapacitorHttpPluginWeb, CapacitorHttp, SystemBarsStyle, SystemBarType, SystemBarsPluginWeb, SystemBars;
-  var init_dist = __esm({
+  var init_dist2 = __esm({
     "node_modules/@capacitor/core/dist/index.js"() {
       (function(ExceptionCode2) {
         ExceptionCode2["Unimplemented"] = "UNIMPLEMENTED";
         ExceptionCode2["Unavailable"] = "UNAVAILABLE";
       })(ExceptionCode || (ExceptionCode = {}));
       CapacitorException = class extends Error {
-        constructor(message, code, data) {
+        constructor(message, code, data2) {
           super(message);
           this.message = message;
           this.code = code;
-          this.data = data;
+          this.data = data2;
         }
       };
       getPlatformId = (win) => {
@@ -70889,7 +73538,7 @@ ${newlyCreatedClassInfo.url}`);
           }
           this.windowListeners = {};
         }
-        notifyListeners(eventName, data, retainUntilConsumed) {
+        notifyListeners(eventName, data2, retainUntilConsumed) {
           const listeners2 = this.listeners[eventName];
           if (!listeners2) {
             if (retainUntilConsumed) {
@@ -70897,12 +73546,12 @@ ${newlyCreatedClassInfo.url}`);
               if (!args) {
                 args = [];
               }
-              args.push(data);
+              args.push(data2);
               this.retainedEventArguments[eventName] = args;
             }
             return;
           }
-          listeners2.forEach((listener) => listener(data));
+          listeners2.forEach((listener) => listener(data2));
         }
         hasListeners(eventName) {
           var _a2;
@@ -71102,28 +73751,28 @@ ${newlyCreatedClassInfo.url}`);
           if (contentType.includes("application/json")) {
             responseType = "json";
           }
-          let data;
+          let data2;
           let blob;
           switch (responseType) {
             case "arraybuffer":
             case "blob":
               blob = await response.blob();
-              data = await readBlobAsBase64(blob);
+              data2 = await readBlobAsBase64(blob);
               break;
             case "json":
-              data = await response.json();
+              data2 = await response.json();
               break;
             case "document":
             case "text":
             default:
-              data = await response.text();
+              data2 = await response.text();
           }
           const headers = {};
           response.headers.forEach((value, key) => {
             headers[key] = value;
           });
           return {
-            data,
+            data: data2,
             headers,
             status: response.status,
             url: response.url
@@ -71221,7 +73870,7 @@ ${newlyCreatedClassInfo.url}`);
   var LocalNotificationsWeb;
   var init_web = __esm({
     "node_modules/@capacitor/local-notifications/dist/esm/web.js"() {
-      init_dist();
+      init_dist2();
       LocalNotificationsWeb = class extends WebPlugin {
         constructor() {
           super(...arguments);
@@ -71429,11 +74078,11 @@ ${newlyCreatedClassInfo.url}`);
           return localNotification;
         }
         onClick(notification) {
-          const data = {
+          const data2 = {
             actionId: "tap",
             notification
           };
-          this.notifyListeners("localNotificationActionPerformed", data);
+          this.notifyListeners("localNotificationActionPerformed", data2);
         }
         onShow(notification) {
           this.notifyListeners("localNotificationReceived", notification);
@@ -71446,7 +74095,7 @@ ${newlyCreatedClassInfo.url}`);
   var LocalNotifications;
   var init_esm = __esm({
     "node_modules/@capacitor/local-notifications/dist/esm/index.js"() {
-      init_dist();
+      init_dist2();
       init_definitions();
       LocalNotifications = registerPlugin("LocalNotifications", {
         web: () => Promise.resolve().then(() => (init_web(), web_exports)).then((m) => new m.LocalNotificationsWeb())
@@ -71700,7 +74349,7 @@ ${newlyCreatedClassInfo.url}`);
   var CHANNEL_ID, CHANNEL_NAME;
   var init_notificationScheduler = __esm({
     "src/utils/notificationScheduler.js"() {
-      init_dist();
+      init_dist2();
       init_esm();
       CHANNEL_ID = "nithya_yoga_reminders";
       CHANNEL_NAME = "NITHYA Yoga Reminders";
@@ -71708,8 +74357,66 @@ ${newlyCreatedClassInfo.url}`);
   });
 
   // src/App.jsx
-  function App() {
-    const [currentTab, setCurrentTab] = (0, import_react30.useState)(() => {
+  function TeacherRegisterRoute({ lang }) {
+    const navigate = useNavigate();
+    return /* @__PURE__ */ import_react36.default.createElement(
+      TeacherRegisterPage,
+      {
+        onNavigate: (path) => navigate(path),
+        onRegisterSuccess: () => navigate("/teacher/dashboard"),
+        lang
+      }
+    );
+  }
+  function TeacherLoginRoute({ lang }) {
+    const navigate = useNavigate();
+    return /* @__PURE__ */ import_react36.default.createElement(
+      TeacherLoginPage,
+      {
+        onNavigate: (path) => navigate(path),
+        onLoginSuccess: () => navigate("/teacher/dashboard"),
+        lang
+      }
+    );
+  }
+  function TeacherDashboardRoute({ lang }) {
+    const navigate = useNavigate();
+    return /* @__PURE__ */ import_react36.default.createElement(
+      TeacherDashboardPage,
+      {
+        onNavigate: (path) => navigate(path),
+        onLaunchLive: (cls) => navigate(`/teacher/live/${encodeURIComponent(cls?.id || cls?.sessionId || "session")}`),
+        lang
+      }
+    );
+  }
+  function StudentJoinRoute({ lang }) {
+    const navigate = useNavigate();
+    const { sessionId } = useParams();
+    return /* @__PURE__ */ import_react36.default.createElement(
+      StudentJoinPage,
+      {
+        sessionId,
+        onNavigate: (path) => navigate(path),
+        onJoinClass: (cls, session) => navigate(`/student/live/${encodeURIComponent(sessionId)}`),
+        lang
+      }
+    );
+  }
+  function MainPublicApp({ lang, setLang, theme, setTheme }) {
+    const navigate = useNavigate();
+    (0, import_react36.useEffect)(() => {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const liveParam = params.get("live") || params.get("room");
+        const isStudent = params.get("join") === "student" || params.get("role") === "student";
+        if (liveParam && isStudent) {
+          navigate(`/student/join/${encodeURIComponent(liveParam)}`);
+        }
+      } catch (_2) {
+      }
+    }, [navigate]);
+    const [currentTab, setCurrentTab] = (0, import_react36.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         if (params) {
@@ -71721,12 +74428,10 @@ ${newlyCreatedClassInfo.url}`);
       }
       return loadStorage("nithya_active_tab", "home");
     });
-    const [theme, setTheme] = (0, import_react30.useState)(() => loadStorage("nithya_theme", "light"));
-    const [lang, setLang] = (0, import_react30.useState)(() => loadStorage("nithya_lang", "en"));
-    const [searchQuery, setSearchQuery] = (0, import_react30.useState)("");
-    const [updateAvailable, setUpdateAvailable] = (0, import_react30.useState)(false);
-    const [activeAlarm, setActiveAlarm] = (0, import_react30.useState)(null);
-    const [inviteToken, setInviteToken] = (0, import_react30.useState)(() => {
+    const [searchQuery, setSearchQuery] = (0, import_react36.useState)("");
+    const [updateAvailable, setUpdateAvailable] = (0, import_react36.useState)(false);
+    const [activeAlarm, setActiveAlarm] = (0, import_react36.useState)(null);
+    const [inviteToken, setInviteToken] = (0, import_react36.useState)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
         return params.get("invite") || "";
@@ -71734,10 +74439,10 @@ ${newlyCreatedClassInfo.url}`);
         return "";
       }
     });
-    const [studentSession, setStudentSession] = (0, import_react30.useState)(() => {
+    const [studentSession, setStudentSession] = (0, import_react36.useState)(() => {
       return loadStorage("nithya_student_session", null);
     });
-    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react30.useState)(() => {
+    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react36.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         if (params && (params.get("live") || params.get("room") || params.get("join") === "student")) {
@@ -71749,7 +74454,7 @@ ${newlyCreatedClassInfo.url}`);
       }
       return false;
     });
-    const [user, setUser] = (0, import_react30.useState)(() => {
+    const [user, setUser] = (0, import_react36.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         const isStudentQuery = params && (params.get("join") === "student" || params.get("role") === "student" || Boolean(params.get("live")));
@@ -71794,9 +74499,9 @@ ${newlyCreatedClassInfo.url}`);
         isInstructor: false
       };
     });
-    const [reminders, setReminders] = (0, import_react30.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
-    const [classes, setClasses] = (0, import_react30.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
-    const [activeClass, setActiveClass] = (0, import_react30.useState)(() => {
+    const [reminders, setReminders] = (0, import_react36.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
+    const [classes, setClasses] = (0, import_react36.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
+    const [activeClass, setActiveClass] = (0, import_react36.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         const liveId = params ? params.get("live") || params.get("room") : null;
@@ -71819,22 +74524,22 @@ ${newlyCreatedClassInfo.url}`);
       }
       return classes[0] || DEFAULT_CLASSES[0];
     });
-    const [attendanceLogs, setAttendanceLogs] = (0, import_react30.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
-    const [toasts, setToasts] = (0, import_react30.useState)([]);
-    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react30.useState)(false);
-    const [editingReminder, setEditingReminder] = (0, import_react30.useState)(null);
-    (0, import_react30.useEffect)(() => {
+    const [attendanceLogs, setAttendanceLogs] = (0, import_react36.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
+    const [toasts, setToasts] = (0, import_react36.useState)([]);
+    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react36.useState)(false);
+    const [editingReminder, setEditingReminder] = (0, import_react36.useState)(null);
+    (0, import_react36.useEffect)(() => {
       saveStorage("nithya_theme", theme);
       document.documentElement.setAttribute("data-theme", theme);
     }, [theme]);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       saveStorage("nithya_lang", lang);
       document.documentElement.setAttribute("data-lang", lang);
     }, [lang]);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       saveStorage("nithya_user", user);
     }, [user]);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       try {
         const stored = localStorage.getItem("nithya_live_participants");
         if (stored) {
@@ -71849,20 +74554,20 @@ ${newlyCreatedClassInfo.url}`);
       } catch (_2) {
       }
     }, []);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       saveStorage("nithya_reminders", reminders);
       syncAllRemindersWithSystem(reminders, lang);
     }, [reminders, lang]);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       saveStorage("nithya_classes", classes);
     }, [classes]);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       saveStorage("nithya_attendance", attendanceLogs);
     }, [attendanceLogs]);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       saveStorage("nithya_active_tab", currentTab);
     }, [currentTab]);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       checkRemoteAppVersion().then((res) => {
         if (res && res.isUpdateAvailable) {
           setUpdateAvailable(true);
@@ -71872,11 +74577,11 @@ ${newlyCreatedClassInfo.url}`);
       }).catch(() => {
       });
     }, []);
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       initNotificationSystem();
     }, []);
-    const firedRemindersRef = (0, import_react30.useRef)(/* @__PURE__ */ new Set());
-    (0, import_react30.useEffect)(() => {
+    const firedRemindersRef = (0, import_react36.useRef)(/* @__PURE__ */ new Set());
+    (0, import_react36.useEffect)(() => {
       const checkScheduledReminders = () => {
         const now = /* @__PURE__ */ new Date();
         const currentHours = now.getHours();
@@ -71998,7 +74703,7 @@ ${newlyCreatedClassInfo.url}`);
         }
       }, 100);
     };
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       const processDeepLinkUrl = (rawUrl) => {
         try {
           if (!rawUrl) return;
@@ -72151,6 +74856,11 @@ ${newlyCreatedClassInfo.url}`);
       );
     };
     const handleTabChange = (tabId) => {
+      if (tabId === "admin") {
+        const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_admin_token"));
+        navigate(hasTeacherToken ? "/teacher/dashboard" : "/teacher/login");
+        return;
+      }
       saveStorage("nithya_active_tab", tabId);
       if (tabId === "live" || tabId === "live-classes") {
         const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
@@ -72312,7 +75022,7 @@ ${newlyCreatedClassInfo.url}`);
         remEl.scrollIntoView({ behavior: "smooth" });
       }
     };
-    (0, import_react30.useEffect)(() => {
+    (0, import_react36.useEffect)(() => {
       const handleSwMessage = (e2) => {
         if (e2.data && e2.data.type === "NAVIGATE_TAB") {
           handleTabChange(e2.data.tab);
@@ -72327,15 +75037,15 @@ ${newlyCreatedClassInfo.url}`);
         }
       };
     }, []);
-    return /* @__PURE__ */ import_react30.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, typeof window !== "undefined" && !window.Capacitor?.isNativePlatform() && /Android/i.test(navigator.userAgent) && /* @__PURE__ */ import_react30.default.createElement("div", { className: "open-in-native-app-banner bg-gradient-to-r from-violet-900 to-indigo-900 text-white px-3 py-2 text-xs flex items-center justify-between shadow-md sticky top-0 z-50 border-b border-violet-500/30" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react30.default.createElement("span", { className: "text-base animate-pulse" }, "\u{1F4F1}"), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-semibold" }, lang === "ta" ? "NITHYA Yoga App \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE?" : "Open in NITHYA Yoga App:")), /* @__PURE__ */ import_react30.default.createElement(
+    return /* @__PURE__ */ import_react36.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, typeof window !== "undefined" && !window.Capacitor?.isNativePlatform() && /Android/i.test(navigator.userAgent) && /* @__PURE__ */ import_react36.default.createElement("div", { className: "open-in-native-app-banner bg-gradient-to-r from-violet-900 to-indigo-900 text-white px-3 py-2 text-xs flex items-center justify-between shadow-md sticky top-0 z-50 border-b border-violet-500/30" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react36.default.createElement("span", { className: "text-base animate-pulse" }, "\u{1F4F1}"), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-semibold" }, lang === "ta" ? "NITHYA Yoga App \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE?" : "Open in NITHYA Yoga App:")), /* @__PURE__ */ import_react36.default.createElement(
       "a",
       {
         href: `intent://sarath2003-sketch.github.io/nithya-yoga/${window.location.search || ""}#Intent;scheme=https;package=com.nithya.yoga;end`,
         className: "px-3 py-1 bg-white text-purple-900 font-bold rounded-full text-xs shadow hover:bg-slate-100 transition-all flex items-center gap-1 cursor-pointer"
       },
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1" : "Open App"),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, "\u2794")
-    )), /* @__PURE__ */ import_react30.default.createElement(InAppUpdateBanner, { lang }), /* @__PURE__ */ import_react30.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1" : "Open App"),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, "\u2794")
+    )), /* @__PURE__ */ import_react36.default.createElement(InAppUpdateBanner, { lang }), /* @__PURE__ */ import_react36.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react36.default.createElement(
       Sidebar,
       {
         currentTab,
@@ -72343,7 +75053,7 @@ ${newlyCreatedClassInfo.url}`);
         lang,
         user
       }
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react36.default.createElement(
       Header,
       {
         searchQuery,
@@ -72359,16 +75069,16 @@ ${newlyCreatedClassInfo.url}`);
         onQuickUpdate: handleTriggerAppUpdate,
         updateAvailable
       }
-    ), currentTab === "student" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-page-viewport dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react30.default.createElement(
+    ), currentTab === "student" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-page-viewport dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F393} ", lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F393} ", lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react36.default.createElement(
       StudentDashboard,
       {
         user,
@@ -72389,50 +75099,23 @@ ${newlyCreatedClassInfo.url}`);
         },
         lang
       }
-    )) : currentTab === "admin" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react30.default.createElement(
-      "button",
+    )) : currentTab === "admin" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement(
+      TeacherDashboardPage,
       {
-        type: "button",
-        className: "btn-back-dashboard-modern",
-        onClick: () => handleTabChange("home")
-      },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F6E1}\uFE0F ", lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react30.default.createElement(
-      AdminPortalSection,
-      {
-        onAuthSuccess: (trainer) => {
-          setUser((prev) => ({
-            ...prev,
-            name: trainer?.name || "NITHYA Master",
-            email: trainer?.email || prev.email,
-            role: "trainer",
-            isInstructor: true
-          }));
-        },
-        onLaunchInstructorStudio: (cls) => {
-          setUser((prev) => ({
-            ...prev,
-            role: "trainer",
-            isInstructor: true,
-            name: cls?.instructor || "NITHYA Master"
-          }));
-          if (cls) setActiveClass(cls);
-          handleTabChange("live");
-        },
-        showToast,
+        onNavigate: (p) => navigate(p),
+        onLaunchLive: (cls) => navigate(`/teacher/live/${encodeURIComponent(cls?.id || cls?.sessionId || "session")}`),
         lang
       }
-    )) : currentTab === "live" || currentTab === "live-classes" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react30.default.createElement(
+    )) : currentTab === "live" || currentTab === "live-classes" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-white/20 hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react30.default.createElement("span", { className: "live-indicator-dot animate-pulse" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "live-studio-heading-title font-black text-sm sm:text-base tracking-wide text-white" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Studio"), /* @__PURE__ */ import_react30.default.createElement("span", { className: "badge-private-hd" }, "HD WebRTC"))), /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-2 ml-auto" }, /* @__PURE__ */ import_react30.default.createElement("span", { className: "studio-class-label text-xs text-[#E2D9F3] font-bold hidden sm:inline" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-white/20 hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react36.default.createElement("span", { className: "live-indicator-dot animate-pulse" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "live-studio-heading-title font-black text-sm sm:text-base tracking-wide text-white" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Studio"), /* @__PURE__ */ import_react36.default.createElement("span", { className: "badge-private-hd" }, "HD WebRTC"))), /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-2 ml-auto" }, /* @__PURE__ */ import_react36.default.createElement("span", { className: "studio-class-label text-xs text-[#E2D9F3] font-bold hidden sm:inline" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react36.default.createElement(
       "select",
       {
         value: activeClass?.id,
@@ -72442,8 +75125,8 @@ ${newlyCreatedClassInfo.url}`);
         },
         className: "studio-class-dropdown"
       },
-      classes.map((c) => /* @__PURE__ */ import_react30.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
-    ))), /* @__PURE__ */ import_react30.default.createElement(
+      classes.map((c) => /* @__PURE__ */ import_react36.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
+    ))), /* @__PURE__ */ import_react36.default.createElement(
       LiveYogaClassRoom,
       {
         activeClass,
@@ -72460,16 +75143,16 @@ ${newlyCreatedClassInfo.url}`);
         onNavigateAdmin: () => handleTabChange("admin"),
         lang
       }
-    )) : currentTab === "yoga" || currentTab === "classes" || currentTab === "yoga-classes" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-page-viewport dedicated-yoga-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react30.default.createElement(
+    )) : currentTab === "yoga" || currentTab === "classes" || currentTab === "yoga-classes" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-page-viewport dedicated-yoga-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Classes & Asanas Library")), /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Classes & Asanas Library")), /* @__PURE__ */ import_react36.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -72479,16 +75162,16 @@ ${newlyCreatedClassInfo.url}`);
         },
         lang
       }
-    )) : currentTab === "reminders" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-page-viewport dedicated-reminders-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react30.default.createElement(
+    )) : currentTab === "reminders" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-page-viewport dedicated-reminders-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B85\u0BB2\u0BBE\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Reminders & Daily Alarms")), /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B85\u0BB2\u0BBE\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Reminders & Daily Alarms")), /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
@@ -72500,7 +75183,7 @@ ${newlyCreatedClassInfo.url}`);
       },
       "+ ",
       lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Add Reminder"
-    )), /* @__PURE__ */ import_react30.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react30.default.createElement(
+    )), /* @__PURE__ */ import_react36.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react36.default.createElement(
       SmartCareTimeline,
       {
         reminders,
@@ -72515,22 +75198,22 @@ ${newlyCreatedClassInfo.url}`);
         },
         lang
       }
-    )), /* @__PURE__ */ import_react30.default.createElement("div", { className: "max-w-xl mx-auto" }, /* @__PURE__ */ import_react30.default.createElement(
+    )), /* @__PURE__ */ import_react36.default.createElement("div", { className: "max-w-xl mx-auto" }, /* @__PURE__ */ import_react36.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ))) : currentTab === "profile" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-page-viewport dedicated-profile-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react30.default.createElement(
+    ))) : currentTab === "profile" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-page-viewport dedicated-profile-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F464} ", lang === "ta" ? "\u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BB0\u0BCD \u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD & \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Member Profile & App Settings")), /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F464} ", lang === "ta" ? "\u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BB0\u0BCD \u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD & \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Member Profile & App Settings")), /* @__PURE__ */ import_react36.default.createElement(
       ProfileSection,
       {
         user,
@@ -72539,41 +75222,41 @@ ${newlyCreatedClassInfo.url}`);
         showToast,
         lang
       }
-    )) : currentTab === "notes" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-page-viewport dedicated-notes-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react30.default.createElement(
+    )) : currentTab === "notes" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-page-viewport dedicated-notes-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4DD} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Practice Notes")), /* @__PURE__ */ import_react30.default.createElement(YogaNotesSection, { lang })) : currentTab === "attendance" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-page-viewport dedicated-attendance-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4DD} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Practice Notes")), /* @__PURE__ */ import_react36.default.createElement(YogaNotesSection, { lang })) : currentTab === "attendance" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-page-viewport dedicated-attendance-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4CA} ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Attendance Analytics")), /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4CA} ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Attendance Analytics")), /* @__PURE__ */ import_react36.default.createElement(
       AttendanceProgressSection,
       {
         user,
         attendanceLogs,
         lang
       }
-    )) : currentTab === "relaxation" ? /* @__PURE__ */ import_react30.default.createElement("main", { className: "dedicated-page-viewport dedicated-relaxation-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react30.default.createElement(
+    )) : currentTab === "relaxation" ? /* @__PURE__ */ import_react36.default.createElement("main", { className: "dedicated-page-viewport dedicated-relaxation-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react36.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react30.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react30.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react30.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F3B5} ", lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD & \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Relaxation & Pranayama")), /* @__PURE__ */ import_react30.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react30.default.createElement(PranayamaBreathingOrb, { lang }), /* @__PURE__ */ import_react30.default.createElement(RelaxationZone, { lang }))) : /* @__PURE__ */ import_react30.default.createElement("main", { className: "dashboard-content-grid-wrapper ya-reveal" }, /* @__PURE__ */ import_react30.default.createElement(
+      /* @__PURE__ */ import_react36.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react36.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F3B5} ", lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD & \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Relaxation & Pranayama")), /* @__PURE__ */ import_react36.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react36.default.createElement(PranayamaBreathingOrb, { lang }), /* @__PURE__ */ import_react36.default.createElement(RelaxationZone, { lang }))) : /* @__PURE__ */ import_react36.default.createElement("main", { className: "dashboard-content-grid-wrapper ya-reveal" }, /* @__PURE__ */ import_react36.default.createElement(
       HeroSection,
       {
         user,
@@ -72582,14 +75265,14 @@ ${newlyCreatedClassInfo.url}`);
         onTabChange: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       AttendanceProgressSection,
       {
         user,
         attendanceLogs,
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       RecentlyPlayedDailyMix,
       {
         onSelectClass: (cls) => {
@@ -72602,7 +75285,7 @@ ${newlyCreatedClassInfo.url}`);
         showToast,
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       SmartCareTimeline,
       {
         reminders,
@@ -72614,7 +75297,7 @@ ${newlyCreatedClassInfo.url}`);
         onShowAll: () => handleTabChange("reminders"),
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react36.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -72623,7 +75306,7 @@ ${newlyCreatedClassInfo.url}`);
         onShowAll: () => handleTabChange("yoga"),
         lang
       }
-    )), /* @__PURE__ */ import_react30.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react30.default.createElement(
+    )), /* @__PURE__ */ import_react36.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react36.default.createElement(
       LiveClassStudio,
       {
         activeClass,
@@ -72635,28 +75318,28 @@ ${newlyCreatedClassInfo.url}`);
         onOpenFullStudio: () => handleTabChange("live"),
         lang
       }
-    )), /* @__PURE__ */ import_react30.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react30.default.createElement(
+    )), /* @__PURE__ */ import_react36.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react36.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       PranayamaBreathingOrb,
       {
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       RelaxationZone,
       {
         lang
       }
-    ))), /* @__PURE__ */ import_react30.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react30.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react30.default.createElement(
+    ))), /* @__PURE__ */ import_react36.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react36.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react36.default.createElement(
       YogaNotesSection,
       {
         lang
       }
-    )), /* @__PURE__ */ import_react30.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react30.default.createElement(
+    )), /* @__PURE__ */ import_react36.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react36.default.createElement(
       ProfileSection,
       {
         user,
@@ -72665,20 +75348,20 @@ ${newlyCreatedClassInfo.url}`);
         showToast,
         lang
       }
-    ))), /* @__PURE__ */ import_react30.default.createElement(
+    ))), /* @__PURE__ */ import_react36.default.createElement(
       BottomBanner,
       {
         onExplore: () => handleTabChange("yoga"),
         lang
       }
-    )))), currentTab !== "live" && currentTab !== "live-classes" && /* @__PURE__ */ import_react30.default.createElement(
+    )))), currentTab !== "live" && currentTab !== "live-classes" && /* @__PURE__ */ import_react36.default.createElement(
       MobileBottomNav,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       ReminderModal,
       {
         isOpen: isReminderModalOpen,
@@ -72691,7 +75374,7 @@ ${newlyCreatedClassInfo.url}`);
         initialData: editingReminder,
         lang
       }
-    ), inviteToken && /* @__PURE__ */ import_react30.default.createElement(
+    ), inviteToken && /* @__PURE__ */ import_react36.default.createElement(
       InviteRegistrationModal,
       {
         inviteToken,
@@ -72717,7 +75400,7 @@ ${newlyCreatedClassInfo.url}`);
         },
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       ActiveAlarmModal,
       {
         alarm: activeAlarm,
@@ -72725,7 +75408,7 @@ ${newlyCreatedClassInfo.url}`);
         onSnooze: handleSnoozeAlarm,
         lang
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       StudentJoinModal,
       {
         isOpen: showStudentJoinModal,
@@ -72757,7 +75440,7 @@ ${newlyCreatedClassInfo.url}`);
           );
         }
       }
-    ), /* @__PURE__ */ import_react30.default.createElement(
+    ), /* @__PURE__ */ import_react36.default.createElement(
       ToastContainer,
       {
         toasts,
@@ -72765,10 +75448,38 @@ ${newlyCreatedClassInfo.url}`);
       }
     ));
   }
-  var import_react30;
+  function App() {
+    const [theme, setTheme] = (0, import_react36.useState)(() => loadStorage("nithya_theme", "light"));
+    const [lang, setLang] = (0, import_react36.useState)(() => loadStorage("nithya_lang", "en"));
+    (0, import_react36.useEffect)(() => {
+      saveStorage("nithya_theme", theme);
+      document.documentElement.setAttribute("data-theme", theme);
+    }, [theme]);
+    (0, import_react36.useEffect)(() => {
+      saveStorage("nithya_lang", lang);
+      document.documentElement.setAttribute("data-lang", lang);
+    }, [lang]);
+    return /* @__PURE__ */ import_react36.default.createElement(HashRouter, null, /* @__PURE__ */ import_react36.default.createElement(Routes, null, /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/teacher/register", element: /* @__PURE__ */ import_react36.default.createElement(TeacherRegisterRoute, { lang }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/teacher/login", element: /* @__PURE__ */ import_react36.default.createElement(TeacherLoginRoute, { lang }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/teacher/dashboard", element: /* @__PURE__ */ import_react36.default.createElement(TeacherDashboardRoute, { lang }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/teacher/live/:sessionId", element: /* @__PURE__ */ import_react36.default.createElement(TeacherLiveStudioRoute, { lang }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/teacher/live", element: /* @__PURE__ */ import_react36.default.createElement(Navigate, { to: "/teacher/dashboard", replace: true }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/teacher", element: /* @__PURE__ */ import_react36.default.createElement(Navigate, { to: "/teacher/dashboard", replace: true }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/student/join/:sessionId", element: /* @__PURE__ */ import_react36.default.createElement(StudentJoinRoute, { lang }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/student/join", element: /* @__PURE__ */ import_react36.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/student/live/:sessionId", element: /* @__PURE__ */ import_react36.default.createElement(StudentLiveStudioRoute, { lang }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/student/live", element: /* @__PURE__ */ import_react36.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react36.default.createElement(Route, { path: "/student", element: /* @__PURE__ */ import_react36.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react36.default.createElement(
+      Route,
+      {
+        path: "*",
+        element: /* @__PURE__ */ import_react36.default.createElement(
+          MainPublicApp,
+          {
+            lang,
+            setLang,
+            theme,
+            setTheme
+          }
+        )
+      }
+    )));
+  }
+  var import_react36;
   var init_App = __esm({
     "src/App.jsx"() {
-      import_react30 = __toESM(require_react());
+      import_react36 = __toESM(require_react());
+      init_dist();
       init_Sidebar();
       init_Header();
       init_HeroSection();
@@ -72793,6 +75504,12 @@ ${newlyCreatedClassInfo.url}`);
       init_InAppUpdateBanner();
       init_BottomBanner();
       init_RecentlyPlayedDailyMix();
+      init_TeacherLoginPage();
+      init_TeacherRegisterPage();
+      init_TeacherDashboardPage();
+      init_StudentJoinPage();
+      init_TeacherLiveStudioRoute();
+      init_StudentLiveStudioRoute();
       init_lucide_react();
       init_storage();
       init_audioEngine();
@@ -72804,13 +75521,13 @@ ${newlyCreatedClassInfo.url}`);
   // src/index.jsx
   var require_index = __commonJS({
     "src/index.jsx"() {
-      var import_react31 = __toESM(require_react());
+      var import_react37 = __toESM(require_react());
       var import_client = __toESM(require_client());
       init_App();
       var container = document.getElementById("root");
       if (container) {
         const root = (0, import_client.createRoot)(container);
-        root.render(/* @__PURE__ */ import_react31.default.createElement(App, null));
+        root.render(/* @__PURE__ */ import_react37.default.createElement(App, null));
       }
     }
   });
@@ -72864,6 +75581,31 @@ react-dom/cjs/react-dom.development.js:
    * @license Modernizr 3.0.0pre (Custom Build) | MIT
    *)
 
+react-router/dist/development/chunk-OB3PAWPO.mjs:
+react-router/dist/development/index.mjs:
+  (**
+   * react-router v7.18.4
+   *
+   * Copyright (c) Remix Software Inc.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.md file in the root directory of this source tree.
+   *
+   * @license MIT
+   *)
+
+react-router-dom/dist/index.mjs:
+  (**
+   * react-router-dom v7.18.4
+   *
+   * Copyright (c) Remix Software Inc.
+   *
+   * This source code is licensed under the MIT license found in the
+   * LICENSE.md file in the root directory of this source tree.
+   *
+   * @license MIT
+   *)
+
 lucide-react/dist/esm/shared/src/utils/toKebabCase.mjs:
 lucide-react/dist/esm/shared/src/utils/toLucideIconData.mjs:
 lucide-react/dist/esm/shared/src/utils/toCamelCase.mjs:
@@ -72905,7 +75647,6 @@ lucide-react/dist/esm/icons/hand.mjs:
 lucide-react/dist/esm/icons/headphones.mjs:
 lucide-react/dist/esm/icons/heart.mjs:
 lucide-react/dist/esm/icons/house.mjs:
-lucide-react/dist/esm/icons/key.mjs:
 lucide-react/dist/esm/icons/layers.mjs:
 lucide-react/dist/esm/icons/link.mjs:
 lucide-react/dist/esm/icons/lock.mjs:
@@ -72932,6 +75673,7 @@ lucide-react/dist/esm/icons/search.mjs:
 lucide-react/dist/esm/icons/send.mjs:
 lucide-react/dist/esm/icons/settings.mjs:
 lucide-react/dist/esm/icons/share-2.mjs:
+lucide-react/dist/esm/icons/shield-alert.mjs:
 lucide-react/dist/esm/icons/shield-check.mjs:
 lucide-react/dist/esm/icons/skip-back.mjs:
 lucide-react/dist/esm/icons/skip-forward.mjs:

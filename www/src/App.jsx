@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { HashRouter, Routes, Route, useNavigate, useParams, Navigate } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import HeroSection from './components/HeroSection';
@@ -23,6 +24,12 @@ import StudentDashboard from './components/StudentDashboard';
 import InAppUpdateBanner from './components/InAppUpdateBanner';
 import BottomBanner from './components/BottomBanner';
 import RecentlyPlayedDailyMix from './components/RecentlyPlayedDailyMix';
+import TeacherLoginPage from './components/TeacherLoginPage';
+import TeacherRegisterPage from './components/TeacherRegisterPage';
+import TeacherDashboardPage from './components/TeacherDashboardPage';
+import StudentJoinPage from './components/StudentJoinPage';
+import TeacherLiveStudioRoute from './components/TeacherLiveStudioRoute';
+import StudentLiveStudioRoute from './components/StudentLiveStudioRoute';
 import { ArrowLeft } from 'lucide-react';
 
 import { 
@@ -48,7 +55,67 @@ import {
   applyAppUpdate 
 } from './utils/versionManager';
 
-export default function App() {
+function TeacherRegisterRoute({ lang }) {
+  const navigate = useNavigate();
+  return (
+    <TeacherRegisterPage
+      onNavigate={(path) => navigate(path)}
+      onRegisterSuccess={() => navigate('/teacher/dashboard')}
+      lang={lang}
+    />
+  );
+}
+
+function TeacherLoginRoute({ lang }) {
+  const navigate = useNavigate();
+  return (
+    <TeacherLoginPage
+      onNavigate={(path) => navigate(path)}
+      onLoginSuccess={() => navigate('/teacher/dashboard')}
+      lang={lang}
+    />
+  );
+}
+
+function TeacherDashboardRoute({ lang }) {
+  const navigate = useNavigate();
+  return (
+    <TeacherDashboardPage
+      onNavigate={(path) => navigate(path)}
+      onLaunchLive={(cls) => navigate(`/teacher/live/${encodeURIComponent(cls?.id || cls?.sessionId || 'session')}`)}
+      lang={lang}
+    />
+  );
+}
+
+function StudentJoinRoute({ lang }) {
+  const navigate = useNavigate();
+  const { sessionId } = useParams();
+  return (
+    <StudentJoinPage
+      sessionId={sessionId}
+      onNavigate={(path) => navigate(path)}
+      onJoinClass={(cls, session) => navigate(`/student/live/${encodeURIComponent(sessionId)}`)}
+      lang={lang}
+    />
+  );
+}
+
+function MainPublicApp({ lang, setLang, theme, setTheme }) {
+  const navigate = useNavigate();
+
+  // Forward student query parameters or deep links to canonical student join route
+  useEffect(() => {
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const liveParam = params.get('live') || params.get('room');
+      const isStudent = params.get('join') === 'student' || params.get('role') === 'student';
+      if (liveParam && isStudent) {
+        navigate(`/student/join/${encodeURIComponent(liveParam)}`);
+      }
+    } catch (_) {}
+  }, [navigate]);
+
   const [currentTab, setCurrentTab] = useState(() => {
     try {
       const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
@@ -60,8 +127,6 @@ export default function App() {
     } catch (_) {}
     return loadStorage('nithya_active_tab', 'home');
   });
-  const [theme, setTheme] = useState(() => loadStorage('nithya_theme', 'light'));
-  const [lang, setLang] = useState(() => loadStorage('nithya_lang', 'en'));
   const [searchQuery, setSearchQuery] = useState('');
   const [updateAvailable, setUpdateAvailable] = useState(false);
 
@@ -578,6 +643,12 @@ export default function App() {
   };
 
   const handleTabChange = (tabId) => {
+    if (tabId === 'admin') {
+      const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_teacher_token') || localStorage.getItem('nithya_admin_token'));
+      navigate(hasTeacherToken ? '/teacher/dashboard' : '/teacher/login');
+      return;
+    }
+
     saveStorage('nithya_active_tab', tabId);
 
     // Live Class tab security & routing:
@@ -861,41 +932,9 @@ export default function App() {
             </main>
           ) : currentTab === 'admin' ? (
             <main className="dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal">
-              <div className="flex items-center gap-3 mb-4 flex-wrap">
-                <button 
-                  type="button" 
-                  className="btn-back-dashboard-modern"
-                  onClick={() => handleTabChange('home')}
-                >
-                  <ArrowLeft size={14} className="back-arrow-icon" />
-                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
-                </button>
-                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
-                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
-                  🛡️ {lang === 'ta' ? 'நிர்வாகி கட்டுப்பாட்டு அறை' : 'Instructor & Admin Portal'}
-                </span>
-              </div>
-              <AdminPortalSection
-                onAuthSuccess={(trainer) => {
-                  setUser(prev => ({
-                    ...prev,
-                    name: trainer?.name || 'NITHYA Master',
-                    email: trainer?.email || prev.email,
-                    role: 'trainer',
-                    isInstructor: true
-                  }));
-                }}
-                onLaunchInstructorStudio={(cls) => {
-                  setUser(prev => ({
-                    ...prev,
-                    role: 'trainer',
-                    isInstructor: true,
-                    name: cls?.instructor || 'NITHYA Master'
-                  }));
-                  if (cls) setActiveClass(cls);
-                  handleTabChange('live');
-                }}
-                showToast={showToast}
+              <TeacherDashboardPage
+                onNavigate={(p) => navigate(p)}
+                onLaunchLive={(cls) => navigate(`/teacher/live/${encodeURIComponent(cls?.id || cls?.sessionId || 'session')}`)}
                 lang={lang}
               />
             </main>
@@ -1339,5 +1378,51 @@ export default function App() {
         onDismiss={handleDismissToast} 
       />
     </div>
+  );
+}
+
+export default function App() {
+  const [theme, setTheme] = useState(() => loadStorage('nithya_theme', 'light'));
+  const [lang, setLang] = useState(() => loadStorage('nithya_lang', 'en'));
+
+  useEffect(() => {
+    saveStorage('nithya_theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    saveStorage('nithya_lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
+  }, [lang]);
+
+  return (
+    <HashRouter>
+      <Routes>
+        <Route path="/teacher/register" element={<TeacherRegisterRoute lang={lang} />} />
+        <Route path="/teacher/login" element={<TeacherLoginRoute lang={lang} />} />
+        <Route path="/teacher/dashboard" element={<TeacherDashboardRoute lang={lang} />} />
+        <Route path="/teacher/live/:sessionId" element={<TeacherLiveStudioRoute lang={lang} />} />
+        <Route path="/teacher/live" element={<Navigate to="/teacher/dashboard" replace />} />
+        <Route path="/teacher" element={<Navigate to="/teacher/dashboard" replace />} />
+
+        <Route path="/student/join/:sessionId" element={<StudentJoinRoute lang={lang} />} />
+        <Route path="/student/join" element={<Navigate to="/" replace />} />
+        <Route path="/student/live/:sessionId" element={<StudentLiveStudioRoute lang={lang} />} />
+        <Route path="/student/live" element={<Navigate to="/" replace />} />
+        <Route path="/student" element={<Navigate to="/" replace />} />
+
+        <Route
+          path="*"
+          element={
+            <MainPublicApp
+              lang={lang}
+              setLang={setLang}
+              theme={theme}
+              setTheme={setTheme}
+            />
+          }
+        />
+      </Routes>
+    </HashRouter>
   );
 }

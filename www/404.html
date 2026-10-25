@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>NITHYA Yoga</title>
+  <script>
+    // GitHub Pages Single Page App Redirect Script
+    // Preserves paths like /teacher/login, /teacher/dashboard, /student/join/:sessionId
+    (function() {
+      var l = window.location;
+      var pathSegments = l.pathname.split('/').filter(Boolean);
+      // If repo name is the first segment (e.g., /nithya-yoga/teacher/login)
+      var repoOffset = (pathSegments.length > 0 && pathSegments[0] === 'nithya-yoga') ? 1 : 0;
+      var subPath = pathSegments.slice(repoOffset).join('/');
+      var base = '/' + (repoOffset ? pathSegments[0] + '/' : '');
+      var redirectUrl = l.protocol + '//' + l.host + base + '#/' + subPath + l.search + l.hash;
+      window.location.replace(redirectUrl);
+    })();
+  </script>
+</head>
+<body style="background:#0b081a; color:#eee; font-family:sans-serif; text-align:center; padding-top:20vh;">
+  <h3>NITHYA Yoga</h3>
+  <p>Loading application...</p>
+</body>
+</html>

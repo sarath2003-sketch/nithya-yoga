@@ -122,6 +122,9 @@ try {
 try {
   db.exec(`ALTER TABLE classes ADD COLUMN course_name TEXT`);
 } catch (_) {}
+try {
+  db.exec(`ALTER TABLE classes ADD COLUMN instructor TEXT DEFAULT 'NITHYA Master'`);
+} catch (_) {}
 
 // Real-Time Live Session Tracking Table (Supports 10-Minute Reconnection Grace & Auto-Cleanup)
 db.exec(`
@@ -234,10 +237,6 @@ function auth(req, res, next) {
   if (!raw) {
     return res.status(401).json({ error: 'Authorization token required. Please log in.' });
   }
-  if (raw === 'nithya_master_active' || raw === 'nithya_admin_mock_token') {
-    req.actor = { id: 'admin', email: 'admin@nithyayoga.com', role: 'trainer', name: 'NITHYA Master' };
-    return next();
-  }
   try {
     const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
     req.actor = jwt.verify(raw, jwtSecret);
@@ -257,14 +256,10 @@ function adminOnly(req, res, next) {
 
 const trainerOnly = adminOnly;
 
-// Optional Auth middleware (extracts actor if provided, but does not block)
+// Optional Auth middleware (extracts actor if valid token provided, but does not block)
 function optionalAuth(req, res, next) {
   const raw = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
   if (raw) {
-    if (raw === 'nithya_master_active' || raw === 'nithya_admin_mock_token') {
-      req.actor = { id: 'admin', email: 'admin@nithyayoga.com', role: 'trainer', name: 'NITHYA Master' };
-      return next();
-    }
     try {
       const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
       req.actor = jwt.verify(raw, jwtSecret);
@@ -430,6 +425,42 @@ const handleTrainerLogin = async (req, res) => {
 
 app.post('/api/admin/login', handleTrainerLogin);
 app.post('/api/trainer/login', handleTrainerLogin);
+app.post('/api/teacher/login', handleTrainerLogin);
+
+// Verified Teacher Authentication Verification Endpoint (Strict JWT Validation)
+app.get(['/api/teacher/verify', '/api/auth/me', '/api/admin/verify'], auth, trainerOnly, (req, res) => {
+  try {
+    if (req.actor.id === 'admin') {
+      return res.json({
+        ok: true,
+        user: {
+          id: 'admin',
+          email: req.actor.email || 'admin@nithyayoga.com',
+          name: 'NITHYA Master',
+          role: 'trainer'
+        }
+      });
+    }
+
+    const trainer = db.prepare('SELECT id, name, email, phone, role, created_at FROM trainers WHERE id = ? OR email = ?').get(req.actor.id, req.actor.email);
+    if (!trainer) {
+      return res.status(401).json({ ok: false, error: 'Teacher account no longer exists in database.' });
+    }
+
+    return res.json({
+      ok: true,
+      user: {
+        id: trainer.id,
+        name: trainer.name,
+        email: trainer.email,
+        phone: trainer.phone,
+        role: 'trainer'
+      }
+    });
+  } catch (err) {
+    return res.status(500).json({ ok: false, error: err.message });
+  }
+});
 
 // -------------------------------------------------------------
 // 3. STUDENT REGISTRATION & AUTHENTICATION
@@ -608,8 +639,84 @@ const handleEndClassEndpoint = (req, res) => {
     message: 'Class has been ended for all participants.'
   });
 };
-app.put('/api/trainer/classes/:id/end', auth, trainerOnly, handleEndClassEndpoint);
-app.post('/api/trainer/classes/:id/end', auth, trainerOnly, handleEndClassEndpoint);
+app.put(['/api/trainer/classes/:id/end', '/api/teacher/classes/:id/end'], auth, trainerOnly, handleEndClassEndpoint);
+app.post(['/api/trainer/classes/:id/end', '/api/teacher/classes/:id/end'], auth, trainerOnly, handleEndClassEndpoint);
+
+// Teacher-Only Endpoint: Create & Launch Live Yoga Class Session
+app.post(['/api/teacher/live/create', '/api/trainer/live/create'], auth, trainerOnly, (req, res) => {
+  const title = String(req.body?.title || 'Hatha Yoga Flow & Alignment').trim();
+  const courseName = String(req.body?.courseName || req.body?.course_name || title).trim();
+  const duration = Number(req.body?.durationMinutes || 60);
+  const sessionId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
+  const roomName = `nithya-${sessionId}`;
+  const currentTime = now();
+  const instructorName = req.actor?.name || 'NITHYA Master';
+
+  try {
+    db.prepare(`
+      INSERT INTO classes (id, title, starts_at, duration_minutes, room_name, created_at, status, course_name, instructor)
+      VALUES (?, ?, ?, ?, ?, ?, 'live', ?, ?)
+    `).run(sessionId, title, currentTime, duration, roomName, currentTime, courseName, instructorName);
+
+    db.prepare('DELETE FROM live_sessions WHERE class_id = ?').run(sessionId);
+
+    const frontendBase = (process.env.FRONTEND_URL || 'https://sarath2003-sketch.github.io/nithya-yoga/').replace(/\/?$/, '/');
+    const inviteUrl = `${frontendBase}#/student/join/${sessionId}`;
+
+    res.status(201).json({
+      ok: true,
+      sessionId,
+      classId: sessionId,
+      roomName,
+      class: {
+        id: sessionId,
+        title,
+        courseName,
+        room_name: roomName,
+        status: 'live',
+        starts_at: currentTime,
+        duration_minutes: duration,
+        instructor: instructorName
+      },
+      inviteUrl
+    });
+  } catch (err) {
+    res.status(500).json({ ok: false, error: 'Failed to create live class session: ' + err.message });
+  }
+});
+
+// Student & Public Endpoint: Validate & Check Live Class Session Status
+app.get(['/api/live/session/:sessionId', '/api/live-sessions/:sessionId'], (req, res) => {
+  const sessionId = String(req.params.sessionId || '').trim();
+  if (!sessionId) {
+    return res.status(400).json({ ok: false, error: 'Session ID is required.' });
+  }
+
+  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, course_name, instructor FROM classes WHERE id=? OR room_name=?').get(sessionId, `nithya-${sessionId}`);
+
+  if (!cls) {
+    return res.status(404).json({ ok: false, exists: false, error: 'Live session not found or invitation link is invalid.' });
+  }
+
+  if (cls.status === 'ended') {
+    return res.json({
+      ok: true,
+      exists: true,
+      status: 'ended',
+      ended: true,
+      class: cls,
+      message: 'This live yoga class has already ended. Thank you for practicing with NITHYA Yoga.'
+    });
+  }
+
+  return res.json({
+    ok: true,
+    exists: true,
+    status: cls.status,
+    ended: false,
+    class: cls
+  });
+});
 
 // Trainer / Admin: Delete Class
 app.delete('/api/trainer/classes/:id', auth, trainerOnly, (req, res) => {
@@ -698,30 +805,32 @@ app.get('/api/invites/:token', (req, res) => {
 });
 
 // Student Joining Validation Flow (6 Steps)
-app.post(['/api/student/validate-join', '/api/live/join-student'], (req, res) => {
-  const classId = String(req.body?.classId || '').trim();
+app.post(['/api/student/validate-join', '/api/live/join-student', '/api/student/join'], (req, res) => {
+  const classId = String(req.body?.sessionId || req.body?.classId || '').trim();
   const name = String(req.body?.name || '').trim().replace(/\s+/g, ' ');
   const phone = String(req.body?.phone || '').replace(/[^\d+]/g, '');
 
   if (!classId) {
-    return res.status(400).json({ allowed: false, error: 'Class ID is required.' });
+    return res.status(400).json({ allowed: false, ok: false, error: 'Session ID / Class ID is required.' });
   }
   if (name.length < 2) {
-    return res.status(400).json({ allowed: false, error: 'Full name must be at least 2 characters.' });
+    return res.status(400).json({ allowed: false, ok: false, error: 'Full name must be at least 2 characters.' });
   }
   if (phone.replace(/\D/g, '').length < 10) {
-    return res.status(400).json({ allowed: false, error: 'Valid 10-digit mobile number required.' });
+    return res.status(400).json({ allowed: false, ok: false, error: 'Valid 10-digit mobile number required.' });
   }
 
-  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status FROM classes WHERE id=?').get(classId);
+  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, course_name, instructor FROM classes WHERE id=? OR room_name=?').get(classId, `nithya-${classId}`);
   if (!cls) {
-    return res.status(404).json({ allowed: false, error: 'Class not found or invalid link.' });
+    return res.status(404).json({ allowed: false, ok: false, error: 'Class not found or invalid link.' });
   }
 
   // Check if class has ended
   if (cls.status === 'ended') {
-    return res.json({
+    return res.status(400).json({
       allowed: false,
+      ok: false,
+      ended: true,
       reason: 'ended',
       class: cls,
       message: 'This yoga class has already ended. Thank you for practicing with NITHYA Yoga.'
@@ -756,6 +865,7 @@ app.post(['/api/student/validate-join', '/api/live/join-student'], (req, res) =>
 
   // Return validation result
   res.json({
+    ok: true,
     allowed: true,
     role: 'student',
     name: member.name,

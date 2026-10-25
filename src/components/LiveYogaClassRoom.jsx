@@ -270,6 +270,8 @@ function ParticipantTile({
 export default function LiveYogaClassRoom({
   activeClass,
   user,
+  sessionId,
+  isTeacherMode,
   onLeaveClass,
   onRecordAttendance,
   onNavigateAdmin,
@@ -324,9 +326,10 @@ export default function LiveYogaClassRoom({
 
   // Active unique room session ID & Share Modal state
   const [activeRoomSessionId, setActiveRoomSessionId] = useState(() => {
+    if (sessionId) return sessionId;
     try {
       const params = new URLSearchParams(window.location.search);
-      const liveParam = params.get('live');
+      const liveParam = params.get('live') || params.get('room');
       if (liveParam) return liveParam;
     } catch (_) {}
     return activeClass?.id || 'live-session';
@@ -425,6 +428,7 @@ export default function LiveYogaClassRoom({
 
   // Role: Teacher if authenticated token or trainer role; Student otherwise (strict role separation)
   const checkIsInstructor = () => {
+    if (isTeacherMode === false) return false;
     try {
       const params = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
       if (params && (params.get('join') === 'student' || params.get('role') === 'student' || Boolean(params.get('invite')))) {
@@ -434,8 +438,8 @@ export default function LiveYogaClassRoom({
       if (activeRole === 'student') return false;
       const studentSession = typeof localStorage !== 'undefined' ? localStorage.getItem('nithya_student_session') : null;
       if (studentSession && activeRole !== 'instructor') return false;
-      const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
-      return Boolean(hasTeacherToken && (activeRole === 'instructor' || user?.role === 'trainer' || user?.isInstructor));
+      const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_teacher_token') || localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
+      return Boolean(hasTeacherToken && (activeRole === 'instructor' || user?.role === 'trainer' || user?.isInstructor || isTeacherMode));
     } catch (_) {}
     return false;
   };

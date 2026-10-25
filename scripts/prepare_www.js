@@ -27,6 +27,7 @@ function copyRecursive(src, dest) {
 // Copy essential files to www
 const filesToCopy = [
   'index.html',
+  '404.html',
   'manifest.json',
   'sw.js',
   'serve.js',

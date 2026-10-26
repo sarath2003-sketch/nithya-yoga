@@ -955,6 +955,8 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
                 </span>
               </div>
               <AdminPortalSection
+                theme={theme}
+                setTheme={setTheme}
                 onAuthSuccess={(trainer) => {
                   setUser(prev => ({
                     ...prev,

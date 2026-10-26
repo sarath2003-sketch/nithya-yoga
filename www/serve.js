@@ -208,14 +208,18 @@ try {
     db.prepare('INSERT INTO members (id, name, email, phone, created_at) VALUES (?, ?, ?, ?, ?)')
       .run('mem-kumar-1', 'Kumar (குமார்)', 'kumar@student.nithyayoga.com', kumarPhone, '2026-10-01T06:00:00.000Z');
   }
+
+  // Clear any partial records to cleanly seed full month
   const kumarAttCount = db.prepare('SELECT COUNT(*) as count FROM attendance WHERE member_id=? OR student_phone=?').get(kumarPhone, kumarPhone).count;
-  if (kumarAttCount === 0) {
+  if (kumarAttCount < 10) {
+    db.prepare('DELETE FROM attendance WHERE member_id=? OR student_phone=?').run(kumarPhone, kumarPhone);
     const today = new Date().toISOString().split('T')[0];
     const todayJoined = `${today}T06:00:00.000Z`;
     const todayLeft = `${today}T08:00:00.000Z`;
-    // Today: 2 hours (7200 seconds), 100% attendance rate
+
+    // Today: 2 hours (7200 seconds), 100% attendance rate in cls-1
     db.prepare(`
-      INSERT INTO attendance (id, class_id, member_id, student_name, student_phone, session_date, joined_at, left_at, duration_seconds, status)
+      INSERT OR REPLACE INTO attendance (id, class_id, member_id, student_name, student_phone, session_date, joined_at, left_at, duration_seconds, status)
       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `).run('att-cls-1-kumar-today', 'cls-1', kumarPhone, 'Kumar (குமார்)', kumarPhone, today, todayJoined, todayLeft, 7200, 'Present (70%+)');
 
@@ -228,10 +232,16 @@ try {
     ];
     for (const d of pastDates) {
       if (d !== today) {
+        const clsId = `cls-${d}`;
         db.prepare(`
-          INSERT INTO attendance (id, class_id, member_id, student_name, student_phone, session_date, joined_at, left_at, duration_seconds, status)
+          INSERT OR IGNORE INTO classes (id, title, starts_at, duration_minutes, room_name, status, trainer_id, created_at)
+          VALUES (?, 'Hatha Yoga Flow & Alignment', ?, 60, ?, 'ended', 'admin', ?)
+        `).run(clsId, `${d}T06:00:00.000Z`, `room-${d}`, `${d}T06:00:00.000Z`);
+
+        db.prepare(`
+          INSERT OR REPLACE INTO attendance (id, class_id, member_id, student_name, student_phone, session_date, joined_at, left_at, duration_seconds, status)
           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        `).run(`att-cls-1-kumar-${d}`, 'cls-1', kumarPhone, 'Kumar (குமார்)', kumarPhone, d, `${d}T06:30:00.000Z`, `${d}T08:00:00.000Z`, 5400, 'Present (70%+)');
+        `).run(`att-${clsId}-${kumarPhone}`, clsId, kumarPhone, 'Kumar (குமார்)', kumarPhone, d, `${d}T06:30:00.000Z`, `${d}T08:00:00.000Z`, 5400, 'Present (70%+)');
       }
     }
   }

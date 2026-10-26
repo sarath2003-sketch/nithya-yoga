@@ -27264,12 +27264,35 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
     }
   });
 
+  // node_modules/lucide-react/dist/esm/icons/flame.mjs
+  var __iconData25, Flame;
+  var init_flame = __esm({
+    "node_modules/lucide-react/dist/esm/icons/flame.mjs"() {
+      init_createLucideIcon();
+      __iconData25 = {
+        name: "flame",
+        size: 24,
+        node: [
+          [
+            "path",
+            {
+              d: "M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4",
+              key: "1slcih"
+            }
+          ]
+        ]
+      };
+      __iconData25.node;
+      Flame = createLucideIcon(__iconData25);
+    }
+  });
+
   // node_modules/lucide-react/dist/esm/icons/flower-2.mjs
-  var __iconData25, Flower2;
+  var __iconData26, Flower2;
   var init_flower_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/flower-2.mjs"() {
       init_createLucideIcon();
-      __iconData25 = {
+      __iconData26 = {
         name: "flower-2",
         size: 24,
         node: [
@@ -27286,17 +27309,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M12 22c-4.2 0-7-1.667-7-5 4.2 0 7 1.667 7 5Z", key: "ufn41s" }]
         ]
       };
-      __iconData25.node;
-      Flower2 = createLucideIcon(__iconData25);
+      __iconData26.node;
+      Flower2 = createLucideIcon(__iconData26);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/globe.mjs
-  var __iconData26, Globe;
+  var __iconData27, Globe;
   var init_globe = __esm({
     "node_modules/lucide-react/dist/esm/icons/globe.mjs"() {
       init_createLucideIcon();
-      __iconData26 = {
+      __iconData27 = {
         name: "globe",
         size: 24,
         node: [
@@ -27305,17 +27328,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M2 12h20", key: "9i4pu4" }]
         ]
       };
-      __iconData26.node;
-      Globe = createLucideIcon(__iconData26);
+      __iconData27.node;
+      Globe = createLucideIcon(__iconData27);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/hand.mjs
-  var __iconData27, Hand;
+  var __iconData28, Hand;
   var init_hand = __esm({
     "node_modules/lucide-react/dist/esm/icons/hand.mjs"() {
       init_createLucideIcon();
-      __iconData27 = {
+      __iconData28 = {
         name: "hand",
         size: 24,
         node: [
@@ -27331,17 +27354,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData27.node;
-      Hand = createLucideIcon(__iconData27);
+      __iconData28.node;
+      Hand = createLucideIcon(__iconData28);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/headphones.mjs
-  var __iconData28, Headphones;
+  var __iconData29, Headphones;
   var init_headphones = __esm({
     "node_modules/lucide-react/dist/esm/icons/headphones.mjs"() {
       init_createLucideIcon();
-      __iconData28 = {
+      __iconData29 = {
         name: "headphones",
         size: 24,
         node: [
@@ -27354,17 +27377,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData28.node;
-      Headphones = createLucideIcon(__iconData28);
+      __iconData29.node;
+      Headphones = createLucideIcon(__iconData29);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/heart.mjs
-  var __iconData29, Heart;
+  var __iconData30, Heart;
   var init_heart = __esm({
     "node_modules/lucide-react/dist/esm/icons/heart.mjs"() {
       init_createLucideIcon();
-      __iconData29 = {
+      __iconData30 = {
         name: "heart",
         size: 24,
         node: [
@@ -27377,17 +27400,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData29.node;
-      Heart = createLucideIcon(__iconData29);
+      __iconData30.node;
+      Heart = createLucideIcon(__iconData30);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/house.mjs
-  var __iconData30, House;
+  var __iconData31, House;
   var init_house = __esm({
     "node_modules/lucide-react/dist/esm/icons/house.mjs"() {
       init_createLucideIcon();
-      __iconData30 = {
+      __iconData31 = {
         name: "house",
         size: 24,
         node: [
@@ -27402,17 +27425,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         ],
         aliases: ["home"]
       };
-      __iconData30.node;
-      House = createLucideIcon(__iconData30);
+      __iconData31.node;
+      House = createLucideIcon(__iconData31);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/key.mjs
-  var __iconData31, Key;
+  var __iconData32, Key;
   var init_key = __esm({
     "node_modules/lucide-react/dist/esm/icons/key.mjs"() {
       init_createLucideIcon();
-      __iconData31 = {
+      __iconData32 = {
         name: "key",
         size: 24,
         node: [
@@ -27424,17 +27447,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["circle", { cx: "15.5", cy: "7.5", r: "5.5", key: "4wxmhb" }]
         ]
       };
-      __iconData31.node;
-      Key = createLucideIcon(__iconData31);
+      __iconData32.node;
+      Key = createLucideIcon(__iconData32);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/layers.mjs
-  var __iconData32, Layers;
+  var __iconData33, Layers;
   var init_layers = __esm({
     "node_modules/lucide-react/dist/esm/icons/layers.mjs"() {
       init_createLucideIcon();
-      __iconData32 = {
+      __iconData33 = {
         name: "layers",
         size: 24,
         node: [
@@ -27462,17 +27485,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         ],
         aliases: ["layers-3"]
       };
-      __iconData32.node;
-      Layers = createLucideIcon(__iconData32);
+      __iconData33.node;
+      Layers = createLucideIcon(__iconData33);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/link.mjs
-  var __iconData33, Link2;
+  var __iconData34, Link2;
   var init_link = __esm({
     "node_modules/lucide-react/dist/esm/icons/link.mjs"() {
       init_createLucideIcon();
-      __iconData33 = {
+      __iconData34 = {
         name: "link",
         size: 24,
         node: [
@@ -27480,17 +27503,38 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71", key: "19qd67" }]
         ]
       };
-      __iconData33.node;
-      Link2 = createLucideIcon(__iconData33);
+      __iconData34.node;
+      Link2 = createLucideIcon(__iconData34);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/list-checks.mjs
+  var __iconData35, ListChecks;
+  var init_list_checks = __esm({
+    "node_modules/lucide-react/dist/esm/icons/list-checks.mjs"() {
+      init_createLucideIcon();
+      __iconData35 = {
+        name: "list-checks",
+        size: 24,
+        node: [
+          ["path", { d: "M13 5h8", key: "a7qcls" }],
+          ["path", { d: "M13 12h8", key: "h98zly" }],
+          ["path", { d: "M13 19h8", key: "c3s6r1" }],
+          ["path", { d: "m3 17 2 2 4-4", key: "1jhpwq" }],
+          ["path", { d: "m3 7 2 2 4-4", key: "1obspn" }]
+        ]
+      };
+      __iconData35.node;
+      ListChecks = createLucideIcon(__iconData35);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/lock.mjs
-  var __iconData34, Lock;
+  var __iconData36, Lock;
   var init_lock = __esm({
     "node_modules/lucide-react/dist/esm/icons/lock.mjs"() {
       init_createLucideIcon();
-      __iconData34 = {
+      __iconData36 = {
         name: "lock",
         size: 24,
         node: [
@@ -27498,17 +27542,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M7 11V7a5 5 0 0 1 10 0v4", key: "fwvmzm" }]
         ]
       };
-      __iconData34.node;
-      Lock = createLucideIcon(__iconData34);
+      __iconData36.node;
+      Lock = createLucideIcon(__iconData36);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/log-out.mjs
-  var __iconData35, LogOut;
+  var __iconData37, LogOut;
   var init_log_out = __esm({
     "node_modules/lucide-react/dist/esm/icons/log-out.mjs"() {
       init_createLucideIcon();
-      __iconData35 = {
+      __iconData37 = {
         name: "log-out",
         size: 24,
         node: [
@@ -27517,17 +27561,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4", key: "1uf3rs" }]
         ]
       };
-      __iconData35.node;
-      LogOut = createLucideIcon(__iconData35);
+      __iconData37.node;
+      LogOut = createLucideIcon(__iconData37);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mail.mjs
-  var __iconData36, Mail;
+  var __iconData38, Mail;
   var init_mail = __esm({
     "node_modules/lucide-react/dist/esm/icons/mail.mjs"() {
       init_createLucideIcon();
-      __iconData36 = {
+      __iconData38 = {
         name: "mail",
         size: 24,
         node: [
@@ -27535,17 +27579,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["rect", { x: "2", y: "4", width: "20", height: "16", rx: "2", key: "izxlao" }]
         ]
       };
-      __iconData36.node;
-      Mail = createLucideIcon(__iconData36);
+      __iconData38.node;
+      Mail = createLucideIcon(__iconData38);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/maximize-2.mjs
-  var __iconData37, Maximize2;
+  var __iconData39, Maximize2;
   var init_maximize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/maximize-2.mjs"() {
       init_createLucideIcon();
-      __iconData37 = {
+      __iconData39 = {
         name: "maximize-2",
         size: 24,
         node: [
@@ -27555,17 +27599,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M9 21H3v-6", key: "wtvkvv" }]
         ]
       };
-      __iconData37.node;
-      Maximize2 = createLucideIcon(__iconData37);
+      __iconData39.node;
+      Maximize2 = createLucideIcon(__iconData39);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/message-square.mjs
-  var __iconData38, MessageSquare;
+  var __iconData40, MessageSquare;
   var init_message_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/message-square.mjs"() {
       init_createLucideIcon();
-      __iconData38 = {
+      __iconData40 = {
         name: "message-square",
         size: 24,
         node: [
@@ -27578,17 +27622,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData38.node;
-      MessageSquare = createLucideIcon(__iconData38);
+      __iconData40.node;
+      MessageSquare = createLucideIcon(__iconData40);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic-off.mjs
-  var __iconData39, MicOff;
+  var __iconData41, MicOff;
   var init_mic_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic-off.mjs"() {
       init_createLucideIcon();
-      __iconData39 = {
+      __iconData41 = {
         name: "mic-off",
         size: 24,
         node: [
@@ -27600,17 +27644,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M9 9v3a3 3 0 0 0 5.12 2.12", key: "r2i35w" }]
         ]
       };
-      __iconData39.node;
-      MicOff = createLucideIcon(__iconData39);
+      __iconData41.node;
+      MicOff = createLucideIcon(__iconData41);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/mic.mjs
-  var __iconData40, Mic;
+  var __iconData42, Mic;
   var init_mic = __esm({
     "node_modules/lucide-react/dist/esm/icons/mic.mjs"() {
       init_createLucideIcon();
-      __iconData40 = {
+      __iconData42 = {
         name: "mic",
         size: 24,
         node: [
@@ -27619,17 +27663,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["rect", { x: "9", y: "2", width: "6", height: "13", rx: "3", key: "s6n7sd" }]
         ]
       };
-      __iconData40.node;
-      Mic = createLucideIcon(__iconData40);
+      __iconData42.node;
+      Mic = createLucideIcon(__iconData42);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/minimize-2.mjs
-  var __iconData41, Minimize2;
+  var __iconData43, Minimize2;
   var init_minimize_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/minimize-2.mjs"() {
       init_createLucideIcon();
-      __iconData41 = {
+      __iconData43 = {
         name: "minimize-2",
         size: 24,
         node: [
@@ -27639,17 +27683,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M4 14h6v6", key: "rmj7iw" }]
         ]
       };
-      __iconData41.node;
-      Minimize2 = createLucideIcon(__iconData41);
+      __iconData43.node;
+      Minimize2 = createLucideIcon(__iconData43);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/music.mjs
-  var __iconData42, Music;
+  var __iconData44, Music;
   var init_music = __esm({
     "node_modules/lucide-react/dist/esm/icons/music.mjs"() {
       init_createLucideIcon();
-      __iconData42 = {
+      __iconData44 = {
         name: "music",
         size: 24,
         node: [
@@ -27658,17 +27702,44 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["circle", { cx: "18", cy: "16", r: "3", key: "1hluhg" }]
         ]
       };
-      __iconData42.node;
-      Music = createLucideIcon(__iconData42);
+      __iconData44.node;
+      Music = createLucideIcon(__iconData44);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/palette.mjs
+  var __iconData45, Palette;
+  var init_palette = __esm({
+    "node_modules/lucide-react/dist/esm/icons/palette.mjs"() {
+      init_createLucideIcon();
+      __iconData45 = {
+        name: "palette",
+        size: 24,
+        node: [
+          [
+            "path",
+            {
+              d: "M12 22a1 1 0 0 1 0-20 10 9 0 0 1 10 9 5 5 0 0 1-5 5h-2.25a1.75 1.75 0 0 0-1.4 2.8l.3.4a1.75 1.75 0 0 1-1.4 2.8z",
+              key: "e79jfc"
+            }
+          ],
+          ["circle", { cx: "13.5", cy: "6.5", r: ".5", fill: "currentColor", key: "1okk4w" }],
+          ["circle", { cx: "17.5", cy: "10.5", r: ".5", fill: "currentColor", key: "f64h9f" }],
+          ["circle", { cx: "6.5", cy: "12.5", r: ".5", fill: "currentColor", key: "qy21gx" }],
+          ["circle", { cx: "8.5", cy: "7.5", r: ".5", fill: "currentColor", key: "fotxhn" }]
+        ]
+      };
+      __iconData45.node;
+      Palette = createLucideIcon(__iconData45);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pause.mjs
-  var __iconData43, Pause;
+  var __iconData46, Pause;
   var init_pause = __esm({
     "node_modules/lucide-react/dist/esm/icons/pause.mjs"() {
       init_createLucideIcon();
-      __iconData43 = {
+      __iconData46 = {
         name: "pause",
         size: 24,
         node: [
@@ -27676,17 +27747,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["rect", { x: "5", y: "3", width: "5", height: "18", rx: "1", key: "1wsw3u" }]
         ]
       };
-      __iconData43.node;
-      Pause = createLucideIcon(__iconData43);
+      __iconData46.node;
+      Pause = createLucideIcon(__iconData46);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/pen-line.mjs
-  var __iconData44, PenLine;
+  var __iconData47, PenLine;
   var init_pen_line = __esm({
     "node_modules/lucide-react/dist/esm/icons/pen-line.mjs"() {
       init_createLucideIcon();
-      __iconData44 = {
+      __iconData47 = {
         name: "pen-line",
         size: 24,
         node: [
@@ -27701,17 +27772,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         ],
         aliases: ["edit-3"]
       };
-      __iconData44.node;
-      PenLine = createLucideIcon(__iconData44);
+      __iconData47.node;
+      PenLine = createLucideIcon(__iconData47);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone-off.mjs
-  var __iconData45, PhoneOff;
+  var __iconData48, PhoneOff;
   var init_phone_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone-off.mjs"() {
       init_createLucideIcon();
-      __iconData45 = {
+      __iconData48 = {
         name: "phone-off",
         size: 24,
         node: [
@@ -27732,17 +27803,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData45.node;
-      PhoneOff = createLucideIcon(__iconData45);
+      __iconData48.node;
+      PhoneOff = createLucideIcon(__iconData48);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/phone.mjs
-  var __iconData46, Phone;
+  var __iconData49, Phone;
   var init_phone = __esm({
     "node_modules/lucide-react/dist/esm/icons/phone.mjs"() {
       init_createLucideIcon();
-      __iconData46 = {
+      __iconData49 = {
         name: "phone",
         size: 24,
         node: [
@@ -27755,17 +27826,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData46.node;
-      Phone = createLucideIcon(__iconData46);
+      __iconData49.node;
+      Phone = createLucideIcon(__iconData49);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/play.mjs
-  var __iconData47, Play;
+  var __iconData50, Play;
   var init_play = __esm({
     "node_modules/lucide-react/dist/esm/icons/play.mjs"() {
       init_createLucideIcon();
-      __iconData47 = {
+      __iconData50 = {
         name: "play",
         size: 24,
         node: [
@@ -27778,17 +27849,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData47.node;
-      Play = createLucideIcon(__iconData47);
+      __iconData50.node;
+      Play = createLucideIcon(__iconData50);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/plus.mjs
-  var __iconData48, Plus;
+  var __iconData51, Plus;
   var init_plus = __esm({
     "node_modules/lucide-react/dist/esm/icons/plus.mjs"() {
       init_createLucideIcon();
-      __iconData48 = {
+      __iconData51 = {
         name: "plus",
         size: 24,
         node: [
@@ -27796,17 +27867,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M12 5v14", key: "s699le" }]
         ]
       };
-      __iconData48.node;
-      Plus = createLucideIcon(__iconData48);
+      __iconData51.node;
+      Plus = createLucideIcon(__iconData51);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/radio.mjs
-  var __iconData49, Radio;
+  var __iconData52, Radio;
   var init_radio = __esm({
     "node_modules/lucide-react/dist/esm/icons/radio.mjs"() {
       init_createLucideIcon();
-      __iconData49 = {
+      __iconData52 = {
         name: "radio",
         size: 24,
         node: [
@@ -27817,17 +27888,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["circle", { cx: "12", cy: "12", r: "2", key: "1c9p78" }]
         ]
       };
-      __iconData49.node;
-      Radio = createLucideIcon(__iconData49);
+      __iconData52.node;
+      Radio = createLucideIcon(__iconData52);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs
-  var __iconData50, RefreshCw;
+  var __iconData53, RefreshCw;
   var init_refresh_cw = __esm({
     "node_modules/lucide-react/dist/esm/icons/refresh-cw.mjs"() {
       init_createLucideIcon();
-      __iconData50 = {
+      __iconData53 = {
         name: "refresh-cw",
         size: 24,
         node: [
@@ -27837,17 +27908,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M8 16H3v5", key: "1cv678" }]
         ]
       };
-      __iconData50.node;
-      RefreshCw = createLucideIcon(__iconData50);
+      __iconData53.node;
+      RefreshCw = createLucideIcon(__iconData53);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/repeat.mjs
-  var __iconData51, Repeat;
+  var __iconData54, Repeat;
   var init_repeat = __esm({
     "node_modules/lucide-react/dist/esm/icons/repeat.mjs"() {
       init_createLucideIcon();
-      __iconData51 = {
+      __iconData54 = {
         name: "repeat",
         size: 24,
         node: [
@@ -27857,17 +27928,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M21 13v1a4 4 0 0 1-4 4H3", key: "1rx37r" }]
         ]
       };
-      __iconData51.node;
-      Repeat = createLucideIcon(__iconData51);
+      __iconData54.node;
+      Repeat = createLucideIcon(__iconData54);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs
-  var __iconData52, RotateCcw;
+  var __iconData55, RotateCcw;
   var init_rotate_ccw = __esm({
     "node_modules/lucide-react/dist/esm/icons/rotate-ccw.mjs"() {
       init_createLucideIcon();
-      __iconData52 = {
+      __iconData55 = {
         name: "rotate-ccw",
         size: 24,
         node: [
@@ -27875,17 +27946,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M3 3v5h5", key: "1xhq8a" }]
         ]
       };
-      __iconData52.node;
-      RotateCcw = createLucideIcon(__iconData52);
+      __iconData55.node;
+      RotateCcw = createLucideIcon(__iconData55);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/save.mjs
-  var __iconData53, Save;
+  var __iconData56, Save;
   var init_save = __esm({
     "node_modules/lucide-react/dist/esm/icons/save.mjs"() {
       init_createLucideIcon();
-      __iconData53 = {
+      __iconData56 = {
         name: "save",
         size: 24,
         node: [
@@ -27900,17 +27971,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M7 3v4a1 1 0 0 0 1 1h7", key: "t51u73" }]
         ]
       };
-      __iconData53.node;
-      Save = createLucideIcon(__iconData53);
+      __iconData56.node;
+      Save = createLucideIcon(__iconData56);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/search.mjs
-  var __iconData54, Search;
+  var __iconData57, Search;
   var init_search = __esm({
     "node_modules/lucide-react/dist/esm/icons/search.mjs"() {
       init_createLucideIcon();
-      __iconData54 = {
+      __iconData57 = {
         name: "search",
         size: 24,
         node: [
@@ -27918,17 +27989,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["circle", { cx: "11", cy: "11", r: "8", key: "4ej97u" }]
         ]
       };
-      __iconData54.node;
-      Search = createLucideIcon(__iconData54);
+      __iconData57.node;
+      Search = createLucideIcon(__iconData57);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/send.mjs
-  var __iconData55, Send;
+  var __iconData58, Send;
   var init_send = __esm({
     "node_modules/lucide-react/dist/esm/icons/send.mjs"() {
       init_createLucideIcon();
-      __iconData55 = {
+      __iconData58 = {
         name: "send",
         size: 24,
         node: [
@@ -27942,17 +28013,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "m21.854 2.147-10.94 10.939", key: "12cjpa" }]
         ]
       };
-      __iconData55.node;
-      Send = createLucideIcon(__iconData55);
+      __iconData58.node;
+      Send = createLucideIcon(__iconData58);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/settings.mjs
-  var __iconData56, Settings;
+  var __iconData59, Settings;
   var init_settings = __esm({
     "node_modules/lucide-react/dist/esm/icons/settings.mjs"() {
       init_createLucideIcon();
-      __iconData56 = {
+      __iconData59 = {
         name: "settings",
         size: 24,
         node: [
@@ -27966,17 +28037,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["circle", { cx: "12", cy: "12", r: "3", key: "1v7zrd" }]
         ]
       };
-      __iconData56.node;
-      Settings = createLucideIcon(__iconData56);
+      __iconData59.node;
+      Settings = createLucideIcon(__iconData59);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/share-2.mjs
-  var __iconData57, Share2;
+  var __iconData60, Share2;
   var init_share_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/share-2.mjs"() {
       init_createLucideIcon();
-      __iconData57 = {
+      __iconData60 = {
         name: "share-2",
         size: 24,
         node: [
@@ -27987,17 +28058,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["line", { x1: "15.41", x2: "8.59", y1: "6.51", y2: "10.49", key: "1n3mei" }]
         ]
       };
-      __iconData57.node;
-      Share2 = createLucideIcon(__iconData57);
+      __iconData60.node;
+      Share2 = createLucideIcon(__iconData60);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/shield-alert.mjs
-  var __iconData58, ShieldAlert;
+  var __iconData61, ShieldAlert;
   var init_shield_alert = __esm({
     "node_modules/lucide-react/dist/esm/icons/shield-alert.mjs"() {
       init_createLucideIcon();
-      __iconData58 = {
+      __iconData61 = {
         name: "shield-alert",
         size: 24,
         node: [
@@ -28012,17 +28083,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M12 16h.01", key: "1drbdi" }]
         ]
       };
-      __iconData58.node;
-      ShieldAlert = createLucideIcon(__iconData58);
+      __iconData61.node;
+      ShieldAlert = createLucideIcon(__iconData61);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/shield-check.mjs
-  var __iconData59, ShieldCheck;
+  var __iconData62, ShieldCheck;
   var init_shield_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/shield-check.mjs"() {
       init_createLucideIcon();
-      __iconData59 = {
+      __iconData62 = {
         name: "shield-check",
         size: 24,
         node: [
@@ -28036,17 +28107,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "m9 12 2 2 4-4", key: "dzmm74" }]
         ]
       };
-      __iconData59.node;
-      ShieldCheck = createLucideIcon(__iconData59);
+      __iconData62.node;
+      ShieldCheck = createLucideIcon(__iconData62);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/skip-back.mjs
-  var __iconData60, SkipBack;
+  var __iconData63, SkipBack;
   var init_skip_back = __esm({
     "node_modules/lucide-react/dist/esm/icons/skip-back.mjs"() {
       init_createLucideIcon();
-      __iconData60 = {
+      __iconData63 = {
         name: "skip-back",
         size: 24,
         node: [
@@ -28060,17 +28131,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M3 20V4", key: "1ptbpl" }]
         ]
       };
-      __iconData60.node;
-      SkipBack = createLucideIcon(__iconData60);
+      __iconData63.node;
+      SkipBack = createLucideIcon(__iconData63);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/skip-forward.mjs
-  var __iconData61, SkipForward;
+  var __iconData64, SkipForward;
   var init_skip_forward = __esm({
     "node_modules/lucide-react/dist/esm/icons/skip-forward.mjs"() {
       init_createLucideIcon();
-      __iconData61 = {
+      __iconData64 = {
         name: "skip-forward",
         size: 24,
         node: [
@@ -28084,17 +28155,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData61.node;
-      SkipForward = createLucideIcon(__iconData61);
+      __iconData64.node;
+      SkipForward = createLucideIcon(__iconData64);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/sparkles.mjs
-  var __iconData62, Sparkles;
+  var __iconData65, Sparkles;
   var init_sparkles = __esm({
     "node_modules/lucide-react/dist/esm/icons/sparkles.mjs"() {
       init_createLucideIcon();
-      __iconData62 = {
+      __iconData65 = {
         name: "sparkles",
         size: 24,
         node: [
@@ -28111,17 +28182,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         ],
         aliases: ["stars"]
       };
-      __iconData62.node;
-      Sparkles = createLucideIcon(__iconData62);
+      __iconData65.node;
+      Sparkles = createLucideIcon(__iconData65);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs
-  var __iconData63, SquareCenterlineDashedHorizontal;
+  var __iconData66, SquareCenterlineDashedHorizontal;
   var init_square_centerline_dashed_horizontal = __esm({
     "node_modules/lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs"() {
       init_createLucideIcon();
-      __iconData63 = {
+      __iconData66 = {
         name: "square-centerline-dashed-horizontal",
         size: 24,
         node: [
@@ -28134,32 +28205,57 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         ],
         aliases: ["flip-horizontal"]
       };
-      __iconData63.node;
-      SquareCenterlineDashedHorizontal = createLucideIcon(__iconData63);
+      __iconData66.node;
+      SquareCenterlineDashedHorizontal = createLucideIcon(__iconData66);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/square.mjs
-  var __iconData64, Square;
+  var __iconData67, Square;
   var init_square = __esm({
     "node_modules/lucide-react/dist/esm/icons/square.mjs"() {
       init_createLucideIcon();
-      __iconData64 = {
+      __iconData67 = {
         name: "square",
         size: 24,
         node: [["rect", { width: "18", height: "18", x: "3", y: "3", rx: "2", key: "afitv7" }]]
       };
-      __iconData64.node;
-      Square = createLucideIcon(__iconData64);
+      __iconData67.node;
+      Square = createLucideIcon(__iconData67);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/sun.mjs
+  var __iconData68, Sun;
+  var init_sun = __esm({
+    "node_modules/lucide-react/dist/esm/icons/sun.mjs"() {
+      init_createLucideIcon();
+      __iconData68 = {
+        name: "sun",
+        size: 24,
+        node: [
+          ["circle", { cx: "12", cy: "12", r: "4", key: "4exip2" }],
+          ["path", { d: "M12 2v2", key: "tus03m" }],
+          ["path", { d: "M12 20v2", key: "1lh1kg" }],
+          ["path", { d: "m4.93 4.93 1.41 1.41", key: "149t6j" }],
+          ["path", { d: "m17.66 17.66 1.41 1.41", key: "ptbguv" }],
+          ["path", { d: "M2 12h2", key: "1t8f8n" }],
+          ["path", { d: "M20 12h2", key: "1q8mjw" }],
+          ["path", { d: "m6.34 17.66-1.41 1.41", key: "1m8zz5" }],
+          ["path", { d: "m19.07 4.93-1.41 1.41", key: "1shlcs" }]
+        ]
+      };
+      __iconData68.node;
+      Sun = createLucideIcon(__iconData68);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/switch-camera.mjs
-  var __iconData65, SwitchCamera;
+  var __iconData69, SwitchCamera;
   var init_switch_camera = __esm({
     "node_modules/lucide-react/dist/esm/icons/switch-camera.mjs"() {
       init_createLucideIcon();
-      __iconData65 = {
+      __iconData69 = {
         name: "switch-camera",
         size: 24,
         node: [
@@ -28170,17 +28266,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "m6 2 3 3-3 3", key: "1fnbkv" }]
         ]
       };
-      __iconData65.node;
-      SwitchCamera = createLucideIcon(__iconData65);
+      __iconData69.node;
+      SwitchCamera = createLucideIcon(__iconData69);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/tag.mjs
-  var __iconData66, Tag;
+  var __iconData70, Tag;
   var init_tag = __esm({
     "node_modules/lucide-react/dist/esm/icons/tag.mjs"() {
       init_createLucideIcon();
-      __iconData66 = {
+      __iconData70 = {
         name: "tag",
         size: 24,
         node: [
@@ -28194,17 +28290,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["circle", { cx: "7.5", cy: "7.5", r: ".5", fill: "currentColor", key: "kqv944" }]
         ]
       };
-      __iconData66.node;
-      Tag = createLucideIcon(__iconData66);
+      __iconData70.node;
+      Tag = createLucideIcon(__iconData70);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trash.mjs
-  var __iconData67, Trash;
+  var __iconData71, Trash;
   var init_trash = __esm({
     "node_modules/lucide-react/dist/esm/icons/trash.mjs"() {
       init_createLucideIcon();
-      __iconData67 = {
+      __iconData71 = {
         name: "trash",
         size: 24,
         node: [
@@ -28216,17 +28312,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         ],
         aliases: ["trash-2"]
       };
-      __iconData67.node;
-      Trash = createLucideIcon(__iconData67);
+      __iconData71.node;
+      Trash = createLucideIcon(__iconData71);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/trending-up.mjs
-  var __iconData68, TrendingUp;
+  var __iconData72, TrendingUp;
   var init_trending_up = __esm({
     "node_modules/lucide-react/dist/esm/icons/trending-up.mjs"() {
       init_createLucideIcon();
-      __iconData68 = {
+      __iconData72 = {
         name: "trending-up",
         size: 24,
         node: [
@@ -28234,17 +28330,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "m22 7-8.5 8.5-5-5L2 17", key: "1t1m79" }]
         ]
       };
-      __iconData68.node;
-      TrendingUp = createLucideIcon(__iconData68);
+      __iconData72.node;
+      TrendingUp = createLucideIcon(__iconData72);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/upload.mjs
-  var __iconData69, Upload;
+  var __iconData73, Upload;
   var init_upload = __esm({
     "node_modules/lucide-react/dist/esm/icons/upload.mjs"() {
       init_createLucideIcon();
-      __iconData69 = {
+      __iconData73 = {
         name: "upload",
         size: 24,
         node: [
@@ -28253,17 +28349,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4", key: "ih7n3h" }]
         ]
       };
-      __iconData69.node;
-      Upload = createLucideIcon(__iconData69);
+      __iconData73.node;
+      Upload = createLucideIcon(__iconData73);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/user.mjs
-  var __iconData70, User;
+  var __iconData74, User;
   var init_user = __esm({
     "node_modules/lucide-react/dist/esm/icons/user.mjs"() {
       init_createLucideIcon();
-      __iconData70 = {
+      __iconData74 = {
         name: "user",
         size: 24,
         node: [
@@ -28271,17 +28367,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["circle", { cx: "12", cy: "7", r: "4", key: "17ys0d" }]
         ]
       };
-      __iconData70.node;
-      User = createLucideIcon(__iconData70);
+      __iconData74.node;
+      User = createLucideIcon(__iconData74);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/users.mjs
-  var __iconData71, Users;
+  var __iconData75, Users;
   var init_users = __esm({
     "node_modules/lucide-react/dist/esm/icons/users.mjs"() {
       init_createLucideIcon();
-      __iconData71 = {
+      __iconData75 = {
         name: "users",
         size: 24,
         node: [
@@ -28291,17 +28387,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["circle", { cx: "9", cy: "7", r: "4", key: "nufk8" }]
         ]
       };
-      __iconData71.node;
-      Users = createLucideIcon(__iconData71);
+      __iconData75.node;
+      Users = createLucideIcon(__iconData75);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video-off.mjs
-  var __iconData72, VideoOff;
+  var __iconData76, VideoOff;
   var init_video_off = __esm({
     "node_modules/lucide-react/dist/esm/icons/video-off.mjs"() {
       init_createLucideIcon();
-      __iconData72 = {
+      __iconData76 = {
         name: "video-off",
         size: 24,
         node: [
@@ -28313,17 +28409,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "m2 2 20 20", key: "1ooewy" }]
         ]
       };
-      __iconData72.node;
-      VideoOff = createLucideIcon(__iconData72);
+      __iconData76.node;
+      VideoOff = createLucideIcon(__iconData76);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/video.mjs
-  var __iconData73, Video;
+  var __iconData77, Video;
   var init_video = __esm({
     "node_modules/lucide-react/dist/esm/icons/video.mjs"() {
       init_createLucideIcon();
-      __iconData73 = {
+      __iconData77 = {
         name: "video",
         size: 24,
         node: [
@@ -28337,17 +28433,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["rect", { x: "2", y: "6", width: "14", height: "12", rx: "2", key: "158x01" }]
         ]
       };
-      __iconData73.node;
-      Video = createLucideIcon(__iconData73);
+      __iconData77.node;
+      Video = createLucideIcon(__iconData77);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/volume-2.mjs
-  var __iconData74, Volume2;
+  var __iconData78, Volume2;
   var init_volume_2 = __esm({
     "node_modules/lucide-react/dist/esm/icons/volume-2.mjs"() {
       init_createLucideIcon();
-      __iconData74 = {
+      __iconData78 = {
         name: "volume-2",
         size: 24,
         node: [
@@ -28362,17 +28458,37 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M19.364 18.364a9 9 0 0 0 0-12.728", key: "ijwkga" }]
         ]
       };
-      __iconData74.node;
-      Volume2 = createLucideIcon(__iconData74);
+      __iconData78.node;
+      Volume2 = createLucideIcon(__iconData78);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/wifi.mjs
+  var __iconData79, Wifi;
+  var init_wifi = __esm({
+    "node_modules/lucide-react/dist/esm/icons/wifi.mjs"() {
+      init_createLucideIcon();
+      __iconData79 = {
+        name: "wifi",
+        size: 24,
+        node: [
+          ["path", { d: "M12 20h.01", key: "zekei9" }],
+          ["path", { d: "M2 8.82a15 15 0 0 1 20 0", key: "dnpr2z" }],
+          ["path", { d: "M5 12.859a10 10 0 0 1 14 0", key: "1x1e6c" }],
+          ["path", { d: "M8.5 16.429a5 5 0 0 1 7 0", key: "1bycff" }]
+        ]
+      };
+      __iconData79.node;
+      Wifi = createLucideIcon(__iconData79);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/wind.mjs
-  var __iconData75, Wind;
+  var __iconData80, Wind;
   var init_wind = __esm({
     "node_modules/lucide-react/dist/esm/icons/wind.mjs"() {
       init_createLucideIcon();
-      __iconData75 = {
+      __iconData80 = {
         name: "wind",
         size: 24,
         node: [
@@ -28381,17 +28497,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M9.8 4.4A2 2 0 1 1 11 8H2", key: "75valh" }]
         ]
       };
-      __iconData75.node;
-      Wind = createLucideIcon(__iconData75);
+      __iconData80.node;
+      Wind = createLucideIcon(__iconData80);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/x.mjs
-  var __iconData76, X;
+  var __iconData81, X;
   var init_x = __esm({
     "node_modules/lucide-react/dist/esm/icons/x.mjs"() {
       init_createLucideIcon();
-      __iconData76 = {
+      __iconData81 = {
         name: "x",
         size: 24,
         node: [
@@ -28399,8 +28515,8 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "m6 6 12 12", key: "d8bk6v" }]
         ]
       };
-      __iconData76.node;
-      X = createLucideIcon(__iconData76);
+      __iconData81.node;
+      X = createLucideIcon(__iconData81);
     }
   });
 
@@ -28438,6 +28554,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       init_eye_off();
       init_eye();
       init_file_text();
+      init_flame();
       init_flower_2();
       init_globe();
       init_hand();
@@ -28445,6 +28562,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       init_heart();
       init_key();
       init_link();
+      init_list_checks();
       init_lock();
       init_log_out();
       init_mail();
@@ -28454,6 +28572,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       init_mic();
       init_minimize_2();
       init_music();
+      init_palette();
       init_pause();
       init_phone_off();
       init_phone();
@@ -28473,6 +28592,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       init_skip_back();
       init_skip_forward();
       init_square();
+      init_sun();
       init_switch_camera();
       init_tag();
       init_trending_up();
@@ -28482,6 +28602,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       init_video_off();
       init_video();
       init_volume_2();
+      init_wifi();
       init_wind();
       init_x();
     }
@@ -28717,11 +28838,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       "button",
       {
         type: "button",
-        className: "header-tool-btn",
-        onClick: () => setTheme(theme === "dark" ? "light" : "dark"),
-        title: "Toggle Theme"
+        className: "header-tool-btn theme-cycle-btn",
+        onClick: () => {
+          const themes = ["light", "emerald", "sunset", "midnight", "dark"];
+          const currentIndex = themes.indexOf(theme);
+          const nextTheme = themes[(currentIndex + 1) % themes.length];
+          setTheme(nextTheme);
+        },
+        title: lang === "ta" ? `\u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1: ${theme === "emerald" ? "\u0BAE\u0BB0\u0B95\u0BA4 \u0BAA\u0B9A\u0BCD\u0B9A\u0BC8" : theme === "sunset" ? "\u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0B85\u0BB8\u0BCD\u0BA4\u0BAE\u0BA9\u0BAE\u0BCD" : theme === "midnight" ? "\u0BB5\u0BBF\u0BA3\u0BCD\u0BAE\u0BC0\u0BA9\u0BCD \u0BA8\u0BC0\u0BB2\u0BAE\u0BCD" : theme === "dark" ? "\u0B87\u0BB0\u0BB5\u0BC1 \u0BAA\u0BAF\u0BA9\u0BCD\u0BAE\u0BC1\u0BB1\u0BC8" : "\u0BB2\u0BBE\u0BB5\u0BC6\u0BA3\u0BCD\u0B9F\u0BB0\u0BCD"} (\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD)` : `Theme: ${theme === "emerald" ? "Ayurvedic Emerald" : theme === "sunset" ? "Sunset Chakra" : theme === "midnight" ? "Midnight Astral" : theme === "dark" ? "Obsidian Dark" : "Royal Lavender"} (Click to cycle)`
       },
-      /* @__PURE__ */ import_react5.default.createElement(Sparkles, { size: 17, className: "sparkle-icon" })
+      /* @__PURE__ */ import_react5.default.createElement(Sparkles, { size: 17, className: "sparkle-icon" }),
+      /* @__PURE__ */ import_react5.default.createElement("span", { className: "hidden lg:inline text-[10px] font-bold ml-1 text-primary" }, theme === "emerald" ? "\u{1F33F} Emerald" : theme === "sunset" ? "\u{1F305} Sunset" : theme === "midnight" ? "\u{1F30C} Astral" : theme === "dark" ? "\u{1F311} Dark" : "\u{1F338} Lavender")
     ), /* @__PURE__ */ import_react5.default.createElement(
       "button",
       {
@@ -71361,10 +71488,68 @@ Verified WebRTC Attendance Session`;
     onLaunchInstructorStudio,
     onAuthSuccess,
     showToast,
-    lang = "en"
+    lang = "en",
+    theme = "light",
+    setTheme
   }) {
     const [adminToken, setAdminToken] = (0, import_react23.useState)(() => localStorage.getItem("nithya_admin_token") || "");
     const [activeTab, setActiveTab] = (0, import_react23.useState)("classes");
+    const [activeTheme, setActiveTheme] = (0, import_react23.useState)(() => localStorage.getItem("nithya_theme") || theme || "light");
+    const handleThemeChange = (newTheme) => {
+      setActiveTheme(newTheme);
+      if (setTheme) setTheme(newTheme);
+      localStorage.setItem("nithya_theme", newTheme);
+      document.documentElement.setAttribute("data-theme", newTheme);
+      if (showToast) {
+        showToast(
+          lang === "ta" ? "\u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Theme Activated",
+          newTheme === "emerald" ? "Ayurvedic Emerald Forest \u{1F33F}" : newTheme === "sunset" ? "Sunset Chakra Saffron \u{1F305}" : newTheme === "midnight" ? "Midnight Astral Cosmic \u{1F30C}" : newTheme === "dark" ? "Obsidian Dark Studio \u{1F311}" : "Royal Lavender \u{1F338}",
+          "success"
+        );
+      }
+    };
+    const [studioChecklist, setStudioChecklist] = (0, import_react23.useState)(() => {
+      try {
+        const saved = localStorage.getItem("nithya_studio_checklist");
+        return saved ? JSON.parse(saved) : {
+          mic: true,
+          camera: true,
+          lighting: true,
+          props: true,
+          chime: true,
+          invite: true,
+          water: true,
+          network: true
+        };
+      } catch {
+        return {
+          mic: true,
+          camera: true,
+          lighting: true,
+          props: true,
+          chime: true,
+          invite: true,
+          water: true,
+          network: true
+        };
+      }
+    });
+    const toggleCheckItem = (key) => {
+      setStudioChecklist((prev) => {
+        const next = { ...prev, [key]: !prev[key] };
+        localStorage.setItem("nithya_studio_checklist", JSON.stringify(next));
+        return next;
+      });
+    };
+    const handleCheckAll = (state) => {
+      const keys = ["mic", "camera", "lighting", "props", "chime", "invite", "water", "network"];
+      const updated = {};
+      keys.forEach((k) => {
+        updated[k] = state;
+      });
+      setStudioChecklist(updated);
+      localStorage.setItem("nithya_studio_checklist", JSON.stringify(updated));
+    };
     const [authMode, setAuthMode] = (0, import_react23.useState)("login");
     const [email, setEmail] = (0, import_react23.useState)("");
     const [password, setPassword] = (0, import_react23.useState)("");
@@ -72246,16 +72431,36 @@ ${liveUrl}`;
         )))
       ));
     }
-    return /* @__PURE__ */ import_react23.default.createElement("div", { className: "dashboard-card admin-dashboard-portal p-6 rounded-2xl border border-subtle bg-card shadow-lg" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "admin-portal-header flex items-center justify-between pb-4 border-b border-subtle flex-wrap gap-3 mb-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-2.5 rounded-xl bg-primary/10 text-primary" }, /* @__PURE__ */ import_react23.default.createElement(ShieldCheck, { size: 24 })), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("h2", { className: "text-lg font-bold text-heading m-0" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8" : "Trainer & Instructor Dashboard"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, "\u2713 Verified Instructor")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted m-0" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD, \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BB3\u0BCD, \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Manage live sessions, invite links, learning materials & student attendance."))), /* @__PURE__ */ import_react23.default.createElement(
+    return /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-dashboard-container" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-header-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-profile-cluster" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-avatar-ring" }, /* @__PURE__ */ import_react23.default.createElement("span", null, "NY")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-meta-info" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-title-row" }, /* @__PURE__ */ import_react23.default.createElement("h2", { className: "trainer-name-text" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0B95\u0BAE\u0BCD" : "Nithya Yoga Instructor Studio"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-verified-pill" }, /* @__PURE__ */ import_react23.default.createElement(ShieldCheck, { size: 13 }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Verified Lead Instructor"))), /* @__PURE__ */ import_react23.default.createElement("p", { className: "trainer-subtitle-text" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD, \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1, \u0BAA\u0BBE\u0B9F\u0BA4\u0BCD\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Live class hosting, student attendance duration analytics & studio curriculum manager"))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-header-actions" }, /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          const themes = ["light", "emerald", "sunset", "midnight", "dark"];
+          const nextIndex = (themes.indexOf(activeTheme) + 1) % themes.length;
+          handleThemeChange(themes[nextIndex]);
+        },
+        className: "trainer-btn-logout",
+        style: {
+          background: "rgba(124, 58, 237, 0.08)",
+          color: "#7C3AED",
+          borderColor: "rgba(124, 58, 237, 0.25)"
+        },
+        title: "Switch Studio Wellness Theme"
+      },
+      /* @__PURE__ */ import_react23.default.createElement(Palette, { size: 14 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, activeTheme === "emerald" ? "\u{1F33F} Emerald" : activeTheme === "sunset" ? "\u{1F305} Sunset" : activeTheme === "midnight" ? "\u{1F30C} Astral" : activeTheme === "dark" ? "\u{1F311} Obsidian" : "\u{1F338} Lavender")
+    ), /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
         type: "button",
         onClick: handleLogout,
-        className: "ya-btn ya-btn--soft text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-subtle hover:bg-red-500/10 hover:text-red-400 transition-all cursor-pointer"
+        className: "trainer-btn-logout",
+        title: "Sign out of Trainer Account"
       },
       /* @__PURE__ */ import_react23.default.createElement(LogOut, { size: 14 }),
       /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Log Out")
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "admin-live-creator-banner p-6 rounded-2xl bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 border border-violet-500/40 text-white shadow-2xl mb-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col md:flex-row md:items-center justify-between gap-4" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "max-w-xl" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold mb-2.5 border border-violet-400/30" }, /* @__PURE__ */ import_react23.default.createElement(Radio, { size: 14, className: "text-violet-300 animate-pulse" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BBF\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BC7\u0B95 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF" : "EXCLUSIVE INSTRUCTOR PRIVILEGE")), /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-xl sm:text-2xl font-bold text-white mb-1.5 font-['Poppins']" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Create & Host Live Yoga Class"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-violet-200 leading-relaxed" }, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BC7 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0BAE\u0BCD. \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA4\u0BBE\u0BA9\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Only authenticated instructors can generate live room sessions. Tapping below starts your instructor stream and generates student invite links.")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0" }, /* @__PURE__ */ import_react23.default.createElement(
+    ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-grid" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA8\u0BBF\u0BB2\u0BC8" : "Studio Broadcast"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(16, 185, 129, 0.12)", color: "#059669" } }, /* @__PURE__ */ import_react23.default.createElement(Radio, { size: 16, className: "animate-pulse" }))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-val", style: { color: "#059669" } }, classesList.some((c) => c.status === "live") ? "\u25CF LIVE" : "READY"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "var(--text-sub)" } }, "1080p WebRTC Low Latency")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8" : "Enrolled Students"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(124, 58, 237, 0.12)", color: "#7C3AED" } }, /* @__PURE__ */ import_react23.default.createElement(Users, { size: 16 }))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-val" }, "28"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#7C3AED" } }, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Verified Yoga Practitioners")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Today's Batches"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(245, 158, 11, 0.12)", color: "#D97706" } }, /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 16 }))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-val" }, "3"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#D97706" } }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u2022 \u0BAE\u0BA4\u0BBF\u0BAF\u0BAE\u0BCD \u2022 \u0BAE\u0BBE\u0BB2\u0BC8" : "Morning \u2022 Noon \u2022 Evening")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0B95\u0BB1\u0BCD\u0BAA\u0BBF\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Teaching Hours"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(236, 72, 153, 0.12)", color: "#DB2777" } }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 16 }))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-val" }, "48.5 hrs"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#DB2777" } }, lang === "ta" ? "\u0B85\u0B95\u0BCD\u0B9F\u0BCB\u0BAA\u0BB0\u0BCD \u0BAE\u0BBE\u0BA4 \u0BAE\u0BCA\u0BA4\u0BCD\u0BA4\u0BAE\u0BCD" : "October 2026 Immersion")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BA4\u0BAF\u0BBE\u0BB0\u0BCD\u0BA8\u0BBF\u0BB2\u0BC8 \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Studio Readiness"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(59, 130, 246, 0.12)", color: "#2563EB" } }, /* @__PURE__ */ import_react23.default.createElement(ListChecks, { size: 16 }))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-val" }, Math.round(Object.values(studioChecklist).filter(Boolean).length / 8 * 100), "%"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#2563EB" } }, Object.values(studioChecklist).filter(Boolean).length, " / 8 ", lang === "ta" ? "\u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Passed"))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-broadcast-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-broadcast-content" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-live-privilege-badge" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-pulse-dot" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BBF\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BC7\u0B95 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF" : "EXCLUSIVE INSTRUCTOR PRIVILEGE")), /* @__PURE__ */ import_react23.default.createElement("h3", { className: "trainer-broadcast-title" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Launch Master Live Yoga Studio"), /* @__PURE__ */ import_react23.default.createElement("p", { className: "trainer-broadcast-desc" }, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BC7 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0BAE\u0BCD. \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BBE\u0BA9\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Authenticated instructors host interactive low-latency WebRTC live classes. Tapping below starts your studio and auto-generates student invite links.")), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
         type: "button",
@@ -72277,75 +72482,102 @@ ${liveUrl}`;
             onLaunchInstructorStudio(instructorClass);
           }
         },
-        className: "px-6 py-3.5 rounded-xl bg-gradient-to-r from-violet-500 via-purple-600 to-fuchsia-600 hover:from-violet-400 hover:to-fuchsia-500 text-white font-black text-sm shadow-xl flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98]"
+        className: "trainer-start-stream-btn"
       },
       /* @__PURE__ */ import_react23.default.createElement(Video, { size: 18 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u{1F3A5} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F3A5} Launch Live Studio as Host")
-    )))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "admin-subtabs flex items-center gap-2 my-4 bg-subtle p-1 rounded-xl overflow-x-auto" }, /* @__PURE__ */ import_react23.default.createElement(
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u{1F3A5} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F3A5} Launch Live Studio as Host")
+    ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-tabs-dock" }, /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
         type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "classes" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
+        className: `trainer-tab-btn ${activeTab === "classes" ? "active" : ""}`,
         onClick: () => setActiveTab("classes")
       },
-      /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 13 }),
+      /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 14 }),
       /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Live Classes")
     ), /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
         type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "attendance" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
+        className: `trainer-tab-btn ${activeTab === "attendance" ? "active" : ""}`,
         onClick: () => setActiveTab("attendance")
       },
-      /* @__PURE__ */ import_react23.default.createElement(Users, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Attendance")
+      /* @__PURE__ */ import_react23.default.createElement(Users, { size: 14 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Attendance Analytics")
     ), /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
         type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "notes" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
+        className: `trainer-tab-btn ${activeTab === "checklist" ? "active" : ""}`,
+        onClick: () => setActiveTab("checklist")
+      },
+      /* @__PURE__ */ import_react23.default.createElement(ListChecks, { size: 14 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Studio Checklist")
+    ), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `trainer-tab-btn ${activeTab === "curriculum" ? "active" : ""}`,
+        onClick: () => setActiveTab("curriculum")
+      },
+      /* @__PURE__ */ import_react23.default.createElement(Sun, { size: 14 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BBE\u0B9F\u0BA4\u0BCD\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD" : "Asana Curriculum")
+    ), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `trainer-tab-btn ${activeTab === "themes" ? "active" : ""}`,
+        onClick: () => setActiveTab("themes")
+      },
+      /* @__PURE__ */ import_react23.default.createElement(Palette, { size: 14 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BC0\u0BAE\u0BCD\u0B95\u0BB3\u0BCD" : "Studio Themes")
+    ), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `trainer-tab-btn ${activeTab === "notes" ? "active" : ""}`,
         onClick: () => setActiveTab("notes")
       },
-      /* @__PURE__ */ import_react23.default.createElement(FileText, { size: 13 }),
+      /* @__PURE__ */ import_react23.default.createElement(FileText, { size: 14 }),
       /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Notes & PDF")
     ), /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
         type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "videos" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
+        className: `trainer-tab-btn ${activeTab === "videos" ? "active" : ""}`,
         onClick: () => setActiveTab("videos")
       },
-      /* @__PURE__ */ import_react23.default.createElement(Video, { size: 13 }),
+      /* @__PURE__ */ import_react23.default.createElement(Video, { size: 14 }),
       /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Videos")
     ), /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
         type: "button",
-        className: `flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === "settings" ? "bg-card text-heading shadow-sm" : "text-muted hover:text-heading"}`,
+        className: `trainer-tab-btn ${activeTab === "settings" ? "active" : ""}`,
         onClick: () => setActiveTab("settings")
       },
-      /* @__PURE__ */ import_react23.default.createElement(Settings, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "LiveKit Settings")
-    )), activeTab === "classes" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "create-class-card p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95" : "Create & Schedule Live Yoga Class")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleCreateClass, className: "grid grid-cols-1 md:grid-cols-4 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-2 flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Class Title"), /* @__PURE__ */ import_react23.default.createElement(
+      /* @__PURE__ */ import_react23.default.createElement(Settings, { size: 14 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Settings")
+    )), activeTab === "classes" && /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-form-card" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-form-header" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "trainer-form-title" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 18, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95" : "Schedule & Create Live Yoga Class"))), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleCreateClass }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-form-grid" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-field-group", style: { gridColumn: "span 2" } }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react23.default.createElement(FileText, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Class Title / Flow Name")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react23.default.createElement(FileText, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react23.default.createElement(
       "input",
       {
         type: "text",
         value: newTitle,
         onChange: (e2) => setNewTitle(e2.target.value),
-        placeholder: "e.g. Morning Surya Namaskar & Pranayama",
+        placeholder: "e.g. Morning Surya Namaskar Flow & Mindful Alignment",
         required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
+        className: "trainer-input-styled"
       }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BA4\u0BBF" : "Date & Start Time"), /* @__PURE__ */ import_react23.default.createElement(
+    ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-field-group" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BA4\u0BBF" : "Date & Start Time")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react23.default.createElement(
       "input",
       {
         type: "datetime-local",
         value: newStartsAt,
         onChange: (e2) => setNewStartsAt(e2.target.value),
         required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
+        className: "trainer-input-styled"
       }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2 \u0B85\u0BB3\u0BB5\u0BC1 (\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD)" : "Duration (Minutes)"), /* @__PURE__ */ import_react23.default.createElement(
+    ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-field-group" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BBE\u0BB2 \u0B85\u0BB3\u0BB5\u0BC1 (\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD)" : "Duration (Minutes)")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react23.default.createElement(
       "input",
       {
         type: "number",
@@ -72354,120 +72586,54 @@ ${liveUrl}`;
         value: newDuration,
         onChange: (e2) => setNewDuration(e2.target.value),
         required: true,
-        className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
+        className: "trainer-input-styled"
       }
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "md:col-span-4 flex justify-end" }, /* @__PURE__ */ import_react23.default.createElement(
+    )))), /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", justifyContent: "flex-end" } }, /* @__PURE__ */ import_react23.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isCreatingClass,
-        className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer shadow"
+        className: "trainer-btn-submit-class"
       },
-      isCreatingClass ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 14 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0B9A\u0BCD \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Create Live Class")
-    ))), newlyCreatedClassInfo && /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-3.5 mt-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col gap-2" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-emerald-500 font-bold text-xs" }, "\u{1F389} ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Class Created Successfully!"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-xs text-heading font-bold" }, newlyCreatedClassInfo.title)), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
+      isCreatingClass ? /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 15, className: "animate-spin" }) : /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 15 }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BBF \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Generate & Schedule Class Room")
+    ))), newlyCreatedClassInfo && /* @__PURE__ */ import_react23.default.createElement(
+      "div",
       {
-        type: "button",
-        onClick: () => setNewlyCreatedClassInfo(null),
-        className: "text-xs text-muted hover:text-heading cursor-pointer px-1.5",
-        title: "Dismiss"
+        className: "trainer-invite-strip",
+        style: {
+          marginTop: "18px",
+          background: "rgba(16, 185, 129, 0.08)",
+          borderColor: "rgba(16, 185, 129, 0.4)"
+        }
       },
-      "\u2715"
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-[11px] text-muted" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B87\u0BA8\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BB5\u0BC1\u0BAE\u0BCD:" : "Share this live student link directly via WhatsApp or copy:"), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-wrap sm:flex-nowrap" }, /* @__PURE__ */ import_react23.default.createElement(
-      "input",
-      {
-        type: "text",
-        readOnly: true,
-        value: newlyCreatedClassInfo.url,
-        className: "w-full text-xs font-mono p-2 rounded-lg bg-card border border-primary/20 text-heading select-all",
-        onClick: (e2) => e2.target.select()
-      }
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => {
-          navigator.clipboard.writeText(newlyCreatedClassInfo.url);
-          setCopiedId(`new-${newlyCreatedClassInfo.id}`);
-          setTimeout(() => setCopiedId(null), 2500);
-          if (showToast) showToast("Link Copied \u2713", newlyCreatedClassInfo.url, "success");
-        },
-        className: "ya-btn ya-btn--primary text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
-      },
-      copiedId === `new-${newlyCreatedClassInfo.id}` ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === `new-${newlyCreatedClassInfo.id}` ? "Copied!" : "Copy Link")
-    ), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => {
-          const text = encodeURIComponent(`\u{1F9D8} *NITHYA Yoga Live Class: ${newlyCreatedClassInfo.title}*
-
-Join the live yoga session as a student:
-${newlyCreatedClassInfo.url}`);
-          window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
-        },
-        className: "ya-btn text-xs px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-md shadow-emerald-500/20"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 13 }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, "WhatsApp")
-    )))), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between mb-3" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BAE\u0BC7\u0BB2\u0BBE\u0BA3\u0BCD\u0BAE\u0BC8" : "Manage Classes & Student Invitations")), /* @__PURE__ */ import_react23.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: fetchClasses,
-        className: "text-xs text-primary flex items-center gap-1 hover:underline cursor-pointer"
-      },
-      /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 12, className: classesLoading ? "animate-spin" : "" }),
-      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
-    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-3" }, classesList.length === 0 ? /* @__PURE__ */ import_react23.default.createElement("div", { className: "text-center p-6 text-xs text-muted rounded-xl border border-subtle" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No scheduled classes found. Create your first class above!") : classesList.map((c) => {
-      const currentInvite = inviteUrls[c.id];
-      const isLive = c.status === "live";
-      const isEnded = c.status === "ended";
-      const liveUrl = getProductionLiveUrl(c.id);
-      return /* @__PURE__ */ import_react23.default.createElement("div", { key: c.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col gap-2.5" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-2" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, c.title), /* @__PURE__ */ import_react23.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${isLive ? "bg-red-500 text-white animate-pulse" : isEnded ? "bg-gray-500/20 text-muted" : "bg-primary/20 text-primary"}` }, isLive ? "\u25CF LIVE NOW" : isEnded ? "ENDED" : "SCHEDULED")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 text-[11px] text-muted mt-1" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react23.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react23.default.createElement("span", null, c.duration_minutes, " mins"), /* @__PURE__ */ import_react23.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "font-mono text-[10px] bg-subtle px-1.5 py-0.5 rounded" }, "Room: ", c.room_name))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, !isEnded && /* @__PURE__ */ import_react23.default.createElement(
+      /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "4px", maxWidth: "580px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement("span", { style: { color: "#059669", fontWeight: 800, fontSize: "13px" } }, "\u{1F389} ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Live Session Created Successfully!"), /* @__PURE__ */ import_react23.default.createElement("span", { style: { fontWeight: 800, fontSize: "13px", color: "var(--text-heading)" } }, newlyCreatedClassInfo.title)), /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-invite-url-text", style: { color: "#059669" } }, newlyCreatedClassInfo.url)),
+      /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-invite-btn-group" }, /* @__PURE__ */ import_react23.default.createElement(
         "button",
         {
           type: "button",
-          onClick: () => handleStartClass(c),
-          className: `text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold cursor-pointer transition-all ${isLive ? "bg-red-500 text-white hover:bg-red-600" : "bg-emerald-600 text-white hover:bg-emerald-700"}`,
-          title: isLive ? "Resume Studio" : "Start Class and Broadcast"
+          onClick: () => {
+            navigator.clipboard.writeText(newlyCreatedClassInfo.url);
+            setCopiedId(`new-${newlyCreatedClassInfo.id}`);
+            setTimeout(() => setCopiedId(null), 2500);
+            if (showToast) showToast("Link Copied \u2713", newlyCreatedClassInfo.url, "success");
+          },
+          className: "trainer-btn-copy-link"
         },
-        /* @__PURE__ */ import_react23.default.createElement(Play, { size: 13, fill: "currentColor" }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, isLive ? "In Studio" : lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Start Class")
-      ), isLive && /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleEndClass(c),
-          className: "bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/30 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1 font-bold cursor-pointer transition-all",
-          title: "End class for all participants"
-        },
-        /* @__PURE__ */ import_react23.default.createElement(PhoneOff, { size: 13 }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class for All")
+        copiedId === `new-${newlyCreatedClassInfo.id}` ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 13 }),
+        /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === `new-${newlyCreatedClassInfo.id}` ? "Copied!" : "Copy Link")
       ), /* @__PURE__ */ import_react23.default.createElement(
         "button",
         {
           type: "button",
           onClick: () => {
-            navigator.clipboard.writeText(liveUrl);
-            setCopiedId(`live-${c.id}`);
-            setTimeout(() => setCopiedId(null), 2500);
-            if (showToast) showToast("Invitation Link Copied \u2713", liveUrl, "success");
+            const text = encodeURIComponent(`\u{1F9D8} *NITHYA Yoga Live Class: ${newlyCreatedClassInfo.title}*
+
+Join the live yoga session as a student:
+${newlyCreatedClassInfo.url}`);
+            window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
           },
-          className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer",
-          title: "Direct student joining link with name & mobile check"
-        },
-        copiedId === `live-${c.id}` ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 13, className: "text-emerald-500" }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 13, className: "text-primary" }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === `live-${c.id}` ? "Copied!" : "Copy Link")
-      ), /* @__PURE__ */ import_react23.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => handleWhatsAppShare(c),
-          className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 text-emerald-600 cursor-pointer",
-          title: "Share on WhatsApp"
+          className: "trainer-btn-whatsapp-share"
         },
         /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 13 }),
         /* @__PURE__ */ import_react23.default.createElement("span", null, "WhatsApp")
@@ -72475,33 +72641,268 @@ ${newlyCreatedClassInfo.url}`);
         "button",
         {
           type: "button",
+          onClick: () => setNewlyCreatedClassInfo(null),
+          style: { background: "transparent", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: "4px 8px" },
+          title: "Dismiss"
+        },
+        "\u2715"
+      ))
+    )), /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" } }, /* @__PURE__ */ import_react23.default.createElement("h3", { style: { fontSize: "15px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement(Calendar, { size: 18, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Scheduled Yoga Classes & Student Links")), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: fetchClasses,
+        style: { fontSize: "12px", fontWeight: 700, color: "#7C3AED", background: "none", border: "none", display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }
+      },
+      /* @__PURE__ */ import_react23.default.createElement(RefreshCw, { size: 13, className: classesLoading ? "animate-spin" : "" }),
+      /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
+    )), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-classes-stack" }, classesList.length === 0 ? /* @__PURE__ */ import_react23.default.createElement("div", { style: { textAlign: "center", padding: "36px 20px", borderRadius: "20px", border: "1px solid var(--border-color)", color: "var(--text-sub)", fontSize: "13px" } }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8. \u0BAE\u0BC7\u0BB2\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAA\u0B9F\u0BBF\u0BB5\u0BA4\u0BCD\u0BA4\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAE\u0BC1\u0BA4\u0BB2\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "No scheduled classes found. Use the form above to schedule your first live yoga session!") : classesList.map((c) => {
+      const currentInvite = inviteUrls[c.id];
+      const isLive = c.status === "live";
+      const isEnded = c.status === "ended";
+      const liveUrl = getProductionLiveUrl(c.id);
+      return /* @__PURE__ */ import_react23.default.createElement("div", { key: c.id, className: "trainer-class-card-item" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-class-item-header" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" } }, /* @__PURE__ */ import_react23.default.createElement("h4", { className: "trainer-class-item-title" }, c.title), /* @__PURE__ */ import_react23.default.createElement("span", { className: `trainer-class-status-badge ${isLive ? "live" : isEnded ? "ended" : "scheduled"}` }, isLive ? "\u25CF LIVE STREAM" : isEnded ? "ENDED" : "SCHEDULED")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-class-meta-row", style: { marginTop: "8px" } }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-class-meta-chip" }, /* @__PURE__ */ import_react23.default.createElement(Clock, { size: 12, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-class-meta-chip" }, "\u23F1\uFE0F ", c.duration_minutes, " mins"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-class-meta-chip", style: { fontFamily: "monospace" } }, "Room: ", c.room_name))), /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" } }, !isEnded && /* @__PURE__ */ import_react23.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: () => handleStartClass(c),
+          className: "trainer-btn-enter-room",
+          style: {
+            background: isLive ? "linear-gradient(135deg, #EF4444 0%, #DC2626 100%)" : "linear-gradient(135deg, #10B981 0%, #059669 100%)"
+          },
+          title: isLive ? "Enter Live Studio" : "Start Studio Broadcast"
+        },
+        /* @__PURE__ */ import_react23.default.createElement(Play, { size: 14, fill: "currentColor" }),
+        /* @__PURE__ */ import_react23.default.createElement("span", null, isLive ? "In Studio" : lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Start Live Class")
+      ), isLive && /* @__PURE__ */ import_react23.default.createElement(
+        "button",
+        {
+          type: "button",
+          onClick: () => handleEndClass(c),
+          className: "trainer-btn-end-class",
+          title: "End class for all participants"
+        },
+        /* @__PURE__ */ import_react23.default.createElement(PhoneOff, { size: 13 }),
+        /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class")
+      ), /* @__PURE__ */ import_react23.default.createElement(
+        "button",
+        {
+          type: "button",
           onClick: () => handleDeleteClass(c.id),
-          className: "p-1.5 rounded-lg text-muted hover:text-red-500 cursor-pointer",
+          style: { padding: "8px", borderRadius: "10px", background: "transparent", border: "none", color: "var(--text-muted)", cursor: "pointer" },
           title: "Delete class"
         },
-        /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 14 })
-      ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-2.5 rounded-lg bg-subtle/80 border border-primary/20 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 mt-1" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-1 overflow-hidden" }, /* @__PURE__ */ import_react23.default.createElement(Link2, { size: 13, className: "text-primary flex-shrink-0" }), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[11px] font-mono text-heading truncate select-all" }, currentInvite || liveUrl)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-1.5 flex-shrink-0 self-end sm:self-center" }, /* @__PURE__ */ import_react23.default.createElement(
+        /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 15 })
+      ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-invite-strip" }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px", flex: 1, minWidth: "200px", overflow: "hidden" } }, /* @__PURE__ */ import_react23.default.createElement(Link2, { size: 14, style: { color: "#7C3AED", flexShrink: 0 } }), /* @__PURE__ */ import_react23.default.createElement("span", { className: "trainer-invite-url-text select-all" }, currentInvite || liveUrl)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-invite-btn-group" }, /* @__PURE__ */ import_react23.default.createElement(
         "button",
         {
           type: "button",
           onClick: () => handleCopyLink(currentInvite || liveUrl, c.id),
-          className: "ya-btn ya-btn--primary text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1 cursor-pointer",
+          className: "trainer-btn-copy-link",
           title: "Copy student invite link"
         },
-        copiedId === c.id ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 12 }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 12 }),
-        /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === c.id ? "Copied!" : "Copy")
+        copiedId === c.id ? /* @__PURE__ */ import_react23.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react23.default.createElement(Copy, { size: 13 }),
+        /* @__PURE__ */ import_react23.default.createElement("span", null, copiedId === c.id ? "Copied!" : "Copy Link")
       ), /* @__PURE__ */ import_react23.default.createElement(
         "button",
         {
           type: "button",
           onClick: () => handleWhatsAppShare(c),
-          className: "ya-btn text-[11px] px-2.5 py-1 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1 cursor-pointer",
+          className: "trainer-btn-whatsapp-share",
           title: "Share on WhatsApp"
         },
-        /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 12 }),
+        /* @__PURE__ */ import_react23.default.createElement(Share2, { size: 13 }),
         /* @__PURE__ */ import_react23.default.createElement("span", null, "WhatsApp")
       ))));
-    })))), activeTab === "attendance" && (() => {
+    })))), activeTab === "checklist" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)" } }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement(ListChecks, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB8\u0BCD\u0B9F\u0BCD\u0BB0\u0BC0\u0BAE\u0BBF\u0B99\u0BCD \u0BAE\u0BC1\u0BA9\u0BCD-\u0BAA\u0BAF\u0BA3 \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Live Studio Pre-Flight Broadcast Checklist")), /* @__PURE__ */ import_react23.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0BB5\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0BAE\u0BC1\u0BA9\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 8 \u0B85\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BBE\u0BB5\u0B9A\u0BBF\u0BAF \u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BC8\u0B9A\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Verify all 8 studio environment parameters before launching your live broadcast.")), /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => handleCheckAll(true),
+        style: { fontSize: "12px", padding: "6px 14px", borderRadius: "10px", border: "1px solid var(--border-color)", fontWeight: 700, background: "var(--bg-app)", color: "var(--text-heading)", cursor: "pointer" }
+      },
+      lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1" : "Check All"
+    ), /* @__PURE__ */ import_react23.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => handleCheckAll(false),
+        style: { fontSize: "12px", padding: "6px 14px", borderRadius: "10px", border: "1px solid var(--border-color)", fontWeight: 700, background: "var(--bg-app)", color: "var(--text-muted)", cursor: "pointer" }
+      },
+      lang === "ta" ? "\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8" : "Reset"
+    ))), /* @__PURE__ */ import_react23.default.createElement("div", { style: { margin: "18px 0 22px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "12px", fontWeight: 800, color: "var(--text-heading)", marginBottom: "8px" } }, /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD\u0BA8\u0BBF\u0BB2\u0BC8 \u0BAE\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC0\u0B9F\u0BC1" : "Studio Readiness Score"), /* @__PURE__ */ import_react23.default.createElement("span", { style: { color: "#7C3AED" } }, Math.round(Object.values(studioChecklist).filter(Boolean).length / 8 * 100), "%")), /* @__PURE__ */ import_react23.default.createElement("div", { style: { height: "8px", background: "var(--bg-subtle)", borderRadius: "9999px", overflow: "hidden" } }, /* @__PURE__ */ import_react23.default.createElement(
+      "div",
+      {
+        style: {
+          height: "100%",
+          width: `${Math.round(Object.values(studioChecklist).filter(Boolean).length / 8 * 100)}%`,
+          background: "linear-gradient(90deg, #7C3AED, #10B981)",
+          borderRadius: "9999px",
+          transition: "width 0.3s ease"
+        }
+      }
+    ))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-checklist-grid" }, [
+      { key: "mic", icon: Mic, title: lang === "ta" ? "\u0BB5\u0BAF\u0BB0\u0BCD\u0BB2\u0BC6\u0BB8\u0BCD \u0BAE\u0BC8\u0B95\u0BCD\u0BB0\u0BCB\u0B83\u0BAA\u0BCB\u0BA9\u0BCD" : "Wireless Microphone / Lapel", desc: lang === "ta" ? "\u0B95\u0BC1\u0BB0\u0BB2\u0BCD \u0BA4\u0BC6\u0BB3\u0BBF\u0BB5\u0BC1 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAA\u0BBF\u0BA9\u0BCD\u0BA9\u0BA3\u0BBF \u0B87\u0BB0\u0BC8\u0B9A\u0BCD\u0B9A\u0BB2\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAE\u0BCD" : "Crystal-clear audio with noise cancellation for voice cues" },
+      { key: "camera", icon: Camera, title: lang === "ta" ? "1080p \u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BC7\u0B9F\u0BCD \u0B83\u0BAA\u0BBF\u0BB0\u0BC7\u0BAE\u0BCD" : "1080p HD Camera & Mat Framing", desc: lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1 \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BC7\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B95\u0BBF\u0B9F\u0BC8\u0BAE\u0B9F\u0BCD\u0B9F\u0BAE\u0BBE\u0B95 \u0BA4\u0BC6\u0BB0\u0BBF\u0BAF \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD" : "Full horizontal mat visible top-to-bottom for posture review" },
+      { key: "lighting", icon: Sun, title: lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BB2\u0BC8\u0B9F\u0BCD\u0B9F\u0BBF\u0B99\u0BCD & \u0BB5\u0BC6\u0BB3\u0BBF\u0B9A\u0BCD\u0B9A\u0BAE\u0BCD" : "Studio Lighting & Ambience", desc: lang === "ta" ? "\u0BAE\u0BC6\u0BA9\u0BCD\u0BAE\u0BC8\u0BAF\u0BBE\u0BA9 \u0B9A\u0BC2\u0B9F\u0BBE\u0BA9 \u0B92\u0BB3\u0BBF, \u0B95\u0BA3\u0BCD\u0B95\u0BB3\u0BC8 \u0B95\u0BC2\u0B9A\u0BBE\u0BA4 \u0BB5\u0BC6\u0BB3\u0BBF\u0B9A\u0BCD\u0B9A\u0BAE\u0BCD" : "Soft diffused front lighting with zero camera flare" },
+      { key: "props", icon: Layers, title: lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B89\u0BAA\u0B95\u0BB0\u0BA3\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD\u0BA8\u0BBF\u0BB2\u0BC8" : "Yoga Props (Blocks & Straps)", desc: lang === "ta" ? "2 \u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BBF\u0BB3\u0BBE\u0B95\u0BCD\u0B95\u0BC1\u0B95\u0BB3\u0BCD, 1 \u0BAA\u0BC6\u0BB2\u0BCD\u0B9F\u0BCD, \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BA4\u0BB2\u0BC8\u0BAF\u0BA3\u0BC8" : "2 cork blocks, 1 cotton strap, bolster & meditation cushion" },
+      { key: "chime", icon: Volume2, title: lang === "ta" ? "\u0BA4\u0BBF\u0BAA\u0BC6\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0BC1\u0BAE\u0BCD \u0B95\u0BBF\u0BA3\u0BCD\u0BA3\u0BAE\u0BCD / \u0B9A\u0BBF\u0BAE\u0BBF" : "Tibetan Singing Bowl & Chime", desc: lang === "ta" ? "\u0B86\u0BB0\u0BAE\u0BCD\u0BAA \u0B93\u0BAE\u0BCD \u0B89\u0B9A\u0BCD\u0B9A\u0BB0\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0BB5\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1 \u0B92\u0BB2\u0BBF" : "Acoustic resonance test for opening chant & Savasana" },
+      { key: "invite", icon: Share2, title: lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Student WhatsApp Invite Link", desc: lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0BB5\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 15 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u0BAE\u0BC1\u0BA9\u0BCD \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Direct student joining link dispatched 15 mins prior" },
+      { key: "water", icon: Flame, title: lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0B9A\u0BC2\u0BB4\u0BB2\u0BCD" : "Breathwork Quiet Environment", desc: lang === "ta" ? "\u0B95\u0BC1\u0B9F\u0BBF\u0BA8\u0BC0\u0BB0\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B87\u0B9F\u0BC8\u0BAF\u0BC2\u0BB1\u0BC1\u0B95\u0BB3\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BBE\u0BA4 \u0B85\u0BB1\u0BC8" : "Hydration nearby and room secured against interruptions" },
+      { key: "network", icon: Wifi, title: lang === "ta" ? "\u0B85\u0BA4\u0BBF\u0BB5\u0BC7\u0B95 \u0BB5\u0BC8\u0B83\u0BAA\u0BC8 / \u0BB5\u0BC6\u0BAA\u0BCD\u0B86\u0BB0\u0BCD\u0B9F\u0BBF\u0B9A\u0BBF" : "High-Speed WebRTC Latency", desc: lang === "ta" ? "\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4 \u0BA4\u0BBE\u0BAE\u0BA4\u0BA4\u0BCD\u0BA4\u0BC1\u0B9F\u0BA9\u0BCD \u0B95\u0BC2\u0B9F\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Sub-500ms video ping verified with LiveKit server" }
+    ].map((item) => {
+      const isDone = !!studioChecklist[item.key];
+      const ItemIcon = item.icon;
+      return /* @__PURE__ */ import_react23.default.createElement(
+        "div",
+        {
+          key: item.key,
+          onClick: () => toggleCheckItem(item.key),
+          className: `trainer-check-item ${isDone ? "done" : ""}`
+        },
+        /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-check-box" }, isDone && /* @__PURE__ */ import_react23.default.createElement(Check, { size: 14, strokeWidth: 3 })),
+        /* @__PURE__ */ import_react23.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "6px", fontWeight: 800, fontSize: "13px", color: "var(--text-heading)" } }, /* @__PURE__ */ import_react23.default.createElement(ItemIcon, { size: 14, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, item.title)), /* @__PURE__ */ import_react23.default.createElement("div", { style: { fontSize: "11px", color: "var(--text-sub)", marginTop: "2px", lineHeight: 1.4 } }, item.desc))
+      );
+    }))), activeTab === "curriculum" && /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement(Sun, { size: 20, style: { color: "#F59E0B" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD 12 \u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BCD & \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1 \u0BA8\u0BC6\u0BB1\u0BBF\u0BAE\u0BC1\u0BB1\u0BC8" : "Surya Namaskar: Classical 12-Step Asana Matrix")), /* @__PURE__ */ import_react23.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0B92\u0BB5\u0BCD\u0BB5\u0BCA\u0BB0\u0BC1 \u0B86\u0B9A\u0BA9\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1 \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0BC0\u0BB0\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD." : "Precise breath coordination (Inhale/Exhale), Sanskrit nomenclature & alignment cues for instructors.")), /* @__PURE__ */ import_react23.default.createElement("span", { style: { fontSize: "11px", fontWeight: 800, padding: "4px 12px", borderRadius: "20px", background: "rgba(245, 158, 11, 0.12)", color: "#D97706", border: "1px solid rgba(245, 158, 11, 0.3)" } }, "Solar Vitality Flow")), /* @__PURE__ */ import_react23.default.createElement("div", { style: { overflowX: "auto" } }, /* @__PURE__ */ import_react23.default.createElement("table", { style: { width: "100%", fontSize: "12px", textAlign: "left", borderCollapse: "collapse" } }, /* @__PURE__ */ import_react23.default.createElement("thead", null, /* @__PURE__ */ import_react23.default.createElement("tr", { style: { borderBottom: "1px solid var(--border-color)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.5px", color: "var(--text-sub)", fontWeight: 800 } }, /* @__PURE__ */ import_react23.default.createElement("th", { style: { padding: "10px 12px" } }, "#"), /* @__PURE__ */ import_react23.default.createElement("th", { style: { padding: "10px 12px" } }, "Sanskrit Asana"), /* @__PURE__ */ import_react23.default.createElement("th", { style: { padding: "10px 12px" } }, "Tamil / English"), /* @__PURE__ */ import_react23.default.createElement("th", { style: { padding: "10px 12px" } }, "Breath Cue"), /* @__PURE__ */ import_react23.default.createElement("th", { style: { padding: "10px 12px" } }, "Chakra"), /* @__PURE__ */ import_react23.default.createElement("th", { style: { padding: "10px 12px" } }, "Alignment Cue"))), /* @__PURE__ */ import_react23.default.createElement("tbody", { style: { color: "var(--text-heading)" } }, [
+      { step: 1, sanskrit: "Pranamasana", eng: "Prayer Pose / \u0BAA\u0BBF\u0BB0\u0BBE\u0BB0\u0BCD\u0BA4\u0BCD\u0BA4\u0BA9\u0BC8 \u0B86\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Anahata (Heart)", cue: "Palms together at chest center, feet parallel, weight balanced." },
+      { step: 2, sanskrit: "Hastauttanasana", eng: "Raised Arms Pose / \u0B85\u0BB8\u0BCD\u0BA4 \u0B89\u0BA4\u0BCD\u0BA4\u0BBE\u0BA9\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Inhale", chakra: "Vishuddha (Throat)", cue: "Biceps beside ears, stretch upward from pelvis, gentle arch back." },
+      { step: 3, sanskrit: "Padahastasana", eng: "Standing Forward Bend / \u0BAA\u0BBE\u0BA4\u0BB9\u0BB8\u0BCD\u0BA4\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Swadhisthana (Sacral)", cue: "Hinge from hips, palms flat on floor beside feet, crown down." },
+      { step: 4, sanskrit: "Ashwa Sanchalanasana", eng: "Equestrian Pose / \u0B85\u0BB7\u0BCD\u0BB5 \u0B9A\u0B9E\u0BCD\u0B9A\u0BBE\u0BB2\u0BA9\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Inhale", chakra: "Ajna (Third Eye)", cue: "Right leg stepped back, right knee down, chest opens forward." },
+      { step: 5, sanskrit: "Dandasana / Phalakasana", eng: "Plank Pose / \u0BA4\u0BA3\u0BCD\u0B9F\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Retain / Inhale", chakra: "Manipura (Solar)", cue: "Core engaged, wrists below shoulders, body in single straight line." },
+      { step: 6, sanskrit: "Ashtanga Namaskara", eng: "Eight-Limbed Salute / \u0B85\u0BB7\u0BCD\u0B9F\u0BBE\u0B99\u0BCD\u0B95 \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD", breath: "Exhale", chakra: "Manipura (Solar)", cue: "8 points touch mat: 2 feet, 2 knees, 2 hands, chest & chin." },
+      { step: 7, sanskrit: "Bhujangasana", eng: "Cobra Pose / \u0BAA\u0BC1\u0B9C\u0B99\u0BCD\u0B95\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Inhale", chakra: "Swadhisthana (Sacral)", cue: "Slide forward, roll shoulders back and down, pubic bone grounded." },
+      { step: 8, sanskrit: "Adho Mukha Svanasana", eng: "Downward-Facing Dog / \u0B85\u0BA4\u0BCB \u0BAE\u0BC1\u0B95 \u0BB8\u0BCD\u0BB5\u0BBE\u0BA9\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Vishuddha (Throat)", cue: "Sit bones to ceiling, heels sinking, neck long, broad shoulders." },
+      { step: 9, sanskrit: "Ashwa Sanchalanasana", eng: "Equestrian Pose (Left) / \u0B85\u0BB7\u0BCD\u0BB5 \u0B9A\u0B9E\u0BCD\u0B9A\u0BBE\u0BB2\u0BA9\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Inhale", chakra: "Ajna (Third Eye)", cue: "Step right foot forward between hands, left knee grounded." },
+      { step: 10, sanskrit: "Padahastasana", eng: "Standing Forward Bend / \u0BAA\u0BBE\u0BA4\u0BB9\u0BB8\u0BCD\u0BA4\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Swadhisthana (Sacral)", cue: "Step left foot forward, fold torso completely over thighs." },
+      { step: 11, sanskrit: "Hastauttanasana", eng: "Raised Arms Pose / \u0B85\u0BB8\u0BCD\u0BA4 \u0B89\u0BA4\u0BCD\u0BA4\u0BBE\u0BA9\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Inhale", chakra: "Vishuddha (Throat)", cue: "Root down to rise up, sweep arms overhead with open chest." },
+      { step: 12, sanskrit: "Pranamasana", eng: "Mountain Prayer Pose / \u0BAA\u0BBF\u0BB0\u0BA3\u0BBE\u0BAE \u0B86\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Anahata (Heart)", cue: "Return palms to heart center, feel heartbeat, restore breath." }
+    ].map((row) => /* @__PURE__ */ import_react23.default.createElement("tr", { key: row.step, style: { borderBottom: "1px solid var(--border-color)" } }, /* @__PURE__ */ import_react23.default.createElement("td", { style: { padding: "10px 12px", fontWeight: 800, color: "#7C3AED" } }, row.step), /* @__PURE__ */ import_react23.default.createElement("td", { style: { padding: "10px 12px", fontWeight: 800 } }, row.sanskrit), /* @__PURE__ */ import_react23.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)" } }, row.eng), /* @__PURE__ */ import_react23.default.createElement("td", { style: { padding: "10px 12px" } }, /* @__PURE__ */ import_react23.default.createElement("span", { style: {
+      display: "inline-block",
+      padding: "3px 8px",
+      borderRadius: "6px",
+      fontSize: "10px",
+      fontWeight: 900,
+      textTransform: "uppercase",
+      background: row.breath === "Inhale" ? "rgba(16, 185, 129, 0.12)" : row.breath === "Exhale" ? "rgba(124, 58, 237, 0.12)" : "rgba(245, 158, 11, 0.12)",
+      color: row.breath === "Inhale" ? "#059669" : row.breath === "Exhale" ? "#7C3AED" : "#D97706"
+    } }, row.breath)), /* @__PURE__ */ import_react23.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)", fontSize: "11px" } }, row.chakra), /* @__PURE__ */ import_react23.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)", fontSize: "11.5px" } }, row.cue))))))), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react23.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement(Activity, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A \u0BAE\u0BC1\u0BB1\u0BC8\u0B95\u0BB3\u0BCD & \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Master Pranayama Breathwork Curriculum")), /* @__PURE__ */ import_react23.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BCD \u0B86\u0BB0\u0BAE\u0BCD\u0BAA\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BB5\u0BBF\u0BB2\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B95\u0BB1\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BBF\u0BAF 4 \u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Breath retention ratios, contraindications & cues for 4 core pranayama techniques.")), /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" } }, [
+      {
+        title: "Nadi Shodhana (Alternate Nostril)",
+        sanskrit: "\u0BA8\u0BBE\u0B9F\u0BBF \u0B9A\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD",
+        ratio: "1:4:2 (Inhale 4s \u2022 Hold 16s \u2022 Exhale 8s)",
+        desc: "Balances Ida & Pingala nadis, calms sympathetic nervous system, lowers cortisol.",
+        timing: "8 - 12 rounds before meditation"
+      },
+      {
+        title: "Kapalabhati (Skull Shining Breath)",
+        sanskrit: "\u0B95\u0BAA\u0BBE\u0BB2\u0BAA\u0BA4\u0BBF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD",
+        ratio: "Active sharp exhale \u2022 Passive automatic inhale",
+        desc: "Rapid abdominal contractions at 60-80 pumps/min. Clears frontal sinuses and stimulates agni fire.",
+        timing: "3 rounds of 30 strokes"
+      },
+      {
+        title: "Bhramari (Humming Bee Breath)",
+        sanskrit: "\u0BAA\u0BBF\u0BB0\u0BBE\u0BAE\u0BB0\u0BBF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD",
+        ratio: "Deep inhale \u2022 Low-pitch humming exhale with Shanmukhi mudra",
+        desc: "Generates nitric oxide in nasal passages, soothes anxiety, prepares mind for Dharana.",
+        timing: "5 - 7 long humming exhalations"
+      },
+      {
+        title: "Ujjayi (Victorious Ocean Breath)",
+        sanskrit: "\u0B89\u0B9C\u0BCD\u0B9C\u0BBE\u0BAF\u0BBF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD",
+        ratio: "Glottis whispering breath maintained throughout flow",
+        desc: "Builds internal heat, synchronizes vinyasa transitions, keeps mind anchored to sound.",
+        timing: "Maintained during active asana sequence"
+      }
+    ].map((prana, idx) => /* @__PURE__ */ import_react23.default.createElement("div", { key: idx, style: { padding: "16px", borderRadius: "16px", border: "1px solid var(--border-color)", background: "var(--bg-app)", display: "flex", flexDirection: "column", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement("h4", { style: { fontSize: "13px", fontWeight: 800, color: "var(--text-heading)", margin: 0 } }, prana.title), /* @__PURE__ */ import_react23.default.createElement("span", { style: { fontSize: "10px", fontFamily: "monospace", fontWeight: 800, color: "#7C3AED", background: "rgba(124, 58, 237, 0.1)", padding: "2px 8px", borderRadius: "6px" } }, prana.sanskrit)), /* @__PURE__ */ import_react23.default.createElement("div", { style: { fontSize: "11px", fontFamily: "monospace", color: "#7C3AED", fontWeight: 800 } }, prana.ratio), /* @__PURE__ */ import_react23.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: 0, lineHeight: 1.5 } }, prana.desc), /* @__PURE__ */ import_react23.default.createElement("div", { style: { fontSize: "11px", fontWeight: 700, color: "var(--text-heading)", marginTop: "4px" } }, "\u23F1\uFE0F ", prana.timing)))))), activeTab === "themes" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react23.default.createElement(Palette, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BB5\u0BA3\u0BCD\u0BA3\u0BA4\u0BCD \u0BA4\u0BC0\u0BAE\u0BCD\u0B95\u0BB3\u0BCD" : "Studio Theme & Visual Appearance")), /* @__PURE__ */ import_react23.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BCB\u0B95\u0BBE \u0BA4\u0BB3\u0BA4\u0BCD\u0BA4\u0BBF\u0BA9\u0BCD \u0BA4\u0BCB\u0BB1\u0BCD\u0BB1\u0BA4\u0BCD\u0BA4\u0BC8 \u0B92\u0BB0\u0BC1 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC1\u0BAE\u0BCD." : "Select a signature wellness palette aligned with traditional chakra energies and modern minimalism.")), /* @__PURE__ */ import_react23.default.createElement("span", { style: { fontSize: "12px", fontWeight: 800, color: "#7C3AED", background: "rgba(124, 58, 237, 0.1)", padding: "5px 14px", borderRadius: "20px", border: "1px solid rgba(124, 58, 237, 0.25)" } }, "Active: ", activeTheme.toUpperCase())), /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-theme-swatches-grid" }, [
+      {
+        id: "light",
+        name: "Royal Lavender & Amethyst",
+        tamil: "\u0BB0\u0BBE\u0BAF\u0BB2\u0BCD \u0BB2\u0BBE\u0BB5\u0BC6\u0BA3\u0BCD\u0B9F\u0BB0\u0BCD (\u0B95\u0BBF\u0BB0\u0BC0\u0B9F \u0B9A\u0B95\u0BCD\u0B95\u0BB0\u0BAE\u0BCD)",
+        chakra: "Sahasrara (Crown Chakra)",
+        desc: "Spiritual clarity, peaceful mind, cosmic lavender aura.",
+        colors: ["#7C3AED", "#8B5CF6", "#F8F5FF", "#29233D"]
+      },
+      {
+        id: "emerald",
+        name: "Ayurvedic Emerald Forest",
+        tamil: "\u0B86\u0BAF\u0BC1\u0BB0\u0BCD\u0BB5\u0BC7\u0BA4 \u0BAE\u0BB0\u0B95\u0BA4\u0BAE\u0BCD (\u0B87\u0BA4\u0BAF \u0B9A\u0B95\u0BCD\u0B95\u0BB0\u0BAE\u0BCD)",
+        chakra: "Anahata (Heart Chakra)",
+        desc: "Pranic healing, deep rejuvenation, soothing herbal greens.",
+        colors: ["#059669", "#10B981", "#F0FDF4", "#064E3B"]
+      },
+      {
+        id: "sunset",
+        name: "Sunset Chakra & Saffron",
+        tamil: "\u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0B85\u0BB8\u0BCD\u0BA4\u0BAE\u0BA9\u0BAE\u0BCD (\u0BAE\u0BA3\u0BBF\u0BAA\u0BC2\u0BB0\u0B95 \u0B9A\u0B95\u0BCD\u0B95\u0BB0\u0BAE\u0BCD)",
+        chakra: "Manipura (Solar Plexus)",
+        desc: "Energizing solar warmth, discipline, sunrise meditation.",
+        colors: ["#D97706", "#F59E0B", "#FFFBEB", "#78350F"]
+      },
+      {
+        id: "midnight",
+        name: "Midnight Astral Cosmic",
+        tamil: "\u0BB5\u0BBF\u0BA3\u0BCD\u0BAE\u0BC0\u0BA9\u0BCD \u0BA8\u0BC0\u0BB2\u0BAE\u0BCD (\u0B86\u0B95\u0BCD\u0B9E\u0BBE \u0B9A\u0B95\u0BCD\u0B95\u0BB0\u0BAE\u0BCD)",
+        chakra: "Ajna (Third Eye Chakra)",
+        desc: "Deep cosmic trance, transcendental indigo, sacred silence.",
+        colors: ["#A855F7", "#1E1B4B", "#060714", "#EDE9FE"]
+      },
+      {
+        id: "dark",
+        name: "Obsidian Dark Studio",
+        tamil: "\u0B87\u0BB0\u0BB5\u0BC1 \u0BAA\u0BAF\u0BA9\u0BCD\u0BAE\u0BC1\u0BB1\u0BC8 (\u0BAE\u0BC2\u0BB2\u0BBE\u0BA4\u0BBE\u0BB0 \u0B9A\u0B95\u0BCD\u0B95\u0BB0\u0BAE\u0BCD)",
+        chakra: "Muladhara (Root Chakra)",
+        desc: "Low-light evening yoga, zero eye strain, OLED power efficient.",
+        colors: ["#8F7CF6", "#111831", "#080C1D", "#EDEAFF"]
+      }
+    ].map((thm) => {
+      const isCurrent = activeTheme === thm.id || thm.id === "light" && activeTheme === "lavender";
+      return /* @__PURE__ */ import_react23.default.createElement(
+        "div",
+        {
+          key: thm.id,
+          onClick: () => handleThemeChange(thm.id),
+          className: `trainer-theme-card ${isCurrent ? "active" : ""}`
+        },
+        /* @__PURE__ */ import_react23.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ import_react23.default.createElement("h4", { style: { fontSize: "14px", fontWeight: 800, color: "var(--text-heading)", margin: 0 } }, thm.name), isCurrent && /* @__PURE__ */ import_react23.default.createElement("span", { style: { fontSize: "10px", fontWeight: 800, padding: "3px 8px", borderRadius: "20px", background: "rgba(16, 185, 129, 0.12)", color: "#059669", border: "1px solid rgba(16, 185, 129, 0.3)", display: "inline-flex", alignItems: "center", gap: "4px" } }, /* @__PURE__ */ import_react23.default.createElement(Check, { size: 10, strokeWidth: 3 }), /* @__PURE__ */ import_react23.default.createElement("span", null, "Active"))),
+        /* @__PURE__ */ import_react23.default.createElement("div", { style: { fontSize: "11px", fontWeight: 700, color: "#7C3AED" } }, thm.tamil),
+        /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-theme-preview-dots" }, thm.colors.map((c, i) => /* @__PURE__ */ import_react23.default.createElement(
+          "span",
+          {
+            key: i,
+            className: "trainer-color-dot",
+            style: { background: c, border: "1px solid rgba(0,0,0,0.1)" }
+          }
+        ))),
+        /* @__PURE__ */ import_react23.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: 0, lineHeight: 1.5 } }, thm.desc),
+        /* @__PURE__ */ import_react23.default.createElement("div", { style: { fontSize: "10px", fontWeight: 800, color: "var(--text-heading)", textTransform: "uppercase", letterSpacing: "0.5px" } }, thm.chakra),
+        /* @__PURE__ */ import_react23.default.createElement(
+          "button",
+          {
+            type: "button",
+            onClick: (e2) => {
+              e2.stopPropagation();
+              handleThemeChange(thm.id);
+            },
+            style: {
+              width: "100%",
+              padding: "10px",
+              borderRadius: "12px",
+              fontSize: "12px",
+              fontWeight: 800,
+              cursor: "pointer",
+              transition: "all 0.2s",
+              marginTop: "6px",
+              background: isCurrent ? "#7C3AED" : "var(--bg-app)",
+              color: isCurrent ? "#FFFFFF" : "var(--text-heading)",
+              border: isCurrent ? "none" : "1px solid var(--border-color)",
+              boxShadow: isCurrent ? "0 4px 14px rgba(124, 58, 237, 0.3)" : "none"
+            }
+          },
+          isCurrent ? "\u2713 Active Theme" : "Apply Theme"
+        )
+      );
+    }))), activeTab === "attendance" && (() => {
       const studentList = (() => {
         if (analyticsData?.students && analyticsData.students.length > 0) {
           return analyticsData.students;
@@ -72558,7 +72959,7 @@ ${newlyCreatedClassInfo.url}`);
         const q = studentSearchQuery.toLowerCase();
         return (s.studentName || "").toLowerCase().includes(q) || (s.studentPhone || "").includes(q);
       });
-      return /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "p-2 rounded-xl bg-primary/10 text-primary" }, /* @__PURE__ */ import_react23.default.createElement(Users, { size: 18 })), /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 & \u0BA8\u0BC7\u0BB0\u0BAA\u0BCD \u0BAA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0BAF\u0BCD\u0BB5\u0BC1" : "Student Attendance & Duration Analytics"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, lang === "ta" ? "\u2713 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1" : "\u2713 Live Tracking")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mt-1 m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BBF\u0BA9\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD, \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BB2\u0BAE\u0BCD, \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA4\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0B9A\u0BA4\u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD." : "Track student daily attendance duration, session times, and month-to-date attendance rates.")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, /* @__PURE__ */ import_react23.default.createElement(
+      return /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react23.default.createElement("div", null, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "p-2 rounded-xl bg-primary/10 text-primary" }, /* @__PURE__ */ import_react23.default.createElement(Users, { size: 18 })), /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 & \u0BA8\u0BC7\u0BB0\u0BAA\u0BCD \u0BAA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0BAF\u0BCD\u0BB5\u0BC1" : "Student Attendance & Duration Analytics"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, lang === "ta" ? "\u2713 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1" : "\u2713 Live Tracking")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mt-1 m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BBF\u0BA9\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD, \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BB2\u0BAE\u0BCD, \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA4\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0B9A\u0BA4\u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD." : "Track student daily attendance duration, session times, and month-to-date attendance rates.")), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, /* @__PURE__ */ import_react23.default.createElement(
         "button",
         {
           type: "button",
@@ -72634,7 +73035,7 @@ ${newlyCreatedClassInfo.url}`);
           /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 14 })
         )));
       }))))));
-    })(), activeTab === "notes" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 / PDF \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Upload Yoga Notes & PDF Material")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleAddMaterial, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Title"), /* @__PURE__ */ import_react23.default.createElement(
+    })(), activeTab === "notes" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 / PDF \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Upload Yoga Notes & PDF Material")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleAddMaterial, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Title"), /* @__PURE__ */ import_react23.default.createElement(
       "input",
       {
         type: "text",
@@ -72700,7 +73101,7 @@ ${newlyCreatedClassInfo.url}`);
         className: "text-muted hover:text-red-500 cursor-pointer p-1"
       },
       /* @__PURE__ */ import_react23.default.createElement(Trash, { size: 13 })
-    )), /* @__PURE__ */ import_react23.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, mat.title), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-[11px] text-muted mt-1" }, mat.description)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between text-[11px] pt-2 border-t border-subtle" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-muted font-mono" }, mat.file_url || "Note"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-primary font-bold" }, "\u2713 Accessible to Students"))))))), activeTab === "videos" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Add Yoga Video to Library")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleAddVideo, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video Title"), /* @__PURE__ */ import_react23.default.createElement(
+    )), /* @__PURE__ */ import_react23.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, mat.title), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-[11px] text-muted mt-1" }, mat.description)), /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex items-center justify-between text-[11px] pt-2 border-t border-subtle" }, /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-muted font-mono" }, mat.file_url || "Note"), /* @__PURE__ */ import_react23.default.createElement("span", { className: "text-primary font-bold" }, "\u2713 Accessible to Students"))))))), activeTab === "videos" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react23.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Add Yoga Video to Library")), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleAddVideo, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video Title"), /* @__PURE__ */ import_react23.default.createElement(
       "input",
       {
         type: "text",
@@ -72777,7 +73178,7 @@ ${newlyCreatedClassInfo.url}`);
       },
       /* @__PURE__ */ import_react23.default.createElement("span", null, "Preview Link"),
       /* @__PURE__ */ import_react23.default.createElement(Play, { size: 11, fill: "currentColor" })
-    )))))), activeTab === "settings" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-4 max-w-xl" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-2" }, /* @__PURE__ */ import_react23.default.createElement(Settings, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, "LiveKit Server Credentials")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mb-4" }, "Enter LiveKit Cloud WebSocket URL, API Key, and Secret to generate secure access tokens for instructor and students."), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleSaveLiveKitConfig, className: "flex flex-col gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "Server URL (wss://...)"), /* @__PURE__ */ import_react23.default.createElement(
+    )))))), activeTab === "settings" && /* @__PURE__ */ import_react23.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px", maxWidth: "640px" } }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card" }, /* @__PURE__ */ import_react23.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-2" }, /* @__PURE__ */ import_react23.default.createElement(Settings, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react23.default.createElement("span", null, "LiveKit Server Credentials")), /* @__PURE__ */ import_react23.default.createElement("p", { className: "text-xs text-muted mb-4" }, "Enter LiveKit Cloud WebSocket URL, API Key, and Secret to generate secure access tokens for instructor and students."), /* @__PURE__ */ import_react23.default.createElement("form", { onSubmit: handleSaveLiveKitConfig, className: "flex flex-col gap-3" }, /* @__PURE__ */ import_react23.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react23.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "Server URL (wss://...)"), /* @__PURE__ */ import_react23.default.createElement(
       "input",
       {
         type: "text",
@@ -76671,6 +77072,8 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
     ), /* @__PURE__ */ import_react36.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react36.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F6E1}\uFE0F ", lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD & \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react36.default.createElement(
       AdminPortalSection,
       {
+        theme,
+        setTheme,
         onAuthSuccess: (trainer) => {
           setUser((prev) => ({
             ...prev,
@@ -77248,6 +77651,7 @@ lucide-react/dist/esm/icons/download.mjs:
 lucide-react/dist/esm/icons/eye-off.mjs:
 lucide-react/dist/esm/icons/eye.mjs:
 lucide-react/dist/esm/icons/file-text.mjs:
+lucide-react/dist/esm/icons/flame.mjs:
 lucide-react/dist/esm/icons/flower-2.mjs:
 lucide-react/dist/esm/icons/globe.mjs:
 lucide-react/dist/esm/icons/hand.mjs:
@@ -77257,6 +77661,7 @@ lucide-react/dist/esm/icons/house.mjs:
 lucide-react/dist/esm/icons/key.mjs:
 lucide-react/dist/esm/icons/layers.mjs:
 lucide-react/dist/esm/icons/link.mjs:
+lucide-react/dist/esm/icons/list-checks.mjs:
 lucide-react/dist/esm/icons/lock.mjs:
 lucide-react/dist/esm/icons/log-out.mjs:
 lucide-react/dist/esm/icons/mail.mjs:
@@ -77266,6 +77671,7 @@ lucide-react/dist/esm/icons/mic-off.mjs:
 lucide-react/dist/esm/icons/mic.mjs:
 lucide-react/dist/esm/icons/minimize-2.mjs:
 lucide-react/dist/esm/icons/music.mjs:
+lucide-react/dist/esm/icons/palette.mjs:
 lucide-react/dist/esm/icons/pause.mjs:
 lucide-react/dist/esm/icons/pen-line.mjs:
 lucide-react/dist/esm/icons/phone-off.mjs:
@@ -77288,6 +77694,7 @@ lucide-react/dist/esm/icons/skip-forward.mjs:
 lucide-react/dist/esm/icons/sparkles.mjs:
 lucide-react/dist/esm/icons/square-centerline-dashed-horizontal.mjs:
 lucide-react/dist/esm/icons/square.mjs:
+lucide-react/dist/esm/icons/sun.mjs:
 lucide-react/dist/esm/icons/switch-camera.mjs:
 lucide-react/dist/esm/icons/tag.mjs:
 lucide-react/dist/esm/icons/trash.mjs:
@@ -77298,6 +77705,7 @@ lucide-react/dist/esm/icons/users.mjs:
 lucide-react/dist/esm/icons/video-off.mjs:
 lucide-react/dist/esm/icons/video.mjs:
 lucide-react/dist/esm/icons/volume-2.mjs:
+lucide-react/dist/esm/icons/wifi.mjs:
 lucide-react/dist/esm/icons/wind.mjs:
 lucide-react/dist/esm/icons/x.mjs:
 lucide-react/dist/esm/lucide-react.mjs:

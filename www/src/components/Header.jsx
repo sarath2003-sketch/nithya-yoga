@@ -76,14 +76,39 @@ export default function Header({
           <span className="lang-text-short">{lang === 'ta' ? 'தமிழ்' : 'EN'}</span>
         </button>
 
-        {/* Theme Sparkle / Mode */}
+        {/* Theme Switcher - Multi-Theme Support (Lavender, Emerald, Sunset, Astral, Dark) */}
         <button
           type="button"
-          className="header-tool-btn"
-          onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-          title="Toggle Theme"
+          className="header-tool-btn theme-cycle-btn"
+          onClick={() => {
+            const themes = ['light', 'emerald', 'sunset', 'midnight', 'dark'];
+            const currentIndex = themes.indexOf(theme);
+            const nextTheme = themes[(currentIndex + 1) % themes.length];
+            setTheme(nextTheme);
+          }}
+          title={
+            lang === 'ta'
+              ? `வடிவமைப்பு: ${
+                  theme === 'emerald' ? 'மரகத பச்சை' :
+                  theme === 'sunset' ? 'சூரிய அஸ்தமனம்' :
+                  theme === 'midnight' ? 'விண்மீன் நீலம்' :
+                  theme === 'dark' ? 'இரவு பயன்முறை' : 'லாவெண்டர்'
+                } (மாற்ற கிளிக் செய்யவும்)`
+              : `Theme: ${
+                  theme === 'emerald' ? 'Ayurvedic Emerald' :
+                  theme === 'sunset' ? 'Sunset Chakra' :
+                  theme === 'midnight' ? 'Midnight Astral' :
+                  theme === 'dark' ? 'Obsidian Dark' : 'Royal Lavender'
+                } (Click to cycle)`
+          }
         >
           <Sparkles size={17} className="sparkle-icon" />
+          <span className="hidden lg:inline text-[10px] font-bold ml-1 text-primary">
+            {theme === 'emerald' ? '🌿 Emerald' :
+             theme === 'sunset' ? '🌅 Sunset' :
+             theme === 'midnight' ? '🌌 Astral' :
+             theme === 'dark' ? '🌑 Dark' : '🌸 Lavender'}
+          </span>
         </button>
 
         {/* Notification Bell with Pink Indicator Dot */}

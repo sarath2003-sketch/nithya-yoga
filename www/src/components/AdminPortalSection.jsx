@@ -35,7 +35,20 @@ import {
   Search,
   Database,
   Award,
-  TrendingUp
+  TrendingUp,
+  Palette,
+  CheckSquare,
+  Square,
+  Flame,
+  Activity,
+  ListChecks,
+  Volume2,
+  Camera,
+  Mic,
+  Wifi,
+  Sun,
+  Moon,
+  Layers
 } from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus } from './ThreeDIcons';
@@ -45,10 +58,76 @@ export default function AdminPortalSection({
   onLaunchInstructorStudio,
   onAuthSuccess,
   showToast,
-  lang = 'en'
+  lang = 'en',
+  theme = 'light',
+  setTheme
 }) {
   const [adminToken, setAdminToken] = useState(() => localStorage.getItem('nithya_admin_token') || '');
-  const [activeTab, setActiveTab] = useState('classes'); // 'classes' | 'attendance' | 'notes' | 'videos' | 'settings'
+  const [activeTab, setActiveTab] = useState('classes'); // 'classes' | 'attendance' | 'checklist' | 'curriculum' | 'themes' | 'notes' | 'videos' | 'settings'
+
+  // Multi-Theme support
+  const [activeTheme, setActiveTheme] = useState(() => localStorage.getItem('nithya_theme') || theme || 'light');
+
+  const handleThemeChange = (newTheme) => {
+    setActiveTheme(newTheme);
+    if (setTheme) setTheme(newTheme);
+    localStorage.setItem('nithya_theme', newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    if (showToast) {
+      showToast(
+        lang === 'ta' ? 'வடிவமைப்பு மாற்றப்பட்டது' : 'Theme Activated',
+        newTheme === 'emerald' ? 'Ayurvedic Emerald Forest 🌿' :
+        newTheme === 'sunset' ? 'Sunset Chakra Saffron 🌅' :
+        newTheme === 'midnight' ? 'Midnight Astral Cosmic 🌌' :
+        newTheme === 'dark' ? 'Obsidian Dark Studio 🌑' : 'Royal Lavender 🌸',
+        'success'
+      );
+    }
+  };
+
+  // Pre-Flight Studio Checklist state
+  const [studioChecklist, setStudioChecklist] = useState(() => {
+    try {
+      const saved = localStorage.getItem('nithya_studio_checklist');
+      return saved ? JSON.parse(saved) : {
+        mic: true,
+        camera: true,
+        lighting: true,
+        props: true,
+        chime: true,
+        invite: true,
+        water: true,
+        network: true
+      };
+    } catch {
+      return {
+        mic: true,
+        camera: true,
+        lighting: true,
+        props: true,
+        chime: true,
+        invite: true,
+        water: true,
+        network: true
+      };
+    }
+  });
+
+  const toggleCheckItem = (key) => {
+    setStudioChecklist(prev => {
+      const next = { ...prev, [key]: !prev[key] };
+      localStorage.setItem('nithya_studio_checklist', JSON.stringify(next));
+      return next;
+    });
+  };
+
+  const handleCheckAll = (state) => {
+    const keys = ['mic', 'camera', 'lighting', 'props', 'chime', 'invite', 'water', 'network'];
+    const updated = {};
+    keys.forEach(k => { updated[k] = state; });
+    setStudioChecklist(updated);
+    localStorage.setItem('nithya_studio_checklist', JSON.stringify(updated));
+  };
 
   // Auth Mode: 'login' | 'register'
   const [authMode, setAuthMode] = useState('login');
@@ -1111,232 +1190,382 @@ export default function AdminPortalSection({
   }
 
   // -------------------------------------------------------------
-  // VIEW 2: AUTHENTICATED TRAINER DASHBOARD
+  // VIEW 2: AUTHENTICATED TRAINER DASHBOARD - LUXURY WELLNESS UI
   // -------------------------------------------------------------
   return (
-    <div className="dashboard-card admin-dashboard-portal p-6 rounded-2xl border border-subtle bg-card shadow-lg">
-      {/* Top Banner */}
-      <div className="admin-portal-header flex items-center justify-between pb-4 border-b border-subtle flex-wrap gap-3 mb-6">
-        <div className="flex items-center gap-3">
-          <div className="p-2.5 rounded-xl bg-primary/10 text-primary">
-            <ShieldCheck size={24} />
+    <div className="trainer-dashboard-container">
+      {/* 1. Trainer Profile Header Card */}
+      <div className="trainer-header-card">
+        <div className="trainer-profile-cluster">
+          <div className="trainer-avatar-ring">
+            <span>NY</span>
           </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-heading m-0">
-                {lang === 'ta' ? 'பயிற்றுநர் கட்டுப்பாட்டு அறை' : 'Trainer & Instructor Dashboard'}
+          <div className="trainer-meta-info">
+            <div className="trainer-title-row">
+              <h2 className="trainer-name-text">
+                {lang === 'ta' ? 'நித்யா யோகா பயிற்றுநர் கட்டுப்பாட்டகம்' : 'Nithya Yoga Instructor Studio'}
               </h2>
-              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20">
-                ✓ Verified Instructor
+              <span className="trainer-verified-pill">
+                <ShieldCheck size={13} />
+                <span>{lang === 'ta' ? 'சரிபார்க்கப்பட்ட பயிற்றுநர்' : 'Verified Lead Instructor'}</span>
               </span>
             </div>
-            <p className="text-xs text-muted m-0">
-              {lang === 'ta' ? 'நேரலை வகுப்புகள், அழைப்பு லிங்க்கள், குறிப்புகள் மற்றும் வருகைப் பதிவு' : 'Manage live sessions, invite links, learning materials & student attendance.'}
-            </p>
-          </div>
-        </div>
-
-        <button
-          type="button"
-          onClick={handleLogout}
-          className="ya-btn ya-btn--soft text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-subtle hover:bg-red-500/10 hover:text-red-400 transition-all cursor-pointer"
-        >
-          <LogOut size={14} />
-          <span>{lang === 'ta' ? 'வெளியேறு' : 'Log Out'}</span>
-        </button>
-      </div>
-
-      {/* HERO QUICK ACTION: CREATE & LAUNCH LIVE CLASS ROOM */}
-      <div className="admin-live-creator-banner p-6 rounded-2xl bg-gradient-to-r from-violet-950 via-purple-900 to-indigo-950 border border-violet-500/40 text-white shadow-2xl mb-6">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/20 text-violet-300 text-xs font-bold mb-2.5 border border-violet-400/30">
-              <Radio size={14} className="text-violet-300 animate-pulse" />
-              <span>{lang === 'ta' ? 'பயிற்றுநர் பிரத்தியேக அனுமதி' : 'EXCLUSIVE INSTRUCTOR PRIVILEGE'}</span>
-            </div>
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-1.5 font-['Poppins']">
-              {lang === 'ta' ? 'புதிய நேரலை யோகா வகுப்பைத் தொடங்குங்கள்' : 'Create & Host Live Yoga Class'}
-            </h3>
-            <p className="text-xs text-violet-200 leading-relaxed">
+            <p className="trainer-subtitle-text">
               {lang === 'ta' 
-                ? 'நீங்கள் மட்டுமே புதிய நேரலை வகுப்பை உருவாக்க முடியும். வகுப்பைத் தொடங்கியவுடன் மாணவர்களுக்கான அழைப்பு லிங்க் தானாக உருவாக்கப்படும்.' 
-                : 'Only authenticated instructors can generate live room sessions. Tapping below starts your instructor stream and generates student invite links.'}
+                ? 'நேரலை வகுப்புகள், மாணவர் வருகைப் பதிவு, பாடத்திட்டம் மற்றும் வடிவமைப்பு' 
+                : 'Live class hosting, student attendance duration analytics & studio curriculum manager'}
             </p>
           </div>
+        </div>
 
-          <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 shrink-0">
-            <button
-              type="button"
-              onClick={() => {
-                const uniqueRoomId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
-                const instructorClass = {
-                  id: uniqueRoomId,
-                  title: 'Hatha Yoga Flow & Mindful Alignment',
-                  name: 'Hatha Yoga Flow & Mindful Alignment',
-                  courseName: 'Master Hatha Yoga Flow',
-                  room_name: `nithya-${uniqueRoomId}`,
-                  status: 'live',
-                  duration: 60,
-                  instructor: 'NITHYA Master (You)'
-                };
-                localStorage.setItem('nithya_active_role', 'instructor');
-                localStorage.removeItem('nithya_student_session');
-                if (onLaunchInstructorStudio) {
-                  onLaunchInstructorStudio(instructorClass);
-                }
-              }}
-              className="px-6 py-3.5 rounded-xl bg-gradient-to-r from-violet-500 via-purple-600 to-fuchsia-600 hover:from-violet-400 hover:to-fuchsia-500 text-white font-black text-sm shadow-xl flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <Video size={18} />
-              <span>{lang === 'ta' ? '🎥 நேரலை வகுப்பைத் தொடங்கு' : '🎥 Launch Live Studio as Host'}</span>
-            </button>
+        <div className="trainer-header-actions">
+          {/* Quick Theme Cycle Button */}
+          <button
+            type="button"
+            onClick={() => {
+              const themes = ['light', 'emerald', 'sunset', 'midnight', 'dark'];
+              const nextIndex = (themes.indexOf(activeTheme) + 1) % themes.length;
+              handleThemeChange(themes[nextIndex]);
+            }}
+            className="trainer-btn-logout"
+            style={{ 
+              background: 'rgba(124, 58, 237, 0.08)', 
+              color: '#7C3AED', 
+              borderColor: 'rgba(124, 58, 237, 0.25)' 
+            }}
+            title="Switch Studio Wellness Theme"
+          >
+            <Palette size={14} />
+            <span>
+              {activeTheme === 'emerald' ? '🌿 Emerald' :
+               activeTheme === 'sunset' ? '🌅 Sunset' :
+               activeTheme === 'midnight' ? '🌌 Astral' :
+               activeTheme === 'dark' ? '🌑 Obsidian' : '🌸 Lavender'}
+            </span>
+          </button>
+
+          {/* Trainer Sign Out */}
+          <button
+            type="button"
+            onClick={handleLogout}
+            className="trainer-btn-logout"
+            title="Sign out of Trainer Account"
+          >
+            <LogOut size={14} />
+            <span>{lang === 'ta' ? 'வெளியேறு' : 'Log Out'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 2. Academy Stats Overview Strip (5 Key Performance Indicators) */}
+      <div className="trainer-kpi-grid">
+        {/* Card 1: Studio Live Status */}
+        <div className="trainer-kpi-card">
+          <div className="trainer-kpi-top">
+            <span className="trainer-kpi-label">{lang === 'ta' ? 'ஸ்டுடியோ நிலை' : 'Studio Broadcast'}</span>
+            <div className="trainer-kpi-icon-badge" style={{ background: 'rgba(16, 185, 129, 0.12)', color: '#059669' }}>
+              <Radio size={16} className="animate-pulse" />
+            </div>
+          </div>
+          <div className="trainer-kpi-val" style={{ color: '#059669' }}>
+            {classesList.some(c => c.status === 'live') ? '● LIVE' : 'READY'}
+          </div>
+          <div className="trainer-kpi-foot" style={{ color: 'var(--text-sub)' }}>
+            1080p WebRTC Low Latency
+          </div>
+        </div>
+
+        {/* Card 2: Enrolled Students */}
+        <div className="trainer-kpi-card">
+          <div className="trainer-kpi-top">
+            <span className="trainer-kpi-label">{lang === 'ta' ? 'மாணவர் எண்ணிக்கை' : 'Enrolled Students'}</span>
+            <div className="trainer-kpi-icon-badge" style={{ background: 'rgba(124, 58, 237, 0.12)', color: '#7C3AED' }}>
+              <Users size={16} />
+            </div>
+          </div>
+          <div className="trainer-kpi-val">28</div>
+          <div className="trainer-kpi-foot" style={{ color: '#7C3AED' }}>
+            {lang === 'ta' ? 'பதிவுசெய்த யோகா மாணவர்கள்' : 'Verified Yoga Practitioners'}
+          </div>
+        </div>
+
+        {/* Card 3: Classes Scheduled Today */}
+        <div className="trainer-kpi-card">
+          <div className="trainer-kpi-top">
+            <span className="trainer-kpi-label">{lang === 'ta' ? 'இன்றைய வகுப்புகள்' : 'Today\'s Batches'}</span>
+            <div className="trainer-kpi-icon-badge" style={{ background: 'rgba(245, 158, 11, 0.12)', color: '#D97706' }}>
+              <Calendar size={16} />
+            </div>
+          </div>
+          <div className="trainer-kpi-val">3</div>
+          <div className="trainer-kpi-foot" style={{ color: '#D97706' }}>
+            {lang === 'ta' ? 'காலை • மதியம் • மாலை' : 'Morning • Noon • Evening'}
+          </div>
+        </div>
+
+        {/* Card 4: Total Teaching Hours */}
+        <div className="trainer-kpi-card">
+          <div className="trainer-kpi-top">
+            <span className="trainer-kpi-label">{lang === 'ta' ? 'கற்பித்த நேரம்' : 'Teaching Hours'}</span>
+            <div className="trainer-kpi-icon-badge" style={{ background: 'rgba(236, 72, 153, 0.12)', color: '#DB2777' }}>
+              <Clock size={16} />
+            </div>
+          </div>
+          <div className="trainer-kpi-val">48.5 hrs</div>
+          <div className="trainer-kpi-foot" style={{ color: '#DB2777' }}>
+            {lang === 'ta' ? 'அக்டோபர் மாத மொத்தம்' : 'October 2026 Immersion'}
+          </div>
+        </div>
+
+        {/* Card 5: Pre-Flight Studio Readiness */}
+        <div className="trainer-kpi-card">
+          <div className="trainer-kpi-top">
+            <span className="trainer-kpi-label">{lang === 'ta' ? 'தயார்நிலை சோதனை' : 'Studio Readiness'}</span>
+            <div className="trainer-kpi-icon-badge" style={{ background: 'rgba(59, 130, 246, 0.12)', color: '#2563EB' }}>
+              <ListChecks size={16} />
+            </div>
+          </div>
+          <div className="trainer-kpi-val">
+            {Math.round((Object.values(studioChecklist).filter(Boolean).length / 8) * 100)}%
+          </div>
+          <div className="trainer-kpi-foot" style={{ color: '#2563EB' }}>
+            {Object.values(studioChecklist).filter(Boolean).length} / 8 {lang === 'ta' ? 'முடிந்தது' : 'Passed'}
           </div>
         </div>
       </div>
 
-      {/* Tabs Row (5 Tabs) */}
-      <div className="admin-subtabs flex items-center gap-2 my-4 bg-subtle p-1 rounded-xl overflow-x-auto">
+      {/* 3. Hero Live Studio Host Card */}
+      <div className="trainer-broadcast-card">
+        <div className="trainer-broadcast-content">
+          <div className="trainer-live-privilege-badge">
+            <span className="trainer-pulse-dot"></span>
+            <span>{lang === 'ta' ? 'பயிற்றுநர் பிரத்தியேக அனுமதி' : 'EXCLUSIVE INSTRUCTOR PRIVILEGE'}</span>
+          </div>
+          <h3 className="trainer-broadcast-title">
+            {lang === 'ta' ? 'நேரலை யோகா வகுப்பைத் தொடங்குங்கள்' : 'Launch Master Live Yoga Studio'}
+          </h3>
+          <p className="trainer-broadcast-desc">
+            {lang === 'ta'
+              ? 'நீங்கள் மட்டுமே புதிய நேரலை வகுப்பைத் தொடங்க முடியும். நீங்கள் வகுப்பைத் தொடங்கியவுடன் மாணவர்களுக்கான நேரலை அழைப்பு இணைப்பு தானாக உருவாக்கப்படும்.'
+              : 'Authenticated instructors host interactive low-latency WebRTC live classes. Tapping below starts your studio and auto-generates student invite links.'}
+          </p>
+        </div>
+
+        <div>
+          <button
+            type="button"
+            onClick={() => {
+              const uniqueRoomId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
+              const instructorClass = {
+                id: uniqueRoomId,
+                title: 'Hatha Yoga Flow & Mindful Alignment',
+                name: 'Hatha Yoga Flow & Mindful Alignment',
+                courseName: 'Master Hatha Yoga Flow',
+                room_name: `nithya-${uniqueRoomId}`,
+                status: 'live',
+                duration: 60,
+                instructor: 'NITHYA Master (You)'
+              };
+              localStorage.setItem('nithya_active_role', 'instructor');
+              localStorage.removeItem('nithya_student_session');
+              if (onLaunchInstructorStudio) {
+                onLaunchInstructorStudio(instructorClass);
+              }
+            }}
+            className="trainer-start-stream-btn"
+          >
+            <Video size={18} />
+            <span>{lang === 'ta' ? '🎥 நேரலை ஸ்டுடியோவைத் தொடங்கு' : '🎥 Launch Live Studio as Host'}</span>
+          </button>
+        </div>
+      </div>
+
+      {/* 4. Segmented Navigation Tabs Dock (8 Distinct Subsections) */}
+      <div className="trainer-tabs-dock">
         <button
           type="button"
-          className={`flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'classes' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
+          className={`trainer-tab-btn ${activeTab === 'classes' ? 'active' : ''}`}
           onClick={() => setActiveTab('classes')}
         >
-          <Calendar size={13} />
+          <Calendar size={14} />
           <span>{lang === 'ta' ? 'வகுப்புகள் & அழைப்பு' : 'Live Classes'}</span>
         </button>
 
         <button
           type="button"
-          className={`flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'attendance' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
+          className={`trainer-tab-btn ${activeTab === 'attendance' ? 'active' : ''}`}
           onClick={() => setActiveTab('attendance')}
         >
-          <Users size={13} />
-          <span>{lang === 'ta' ? 'வருகைப் பதிவு' : 'Attendance'}</span>
+          <Users size={14} />
+          <span>{lang === 'ta' ? 'வருகைப் பதிவு' : 'Attendance Analytics'}</span>
         </button>
 
         <button
           type="button"
-          className={`flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'notes' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
+          className={`trainer-tab-btn ${activeTab === 'checklist' ? 'active' : ''}`}
+          onClick={() => setActiveTab('checklist')}
+        >
+          <ListChecks size={14} />
+          <span>{lang === 'ta' ? 'ஸ்டுடியோ சோதனை' : 'Studio Checklist'}</span>
+        </button>
+
+        <button
+          type="button"
+          className={`trainer-tab-btn ${activeTab === 'curriculum' ? 'active' : ''}`}
+          onClick={() => setActiveTab('curriculum')}
+        >
+          <Sun size={14} />
+          <span>{lang === 'ta' ? 'யோகா பாடத்திட்டம்' : 'Asana Curriculum'}</span>
+        </button>
+
+        <button
+          type="button"
+          className={`trainer-tab-btn ${activeTab === 'themes' ? 'active' : ''}`}
+          onClick={() => setActiveTab('themes')}
+        >
+          <Palette size={14} />
+          <span>{lang === 'ta' ? 'ஸ்டுடியோ தீம்கள்' : 'Studio Themes'}</span>
+        </button>
+
+        <button
+          type="button"
+          className={`trainer-tab-btn ${activeTab === 'notes' ? 'active' : ''}`}
           onClick={() => setActiveTab('notes')}
         >
-          <FileText size={13} />
+          <FileText size={14} />
           <span>{lang === 'ta' ? 'யோகா குறிப்புகள்' : 'Yoga Notes & PDF'}</span>
         </button>
 
         <button
           type="button"
-          className={`flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'videos' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
+          className={`trainer-tab-btn ${activeTab === 'videos' ? 'active' : ''}`}
           onClick={() => setActiveTab('videos')}
         >
-          <Video size={13} />
+          <Video size={14} />
           <span>{lang === 'ta' ? 'வீடியோக்கள்' : 'Yoga Videos'}</span>
         </button>
 
         <button
           type="button"
-          className={`flex-1 min-w-[120px] py-2 rounded-lg text-xs font-bold transition-all cursor-pointer flex items-center justify-center gap-1.5 ${activeTab === 'settings' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
+          className={`trainer-tab-btn ${activeTab === 'settings' ? 'active' : ''}`}
           onClick={() => setActiveTab('settings')}
         >
-          <Settings size={13} />
-          <span>{lang === 'ta' ? 'அமைப்புகள்' : 'LiveKit Settings'}</span>
+          <Settings size={14} />
+          <span>{lang === 'ta' ? 'அமைப்புகள்' : 'Settings'}</span>
         </button>
       </div>
 
       {/* ========================================================= */}
-      {/* TAB 1: CLASSES & INVITATIONS */}
+      {/* TAB 1: CLASSES & STUDENT INVITATIONS                      */}
       {/* ========================================================= */}
       {activeTab === 'classes' && (
-        <div className="flex flex-col gap-6">
-          {/* Create Live Class Form */}
-          <div className="create-class-card p-4 rounded-xl border border-subtle bg-card/50">
-            <h3 className="text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3">
-              <Plus size={16} className="text-primary" />
-              <span>{lang === 'ta' ? 'புதிய நேரலை வகுப்பு அட்டவணைப்படுத்துக' : 'Create & Schedule Live Yoga Class'}</span>
-            </h3>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+          {/* Create Live Class Form Card */}
+          <div className="trainer-form-card">
+            <div className="trainer-form-header">
+              <h3 className="trainer-form-title">
+                <Plus size={18} style={{ color: '#7C3AED' }} />
+                <span>{lang === 'ta' ? 'புதிய நேரலை யோகா வகுப்பு அட்டவணைப்படுத்துக' : 'Schedule & Create Live Yoga Class'}</span>
+              </h3>
+            </div>
 
-            <form onSubmit={handleCreateClass} className="grid grid-cols-1 md:grid-cols-4 gap-3">
-              <div className="md:col-span-2 flex flex-col gap-1">
-                <label className="text-[11px] font-bold text-muted">
-                  {lang === 'ta' ? 'வகுப்பு தலைப்பு' : 'Class Title'}
-                </label>
-                <input
-                  type="text"
-                  value={newTitle}
-                  onChange={(e) => setNewTitle(e.target.value)}
-                  placeholder="e.g. Morning Surya Namaskar & Pranayama"
-                  required
-                  className="ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-                />
+            <form onSubmit={handleCreateClass}>
+              <div className="trainer-form-grid">
+                {/* Field 1: Class Title */}
+                <div className="trainer-field-group" style={{ gridColumn: 'span 2' }}>
+                  <label className="trainer-field-label">
+                    <FileText size={13} style={{ color: '#7C3AED' }} />
+                    <span>{lang === 'ta' ? 'வகுப்பு தலைப்பு' : 'Class Title / Flow Name'}</span>
+                  </label>
+                  <div className="trainer-field-input-wrap">
+                    <FileText size={16} className="trainer-field-icon" />
+                    <input
+                      type="text"
+                      value={newTitle}
+                      onChange={(e) => setNewTitle(e.target.value)}
+                      placeholder="e.g. Morning Surya Namaskar Flow & Mindful Alignment"
+                      required
+                      className="trainer-input-styled"
+                    />
+                  </div>
+                </div>
+
+                {/* Field 2: Date & Start Time */}
+                <div className="trainer-field-group">
+                  <label className="trainer-field-label">
+                    <Calendar size={13} style={{ color: '#7C3AED' }} />
+                    <span>{lang === 'ta' ? 'நேரம் மற்றும் தேதி' : 'Date & Start Time'}</span>
+                  </label>
+                  <div className="trainer-field-input-wrap">
+                    <Calendar size={16} className="trainer-field-icon" />
+                    <input
+                      type="datetime-local"
+                      value={newStartsAt}
+                      onChange={(e) => setNewStartsAt(e.target.value)}
+                      required
+                      className="trainer-input-styled"
+                    />
+                  </div>
+                </div>
+
+                {/* Field 3: Duration */}
+                <div className="trainer-field-group">
+                  <label className="trainer-field-label">
+                    <Clock size={13} style={{ color: '#7C3AED' }} />
+                    <span>{lang === 'ta' ? 'கால அளவு (நிமிடம்)' : 'Duration (Minutes)'}</span>
+                  </label>
+                  <div className="trainer-field-input-wrap">
+                    <Clock size={16} className="trainer-field-icon" />
+                    <input
+                      type="number"
+                      min="5"
+                      max="240"
+                      value={newDuration}
+                      onChange={(e) => setNewDuration(e.target.value)}
+                      required
+                      className="trainer-input-styled"
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="flex flex-col gap-1">
-                <label className="text-[11px] font-bold text-muted">
-                  {lang === 'ta' ? 'நேரம் மற்றும் தேதி' : 'Date & Start Time'}
-                </label>
-                <input
-                  type="datetime-local"
-                  value={newStartsAt}
-                  onChange={(e) => setNewStartsAt(e.target.value)}
-                  required
-                  className="ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-                />
-              </div>
-
-              <div className="flex flex-col gap-1">
-                <label className="text-[11px] font-bold text-muted">
-                  {lang === 'ta' ? 'கால அளவு (நிமிடம்)' : 'Duration (Minutes)'}
-                </label>
-                <input
-                  type="number"
-                  min="5"
-                  max="240"
-                  value={newDuration}
-                  onChange={(e) => setNewDuration(e.target.value)}
-                  required
-                  className="ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
-                />
-              </div>
-
-              <div className="md:col-span-4 flex justify-end">
+              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <button
                   type="submit"
                   disabled={isCreatingClass}
-                  className="ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer shadow"
+                  className="trainer-btn-submit-class"
                 >
-                  {isCreatingClass ? <RefreshCw size={14} className="animate-spin" /> : <Plus size={14} />}
-                  <span>{lang === 'ta' ? 'வகுப்பைச் சேமிக்கவும்' : 'Create Live Class'}</span>
+                  {isCreatingClass ? <RefreshCw size={15} className="animate-spin" /> : <Plus size={15} />}
+                  <span>{lang === 'ta' ? 'வகுப்பை உருவாக்கி சேமிக்கவும்' : 'Generate & Schedule Class Room'}</span>
                 </button>
               </div>
             </form>
 
             {/* Instant Share Link Banner on Newly Created Class */}
             {newlyCreatedClassInfo && (
-              <div className="p-3.5 mt-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex flex-col gap-2">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-emerald-500 font-bold text-xs">🎉 {lang === 'ta' ? 'வகுப்பு உருவாக்கப்பட்டது!' : 'Class Created Successfully!'}</span>
-                    <span className="text-xs text-heading font-bold">{newlyCreatedClassInfo.title}</span>
+              <div 
+                className="trainer-invite-strip" 
+                style={{ 
+                  marginTop: '18px', 
+                  background: 'rgba(16, 185, 129, 0.08)', 
+                  borderColor: 'rgba(16, 185, 129, 0.4)' 
+                }}
+              >
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', maxWidth: '580px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <span style={{ color: '#059669', fontWeight: 800, fontSize: '13px' }}>
+                      🎉 {lang === 'ta' ? 'வகுப்பு உருவாக்கப்பட்டது!' : 'Live Session Created Successfully!'}
+                    </span>
+                    <span style={{ fontWeight: 800, fontSize: '13px', color: 'var(--text-heading)' }}>
+                      {newlyCreatedClassInfo.title}
+                    </span>
                   </div>
-                  <button 
-                    type="button" 
-                    onClick={() => setNewlyCreatedClassInfo(null)}
-                    className="text-xs text-muted hover:text-heading cursor-pointer px-1.5"
-                    title="Dismiss"
-                  >
-                    ✕
-                  </button>
+                  <span className="trainer-invite-url-text" style={{ color: '#059669' }}>
+                    {newlyCreatedClassInfo.url}
+                  </span>
                 </div>
-                <div className="text-[11px] text-muted">
-                  {lang === 'ta' ? 'மாணவர்கள் இணைய இந்த நேரலை அழைப்பு லிங்க்கை வாட்ஸ்அப் அல்லது காப்பி செய்து அனுப்பவும்:' : 'Share this live student link directly via WhatsApp or copy:'}
-                </div>
-                <div className="flex items-center gap-2 flex-wrap sm:flex-nowrap">
-                  <input 
-                    type="text" 
-                    readOnly 
-                    value={newlyCreatedClassInfo.url}
-                    className="w-full text-xs font-mono p-2 rounded-lg bg-card border border-primary/20 text-heading select-all"
-                    onClick={(e) => e.target.select()}
-                  />
+
+                <div className="trainer-invite-btn-group">
                   <button
                     type="button"
                     onClick={() => {
@@ -1345,7 +1574,7 @@ export default function AdminPortalSection({
                       setTimeout(() => setCopiedId(null), 2500);
                       if (showToast) showToast('Link Copied ✓', newlyCreatedClassInfo.url, 'success');
                     }}
-                    className="ya-btn ya-btn--primary text-xs px-3 py-2 rounded-lg flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+                    className="trainer-btn-copy-link"
                   >
                     {copiedId === `new-${newlyCreatedClassInfo.id}` ? <Check size={13} /> : <Copy size={13} />}
                     <span>{copiedId === `new-${newlyCreatedClassInfo.id}` ? 'Copied!' : 'Copy Link'}</span>
@@ -1356,37 +1585,45 @@ export default function AdminPortalSection({
                       const text = encodeURIComponent(`🧘 *NITHYA Yoga Live Class: ${newlyCreatedClassInfo.title}*\n\nJoin the live yoga session as a student:\n${newlyCreatedClassInfo.url}`);
                       window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
                     }}
-                    className="ya-btn text-xs px-3 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-md shadow-emerald-500/20"
+                    className="trainer-btn-whatsapp-share"
                   >
                     <Share2 size={13} />
                     <span>WhatsApp</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setNewlyCreatedClassInfo(null)}
+                    style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '4px 8px' }}
+                    title="Dismiss"
+                  >
+                    ✕
                   </button>
                 </div>
               </div>
             )}
           </div>
 
-          {/* Scheduled Classes List */}
+          {/* Scheduled Classes Stack */}
           <div>
-            <div className="flex items-center justify-between mb-3">
-              <h3 className="text-sm font-bold text-heading m-0 flex items-center gap-2">
-                <Calendar size={16} className="text-primary" />
-                <span>{lang === 'ta' ? 'வகுப்புகள் மேலாண்மை' : 'Manage Classes & Student Invitations'}</span>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px' }}>
+              <h3 style={{ fontSize: '15px', fontWeight: 800, color: 'var(--text-heading)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Calendar size={18} style={{ color: '#7C3AED' }} />
+                <span>{lang === 'ta' ? 'அட்டவணைப்படுத்தப்பட்ட வகுப்புகள்' : 'Scheduled Yoga Classes & Student Links'}</span>
               </h3>
               <button
                 type="button"
                 onClick={fetchClasses}
-                className="text-xs text-primary flex items-center gap-1 hover:underline cursor-pointer"
+                style={{ fontSize: '12px', fontWeight: 700, color: '#7C3AED', background: 'none', border: 'none', display: 'flex', alignItems: 'center', gap: '6px', cursor: 'pointer' }}
               >
-                <RefreshCw size={12} className={classesLoading ? 'animate-spin' : ''} />
+                <RefreshCw size={13} className={classesLoading ? 'animate-spin' : ''} />
                 <span>{lang === 'ta' ? 'புதுப்பி' : 'Refresh'}</span>
               </button>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="trainer-classes-stack">
               {classesList.length === 0 ? (
-                <div className="text-center p-6 text-xs text-muted rounded-xl border border-subtle">
-                  {lang === 'ta' ? 'இன்னும் வகுப்புகள் எதுவும் உருவாக்கப்படவில்லை.' : 'No scheduled classes found. Create your first class above!'}
+                <div style={{ textAlign: 'center', padding: '36px 20px', borderRadius: '20px', border: '1px solid var(--border-color)', color: 'var(--text-sub)', fontSize: '13px' }}>
+                  {lang === 'ta' ? 'இன்னும் வகுப்புகள் எதுவும் உருவாக்கப்படவில்லை. மேலே உள்ள படிவத்தைப் பயன்படுத்தி முதல் வகுப்பை உருவாக்கவும்.' : 'No scheduled classes found. Use the form above to schedule your first live yoga session!'}
                 </div>
               ) : (
                 classesList.map((c) => {
@@ -1396,132 +1633,98 @@ export default function AdminPortalSection({
                   const liveUrl = getProductionLiveUrl(c.id);
 
                   return (
-                    <div key={c.id} className="p-3.5 rounded-xl border border-subtle bg-card flex flex-col gap-2.5">
-                      <div className="flex items-center justify-between flex-wrap gap-2">
+                    <div key={c.id} className="trainer-class-card-item">
+                      <div className="trainer-class-item-header">
                         <div>
-                          <div className="flex items-center gap-2">
-                            <h4 className="text-xs font-bold text-heading m-0">{c.title}</h4>
-                            <span className={`px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase ${
-                              isLive 
-                                ? 'bg-red-500 text-white animate-pulse' 
-                                : isEnded 
-                                ? 'bg-gray-500/20 text-muted' 
-                                : 'bg-primary/20 text-primary'
-                            }`}>
-                              {isLive ? '● LIVE NOW' : isEnded ? 'ENDED' : 'SCHEDULED'}
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+                            <h4 className="trainer-class-item-title">{c.title}</h4>
+                            <span className={`trainer-class-status-badge ${isLive ? 'live' : isEnded ? 'ended' : 'scheduled'}`}>
+                              {isLive ? '● LIVE STREAM' : isEnded ? 'ENDED' : 'SCHEDULED'}
                             </span>
                           </div>
 
-                          <div className="flex items-center gap-2 text-[11px] text-muted mt-1">
-                            <span className="flex items-center gap-1">
-                              <Clock size={11} className="text-primary" />
+                          <div className="trainer-class-meta-row" style={{ marginTop: '8px' }}>
+                            <span className="trainer-class-meta-chip">
+                              <Clock size={12} style={{ color: '#7C3AED' }} />
                               <span>{new Date(c.starts_at).toLocaleString()}</span>
                             </span>
-                            <span>•</span>
-                            <span>{c.duration_minutes} mins</span>
-                            <span>•</span>
-                            <span className="font-mono text-[10px] bg-subtle px-1.5 py-0.5 rounded">
+                            <span className="trainer-class-meta-chip">
+                              ⏱️ {c.duration_minutes} mins
+                            </span>
+                            <span className="trainer-class-meta-chip" style={{ fontFamily: 'monospace' }}>
                               Room: {c.room_name}
                             </span>
                           </div>
                         </div>
 
                         {/* Trainer Action Controls */}
-                        <div className="flex items-center gap-2 flex-wrap">
-                          {/* Start Class Button */}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
                           {!isEnded && (
                             <button
                               type="button"
                               onClick={() => handleStartClass(c)}
-                              className={`text-xs px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-bold cursor-pointer transition-all ${
-                                isLive 
-                                  ? 'bg-red-500 text-white hover:bg-red-600' 
-                                  : 'bg-emerald-600 text-white hover:bg-emerald-700'
-                              }`}
-                              title={isLive ? 'Resume Studio' : 'Start Class and Broadcast'}
+                              className="trainer-btn-enter-room"
+                              style={{ 
+                                background: isLive 
+                                  ? 'linear-gradient(135deg, #EF4444 0%, #DC2626 100%)' 
+                                  : 'linear-gradient(135deg, #10B981 0%, #059669 100%)' 
+                              }}
+                              title={isLive ? 'Enter Live Studio' : 'Start Studio Broadcast'}
                             >
-                              <Play size={13} fill="currentColor" />
-                              <span>{isLive ? 'In Studio' : (lang === 'ta' ? 'வகுப்பைத் தொடங்கு' : 'Start Class')}</span>
+                              <Play size={14} fill="currentColor" />
+                              <span>{isLive ? 'In Studio' : (lang === 'ta' ? 'வகுப்பைத் தொடங்கு' : 'Start Live Class')}</span>
                             </button>
                           )}
 
-                          {/* End Class Button */}
                           {isLive && (
                             <button
                               type="button"
                               onClick={() => handleEndClass(c)}
-                              className="bg-red-500/10 text-red-500 hover:bg-red-500 hover:text-white border border-red-500/30 text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1 font-bold cursor-pointer transition-all"
+                              className="trainer-btn-end-class"
                               title="End class for all participants"
                             >
                               <PhoneOff size={13} />
-                              <span>{lang === 'ta' ? 'வகுப்பை முடி' : 'End Class for All'}</span>
+                              <span>{lang === 'ta' ? 'வகுப்பை முடி' : 'End Class'}</span>
                             </button>
                           )}
 
-                          {/* Copy Invitation Link */}
-                          <button
-                            type="button"
-                            onClick={() => {
-                              navigator.clipboard.writeText(liveUrl);
-                              setCopiedId(`live-${c.id}`);
-                              setTimeout(() => setCopiedId(null), 2500);
-                              if (showToast) showToast('Invitation Link Copied ✓', liveUrl, 'success');
-                            }}
-                            className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 cursor-pointer"
-                            title="Direct student joining link with name & mobile check"
-                          >
-                            {copiedId === `live-${c.id}` ? <Check size={13} className="text-emerald-500" /> : <Copy size={13} className="text-primary" />}
-                            <span>{copiedId === `live-${c.id}` ? 'Copied!' : 'Copy Link'}</span>
-                          </button>
-
-                          {/* WhatsApp Share */}
-                          <button
-                            type="button"
-                            onClick={() => handleWhatsAppShare(c)}
-                            className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 rounded-lg flex items-center gap-1.5 text-emerald-600 cursor-pointer"
-                            title="Share on WhatsApp"
-                          >
-                            <Share2 size={13} />
-                            <span>WhatsApp</span>
-                          </button>
-
-                          {/* Delete Class */}
                           <button
                             type="button"
                             onClick={() => handleDeleteClass(c.id)}
-                            className="p-1.5 rounded-lg text-muted hover:text-red-500 cursor-pointer"
+                            style={{ padding: '8px', borderRadius: '10px', background: 'transparent', border: 'none', color: 'var(--text-muted)', cursor: 'pointer' }}
                             title="Delete class"
                           >
-                            <Trash2 size={14} />
+                            <Trash2 size={15} />
                           </button>
                         </div>
                       </div>
 
                       {/* Always-visible Student Invitation URL & Quick Share Bar */}
-                      <div className="p-2.5 rounded-lg bg-subtle/80 border border-primary/20 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2 mt-1">
-                        <div className="flex items-center gap-2 flex-1 overflow-hidden">
-                          <Link size={13} className="text-primary flex-shrink-0" />
-                          <span className="text-[11px] font-mono text-heading truncate select-all">
+                      <div className="trainer-invite-strip">
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flex: 1, minWidth: '200px', overflow: 'hidden' }}>
+                          <Link size={14} style={{ color: '#7C3AED', flexShrink: 0 }} />
+                          <span className="trainer-invite-url-text select-all">
                             {currentInvite || liveUrl}
                           </span>
                         </div>
-                        <div className="flex items-center gap-1.5 flex-shrink-0 self-end sm:self-center">
+
+                        <div className="trainer-invite-btn-group">
                           <button
                             type="button"
                             onClick={() => handleCopyLink(currentInvite || liveUrl, c.id)}
-                            className="ya-btn ya-btn--primary text-[11px] px-2.5 py-1 rounded-md flex items-center gap-1 cursor-pointer"
+                            className="trainer-btn-copy-link"
                             title="Copy student invite link"
                           >
-                            {copiedId === c.id ? <Check size={12} /> : <Copy size={12} />}
-                            <span>{copiedId === c.id ? 'Copied!' : 'Copy'}</span>
+                            {copiedId === c.id ? <Check size={13} /> : <Copy size={13} />}
+                            <span>{copiedId === c.id ? 'Copied!' : 'Copy Link'}</span>
                           </button>
                           <button
                             type="button"
                             onClick={() => handleWhatsAppShare(c)}
-                            className="ya-btn text-[11px] px-2.5 py-1 rounded-md bg-emerald-500 hover:bg-emerald-600 text-white font-bold flex items-center gap-1 cursor-pointer"
+                            className="trainer-btn-whatsapp-share"
                             title="Share on WhatsApp"
                           >
-                            <Share2 size={12} />
+                            <Share2 size={13} />
                             <span>WhatsApp</span>
                           </button>
                         </div>
@@ -1531,6 +1734,361 @@ export default function AdminPortalSection({
                 })
               )}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================= */}
+      {/* TAB: PRE-FLIGHT STUDIO CHECKLIST                          */}
+      {/* ========================================================= */}
+      {activeTab === 'checklist' && (
+        <div className="trainer-card-standard">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '12px', paddingBottom: '14px', borderBottom: '1px solid var(--border-color)' }}>
+            <div>
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-heading)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <ListChecks size={20} style={{ color: '#7C3AED' }} />
+                <span>{lang === 'ta' ? 'லைவ் ஸ்ட்ரீமிங் முன்-பயண சோதனை' : 'Live Studio Pre-Flight Broadcast Checklist'}</span>
+              </h3>
+              <p style={{ fontSize: '12px', color: 'var(--text-sub)', margin: '4px 0 0' }}>
+                {lang === 'ta' ? 'நேரலை வகுப்பைத் தொடங்குவதற்கு முன் இந்த 8 அத்தியாவசிய படிகளைச் சரிபார்க்கவும்.' : 'Verify all 8 studio environment parameters before launching your live broadcast.'}
+              </p>
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <button
+                type="button"
+                onClick={() => handleCheckAll(true)}
+                style={{ fontSize: '12px', padding: '6px 14px', borderRadius: '10px', border: '1px solid var(--border-color)', fontWeight: 700, background: 'var(--bg-app)', color: 'var(--text-heading)', cursor: 'pointer' }}
+              >
+                {lang === 'ta' ? 'அனைத்தையும் தேர்ந்தெடு' : 'Check All'}
+              </button>
+              <button
+                type="button"
+                onClick={() => handleCheckAll(false)}
+                style={{ fontSize: '12px', padding: '6px 14px', borderRadius: '10px', border: '1px solid var(--border-color)', fontWeight: 700, background: 'var(--bg-app)', color: 'var(--text-muted)', cursor: 'pointer' }}
+              >
+                {lang === 'ta' ? 'மீட்டமை' : 'Reset'}
+              </button>
+            </div>
+          </div>
+
+          {/* Progress Bar */}
+          <div style={{ margin: '18px 0 22px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '12px', fontWeight: 800, color: 'var(--text-heading)', marginBottom: '8px' }}>
+              <span>{lang === 'ta' ? 'ஸ்டுடியோ தயார்நிலை மதிப்பீடு' : 'Studio Readiness Score'}</span>
+              <span style={{ color: '#7C3AED' }}>
+                {Math.round((Object.values(studioChecklist).filter(Boolean).length / 8) * 100)}%
+              </span>
+            </div>
+            <div style={{ height: '8px', background: 'var(--bg-subtle)', borderRadius: '9999px', overflow: 'hidden' }}>
+              <div 
+                style={{ 
+                  height: '100%', 
+                  width: `${Math.round((Object.values(studioChecklist).filter(Boolean).length / 8) * 100)}%`, 
+                  background: 'linear-gradient(90deg, #7C3AED, #10B981)', 
+                  borderRadius: '9999px',
+                  transition: 'width 0.3s ease'
+                }} 
+              />
+            </div>
+          </div>
+
+          {/* Checklist Grid */}
+          <div className="trainer-checklist-grid">
+            {[
+              { key: 'mic', icon: Mic, title: lang === 'ta' ? 'வயர்லெஸ் மைக்ரோஃபோன்' : 'Wireless Microphone / Lapel', desc: lang === 'ta' ? 'குரல் தெளிவு மற்றும் பின்னணி இரைச்சல் நீக்கம்' : 'Crystal-clear audio with noise cancellation for voice cues' },
+              { key: 'camera', icon: Camera, title: lang === 'ta' ? '1080p கேமரா மற்றும் யோகா மேட் ஃபிரேம்' : '1080p HD Camera & Mat Framing', desc: lang === 'ta' ? 'முழு யோகா மேட்டும் கிடைமட்டமாக தெரிய வேண்டும்' : 'Full horizontal mat visible top-to-bottom for posture review' },
+              { key: 'lighting', icon: Sun, title: lang === 'ta' ? 'ஸ்டுடியோ லைட்டிங் & வெளிச்சம்' : 'Studio Lighting & Ambience', desc: lang === 'ta' ? 'மென்மையான சூடான ஒளி, கண்களை கூசாத வெளிச்சம்' : 'Soft diffused front lighting with zero camera flare' },
+              { key: 'props', icon: Layers, title: lang === 'ta' ? 'யோகா உபகரணங்கள் தயார்நிலை' : 'Yoga Props (Blocks & Straps)', desc: lang === 'ta' ? '2 யோகா பிளாக்குகள், 1 பெல்ட், தியான தலையணை' : '2 cork blocks, 1 cotton strap, bolster & meditation cushion' },
+              { key: 'chime', icon: Volume2, title: lang === 'ta' ? 'திபெத்திய பாடும் கிண்ணம் / சிமி' : 'Tibetan Singing Bowl & Chime', desc: lang === 'ta' ? 'ஆரம்ப ஓம் உச்சரிப்பு மற்றும் சவாசனம் நிறைவு ஒலி' : 'Acoustic resonance test for opening chant & Savasana' },
+              { key: 'invite', icon: Share2, title: lang === 'ta' ? 'மாணவர் வாட்ஸ்அப் அழைப்பு' : 'Student WhatsApp Invite Link', desc: lang === 'ta' ? 'வகுப்பு தொடங்குவதற்கு 15 நிமிடம் முன் அனுப்பப்பட்டது' : 'Direct student joining link dispatched 15 mins prior' },
+              { key: 'water', icon: Flame, title: lang === 'ta' ? 'அமைதியான பிராணாயாம சூழல்' : 'Breathwork Quiet Environment', desc: lang === 'ta' ? 'குடிநீர் மற்றும் இடையூறுகள் இல்லாத அறை' : 'Hydration nearby and room secured against interruptions' },
+              { key: 'network', icon: Wifi, title: lang === 'ta' ? 'அதிவேக வைஃபை / வெப்ஆர்டிசி' : 'High-Speed WebRTC Latency', desc: lang === 'ta' ? 'குறைந்த தாமதத்துடன் கூடிய நேரலை இணைப்பு' : 'Sub-500ms video ping verified with LiveKit server' }
+            ].map(item => {
+              const isDone = !!studioChecklist[item.key];
+              const ItemIcon = item.icon;
+              return (
+                <div
+                  key={item.key}
+                  onClick={() => toggleCheckItem(item.key)}
+                  className={`trainer-check-item ${isDone ? 'done' : ''}`}
+                >
+                  <div className="trainer-check-box">
+                    {isDone && <Check size={14} strokeWidth={3} />}
+                  </div>
+                  <div style={{ flex: 1 }}>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontWeight: 800, fontSize: '13px', color: 'var(--text-heading)' }}>
+                      <ItemIcon size={14} style={{ color: '#7C3AED' }} />
+                      <span>{item.title}</span>
+                    </div>
+                    <div style={{ fontSize: '11px', color: 'var(--text-sub)', marginTop: '2px', lineHeight: 1.4 }}>
+                      {item.desc}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================= */}
+      {/* TAB: ASANA CURRICULUM & TEACHING SEQUENCES GUIDE          */}
+      {/* ========================================================= */}
+      {activeTab === 'curriculum' && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
+          {/* 1. Surya Namaskar 12-Step Classical Guide */}
+          <div className="trainer-card-standard">
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', paddingBottom: '14px', borderBottom: '1px solid var(--border-color)', marginBottom: '16px' }}>
+              <div>
+                <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-heading)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <Sun size={20} style={{ color: '#F59E0B' }} />
+                  <span>{lang === 'ta' ? 'சூரிய நமஸ்காரம் 12 படிகள் & மூச்சு நெறிமுறை' : 'Surya Namaskar: Classical 12-Step Asana Matrix'}</span>
+                </h3>
+                <p style={{ fontSize: '12px', color: 'var(--text-sub)', margin: '4px 0 0' }}>
+                  {lang === 'ta' ? 'ஒவ்வொரு ஆசனத்திற்கும் சரியான மூச்சு வழிகாட்டல் மற்றும் சீரமைப்பு குறிப்புகள்.' : 'Precise breath coordination (Inhale/Exhale), Sanskrit nomenclature & alignment cues for instructors.'}
+                </p>
+              </div>
+              <span style={{ fontSize: '11px', fontWeight: 800, padding: '4px 12px', borderRadius: '20px', background: 'rgba(245, 158, 11, 0.12)', color: '#D97706', border: '1px solid rgba(245, 158, 11, 0.3)' }}>
+                Solar Vitality Flow
+              </span>
+            </div>
+
+            <div style={{ overflowX: 'auto' }}>
+              <table style={{ width: '100%', fontSize: '12px', textAlign: 'left', borderCollapse: 'collapse' }}>
+                <thead>
+                  <tr style={{ borderBottom: '1px solid var(--border-color)', fontSize: '11px', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-sub)', fontWeight: 800 }}>
+                    <th style={{ padding: '10px 12px' }}>#</th>
+                    <th style={{ padding: '10px 12px' }}>Sanskrit Asana</th>
+                    <th style={{ padding: '10px 12px' }}>Tamil / English</th>
+                    <th style={{ padding: '10px 12px' }}>Breath Cue</th>
+                    <th style={{ padding: '10px 12px' }}>Chakra</th>
+                    <th style={{ padding: '10px 12px' }}>Alignment Cue</th>
+                  </tr>
+                </thead>
+                <tbody style={{ color: 'var(--text-heading)' }}>
+                  {[
+                    { step: 1, sanskrit: 'Pranamasana', eng: 'Prayer Pose / பிரார்த்தனை ஆசனம்', breath: 'Exhale', chakra: 'Anahata (Heart)', cue: 'Palms together at chest center, feet parallel, weight balanced.' },
+                    { step: 2, sanskrit: 'Hastauttanasana', eng: 'Raised Arms Pose / அஸ்த உத்தானாசனம்', breath: 'Inhale', chakra: 'Vishuddha (Throat)', cue: 'Biceps beside ears, stretch upward from pelvis, gentle arch back.' },
+                    { step: 3, sanskrit: 'Padahastasana', eng: 'Standing Forward Bend / பாதஹஸ்தாசனம்', breath: 'Exhale', chakra: 'Swadhisthana (Sacral)', cue: 'Hinge from hips, palms flat on floor beside feet, crown down.' },
+                    { step: 4, sanskrit: 'Ashwa Sanchalanasana', eng: 'Equestrian Pose / அஷ்வ சஞ்சாலனாசனம்', breath: 'Inhale', chakra: 'Ajna (Third Eye)', cue: 'Right leg stepped back, right knee down, chest opens forward.' },
+                    { step: 5, sanskrit: 'Dandasana / Phalakasana', eng: 'Plank Pose / தண்டாசனம்', breath: 'Retain / Inhale', chakra: 'Manipura (Solar)', cue: 'Core engaged, wrists below shoulders, body in single straight line.' },
+                    { step: 6, sanskrit: 'Ashtanga Namaskara', eng: 'Eight-Limbed Salute / அஷ்டாங்க நமஸ்காரம்', breath: 'Exhale', chakra: 'Manipura (Solar)', cue: '8 points touch mat: 2 feet, 2 knees, 2 hands, chest & chin.' },
+                    { step: 7, sanskrit: 'Bhujangasana', eng: 'Cobra Pose / புஜங்காசனம்', breath: 'Inhale', chakra: 'Swadhisthana (Sacral)', cue: 'Slide forward, roll shoulders back and down, pubic bone grounded.' },
+                    { step: 8, sanskrit: 'Adho Mukha Svanasana', eng: 'Downward-Facing Dog / அதோ முக ஸ்வானாசனம்', breath: 'Exhale', chakra: 'Vishuddha (Throat)', cue: 'Sit bones to ceiling, heels sinking, neck long, broad shoulders.' },
+                    { step: 9, sanskrit: 'Ashwa Sanchalanasana', eng: 'Equestrian Pose (Left) / அஷ்வ சஞ்சாலனாசனம்', breath: 'Inhale', chakra: 'Ajna (Third Eye)', cue: 'Step right foot forward between hands, left knee grounded.' },
+                    { step: 10, sanskrit: 'Padahastasana', eng: 'Standing Forward Bend / பாதஹஸ்தாசனம்', breath: 'Exhale', chakra: 'Swadhisthana (Sacral)', cue: 'Step left foot forward, fold torso completely over thighs.' },
+                    { step: 11, sanskrit: 'Hastauttanasana', eng: 'Raised Arms Pose / அஸ்த உத்தானாசனம்', breath: 'Inhale', chakra: 'Vishuddha (Throat)', cue: 'Root down to rise up, sweep arms overhead with open chest.' },
+                    { step: 12, sanskrit: 'Pranamasana', eng: 'Mountain Prayer Pose / பிரணாம ஆசனம்', breath: 'Exhale', chakra: 'Anahata (Heart)', cue: 'Return palms to heart center, feel heartbeat, restore breath.' },
+                  ].map(row => (
+                    <tr key={row.step} style={{ borderBottom: '1px solid var(--border-color)' }}>
+                      <td style={{ padding: '10px 12px', fontWeight: 800, color: '#7C3AED' }}>{row.step}</td>
+                      <td style={{ padding: '10px 12px', fontWeight: 800 }}>{row.sanskrit}</td>
+                      <td style={{ padding: '10px 12px', color: 'var(--text-sub)' }}>{row.eng}</td>
+                      <td style={{ padding: '10px 12px' }}>
+                        <span style={{ 
+                          display: 'inline-block', 
+                          padding: '3px 8px', 
+                          borderRadius: '6px', 
+                          fontSize: '10px', 
+                          fontWeight: 900, 
+                          textTransform: 'uppercase',
+                          background: row.breath === 'Inhale' ? 'rgba(16, 185, 129, 0.12)' : row.breath === 'Exhale' ? 'rgba(124, 58, 237, 0.12)' : 'rgba(245, 158, 11, 0.12)',
+                          color: row.breath === 'Inhale' ? '#059669' : row.breath === 'Exhale' ? '#7C3AED' : '#D97706'
+                        }}>
+                          {row.breath}
+                        </span>
+                      </td>
+                      <td style={{ padding: '10px 12px', color: 'var(--text-sub)', fontSize: '11px' }}>{row.chakra}</td>
+                      <td style={{ padding: '10px 12px', color: 'var(--text-sub)', fontSize: '11.5px' }}>{row.cue}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          {/* 2. Pranayama Breathwork Guide */}
+          <div className="trainer-card-standard">
+            <div style={{ paddingBottom: '14px', borderBottom: '1px solid var(--border-color)', marginBottom: '16px' }}>
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-heading)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Activity size={20} style={{ color: '#7C3AED' }} />
+                <span>{lang === 'ta' ? 'பிராணாயாம சுவாச முறைகள் & நேரம்' : 'Master Pranayama Breathwork Curriculum'}</span>
+              </h3>
+              <p style={{ fontSize: '12px', color: 'var(--text-sub)', margin: '4px 0 0' }}>
+                {lang === 'ta' ? 'வகுப்பின் ஆரம்பம் மற்றும் முடிவில் மாணவர்களுக்கு கற்பிக்க வேண்டிய 4 முக்கிய பிராணாயாமங்கள்.' : 'Breath retention ratios, contraindications & cues for 4 core pranayama techniques.'}
+              </p>
+            </div>
+
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))', gap: '16px' }}>
+              {[
+                {
+                  title: 'Nadi Shodhana (Alternate Nostril)',
+                  sanskrit: 'நாடி சுத்தி பிராணாயாமம்',
+                  ratio: '1:4:2 (Inhale 4s • Hold 16s • Exhale 8s)',
+                  desc: 'Balances Ida & Pingala nadis, calms sympathetic nervous system, lowers cortisol.',
+                  timing: '8 - 12 rounds before meditation'
+                },
+                {
+                  title: 'Kapalabhati (Skull Shining Breath)',
+                  sanskrit: 'கபாலபதி பிராணாயாமம்',
+                  ratio: 'Active sharp exhale • Passive automatic inhale',
+                  desc: 'Rapid abdominal contractions at 60-80 pumps/min. Clears frontal sinuses and stimulates agni fire.',
+                  timing: '3 rounds of 30 strokes'
+                },
+                {
+                  title: 'Bhramari (Humming Bee Breath)',
+                  sanskrit: 'பிராமரி பிராணாயாமம்',
+                  ratio: 'Deep inhale • Low-pitch humming exhale with Shanmukhi mudra',
+                  desc: 'Generates nitric oxide in nasal passages, soothes anxiety, prepares mind for Dharana.',
+                  timing: '5 - 7 long humming exhalations'
+                },
+                {
+                  title: 'Ujjayi (Victorious Ocean Breath)',
+                  sanskrit: 'உஜ்ஜாயி பிராணாயாமம்',
+                  ratio: 'Glottis whispering breath maintained throughout flow',
+                  desc: 'Builds internal heat, synchronizes vinyasa transitions, keeps mind anchored to sound.',
+                  timing: 'Maintained during active asana sequence'
+                }
+              ].map((prana, idx) => (
+                <div key={idx} style={{ padding: '16px', borderRadius: '16px', border: '1px solid var(--border-color)', background: 'var(--bg-app)', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px' }}>
+                    <h4 style={{ fontSize: '13px', fontWeight: 800, color: 'var(--text-heading)', margin: 0 }}>{prana.title}</h4>
+                    <span style={{ fontSize: '10px', fontFamily: 'monospace', fontWeight: 800, color: '#7C3AED', background: 'rgba(124, 58, 237, 0.1)', padding: '2px 8px', borderRadius: '6px' }}>
+                      {prana.sanskrit}
+                    </span>
+                  </div>
+                  <div style={{ fontSize: '11px', fontFamily: 'monospace', color: '#7C3AED', fontWeight: 800 }}>{prana.ratio}</div>
+                  <p style={{ fontSize: '12px', color: 'var(--text-sub)', margin: 0, lineHeight: 1.5 }}>{prana.desc}</p>
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: 'var(--text-heading)', marginTop: '4px' }}>⏱️ {prana.timing}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ========================================================= */}
+      {/* TAB: STUDIO THEMES & VISUAL APPEARANCE                    */}
+      {/* ========================================================= */}
+      {activeTab === 'themes' && (
+        <div className="trainer-card-standard">
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '10px', paddingBottom: '14px', borderBottom: '1px solid var(--border-color)', marginBottom: '16px' }}>
+            <div>
+              <h3 style={{ fontSize: '16px', fontWeight: 800, color: 'var(--text-heading)', margin: 0, display: 'flex', alignItems: 'center', gap: '8px' }}>
+                <Palette size={20} style={{ color: '#7C3AED' }} />
+                <span>{lang === 'ta' ? 'ஸ்டுடியோ வடிவமைப்பு & வண்ணத் தீம்கள்' : 'Studio Theme & Visual Appearance'}</span>
+              </h3>
+              <p style={{ fontSize: '12px', color: 'var(--text-sub)', margin: '4px 0 0' }}>
+                {lang === 'ta' ? 'உங்கள் யோகா தளத்தின் தோற்றத்தை ஒரு கிளிக்கில் மாற்றவும்.' : 'Select a signature wellness palette aligned with traditional chakra energies and modern minimalism.'}
+              </p>
+            </div>
+            <span style={{ fontSize: '12px', fontWeight: 800, color: '#7C3AED', background: 'rgba(124, 58, 237, 0.1)', padding: '5px 14px', borderRadius: '20px', border: '1px solid rgba(124, 58, 237, 0.25)' }}>
+              Active: {activeTheme.toUpperCase()}
+            </span>
+          </div>
+
+          <div className="trainer-theme-swatches-grid">
+            {[
+              {
+                id: 'light',
+                name: 'Royal Lavender & Amethyst',
+                tamil: 'ராயல் லாவெண்டர் (கிரீட சக்கரம்)',
+                chakra: 'Sahasrara (Crown Chakra)',
+                desc: 'Spiritual clarity, peaceful mind, cosmic lavender aura.',
+                colors: ['#7C3AED', '#8B5CF6', '#F8F5FF', '#29233D']
+              },
+              {
+                id: 'emerald',
+                name: 'Ayurvedic Emerald Forest',
+                tamil: 'ஆயுர்வேத மரகதம் (இதய சக்கரம்)',
+                chakra: 'Anahata (Heart Chakra)',
+                desc: 'Pranic healing, deep rejuvenation, soothing herbal greens.',
+                colors: ['#059669', '#10B981', '#F0FDF4', '#064E3B']
+              },
+              {
+                id: 'sunset',
+                name: 'Sunset Chakra & Saffron',
+                tamil: 'சூரிய அஸ்தமனம் (மணிபூரக சக்கரம்)',
+                chakra: 'Manipura (Solar Plexus)',
+                desc: 'Energizing solar warmth, discipline, sunrise meditation.',
+                colors: ['#D97706', '#F59E0B', '#FFFBEB', '#78350F']
+              },
+              {
+                id: 'midnight',
+                name: 'Midnight Astral Cosmic',
+                tamil: 'விண்மீன் நீலம் (ஆக்ஞா சக்கரம்)',
+                chakra: 'Ajna (Third Eye Chakra)',
+                desc: 'Deep cosmic trance, transcendental indigo, sacred silence.',
+                colors: ['#A855F7', '#1E1B4B', '#060714', '#EDE9FE']
+              },
+              {
+                id: 'dark',
+                name: 'Obsidian Dark Studio',
+                tamil: 'இரவு பயன்முறை (மூலாதார சக்கரம்)',
+                chakra: 'Muladhara (Root Chakra)',
+                desc: 'Low-light evening yoga, zero eye strain, OLED power efficient.',
+                colors: ['#8F7CF6', '#111831', '#080C1D', '#EDEAFF']
+              }
+            ].map(thm => {
+              const isCurrent = activeTheme === thm.id || (thm.id === 'light' && activeTheme === 'lavender');
+              return (
+                <div
+                  key={thm.id}
+                  onClick={() => handleThemeChange(thm.id)}
+                  className={`trainer-theme-card ${isCurrent ? 'active' : ''}`}
+                >
+                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <h4 style={{ fontSize: '14px', fontWeight: 800, color: 'var(--text-heading)', margin: 0 }}>{thm.name}</h4>
+                    {isCurrent && (
+                      <span style={{ fontSize: '10px', fontWeight: 800, padding: '3px 8px', borderRadius: '20px', background: 'rgba(16, 185, 129, 0.12)', color: '#059669', border: '1px solid rgba(16, 185, 129, 0.3)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                        <Check size={10} strokeWidth={3} />
+                        <span>Active</span>
+                      </span>
+                    )}
+                  </div>
+
+                  <div style={{ fontSize: '11px', fontWeight: 700, color: '#7C3AED' }}>{thm.tamil}</div>
+
+                  <div className="trainer-theme-preview-dots">
+                    {thm.colors.map((c, i) => (
+                      <span
+                        key={i}
+                        className="trainer-color-dot"
+                        style={{ background: c, border: '1px solid rgba(0,0,0,0.1)' }}
+                      />
+                    ))}
+                  </div>
+
+                  <p style={{ fontSize: '12px', color: 'var(--text-sub)', margin: 0, lineHeight: 1.5 }}>{thm.desc}</p>
+                  <div style={{ fontSize: '10px', fontWeight: 800, color: 'var(--text-heading)', textTransform: 'uppercase', letterSpacing: '0.5px' }}>{thm.chakra}</div>
+
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleThemeChange(thm.id);
+                    }}
+                    style={{ 
+                      width: '100%', 
+                      padding: '10px', 
+                      borderRadius: '12px', 
+                      fontSize: '12px', 
+                      fontWeight: 800, 
+                      cursor: 'pointer', 
+                      transition: 'all 0.2s', 
+                      marginTop: '6px',
+                      background: isCurrent ? '#7C3AED' : 'var(--bg-app)',
+                      color: isCurrent ? '#FFFFFF' : 'var(--text-heading)',
+                      border: isCurrent ? 'none' : '1px solid var(--border-color)',
+                      boxShadow: isCurrent ? '0 4px 14px rgba(124, 58, 237, 0.3)' : 'none'
+                    }}
+                  >
+                    {isCurrent ? '✓ Active Theme' : 'Apply Theme'}
+                  </button>
+                </div>
+              );
+            })}
           </div>
         </div>
       )}
@@ -1604,7 +2162,7 @@ export default function AdminPortalSection({
         });
 
         return (
-          <div className="flex flex-col gap-6">
+          <div className="trainer-card-standard" style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
             {/* Top Bar with Title & Actions */}
             <div className="flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-subtle">
               <div>
@@ -1966,7 +2524,7 @@ export default function AdminPortalSection({
       {/* TAB 3: YOGA NOTES & PDF MANAGEMENT */}
       {/* ========================================================= */}
       {activeTab === 'notes' && (
-        <div className="flex flex-col gap-6">
+        <div className="trainer-card-standard" style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
           {/* Add Material Form */}
           <div className="p-4 rounded-xl border border-subtle bg-card/50">
             <h3 className="text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3">
@@ -2088,7 +2646,7 @@ export default function AdminPortalSection({
       {/* TAB 4: YOGA VIDEO LIBRARY */}
       {/* ========================================================= */}
       {activeTab === 'videos' && (
-        <div className="flex flex-col gap-6">
+        <div className="trainer-card-standard" style={{ display: 'flex', flexDirection: 'column', gap: '22px' }}>
           {/* Add Video Form */}
           <div className="p-4 rounded-xl border border-subtle bg-card/50">
             <h3 className="text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3">
@@ -2216,7 +2774,7 @@ export default function AdminPortalSection({
       {/* TAB 5: LIVEKIT & SERVER CONFIG */}
       {/* ========================================================= */}
       {activeTab === 'settings' && (
-        <div className="flex flex-col gap-4 max-w-xl">
+        <div className="trainer-card-standard" style={{ display: 'flex', flexDirection: 'column', gap: '22px', maxWidth: '640px' }}>
           <div className="p-4 rounded-xl border border-subtle bg-card">
             <h3 className="text-sm font-bold text-heading flex items-center gap-2 m-0 mb-2">
               <Settings size={16} className="text-primary" />

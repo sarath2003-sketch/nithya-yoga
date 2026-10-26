@@ -1104,7 +1104,7 @@
             }
             return dispatcher.useContext(Context);
           }
-          function useState31(initialState) {
+          function useState32(initialState) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useState(initialState);
           }
@@ -1907,7 +1907,7 @@
           exports.useMemo = useMemo13;
           exports.useReducer = useReducer;
           exports.useRef = useRef20;
-          exports.useState = useState31;
+          exports.useState = useState32;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
           exports.version = ReactVersion;
@@ -2403,9 +2403,9 @@
           if (typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ !== "undefined" && typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart === "function") {
             __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStart(new Error());
           }
-          var React49 = require_react();
+          var React50 = require_react();
           var Scheduler = require_scheduler();
-          var ReactSharedInternals = React49.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React50.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           var suppressWarning = false;
           function setSuppressWarning(newSuppressWarning) {
             {
@@ -4012,7 +4012,7 @@
             {
               if (props.value == null) {
                 if (typeof props.children === "object" && props.children !== null) {
-                  React49.Children.forEach(props.children, function(child) {
+                  React50.Children.forEach(props.children, function(child) {
                     if (child == null) {
                       return;
                     }
@@ -71558,7 +71558,7 @@ Verified WebRTC Attendance Session`;
       if (true) {
         (function() {
           "use strict";
-          var React49 = require_react();
+          var React50 = require_react();
           var REACT_ELEMENT_TYPE = /* @__PURE__ */ Symbol.for("react.element");
           var REACT_PORTAL_TYPE = /* @__PURE__ */ Symbol.for("react.portal");
           var REACT_FRAGMENT_TYPE = /* @__PURE__ */ Symbol.for("react.fragment");
@@ -71584,7 +71584,7 @@ Verified WebRTC Attendance Session`;
             }
             return null;
           }
-          var ReactSharedInternals = React49.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
+          var ReactSharedInternals = React50.__SECRET_INTERNALS_DO_NOT_USE_OR_YOU_WILL_BE_FIRED;
           function error(format) {
             {
               {
@@ -84245,6 +84245,90 @@ Verified WebRTC Attendance Session`;
     }
   });
 
+  // src/utils/cn.js
+  function cn(...inputs) {
+    return inputs.flat().filter(Boolean).join(" ").trim();
+  }
+  var init_cn = __esm({
+    "src/utils/cn.js"() {
+    }
+  });
+
+  // src/components/FloatingInput.jsx
+  function FloatingInput({
+    label,
+    className = "",
+    id: id3,
+    type = "text",
+    value,
+    defaultValue,
+    onChange,
+    onFocus,
+    onBlur,
+    icon,
+    rightElement,
+    ...props
+  }) {
+    const [focused, setFocused] = (0, import_react52.useState)(false);
+    const inputId = id3 || `floating-${Math.random().toString(36).substring(2, 9)}`;
+    const isControlled = value !== void 0;
+    const [internalVal, setInternalVal] = (0, import_react52.useState)(defaultValue || "");
+    const currentValue = isControlled ? value : internalVal;
+    const hasValue = Boolean(currentValue !== void 0 && currentValue !== null && String(currentValue).length > 0);
+    return /* @__PURE__ */ import_react52.default.createElement("div", { className: "relative w-full" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "relative flex items-center" }, icon && /* @__PURE__ */ import_react52.default.createElement("span", { className: "absolute left-3.5 z-10 pointer-events-none text-purple-400/80 transition-colors" }, icon), /* @__PURE__ */ import_react52.default.createElement(
+      "input",
+      {
+        id: inputId,
+        type,
+        value,
+        defaultValue,
+        className: cn(
+          "peer w-full rounded-2xl border text-sm font-medium transition-all duration-200 outline-none",
+          "bg-white/5 border-violet-500/25 text-white placeholder-transparent",
+          "focus:border-violet-500 focus:bg-white/[0.08] focus:ring-2 focus:ring-violet-500/20",
+          icon ? "pl-11 pr-4 py-3.5" : "px-4 py-3.5",
+          rightElement ? "pr-11" : "",
+          className
+        ),
+        placeholder: " ",
+        onFocus: (e2) => {
+          setFocused(true);
+          onFocus?.(e2);
+        },
+        onBlur: (e2) => {
+          setFocused(false);
+          if (!isControlled) setInternalVal(e2.target.value);
+          onBlur?.(e2);
+        },
+        onChange: (e2) => {
+          if (!isControlled) setInternalVal(e2.target.value);
+          onChange?.(e2);
+        },
+        ...props
+      }
+    ), rightElement && /* @__PURE__ */ import_react52.default.createElement("div", { className: "absolute right-3.5 z-10 flex items-center" }, rightElement)), /* @__PURE__ */ import_react52.default.createElement(
+      "label",
+      {
+        htmlFor: inputId,
+        className: cn(
+          "absolute text-xs font-semibold tracking-wide pointer-events-none transition-all duration-200",
+          icon ? "left-11 top-3.5" : "left-4 top-3.5",
+          "text-purple-300/60",
+          focused || hasValue ? `-top-2.5 ${icon ? "left-4" : "left-3"} text-[11px] font-bold text-violet-400 bg-[#16102E] px-2 rounded-md shadow-sm border border-violet-500/20` : "text-sm",
+          focused ? "text-violet-400 border-violet-500/40" : ""
+        )
+      },
+      label
+    ));
+  }
+  var import_react52;
+  var init_FloatingInput = __esm({
+    "src/components/FloatingInput.jsx"() {
+      import_react52 = __toESM(require_react());
+      init_cn();
+    }
+  });
+
   // src/components/AdminPortalSection.jsx
   function AdminPortalSection({
     onLaunchInstructorStudio,
@@ -84254,9 +84338,9 @@ Verified WebRTC Attendance Session`;
     theme = "light",
     setTheme
   }) {
-    const [adminToken, setAdminToken] = (0, import_react52.useState)(() => localStorage.getItem("nithya_admin_token") || "");
-    const [activeTab, setActiveTab] = (0, import_react52.useState)("classes");
-    const [activeTheme, setActiveTheme] = (0, import_react52.useState)(() => localStorage.getItem("nithya_theme") || theme || "light");
+    const [adminToken, setAdminToken] = (0, import_react53.useState)(() => localStorage.getItem("nithya_admin_token") || "");
+    const [activeTab, setActiveTab] = (0, import_react53.useState)("classes");
+    const [activeTheme, setActiveTheme] = (0, import_react53.useState)(() => localStorage.getItem("nithya_theme") || theme || "light");
     const handleThemeChange = (newTheme) => {
       setActiveTheme(newTheme);
       if (setTheme) setTheme(newTheme);
@@ -84270,7 +84354,7 @@ Verified WebRTC Attendance Session`;
         );
       }
     };
-    const [studioChecklist, setStudioChecklist] = (0, import_react52.useState)(() => {
+    const [studioChecklist, setStudioChecklist] = (0, import_react53.useState)(() => {
       try {
         const saved = localStorage.getItem("nithya_studio_checklist");
         return saved ? JSON.parse(saved) : {
@@ -84312,60 +84396,60 @@ Verified WebRTC Attendance Session`;
       setStudioChecklist(updated);
       localStorage.setItem("nithya_studio_checklist", JSON.stringify(updated));
     };
-    const [authMode, setAuthMode] = (0, import_react52.useState)("login");
-    const [email, setEmail] = (0, import_react52.useState)("");
-    const [password, setPassword] = (0, import_react52.useState)("");
-    const [showPassword, setShowPassword] = (0, import_react52.useState)(false);
-    const [regName, setRegName] = (0, import_react52.useState)("");
-    const [regEmail, setRegEmail] = (0, import_react52.useState)("");
-    const [regPhone, setRegPhone] = (0, import_react52.useState)("");
-    const [regPassword, setRegPassword] = (0, import_react52.useState)("");
-    const [regConfirmPassword, setRegConfirmPassword] = (0, import_react52.useState)("");
-    const [showRegPassword, setShowRegPassword] = (0, import_react52.useState)(false);
-    const [showRegConfirmPassword, setShowRegConfirmPassword] = (0, import_react52.useState)(false);
-    const [loginLoading, setLoginLoading] = (0, import_react52.useState)(false);
-    const [loginError, setLoginError] = (0, import_react52.useState)("");
-    const [registerSuccess, setRegisterSuccess] = (0, import_react52.useState)("");
-    const [classesList, setClassesList] = (0, import_react52.useState)([]);
-    const [classesLoading, setClassesLoading] = (0, import_react52.useState)(false);
-    const [newTitle, setNewTitle] = (0, import_react52.useState)("");
-    const [newStartsAt, setNewStartsAt] = (0, import_react52.useState)(() => {
+    const [authMode, setAuthMode] = (0, import_react53.useState)("login");
+    const [email, setEmail] = (0, import_react53.useState)("");
+    const [password, setPassword] = (0, import_react53.useState)("");
+    const [showPassword, setShowPassword] = (0, import_react53.useState)(false);
+    const [regName, setRegName] = (0, import_react53.useState)("");
+    const [regEmail, setRegEmail] = (0, import_react53.useState)("");
+    const [regPhone, setRegPhone] = (0, import_react53.useState)("");
+    const [regPassword, setRegPassword] = (0, import_react53.useState)("");
+    const [regConfirmPassword, setRegConfirmPassword] = (0, import_react53.useState)("");
+    const [showRegPassword, setShowRegPassword] = (0, import_react53.useState)(false);
+    const [showRegConfirmPassword, setShowRegConfirmPassword] = (0, import_react53.useState)(false);
+    const [loginLoading, setLoginLoading] = (0, import_react53.useState)(false);
+    const [loginError, setLoginError] = (0, import_react53.useState)("");
+    const [registerSuccess, setRegisterSuccess] = (0, import_react53.useState)("");
+    const [classesList, setClassesList] = (0, import_react53.useState)([]);
+    const [classesLoading, setClassesLoading] = (0, import_react53.useState)(false);
+    const [newTitle, setNewTitle] = (0, import_react53.useState)("");
+    const [newStartsAt, setNewStartsAt] = (0, import_react53.useState)(() => {
       const d = /* @__PURE__ */ new Date();
       d.setHours(d.getHours() + 1, 0, 0, 0);
       return d.toISOString().slice(0, 16);
     });
-    const [newDuration, setNewDuration] = (0, import_react52.useState)("60");
-    const [isCreatingClass, setIsCreatingClass] = (0, import_react52.useState)(false);
-    const [inviteUrls, setInviteUrls] = (0, import_react52.useState)({});
-    const [copiedId, setCopiedId] = (0, import_react52.useState)(null);
-    const [newlyCreatedClassInfo, setNewlyCreatedClassInfo] = (0, import_react52.useState)(null);
-    const [attendanceLogs, setAttendanceLogs] = (0, import_react52.useState)([]);
-    const [attendanceLoading, setAttendanceLoading] = (0, import_react52.useState)(false);
-    const [analyticsData, setAnalyticsData] = (0, import_react52.useState)(null);
-    const [studentSearchQuery, setStudentSearchQuery] = (0, import_react52.useState)("");
-    const [isBackingUp, setIsBackingUp] = (0, import_react52.useState)(false);
-    const [materialsList, setMaterialsList] = (0, import_react52.useState)([]);
-    const [materialsLoading, setMaterialsLoading] = (0, import_react52.useState)(false);
-    const [newMatTitle, setNewMatTitle] = (0, import_react52.useState)("");
-    const [newMatCategory, setNewMatCategory] = (0, import_react52.useState)("Yoga");
-    const [newMatDesc, setNewMatDesc] = (0, import_react52.useState)("");
-    const [newMatUrl, setNewMatUrl] = (0, import_react52.useState)("");
-    const [newMatContent, setNewMatContent] = (0, import_react52.useState)("");
-    const [isCreatingMat, setIsCreatingMat] = (0, import_react52.useState)(false);
-    const [videosList, setVideosList] = (0, import_react52.useState)([]);
-    const [videosLoading, setVideosLoading] = (0, import_react52.useState)(false);
-    const [newVidTitle, setNewVidTitle] = (0, import_react52.useState)("");
-    const [newVidDesc, setNewVidDesc] = (0, import_react52.useState)("");
-    const [newVidUrl, setNewVidUrl] = (0, import_react52.useState)("");
-    const [newVidDuration, setNewVidDuration] = (0, import_react52.useState)("30");
-    const [newVidLevel, setNewVidLevel] = (0, import_react52.useState)("All Levels");
-    const [newVidCategory, setNewVidCategory] = (0, import_react52.useState)("Vinyasa");
-    const [isCreatingVid, setIsCreatingVid] = (0, import_react52.useState)(false);
-    const [livekitStatus, setLivekitStatus] = (0, import_react52.useState)(null);
-    const [configUrl, setConfigUrl] = (0, import_react52.useState)("");
-    const [configApiKey, setConfigApiKey] = (0, import_react52.useState)("");
-    const [configApiSecret, setConfigApiSecret] = (0, import_react52.useState)("");
-    const [savingConfig, setSavingConfig] = (0, import_react52.useState)(false);
+    const [newDuration, setNewDuration] = (0, import_react53.useState)("60");
+    const [isCreatingClass, setIsCreatingClass] = (0, import_react53.useState)(false);
+    const [inviteUrls, setInviteUrls] = (0, import_react53.useState)({});
+    const [copiedId, setCopiedId] = (0, import_react53.useState)(null);
+    const [newlyCreatedClassInfo, setNewlyCreatedClassInfo] = (0, import_react53.useState)(null);
+    const [attendanceLogs, setAttendanceLogs] = (0, import_react53.useState)([]);
+    const [attendanceLoading, setAttendanceLoading] = (0, import_react53.useState)(false);
+    const [analyticsData, setAnalyticsData] = (0, import_react53.useState)(null);
+    const [studentSearchQuery, setStudentSearchQuery] = (0, import_react53.useState)("");
+    const [isBackingUp, setIsBackingUp] = (0, import_react53.useState)(false);
+    const [materialsList, setMaterialsList] = (0, import_react53.useState)([]);
+    const [materialsLoading, setMaterialsLoading] = (0, import_react53.useState)(false);
+    const [newMatTitle, setNewMatTitle] = (0, import_react53.useState)("");
+    const [newMatCategory, setNewMatCategory] = (0, import_react53.useState)("Yoga");
+    const [newMatDesc, setNewMatDesc] = (0, import_react53.useState)("");
+    const [newMatUrl, setNewMatUrl] = (0, import_react53.useState)("");
+    const [newMatContent, setNewMatContent] = (0, import_react53.useState)("");
+    const [isCreatingMat, setIsCreatingMat] = (0, import_react53.useState)(false);
+    const [videosList, setVideosList] = (0, import_react53.useState)([]);
+    const [videosLoading, setVideosLoading] = (0, import_react53.useState)(false);
+    const [newVidTitle, setNewVidTitle] = (0, import_react53.useState)("");
+    const [newVidDesc, setNewVidDesc] = (0, import_react53.useState)("");
+    const [newVidUrl, setNewVidUrl] = (0, import_react53.useState)("");
+    const [newVidDuration, setNewVidDuration] = (0, import_react53.useState)("30");
+    const [newVidLevel, setNewVidLevel] = (0, import_react53.useState)("All Levels");
+    const [newVidCategory, setNewVidCategory] = (0, import_react53.useState)("Vinyasa");
+    const [isCreatingVid, setIsCreatingVid] = (0, import_react53.useState)(false);
+    const [livekitStatus, setLivekitStatus] = (0, import_react53.useState)(null);
+    const [configUrl, setConfigUrl] = (0, import_react53.useState)("");
+    const [configApiKey, setConfigApiKey] = (0, import_react53.useState)("");
+    const [configApiSecret, setConfigApiSecret] = (0, import_react53.useState)("");
+    const [savingConfig, setSavingConfig] = (0, import_react53.useState)(false);
     const fetchClasses = async () => {
       if (!adminToken) return;
       setClassesLoading(true);
@@ -84479,7 +84563,7 @@ Verified WebRTC Attendance Session`;
       } catch (e2) {
       }
     };
-    (0, import_react52.useEffect)(() => {
+    (0, import_react53.useEffect)(() => {
       if (adminToken) {
         fetchClasses();
         fetchAttendance();
@@ -85102,7 +85186,7 @@ ${liveUrl}`;
       }
     };
     if (!adminToken) {
-      return /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-card ya-reveal" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-header" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-shield-wrap" }, /* @__PURE__ */ import_react52.default.createElement(ShieldCheck, { size: 32 })), /* @__PURE__ */ import_react52.default.createElement("h2", { className: "admin-auth-title" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD & \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "NITHYA Yoga Trainer Portal"), /* @__PURE__ */ import_react52.default.createElement("p", { className: "admin-auth-subtitle" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95, \u0BB2\u0BC8\u0BB5\u0BCD \u0BB0\u0BC2\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC8 \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0B95\u0BBF\u0B95\u0BCD\u0B95 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Sign in or register to create live yoga rooms, generate student links, stream live, and manage student attendance."), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-tabs" }, /* @__PURE__ */ import_react52.default.createElement(
+      return /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-card ya-reveal" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-header" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-shield-wrap" }, /* @__PURE__ */ import_react53.default.createElement(ShieldCheck, { size: 32 })), /* @__PURE__ */ import_react53.default.createElement("h2", { className: "admin-auth-title" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD & \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "NITHYA Yoga Trainer Portal"), /* @__PURE__ */ import_react53.default.createElement("p", { className: "admin-auth-subtitle" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95, \u0BB2\u0BC8\u0BB5\u0BCD \u0BB0\u0BC2\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC8 \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0B95\u0BBF\u0B95\u0BCD\u0B95 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Sign in or register to create live yoga rooms, generate student links, stream live, and manage student attendance."), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-tabs" }, /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85112,9 +85196,9 @@ ${liveUrl}`;
             setLoginError("");
           }
         },
-        /* @__PURE__ */ import_react52.default.createElement(Key, { size: 14 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1" : "Sign In")
-      ), /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement(Key, { size: 14 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1" : "Sign In")
+      ), /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85124,62 +85208,64 @@ ${liveUrl}`;
             setLoginError("");
           }
         },
-        /* @__PURE__ */ import_react52.default.createElement(User, { size: 14 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Create Account")
-      ))), loginError && /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-alert-error" }, /* @__PURE__ */ import_react52.default.createElement(CircleAlert, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react52.default.createElement("span", null, loginError)), registerSuccess && /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-alert-success" }, /* @__PURE__ */ import_react52.default.createElement(CircleCheck, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react52.default.createElement("span", null, registerSuccess)), authMode === "login" ? (
+        /* @__PURE__ */ import_react53.default.createElement(User, { size: 14 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Create Account")
+      ))), loginError && /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-alert-error" }, /* @__PURE__ */ import_react53.default.createElement(CircleAlert, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react53.default.createElement("span", null, loginError)), registerSuccess && /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-alert-success" }, /* @__PURE__ */ import_react53.default.createElement(CircleCheck, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react53.default.createElement("span", null, registerSuccess)), authMode === "login" ? (
         /* FORM 1: SIGN IN */
-        /* @__PURE__ */ import_react52.default.createElement("form", { onSubmit: handleLogin, className: "admin-auth-form" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react52.default.createElement(Mail, { size: 14 })), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email ID"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(Mail, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react52.default.createElement(
-          "input",
+        /* @__PURE__ */ import_react53.default.createElement("form", { onSubmit: handleLogin, className: "admin-auth-form", style: { display: "flex", flexDirection: "column", gap: "20px" } }, /* @__PURE__ */ import_react53.default.createElement(
+          FloatingInput,
           {
             type: "email",
+            label: lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email ID",
             value: email,
             onChange: (e2) => setEmail(e2.target.value),
             required: true,
-            className: "admin-auth-input",
-            placeholder: lang === "ta" ? "\u0B8E.\u0B95\u0BBE. master@gmail.com" : "e.g. master@gmail.com"
+            icon: /* @__PURE__ */ import_react53.default.createElement(Mail, { size: 18 }),
+            autoComplete: "email"
           }
-        ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react52.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD" : "Password"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react52.default.createElement(
-          "input",
+        ), /* @__PURE__ */ import_react53.default.createElement(
+          FloatingInput,
           {
             type: showPassword ? "text" : "password",
+            label: lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD" : "Password",
             value: password,
             onChange: (e2) => setPassword(e2.target.value),
             required: true,
-            className: "admin-auth-input has-eye",
-            placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
+            icon: /* @__PURE__ */ import_react53.default.createElement(Lock, { size: 18 }),
+            rightElement: /* @__PURE__ */ import_react53.default.createElement(
+              "button",
+              {
+                type: "button",
+                onClick: () => setShowPassword(!showPassword),
+                className: "admin-auth-eye-btn",
+                tabIndex: -1,
+                "aria-label": "Toggle password visibility"
+              },
+              showPassword ? /* @__PURE__ */ import_react53.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react53.default.createElement(Eye, { size: 18 })
+            )
           }
-        ), /* @__PURE__ */ import_react52.default.createElement(
-          "button",
-          {
-            type: "button",
-            onClick: () => setShowPassword(!showPassword),
-            className: "admin-auth-eye-btn",
-            tabIndex: -1,
-            "aria-label": "Toggle password visibility"
-          },
-          showPassword ? /* @__PURE__ */ import_react52.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react52.default.createElement(Eye, { size: 18 })
-        ))), /* @__PURE__ */ import_react52.default.createElement(
+        ), /* @__PURE__ */ import_react53.default.createElement(
           "button",
           {
             type: "submit",
             disabled: loginLoading,
             className: "admin-auth-submit-btn"
           },
-          loginLoading ? /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 17, className: "animate-spin" }) : /* @__PURE__ */ import_react52.default.createElement(Key, { size: 17 }),
-          /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Sign In as Trainer")
-        ), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-switch-wrap" }, /* @__PURE__ */ import_react52.default.createElement(
+          loginLoading ? /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 17, className: "animate-spin" }) : /* @__PURE__ */ import_react53.default.createElement(Key, { size: 17 }),
+          /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Sign In as Trainer")
+        ), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-switch-wrap" }, /* @__PURE__ */ import_react53.default.createElement(
           "button",
           {
             type: "button",
             onClick: () => setAuthMode("register"),
             className: "admin-auth-switch-link"
           },
-          /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "New instructor? Create your account here"),
-          /* @__PURE__ */ import_react52.default.createElement(ArrowRight, { size: 14 })
+          /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "New instructor? Create your account here"),
+          /* @__PURE__ */ import_react53.default.createElement(ArrowRight, { size: 14 })
         )))
       ) : (
         /* FORM 2: REGISTER NEW TRAINER ACCOUNT */
-        /* @__PURE__ */ import_react52.default.createElement("form", { onSubmit: handleRegister, className: "admin-auth-form" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react52.default.createElement(User, { size: 14 })), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1\u0BAA\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Full Name"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(User, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement("form", { onSubmit: handleRegister, className: "admin-auth-form" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react53.default.createElement(User, { size: 14 })), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1\u0BAA\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Full Name"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react53.default.createElement(User, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react53.default.createElement(
           "input",
           {
             type: "text",
@@ -85189,7 +85275,7 @@ ${liveUrl}`;
             className: "admin-auth-input",
             placeholder: lang === "ta" ? "\u0B8E.\u0B95\u0BBE. \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BA4\u0BC7\u0BB5\u0BBF" : "e.g. Nithya Devi"
           }
-        ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react52.default.createElement(Mail, { size: 14 })), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email ID"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(Mail, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react52.default.createElement(
+        ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react53.default.createElement(Mail, { size: 14 })), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email ID"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react53.default.createElement(Mail, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react53.default.createElement(
           "input",
           {
             type: "email",
@@ -85199,7 +85285,7 @@ ${liveUrl}`;
             className: "admin-auth-input",
             placeholder: "nithya.yoga@gmail.com"
           }
-        ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react52.default.createElement(Phone, { size: 14 })), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (Mobile Phone)" : "Mobile Phone")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(Phone, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react52.default.createElement(
+        ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react53.default.createElement(Phone, { size: 14 })), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (Mobile Phone)" : "Mobile Phone")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react53.default.createElement(Phone, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react53.default.createElement(
           "input",
           {
             type: "tel",
@@ -85208,7 +85294,7 @@ ${liveUrl}`;
             className: "admin-auth-input",
             placeholder: lang === "ta" ? "\u0B8E.\u0B95\u0BBE. 9876543210" : "e.g. 9876543210"
           }
-        ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react52.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 6 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BB3\u0BCD)" : "Password (min 6 characters)"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react52.default.createElement(
+        ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react53.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 6 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BB3\u0BCD)" : "Password (min 6 characters)"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react53.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react53.default.createElement(
           "input",
           {
             type: showRegPassword ? "text" : "password",
@@ -85218,7 +85304,7 @@ ${liveUrl}`;
             className: "admin-auth-input has-eye",
             placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
           }
-        ), /* @__PURE__ */ import_react52.default.createElement(
+        ), /* @__PURE__ */ import_react53.default.createElement(
           "button",
           {
             type: "button",
@@ -85227,8 +85313,8 @@ ${liveUrl}`;
             tabIndex: -1,
             "aria-label": "Toggle password visibility"
           },
-          showRegPassword ? /* @__PURE__ */ import_react52.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react52.default.createElement(Eye, { size: 18 })
-        ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react52.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD" : "Confirm Password"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react52.default.createElement(
+          showRegPassword ? /* @__PURE__ */ import_react53.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react53.default.createElement(Eye, { size: 18 })
+        ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react53.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD" : "Confirm Password"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react53.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react53.default.createElement(
           "input",
           {
             type: showRegConfirmPassword ? "text" : "password",
@@ -85238,7 +85324,7 @@ ${liveUrl}`;
             className: "admin-auth-input has-eye",
             placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022"
           }
-        ), /* @__PURE__ */ import_react52.default.createElement(
+        ), /* @__PURE__ */ import_react53.default.createElement(
           "button",
           {
             type: "button",
@@ -85247,29 +85333,29 @@ ${liveUrl}`;
             tabIndex: -1,
             "aria-label": "Toggle confirm password visibility"
           },
-          showRegConfirmPassword ? /* @__PURE__ */ import_react52.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react52.default.createElement(Eye, { size: 18 })
-        ))), /* @__PURE__ */ import_react52.default.createElement(
+          showRegConfirmPassword ? /* @__PURE__ */ import_react53.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react53.default.createElement(Eye, { size: 18 })
+        ))), /* @__PURE__ */ import_react53.default.createElement(
           "button",
           {
             type: "submit",
             disabled: loginLoading,
             className: "admin-auth-submit-btn"
           },
-          loginLoading ? /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 17, className: "animate-spin" }) : /* @__PURE__ */ import_react52.default.createElement(ShieldCheck, { size: 17 }),
-          /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Create Account & Sign In")
-        ), /* @__PURE__ */ import_react52.default.createElement("div", { className: "admin-auth-switch-wrap" }, /* @__PURE__ */ import_react52.default.createElement(
+          loginLoading ? /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 17, className: "animate-spin" }) : /* @__PURE__ */ import_react53.default.createElement(ShieldCheck, { size: 17 }),
+          /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Create Account & Sign In")
+        ), /* @__PURE__ */ import_react53.default.createElement("div", { className: "admin-auth-switch-wrap" }, /* @__PURE__ */ import_react53.default.createElement(
           "button",
           {
             type: "button",
             onClick: () => setAuthMode("login"),
             className: "admin-auth-switch-link"
           },
-          /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B8F\u0BB1\u0BCD\u0B95\u0BA9\u0BB5\u0BC7 \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE? \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Already have an account? Sign In here"),
-          /* @__PURE__ */ import_react52.default.createElement(ArrowRight, { size: 14 })
+          /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B8F\u0BB1\u0BCD\u0B95\u0BA9\u0BB5\u0BC7 \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE? \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Already have an account? Sign In here"),
+          /* @__PURE__ */ import_react53.default.createElement(ArrowRight, { size: 14 })
         )))
       ));
     }
-    return /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-dashboard-container" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-header-card" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-profile-cluster" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-avatar-ring" }, /* @__PURE__ */ import_react52.default.createElement("span", null, "NY")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-meta-info" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-title-row" }, /* @__PURE__ */ import_react52.default.createElement("h2", { className: "trainer-name-text" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0B95\u0BAE\u0BCD" : "Nithya Yoga Instructor Studio"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-verified-pill" }, /* @__PURE__ */ import_react52.default.createElement(ShieldCheck, { size: 13 }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Verified Lead Instructor"))), /* @__PURE__ */ import_react52.default.createElement("p", { className: "trainer-subtitle-text" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD, \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1, \u0BAA\u0BBE\u0B9F\u0BA4\u0BCD\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Live class hosting, student attendance duration analytics & studio curriculum manager"))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-header-actions" }, /* @__PURE__ */ import_react52.default.createElement(
+    return /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-dashboard-container" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-header-card" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-profile-cluster" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-avatar-ring" }, /* @__PURE__ */ import_react53.default.createElement("span", null, "NY")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-meta-info" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-title-row" }, /* @__PURE__ */ import_react53.default.createElement("h2", { className: "trainer-name-text" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0B95\u0BAE\u0BCD" : "Nithya Yoga Instructor Studio"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-verified-pill" }, /* @__PURE__ */ import_react53.default.createElement(ShieldCheck, { size: 13 }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Verified Lead Instructor"))), /* @__PURE__ */ import_react53.default.createElement("p", { className: "trainer-subtitle-text" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD, \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1, \u0BAA\u0BBE\u0B9F\u0BA4\u0BCD\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Live class hosting, student attendance duration analytics & studio curriculum manager"))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-header-actions" }, /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
@@ -85286,9 +85372,9 @@ ${liveUrl}`;
         },
         title: "Switch Studio Wellness Theme"
       },
-      /* @__PURE__ */ import_react52.default.createElement(Palette, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, activeTheme === "emerald" ? "\u{1F33F} Emerald" : activeTheme === "sunset" ? "\u{1F305} Sunset" : activeTheme === "midnight" ? "\u{1F30C} Astral" : activeTheme === "dark" ? "\u{1F311} Obsidian" : "\u{1F338} Lavender")
-    ), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Palette, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, activeTheme === "emerald" ? "\u{1F33F} Emerald" : activeTheme === "sunset" ? "\u{1F305} Sunset" : activeTheme === "midnight" ? "\u{1F30C} Astral" : activeTheme === "dark" ? "\u{1F311} Obsidian" : "\u{1F338} Lavender")
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
@@ -85296,9 +85382,9 @@ ${liveUrl}`;
         className: "trainer-btn-logout",
         title: "Sign out of Trainer Account"
       },
-      /* @__PURE__ */ import_react52.default.createElement(LogOut, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Log Out")
-    ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-grid" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA8\u0BBF\u0BB2\u0BC8" : "Studio Broadcast"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(16, 185, 129, 0.12)", color: "#059669" } }, /* @__PURE__ */ import_react52.default.createElement(Radio, { size: 16, className: "animate-pulse" }))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-val", style: { color: "#059669" } }, classesList.some((c) => c.status === "live") ? "\u25CF LIVE" : "READY"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "var(--text-sub)" } }, "1080p WebRTC Low Latency")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8" : "Enrolled Students"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(124, 58, 237, 0.12)", color: "#7C3AED" } }, /* @__PURE__ */ import_react52.default.createElement(Users, { size: 16 }))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-val" }, "28"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#7C3AED" } }, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Verified Yoga Practitioners")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Today's Batches"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(245, 158, 11, 0.12)", color: "#D97706" } }, /* @__PURE__ */ import_react52.default.createElement(Calendar, { size: 16 }))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-val" }, "3"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#D97706" } }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u2022 \u0BAE\u0BA4\u0BBF\u0BAF\u0BAE\u0BCD \u2022 \u0BAE\u0BBE\u0BB2\u0BC8" : "Morning \u2022 Noon \u2022 Evening")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0B95\u0BB1\u0BCD\u0BAA\u0BBF\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Teaching Hours"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(236, 72, 153, 0.12)", color: "#DB2777" } }, /* @__PURE__ */ import_react52.default.createElement(Clock, { size: 16 }))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-val" }, "48.5 hrs"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#DB2777" } }, lang === "ta" ? "\u0B85\u0B95\u0BCD\u0B9F\u0BCB\u0BAA\u0BB0\u0BCD \u0BAE\u0BBE\u0BA4 \u0BAE\u0BCA\u0BA4\u0BCD\u0BA4\u0BAE\u0BCD" : "October 2026 Immersion")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BA4\u0BAF\u0BBE\u0BB0\u0BCD\u0BA8\u0BBF\u0BB2\u0BC8 \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Studio Readiness"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(59, 130, 246, 0.12)", color: "#2563EB" } }, /* @__PURE__ */ import_react52.default.createElement(ListChecks, { size: 16 }))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-val" }, Math.round(Object.values(studioChecklist).filter(Boolean).length / 8 * 100), "%"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#2563EB" } }, Object.values(studioChecklist).filter(Boolean).length, " / 8 ", lang === "ta" ? "\u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Passed"))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-broadcast-card" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-broadcast-content" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-live-privilege-badge" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-pulse-dot" }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BBF\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BC7\u0B95 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF" : "EXCLUSIVE INSTRUCTOR PRIVILEGE")), /* @__PURE__ */ import_react52.default.createElement("h3", { className: "trainer-broadcast-title" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Launch Master Live Yoga Studio"), /* @__PURE__ */ import_react52.default.createElement("p", { className: "trainer-broadcast-desc" }, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BC7 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0BAE\u0BCD. \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BBE\u0BA9\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Authenticated instructors host interactive low-latency WebRTC live classes. Tapping below starts your studio and auto-generates student invite links.")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-center" }, /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(LogOut, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Log Out")
+    ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-grid" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA8\u0BBF\u0BB2\u0BC8" : "Studio Broadcast"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(16, 185, 129, 0.12)", color: "#059669" } }, /* @__PURE__ */ import_react53.default.createElement(Radio, { size: 16, className: "animate-pulse" }))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-val", style: { color: "#059669" } }, classesList.some((c) => c.status === "live") ? "\u25CF LIVE" : "READY"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "var(--text-sub)" } }, "1080p WebRTC Low Latency")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BBF\u0B95\u0BCD\u0B95\u0BC8" : "Enrolled Students"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(124, 58, 237, 0.12)", color: "#7C3AED" } }, /* @__PURE__ */ import_react53.default.createElement(Users, { size: 16 }))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-val" }, "28"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#7C3AED" } }, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B9A\u0BC6\u0BAF\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Verified Yoga Practitioners")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Today's Batches"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(245, 158, 11, 0.12)", color: "#D97706" } }, /* @__PURE__ */ import_react53.default.createElement(Calendar, { size: 16 }))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-val" }, "3"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#D97706" } }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u2022 \u0BAE\u0BA4\u0BBF\u0BAF\u0BAE\u0BCD \u2022 \u0BAE\u0BBE\u0BB2\u0BC8" : "Morning \u2022 Noon \u2022 Evening")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0B95\u0BB1\u0BCD\u0BAA\u0BBF\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Teaching Hours"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(236, 72, 153, 0.12)", color: "#DB2777" } }, /* @__PURE__ */ import_react53.default.createElement(Clock, { size: 16 }))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-val" }, "48.5 hrs"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#DB2777" } }, lang === "ta" ? "\u0B85\u0B95\u0BCD\u0B9F\u0BCB\u0BAA\u0BB0\u0BCD \u0BAE\u0BBE\u0BA4 \u0BAE\u0BCA\u0BA4\u0BCD\u0BA4\u0BAE\u0BCD" : "October 2026 Immersion")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-card" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-top" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-kpi-label" }, lang === "ta" ? "\u0BA4\u0BAF\u0BBE\u0BB0\u0BCD\u0BA8\u0BBF\u0BB2\u0BC8 \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Studio Readiness"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-icon-badge", style: { background: "rgba(59, 130, 246, 0.12)", color: "#2563EB" } }, /* @__PURE__ */ import_react53.default.createElement(ListChecks, { size: 16 }))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-val" }, Math.round(Object.values(studioChecklist).filter(Boolean).length / 8 * 100), "%"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-kpi-foot", style: { color: "#2563EB" } }, Object.values(studioChecklist).filter(Boolean).length, " / 8 ", lang === "ta" ? "\u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Passed"))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-broadcast-card" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-broadcast-content" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-live-privilege-badge" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-pulse-dot" }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BBF\u0BB0\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BC7\u0B95 \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF" : "EXCLUSIVE INSTRUCTOR PRIVILEGE")), /* @__PURE__ */ import_react53.default.createElement("h3", { className: "trainer-broadcast-title" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Launch Master Live Yoga Studio"), /* @__PURE__ */ import_react53.default.createElement("p", { className: "trainer-broadcast-desc" }, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BC7 \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BC1\u0BAE\u0BCD. \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BBE\u0BA9\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Authenticated instructors host interactive low-latency WebRTC live classes. Tapping below starts your studio and auto-generates student invite links.")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-center" }, /* @__PURE__ */ import_react53.default.createElement(
       FamilyReceiveComponent,
       {
         triggerLabel: lang === "ta" ? "\u{1F3A5} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F3A5} Launch Live Studio as Host",
@@ -85308,7 +85394,7 @@ ${liveUrl}`;
         cancelLabel: lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel",
         accentColor: "#7C3AED",
         buttonWidth: "w-full sm:w-80",
-        icon: /* @__PURE__ */ import_react52.default.createElement(Video, { size: 22, className: "text-violet-400" }),
+        icon: /* @__PURE__ */ import_react53.default.createElement(Video, { size: 22, className: "text-violet-400" }),
         onConfirm: () => {
           const uniqueRoomId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
           const instructorClass = {
@@ -85328,79 +85414,79 @@ ${liveUrl}`;
           }
         }
       }
-    ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-tabs-dock" }, /* @__PURE__ */ import_react52.default.createElement(
+    ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-tabs-dock" }, /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         className: `trainer-tab-btn ${activeTab === "classes" ? "active" : ""}`,
         onClick: () => setActiveTab("classes")
       },
-      /* @__PURE__ */ import_react52.default.createElement(Calendar, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Live Classes")
-    ), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Calendar, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Live Classes")
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         className: `trainer-tab-btn ${activeTab === "attendance" ? "active" : ""}`,
         onClick: () => setActiveTab("attendance")
       },
-      /* @__PURE__ */ import_react52.default.createElement(Users, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Attendance Analytics")
-    ), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Users, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Attendance Analytics")
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         className: `trainer-tab-btn ${activeTab === "checklist" ? "active" : ""}`,
         onClick: () => setActiveTab("checklist")
       },
-      /* @__PURE__ */ import_react52.default.createElement(ListChecks, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Studio Checklist")
-    ), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(ListChecks, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Studio Checklist")
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         className: `trainer-tab-btn ${activeTab === "curriculum" ? "active" : ""}`,
         onClick: () => setActiveTab("curriculum")
       },
-      /* @__PURE__ */ import_react52.default.createElement(Sun, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BBE\u0B9F\u0BA4\u0BCD\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD" : "Asana Curriculum")
-    ), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Sun, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BBE\u0B9F\u0BA4\u0BCD\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD" : "Asana Curriculum")
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         className: `trainer-tab-btn ${activeTab === "themes" ? "active" : ""}`,
         onClick: () => setActiveTab("themes")
       },
-      /* @__PURE__ */ import_react52.default.createElement(Palette, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BC0\u0BAE\u0BCD\u0B95\u0BB3\u0BCD" : "Studio Themes")
-    ), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Palette, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BC0\u0BAE\u0BCD\u0B95\u0BB3\u0BCD" : "Studio Themes")
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         className: `trainer-tab-btn ${activeTab === "notes" ? "active" : ""}`,
         onClick: () => setActiveTab("notes")
       },
-      /* @__PURE__ */ import_react52.default.createElement(FileText, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Notes & PDF")
-    ), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(FileText, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Notes & PDF")
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         className: `trainer-tab-btn ${activeTab === "videos" ? "active" : ""}`,
         onClick: () => setActiveTab("videos")
       },
-      /* @__PURE__ */ import_react52.default.createElement(Video, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Videos")
-    ), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Video, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Videos")
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         className: `trainer-tab-btn ${activeTab === "settings" ? "active" : ""}`,
         onClick: () => setActiveTab("settings")
       },
-      /* @__PURE__ */ import_react52.default.createElement(Settings, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Settings")
-    )), activeTab === "classes" && /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-form-card" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-form-header" }, /* @__PURE__ */ import_react52.default.createElement("h3", { className: "trainer-form-title" }, /* @__PURE__ */ import_react52.default.createElement(Plus, { size: 18, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95" : "Schedule & Create Live Yoga Class"))), /* @__PURE__ */ import_react52.default.createElement("form", { onSubmit: handleCreateClass }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-form-grid" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-field-group", style: { gridColumn: "span 2" } }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react52.default.createElement(FileText, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Class Title / Flow Name")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(FileText, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Settings, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Settings")
+    )), activeTab === "classes" && /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-form-card" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-form-header" }, /* @__PURE__ */ import_react53.default.createElement("h3", { className: "trainer-form-title" }, /* @__PURE__ */ import_react53.default.createElement(Plus, { size: 18, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95" : "Schedule & Create Live Yoga Class"))), /* @__PURE__ */ import_react53.default.createElement("form", { onSubmit: handleCreateClass }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-form-grid" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-field-group", style: { gridColumn: "span 2" } }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react53.default.createElement(FileText, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BB2\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Class Title / Flow Name")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react53.default.createElement(FileText, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "text",
@@ -85410,7 +85496,7 @@ ${liveUrl}`;
         required: true,
         className: "trainer-input-styled"
       }
-    ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-field-group" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react52.default.createElement(Calendar, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BA4\u0BBF" : "Date & Start Time")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(Calendar, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react52.default.createElement(
+    ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-field-group" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react53.default.createElement(Calendar, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BA4\u0BBF" : "Date & Start Time")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react53.default.createElement(Calendar, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "datetime-local",
@@ -85419,7 +85505,7 @@ ${liveUrl}`;
         required: true,
         className: "trainer-input-styled"
       }
-    ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-field-group" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react52.default.createElement(Clock, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BBE\u0BB2 \u0B85\u0BB3\u0BB5\u0BC1 (\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD)" : "Duration (Minutes)")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react52.default.createElement(Clock, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react52.default.createElement(
+    ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-field-group" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "trainer-field-label" }, /* @__PURE__ */ import_react53.default.createElement(Clock, { size: 13, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BBE\u0BB2 \u0B85\u0BB3\u0BB5\u0BC1 (\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD)" : "Duration (Minutes)")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-field-input-wrap" }, /* @__PURE__ */ import_react53.default.createElement(Clock, { size: 16, className: "trainer-field-icon" }), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "number",
@@ -85430,16 +85516,16 @@ ${liveUrl}`;
         required: true,
         className: "trainer-input-styled"
       }
-    )))), /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", justifyContent: "flex-end" } }, /* @__PURE__ */ import_react52.default.createElement(
+    )))), /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", justifyContent: "flex-end" } }, /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isCreatingClass,
         className: "trainer-btn-submit-class"
       },
-      isCreatingClass ? /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 15, className: "animate-spin" }) : /* @__PURE__ */ import_react52.default.createElement(Plus, { size: 15 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BBF \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Generate & Schedule Class Room")
-    ))), newlyCreatedClassInfo && /* @__PURE__ */ import_react52.default.createElement(
+      isCreatingClass ? /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 15, className: "animate-spin" }) : /* @__PURE__ */ import_react53.default.createElement(Plus, { size: 15 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BBF \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Generate & Schedule Class Room")
+    ))), newlyCreatedClassInfo && /* @__PURE__ */ import_react53.default.createElement(
       "div",
       {
         className: "trainer-invite-strip",
@@ -85449,8 +85535,8 @@ ${liveUrl}`;
           borderColor: "rgba(16, 185, 129, 0.4)"
         }
       },
-      /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "4px", maxWidth: "580px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement("span", { style: { color: "#059669", fontWeight: 800, fontSize: "13px" } }, "\u{1F389} ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Live Session Created Successfully!"), /* @__PURE__ */ import_react52.default.createElement("span", { style: { fontWeight: 800, fontSize: "13px", color: "var(--text-heading)" } }, newlyCreatedClassInfo.title)), /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-invite-url-text", style: { color: "#059669" } }, newlyCreatedClassInfo.url)),
-      /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-invite-btn-group" }, /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "4px", maxWidth: "580px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement("span", { style: { color: "#059669", fontWeight: 800, fontSize: "13px" } }, "\u{1F389} ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Live Session Created Successfully!"), /* @__PURE__ */ import_react53.default.createElement("span", { style: { fontWeight: 800, fontSize: "13px", color: "var(--text-heading)" } }, newlyCreatedClassInfo.title)), /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-invite-url-text", style: { color: "#059669" } }, newlyCreatedClassInfo.url)),
+      /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-invite-btn-group" }, /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85462,9 +85548,9 @@ ${liveUrl}`;
           },
           className: "trainer-btn-copy-link"
         },
-        copiedId === `new-${newlyCreatedClassInfo.id}` ? /* @__PURE__ */ import_react52.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react52.default.createElement(Copy, { size: 13 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, copiedId === `new-${newlyCreatedClassInfo.id}` ? "Copied!" : "Copy Link")
-      ), /* @__PURE__ */ import_react52.default.createElement(
+        copiedId === `new-${newlyCreatedClassInfo.id}` ? /* @__PURE__ */ import_react53.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react53.default.createElement(Copy, { size: 13 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, copiedId === `new-${newlyCreatedClassInfo.id}` ? "Copied!" : "Copy Link")
+      ), /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85477,9 +85563,9 @@ ${newlyCreatedClassInfo.url}`);
           },
           className: "trainer-btn-whatsapp-share"
         },
-        /* @__PURE__ */ import_react52.default.createElement(Share2, { size: 13 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, "WhatsApp")
-      ), /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement(Share2, { size: 13 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, "WhatsApp")
+      ), /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85489,21 +85575,21 @@ ${newlyCreatedClassInfo.url}`);
         },
         "\u2715"
       ))
-    )), /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" } }, /* @__PURE__ */ import_react52.default.createElement("h3", { style: { fontSize: "15px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement(Calendar, { size: 18, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Scheduled Yoga Classes & Student Links")), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" } }, /* @__PURE__ */ import_react53.default.createElement("h3", { style: { fontSize: "15px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement(Calendar, { size: 18, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Scheduled Yoga Classes & Student Links")), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         onClick: fetchClasses,
         style: { fontSize: "12px", fontWeight: 700, color: "#7C3AED", background: "none", border: "none", display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }
       },
-      /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 13, className: classesLoading ? "animate-spin" : "" }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-classes-stack" }, classesList.length === 0 ? /* @__PURE__ */ import_react52.default.createElement("div", { style: { textAlign: "center", padding: "36px 20px", borderRadius: "20px", border: "1px solid var(--border-color)", color: "var(--text-sub)", fontSize: "13px" } }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8. \u0BAE\u0BC7\u0BB2\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAA\u0B9F\u0BBF\u0BB5\u0BA4\u0BCD\u0BA4\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAE\u0BC1\u0BA4\u0BB2\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "No scheduled classes found. Use the form above to schedule your first live yoga session!") : classesList.map((c) => {
+      /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 13, className: classesLoading ? "animate-spin" : "" }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-classes-stack" }, classesList.length === 0 ? /* @__PURE__ */ import_react53.default.createElement("div", { style: { textAlign: "center", padding: "36px 20px", borderRadius: "20px", border: "1px solid var(--border-color)", color: "var(--text-sub)", fontSize: "13px" } }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8. \u0BAE\u0BC7\u0BB2\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAA\u0B9F\u0BBF\u0BB5\u0BA4\u0BCD\u0BA4\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAE\u0BC1\u0BA4\u0BB2\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "No scheduled classes found. Use the form above to schedule your first live yoga session!") : classesList.map((c) => {
       const currentInvite = inviteUrls[c.id];
       const isLive = c.status === "live";
       const isEnded = c.status === "ended";
       const liveUrl = getProductionLiveUrl(c.id);
-      return /* @__PURE__ */ import_react52.default.createElement("div", { key: c.id, className: "trainer-class-card-item" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-class-item-header" }, /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" } }, /* @__PURE__ */ import_react52.default.createElement("h4", { className: "trainer-class-item-title" }, c.title), /* @__PURE__ */ import_react52.default.createElement("span", { className: `trainer-class-status-badge ${isLive ? "live" : isEnded ? "ended" : "scheduled"}` }, isLive ? "\u25CF LIVE STREAM" : isEnded ? "ENDED" : "SCHEDULED")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-class-meta-row", style: { marginTop: "8px" } }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-class-meta-chip" }, /* @__PURE__ */ import_react52.default.createElement(Clock, { size: 12, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-class-meta-chip" }, "\u23F1\uFE0F ", c.duration_minutes, " mins"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-class-meta-chip", style: { fontFamily: "monospace" } }, "Room: ", c.room_name))), /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" } }, !isEnded && /* @__PURE__ */ import_react52.default.createElement(
+      return /* @__PURE__ */ import_react53.default.createElement("div", { key: c.id, className: "trainer-class-card-item" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-class-item-header" }, /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" } }, /* @__PURE__ */ import_react53.default.createElement("h4", { className: "trainer-class-item-title" }, c.title), /* @__PURE__ */ import_react53.default.createElement("span", { className: `trainer-class-status-badge ${isLive ? "live" : isEnded ? "ended" : "scheduled"}` }, isLive ? "\u25CF LIVE STREAM" : isEnded ? "ENDED" : "SCHEDULED")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-class-meta-row", style: { marginTop: "8px" } }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-class-meta-chip" }, /* @__PURE__ */ import_react53.default.createElement(Clock, { size: 12, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, new Date(c.starts_at).toLocaleString())), /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-class-meta-chip" }, "\u23F1\uFE0F ", c.duration_minutes, " mins"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-class-meta-chip", style: { fontFamily: "monospace" } }, "Room: ", c.room_name))), /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px", flexWrap: "wrap" } }, !isEnded && /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85514,9 +85600,9 @@ ${newlyCreatedClassInfo.url}`);
           },
           title: isLive ? "Enter Live Studio" : "Start Studio Broadcast"
         },
-        /* @__PURE__ */ import_react52.default.createElement(Play, { size: 14, fill: "currentColor" }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, isLive ? "In Studio" : lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Start Live Class")
-      ), isLive && /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement(Play, { size: 14, fill: "currentColor" }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, isLive ? "In Studio" : lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Start Live Class")
+      ), isLive && /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85524,9 +85610,9 @@ ${newlyCreatedClassInfo.url}`);
           className: "trainer-btn-end-class",
           title: "End class for all participants"
         },
-        /* @__PURE__ */ import_react52.default.createElement(PhoneOff, { size: 13 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class")
-      ), /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement(PhoneOff, { size: 13 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class")
+      ), /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85534,8 +85620,8 @@ ${newlyCreatedClassInfo.url}`);
           style: { padding: "8px", borderRadius: "10px", background: "transparent", border: "none", color: "var(--text-muted)", cursor: "pointer" },
           title: "Delete class"
         },
-        /* @__PURE__ */ import_react52.default.createElement(Trash, { size: 15 })
-      ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-invite-strip" }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px", flex: 1, minWidth: "200px", overflow: "hidden" } }, /* @__PURE__ */ import_react52.default.createElement(Link2, { size: 14, style: { color: "#7C3AED", flexShrink: 0 } }), /* @__PURE__ */ import_react52.default.createElement("span", { className: "trainer-invite-url-text select-all" }, currentInvite || liveUrl)), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-invite-btn-group" }, /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement(Trash, { size: 15 })
+      ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-invite-strip" }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px", flex: 1, minWidth: "200px", overflow: "hidden" } }, /* @__PURE__ */ import_react53.default.createElement(Link2, { size: 14, style: { color: "#7C3AED", flexShrink: 0 } }), /* @__PURE__ */ import_react53.default.createElement("span", { className: "trainer-invite-url-text select-all" }, currentInvite || liveUrl)), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-invite-btn-group" }, /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85543,9 +85629,9 @@ ${newlyCreatedClassInfo.url}`);
           className: "trainer-btn-copy-link",
           title: "Copy student invite link"
         },
-        copiedId === c.id ? /* @__PURE__ */ import_react52.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react52.default.createElement(Copy, { size: 13 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, copiedId === c.id ? "Copied!" : "Copy Link")
-      ), /* @__PURE__ */ import_react52.default.createElement(
+        copiedId === c.id ? /* @__PURE__ */ import_react53.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react53.default.createElement(Copy, { size: 13 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, copiedId === c.id ? "Copied!" : "Copy Link")
+      ), /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85553,10 +85639,10 @@ ${newlyCreatedClassInfo.url}`);
           className: "trainer-btn-whatsapp-share",
           title: "Share on WhatsApp"
         },
-        /* @__PURE__ */ import_react52.default.createElement(Share2, { size: 13 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, "WhatsApp")
+        /* @__PURE__ */ import_react53.default.createElement(Share2, { size: 13 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, "WhatsApp")
       ))));
-    })))), activeTab === "checklist" && /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)" } }, /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement(ListChecks, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB8\u0BCD\u0B9F\u0BCD\u0BB0\u0BC0\u0BAE\u0BBF\u0B99\u0BCD \u0BAE\u0BC1\u0BA9\u0BCD-\u0BAA\u0BAF\u0BA3 \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Live Studio Pre-Flight Broadcast Checklist")), /* @__PURE__ */ import_react52.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0BB5\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0BAE\u0BC1\u0BA9\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 8 \u0B85\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BBE\u0BB5\u0B9A\u0BBF\u0BAF \u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BC8\u0B9A\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Verify all 8 studio environment parameters before launching your live broadcast.")), /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement(
+    })))), activeTab === "checklist" && /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "12px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)" } }, /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement(ListChecks, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB8\u0BCD\u0B9F\u0BCD\u0BB0\u0BC0\u0BAE\u0BBF\u0B99\u0BCD \u0BAE\u0BC1\u0BA9\u0BCD-\u0BAA\u0BAF\u0BA3 \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8" : "Live Studio Pre-Flight Broadcast Checklist")), /* @__PURE__ */ import_react53.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0BB5\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0BAE\u0BC1\u0BA9\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 8 \u0B85\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BBE\u0BB5\u0B9A\u0BBF\u0BAF \u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BC8\u0B9A\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Verify all 8 studio environment parameters before launching your live broadcast.")), /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
@@ -85564,7 +85650,7 @@ ${newlyCreatedClassInfo.url}`);
         style: { fontSize: "12px", padding: "6px 14px", borderRadius: "10px", border: "1px solid var(--border-color)", fontWeight: 700, background: "var(--bg-app)", color: "var(--text-heading)", cursor: "pointer" }
       },
       lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD \u0BA4\u0BC7\u0BB0\u0BCD\u0BA8\u0BCD\u0BA4\u0BC6\u0B9F\u0BC1" : "Check All"
-    ), /* @__PURE__ */ import_react52.default.createElement(
+    ), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
@@ -85572,7 +85658,7 @@ ${newlyCreatedClassInfo.url}`);
         style: { fontSize: "12px", padding: "6px 14px", borderRadius: "10px", border: "1px solid var(--border-color)", fontWeight: 700, background: "var(--bg-app)", color: "var(--text-muted)", cursor: "pointer" }
       },
       lang === "ta" ? "\u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8" : "Reset"
-    ))), /* @__PURE__ */ import_react52.default.createElement("div", { style: { margin: "18px 0 22px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "12px", fontWeight: 800, color: "var(--text-heading)", marginBottom: "8px" } }, /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD\u0BA8\u0BBF\u0BB2\u0BC8 \u0BAE\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC0\u0B9F\u0BC1" : "Studio Readiness Score"), /* @__PURE__ */ import_react52.default.createElement("span", { style: { color: "#7C3AED" } }, Math.round(Object.values(studioChecklist).filter(Boolean).length / 8 * 100), "%")), /* @__PURE__ */ import_react52.default.createElement("div", { style: { height: "8px", background: "var(--bg-subtle)", borderRadius: "9999px", overflow: "hidden" } }, /* @__PURE__ */ import_react52.default.createElement(
+    ))), /* @__PURE__ */ import_react53.default.createElement("div", { style: { margin: "18px 0 22px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", fontSize: "12px", fontWeight: 800, color: "var(--text-heading)", marginBottom: "8px" } }, /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD\u0BA8\u0BBF\u0BB2\u0BC8 \u0BAE\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC0\u0B9F\u0BC1" : "Studio Readiness Score"), /* @__PURE__ */ import_react53.default.createElement("span", { style: { color: "#7C3AED" } }, Math.round(Object.values(studioChecklist).filter(Boolean).length / 8 * 100), "%")), /* @__PURE__ */ import_react53.default.createElement("div", { style: { height: "8px", background: "var(--bg-subtle)", borderRadius: "9999px", overflow: "hidden" } }, /* @__PURE__ */ import_react53.default.createElement(
       "div",
       {
         style: {
@@ -85583,7 +85669,7 @@ ${newlyCreatedClassInfo.url}`);
           transition: "width 0.3s ease"
         }
       }
-    ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-checklist-grid" }, [
+    ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-checklist-grid" }, [
       { key: "mic", icon: Mic, title: lang === "ta" ? "\u0BB5\u0BAF\u0BB0\u0BCD\u0BB2\u0BC6\u0BB8\u0BCD \u0BAE\u0BC8\u0B95\u0BCD\u0BB0\u0BCB\u0B83\u0BAA\u0BCB\u0BA9\u0BCD" : "Wireless Microphone / Lapel", desc: lang === "ta" ? "\u0B95\u0BC1\u0BB0\u0BB2\u0BCD \u0BA4\u0BC6\u0BB3\u0BBF\u0BB5\u0BC1 \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAA\u0BBF\u0BA9\u0BCD\u0BA9\u0BA3\u0BBF \u0B87\u0BB0\u0BC8\u0B9A\u0BCD\u0B9A\u0BB2\u0BCD \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAE\u0BCD" : "Crystal-clear audio with noise cancellation for voice cues" },
       { key: "camera", icon: Camera, title: lang === "ta" ? "1080p \u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BC7\u0B9F\u0BCD \u0B83\u0BAA\u0BBF\u0BB0\u0BC7\u0BAE\u0BCD" : "1080p HD Camera & Mat Framing", desc: lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1 \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BC7\u0B9F\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B95\u0BBF\u0B9F\u0BC8\u0BAE\u0B9F\u0BCD\u0B9F\u0BAE\u0BBE\u0B95 \u0BA4\u0BC6\u0BB0\u0BBF\u0BAF \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD" : "Full horizontal mat visible top-to-bottom for posture review" },
       { key: "lighting", icon: Sun, title: lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BB2\u0BC8\u0B9F\u0BCD\u0B9F\u0BBF\u0B99\u0BCD & \u0BB5\u0BC6\u0BB3\u0BBF\u0B9A\u0BCD\u0B9A\u0BAE\u0BCD" : "Studio Lighting & Ambience", desc: lang === "ta" ? "\u0BAE\u0BC6\u0BA9\u0BCD\u0BAE\u0BC8\u0BAF\u0BBE\u0BA9 \u0B9A\u0BC2\u0B9F\u0BBE\u0BA9 \u0B92\u0BB3\u0BBF, \u0B95\u0BA3\u0BCD\u0B95\u0BB3\u0BC8 \u0B95\u0BC2\u0B9A\u0BBE\u0BA4 \u0BB5\u0BC6\u0BB3\u0BBF\u0B9A\u0BCD\u0B9A\u0BAE\u0BCD" : "Soft diffused front lighting with zero camera flare" },
@@ -85595,17 +85681,17 @@ ${newlyCreatedClassInfo.url}`);
     ].map((item) => {
       const isDone = !!studioChecklist[item.key];
       const ItemIcon = item.icon;
-      return /* @__PURE__ */ import_react52.default.createElement(
+      return /* @__PURE__ */ import_react53.default.createElement(
         "div",
         {
           key: item.key,
           onClick: () => toggleCheckItem(item.key),
           className: `trainer-check-item ${isDone ? "done" : ""}`
         },
-        /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-check-box" }, isDone && /* @__PURE__ */ import_react52.default.createElement(Check, { size: 14, strokeWidth: 3 })),
-        /* @__PURE__ */ import_react52.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "6px", fontWeight: 800, fontSize: "13px", color: "var(--text-heading)" } }, /* @__PURE__ */ import_react52.default.createElement(ItemIcon, { size: 14, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, item.title)), /* @__PURE__ */ import_react52.default.createElement("div", { style: { fontSize: "11px", color: "var(--text-sub)", marginTop: "2px", lineHeight: 1.4 } }, item.desc))
+        /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-check-box" }, isDone && /* @__PURE__ */ import_react53.default.createElement(Check, { size: 14, strokeWidth: 3 })),
+        /* @__PURE__ */ import_react53.default.createElement("div", { style: { flex: 1 } }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "6px", fontWeight: 800, fontSize: "13px", color: "var(--text-heading)" } }, /* @__PURE__ */ import_react53.default.createElement(ItemIcon, { size: 14, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, item.title)), /* @__PURE__ */ import_react53.default.createElement("div", { style: { fontSize: "11px", color: "var(--text-sub)", marginTop: "2px", lineHeight: 1.4 } }, item.desc))
       );
-    }))), activeTab === "curriculum" && /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement(Sun, { size: 20, style: { color: "#F59E0B" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD 12 \u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BCD & \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1 \u0BA8\u0BC6\u0BB1\u0BBF\u0BAE\u0BC1\u0BB1\u0BC8" : "Surya Namaskar: Classical 12-Step Asana Matrix")), /* @__PURE__ */ import_react52.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0B92\u0BB5\u0BCD\u0BB5\u0BCA\u0BB0\u0BC1 \u0B86\u0B9A\u0BA9\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1 \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0BC0\u0BB0\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD." : "Precise breath coordination (Inhale/Exhale), Sanskrit nomenclature & alignment cues for instructors.")), /* @__PURE__ */ import_react52.default.createElement("span", { style: { fontSize: "11px", fontWeight: 800, padding: "4px 12px", borderRadius: "20px", background: "rgba(245, 158, 11, 0.12)", color: "#D97706", border: "1px solid rgba(245, 158, 11, 0.3)" } }, "Solar Vitality Flow")), /* @__PURE__ */ import_react52.default.createElement("div", { style: { overflowX: "auto" } }, /* @__PURE__ */ import_react52.default.createElement("table", { style: { width: "100%", fontSize: "12px", textAlign: "left", borderCollapse: "collapse" } }, /* @__PURE__ */ import_react52.default.createElement("thead", null, /* @__PURE__ */ import_react52.default.createElement("tr", { style: { borderBottom: "1px solid var(--border-color)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.5px", color: "var(--text-sub)", fontWeight: 800 } }, /* @__PURE__ */ import_react52.default.createElement("th", { style: { padding: "10px 12px" } }, "#"), /* @__PURE__ */ import_react52.default.createElement("th", { style: { padding: "10px 12px" } }, "Sanskrit Asana"), /* @__PURE__ */ import_react52.default.createElement("th", { style: { padding: "10px 12px" } }, "Tamil / English"), /* @__PURE__ */ import_react52.default.createElement("th", { style: { padding: "10px 12px" } }, "Breath Cue"), /* @__PURE__ */ import_react52.default.createElement("th", { style: { padding: "10px 12px" } }, "Chakra"), /* @__PURE__ */ import_react52.default.createElement("th", { style: { padding: "10px 12px" } }, "Alignment Cue"))), /* @__PURE__ */ import_react52.default.createElement("tbody", { style: { color: "var(--text-heading)" } }, [
+    }))), activeTab === "curriculum" && /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement(Sun, { size: 20, style: { color: "#F59E0B" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD 12 \u0BAA\u0B9F\u0BBF\u0B95\u0BB3\u0BCD & \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1 \u0BA8\u0BC6\u0BB1\u0BBF\u0BAE\u0BC1\u0BB1\u0BC8" : "Surya Namaskar: Classical 12-Step Asana Matrix")), /* @__PURE__ */ import_react53.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0B92\u0BB5\u0BCD\u0BB5\u0BCA\u0BB0\u0BC1 \u0B86\u0B9A\u0BA9\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1 \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0BC0\u0BB0\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD." : "Precise breath coordination (Inhale/Exhale), Sanskrit nomenclature & alignment cues for instructors.")), /* @__PURE__ */ import_react53.default.createElement("span", { style: { fontSize: "11px", fontWeight: 800, padding: "4px 12px", borderRadius: "20px", background: "rgba(245, 158, 11, 0.12)", color: "#D97706", border: "1px solid rgba(245, 158, 11, 0.3)" } }, "Solar Vitality Flow")), /* @__PURE__ */ import_react53.default.createElement("div", { style: { overflowX: "auto" } }, /* @__PURE__ */ import_react53.default.createElement("table", { style: { width: "100%", fontSize: "12px", textAlign: "left", borderCollapse: "collapse" } }, /* @__PURE__ */ import_react53.default.createElement("thead", null, /* @__PURE__ */ import_react53.default.createElement("tr", { style: { borderBottom: "1px solid var(--border-color)", fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.5px", color: "var(--text-sub)", fontWeight: 800 } }, /* @__PURE__ */ import_react53.default.createElement("th", { style: { padding: "10px 12px" } }, "#"), /* @__PURE__ */ import_react53.default.createElement("th", { style: { padding: "10px 12px" } }, "Sanskrit Asana"), /* @__PURE__ */ import_react53.default.createElement("th", { style: { padding: "10px 12px" } }, "Tamil / English"), /* @__PURE__ */ import_react53.default.createElement("th", { style: { padding: "10px 12px" } }, "Breath Cue"), /* @__PURE__ */ import_react53.default.createElement("th", { style: { padding: "10px 12px" } }, "Chakra"), /* @__PURE__ */ import_react53.default.createElement("th", { style: { padding: "10px 12px" } }, "Alignment Cue"))), /* @__PURE__ */ import_react53.default.createElement("tbody", { style: { color: "var(--text-heading)" } }, [
       { step: 1, sanskrit: "Pranamasana", eng: "Prayer Pose / \u0BAA\u0BBF\u0BB0\u0BBE\u0BB0\u0BCD\u0BA4\u0BCD\u0BA4\u0BA9\u0BC8 \u0B86\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Anahata (Heart)", cue: "Palms together at chest center, feet parallel, weight balanced." },
       { step: 2, sanskrit: "Hastauttanasana", eng: "Raised Arms Pose / \u0B85\u0BB8\u0BCD\u0BA4 \u0B89\u0BA4\u0BCD\u0BA4\u0BBE\u0BA9\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Inhale", chakra: "Vishuddha (Throat)", cue: "Biceps beside ears, stretch upward from pelvis, gentle arch back." },
       { step: 3, sanskrit: "Padahastasana", eng: "Standing Forward Bend / \u0BAA\u0BBE\u0BA4\u0BB9\u0BB8\u0BCD\u0BA4\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Swadhisthana (Sacral)", cue: "Hinge from hips, palms flat on floor beside feet, crown down." },
@@ -85618,7 +85704,7 @@ ${newlyCreatedClassInfo.url}`);
       { step: 10, sanskrit: "Padahastasana", eng: "Standing Forward Bend / \u0BAA\u0BBE\u0BA4\u0BB9\u0BB8\u0BCD\u0BA4\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Swadhisthana (Sacral)", cue: "Step left foot forward, fold torso completely over thighs." },
       { step: 11, sanskrit: "Hastauttanasana", eng: "Raised Arms Pose / \u0B85\u0BB8\u0BCD\u0BA4 \u0B89\u0BA4\u0BCD\u0BA4\u0BBE\u0BA9\u0BBE\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Inhale", chakra: "Vishuddha (Throat)", cue: "Root down to rise up, sweep arms overhead with open chest." },
       { step: 12, sanskrit: "Pranamasana", eng: "Mountain Prayer Pose / \u0BAA\u0BBF\u0BB0\u0BA3\u0BBE\u0BAE \u0B86\u0B9A\u0BA9\u0BAE\u0BCD", breath: "Exhale", chakra: "Anahata (Heart)", cue: "Return palms to heart center, feel heartbeat, restore breath." }
-    ].map((row) => /* @__PURE__ */ import_react52.default.createElement("tr", { key: row.step, style: { borderBottom: "1px solid var(--border-color)" } }, /* @__PURE__ */ import_react52.default.createElement("td", { style: { padding: "10px 12px", fontWeight: 800, color: "#7C3AED" } }, row.step), /* @__PURE__ */ import_react52.default.createElement("td", { style: { padding: "10px 12px", fontWeight: 800 } }, row.sanskrit), /* @__PURE__ */ import_react52.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)" } }, row.eng), /* @__PURE__ */ import_react52.default.createElement("td", { style: { padding: "10px 12px" } }, /* @__PURE__ */ import_react52.default.createElement("span", { style: {
+    ].map((row) => /* @__PURE__ */ import_react53.default.createElement("tr", { key: row.step, style: { borderBottom: "1px solid var(--border-color)" } }, /* @__PURE__ */ import_react53.default.createElement("td", { style: { padding: "10px 12px", fontWeight: 800, color: "#7C3AED" } }, row.step), /* @__PURE__ */ import_react53.default.createElement("td", { style: { padding: "10px 12px", fontWeight: 800 } }, row.sanskrit), /* @__PURE__ */ import_react53.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)" } }, row.eng), /* @__PURE__ */ import_react53.default.createElement("td", { style: { padding: "10px 12px" } }, /* @__PURE__ */ import_react53.default.createElement("span", { style: {
       display: "inline-block",
       padding: "3px 8px",
       borderRadius: "6px",
@@ -85627,7 +85713,7 @@ ${newlyCreatedClassInfo.url}`);
       textTransform: "uppercase",
       background: row.breath === "Inhale" ? "rgba(16, 185, 129, 0.12)" : row.breath === "Exhale" ? "rgba(124, 58, 237, 0.12)" : "rgba(245, 158, 11, 0.12)",
       color: row.breath === "Inhale" ? "#059669" : row.breath === "Exhale" ? "#7C3AED" : "#D97706"
-    } }, row.breath)), /* @__PURE__ */ import_react52.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)", fontSize: "11px" } }, row.chakra), /* @__PURE__ */ import_react52.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)", fontSize: "11.5px" } }, row.cue))))))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react52.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement(Activity, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A \u0BAE\u0BC1\u0BB1\u0BC8\u0B95\u0BB3\u0BCD & \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Master Pranayama Breathwork Curriculum")), /* @__PURE__ */ import_react52.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BCD \u0B86\u0BB0\u0BAE\u0BCD\u0BAA\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BB5\u0BBF\u0BB2\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B95\u0BB1\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BBF\u0BAF 4 \u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Breath retention ratios, contraindications & cues for 4 core pranayama techniques.")), /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" } }, [
+    } }, row.breath)), /* @__PURE__ */ import_react53.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)", fontSize: "11px" } }, row.chakra), /* @__PURE__ */ import_react53.default.createElement("td", { style: { padding: "10px 12px", color: "var(--text-sub)", fontSize: "11.5px" } }, row.cue))))))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react53.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement(Activity, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A \u0BAE\u0BC1\u0BB1\u0BC8\u0B95\u0BB3\u0BCD & \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Master Pranayama Breathwork Curriculum")), /* @__PURE__ */ import_react53.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BCD \u0B86\u0BB0\u0BAE\u0BCD\u0BAA\u0BAE\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0B9F\u0BBF\u0BB5\u0BBF\u0BB2\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B95\u0BB1\u0BCD\u0BAA\u0BBF\u0B95\u0BCD\u0B95 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BBF\u0BAF 4 \u0BAE\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BAF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Breath retention ratios, contraindications & cues for 4 core pranayama techniques.")), /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "16px" } }, [
       {
         title: "Nadi Shodhana (Alternate Nostril)",
         sanskrit: "\u0BA8\u0BBE\u0B9F\u0BBF \u0B9A\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD",
@@ -85656,7 +85742,7 @@ ${newlyCreatedClassInfo.url}`);
         desc: "Builds internal heat, synchronizes vinyasa transitions, keeps mind anchored to sound.",
         timing: "Maintained during active asana sequence"
       }
-    ].map((prana, idx) => /* @__PURE__ */ import_react52.default.createElement("div", { key: idx, style: { padding: "16px", borderRadius: "16px", border: "1px solid var(--border-color)", background: "var(--bg-app)", display: "flex", flexDirection: "column", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement("h4", { style: { fontSize: "13px", fontWeight: 800, color: "var(--text-heading)", margin: 0 } }, prana.title), /* @__PURE__ */ import_react52.default.createElement("span", { style: { fontSize: "10px", fontFamily: "monospace", fontWeight: 800, color: "#7C3AED", background: "rgba(124, 58, 237, 0.1)", padding: "2px 8px", borderRadius: "6px" } }, prana.sanskrit)), /* @__PURE__ */ import_react52.default.createElement("div", { style: { fontSize: "11px", fontFamily: "monospace", color: "#7C3AED", fontWeight: 800 } }, prana.ratio), /* @__PURE__ */ import_react52.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: 0, lineHeight: 1.5 } }, prana.desc), /* @__PURE__ */ import_react52.default.createElement("div", { style: { fontSize: "11px", fontWeight: 700, color: "var(--text-heading)", marginTop: "4px" } }, "\u23F1\uFE0F ", prana.timing)))))), activeTab === "themes" && /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react52.default.createElement(Palette, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BB5\u0BA3\u0BCD\u0BA3\u0BA4\u0BCD \u0BA4\u0BC0\u0BAE\u0BCD\u0B95\u0BB3\u0BCD" : "Studio Theme & Visual Appearance")), /* @__PURE__ */ import_react52.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BCB\u0B95\u0BBE \u0BA4\u0BB3\u0BA4\u0BCD\u0BA4\u0BBF\u0BA9\u0BCD \u0BA4\u0BCB\u0BB1\u0BCD\u0BB1\u0BA4\u0BCD\u0BA4\u0BC8 \u0B92\u0BB0\u0BC1 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC1\u0BAE\u0BCD." : "Select a signature wellness palette aligned with traditional chakra energies and modern minimalism.")), /* @__PURE__ */ import_react52.default.createElement("span", { style: { fontSize: "12px", fontWeight: 800, color: "#7C3AED", background: "rgba(124, 58, 237, 0.1)", padding: "5px 14px", borderRadius: "20px", border: "1px solid rgba(124, 58, 237, 0.25)" } }, "Active: ", activeTheme.toUpperCase())), /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-theme-swatches-grid" }, [
+    ].map((prana, idx) => /* @__PURE__ */ import_react53.default.createElement("div", { key: idx, style: { padding: "16px", borderRadius: "16px", border: "1px solid var(--border-color)", background: "var(--bg-app)", display: "flex", flexDirection: "column", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement("h4", { style: { fontSize: "13px", fontWeight: 800, color: "var(--text-heading)", margin: 0 } }, prana.title), /* @__PURE__ */ import_react53.default.createElement("span", { style: { fontSize: "10px", fontFamily: "monospace", fontWeight: 800, color: "#7C3AED", background: "rgba(124, 58, 237, 0.1)", padding: "2px 8px", borderRadius: "6px" } }, prana.sanskrit)), /* @__PURE__ */ import_react53.default.createElement("div", { style: { fontSize: "11px", fontFamily: "monospace", color: "#7C3AED", fontWeight: 800 } }, prana.ratio), /* @__PURE__ */ import_react53.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: 0, lineHeight: 1.5 } }, prana.desc), /* @__PURE__ */ import_react53.default.createElement("div", { style: { fontSize: "11px", fontWeight: 700, color: "var(--text-heading)", marginTop: "4px" } }, "\u23F1\uFE0F ", prana.timing)))))), activeTab === "themes" && /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-card-standard" }, /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", flexWrap: "wrap", gap: "10px", paddingBottom: "14px", borderBottom: "1px solid var(--border-color)", marginBottom: "16px" } }, /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("h3", { style: { fontSize: "16px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react53.default.createElement(Palette, { size: 20, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BB5\u0B9F\u0BBF\u0BB5\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 & \u0BB5\u0BA3\u0BCD\u0BA3\u0BA4\u0BCD \u0BA4\u0BC0\u0BAE\u0BCD\u0B95\u0BB3\u0BCD" : "Studio Theme & Visual Appearance")), /* @__PURE__ */ import_react53.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: "4px 0 0" } }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAF\u0BCB\u0B95\u0BBE \u0BA4\u0BB3\u0BA4\u0BCD\u0BA4\u0BBF\u0BA9\u0BCD \u0BA4\u0BCB\u0BB1\u0BCD\u0BB1\u0BA4\u0BCD\u0BA4\u0BC8 \u0B92\u0BB0\u0BC1 \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0BAE\u0BBE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC1\u0BAE\u0BCD." : "Select a signature wellness palette aligned with traditional chakra energies and modern minimalism.")), /* @__PURE__ */ import_react53.default.createElement("span", { style: { fontSize: "12px", fontWeight: 800, color: "#7C3AED", background: "rgba(124, 58, 237, 0.1)", padding: "5px 14px", borderRadius: "20px", border: "1px solid rgba(124, 58, 237, 0.25)" } }, "Active: ", activeTheme.toUpperCase())), /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-theme-swatches-grid" }, [
       {
         id: "light",
         name: "Royal Lavender & Amethyst",
@@ -85699,16 +85785,16 @@ ${newlyCreatedClassInfo.url}`);
       }
     ].map((thm) => {
       const isCurrent = activeTheme === thm.id || thm.id === "light" && activeTheme === "lavender";
-      return /* @__PURE__ */ import_react52.default.createElement(
+      return /* @__PURE__ */ import_react53.default.createElement(
         "div",
         {
           key: thm.id,
           onClick: () => handleThemeChange(thm.id),
           className: `trainer-theme-card ${isCurrent ? "active" : ""}`
         },
-        /* @__PURE__ */ import_react52.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ import_react52.default.createElement("h4", { style: { fontSize: "14px", fontWeight: 800, color: "var(--text-heading)", margin: 0 } }, thm.name), isCurrent && /* @__PURE__ */ import_react52.default.createElement("span", { style: { fontSize: "10px", fontWeight: 800, padding: "3px 8px", borderRadius: "20px", background: "rgba(16, 185, 129, 0.12)", color: "#059669", border: "1px solid rgba(16, 185, 129, 0.3)", display: "inline-flex", alignItems: "center", gap: "4px" } }, /* @__PURE__ */ import_react52.default.createElement(Check, { size: 10, strokeWidth: 3 }), /* @__PURE__ */ import_react52.default.createElement("span", null, "Active"))),
-        /* @__PURE__ */ import_react52.default.createElement("div", { style: { fontSize: "11px", fontWeight: 700, color: "#7C3AED" } }, thm.tamil),
-        /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-theme-preview-dots" }, thm.colors.map((c, i) => /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between" } }, /* @__PURE__ */ import_react53.default.createElement("h4", { style: { fontSize: "14px", fontWeight: 800, color: "var(--text-heading)", margin: 0 } }, thm.name), isCurrent && /* @__PURE__ */ import_react53.default.createElement("span", { style: { fontSize: "10px", fontWeight: 800, padding: "3px 8px", borderRadius: "20px", background: "rgba(16, 185, 129, 0.12)", color: "#059669", border: "1px solid rgba(16, 185, 129, 0.3)", display: "inline-flex", alignItems: "center", gap: "4px" } }, /* @__PURE__ */ import_react53.default.createElement(Check, { size: 10, strokeWidth: 3 }), /* @__PURE__ */ import_react53.default.createElement("span", null, "Active"))),
+        /* @__PURE__ */ import_react53.default.createElement("div", { style: { fontSize: "11px", fontWeight: 700, color: "#7C3AED" } }, thm.tamil),
+        /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-theme-preview-dots" }, thm.colors.map((c, i) => /* @__PURE__ */ import_react53.default.createElement(
           "span",
           {
             key: i,
@@ -85716,9 +85802,9 @@ ${newlyCreatedClassInfo.url}`);
             style: { background: c, border: "1px solid rgba(0,0,0,0.1)" }
           }
         ))),
-        /* @__PURE__ */ import_react52.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: 0, lineHeight: 1.5 } }, thm.desc),
-        /* @__PURE__ */ import_react52.default.createElement("div", { style: { fontSize: "10px", fontWeight: 800, color: "var(--text-heading)", textTransform: "uppercase", letterSpacing: "0.5px" } }, thm.chakra),
-        /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement("p", { style: { fontSize: "12px", color: "var(--text-sub)", margin: 0, lineHeight: 1.5 } }, thm.desc),
+        /* @__PURE__ */ import_react53.default.createElement("div", { style: { fontSize: "10px", fontWeight: 800, color: "var(--text-heading)", textTransform: "uppercase", letterSpacing: "0.5px" } }, thm.chakra),
+        /* @__PURE__ */ import_react53.default.createElement(
           "button",
           {
             type: "button",
@@ -85801,7 +85887,7 @@ ${newlyCreatedClassInfo.url}`);
         const q = studentSearchQuery.toLowerCase();
         return (s.studentName || "").toLowerCase().includes(q) || (s.studentPhone || "").includes(q);
       });
-      return /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "p-2 rounded-xl bg-primary/10 text-primary" }, /* @__PURE__ */ import_react52.default.createElement(Users, { size: 18 })), /* @__PURE__ */ import_react52.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 & \u0BA8\u0BC7\u0BB0\u0BAA\u0BCD \u0BAA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0BAF\u0BCD\u0BB5\u0BC1" : "Student Attendance & Duration Analytics"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, lang === "ta" ? "\u2713 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1" : "\u2713 Live Tracking")), /* @__PURE__ */ import_react52.default.createElement("p", { className: "text-xs text-muted mt-1 m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BBF\u0BA9\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD, \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BB2\u0BAE\u0BCD, \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA4\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0B9A\u0BA4\u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD." : "Track student daily attendance duration, session times, and month-to-date attendance rates.")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, /* @__PURE__ */ import_react52.default.createElement(
+      return /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-3 pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "p-2 rounded-xl bg-primary/10 text-primary" }, /* @__PURE__ */ import_react53.default.createElement(Users, { size: 18 })), /* @__PURE__ */ import_react53.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 & \u0BA8\u0BC7\u0BB0\u0BAA\u0BCD \u0BAA\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0BAF\u0BCD\u0BB5\u0BC1" : "Student Attendance & Duration Analytics"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] font-bold px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, lang === "ta" ? "\u2713 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B95\u0BA3\u0BCD\u0B95\u0BBE\u0BA3\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1" : "\u2713 Live Tracking")), /* @__PURE__ */ import_react53.default.createElement("p", { className: "text-xs text-muted mt-1 m-0" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BBF\u0BA9\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD, \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BB2\u0BAE\u0BCD, \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA4\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0B9A\u0BA4\u0BB5\u0BBF\u0B95\u0BBF\u0BA4\u0BAE\u0BCD." : "Track student daily attendance duration, session times, and month-to-date attendance rates.")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center gap-2 flex-wrap" }, /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85810,18 +85896,18 @@ ${newlyCreatedClassInfo.url}`);
           className: "ya-btn text-xs px-3.5 py-2 rounded-xl flex items-center gap-1.5 cursor-pointer font-bold bg-violet-600 text-white shadow-md hover:bg-violet-700 transition-all active:scale-95",
           title: lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1 \u0BA4\u0BB0\u0BB5\u0BC1\u0BA4\u0BCD\u0BA4\u0BB3\u0BA4\u0BCD\u0BA4\u0BC8\u0BAF\u0BC1\u0BAE\u0BCD JSON \u0BAA\u0BC7\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0BBE\u0B95 \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Download complete database JSON backup"
         },
-        isBackingUp ? /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react52.default.createElement(Database, { size: 14 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B9F\u0BC7\u0B9F\u0BCD\u0B9F\u0BBE\u0BAA\u0BC7\u0BB8\u0BCD \u0BAA\u0BC7\u0B95\u0BCD\u0B95\u0BAA\u0BCD (JSON)" : "Backup Database (JSON)")
-      ), /* @__PURE__ */ import_react52.default.createElement(
+        isBackingUp ? /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react53.default.createElement(Database, { size: 14 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B9F\u0BC7\u0B9F\u0BCD\u0B9F\u0BBE\u0BAA\u0BC7\u0BB8\u0BCD \u0BAA\u0BC7\u0B95\u0BCD\u0B95\u0BAA\u0BCD (JSON)" : "Backup Database (JSON)")
+      ), /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
           onClick: handleExportCSV,
           className: "ya-btn ya-btn--soft text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 cursor-pointer font-bold border border-subtle"
         },
-        /* @__PURE__ */ import_react52.default.createElement(Download, { size: 13 }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, "CSV")
-      ), /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement(Download, { size: 13 }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, "CSV")
+      ), /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85829,9 +85915,9 @@ ${newlyCreatedClassInfo.url}`);
           className: "ya-btn ya-btn--soft text-xs px-3 py-2 rounded-xl flex items-center gap-1.5 cursor-pointer border border-subtle",
           title: "Refresh attendance records"
         },
-        /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 13, className: attendanceLoading ? "animate-spin" : "" }),
-        /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
-      ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Active Students"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-violet-500/10 text-primary flex items-center justify-center" }, /* @__PURE__ */ import_react52.default.createElement(Users, { size: 15 }))), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-xl font-black text-heading" }, studentList.length), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] text-emerald-600 font-bold mt-1" }, "\u2713 ", lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BBE\u0BA9\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Enrolled")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF \u0BA8\u0BBE\u0BB3\u0BCD" : "Live Start Date"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center" }, /* @__PURE__ */ import_react52.default.createElement(Calendar, { size: 15 }))), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-sm font-black text-heading" }, "01 Oct 2026"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] text-muted font-medium mt-1" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA4\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95\u0BAE\u0BCD" : "Month Start")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0BAE\u0BCA\u0BA4\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes This Month"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center" }, /* @__PURE__ */ import_react52.default.createElement(Video, { size: 15 }))), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-xl font-black text-heading" }, "20 ", lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Days"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] text-muted font-medium mt-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BCD" : "Total Sessions")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBE\u0B9A\u0BB0\u0BBF \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 %" : "Avg Monthly Rate"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center" }, /* @__PURE__ */ import_react52.default.createElement(TrendingUp, { size: 15 }))), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-xl font-black text-emerald-600" }, "90%"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] text-emerald-600 font-bold mt-1" }, "\u2605 ", lang === "ta" ? "\u0B89\u0BAF\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8" : "High Consistency")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between col-span-2 sm:col-span-1" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0B9F\u0BC7\u0B9F\u0BCD\u0B9F\u0BBE\u0BAA\u0BC7\u0BB8\u0BCD \u0BAA\u0BC7\u0B95\u0BCD\u0B95\u0BAA\u0BCD" : "Database Storage"), /* @__PURE__ */ import_react52.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center" }, /* @__PURE__ */ import_react52.default.createElement(Database, { size: 15 }))), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-xs font-black text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" }), "SQLite & JSON"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] text-muted font-medium mt-1" }, lang === "ta" ? "\u0B86\u0B9F\u0BCD\u0B9F\u0BCB \u0BAA\u0BC7\u0B95\u0BCD\u0B95\u0BAA\u0BCD \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD" : "Auto-sync Active"))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between gap-3 flex-wrap bg-card/60 p-3 rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex-1 min-w-[240px] relative" }, /* @__PURE__ */ import_react52.default.createElement(Search, { size: 15, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" }), /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 13, className: attendanceLoading ? "animate-spin" : "" }),
+        /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF" : "Refresh")
+      ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Active Students"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-violet-500/10 text-primary flex items-center justify-center" }, /* @__PURE__ */ import_react53.default.createElement(Users, { size: 15 }))), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-xl font-black text-heading" }, studentList.length), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] text-emerald-600 font-bold mt-1" }, "\u2713 ", lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BBE\u0BA9\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "Enrolled")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF \u0BA8\u0BBE\u0BB3\u0BCD" : "Live Start Date"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-indigo-500/10 text-indigo-500 flex items-center justify-center" }, /* @__PURE__ */ import_react53.default.createElement(Calendar, { size: 15 }))), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-sm font-black text-heading" }, "01 Oct 2026"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] text-muted font-medium mt-1" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA4\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95\u0BAE\u0BCD" : "Month Start")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0BAE\u0BCA\u0BA4\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Classes This Month"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-purple-500/10 text-purple-500 flex items-center justify-center" }, /* @__PURE__ */ import_react53.default.createElement(Video, { size: 15 }))), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-xl font-black text-heading" }, "20 ", lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Days"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] text-muted font-medium mt-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BCD" : "Total Sessions")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBE\u0B9A\u0BB0\u0BBF \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 %" : "Avg Monthly Rate"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-emerald-500/10 text-emerald-600 flex items-center justify-center" }, /* @__PURE__ */ import_react53.default.createElement(TrendingUp, { size: 15 }))), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-xl font-black text-emerald-600" }, "90%"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] text-emerald-600 font-bold mt-1" }, "\u2605 ", lang === "ta" ? "\u0B89\u0BAF\u0BB0\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8" : "High Consistency")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-3.5 rounded-2xl bg-card border border-subtle shadow-sm flex flex-col justify-between col-span-2 sm:col-span-1" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between mb-2" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted font-semibold" }, lang === "ta" ? "\u0B9F\u0BC7\u0B9F\u0BCD\u0B9F\u0BBE\u0BAA\u0BC7\u0BB8\u0BCD \u0BAA\u0BC7\u0B95\u0BCD\u0B95\u0BAA\u0BCD" : "Database Storage"), /* @__PURE__ */ import_react53.default.createElement("div", { className: "w-7 h-7 rounded-lg bg-amber-500/10 text-amber-600 flex items-center justify-center" }, /* @__PURE__ */ import_react53.default.createElement(Database, { size: 15 }))), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-xs font-black text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-500 inline-block animate-pulse" }), "SQLite & JSON"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] text-muted font-medium mt-1" }, lang === "ta" ? "\u0B86\u0B9F\u0BCD\u0B9F\u0BCB \u0BAA\u0BC7\u0B95\u0BCD\u0B95\u0BAA\u0BCD \u0B87\u0BAF\u0B95\u0BCD\u0B95\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD" : "Auto-sync Active"))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between gap-3 flex-wrap bg-card/60 p-3 rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex-1 min-w-[240px] relative" }, /* @__PURE__ */ import_react53.default.createElement(Search, { size: 15, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-muted" }), /* @__PURE__ */ import_react53.default.createElement(
         "input",
         {
           type: "text",
@@ -85840,21 +85926,21 @@ ${newlyCreatedClassInfo.url}`);
           placeholder: lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD (\u0B8E.\u0B95\u0BBE. \u0B95\u0BC1\u0BAE\u0BBE\u0BB0\u0BCD) \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD \u0BA4\u0BC7\u0B9F\u0BC1\u0B95..." : "Search student by name (e.g. Kumar) or mobile number...",
           className: "w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-subtle/50 border border-subtle text-heading focus:outline-none focus:border-primary"
         }
-      )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "text-xs text-muted font-semibold" }, lang === "ta" ? `\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD: ${filteredStudents.length}` : `Showing ${filteredStudents.length} Students`)), /* @__PURE__ */ import_react52.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, filteredStudents.map((student, idx) => /* @__PURE__ */ import_react52.default.createElement(
+      )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "text-xs text-muted font-semibold" }, lang === "ta" ? `\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD: ${filteredStudents.length}` : `Showing ${filteredStudents.length} Students`)), /* @__PURE__ */ import_react53.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, filteredStudents.map((student, idx) => /* @__PURE__ */ import_react53.default.createElement(
         "div",
         {
           key: student.studentPhone || idx,
           className: "p-5 rounded-2xl border border-purple-500/25 bg-gradient-to-br from-card via-card to-purple-950/15 shadow-md flex flex-col justify-between transition-all hover:border-purple-500/50"
         },
-        /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-start justify-between gap-3 mb-4 pb-3 border-b border-subtle/60" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "w-11 h-11 rounded-2xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 text-white font-bold text-lg flex items-center justify-center shadow-md" }, (student.studentName || "S").charAt(0).toUpperCase()), /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react52.default.createElement("h4", { className: "text-base font-bold text-heading m-0" }, student.studentName), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-500/10 text-primary border border-violet-500/20" }, student.studentPhone === "9876543210" ? "\u2605 Featured Student" : "Practitioner")), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-xs text-muted font-mono block mt-0.5" }, "\u{1F4F1} ", student.studentPhone, " ", student.email ? `\u2022 \u2709\uFE0F ${student.email}` : ""))), /* @__PURE__ */ import_react52.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" }, student.todayStatus || "Present (100%)")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-3.5 rounded-xl bg-purple-900/15 border border-purple-500/20 mb-3" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between text-xs mb-1.5" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react52.default.createElement(Clock, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD:" : "Today's Class Duration:")), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-primary font-black text-sm" }, student.todayDurationFormatted)), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between text-xs text-muted mb-2" }, /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:", " ", student.todayClassTitle), /* @__PURE__ */ import_react52.default.createElement("span", { className: "font-bold text-heading" }, student.todayAttendancePercent, "% ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8" : "Attended")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "w-full h-2 rounded-full bg-subtle overflow-hidden" }, /* @__PURE__ */ import_react52.default.createElement(
+        /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-start justify-between gap-3 mb-4 pb-3 border-b border-subtle/60" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "w-11 h-11 rounded-2xl bg-gradient-to-tr from-violet-600 to-fuchsia-600 text-white font-bold text-lg flex items-center justify-center shadow-md" }, (student.studentName || "S").charAt(0).toUpperCase()), /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react53.default.createElement("h4", { className: "text-base font-bold text-heading m-0" }, student.studentName), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] font-bold px-2 py-0.5 rounded-full bg-violet-500/10 text-primary border border-violet-500/20" }, student.studentPhone === "9876543210" ? "\u2605 Featured Student" : "Practitioner")), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-xs text-muted font-mono block mt-0.5" }, "\u{1F4F1} ", student.studentPhone, " ", student.email ? `\u2022 \u2709\uFE0F ${student.email}` : ""))), /* @__PURE__ */ import_react53.default.createElement("span", { className: "px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" }, student.todayStatus || "Present (100%)")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-3.5 rounded-xl bg-purple-900/15 border border-purple-500/20 mb-3" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between text-xs mb-1.5" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "font-bold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react53.default.createElement(Clock, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD:" : "Today's Class Duration:")), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-primary font-black text-sm" }, student.todayDurationFormatted)), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between text-xs text-muted mb-2" }, /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:", " ", student.todayClassTitle), /* @__PURE__ */ import_react53.default.createElement("span", { className: "font-bold text-heading" }, student.todayAttendancePercent, "% ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8" : "Attended")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "w-full h-2 rounded-full bg-subtle overflow-hidden" }, /* @__PURE__ */ import_react53.default.createElement(
           "div",
           {
             className: "h-full rounded-full bg-gradient-to-r from-violet-500 to-emerald-400 transition-all duration-500",
             style: { width: `${Math.min(100, Math.max(10, student.todayAttendancePercent))}%` }
           }
-        ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "grid grid-cols-2 gap-2 text-xs" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-2.5 rounded-xl bg-subtle/50 border border-subtle/60" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted block mb-0.5" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA4\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95\u0BAE\u0BCD:" : "Month Started:"), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-heading font-semibold" }, student.monthStartDate)), /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-2.5 rounded-xl bg-subtle/50 border border-subtle/60" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted block mb-0.5" }, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BC6\u0BA9\u0BCD\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4 \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD:" : "Days Attended:"), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-primary font-bold" }, student.daysAttendedThisMonth, " / ", student.totalClassDaysThisMonth, " ", lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Days")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-2.5 rounded-xl bg-subtle/50 border border-subtle/60" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted block mb-0.5" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA4\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 %:" : "Monthly Rate:"), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-emerald-600 font-bold" }, student.monthlyAttendancePercent, "%")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-2.5 rounded-xl bg-subtle/50 border border-subtle/60" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[11px] text-muted block mb-0.5" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA4 \u0BAE\u0BCA\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD:" : "Total Month Hours:"), /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-heading font-bold" }, student.totalHoursThisMonth, " ", lang === "ta" ? "\u0BAE\u0BA3\u0BBF \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Hours")))),
-        /* @__PURE__ */ import_react52.default.createElement("div", { className: "mt-4 pt-3 border-t border-subtle/50 flex items-center justify-between text-[11px] text-muted" }, /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8:" : "Status:", " ", /* @__PURE__ */ import_react52.default.createElement("strong", { className: "text-emerald-500" }, "\u2713 ", lang === "ta" ? "\u0BB5\u0BB4\u0B95\u0BCD\u0B95\u0BAE\u0BBE\u0BA9 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Consistent Daily Practice")), /* @__PURE__ */ import_react52.default.createElement("span", { className: "font-mono text-[10px]" }, student.lastJoinedAt ? new Date(student.lastJoinedAt).toLocaleDateString() : "Active"))
-      ))), /* @__PURE__ */ import_react52.default.createElement("div", { className: "mt-2" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between mb-3" }, /* @__PURE__ */ import_react52.default.createElement("h4", { className: "text-xs font-bold text-heading m-0 flex items-center gap-1.5" }, /* @__PURE__ */ import_react52.default.createElement(FileText, { size: 14, className: "text-primary" }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD (\u0BB5\u0BB0\u0BB2\u0BBE\u0BB1\u0BC1)" : "All Session Attendance Logs (Full History)")), /* @__PURE__ */ import_react52.default.createElement(
+        ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "grid grid-cols-2 gap-2 text-xs" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-2.5 rounded-xl bg-subtle/50 border border-subtle/60" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted block mb-0.5" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA4\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B95\u0BCD\u0B95\u0BAE\u0BCD:" : "Month Started:"), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-heading font-semibold" }, student.monthStartDate)), /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-2.5 rounded-xl bg-subtle/50 border border-subtle/60" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted block mb-0.5" }, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BC6\u0BA9\u0BCD\u0B9F\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4 \u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD:" : "Days Attended:"), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-primary font-bold" }, student.daysAttendedThisMonth, " / ", student.totalClassDaysThisMonth, " ", lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BCD\u0B95\u0BB3\u0BCD" : "Days")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-2.5 rounded-xl bg-subtle/50 border border-subtle/60" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted block mb-0.5" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA4\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8 %:" : "Monthly Rate:"), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-emerald-600 font-bold" }, student.monthlyAttendancePercent, "%")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-2.5 rounded-xl bg-subtle/50 border border-subtle/60" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[11px] text-muted block mb-0.5" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA4 \u0BAE\u0BCA\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD:" : "Total Month Hours:"), /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-heading font-bold" }, student.totalHoursThisMonth, " ", lang === "ta" ? "\u0BAE\u0BA3\u0BBF \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Hours")))),
+        /* @__PURE__ */ import_react53.default.createElement("div", { className: "mt-4 pt-3 border-t border-subtle/50 flex items-center justify-between text-[11px] text-muted" }, /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8:" : "Status:", " ", /* @__PURE__ */ import_react53.default.createElement("strong", { className: "text-emerald-500" }, "\u2713 ", lang === "ta" ? "\u0BB5\u0BB4\u0B95\u0BCD\u0B95\u0BAE\u0BBE\u0BA9 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Consistent Daily Practice")), /* @__PURE__ */ import_react53.default.createElement("span", { className: "font-mono text-[10px]" }, student.lastJoinedAt ? new Date(student.lastJoinedAt).toLocaleDateString() : "Active"))
+      ))), /* @__PURE__ */ import_react53.default.createElement("div", { className: "mt-2" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between mb-3" }, /* @__PURE__ */ import_react53.default.createElement("h4", { className: "text-xs font-bold text-heading m-0 flex items-center gap-1.5" }, /* @__PURE__ */ import_react53.default.createElement(FileText, { size: 14, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD (\u0BB5\u0BB0\u0BB2\u0BBE\u0BB1\u0BC1)" : "All Session Attendance Logs (Full History)")), /* @__PURE__ */ import_react53.default.createElement(
         "button",
         {
           type: "button",
@@ -85862,11 +85948,11 @@ ${newlyCreatedClassInfo.url}`);
           className: "text-[11px] text-rose-500 hover:text-rose-600 font-semibold cursor-pointer"
         },
         lang === "ta" ? "\u0B9F\u0BC6\u0BB8\u0BCD\u0B9F\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BC8 \u0B85\u0BB4\u0BBF\u0B95\u0BCD\u0B95" : "Clear Test Logs"
-      )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "rounded-2xl border border-subtle overflow-x-auto bg-card shadow-sm" }, /* @__PURE__ */ import_react52.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react52.default.createElement("thead", null, /* @__PURE__ */ import_react52.default.createElement("tr", { className: "border-b border-subtle bg-subtle/50 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react52.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Student Name"), /* @__PURE__ */ import_react52.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD" : "Mobile Phone"), /* @__PURE__ */ import_react52.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class Title"), /* @__PURE__ */ import_react52.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BA4\u0BC7\u0BA4\u0BBF & \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Joined Time"), /* @__PURE__ */ import_react52.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Duration"), /* @__PURE__ */ import_react52.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 %" : "Attendance %"), /* @__PURE__ */ import_react52.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BA4\u0B95\u0BC1\u0BA4\u0BBF \u0BA8\u0BBF\u0BB2\u0BC8" : "Status"), /* @__PURE__ */ import_react52.default.createElement("th", { className: "p-3 text-center" }, lang === "ta" ? "\u0B9A\u0BC6\u0BAF\u0BB2\u0BCD" : "Action"))), /* @__PURE__ */ import_react52.default.createElement("tbody", null, attendanceLogs.length === 0 ? /* @__PURE__ */ import_react52.default.createElement("tr", null, /* @__PURE__ */ import_react52.default.createElement("td", { colSpan: 8, className: "text-center p-6 text-muted" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "No student attendance records found yet.")) : attendanceLogs.map((log3, index) => {
+      )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "rounded-2xl border border-subtle overflow-x-auto bg-card shadow-sm" }, /* @__PURE__ */ import_react53.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react53.default.createElement("thead", null, /* @__PURE__ */ import_react53.default.createElement("tr", { className: "border-b border-subtle bg-subtle/50 text-muted font-bold text-[11px]" }, /* @__PURE__ */ import_react53.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Student Name"), /* @__PURE__ */ import_react53.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD" : "Mobile Phone"), /* @__PURE__ */ import_react53.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class Title"), /* @__PURE__ */ import_react53.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BA4\u0BC7\u0BA4\u0BBF & \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Joined Time"), /* @__PURE__ */ import_react53.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Duration"), /* @__PURE__ */ import_react53.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 %" : "Attendance %"), /* @__PURE__ */ import_react53.default.createElement("th", { className: "p-3" }, lang === "ta" ? "\u0BA4\u0B95\u0BC1\u0BA4\u0BBF \u0BA8\u0BBF\u0BB2\u0BC8" : "Status"), /* @__PURE__ */ import_react53.default.createElement("th", { className: "p-3 text-center" }, lang === "ta" ? "\u0B9A\u0BC6\u0BAF\u0BB2\u0BCD" : "Action"))), /* @__PURE__ */ import_react53.default.createElement("tbody", null, attendanceLogs.length === 0 ? /* @__PURE__ */ import_react53.default.createElement("tr", null, /* @__PURE__ */ import_react53.default.createElement("td", { colSpan: 8, className: "text-center p-6 text-muted" }, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "No student attendance records found yet.")) : attendanceLogs.map((log3, index) => {
         const isPresent = log3.status?.includes("70") || log3.attendancePercent >= 70;
         const durationMins = Math.round((log3.durationSeconds || 60) / 60);
         const durationHrs = (durationMins / 60).toFixed(1);
-        return /* @__PURE__ */ import_react52.default.createElement("tr", { key: log3.id || index, className: "border-b border-subtle/50 hover:bg-subtle/30" }, /* @__PURE__ */ import_react52.default.createElement("td", { className: "p-3 font-semibold text-heading" }, log3.studentName || log3.name || "Student"), /* @__PURE__ */ import_react52.default.createElement("td", { className: "p-3 font-mono text-muted" }, log3.studentPhone || log3.phone || "N/A"), /* @__PURE__ */ import_react52.default.createElement("td", { className: "p-3 text-heading" }, log3.classTitle || log3.className || "Hatha Flow"), /* @__PURE__ */ import_react52.default.createElement("td", { className: "p-3 text-muted text-[11px]" }, log3.joinedAt ? new Date(log3.joinedAt).toLocaleString() : "Recent"), /* @__PURE__ */ import_react52.default.createElement("td", { className: "p-3 font-mono font-bold text-heading" }, durationMins >= 60 ? `${durationHrs} hrs (${durationMins} mins)` : `${durationMins} mins`), /* @__PURE__ */ import_react52.default.createElement("td", { className: "p-3 font-bold text-primary" }, log3.attendancePercent || 85, "%"), /* @__PURE__ */ import_react52.default.createElement("td", { className: "p-3" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${isPresent ? "bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/15 text-amber-600 border border-amber-500/30"}` }, isPresent ? "\u2713 Present (70%+)" : "Incomplete")), /* @__PURE__ */ import_react52.default.createElement("td", { className: "p-3 text-center" }, /* @__PURE__ */ import_react52.default.createElement(
+        return /* @__PURE__ */ import_react53.default.createElement("tr", { key: log3.id || index, className: "border-b border-subtle/50 hover:bg-subtle/30" }, /* @__PURE__ */ import_react53.default.createElement("td", { className: "p-3 font-semibold text-heading" }, log3.studentName || log3.name || "Student"), /* @__PURE__ */ import_react53.default.createElement("td", { className: "p-3 font-mono text-muted" }, log3.studentPhone || log3.phone || "N/A"), /* @__PURE__ */ import_react53.default.createElement("td", { className: "p-3 text-heading" }, log3.classTitle || log3.className || "Hatha Flow"), /* @__PURE__ */ import_react53.default.createElement("td", { className: "p-3 text-muted text-[11px]" }, log3.joinedAt ? new Date(log3.joinedAt).toLocaleString() : "Recent"), /* @__PURE__ */ import_react53.default.createElement("td", { className: "p-3 font-mono font-bold text-heading" }, durationMins >= 60 ? `${durationHrs} hrs (${durationMins} mins)` : `${durationMins} mins`), /* @__PURE__ */ import_react53.default.createElement("td", { className: "p-3 font-bold text-primary" }, log3.attendancePercent || 85, "%"), /* @__PURE__ */ import_react53.default.createElement("td", { className: "p-3" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: `px-2 py-0.5 rounded-full text-[10px] font-bold ${isPresent ? "bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/15 text-amber-600 border border-amber-500/30"}` }, isPresent ? "\u2713 Present (70%+)" : "Incomplete")), /* @__PURE__ */ import_react53.default.createElement("td", { className: "p-3 text-center" }, /* @__PURE__ */ import_react53.default.createElement(
           "button",
           {
             type: "button",
@@ -85874,10 +85960,10 @@ ${newlyCreatedClassInfo.url}`);
             className: "p-1.5 rounded-lg text-rose-500 hover:bg-rose-500/10 cursor-pointer transition-colors",
             title: lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC8 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BC1" : "Delete Record"
           },
-          /* @__PURE__ */ import_react52.default.createElement(Trash, { size: 14 })
+          /* @__PURE__ */ import_react53.default.createElement(Trash, { size: 14 })
         )));
       }))))));
-    })(), activeTab === "notes" && /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react52.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react52.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 / PDF \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Upload Yoga Notes & PDF Material")), /* @__PURE__ */ import_react52.default.createElement("form", { onSubmit: handleAddMaterial, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Title"), /* @__PURE__ */ import_react52.default.createElement(
+    })(), activeTab === "notes" && /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react53.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react53.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1 / PDF \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Upload Yoga Notes & PDF Material")), /* @__PURE__ */ import_react53.default.createElement("form", { onSubmit: handleAddMaterial, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Title"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "text",
@@ -85887,19 +85973,19 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Category"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Category"), /* @__PURE__ */ import_react53.default.createElement(
       "select",
       {
         value: newMatCategory,
         onChange: (e2) => setNewMatCategory(e2.target.value),
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
       },
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "Yoga" }, "Yoga"),
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "Breathing" }, "Breathing / Pranayama"),
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "Asana" }, "Asana Alignment"),
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "Diet" }, "Sattvic Diet & Nutrition"),
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "Philosophy" }, "Yoga Philosophy")
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "File / Download URL"), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "Yoga" }, "Yoga"),
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "Breathing" }, "Breathing / Pranayama"),
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "Asana" }, "Asana Alignment"),
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "Diet" }, "Sattvic Diet & Nutrition"),
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "Philosophy" }, "Yoga Philosophy")
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "File / Download URL"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "text",
@@ -85908,7 +85994,7 @@ ${newlyCreatedClassInfo.url}`);
         placeholder: "e.g. assets/docs/pranayama_guide.pdf",
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "md:col-span-3 flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Short Description"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "md:col-span-3 flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Short Description"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "text",
@@ -85917,7 +86003,7 @@ ${newlyCreatedClassInfo.url}`);
         placeholder: "Brief summary for students...",
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "md:col-span-3 flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Note Content (Optional)"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "md:col-span-3 flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Note Content (Optional)"), /* @__PURE__ */ import_react53.default.createElement(
       "textarea",
       {
         value: newMatContent,
@@ -85926,24 +86012,24 @@ ${newlyCreatedClassInfo.url}`);
         rows: 3,
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "md:col-span-3 flex justify-end" }, /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "md:col-span-3 flex justify-end" }, /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isCreatingMat,
         className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer shadow"
       },
-      isCreatingMat ? /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react52.default.createElement(Plus, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, "Save Material")
-    )))), /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("h3", { className: "text-sm font-bold text-heading mb-3 flex items-center gap-2" }, /* @__PURE__ */ import_react52.default.createElement(FileText, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react52.default.createElement("span", null, "Available Student Learning Materials")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-3" }, materialsList.map((mat) => /* @__PURE__ */ import_react52.default.createElement("div", { key: mat.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col justify-between gap-3" }, /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] font-bold text-primary uppercase" }, mat.category || "Yoga"), /* @__PURE__ */ import_react52.default.createElement(
+      isCreatingMat ? /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react53.default.createElement(Plus, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, "Save Material")
+    )))), /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("h3", { className: "text-sm font-bold text-heading mb-3 flex items-center gap-2" }, /* @__PURE__ */ import_react53.default.createElement(FileText, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, "Available Student Learning Materials")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-3" }, materialsList.map((mat) => /* @__PURE__ */ import_react53.default.createElement("div", { key: mat.id, className: "p-3.5 rounded-xl border border-subtle bg-card flex flex-col justify-between gap-3" }, /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] font-bold text-primary uppercase" }, mat.category || "Yoga"), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => handleDeleteMaterial(mat.id),
         className: "text-muted hover:text-red-500 cursor-pointer p-1"
       },
-      /* @__PURE__ */ import_react52.default.createElement(Trash, { size: 13 })
-    )), /* @__PURE__ */ import_react52.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, mat.title), /* @__PURE__ */ import_react52.default.createElement("p", { className: "text-[11px] text-muted mt-1" }, mat.description)), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between text-[11px] pt-2 border-t border-subtle" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-muted font-mono" }, mat.file_url || "Note"), /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-primary font-bold" }, "\u2713 Accessible to Students"))))))), activeTab === "videos" && /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react52.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react52.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react52.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Add Yoga Video to Library")), /* @__PURE__ */ import_react52.default.createElement("form", { onSubmit: handleAddVideo, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video Title"), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Trash, { size: 13 })
+    )), /* @__PURE__ */ import_react53.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, mat.title), /* @__PURE__ */ import_react53.default.createElement("p", { className: "text-[11px] text-muted mt-1" }, mat.description)), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between text-[11px] pt-2 border-t border-subtle" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-muted font-mono" }, mat.file_url || "Note"), /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-primary font-bold" }, "\u2713 Accessible to Students"))))))), activeTab === "videos" && /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react53.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react53.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Add Yoga Video to Library")), /* @__PURE__ */ import_react53.default.createElement("form", { onSubmit: handleAddVideo, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video Title"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "text",
@@ -85953,7 +86039,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video URL (YouTube Embed / MP4)"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video URL (YouTube Embed / MP4)"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "url",
@@ -85963,7 +86049,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Duration (Minutes)"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Duration (Minutes)"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "number",
@@ -85973,7 +86059,7 @@ ${newlyCreatedClassInfo.url}`);
         onChange: (e2) => setNewVidDuration(e2.target.value),
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "md:col-span-2 flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Description"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "md:col-span-2 flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Description"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "text",
@@ -85982,35 +86068,35 @@ ${newlyCreatedClassInfo.url}`);
         placeholder: "What will students learn in this session...",
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Level"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Level"), /* @__PURE__ */ import_react53.default.createElement(
       "select",
       {
         value: newVidLevel,
         onChange: (e2) => setNewVidLevel(e2.target.value),
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none"
       },
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "Beginner" }, "Beginner"),
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "Intermediate" }, "Intermediate"),
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "Advanced" }, "Advanced"),
-      /* @__PURE__ */ import_react52.default.createElement("option", { value: "All Levels" }, "All Levels")
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "md:col-span-3 flex justify-end" }, /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "Beginner" }, "Beginner"),
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "Intermediate" }, "Intermediate"),
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "Advanced" }, "Advanced"),
+      /* @__PURE__ */ import_react53.default.createElement("option", { value: "All Levels" }, "All Levels")
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "md:col-span-3 flex justify-end" }, /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isCreatingVid,
         className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 cursor-pointer shadow"
       },
-      isCreatingVid ? /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react52.default.createElement(Plus, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, "Save Video")
-    )))), /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("h3", { className: "text-sm font-bold text-heading mb-3 flex items-center gap-2" }, /* @__PURE__ */ import_react52.default.createElement(Video, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react52.default.createElement("span", null, "Published Student Videos (", videosList.length, ")")), /* @__PURE__ */ import_react52.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, videosList.map((vid) => /* @__PURE__ */ import_react52.default.createElement("div", { key: vid.id, className: "p-3 rounded-xl border border-subtle bg-card flex flex-col justify-between gap-2" }, /* @__PURE__ */ import_react52.default.createElement("div", null, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react52.default.createElement("span", { className: "text-[10px] font-bold text-primary uppercase" }, vid.level, " \u2022 ", vid.duration_minutes || 30, "m"), /* @__PURE__ */ import_react52.default.createElement(
+      isCreatingVid ? /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react53.default.createElement(Plus, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, "Save Video")
+    )))), /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("h3", { className: "text-sm font-bold text-heading mb-3 flex items-center gap-2" }, /* @__PURE__ */ import_react53.default.createElement(Video, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, "Published Student Videos (", videosList.length, ")")), /* @__PURE__ */ import_react53.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, videosList.map((vid) => /* @__PURE__ */ import_react53.default.createElement("div", { key: vid.id, className: "p-3 rounded-xl border border-subtle bg-card flex flex-col justify-between gap-2" }, /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center justify-between" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "text-[10px] font-bold text-primary uppercase" }, vid.level, " \u2022 ", vid.duration_minutes || 30, "m"), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => handleDeleteVideo(vid.id),
         className: "text-muted hover:text-red-500 cursor-pointer p-1"
       },
-      /* @__PURE__ */ import_react52.default.createElement(Trash, { size: 13 })
-    )), /* @__PURE__ */ import_react52.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, vid.title), /* @__PURE__ */ import_react52.default.createElement("p", { className: "text-[11px] text-muted line-clamp-2 mt-0.5" }, vid.description)), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement(Trash, { size: 13 })
+    )), /* @__PURE__ */ import_react53.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, vid.title), /* @__PURE__ */ import_react53.default.createElement("p", { className: "text-[11px] text-muted line-clamp-2 mt-0.5" }, vid.description)), /* @__PURE__ */ import_react53.default.createElement(
       "a",
       {
         href: vid.video_url,
@@ -86018,9 +86104,9 @@ ${newlyCreatedClassInfo.url}`);
         rel: "noreferrer",
         className: "text-xs text-primary font-bold flex items-center gap-1 hover:underline pt-1 border-t border-subtle"
       },
-      /* @__PURE__ */ import_react52.default.createElement("span", null, "Preview Link"),
-      /* @__PURE__ */ import_react52.default.createElement(Play, { size: 11, fill: "currentColor" })
-    )))))), activeTab === "settings" && /* @__PURE__ */ import_react52.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px", maxWidth: "640px" } }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card" }, /* @__PURE__ */ import_react52.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-2" }, /* @__PURE__ */ import_react52.default.createElement(Settings, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react52.default.createElement("span", null, "LiveKit Server Credentials")), /* @__PURE__ */ import_react52.default.createElement("p", { className: "text-xs text-muted mb-4" }, "Enter LiveKit Cloud WebSocket URL, API Key, and Secret to generate secure access tokens for instructor and students."), /* @__PURE__ */ import_react52.default.createElement("form", { onSubmit: handleSaveLiveKitConfig, className: "flex flex-col gap-3" }, /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "Server URL (wss://...)"), /* @__PURE__ */ import_react52.default.createElement(
+      /* @__PURE__ */ import_react53.default.createElement("span", null, "Preview Link"),
+      /* @__PURE__ */ import_react53.default.createElement(Play, { size: 11, fill: "currentColor" })
+    )))))), activeTab === "settings" && /* @__PURE__ */ import_react53.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px", maxWidth: "640px" } }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card" }, /* @__PURE__ */ import_react53.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-2" }, /* @__PURE__ */ import_react53.default.createElement(Settings, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, "LiveKit Server Credentials")), /* @__PURE__ */ import_react53.default.createElement("p", { className: "text-xs text-muted mb-4" }, "Enter LiveKit Cloud WebSocket URL, API Key, and Secret to generate secure access tokens for instructor and students."), /* @__PURE__ */ import_react53.default.createElement("form", { onSubmit: handleSaveLiveKitConfig, className: "flex flex-col gap-3" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "Server URL (wss://...)"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "text",
@@ -86029,7 +86115,7 @@ ${newlyCreatedClassInfo.url}`);
         placeholder: "wss://your-project.livekit.cloud",
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "API Key"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "API Key"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "text",
@@ -86038,7 +86124,7 @@ ${newlyCreatedClassInfo.url}`);
         placeholder: "API...",
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react52.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "API Secret"), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-heading" }, "API Secret"), /* @__PURE__ */ import_react53.default.createElement(
       "input",
       {
         type: "password",
@@ -86047,26 +86133,27 @@ ${newlyCreatedClassInfo.url}`);
         placeholder: "\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022\u2022",
         className: "ya-input text-xs p-2 rounded-lg border border-subtle bg-card text-heading outline-none focus:border-primary"
       }
-    )), /* @__PURE__ */ import_react52.default.createElement(
+    )), /* @__PURE__ */ import_react53.default.createElement(
       "button",
       {
         type: "submit",
         disabled: savingConfig,
         className: "ya-btn ya-btn--primary py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 mt-2 cursor-pointer shadow"
       },
-      savingConfig ? /* @__PURE__ */ import_react52.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react52.default.createElement(CircleCheck, { size: 14 }),
-      /* @__PURE__ */ import_react52.default.createElement("span", null, "Save LiveKit Configuration")
+      savingConfig ? /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react53.default.createElement(CircleCheck, { size: 14 }),
+      /* @__PURE__ */ import_react53.default.createElement("span", null, "Save LiveKit Configuration")
     )))));
   }
-  var import_react52;
+  var import_react53;
   var init_AdminPortalSection = __esm({
     "src/components/AdminPortalSection.jsx"() {
-      import_react52 = __toESM(require_react());
+      import_react53 = __toESM(require_react());
       init_lucide_react();
       init_audioEngine();
       init_ThreeDIcons();
       init_api();
       init_FamilyReceiveComponent();
+      init_FloatingInput();
     }
   });
 
@@ -86077,15 +86164,15 @@ ${newlyCreatedClassInfo.url}`);
     onRegistrationSuccess,
     lang = "en"
   }) {
-    const [loading, setLoading] = (0, import_react53.useState)(true);
-    const [classInfo, setClassInfo] = (0, import_react53.useState)(null);
-    const [error, setError] = (0, import_react53.useState)("");
-    const [name, setName] = (0, import_react53.useState)("");
-    const [email, setEmail] = (0, import_react53.useState)("");
-    const [phone, setPhone] = (0, import_react53.useState)("");
-    const [submitting, setSubmitting] = (0, import_react53.useState)(false);
-    const [submitError, setSubmitError] = (0, import_react53.useState)("");
-    (0, import_react53.useEffect)(() => {
+    const [loading, setLoading] = (0, import_react54.useState)(true);
+    const [classInfo, setClassInfo] = (0, import_react54.useState)(null);
+    const [error, setError] = (0, import_react54.useState)("");
+    const [name, setName] = (0, import_react54.useState)("");
+    const [email, setEmail] = (0, import_react54.useState)("");
+    const [phone, setPhone] = (0, import_react54.useState)("");
+    const [submitting, setSubmitting] = (0, import_react54.useState)(false);
+    const [submitError, setSubmitError] = (0, import_react54.useState)("");
+    (0, import_react54.useEffect)(() => {
       if (!inviteToken) return;
       const fetchInvite = async () => {
         setLoading(true);
@@ -86132,15 +86219,15 @@ ${newlyCreatedClassInfo.url}`);
       }
     };
     if (!inviteToken) return null;
-    return /* @__PURE__ */ import_react53.default.createElement("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm ya-modal-overlay" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "relative w-full max-w-md p-6 rounded-2xl border border-subtle bg-card shadow-2xl ya-modal-content" }, /* @__PURE__ */ import_react53.default.createElement(
+    return /* @__PURE__ */ import_react54.default.createElement("div", { className: "fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm ya-modal-overlay" }, /* @__PURE__ */ import_react54.default.createElement("div", { className: "relative w-full max-w-md p-6 rounded-2xl border border-subtle bg-card shadow-2xl ya-modal-content" }, /* @__PURE__ */ import_react54.default.createElement(
       "button",
       {
         type: "button",
         onClick: onClose,
         className: "absolute top-4 right-4 p-1 rounded-full text-muted hover:text-heading hover:bg-subtle transition-all cursor-pointer"
       },
-      /* @__PURE__ */ import_react53.default.createElement(X, { size: 18 })
-    ), loading ? /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col items-center justify-center py-10 gap-3" }, /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 28, className: "animate-spin text-primary" }), /* @__PURE__ */ import_react53.default.createElement("p", { className: "text-xs text-muted m-0" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying class invitation...")) : error ? /* @__PURE__ */ import_react53.default.createElement("div", { className: "text-center py-6" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "inline-flex p-3 rounded-full bg-red-500/10 text-red-400 mb-3" }, /* @__PURE__ */ import_react53.default.createElement(CircleAlert, { size: 28 })), /* @__PURE__ */ import_react53.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 mb-1" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BB2\u0BBE\u0BB5\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BA4\u0BC1" : "Invitation Expired or Invalid"), /* @__PURE__ */ import_react53.default.createElement("p", { className: "text-xs text-muted mb-4" }, error), /* @__PURE__ */ import_react53.default.createElement(
+      /* @__PURE__ */ import_react54.default.createElement(X, { size: 18 })
+    ), loading ? /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex flex-col items-center justify-center py-10 gap-3" }, /* @__PURE__ */ import_react54.default.createElement(RefreshCw, { size: 28, className: "animate-spin text-primary" }), /* @__PURE__ */ import_react54.default.createElement("p", { className: "text-xs text-muted m-0" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying class invitation...")) : error ? /* @__PURE__ */ import_react54.default.createElement("div", { className: "text-center py-6" }, /* @__PURE__ */ import_react54.default.createElement("div", { className: "inline-flex p-3 rounded-full bg-red-500/10 text-red-400 mb-3" }, /* @__PURE__ */ import_react54.default.createElement(CircleAlert, { size: 28 })), /* @__PURE__ */ import_react54.default.createElement("h3", { className: "text-sm font-bold text-heading m-0 mb-1" }, lang === "ta" ? "\u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BB2\u0BBE\u0BB5\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BA4\u0BC1" : "Invitation Expired or Invalid"), /* @__PURE__ */ import_react54.default.createElement("p", { className: "text-xs text-muted mb-4" }, error), /* @__PURE__ */ import_react54.default.createElement(
       "button",
       {
         type: "button",
@@ -86148,7 +86235,7 @@ ${newlyCreatedClassInfo.url}`);
         className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold"
       },
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Continue to Dashboard"
-    )) : /* @__PURE__ */ import_react53.default.createElement("div", null, /* @__PURE__ */ import_react53.default.createElement("div", { className: "text-center pb-4 border-b border-subtle" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "inline-flex p-2.5 rounded-2xl bg-primary/10 text-primary mb-2" }, /* @__PURE__ */ import_react53.default.createElement(ThreeDLotus, { size: 32 })), /* @__PURE__ */ import_react53.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "You're Invited to Live Yoga Class!"), /* @__PURE__ */ import_react53.default.createElement("p", { className: "text-xs text-muted mt-1 m-0" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BCD\u0B9F\u0BC1 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Complete your registration to join this verified instructor session.")), classInfo && /* @__PURE__ */ import_react53.default.createElement("div", { className: "my-3 p-3 rounded-xl bg-subtle border border-primary/20" }, /* @__PURE__ */ import_react53.default.createElement("h4", { className: "text-xs font-bold text-heading m-0 flex items-center gap-1.5" }, /* @__PURE__ */ import_react53.default.createElement(Video, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, classInfo.title)), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex items-center gap-3 text-[11px] text-muted mt-1" }, /* @__PURE__ */ import_react53.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react53.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, classInfo.durationMinutes || 60, " mins")), /* @__PURE__ */ import_react53.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react53.default.createElement("span", null, new Date(classInfo.startsAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })))), submitError && /* @__PURE__ */ import_react53.default.createElement("div", { className: "alert-box-error flex items-center gap-2 p-2.5 my-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs" }, /* @__PURE__ */ import_react53.default.createElement(CircleAlert, { size: 14 }), /* @__PURE__ */ import_react53.default.createElement("span", null, submitError)), /* @__PURE__ */ import_react53.default.createElement("form", { onSubmit: handleSubmit, className: "flex flex-col gap-3 mt-3" }, /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react53.default.createElement(User, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Full Name")), /* @__PURE__ */ import_react53.default.createElement(
+    )) : /* @__PURE__ */ import_react54.default.createElement("div", null, /* @__PURE__ */ import_react54.default.createElement("div", { className: "text-center pb-4 border-b border-subtle" }, /* @__PURE__ */ import_react54.default.createElement("div", { className: "inline-flex p-2.5 rounded-2xl bg-primary/10 text-primary mb-2" }, /* @__PURE__ */ import_react54.default.createElement(ThreeDLotus, { size: 32 })), /* @__PURE__ */ import_react54.default.createElement("h3", { className: "text-base font-bold text-heading m-0" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "You're Invited to Live Yoga Class!"), /* @__PURE__ */ import_react54.default.createElement("p", { className: "text-xs text-muted mt-1 m-0" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BCD\u0B9F\u0BC1 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Complete your registration to join this verified instructor session.")), classInfo && /* @__PURE__ */ import_react54.default.createElement("div", { className: "my-3 p-3 rounded-xl bg-subtle border border-primary/20" }, /* @__PURE__ */ import_react54.default.createElement("h4", { className: "text-xs font-bold text-heading m-0 flex items-center gap-1.5" }, /* @__PURE__ */ import_react54.default.createElement(Video, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react54.default.createElement("span", null, classInfo.title)), /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex items-center gap-3 text-[11px] text-muted mt-1" }, /* @__PURE__ */ import_react54.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react54.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react54.default.createElement("span", null, classInfo.durationMinutes || 60, " mins")), /* @__PURE__ */ import_react54.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react54.default.createElement("span", null, new Date(classInfo.startsAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })))), submitError && /* @__PURE__ */ import_react54.default.createElement("div", { className: "alert-box-error flex items-center gap-2 p-2.5 my-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs" }, /* @__PURE__ */ import_react54.default.createElement(CircleAlert, { size: 14 }), /* @__PURE__ */ import_react54.default.createElement("span", null, submitError)), /* @__PURE__ */ import_react54.default.createElement("form", { onSubmit: handleSubmit, className: "flex flex-col gap-3 mt-3" }, /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react54.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react54.default.createElement(User, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Full Name")), /* @__PURE__ */ import_react54.default.createElement(
       "input",
       {
         type: "text",
@@ -86158,7 +86245,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
       }
-    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react53.default.createElement(Mail, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0B88\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF (Gmail)" : "Email Address (Gmail)")), /* @__PURE__ */ import_react53.default.createElement(
+    )), /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react54.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react54.default.createElement(Mail, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0B88\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF (Gmail)" : "Email Address (Gmail)")), /* @__PURE__ */ import_react54.default.createElement(
       "input",
       {
         type: "email",
@@ -86168,7 +86255,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
       }
-    )), /* @__PURE__ */ import_react53.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react53.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react53.default.createElement(Phone, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD" : "Mobile Number (10 digits)")), /* @__PURE__ */ import_react53.default.createElement(
+    )), /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react54.default.createElement("label", { className: "text-[11px] font-bold text-heading flex items-center gap-1" }, /* @__PURE__ */ import_react54.default.createElement(Phone, { size: 12, className: "text-primary" }), /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD" : "Mobile Number (10 digits)")), /* @__PURE__ */ import_react54.default.createElement(
       "input",
       {
         type: "tel",
@@ -86178,21 +86265,21 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "ya-input text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading"
       }
-    )), /* @__PURE__ */ import_react53.default.createElement(
+    )), /* @__PURE__ */ import_react54.default.createElement(
       "button",
       {
         type: "submit",
         disabled: submitting,
         className: "ya-btn ya-btn--primary w-full py-2.5 rounded-xl text-xs font-bold flex items-center justify-center gap-2 cursor-pointer mt-1"
       },
-      submitting ? /* @__PURE__ */ import_react53.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react53.default.createElement(CircleCheck, { size: 14 }),
-      /* @__PURE__ */ import_react53.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Register & Join Live Class")
+      submitting ? /* @__PURE__ */ import_react54.default.createElement(RefreshCw, { size: 14, className: "animate-spin" }) : /* @__PURE__ */ import_react54.default.createElement(CircleCheck, { size: 14 }),
+      /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Register & Join Live Class")
     )))));
   }
-  var import_react53;
+  var import_react54;
   var init_InviteRegistrationModal = __esm({
     "src/components/InviteRegistrationModal.jsx"() {
-      import_react53 = __toESM(require_react());
+      import_react54 = __toESM(require_react());
       init_lucide_react();
       init_audioEngine();
       init_ThreeDIcons();
@@ -86208,8 +86295,8 @@ ${newlyCreatedClassInfo.url}`);
     lang = "en"
   }) {
     if (!alarm) return null;
-    const intervalRef = (0, import_react54.useRef)(null);
-    (0, import_react54.useEffect)(() => {
+    const intervalRef = (0, import_react55.useRef)(null);
+    (0, import_react55.useEffect)(() => {
       intervalRef.current = setInterval(() => {
         audioEngine.playAlarmChime();
       }, 4500);
@@ -86237,49 +86324,49 @@ ${newlyCreatedClassInfo.url}`);
       audioEngine.stopAlarmSound();
       if (onSnooze) onSnooze();
     };
-    return /* @__PURE__ */ import_react54.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ import_react54.default.createElement(
+    return /* @__PURE__ */ import_react55.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4" }, /* @__PURE__ */ import_react55.default.createElement(
       "div",
       {
         className: "modal-bottom-sheet max-w-sm w-full mx-auto bg-card rounded-2xl p-6 shadow-2xl border border-primary/30 text-center flex flex-col items-center gap-4 animate-bounce-subtle",
         onClick: (e2) => e2.stopPropagation()
       },
-      /* @__PURE__ */ import_react54.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react54.default.createElement("div", { className: "absolute inset-0 rounded-full bg-primary/20 animate-ping" }), /* @__PURE__ */ import_react54.default.createElement("div", { className: "w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center relative" }, /* @__PURE__ */ import_react54.default.createElement(ThreeDBell, { size: 52 }))),
-      /* @__PURE__ */ import_react54.default.createElement("div", null, /* @__PURE__ */ import_react54.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-bold mb-2" }, /* @__PURE__ */ import_react54.default.createElement(Volume2, { size: 13, className: "animate-pulse" }), /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BAE\u0BA3\u0BBF \u0B92\u0BB2\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1!" : "REMINDER ALARM ACTIVE!")), /* @__PURE__ */ import_react54.default.createElement("h3", { className: "text-xl font-extrabold text-heading" }, alarm.titleTa || alarm.title), /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex items-center justify-center gap-1 text-xs text-muted font-medium mt-1" }, /* @__PURE__ */ import_react54.default.createElement(Clock, { size: 12 }), /* @__PURE__ */ import_react54.default.createElement("span", null, alarm.time, " \u2022 ", alarm.category || "Wellness"))),
-      /* @__PURE__ */ import_react54.default.createElement("p", { className: "text-xs text-heading/90 bg-subtle p-3 rounded-xl border border-subtle max-w-xs leading-relaxed" }, alarm.messageTa || alarm.message || (lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BB5\u0BA9\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u2764\uFE0F" : "Take care of your health & wellness \u2764\uFE0F")),
-      /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex flex-col gap-2 w-full mt-1" }, /* @__PURE__ */ import_react54.default.createElement(
+      /* @__PURE__ */ import_react55.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "absolute inset-0 rounded-full bg-primary/20 animate-ping" }), /* @__PURE__ */ import_react55.default.createElement("div", { className: "w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center relative" }, /* @__PURE__ */ import_react55.default.createElement(ThreeDBell, { size: 52 }))),
+      /* @__PURE__ */ import_react55.default.createElement("div", null, /* @__PURE__ */ import_react55.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/15 text-primary text-xs font-bold mb-2" }, /* @__PURE__ */ import_react55.default.createElement(Volume2, { size: 13, className: "animate-pulse" }), /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0BAE\u0BA3\u0BBF \u0B92\u0BB2\u0BBF\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1!" : "REMINDER ALARM ACTIVE!")), /* @__PURE__ */ import_react55.default.createElement("h3", { className: "text-xl font-extrabold text-heading" }, alarm.titleTa || alarm.title), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex items-center justify-center gap-1 text-xs text-muted font-medium mt-1" }, /* @__PURE__ */ import_react55.default.createElement(Clock, { size: 12 }), /* @__PURE__ */ import_react55.default.createElement("span", null, alarm.time, " \u2022 ", alarm.category || "Wellness"))),
+      /* @__PURE__ */ import_react55.default.createElement("p", { className: "text-xs text-heading/90 bg-subtle p-3 rounded-xl border border-subtle max-w-xs leading-relaxed" }, alarm.messageTa || alarm.message || (lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B86\u0BB0\u0BCB\u0B95\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BCD\u0BA4\u0BC8\u0B95\u0BCD \u0B95\u0BB5\u0BA9\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD \u2764\uFE0F" : "Take care of your health & wellness \u2764\uFE0F")),
+      /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex flex-col gap-2 w-full mt-1" }, /* @__PURE__ */ import_react55.default.createElement(
         "button",
         {
           type: "button",
           className: "w-full py-2.5 text-xs font-extrabold rounded-xl bg-red-600 text-white shadow-lg hover:bg-red-700 transition-all flex items-center justify-center gap-2 cursor-pointer active:scale-95",
           onClick: handleStopAndDismiss
         },
-        /* @__PURE__ */ import_react54.default.createElement(Square, { size: 13, fill: "currentColor" }),
-        /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BA3\u0BBF\u0BAF\u0BC8 \u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 (STOP ALARM)" : "STOP ALARM")
-      ), /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex gap-2 w-full" }, /* @__PURE__ */ import_react54.default.createElement(
+        /* @__PURE__ */ import_react55.default.createElement(Square, { size: 13, fill: "currentColor" }),
+        /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BA3\u0BBF\u0BAF\u0BC8 \u0BA8\u0BBF\u0BB1\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1 (STOP ALARM)" : "STOP ALARM")
+      ), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex gap-2 w-full" }, /* @__PURE__ */ import_react55.default.createElement(
         "button",
         {
           type: "button",
           className: "flex-1 py-2 text-xs font-semibold rounded-xl border border-subtle text-heading hover:bg-subtle transition-all cursor-pointer flex items-center justify-center gap-1.5",
           onClick: handleStopAndSnooze
         },
-        /* @__PURE__ */ import_react54.default.createElement(RefreshCw, { size: 12 }),
-        /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "5 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u0BA4\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BC8" : "Snooze (5 min)")
-      ), /* @__PURE__ */ import_react54.default.createElement(
+        /* @__PURE__ */ import_react55.default.createElement(RefreshCw, { size: 12 }),
+        /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "5 \u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0BAE\u0BCD \u0BA4\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BC8" : "Snooze (5 min)")
+      ), /* @__PURE__ */ import_react55.default.createElement(
         "button",
         {
           type: "button",
           className: "flex-1 py-2 text-xs font-bold rounded-xl bg-primary text-white shadow-md hover:opacity-95 transition-all flex items-center justify-center gap-1.5 cursor-pointer",
           onClick: handleStopAndDismiss
         },
-        /* @__PURE__ */ import_react54.default.createElement(Check, { size: 14 }),
-        /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Dismiss")
+        /* @__PURE__ */ import_react55.default.createElement(Check, { size: 14 }),
+        /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Dismiss")
       )))
     ));
   }
-  var import_react54;
+  var import_react55;
   var init_ActiveAlarmModal = __esm({
     "src/components/ActiveAlarmModal.jsx"() {
-      import_react54 = __toESM(require_react());
+      import_react55 = __toESM(require_react());
       init_lucide_react();
       init_ThreeDIcons();
       init_audioEngine();
@@ -86294,19 +86381,19 @@ ${newlyCreatedClassInfo.url}`);
     activeClass,
     lang = "en"
   }) {
-    const [name, setName] = (0, import_react55.useState)(() => {
+    const [name, setName] = (0, import_react56.useState)(() => {
       return localStorage.getItem("nithya_student_name") || "";
     });
-    const [phone, setPhone] = (0, import_react55.useState)(() => {
+    const [phone, setPhone] = (0, import_react56.useState)(() => {
       return localStorage.getItem("nithya_student_phone") || "";
     });
-    const [isValidated, setIsValidated] = (0, import_react55.useState)(false);
-    const [isValidating, setIsValidating] = (0, import_react55.useState)(false);
-    const [classStatus, setClassStatus] = (0, import_react55.useState)("unknown");
-    const [statusMessage, setStatusMessage] = (0, import_react55.useState)("");
-    const [error, setError] = (0, import_react55.useState)("");
-    const pollTimerRef = (0, import_react55.useRef)(null);
-    (0, import_react55.useEffect)(() => {
+    const [isValidated, setIsValidated] = (0, import_react56.useState)(false);
+    const [isValidating, setIsValidating] = (0, import_react56.useState)(false);
+    const [classStatus, setClassStatus] = (0, import_react56.useState)("unknown");
+    const [statusMessage, setStatusMessage] = (0, import_react56.useState)("");
+    const [error, setError] = (0, import_react56.useState)("");
+    const pollTimerRef = (0, import_react56.useRef)(null);
+    (0, import_react56.useEffect)(() => {
       if (!isOpen) return;
       const classId = activeClass?.id || "cls-1";
       const checkClassState = async () => {
@@ -86458,7 +86545,7 @@ ${newlyCreatedClassInfo.url}`);
         window.location.href = intentUrl;
       }
     };
-    return /* @__PURE__ */ import_react55.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal", onClick: onClose }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "modal-bottom-sheet max-w-md mx-auto", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react55.default.createElement("div", { className: "modal-header-bar flex items-center justify-between pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary" }, /* @__PURE__ */ import_react55.default.createElement(Radio, { size: 16, className: "text-primary animate-pulse" })), /* @__PURE__ */ import_react55.default.createElement("div", null, /* @__PURE__ */ import_react55.default.createElement("span", { className: "inline-block px-2 py-0.5 mb-0.5 rounded-full bg-primary/15 text-primary text-[10px] font-bold tracking-wide uppercase" }, activeClass?.courseName || activeClass?.course_name || "Morning Yoga Flow"), /* @__PURE__ */ import_react55.default.createElement("h3", { className: "modal-title-bold text-base font-bold text-heading" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 & \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Student Live Yoga Registration"), /* @__PURE__ */ import_react55.default.createElement("p", { className: "text-[11px] text-muted" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow", " \u2022 ", activeClass?.instructor || "NITHYA Master"))), /* @__PURE__ */ import_react55.default.createElement(
+    return /* @__PURE__ */ import_react56.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal", onClick: onClose }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "modal-bottom-sheet max-w-md mx-auto", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react56.default.createElement("div", { className: "modal-header-bar flex items-center justify-between pb-3 border-b border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary" }, /* @__PURE__ */ import_react56.default.createElement(Radio, { size: 16, className: "text-primary animate-pulse" })), /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("span", { className: "inline-block px-2 py-0.5 mb-0.5 rounded-full bg-primary/15 text-primary text-[10px] font-bold tracking-wide uppercase" }, activeClass?.courseName || activeClass?.course_name || "Morning Yoga Flow"), /* @__PURE__ */ import_react56.default.createElement("h3", { className: "modal-title-bold text-base font-bold text-heading" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 & \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Student Live Yoga Registration"), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-[11px] text-muted" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow", " \u2022 ", activeClass?.instructor || "NITHYA Master"))), /* @__PURE__ */ import_react56.default.createElement(
       "button",
       {
         type: "button",
@@ -86466,8 +86553,8 @@ ${newlyCreatedClassInfo.url}`);
         onClick: onClose,
         "aria-label": "Close"
       },
-      /* @__PURE__ */ import_react55.default.createElement(X, { size: 18 })
-    )), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex justify-center my-3" }, /* @__PURE__ */ import_react55.default.createElement(ThreeDLotus, { size: 48 })), error && /* @__PURE__ */ import_react55.default.createElement("div", { className: "p-2 mb-3 bg-red-subtle text-red rounded-lg text-xs flex items-center gap-2" }, /* @__PURE__ */ import_react55.default.createElement(CircleAlert, { size: 14 }), /* @__PURE__ */ import_react55.default.createElement("span", null, error)), !isValidated ? /* @__PURE__ */ import_react55.default.createElement("form", { onSubmit: handleValidate, className: "modal-form-flow flex flex-col gap-3" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "text-xs text-muted" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD:" : "Enter your details below to register and verify your live class access:"), /* @__PURE__ */ import_react55.default.createElement("div", { className: "form-field-unit flex flex-col gap-1" }, /* @__PURE__ */ import_react55.default.createElement("label", { className: "text-xs font-semibold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react55.default.createElement(User, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1\u0BAA\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD (Student Name):" : "Student Full Name:"), /* @__PURE__ */ import_react55.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react55.default.createElement(
+      /* @__PURE__ */ import_react56.default.createElement(X, { size: 18 })
+    )), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex justify-center my-3" }, /* @__PURE__ */ import_react56.default.createElement(ThreeDLotus, { size: 48 })), error && /* @__PURE__ */ import_react56.default.createElement("div", { className: "p-2 mb-3 bg-red-subtle text-red rounded-lg text-xs flex items-center gap-2" }, /* @__PURE__ */ import_react56.default.createElement(CircleAlert, { size: 14 }), /* @__PURE__ */ import_react56.default.createElement("span", null, error)), !isValidated ? /* @__PURE__ */ import_react56.default.createElement("form", { onSubmit: handleValidate, className: "modal-form-flow flex flex-col gap-3" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "text-xs text-muted" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD:" : "Enter your details below to register and verify your live class access:"), /* @__PURE__ */ import_react56.default.createElement("div", { className: "form-field-unit flex flex-col gap-1" }, /* @__PURE__ */ import_react56.default.createElement("label", { className: "text-xs font-semibold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react56.default.createElement(User, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAE\u0BC1\u0BB4\u0BC1\u0BAA\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD (Student Name):" : "Student Full Name:"), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react56.default.createElement(
       "input",
       {
         type: "text",
@@ -86481,7 +86568,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         autoFocus: true
       }
-    )), /* @__PURE__ */ import_react55.default.createElement("div", { className: "form-field-unit flex flex-col gap-1" }, /* @__PURE__ */ import_react55.default.createElement("label", { className: "text-xs font-semibold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react55.default.createElement(Phone, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (Mobile Number):" : "Mobile Number:"), /* @__PURE__ */ import_react55.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react55.default.createElement(
+    )), /* @__PURE__ */ import_react56.default.createElement("div", { className: "form-field-unit flex flex-col gap-1" }, /* @__PURE__ */ import_react56.default.createElement("label", { className: "text-xs font-semibold text-heading flex items-center gap-1.5" }, /* @__PURE__ */ import_react56.default.createElement(Phone, { size: 13, className: "text-primary" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (Mobile Number):" : "Mobile Number:"), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-red-500" }, "*")), /* @__PURE__ */ import_react56.default.createElement(
       "input",
       {
         type: "tel",
@@ -86494,7 +86581,7 @@ ${newlyCreatedClassInfo.url}`);
         },
         required: true
       }
-    )), /* @__PURE__ */ import_react55.default.createElement("div", { className: "p-2.5 bg-subtle/80 rounded-xl text-[11px] text-muted flex items-start gap-2 border border-subtle" }, /* @__PURE__ */ import_react55.default.createElement(ShieldCheck, { size: 16, className: "text-green shrink-0 mt-0.5" }), /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0B95\u0B95\u0BCD (70%+) \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Your live session attendance will be tracked for 70%+ completion certificate.")), /* @__PURE__ */ import_react55.default.createElement("div", { className: "modal-actions-bar flex gap-2 mt-2" }, /* @__PURE__ */ import_react55.default.createElement(
+    )), /* @__PURE__ */ import_react56.default.createElement("div", { className: "p-2.5 bg-subtle/80 rounded-xl text-[11px] text-muted flex items-start gap-2 border border-subtle" }, /* @__PURE__ */ import_react56.default.createElement(ShieldCheck, { size: 16, className: "text-green shrink-0 mt-0.5" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0B95\u0B95\u0BCD (70%+) \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Your live session attendance will be tracked for 70%+ completion certificate.")), /* @__PURE__ */ import_react56.default.createElement("div", { className: "modal-actions-bar flex gap-2 mt-2" }, /* @__PURE__ */ import_react56.default.createElement(
       "button",
       {
         type: "button",
@@ -86502,35 +86589,35 @@ ${newlyCreatedClassInfo.url}`);
         onClick: onClose
       },
       lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel"
-    ), /* @__PURE__ */ import_react55.default.createElement(
+    ), /* @__PURE__ */ import_react56.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isValidating,
         className: "btn-modal-save w-2/3 py-2 text-xs rounded-xl bg-primary text-white font-bold flex items-center justify-center gap-1.5 shadow-md hover:opacity-95 cursor-pointer disabled:opacity-60"
       },
-      isValidating ? /* @__PURE__ */ import_react55.default.createElement(import_react55.default.Fragment, null, /* @__PURE__ */ import_react55.default.createElement(RefreshCw, { size: 13, className: "animate-spin" }), /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")) : /* @__PURE__ */ import_react55.default.createElement(import_react55.default.Fragment, null, /* @__PURE__ */ import_react55.default.createElement(Radio, { size: 14, className: "text-white animate-pulse" }), /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95 \u{1F9D8}\u200D\u2640\uFE0F" : "Register & Enter Live Class \u{1F9D8}\u200D\u2640\uFE0F"))
-    )), /* @__PURE__ */ import_react55.default.createElement("div", { className: "pt-2 border-t border-subtle/50 text-center flex flex-col gap-1.5" }, /* @__PURE__ */ import_react55.default.createElement("span", { className: "text-[11px] text-muted block" }, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BBF\u0BB2\u0BCD \u0B86\u0BAA\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BBE?" : "Prefer using the Android mobile app?"), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ import_react55.default.createElement(
+      isValidating ? /* @__PURE__ */ import_react56.default.createElement(import_react56.default.Fragment, null, /* @__PURE__ */ import_react56.default.createElement(RefreshCw, { size: 13, className: "animate-spin" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")) : /* @__PURE__ */ import_react56.default.createElement(import_react56.default.Fragment, null, /* @__PURE__ */ import_react56.default.createElement(Radio, { size: 14, className: "text-white animate-pulse" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BC1 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95 \u{1F9D8}\u200D\u2640\uFE0F" : "Register & Enter Live Class \u{1F9D8}\u200D\u2640\uFE0F"))
+    )), /* @__PURE__ */ import_react56.default.createElement("div", { className: "pt-2 border-t border-subtle/50 text-center flex flex-col gap-1.5" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[11px] text-muted block" }, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BBF\u0BB2\u0BCD \u0B86\u0BAA\u0BCD \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BBE?" : "Prefer using the Android mobile app?"), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ import_react56.default.createElement(
       "button",
       {
         type: "button",
         onClick: handleLaunchApp,
         className: "w-1/2 py-2 px-2 rounded-xl border border-primary/40 bg-primary/10 text-primary text-xs font-bold flex items-center justify-center gap-1 hover:bg-primary/20 transition-all cursor-pointer"
       },
-      /* @__PURE__ */ import_react55.default.createElement("span", null, "\u{1F4F2}"),
-      /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1\u0B95\u0BCD\u0B95" : "Open in App")
-    ), /* @__PURE__ */ import_react55.default.createElement(
+      /* @__PURE__ */ import_react56.default.createElement("span", null, "\u{1F4F2}"),
+      /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1\u0B95\u0BCD\u0B95" : "Open in App")
+    ), /* @__PURE__ */ import_react56.default.createElement(
       "a",
       {
         href: "https://sarath2003-sketch.github.io/nithya-yoga/NITHYA-Yoga-v1.0.apk",
         download: "NITHYA-Yoga-v1.0.apk",
         className: "w-1/2 py-2 px-2 rounded-xl border border-subtle bg-subtle/40 text-heading text-xs font-semibold flex items-center justify-center gap-1 hover:bg-subtle/70 transition-all"
       },
-      /* @__PURE__ */ import_react55.default.createElement(Download, { size: 12 }),
-      /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "APK \u0B9F\u0BB5\u0BC1\u0BA9\u0BCD\u0BB2\u0BCB\u0B9F\u0BCD" : "Download APK")
+      /* @__PURE__ */ import_react56.default.createElement(Download, { size: 12 }),
+      /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "APK \u0B9F\u0BB5\u0BC1\u0BA9\u0BCD\u0BB2\u0BCB\u0B9F\u0BCD" : "Download APK")
     )))) : classStatus === "ended" ? (
       /* Notice: Class has ended */
-      /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex flex-col items-center text-center gap-3 py-4" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center" }, /* @__PURE__ */ import_react55.default.createElement(Clock, { size: 24 })), /* @__PURE__ */ import_react55.default.createElement("h4", { className: "text-base font-bold text-heading" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Yoga Class Ended"), /* @__PURE__ */ import_react55.default.createElement("p", { className: "text-xs text-muted max-w-xs" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0BB2\u0BCD \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1. \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0B95\u0BCD \u0B95\u0BBE\u0BA3\u0BB5\u0BC1\u0BAE\u0BCD." : "This live session has already concluded. You can watch recorded yoga flows or view class notes."), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex gap-2 w-full mt-2" }, /* @__PURE__ */ import_react55.default.createElement(
+      /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex flex-col items-center text-center gap-3 py-4" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "w-12 h-12 rounded-full bg-amber-500/10 text-amber-500 flex items-center justify-center" }, /* @__PURE__ */ import_react56.default.createElement(Clock, { size: 24 })), /* @__PURE__ */ import_react56.default.createElement("h4", { className: "text-base font-bold text-heading" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Yoga Class Ended"), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-xs text-muted max-w-xs" }, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0BB2\u0BCD \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1. \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0B95\u0BCD \u0B95\u0BBE\u0BA3\u0BB5\u0BC1\u0BAE\u0BCD." : "This live session has already concluded. You can watch recorded yoga flows or view class notes."), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex gap-2 w-full mt-2" }, /* @__PURE__ */ import_react56.default.createElement(
         "button",
         {
           type: "button",
@@ -86549,9 +86636,9 @@ ${newlyCreatedClassInfo.url}`);
             }
           }
         },
-        /* @__PURE__ */ import_react55.default.createElement(RefreshCw, { size: 13 }),
-        /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD" : "Check Status")
-      ), /* @__PURE__ */ import_react55.default.createElement(
+        /* @__PURE__ */ import_react56.default.createElement(RefreshCw, { size: 13 }),
+        /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD" : "Check Status")
+      ), /* @__PURE__ */ import_react56.default.createElement(
         "button",
         {
           type: "button",
@@ -86562,7 +86649,7 @@ ${newlyCreatedClassInfo.url}`);
       )))
     ) : classStatus === "scheduled" ? (
       /* Waiting Screen: Trainer has not started yet */
-      /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex flex-col items-center text-center gap-3 py-3" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center relative" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "absolute inset-0 rounded-full bg-primary/20 animate-ping" }), /* @__PURE__ */ import_react55.default.createElement(Clock, { size: 24, className: "relative z-10" })), /* @__PURE__ */ import_react55.default.createElement("div", null, /* @__PURE__ */ import_react55.default.createElement("span", { className: "px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 text-[11px] font-bold inline-block mb-1" }, "\u23F3 ", lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95\u0B95\u0BCD \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1" : "WAITING FOR TRAINER"), /* @__PURE__ */ import_react55.default.createElement("h4", { className: "text-base font-bold text-heading" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8" : "Trainer Has Not Started Yet"), /* @__PURE__ */ import_react55.default.createElement("p", { className: "text-xs text-muted max-w-xs mt-1" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA9. \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BBE\u0BA9\u0BBE\u0B95\u0BB5\u0BC7 \u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BB5\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD." : `Welcome, ${name}! Your details are verified. Please wait \u2014 the class will begin as soon as the trainer starts the session.`)), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex items-center gap-2 text-xs text-primary font-semibold py-1" }, /* @__PURE__ */ import_react55.default.createElement(RefreshCw, { size: 13, className: "animate-spin" }), /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Checking live room status...")), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex gap-2 w-full mt-2" }, /* @__PURE__ */ import_react55.default.createElement(
+      /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex flex-col items-center text-center gap-3 py-3" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "w-12 h-12 rounded-full bg-primary/10 text-primary flex items-center justify-center relative" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "absolute inset-0 rounded-full bg-primary/20 animate-ping" }), /* @__PURE__ */ import_react56.default.createElement(Clock, { size: 24, className: "relative z-10" })), /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("span", { className: "px-2.5 py-1 rounded-full bg-amber-500/15 text-amber-600 text-[11px] font-bold inline-block mb-1" }, "\u23F3 ", lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95\u0B95\u0BCD \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1" : "WAITING FOR TRAINER"), /* @__PURE__ */ import_react56.default.createElement("h4", { className: "text-base font-bold text-heading" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B87\u0BA9\u0BCD\u0BA9\u0BC1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8" : "Trainer Has Not Started Yet"), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-xs text-muted max-w-xs mt-1" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA9. \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BBE\u0BA9\u0BBE\u0B95\u0BB5\u0BC7 \u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BB5\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD." : `Welcome, ${name}! Your details are verified. Please wait \u2014 the class will begin as soon as the trainer starts the session.`)), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-2 text-xs text-primary font-semibold py-1" }, /* @__PURE__ */ import_react56.default.createElement(RefreshCw, { size: 13, className: "animate-spin" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BC7\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Checking live room status...")), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex gap-2 w-full mt-2" }, /* @__PURE__ */ import_react56.default.createElement(
         "button",
         {
           type: "button",
@@ -86570,19 +86657,19 @@ ${newlyCreatedClassInfo.url}`);
           onClick: onClose
         },
         lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave Waiting Room"
-      ), /* @__PURE__ */ import_react55.default.createElement(
+      ), /* @__PURE__ */ import_react56.default.createElement(
         "button",
         {
           type: "button",
           className: "w-1/2 py-2 text-xs rounded-xl bg-primary text-white font-bold hover:opacity-95 cursor-pointer flex items-center justify-center gap-1.5",
           onClick: handleJoinConfirmed
         },
-        /* @__PURE__ */ import_react55.default.createElement(Radio, { size: 14 }),
-        /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B87\u0BA3\u0BC8" : "Enter Studio Now")
+        /* @__PURE__ */ import_react56.default.createElement(Radio, { size: 14 }),
+        /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B87\u0BA3\u0BC8" : "Enter Studio Now")
       )))
     ) : (
       /* STEP 5 & 6: Class is LIVE -> Verified Join Class Button */
-      /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex flex-col items-center text-center gap-3 py-3" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "w-12 h-12 rounded-full bg-emerald-500/15 text-emerald-600 flex items-center justify-center" }, /* @__PURE__ */ import_react55.default.createElement(Check, { size: 24 })), /* @__PURE__ */ import_react55.default.createElement("div", null, /* @__PURE__ */ import_react55.default.createElement("span", { className: "px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-[11px] font-bold inline-block mb-1" }, "\u25CF ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1!" : "CLASS IS LIVE NOW"), /* @__PURE__ */ import_react55.default.createElement("h4", { className: "text-base font-bold text-heading" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1: \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Verified: Ready to Join Class"), /* @__PURE__ */ import_react55.default.createElement("p", { className: "text-xs text-muted max-w-xs mt-1" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD ${name}, \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD 10-\u0B87\u0BB2\u0B95\u0BCD\u0B95 \u0B8E\u0BA3\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1. \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAA\u0B9F\u0BCD\u0B9F\u0BA9\u0BC8\u0B95\u0BCD \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0B95.` : `Welcome, ${name}! Your details have been verified. Click below to enter the live yoga studio.`)), /* @__PURE__ */ import_react55.default.createElement("div", { className: "w-full p-3 rounded-xl bg-subtle/60 border border-subtle text-left text-xs" }, /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex justify-between py-0.5" }, /* @__PURE__ */ import_react55.default.createElement("span", { className: "text-muted" }, "Student:"), /* @__PURE__ */ import_react55.default.createElement("strong", { className: "text-heading" }, name)), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex justify-between py-0.5" }, /* @__PURE__ */ import_react55.default.createElement("span", { className: "text-muted" }, "Phone:"), /* @__PURE__ */ import_react55.default.createElement("span", { className: "font-mono text-heading" }, phone)), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex justify-between py-0.5" }, /* @__PURE__ */ import_react55.default.createElement("span", { className: "text-muted" }, "Class:"), /* @__PURE__ */ import_react55.default.createElement("span", { className: "text-primary font-semibold" }, activeClass?.title || activeClass?.name || "Hatha Flow"))), /* @__PURE__ */ import_react55.default.createElement("div", { className: "flex gap-2 w-full mt-2" }, /* @__PURE__ */ import_react55.default.createElement(
+      /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex flex-col items-center text-center gap-3 py-3" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "w-12 h-12 rounded-full bg-emerald-500/15 text-emerald-600 flex items-center justify-center" }, /* @__PURE__ */ import_react56.default.createElement(Check, { size: 24 })), /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("span", { className: "px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-600 text-[11px] font-bold inline-block mb-1" }, "\u25CF ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1!" : "CLASS IS LIVE NOW"), /* @__PURE__ */ import_react56.default.createElement("h4", { className: "text-base font-bold text-heading" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1: \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Verified: Ready to Join Class"), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-xs text-muted max-w-xs mt-1" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD ${name}, \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD 10-\u0B87\u0BB2\u0B95\u0BCD\u0B95 \u0B8E\u0BA3\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1. \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAA\u0B9F\u0BCD\u0B9F\u0BA9\u0BC8\u0B95\u0BCD \u0B95\u0BBF\u0BB3\u0BBF\u0B95\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0B95.` : `Welcome, ${name}! Your details have been verified. Click below to enter the live yoga studio.`)), /* @__PURE__ */ import_react56.default.createElement("div", { className: "w-full p-3 rounded-xl bg-subtle/60 border border-subtle text-left text-xs" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex justify-between py-0.5" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-muted" }, "Student:"), /* @__PURE__ */ import_react56.default.createElement("strong", { className: "text-heading" }, name)), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex justify-between py-0.5" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-muted" }, "Phone:"), /* @__PURE__ */ import_react56.default.createElement("span", { className: "font-mono text-heading" }, phone)), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex justify-between py-0.5" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-muted" }, "Class:"), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-primary font-semibold" }, activeClass?.title || activeClass?.name || "Hatha Flow"))), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex gap-2 w-full mt-2" }, /* @__PURE__ */ import_react56.default.createElement(
         "button",
         {
           type: "button",
@@ -86590,22 +86677,22 @@ ${newlyCreatedClassInfo.url}`);
           onClick: onClose
         },
         lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1" : "Cancel"
-      ), /* @__PURE__ */ import_react55.default.createElement(
+      ), /* @__PURE__ */ import_react56.default.createElement(
         "button",
         {
           type: "button",
           className: "w-2/3 py-2.5 text-xs rounded-xl bg-emerald-600 text-white font-bold hover:bg-emerald-700 transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer",
           onClick: handleJoinConfirmed
         },
-        /* @__PURE__ */ import_react55.default.createElement(Radio, { size: 15, className: "animate-pulse" }),
-        /* @__PURE__ */ import_react55.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95 (Join Class)" : "JOIN CLASS NOW \u{1F9D8}\u200D\u2640\uFE0F")
+        /* @__PURE__ */ import_react56.default.createElement(Radio, { size: 15, className: "animate-pulse" }),
+        /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95 (Join Class)" : "JOIN CLASS NOW \u{1F9D8}\u200D\u2640\uFE0F")
       )))
     )));
   }
-  var import_react55;
+  var import_react56;
   var init_StudentJoinModal = __esm({
     "src/components/StudentJoinModal.jsx"() {
-      import_react55 = __toESM(require_react());
+      import_react56 = __toESM(require_react());
       init_lucide_react();
       init_ThreeDIcons();
       init_audioEngine();
@@ -86622,18 +86709,18 @@ ${newlyCreatedClassInfo.url}`);
     onOpenReminderModal,
     lang = "en"
   }) {
-    const [studentSession, setStudentSession] = (0, import_react56.useState)(() => {
+    const [studentSession, setStudentSession] = (0, import_react57.useState)(() => {
       return loadStorage("nithya_student_session", null);
     });
-    const [materials, setMaterials] = (0, import_react56.useState)([]);
-    const [videos, setVideos] = (0, import_react56.useState)([]);
-    const [attendanceHistory, setAttendanceHistory] = (0, import_react56.useState)([]);
-    const [activeVideoModal, setActiveVideoModal] = (0, import_react56.useState)(null);
-    const [activeNoteModal, setActiveNoteModal] = (0, import_react56.useState)(null);
-    const [loading, setLoading] = (0, import_react56.useState)(false);
+    const [materials, setMaterials] = (0, import_react57.useState)([]);
+    const [videos, setVideos] = (0, import_react57.useState)([]);
+    const [attendanceHistory, setAttendanceHistory] = (0, import_react57.useState)([]);
+    const [activeVideoModal, setActiveVideoModal] = (0, import_react57.useState)(null);
+    const [activeNoteModal, setActiveNoteModal] = (0, import_react57.useState)(null);
+    const [loading, setLoading] = (0, import_react57.useState)(false);
     const studentName = studentSession?.name || user2?.name || "Yoga Student";
     const studentPhone = studentSession?.phone || user2?.phone || "";
-    (0, import_react56.useEffect)(() => {
+    (0, import_react57.useEffect)(() => {
       const fetchData = async () => {
         setLoading(true);
         try {
@@ -86717,43 +86804,43 @@ ${newlyCreatedClassInfo.url}`);
       }
     ];
     const liveClass = classes.find((c) => c.status === "live");
-    return /* @__PURE__ */ import_react56.default.createElement("div", { className: "student-dashboard-portal flex flex-col gap-6 max-w-7xl mx-auto ya-reveal pb-12" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "dashboard-card student-welcome-banner p-6 bg-gradient-to-r from-teal-900/40 via-emerald-900/30 to-slate-900/60 border border-primary/20 rounded-2xl relative overflow-hidden" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-4 relative z-10" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-4" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center text-primary shadow-inner" }, /* @__PURE__ */ import_react56.default.createElement(ThreeDLotus, { size: 48 })), /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "px-2.5 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-bold tracking-wider uppercase" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "STUDENT PORTAL"), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-xs text-muted" }, studentPhone ? `\u2022 +91 ${studentPhone}` : "")), /* @__PURE__ */ import_react56.default.createElement("h2", { className: "text-xl md:text-2xl font-extrabold text-heading mt-1" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${studentName}!` : `Welcome back, ${studentName}!`), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-xs text-muted mt-0.5 max-w-xl" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BAF\u0BCB\u0B95\u0BBE \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD, \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Join live instructor-led sessions, practice on-demand flows, access class notes, and track your attendance progress."))), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "p-3 rounded-xl bg-card border border-subtle text-center min-w-[90px]" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[10px] text-muted block font-semibold" }, "Classes"), /* @__PURE__ */ import_react56.default.createElement("strong", { className: "text-base text-heading font-extrabold" }, user2?.classesAttended || attendanceHistory.length || 1)), /* @__PURE__ */ import_react56.default.createElement("div", { className: "p-3 rounded-xl bg-card border border-subtle text-center min-w-[90px]" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[10px] text-muted block font-semibold" }, "Attendance"), /* @__PURE__ */ import_react56.default.createElement("strong", { className: "text-base text-primary font-extrabold" }, user2?.attendanceRate || 85, "%"))))), liveClass ? /* @__PURE__ */ import_react56.default.createElement("div", { className: "p-4 rounded-2xl bg-gradient-to-r from-red-500/20 via-primary/20 to-emerald-500/10 border-2 border-red-500/40 flex items-center justify-between flex-wrap gap-3 animate-pulse-subtle" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "w-10 h-10 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center" }, /* @__PURE__ */ import_react56.default.createElement(Radio, { size: 20, className: "animate-pulse" })), /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "px-2 py-0.5 rounded-full bg-red-500 text-white text-[10px] font-extrabold uppercase tracking-wide" }, "\u25CF LIVE NOW"), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-xs font-bold text-heading" }, liveClass.title || liveClass.name)), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-[11px] text-muted mt-0.5" }, "Instructor is currently streaming live. Tap to enter the studio!"))), /* @__PURE__ */ import_react56.default.createElement(
+    return /* @__PURE__ */ import_react57.default.createElement("div", { className: "student-dashboard-portal flex flex-col gap-6 max-w-7xl mx-auto ya-reveal pb-12" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "dashboard-card student-welcome-banner p-6 bg-gradient-to-r from-teal-900/40 via-emerald-900/30 to-slate-900/60 border border-primary/20 rounded-2xl relative overflow-hidden" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center justify-between flex-wrap gap-4 relative z-10" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center gap-4" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "w-16 h-16 rounded-2xl bg-primary/20 flex items-center justify-center text-primary shadow-inner" }, /* @__PURE__ */ import_react57.default.createElement(ThreeDLotus, { size: 48 })), /* @__PURE__ */ import_react57.default.createElement("div", null, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react57.default.createElement("span", { className: "px-2.5 py-0.5 rounded-full bg-primary/20 text-primary text-[10px] font-bold tracking-wider uppercase" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "STUDENT PORTAL"), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-xs text-muted" }, studentPhone ? `\u2022 +91 ${studentPhone}` : "")), /* @__PURE__ */ import_react57.default.createElement("h2", { className: "text-xl md:text-2xl font-extrabold text-heading mt-1" }, lang === "ta" ? `\u0BB5\u0BA3\u0B95\u0BCD\u0B95\u0BAE\u0BCD, ${studentName}!` : `Welcome back, ${studentName}!`), /* @__PURE__ */ import_react57.default.createElement("p", { className: "text-xs text-muted mt-0.5 max-w-xl" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BAF\u0BCB\u0B95\u0BBE \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD, \u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BC8\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Join live instructor-led sessions, practice on-demand flows, access class notes, and track your attendance progress."))), /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "p-3 rounded-xl bg-card border border-subtle text-center min-w-[90px]" }, /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[10px] text-muted block font-semibold" }, "Classes"), /* @__PURE__ */ import_react57.default.createElement("strong", { className: "text-base text-heading font-extrabold" }, user2?.classesAttended || attendanceHistory.length || 1)), /* @__PURE__ */ import_react57.default.createElement("div", { className: "p-3 rounded-xl bg-card border border-subtle text-center min-w-[90px]" }, /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[10px] text-muted block font-semibold" }, "Attendance"), /* @__PURE__ */ import_react57.default.createElement("strong", { className: "text-base text-primary font-extrabold" }, user2?.attendanceRate || 85, "%"))))), liveClass ? /* @__PURE__ */ import_react57.default.createElement("div", { className: "p-4 rounded-2xl bg-gradient-to-r from-red-500/20 via-primary/20 to-emerald-500/10 border-2 border-red-500/40 flex items-center justify-between flex-wrap gap-3 animate-pulse-subtle" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "w-10 h-10 rounded-full bg-red-500/20 text-red-500 flex items-center justify-center" }, /* @__PURE__ */ import_react57.default.createElement(Radio, { size: 20, className: "animate-pulse" })), /* @__PURE__ */ import_react57.default.createElement("div", null, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react57.default.createElement("span", { className: "px-2 py-0.5 rounded-full bg-red-500 text-white text-[10px] font-extrabold uppercase tracking-wide" }, "\u25CF LIVE NOW"), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-xs font-bold text-heading" }, liveClass.title || liveClass.name)), /* @__PURE__ */ import_react57.default.createElement("p", { className: "text-[11px] text-muted mt-0.5" }, "Instructor is currently streaming live. Tap to enter the studio!"))), /* @__PURE__ */ import_react57.default.createElement(
       "button",
       {
         type: "button",
         className: "ya-btn ya-btn--primary px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-2 shadow-lg cursor-pointer",
         onClick: () => onJoinLiveClass && onJoinLiveClass(liveClass)
       },
-      /* @__PURE__ */ import_react56.default.createElement(Radio, { size: 14 }),
-      /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Join Live Class Now \u{1F9D8}\u200D\u2640\uFE0F")
-    )) : null, /* @__PURE__ */ import_react56.default.createElement("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "lg:col-span-2 flex flex-col gap-6" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "dashboard-card p-5 bg-card rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0" }, /* @__PURE__ */ import_react56.default.createElement(Calendar, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Live Class Schedule")), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[11px] text-muted" }, classes.length, " ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "sessions scheduled")), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex flex-col gap-3" }, classes.slice(0, 4).map((cls) => {
+      /* @__PURE__ */ import_react57.default.createElement(Radio, { size: 14 }),
+      /* @__PURE__ */ import_react57.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BC8\u0BB5\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "Join Live Class Now \u{1F9D8}\u200D\u2640\uFE0F")
+    )) : null, /* @__PURE__ */ import_react57.default.createElement("div", { className: "grid grid-cols-1 lg:grid-cols-3 gap-6" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "lg:col-span-2 flex flex-col gap-6" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "dashboard-card p-5 bg-card rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0" }, /* @__PURE__ */ import_react57.default.createElement(Calendar, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react57.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Live Class Schedule")), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[11px] text-muted" }, classes.length, " ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "sessions scheduled")), /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex flex-col gap-3" }, classes.slice(0, 4).map((cls) => {
       const isLive = cls.status === "live";
-      return /* @__PURE__ */ import_react56.default.createElement(
+      return /* @__PURE__ */ import_react57.default.createElement(
         "div",
         {
           key: cls.id,
           className: "p-3.5 rounded-xl border border-subtle bg-subtle/40 hover:bg-subtle/80 transition-all flex items-center justify-between flex-wrap gap-2"
         },
-        /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react56.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, cls.title || cls.name), isLive && /* @__PURE__ */ import_react56.default.createElement("span", { className: "px-1.5 py-0.5 rounded bg-red-500 text-white text-[9px] font-bold" }, "\u25CF LIVE")), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-2 text-[11px] text-muted mt-0.5" }, /* @__PURE__ */ import_react56.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react56.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react56.default.createElement("span", null, cls.time || new Date(cls.starts_at || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))), /* @__PURE__ */ import_react56.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react56.default.createElement("span", null, cls.duration || cls.duration_minutes || 60, "m"), /* @__PURE__ */ import_react56.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-heading font-medium" }, cls.instructor || "NITHYA Master"))),
-        /* @__PURE__ */ import_react56.default.createElement(
+        /* @__PURE__ */ import_react57.default.createElement("div", null, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react57.default.createElement("h4", { className: "text-xs font-bold text-heading m-0" }, cls.title || cls.name), isLive && /* @__PURE__ */ import_react57.default.createElement("span", { className: "px-1.5 py-0.5 rounded bg-red-500 text-white text-[9px] font-bold" }, "\u25CF LIVE")), /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center gap-2 text-[11px] text-muted mt-0.5" }, /* @__PURE__ */ import_react57.default.createElement("span", { className: "flex items-center gap-1" }, /* @__PURE__ */ import_react57.default.createElement(Clock, { size: 11, className: "text-primary" }), /* @__PURE__ */ import_react57.default.createElement("span", null, cls.time || new Date(cls.starts_at || Date.now()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }))), /* @__PURE__ */ import_react57.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react57.default.createElement("span", null, cls.duration || cls.duration_minutes || 60, "m"), /* @__PURE__ */ import_react57.default.createElement("span", null, "\u2022"), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-heading font-medium" }, cls.instructor || "NITHYA Master"))),
+        /* @__PURE__ */ import_react57.default.createElement(
           "button",
           {
             type: "button",
             className: `text-xs px-3 py-1.5 rounded-xl font-bold flex items-center gap-1.5 cursor-pointer transition-all ${isLive ? "bg-red-500 text-white shadow hover:bg-red-600" : "bg-primary/10 text-primary hover:bg-primary hover:text-white"}`,
             onClick: () => onJoinLiveClass && onJoinLiveClass(cls)
           },
-          /* @__PURE__ */ import_react56.default.createElement(Play, { size: 12, fill: "currentColor" }),
-          /* @__PURE__ */ import_react56.default.createElement("span", null, isLive ? lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B87\u0BA3\u0BC8" : "Join Live" : lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Enter Class")
+          /* @__PURE__ */ import_react57.default.createElement(Play, { size: 12, fill: "currentColor" }),
+          /* @__PURE__ */ import_react57.default.createElement("span", null, isLive ? lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B87\u0BA3\u0BC8" : "Join Live" : lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Enter Class")
         )
       );
-    }))), /* @__PURE__ */ import_react56.default.createElement("div", { className: "dashboard-card p-5 bg-card rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0" }, /* @__PURE__ */ import_react56.default.createElement(Video, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC1\u0BAF\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD" : "On-Demand Yoga Video Library")), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[11px] text-muted" }, displayVideos.length, " ", lang === "ta" ? "\u0BAA\u0BBE\u0B9F\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "lessons available")), /* @__PURE__ */ import_react56.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, displayVideos.map((vid) => /* @__PURE__ */ import_react56.default.createElement(
+    }))), /* @__PURE__ */ import_react57.default.createElement("div", { className: "dashboard-card p-5 bg-card rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0" }, /* @__PURE__ */ import_react57.default.createElement(Video, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react57.default.createElement("span", null, lang === "ta" ? "\u0B9A\u0BC1\u0BAF\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0B95\u0BCD\u0B95\u0BB3\u0BCD" : "On-Demand Yoga Video Library")), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[11px] text-muted" }, displayVideos.length, " ", lang === "ta" ? "\u0BAA\u0BBE\u0B9F\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "lessons available")), /* @__PURE__ */ import_react57.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, displayVideos.map((vid) => /* @__PURE__ */ import_react57.default.createElement(
       "div",
       {
         key: vid.id,
         className: "rounded-xl border border-subtle bg-subtle/30 overflow-hidden flex flex-col group hover:border-primary/40 transition-all cursor-pointer",
         onClick: () => setActiveVideoModal(vid)
       },
-      /* @__PURE__ */ import_react56.default.createElement("div", { className: "relative aspect-video bg-black/40 overflow-hidden flex items-center justify-center" }, /* @__PURE__ */ import_react56.default.createElement(
+      /* @__PURE__ */ import_react57.default.createElement("div", { className: "relative aspect-video bg-black/40 overflow-hidden flex items-center justify-center" }, /* @__PURE__ */ import_react57.default.createElement(
         "img",
         {
           src: vid.thumbnail_url || "assets/images/class-thumb.jpg",
@@ -86763,24 +86850,24 @@ ${newlyCreatedClassInfo.url}`);
             e2.target.src = "assets/images/class-thumb.jpg";
           }
         }
-      ), /* @__PURE__ */ import_react56.default.createElement("div", { className: "absolute inset-0 bg-black/30 flex items-center justify-center" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "w-10 h-10 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-all" }, /* @__PURE__ */ import_react56.default.createElement(Play, { size: 16, fill: "white", className: "ml-0.5" }))), /* @__PURE__ */ import_react56.default.createElement("span", { className: "absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/70 text-white text-[10px] font-mono" }, vid.duration_minutes || 30, "m")),
-      /* @__PURE__ */ import_react56.default.createElement("div", { className: "p-3 flex flex-col flex-1 justify-between gap-2" }, /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[10px] font-bold text-primary block uppercase" }, vid.category || "Yoga", " \u2022 ", vid.level || "All Levels"), /* @__PURE__ */ import_react56.default.createElement("h4", { className: "text-xs font-bold text-heading line-clamp-1 mt-0.5" }, vid.title), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-[11px] text-muted line-clamp-2 mt-1" }, vid.description)), /* @__PURE__ */ import_react56.default.createElement(
+      ), /* @__PURE__ */ import_react57.default.createElement("div", { className: "absolute inset-0 bg-black/30 flex items-center justify-center" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "w-10 h-10 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-all" }, /* @__PURE__ */ import_react57.default.createElement(Play, { size: 16, fill: "white", className: "ml-0.5" }))), /* @__PURE__ */ import_react57.default.createElement("span", { className: "absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/70 text-white text-[10px] font-mono" }, vid.duration_minutes || 30, "m")),
+      /* @__PURE__ */ import_react57.default.createElement("div", { className: "p-3 flex flex-col flex-1 justify-between gap-2" }, /* @__PURE__ */ import_react57.default.createElement("div", null, /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[10px] font-bold text-primary block uppercase" }, vid.category || "Yoga", " \u2022 ", vid.level || "All Levels"), /* @__PURE__ */ import_react57.default.createElement("h4", { className: "text-xs font-bold text-heading line-clamp-1 mt-0.5" }, vid.title), /* @__PURE__ */ import_react57.default.createElement("p", { className: "text-[11px] text-muted line-clamp-2 mt-1" }, vid.description)), /* @__PURE__ */ import_react57.default.createElement(
         "button",
         {
           type: "button",
           className: "text-xs text-primary font-bold flex items-center gap-1 hover:underline pt-1"
         },
-        /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC8\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD" : "Watch Session"),
-        /* @__PURE__ */ import_react56.default.createElement(ChevronRight, { size: 12 })
+        /* @__PURE__ */ import_react57.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC8\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD" : "Watch Session"),
+        /* @__PURE__ */ import_react57.default.createElement(ChevronRight, { size: 12 })
       ))
-    ))))), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "dashboard-card p-5 bg-card rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0" }, /* @__PURE__ */ import_react56.default.createElement(FileText, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & PDF" : "Yoga Notes & PDF Guides")), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[11px] text-muted" }, displayMaterials.length)), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex flex-col gap-2.5" }, displayMaterials.map((mat) => /* @__PURE__ */ import_react56.default.createElement(
+    ))))), /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex flex-col gap-6" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "dashboard-card p-5 bg-card rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0" }, /* @__PURE__ */ import_react57.default.createElement(FileText, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react57.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & PDF" : "Yoga Notes & PDF Guides")), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[11px] text-muted" }, displayMaterials.length)), /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex flex-col gap-2.5" }, displayMaterials.map((mat) => /* @__PURE__ */ import_react57.default.createElement(
       "div",
       {
         key: mat.id,
         className: "p-3 rounded-xl border border-subtle bg-subtle/30 flex items-start justify-between gap-2 hover:bg-subtle/60 transition-all"
       },
-      /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-start gap-2.5" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "p-2 rounded-lg bg-primary/10 text-primary shrink-0 mt-0.5" }, /* @__PURE__ */ import_react56.default.createElement(BookOpen, { size: 14 })), /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("h4", { className: "text-xs font-bold text-heading m-0 leading-tight" }, mat.title), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-[11px] text-muted line-clamp-2 mt-1" }, mat.description))),
-      /* @__PURE__ */ import_react56.default.createElement(
+      /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-start gap-2.5" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "p-2 rounded-lg bg-primary/10 text-primary shrink-0 mt-0.5" }, /* @__PURE__ */ import_react57.default.createElement(BookOpen, { size: 14 })), /* @__PURE__ */ import_react57.default.createElement("div", null, /* @__PURE__ */ import_react57.default.createElement("h4", { className: "text-xs font-bold text-heading m-0 leading-tight" }, mat.title), /* @__PURE__ */ import_react57.default.createElement("p", { className: "text-[11px] text-muted line-clamp-2 mt-1" }, mat.description))),
+      /* @__PURE__ */ import_react57.default.createElement(
         "button",
         {
           type: "button",
@@ -86788,29 +86875,29 @@ ${newlyCreatedClassInfo.url}`);
           onClick: () => setActiveNoteModal(mat),
           title: "Read Note"
         },
-        /* @__PURE__ */ import_react56.default.createElement(Eye, { size: 12 }),
-        /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0B9F\u0BBF" : "Read")
+        /* @__PURE__ */ import_react57.default.createElement(Eye, { size: 12 }),
+        /* @__PURE__ */ import_react57.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0B9F\u0BBF" : "Read")
       )
-    )))), /* @__PURE__ */ import_react56.default.createElement("div", { className: "dashboard-card p-5 bg-card rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0" }, /* @__PURE__ */ import_react56.default.createElement(Award, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react56.default.createElement("span", null, lang === "ta" ? "\u0B8E\u0BA9\u0BA4\u0BC1 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "My Attendance History")), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, "\u2713 Verified")), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex flex-col gap-2 max-h-64 overflow-y-auto pr-1" }, attendanceHistory.length === 0 ? /* @__PURE__ */ import_react56.default.createElement("div", { className: "text-center p-4 text-xs text-muted" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD 70%+ \u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BB3\u0BCD\u0BB3\u0BC1\u0BAE\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Attend live classes for 70%+ duration to log your verified attendance records here.") : attendanceHistory.map((att, idx) => {
+    )))), /* @__PURE__ */ import_react57.default.createElement("div", { className: "dashboard-card p-5 bg-card rounded-2xl border border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0" }, /* @__PURE__ */ import_react57.default.createElement(Award, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react57.default.createElement("span", null, lang === "ta" ? "\u0B8E\u0BA9\u0BA4\u0BC1 \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "My Attendance History")), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-600 border border-emerald-500/20" }, "\u2713 Verified")), /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex flex-col gap-2 max-h-64 overflow-y-auto pr-1" }, attendanceHistory.length === 0 ? /* @__PURE__ */ import_react57.default.createElement("div", { className: "text-center p-4 text-xs text-muted" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD 70%+ \u0B95\u0BB2\u0BA8\u0BCD\u0BA4\u0BC1\u0B95\u0BCA\u0BB3\u0BCD\u0BB3\u0BC1\u0BAE\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B87\u0B99\u0BCD\u0B95\u0BC7 \u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Attend live classes for 70%+ duration to log your verified attendance records here.") : attendanceHistory.map((att, idx) => {
       const isPresent = att.status?.includes("70") || att.attendancePercent >= 70;
-      return /* @__PURE__ */ import_react56.default.createElement(
+      return /* @__PURE__ */ import_react57.default.createElement(
         "div",
         {
           key: att.id || idx,
           className: "p-2.5 rounded-xl border border-subtle bg-subtle/20 flex items-center justify-between text-xs"
         },
-        /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("strong", { className: "text-heading block" }, att.classTitle || "Hatha Yoga Flow"), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[10px] text-muted font-mono" }, att.joinedAt ? new Date(att.joinedAt).toLocaleDateString() : "Recent", " \u2022 ", Math.round((att.durationSeconds || 3600) / 60), " mins")),
-        /* @__PURE__ */ import_react56.default.createElement("span", { className: `text-[10px] font-bold px-2 py-0.5 rounded-full ${isPresent ? "bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/15 text-amber-600 border border-amber-500/30"}` }, isPresent ? "\u2713 Present (70%+)" : "Incomplete")
+        /* @__PURE__ */ import_react57.default.createElement("div", null, /* @__PURE__ */ import_react57.default.createElement("strong", { className: "text-heading block" }, att.classTitle || "Hatha Yoga Flow"), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[10px] text-muted font-mono" }, att.joinedAt ? new Date(att.joinedAt).toLocaleDateString() : "Recent", " \u2022 ", Math.round((att.durationSeconds || 3600) / 60), " mins")),
+        /* @__PURE__ */ import_react57.default.createElement("span", { className: `text-[10px] font-bold px-2 py-0.5 rounded-full ${isPresent ? "bg-emerald-500/15 text-emerald-600 border border-emerald-500/30" : "bg-amber-500/15 text-amber-600 border border-amber-500/30"}` }, isPresent ? "\u2713 Present (70%+)" : "Incomplete")
       );
-    }))))), activeVideoModal && /* @__PURE__ */ import_react56.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4", onClick: () => setActiveVideoModal(null) }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "modal-bottom-sheet max-w-2xl w-full bg-card rounded-2xl p-5 shadow-2xl border border-subtle", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("div", null, /* @__PURE__ */ import_react56.default.createElement("h3", { className: "text-sm font-bold text-heading m-0" }, activeVideoModal.title), /* @__PURE__ */ import_react56.default.createElement("span", { className: "text-[11px] text-muted" }, activeVideoModal.category, " \u2022 ", activeVideoModal.level)), /* @__PURE__ */ import_react56.default.createElement(
+    }))))), activeVideoModal && /* @__PURE__ */ import_react57.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4", onClick: () => setActiveVideoModal(null) }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "modal-bottom-sheet max-w-2xl w-full bg-card rounded-2xl p-5 shadow-2xl border border-subtle", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("div", null, /* @__PURE__ */ import_react57.default.createElement("h3", { className: "text-sm font-bold text-heading m-0" }, activeVideoModal.title), /* @__PURE__ */ import_react57.default.createElement("span", { className: "text-[11px] text-muted" }, activeVideoModal.category, " \u2022 ", activeVideoModal.level)), /* @__PURE__ */ import_react57.default.createElement(
       "button",
       {
         type: "button",
         className: "text-muted hover:text-heading cursor-pointer p-1",
         onClick: () => setActiveVideoModal(null)
       },
-      /* @__PURE__ */ import_react56.default.createElement(X, { size: 18 })
-    )), /* @__PURE__ */ import_react56.default.createElement("div", { className: "aspect-video w-full rounded-xl overflow-hidden bg-black mb-3" }, /* @__PURE__ */ import_react56.default.createElement(
+      /* @__PURE__ */ import_react57.default.createElement(X, { size: 18 })
+    )), /* @__PURE__ */ import_react57.default.createElement("div", { className: "aspect-video w-full rounded-xl overflow-hidden bg-black mb-3" }, /* @__PURE__ */ import_react57.default.createElement(
       "iframe",
       {
         src: activeVideoModal.video_url,
@@ -86819,15 +86906,15 @@ ${newlyCreatedClassInfo.url}`);
         allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
         allowFullScreen: true
       }
-    )), /* @__PURE__ */ import_react56.default.createElement("p", { className: "text-xs text-muted leading-relaxed" }, activeVideoModal.description))), activeNoteModal && /* @__PURE__ */ import_react56.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4", onClick: () => setActiveNoteModal(null) }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "modal-bottom-sheet max-w-lg w-full bg-card rounded-2xl p-5 shadow-2xl border border-subtle", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react56.default.createElement(BookOpen, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react56.default.createElement("h3", { className: "text-sm font-bold text-heading m-0" }, activeNoteModal.title)), /* @__PURE__ */ import_react56.default.createElement(
+    )), /* @__PURE__ */ import_react57.default.createElement("p", { className: "text-xs text-muted leading-relaxed" }, activeVideoModal.description))), activeNoteModal && /* @__PURE__ */ import_react57.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4", onClick: () => setActiveNoteModal(null) }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "modal-bottom-sheet max-w-lg w-full bg-card rounded-2xl p-5 shadow-2xl border border-subtle", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react57.default.createElement(BookOpen, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react57.default.createElement("h3", { className: "text-sm font-bold text-heading m-0" }, activeNoteModal.title)), /* @__PURE__ */ import_react57.default.createElement(
       "button",
       {
         type: "button",
         className: "text-muted hover:text-heading cursor-pointer p-1",
         onClick: () => setActiveNoteModal(null)
       },
-      /* @__PURE__ */ import_react56.default.createElement(X, { size: 18 })
-    )), /* @__PURE__ */ import_react56.default.createElement("div", { className: "p-4 rounded-xl bg-subtle/50 text-xs text-heading leading-relaxed mb-4 border border-subtle" }, activeNoteModal.content || activeNoteModal.description), /* @__PURE__ */ import_react56.default.createElement("div", { className: "flex items-center justify-between text-xs text-muted" }, /* @__PURE__ */ import_react56.default.createElement("span", null, "Category: ", /* @__PURE__ */ import_react56.default.createElement("strong", null, activeNoteModal.category || "Yoga")), /* @__PURE__ */ import_react56.default.createElement(
+      /* @__PURE__ */ import_react57.default.createElement(X, { size: 18 })
+    )), /* @__PURE__ */ import_react57.default.createElement("div", { className: "p-4 rounded-xl bg-subtle/50 text-xs text-heading leading-relaxed mb-4 border border-subtle" }, activeNoteModal.content || activeNoteModal.description), /* @__PURE__ */ import_react57.default.createElement("div", { className: "flex items-center justify-between text-xs text-muted" }, /* @__PURE__ */ import_react57.default.createElement("span", null, "Category: ", /* @__PURE__ */ import_react57.default.createElement("strong", null, activeNoteModal.category || "Yoga")), /* @__PURE__ */ import_react57.default.createElement(
       "button",
       {
         type: "button",
@@ -86836,14 +86923,14 @@ ${newlyCreatedClassInfo.url}`);
           alert(`Note saved for offline reading: ${activeNoteModal.title}`);
         }
       },
-      /* @__PURE__ */ import_react56.default.createElement(Download, { size: 13 }),
-      /* @__PURE__ */ import_react56.default.createElement("span", null, "Save Offline")
+      /* @__PURE__ */ import_react57.default.createElement(Download, { size: 13 }),
+      /* @__PURE__ */ import_react57.default.createElement("span", null, "Save Offline")
     )))));
   }
-  var import_react56;
+  var import_react57;
   var init_StudentDashboard = __esm({
     "src/components/StudentDashboard.jsx"() {
-      import_react56 = __toESM(require_react());
+      import_react57 = __toESM(require_react());
       init_lucide_react();
       init_ThreeDIcons();
       init_audioEngine();
@@ -86854,36 +86941,36 @@ ${newlyCreatedClassInfo.url}`);
 
   // src/components/BottomBanner.jsx
   function BottomBanner({ onExplore, lang = "en" }) {
-    return /* @__PURE__ */ import_react57.default.createElement("div", { className: "pastel-bottom-banner" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "bottom-banner-blob" }), /* @__PURE__ */ import_react57.default.createElement("div", { className: "bottom-banner-left" }, /* @__PURE__ */ import_react57.default.createElement("div", { className: "bottom-banner-star-badge-3d" }, /* @__PURE__ */ import_react57.default.createElement(
+    return /* @__PURE__ */ import_react58.default.createElement("div", { className: "pastel-bottom-banner" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "bottom-banner-blob" }), /* @__PURE__ */ import_react58.default.createElement("div", { className: "bottom-banner-left" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "bottom-banner-star-badge-3d" }, /* @__PURE__ */ import_react58.default.createElement(
       "img",
       {
         src: "assets/images/pastel/star_3d.png",
         alt: "3D Star",
         className: "bottom-banner-star-img-3d"
       }
-    )), /* @__PURE__ */ import_react57.default.createElement("div", { className: "bottom-banner-text" }, /* @__PURE__ */ import_react57.default.createElement("h3", { className: "bottom-banner-title" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE & \u0B87\u0B9A\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0B95\u0BCD \u0B95\u0BA3\u0BCD\u0B9F\u0BB1\u0BBF\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Discover New Music & Yoga Classes"), /* @__PURE__ */ import_react57.default.createElement("p", { className: "bottom-banner-sub" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAA\u0BCD \u0BAA\u0BBF\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BC8 \u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Play sessions we think you'll love \u2022 Explore curated practices"))), /* @__PURE__ */ import_react57.default.createElement("div", { className: "bottom-banner-right" }, /* @__PURE__ */ import_react57.default.createElement(
+    )), /* @__PURE__ */ import_react58.default.createElement("div", { className: "bottom-banner-text" }, /* @__PURE__ */ import_react58.default.createElement("h3", { className: "bottom-banner-title" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE & \u0B87\u0B9A\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8\u0B95\u0BCD \u0B95\u0BA3\u0BCD\u0B9F\u0BB1\u0BBF\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Discover New Music & Yoga Classes"), /* @__PURE__ */ import_react58.default.createElement("p", { className: "bottom-banner-sub" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAA\u0BCD \u0BAA\u0BBF\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BB3\u0BC8 \u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Play sessions we think you'll love \u2022 Explore curated practices"))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "bottom-banner-right" }, /* @__PURE__ */ import_react58.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-bottom-banner-cta ya-ripple",
         onClick: onExplore
       },
-      /* @__PURE__ */ import_react57.default.createElement(Compass, { size: 16 }),
-      /* @__PURE__ */ import_react57.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B86\u0BB0\u0BBE\u0BAF\u0BCD\u0B95" : "Explore Now"),
-      /* @__PURE__ */ import_react57.default.createElement(ArrowRight, { size: 15 })
+      /* @__PURE__ */ import_react58.default.createElement(Compass, { size: 16 }),
+      /* @__PURE__ */ import_react58.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC7 \u0B86\u0BB0\u0BBE\u0BAF\u0BCD\u0B95" : "Explore Now"),
+      /* @__PURE__ */ import_react58.default.createElement(ArrowRight, { size: 15 })
     )));
   }
-  var import_react57;
+  var import_react58;
   var init_BottomBanner = __esm({
     "src/components/BottomBanner.jsx"() {
-      import_react57 = __toESM(require_react());
+      import_react58 = __toESM(require_react());
       init_lucide_react();
     }
   });
 
   // src/components/RecentlyPlayedDailyMix.jsx
   function RecentlyPlayedDailyMix({ onSelectClass, showToast, lang = "en" }) {
-    const [playingId, setPlayingId] = (0, import_react58.useState)(null);
+    const [playingId, setPlayingId] = (0, import_react59.useState)(null);
     const recentItems = [
       {
         id: "recent-1",
@@ -86950,34 +87037,34 @@ ${newlyCreatedClassInfo.url}`);
         }
       }
     };
-    return /* @__PURE__ */ import_react58.default.createElement("div", { className: "recently-daily-mix-wrapper" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "recently-daily-grid" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "dashboard-card recent-played-card" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "recent-card-header" }, /* @__PURE__ */ import_react58.default.createElement("div", null, /* @__PURE__ */ import_react58.default.createElement("h4", { className: "recent-card-title" }, lang === "ta" ? "\u0B9A\u0BAE\u0BC0\u0BAA\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BB5\u0BC8" : "Recently Played"), /* @__PURE__ */ import_react58.default.createElement("span", { className: "recent-card-sub" }, lang === "ta" ? "\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0BB0\u0BB5\u0BC1\u0BAE\u0BCD \u2022 \u0BB5\u0BBF\u0BB0\u0BC8\u0BB5\u0BC1\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF" : "Pick up where you left off")), /* @__PURE__ */ import_react58.default.createElement(
+    return /* @__PURE__ */ import_react59.default.createElement("div", { className: "recently-daily-mix-wrapper" }, /* @__PURE__ */ import_react59.default.createElement("div", { className: "recently-daily-grid" }, /* @__PURE__ */ import_react59.default.createElement("div", { className: "dashboard-card recent-played-card" }, /* @__PURE__ */ import_react59.default.createElement("div", { className: "recent-card-header" }, /* @__PURE__ */ import_react59.default.createElement("div", null, /* @__PURE__ */ import_react59.default.createElement("h4", { className: "recent-card-title" }, lang === "ta" ? "\u0B9A\u0BAE\u0BC0\u0BAA\u0BA4\u0BCD\u0BA4\u0BBF\u0BB2\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4\u0BB5\u0BC8" : "Recently Played"), /* @__PURE__ */ import_react59.default.createElement("span", { className: "recent-card-sub" }, lang === "ta" ? "\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BA4\u0BCA\u0B9F\u0BB0\u0BB5\u0BC1\u0BAE\u0BCD \u2022 \u0BB5\u0BBF\u0BB0\u0BC8\u0BB5\u0BC1\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF" : "Pick up where you left off")), /* @__PURE__ */ import_react59.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-recent-see-all ya-ripple",
         onClick: () => onSelectClass && onSelectClass({ id: "all-classes" })
       },
-      /* @__PURE__ */ import_react58.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD" : "See all"),
-      /* @__PURE__ */ import_react58.default.createElement(ArrowRight, { size: 13 })
-    )), /* @__PURE__ */ import_react58.default.createElement("div", { className: "recent-played-items-list" }, recentItems.map((item) => {
+      /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD" : "See all"),
+      /* @__PURE__ */ import_react59.default.createElement(ArrowRight, { size: 13 })
+    )), /* @__PURE__ */ import_react59.default.createElement("div", { className: "recent-played-items-list" }, recentItems.map((item) => {
       const isPlaying = playingId === item.id;
-      return /* @__PURE__ */ import_react58.default.createElement(
+      return /* @__PURE__ */ import_react59.default.createElement(
         "div",
         {
           key: item.id,
           className: `recent-item-row ${isPlaying ? "recent-item-playing" : ""}`,
           onClick: () => handlePlayToggle(item)
         },
-        /* @__PURE__ */ import_react58.default.createElement("div", { className: "recent-item-thumb-wrap" }, /* @__PURE__ */ import_react58.default.createElement(
+        /* @__PURE__ */ import_react59.default.createElement("div", { className: "recent-item-thumb-wrap" }, /* @__PURE__ */ import_react59.default.createElement(
           "img",
           {
             src: item.thumbnail,
             alt: item.title,
             className: "recent-item-thumb-img"
           }
-        ), isPlaying && /* @__PURE__ */ import_react58.default.createElement("span", { className: "recent-thumb-eq-indicator" }, /* @__PURE__ */ import_react58.default.createElement("span", { className: "eq-bar eq-bar-1" }), /* @__PURE__ */ import_react58.default.createElement("span", { className: "eq-bar eq-bar-2" }), /* @__PURE__ */ import_react58.default.createElement("span", { className: "eq-bar eq-bar-3" }))),
-        /* @__PURE__ */ import_react58.default.createElement("div", { className: "recent-item-info" }, /* @__PURE__ */ import_react58.default.createElement("h5", { className: "recent-item-name" }, lang === "ta" ? item.titleTa : item.title), /* @__PURE__ */ import_react58.default.createElement("p", { className: "recent-item-desc" }, lang === "ta" ? item.subtitleTa : item.subtitle)),
-        /* @__PURE__ */ import_react58.default.createElement(
+        ), isPlaying && /* @__PURE__ */ import_react59.default.createElement("span", { className: "recent-thumb-eq-indicator" }, /* @__PURE__ */ import_react59.default.createElement("span", { className: "eq-bar eq-bar-1" }), /* @__PURE__ */ import_react59.default.createElement("span", { className: "eq-bar eq-bar-2" }), /* @__PURE__ */ import_react59.default.createElement("span", { className: "eq-bar eq-bar-3" }))),
+        /* @__PURE__ */ import_react59.default.createElement("div", { className: "recent-item-info" }, /* @__PURE__ */ import_react59.default.createElement("h5", { className: "recent-item-name" }, lang === "ta" ? item.titleTa : item.title), /* @__PURE__ */ import_react59.default.createElement("p", { className: "recent-item-desc" }, lang === "ta" ? item.subtitleTa : item.subtitle)),
+        /* @__PURE__ */ import_react59.default.createElement(
           "button",
           {
             type: "button",
@@ -86988,17 +87075,17 @@ ${newlyCreatedClassInfo.url}`);
               handlePlayToggle(item);
             }
           },
-          isPlaying ? /* @__PURE__ */ import_react58.default.createElement(Pause, { size: 14 }) : /* @__PURE__ */ import_react58.default.createElement(Play, { size: 14, className: "ml-0.5" })
+          isPlaying ? /* @__PURE__ */ import_react59.default.createElement(Pause, { size: 14 }) : /* @__PURE__ */ import_react59.default.createElement(Play, { size: 14, className: "ml-0.5" })
         )
       );
-    }))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "dashboard-card daily-mix-card" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "daily-mix-header" }, /* @__PURE__ */ import_react58.default.createElement("div", null, /* @__PURE__ */ import_react58.default.createElement("h4", { className: "daily-mix-title" }, lang === "ta" ? "\u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BB2\u0BB5\u0BC8" : "Daily Mix"), /* @__PURE__ */ import_react58.default.createElement("span", { className: "daily-mix-badge" }, /* @__PURE__ */ import_react58.default.createElement(Sparkles, { size: 12, className: "sparkle-gold" }), /* @__PURE__ */ import_react58.default.createElement("span", null, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0BA9\u0BA4\u0BC1" : "Made for you")))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "daily-mix-artwork-container", onClick: handlePlayDailyMix }, /* @__PURE__ */ import_react58.default.createElement(
+    }))), /* @__PURE__ */ import_react59.default.createElement("div", { className: "dashboard-card daily-mix-card" }, /* @__PURE__ */ import_react59.default.createElement("div", { className: "daily-mix-header" }, /* @__PURE__ */ import_react59.default.createElement("div", null, /* @__PURE__ */ import_react59.default.createElement("h4", { className: "daily-mix-title" }, lang === "ta" ? "\u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BB2\u0BB5\u0BC8" : "Daily Mix"), /* @__PURE__ */ import_react59.default.createElement("span", { className: "daily-mix-badge" }, /* @__PURE__ */ import_react59.default.createElement(Sparkles, { size: 12, className: "sparkle-gold" }), /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0BA9\u0BA4\u0BC1" : "Made for you")))), /* @__PURE__ */ import_react59.default.createElement("div", { className: "daily-mix-artwork-container", onClick: handlePlayDailyMix }, /* @__PURE__ */ import_react59.default.createElement(
       "img",
       {
         src: "assets/images/pastel/daily_mix_room_hd.jpg",
         alt: "Daily Mix Cozy Meditation Room",
         className: "daily-mix-cover-img"
       }
-    ), /* @__PURE__ */ import_react58.default.createElement("div", { className: "daily-mix-overlay-gradient" }), /* @__PURE__ */ import_react58.default.createElement(
+    ), /* @__PURE__ */ import_react59.default.createElement("div", { className: "daily-mix-overlay-gradient" }), /* @__PURE__ */ import_react59.default.createElement(
       "button",
       {
         type: "button",
@@ -87009,13 +87096,13 @@ ${newlyCreatedClassInfo.url}`);
           handlePlayDailyMix();
         }
       },
-      playingId === "daily-mix" ? /* @__PURE__ */ import_react58.default.createElement(Pause, { size: 20 }) : /* @__PURE__ */ import_react58.default.createElement(Play, { size: 20, className: "ml-0.5" })
-    ), /* @__PURE__ */ import_react58.default.createElement("div", { className: "daily-mix-bottom-meta" }, /* @__PURE__ */ import_react58.default.createElement("span", { className: "daily-mix-pill-tag" }, /* @__PURE__ */ import_react58.default.createElement(Volume2, { size: 12 }), /* @__PURE__ */ import_react58.default.createElement("span", null, lang === "ta" ? "80 \u0BAA\u0BBE\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Chill Vibes \u2022 80 tracks")), /* @__PURE__ */ import_react58.default.createElement("h4", { className: "daily-mix-track-title" }, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD & \u0BAA\u0BBE\u0BAF\u0BCD\u0BB5\u0BC1" : "Chill Vibes & Mindful Flow"), /* @__PURE__ */ import_react58.default.createElement("p", { className: "daily-mix-track-desc" }, lang === "ta" ? "\u0BB2\u0BCB-\u0B83\u0BAA\u0BC8 \u0B87\u0B9A\u0BC8 \u2022 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0B85\u0BB2\u0BC8\u0B95\u0BB3\u0BCD \u2022 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BBF\u0BB4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0BA3\u0BB0\u0BCD\u0BB5\u0BC1" : "Lo-Fi Beats \u2022 Ambient Waves \u2022 Yoga Mind"))))));
+      playingId === "daily-mix" ? /* @__PURE__ */ import_react59.default.createElement(Pause, { size: 20 }) : /* @__PURE__ */ import_react59.default.createElement(Play, { size: 20, className: "ml-0.5" })
+    ), /* @__PURE__ */ import_react59.default.createElement("div", { className: "daily-mix-bottom-meta" }, /* @__PURE__ */ import_react59.default.createElement("span", { className: "daily-mix-pill-tag" }, /* @__PURE__ */ import_react59.default.createElement(Volume2, { size: 12 }), /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "80 \u0BAA\u0BBE\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Chill Vibes \u2022 80 tracks")), /* @__PURE__ */ import_react59.default.createElement("h4", { className: "daily-mix-track-title" }, lang === "ta" ? "\u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0B9A\u0BC1\u0BB5\u0BBE\u0B9A\u0BAE\u0BCD & \u0BAA\u0BBE\u0BAF\u0BCD\u0BB5\u0BC1" : "Chill Vibes & Mindful Flow"), /* @__PURE__ */ import_react59.default.createElement("p", { className: "daily-mix-track-desc" }, lang === "ta" ? "\u0BB2\u0BCB-\u0B83\u0BAA\u0BC8 \u0B87\u0B9A\u0BC8 \u2022 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF \u0B85\u0BB2\u0BC8\u0B95\u0BB3\u0BCD \u2022 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BBF\u0BB4\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0BA3\u0BB0\u0BCD\u0BB5\u0BC1" : "Lo-Fi Beats \u2022 Ambient Waves \u2022 Yoga Mind"))))));
   }
-  var import_react58;
+  var import_react59;
   var init_RecentlyPlayedDailyMix = __esm({
     "src/components/RecentlyPlayedDailyMix.jsx"() {
-      import_react58 = __toESM(require_react());
+      import_react59 = __toESM(require_react());
       init_lucide_react();
       init_audioEngine();
     }
@@ -87023,11 +87110,11 @@ ${newlyCreatedClassInfo.url}`);
 
   // src/components/TeacherLoginPage.jsx
   function TeacherLoginPage({ onLoginSuccess, onNavigate, lang = "en" }) {
-    const [email, setEmail] = (0, import_react59.useState)("");
-    const [password, setPassword] = (0, import_react59.useState)("");
-    const [showPassword, setShowPassword] = (0, import_react59.useState)(false);
-    const [isLoading, setIsLoading] = (0, import_react59.useState)(false);
-    const [errorMessage, setErrorMessage] = (0, import_react59.useState)("");
+    const [email, setEmail] = (0, import_react60.useState)("");
+    const [password, setPassword] = (0, import_react60.useState)("");
+    const [showPassword, setShowPassword] = (0, import_react60.useState)(false);
+    const [isLoading, setIsLoading] = (0, import_react60.useState)(false);
+    const [errorMessage, setErrorMessage] = (0, import_react60.useState)("");
     const handleLogin = async (e2) => {
       e2.preventDefault();
       setErrorMessage("");
@@ -87081,7 +87168,7 @@ ${newlyCreatedClassInfo.url}`);
         setIsLoading(false);
       }
     };
-    return /* @__PURE__ */ import_react59.default.createElement("div", { className: "min-h-screen flex flex-col justify-center items-center p-4 sm:p-6", style: { background: "var(--bg-app)" } }, /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-card ya-reveal" }, /* @__PURE__ */ import_react59.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" } }, /* @__PURE__ */ import_react59.default.createElement(
+    return /* @__PURE__ */ import_react60.default.createElement("div", { className: "min-h-screen flex flex-col justify-center items-center p-4 sm:p-6", style: { background: "var(--bg-app)" } }, /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-card ya-reveal" }, /* @__PURE__ */ import_react60.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" } }, /* @__PURE__ */ import_react60.default.createElement(
       "button",
       {
         type: "button",
@@ -87089,9 +87176,9 @@ ${newlyCreatedClassInfo.url}`);
         className: "admin-auth-switch-link",
         style: { padding: "4px 8px", fontSize: "12px" }
       },
-      /* @__PURE__ */ import_react59.default.createElement(ArrowLeft, { size: 14 }),
-      /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react59.default.createElement("div", { style: {
+      /* @__PURE__ */ import_react60.default.createElement(ArrowLeft, { size: 14 }),
+      /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react60.default.createElement("div", { style: {
       display: "inline-flex",
       alignItems: "center",
       gap: "6px",
@@ -87101,7 +87188,7 @@ ${newlyCreatedClassInfo.url}`);
       color: "var(--primary-dark)",
       fontSize: "11px",
       fontWeight: 700
-    } }, /* @__PURE__ */ import_react59.default.createElement(ShieldCheck, { size: 13 }), /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Teacher Portal"))), /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-header" }, /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-shield-wrap" }, /* @__PURE__ */ import_react59.default.createElement(ShieldCheck, { size: 32 })), /* @__PURE__ */ import_react59.default.createElement("h2", { className: "admin-auth-title" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1" : "Teacher Login"), /* @__PURE__ */ import_react59.default.createElement("p", { className: "admin-auth-subtitle" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8 \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0B95\u0BBF\u0B95\u0BCD\u0B95 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Sign in to create, schedule, and host live yoga sessions.")), errorMessage && /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-alert-error" }, /* @__PURE__ */ import_react59.default.createElement(CircleAlert, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react59.default.createElement("span", null, errorMessage)), /* @__PURE__ */ import_react59.default.createElement("form", { onSubmit: handleLogin, className: "admin-auth-form" }, /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react59.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react59.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react59.default.createElement(Mail, { size: 14 })), /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email Address"), /* @__PURE__ */ import_react59.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react59.default.createElement(Mail, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react59.default.createElement(
+    } }, /* @__PURE__ */ import_react60.default.createElement(ShieldCheck, { size: 13 }), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Teacher Portal"))), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-header" }, /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-shield-wrap" }, /* @__PURE__ */ import_react60.default.createElement(ShieldCheck, { size: 32 })), /* @__PURE__ */ import_react60.default.createElement("h2", { className: "admin-auth-title" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1" : "Teacher Login"), /* @__PURE__ */ import_react60.default.createElement("p", { className: "admin-auth-subtitle" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8 \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0B95\u0BBF\u0B95\u0BCD\u0B95 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Sign in to create, schedule, and host live yoga sessions.")), errorMessage && /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-alert-error" }, /* @__PURE__ */ import_react60.default.createElement(CircleAlert, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react60.default.createElement("span", null, errorMessage)), /* @__PURE__ */ import_react60.default.createElement("form", { onSubmit: handleLogin, className: "admin-auth-form" }, /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react60.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react60.default.createElement(Mail, { size: 14 })), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email Address"), /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react60.default.createElement(Mail, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react60.default.createElement(
       "input",
       {
         type: "email",
@@ -87111,7 +87198,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "admin-auth-input"
       }
-    ))), /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react59.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react59.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react59.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD" : "Password"), /* @__PURE__ */ import_react59.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react59.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react59.default.createElement(
+    ))), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react60.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react60.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD" : "Password"), /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react60.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react60.default.createElement(
       "input",
       {
         type: showPassword ? "text" : "password",
@@ -87121,7 +87208,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "admin-auth-input has-eye"
       }
-    ), /* @__PURE__ */ import_react59.default.createElement(
+    ), /* @__PURE__ */ import_react60.default.createElement(
       "button",
       {
         type: "button",
@@ -87130,30 +87217,30 @@ ${newlyCreatedClassInfo.url}`);
         tabIndex: -1,
         "aria-label": showPassword ? "Hide password" : "Show password"
       },
-      showPassword ? /* @__PURE__ */ import_react59.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react59.default.createElement(Eye, { size: 18 })
-    ))), /* @__PURE__ */ import_react59.default.createElement(
+      showPassword ? /* @__PURE__ */ import_react60.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react60.default.createElement(Eye, { size: 18 })
+    ))), /* @__PURE__ */ import_react60.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isLoading,
         className: "admin-auth-submit-btn"
       },
-      isLoading ? /* @__PURE__ */ import_react59.default.createElement(import_react59.default.Fragment, null, /* @__PURE__ */ import_react59.default.createElement(RefreshCw, { size: 17, className: "animate-spin" }), /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Signing In...")) : /* @__PURE__ */ import_react59.default.createElement(import_react59.default.Fragment, null, /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Sign In as Teacher"), /* @__PURE__ */ import_react59.default.createElement(ArrowRight, { size: 17 }))
-    ), /* @__PURE__ */ import_react59.default.createElement("div", { className: "admin-auth-switch-wrap" }, /* @__PURE__ */ import_react59.default.createElement(
+      isLoading ? /* @__PURE__ */ import_react60.default.createElement(import_react60.default.Fragment, null, /* @__PURE__ */ import_react60.default.createElement(RefreshCw, { size: 17, className: "animate-spin" }), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Signing In...")) : /* @__PURE__ */ import_react60.default.createElement(import_react60.default.Fragment, null, /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0B95" : "Sign In as Teacher"), /* @__PURE__ */ import_react60.default.createElement(ArrowRight, { size: 17 }))
+    ), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-switch-wrap" }, /* @__PURE__ */ import_react60.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => onNavigate && onNavigate("/teacher/register"),
         className: "admin-auth-switch-link"
       },
-      /* @__PURE__ */ import_react59.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Don't have an account? Register here"),
-      /* @__PURE__ */ import_react59.default.createElement(ArrowRight, { size: 14 })
+      /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Don't have an account? Register here"),
+      /* @__PURE__ */ import_react60.default.createElement(ArrowRight, { size: 14 })
     )))));
   }
-  var import_react59;
+  var import_react60;
   var init_TeacherLoginPage = __esm({
     "src/components/TeacherLoginPage.jsx"() {
-      import_react59 = __toESM(require_react());
+      import_react60 = __toESM(require_react());
       init_lucide_react();
       init_api();
     }
@@ -87161,16 +87248,16 @@ ${newlyCreatedClassInfo.url}`);
 
   // src/components/TeacherRegisterPage.jsx
   function TeacherRegisterPage({ onRegisterSuccess, onNavigate, lang = "en" }) {
-    const [name, setName] = (0, import_react60.useState)("");
-    const [email, setEmail] = (0, import_react60.useState)("");
-    const [phone, setPhone] = (0, import_react60.useState)("");
-    const [password, setPassword] = (0, import_react60.useState)("");
-    const [confirmPassword, setConfirmPassword] = (0, import_react60.useState)("");
-    const [showPassword, setShowPassword] = (0, import_react60.useState)(false);
-    const [showConfirmPassword, setShowConfirmPassword] = (0, import_react60.useState)(false);
-    const [isLoading, setIsLoading] = (0, import_react60.useState)(false);
-    const [errorMessage, setErrorMessage] = (0, import_react60.useState)("");
-    const [successMessage, setSuccessMessage] = (0, import_react60.useState)("");
+    const [name, setName] = (0, import_react61.useState)("");
+    const [email, setEmail] = (0, import_react61.useState)("");
+    const [phone, setPhone] = (0, import_react61.useState)("");
+    const [password, setPassword] = (0, import_react61.useState)("");
+    const [confirmPassword, setConfirmPassword] = (0, import_react61.useState)("");
+    const [showPassword, setShowPassword] = (0, import_react61.useState)(false);
+    const [showConfirmPassword, setShowConfirmPassword] = (0, import_react61.useState)(false);
+    const [isLoading, setIsLoading] = (0, import_react61.useState)(false);
+    const [errorMessage, setErrorMessage] = (0, import_react61.useState)("");
+    const [successMessage, setSuccessMessage] = (0, import_react61.useState)("");
     const handleRegister = async (e2) => {
       e2.preventDefault();
       setErrorMessage("");
@@ -87242,7 +87329,7 @@ ${newlyCreatedClassInfo.url}`);
         setIsLoading(false);
       }
     };
-    return /* @__PURE__ */ import_react60.default.createElement("div", { className: "min-h-screen flex flex-col justify-center items-center p-4 sm:p-6", style: { background: "var(--bg-app)" } }, /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-card ya-reveal" }, /* @__PURE__ */ import_react60.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" } }, /* @__PURE__ */ import_react60.default.createElement(
+    return /* @__PURE__ */ import_react61.default.createElement("div", { className: "min-h-screen flex flex-col justify-center items-center p-4 sm:p-6", style: { background: "var(--bg-app)" } }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-card ya-reveal" }, /* @__PURE__ */ import_react61.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "18px" } }, /* @__PURE__ */ import_react61.default.createElement(
       "button",
       {
         type: "button",
@@ -87250,9 +87337,9 @@ ${newlyCreatedClassInfo.url}`);
         className: "admin-auth-switch-link",
         style: { padding: "4px 8px", fontSize: "12px" }
       },
-      /* @__PURE__ */ import_react60.default.createElement(ArrowLeft, { size: 14 }),
-      /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react60.default.createElement("div", { style: {
+      /* @__PURE__ */ import_react61.default.createElement(ArrowLeft, { size: 14 }),
+      /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react61.default.createElement("div", { style: {
       display: "inline-flex",
       alignItems: "center",
       gap: "6px",
@@ -87262,7 +87349,7 @@ ${newlyCreatedClassInfo.url}`);
       color: "var(--primary-dark)",
       fontSize: "11px",
       fontWeight: 700
-    } }, /* @__PURE__ */ import_react60.default.createElement(ShieldCheck, { size: 13 }), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Teacher Registration"))), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-header" }, /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-shield-wrap" }, /* @__PURE__ */ import_react60.default.createElement(ShieldCheck, { size: 32 })), /* @__PURE__ */ import_react60.default.createElement("h2", { className: "admin-auth-title" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Create Teacher Account"), /* @__PURE__ */ import_react60.default.createElement("p", { className: "admin-auth-subtitle" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BBF \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC8 \u0BB5\u0BB4\u0BBF\u0BA8\u0B9F\u0BA4\u0BCD\u0BA4 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95." : "Register to host live sessions and guide students.")), errorMessage && /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-alert-error" }, /* @__PURE__ */ import_react60.default.createElement(CircleAlert, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react60.default.createElement("span", null, errorMessage)), successMessage && /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-alert-success" }, /* @__PURE__ */ import_react60.default.createElement(CircleCheck, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react60.default.createElement("span", null, successMessage)), /* @__PURE__ */ import_react60.default.createElement("form", { onSubmit: handleRegister, className: "admin-auth-form" }, /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react60.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react60.default.createElement(User, { size: 14 })), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Full Name"), /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react60.default.createElement(User, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react60.default.createElement(
+    } }, /* @__PURE__ */ import_react61.default.createElement(ShieldCheck, { size: 13 }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Teacher Registration"))), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-header" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-shield-wrap" }, /* @__PURE__ */ import_react61.default.createElement(ShieldCheck, { size: 32 })), /* @__PURE__ */ import_react61.default.createElement("h2", { className: "admin-auth-title" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Create Teacher Account"), /* @__PURE__ */ import_react61.default.createElement("p", { className: "admin-auth-subtitle" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BBF \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC8 \u0BB5\u0BB4\u0BBF\u0BA8\u0B9F\u0BA4\u0BCD\u0BA4 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0B95." : "Register to host live sessions and guide students.")), errorMessage && /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-alert-error" }, /* @__PURE__ */ import_react61.default.createElement(CircleAlert, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react61.default.createElement("span", null, errorMessage)), successMessage && /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-alert-success" }, /* @__PURE__ */ import_react61.default.createElement(CircleCheck, { size: 18, className: "shrink-0" }), /* @__PURE__ */ import_react61.default.createElement("span", null, successMessage)), /* @__PURE__ */ import_react61.default.createElement("form", { onSubmit: handleRegister, className: "admin-auth-form" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react61.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react61.default.createElement(User, { size: 14 })), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1 \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Full Name"), /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react61.default.createElement(User, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react61.default.createElement(
       "input",
       {
         type: "text",
@@ -87272,7 +87359,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "admin-auth-input"
       }
-    ))), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react60.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react60.default.createElement(Mail, { size: 14 })), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email Address"), /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react60.default.createElement(Mail, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react60.default.createElement(
+    ))), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react61.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react61.default.createElement(Mail, { size: 14 })), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0B9C\u0BBF\u0BAE\u0BC6\u0BAF\u0BBF\u0BB2\u0BCD / \u0BAE\u0BBF\u0BA9\u0BCD\u0BA9\u0B9E\u0BCD\u0B9A\u0BB2\u0BCD \u0BAE\u0BC1\u0B95\u0BB5\u0BB0\u0BBF" : "Gmail / Email Address"), /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react61.default.createElement(Mail, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react61.default.createElement(
       "input",
       {
         type: "email",
@@ -87282,7 +87369,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "admin-auth-input"
       }
-    ))), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react60.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react60.default.createElement(Phone, { size: 14 })), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (10 \u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BAE\u0BCD)" : "Mobile Number (10 Digits)"), /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react60.default.createElement(Phone, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react60.default.createElement(
+    ))), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react61.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react61.default.createElement(Phone, { size: 14 })), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (10 \u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BAE\u0BCD)" : "Mobile Number (10 Digits)"), /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react61.default.createElement(Phone, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react61.default.createElement(
       "input",
       {
         type: "tel",
@@ -87292,7 +87379,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "admin-auth-input"
       }
-    ))), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react60.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react60.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 6 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BB3\u0BCD)" : "Password (min. 6 characters)"), /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react60.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react60.default.createElement(
+    ))), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react61.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react61.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD (\u0B95\u0BC1\u0BB1\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1 6 \u0B8E\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1\u0B95\u0BB3\u0BCD)" : "Password (min. 6 characters)"), /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react61.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react61.default.createElement(
       "input",
       {
         type: showPassword ? "text" : "password",
@@ -87302,7 +87389,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "admin-auth-input has-eye"
       }
-    ), /* @__PURE__ */ import_react60.default.createElement(
+    ), /* @__PURE__ */ import_react61.default.createElement(
       "button",
       {
         type: "button",
@@ -87311,8 +87398,8 @@ ${newlyCreatedClassInfo.url}`);
         tabIndex: -1,
         "aria-label": showPassword ? "Hide password" : "Show password"
       },
-      showPassword ? /* @__PURE__ */ import_react60.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react60.default.createElement(Eye, { size: 18 })
-    ))), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react60.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react60.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1" : "Confirm Password"), /* @__PURE__ */ import_react60.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react60.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react60.default.createElement(
+      showPassword ? /* @__PURE__ */ import_react61.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react61.default.createElement(Eye, { size: 18 })
+    ))), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-field" }, /* @__PURE__ */ import_react61.default.createElement("label", { className: "admin-auth-label" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-label-icon" }, /* @__PURE__ */ import_react61.default.createElement(Lock, { size: 14 })), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BB5\u0BC1\u0B9A\u0BCD\u0B9A\u0BCA\u0BB2\u0BCD\u0BB2\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1" : "Confirm Password"), /* @__PURE__ */ import_react61.default.createElement("span", { className: "admin-auth-req-star" }, "*")), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-input-wrap" }, /* @__PURE__ */ import_react61.default.createElement(Lock, { size: 16, className: "admin-auth-input-icon" }), /* @__PURE__ */ import_react61.default.createElement(
       "input",
       {
         type: showConfirmPassword ? "text" : "password",
@@ -87322,7 +87409,7 @@ ${newlyCreatedClassInfo.url}`);
         required: true,
         className: "admin-auth-input has-eye"
       }
-    ), /* @__PURE__ */ import_react60.default.createElement(
+    ), /* @__PURE__ */ import_react61.default.createElement(
       "button",
       {
         type: "button",
@@ -87331,30 +87418,30 @@ ${newlyCreatedClassInfo.url}`);
         tabIndex: -1,
         "aria-label": showConfirmPassword ? "Hide password" : "Show password"
       },
-      showConfirmPassword ? /* @__PURE__ */ import_react60.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react60.default.createElement(Eye, { size: 18 })
-    ))), /* @__PURE__ */ import_react60.default.createElement(
+      showConfirmPassword ? /* @__PURE__ */ import_react61.default.createElement(EyeOff, { size: 18 }) : /* @__PURE__ */ import_react61.default.createElement(Eye, { size: 18 })
+    ))), /* @__PURE__ */ import_react61.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isLoading,
         className: "admin-auth-submit-btn"
       },
-      isLoading ? /* @__PURE__ */ import_react60.default.createElement(import_react60.default.Fragment, null, /* @__PURE__ */ import_react60.default.createElement(RefreshCw, { size: 17, className: "animate-spin" }), /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Registering Account...")) : /* @__PURE__ */ import_react60.default.createElement(import_react60.default.Fragment, null, /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1" : "Create Teacher Account"), /* @__PURE__ */ import_react60.default.createElement(ArrowRight, { size: 17 }))
-    ), /* @__PURE__ */ import_react60.default.createElement("div", { className: "admin-auth-switch-wrap" }, /* @__PURE__ */ import_react60.default.createElement(
+      isLoading ? /* @__PURE__ */ import_react61.default.createElement(import_react61.default.Fragment, null, /* @__PURE__ */ import_react61.default.createElement(RefreshCw, { size: 17, className: "animate-spin" }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Registering Account...")) : /* @__PURE__ */ import_react61.default.createElement(import_react61.default.Fragment, null, /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1" : "Create Teacher Account"), /* @__PURE__ */ import_react61.default.createElement(ArrowRight, { size: 17 }))
+    ), /* @__PURE__ */ import_react61.default.createElement("div", { className: "admin-auth-switch-wrap" }, /* @__PURE__ */ import_react61.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => onNavigate && onNavigate("/teacher/login"),
         className: "admin-auth-switch-link"
       },
-      /* @__PURE__ */ import_react60.default.createElement("span", null, lang === "ta" ? "\u0B8F\u0BB1\u0BCD\u0B95\u0BA9\u0BB5\u0BC7 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE? \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Already have an account? Sign In here"),
-      /* @__PURE__ */ import_react60.default.createElement(ArrowRight, { size: 14 })
+      /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0B8F\u0BB1\u0BCD\u0B95\u0BA9\u0BB5\u0BC7 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE? \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD" : "Already have an account? Sign In here"),
+      /* @__PURE__ */ import_react61.default.createElement(ArrowRight, { size: 14 })
     )))));
   }
-  var import_react60;
+  var import_react61;
   var init_TeacherRegisterPage = __esm({
     "src/components/TeacherRegisterPage.jsx"() {
-      import_react60 = __toESM(require_react());
+      import_react61 = __toESM(require_react());
       init_lucide_react();
       init_api();
     }
@@ -87362,16 +87449,16 @@ ${newlyCreatedClassInfo.url}`);
 
   // src/components/TeacherDashboardPage.jsx
   function TeacherDashboardPage({ onNavigate, onLaunchLive, lang = "en" }) {
-    const [teacher, setTeacher] = (0, import_react61.useState)(null);
-    const [isVerifying, setIsVerifying] = (0, import_react61.useState)(true);
-    const [authError, setAuthError] = (0, import_react61.useState)("");
-    const [classTitle, setClassTitle] = (0, import_react61.useState)("Hatha Yoga Flow & Alignment");
-    const [isCreatingClass, setIsCreatingClass] = (0, import_react61.useState)(false);
-    const [createdSession, setCreatedSession] = (0, import_react61.useState)(null);
-    const [copiedLink, setCopiedLink] = (0, import_react61.useState)(false);
-    const [classList, setClassList] = (0, import_react61.useState)([]);
-    const [isLoadingClasses, setIsLoadingClasses] = (0, import_react61.useState)(false);
-    (0, import_react61.useEffect)(() => {
+    const [teacher, setTeacher] = (0, import_react62.useState)(null);
+    const [isVerifying, setIsVerifying] = (0, import_react62.useState)(true);
+    const [authError, setAuthError] = (0, import_react62.useState)("");
+    const [classTitle, setClassTitle] = (0, import_react62.useState)("Hatha Yoga Flow & Alignment");
+    const [isCreatingClass, setIsCreatingClass] = (0, import_react62.useState)(false);
+    const [createdSession, setCreatedSession] = (0, import_react62.useState)(null);
+    const [copiedLink, setCopiedLink] = (0, import_react62.useState)(false);
+    const [classList, setClassList] = (0, import_react62.useState)([]);
+    const [isLoadingClasses, setIsLoadingClasses] = (0, import_react62.useState)(false);
+    (0, import_react62.useEffect)(() => {
       let isMounted = true;
       async function verifyTeacher() {
         const token = localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_admin_token");
@@ -87533,9 +87620,9 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       if (onNavigate) onNavigate("/teacher/login");
     };
     if (isVerifying) {
-      return /* @__PURE__ */ import_react61.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react61.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react61.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying Teacher Authorization on Server..."), /* @__PURE__ */ import_react61.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "NITHYA Yoga Security Guard"));
+      return /* @__PURE__ */ import_react62.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react62.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react62.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying Teacher Authorization on Server..."), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "NITHYA Yoga Security Guard"));
     }
-    return /* @__PURE__ */ import_react61.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white font-['Poppins',sans-serif] p-4 sm:p-6 md:p-8" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "absolute top-1/4 left-1/3 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px]" }), /* @__PURE__ */ import_react61.default.createElement("div", { className: "absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-800/15 rounded-full blur-[120px]" })), /* @__PURE__ */ import_react61.default.createElement("div", { className: "relative max-w-5xl mx-auto flex flex-col gap-6" }, /* @__PURE__ */ import_react61.default.createElement("header", { className: "flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#181236]/90 to-[#0e0a24]/90 border border-purple-500/30 backdrop-blur-xl shadow-xl flex-wrap gap-4" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-600 to-violet-400 flex items-center justify-center shadow-md" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "text-xl" }, "\u2740")), /* @__PURE__ */ import_react61.default.createElement("div", null, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react61.default.createElement("h1", { className: "font-bold text-lg text-white font-['Georgia',serif]" }, "NITHYA Yoga"), /* @__PURE__ */ import_react61.default.createElement("span", { className: "px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-400/40 text-[10px] font-black text-purple-300 tracking-wider" }, "TEACHER")), /* @__PURE__ */ import_react61.default.createElement("p", { className: "text-xs text-purple-300/70" }, teacher?.name || "Verified Instructor", " \xB7 ", teacher?.email || "teacher@nithyayoga.com"))), /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react61.default.createElement(
+    return /* @__PURE__ */ import_react62.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white font-['Poppins',sans-serif] p-4 sm:p-6 md:p-8" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "absolute top-1/4 left-1/3 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px]" }), /* @__PURE__ */ import_react62.default.createElement("div", { className: "absolute bottom-1/3 right-1/4 w-80 h-80 bg-violet-800/15 rounded-full blur-[120px]" })), /* @__PURE__ */ import_react62.default.createElement("div", { className: "relative max-w-5xl mx-auto flex flex-col gap-6" }, /* @__PURE__ */ import_react62.default.createElement("header", { className: "flex items-center justify-between p-4 sm:p-5 rounded-2xl bg-gradient-to-r from-[#181236]/90 to-[#0e0a24]/90 border border-purple-500/30 backdrop-blur-xl shadow-xl flex-wrap gap-4" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "w-11 h-11 rounded-xl bg-gradient-to-tr from-purple-600 to-violet-400 flex items-center justify-center shadow-md" }, /* @__PURE__ */ import_react62.default.createElement("span", { className: "text-xl" }, "\u2740")), /* @__PURE__ */ import_react62.default.createElement("div", null, /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react62.default.createElement("h1", { className: "font-bold text-lg text-white font-['Georgia',serif]" }, "NITHYA Yoga"), /* @__PURE__ */ import_react62.default.createElement("span", { className: "px-2.5 py-0.5 rounded-full bg-purple-500/20 border border-purple-400/40 text-[10px] font-black text-purple-300 tracking-wider" }, "TEACHER")), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs text-purple-300/70" }, teacher?.name || "Verified Instructor", " \xB7 ", teacher?.email || "teacher@nithyayoga.com"))), /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react62.default.createElement(
       "button",
       {
         type: "button",
@@ -87543,16 +87630,16 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         className: "text-xs px-3.5 py-2 rounded-xl bg-purple-950/60 hover:bg-purple-900 border border-purple-500/30 text-purple-200 hover:text-white transition-all cursor-pointer"
       },
       lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0BB5\u0BC8" : "Public App"
-    ), /* @__PURE__ */ import_react61.default.createElement(
+    ), /* @__PURE__ */ import_react62.default.createElement(
       "button",
       {
         type: "button",
         onClick: handleLogout,
         className: "text-xs px-3.5 py-2 rounded-xl bg-rose-950/60 hover:bg-rose-900 border border-rose-500/30 text-rose-200 hover:text-white flex items-center gap-1.5 transition-all cursor-pointer"
       },
-      /* @__PURE__ */ import_react61.default.createElement(LogOut, { size: 13 }),
-      /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Logout")
-    ))), /* @__PURE__ */ import_react61.default.createElement("section", { className: "p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-violet-950/90 via-purple-900/90 to-indigo-950/90 border border-purple-400/40 shadow-2xl backdrop-blur-xl relative overflow-hidden" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "max-w-xl" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-bold mb-3" }, /* @__PURE__ */ import_react61.default.createElement(Radio, { size: 14, className: "text-purple-300 animate-pulse" }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1" : "EXCLUSIVE INSTRUCTOR PRIVILEGE")), /* @__PURE__ */ import_react61.default.createElement("h2", { className: "text-2xl sm:text-3xl font-bold text-white mb-2 font-['Georgia',serif]" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Create & Host Live Yoga Class"), /* @__PURE__ */ import_react61.default.createElement("p", { className: "text-xs sm:text-sm text-purple-200/80 leading-relaxed" }, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BAE\u0BBE\u0BA9 \u0BB0\u0BC2\u0BAE\u0BCD \u0B90\u0B9F\u0BBF \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1, \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAA\u0B95\u0BBF\u0BB0\u0B95\u0BCD\u0B95\u0BC2\u0B9F\u0BBF\u0BAF \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B89\u0B9F\u0BA9\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BC1\u0BAE\u0BCD." : "Start a fresh live session with real-time video streaming. A unique student invitation link will be generated automatically."), /* @__PURE__ */ import_react61.default.createElement("div", { className: "mt-4 flex flex-col sm:flex-row gap-2 max-w-md" }, /* @__PURE__ */ import_react61.default.createElement(
+      /* @__PURE__ */ import_react62.default.createElement(LogOut, { size: 13 }),
+      /* @__PURE__ */ import_react62.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Logout")
+    ))), /* @__PURE__ */ import_react62.default.createElement("section", { className: "p-6 sm:p-8 rounded-3xl bg-gradient-to-r from-violet-950/90 via-purple-900/90 to-indigo-950/90 border border-purple-400/40 shadow-2xl backdrop-blur-xl relative overflow-hidden" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "max-w-xl" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-bold mb-3" }, /* @__PURE__ */ import_react62.default.createElement(Radio, { size: 14, className: "text-purple-300 animate-pulse" }), /* @__PURE__ */ import_react62.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8 \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BC1" : "EXCLUSIVE INSTRUCTOR PRIVILEGE")), /* @__PURE__ */ import_react62.default.createElement("h2", { className: "text-2xl sm:text-3xl font-bold text-white mb-2 font-['Georgia',serif]" }, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Create & Host Live Yoga Class"), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs sm:text-sm text-purple-200/80 leading-relaxed" }, lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BA9\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BAE\u0BBE\u0BA9 \u0BB0\u0BC2\u0BAE\u0BCD \u0B90\u0B9F\u0BBF \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BC1, \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAA\u0B95\u0BBF\u0BB0\u0B95\u0BCD\u0B95\u0BC2\u0B9F\u0BBF\u0BAF \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B89\u0B9F\u0BA9\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BC1\u0BAE\u0BCD." : "Start a fresh live session with real-time video streaming. A unique student invitation link will be generated automatically."), /* @__PURE__ */ import_react62.default.createElement("div", { className: "mt-4 flex flex-col sm:flex-row gap-2 max-w-md" }, /* @__PURE__ */ import_react62.default.createElement(
       "input",
       {
         type: "text",
@@ -87561,7 +87648,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         placeholder: "Class Title (e.g., Hatha Yoga Flow)",
         className: "flex-1 px-4 py-2.5 bg-[#0b081e]/80 border border-purple-500/40 rounded-xl text-white text-xs placeholder-purple-300/30 focus:outline-none focus:border-purple-300"
       }
-    ))), /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex flex-col gap-2 shrink-0" }, /* @__PURE__ */ import_react61.default.createElement(
+    ))), /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex flex-col gap-2 shrink-0" }, /* @__PURE__ */ import_react62.default.createElement(
       "button",
       {
         type: "button",
@@ -87569,34 +87656,34 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         disabled: isCreatingClass,
         className: "px-6 py-4 rounded-2xl bg-gradient-to-r from-purple-500 via-violet-600 to-fuchsia-600 hover:from-purple-400 hover:to-fuchsia-500 text-white font-black text-sm sm:text-base shadow-xl shadow-purple-600/30 flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60"
       },
-      isCreatingClass ? /* @__PURE__ */ import_react61.default.createElement(import_react61.default.Fragment, null, /* @__PURE__ */ import_react61.default.createElement(RefreshCw, { size: 18, className: "animate-spin" }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Creating Room...")) : /* @__PURE__ */ import_react61.default.createElement(import_react61.default.Fragment, null, /* @__PURE__ */ import_react61.default.createElement(Video, { size: 20 }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u{1F3A5} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F3A5} Start Live Class as Host"))
-    )))), createdSession && /* @__PURE__ */ import_react61.default.createElement("section", { className: "p-6 rounded-3xl bg-gradient-to-b from-[#1c1442] to-[#120c2e] border-2 border-purple-400/60 shadow-2xl animate-fadeIn" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "w-3 h-3 rounded-full bg-emerald-400 animate-ping" }), /* @__PURE__ */ import_react61.default.createElement("h3", { className: "font-bold text-lg text-white" }, lang === "ta" ? "\u{1F389} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "\u{1F389} Live Class Session Active!")), /* @__PURE__ */ import_react61.default.createElement("span", { className: "px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 font-mono text-xs border border-purple-500/30" }, "Session ID: ", createdSession.sessionId)), /* @__PURE__ */ import_react61.default.createElement("p", { className: "text-xs text-purple-200/80 mb-4" }, lang === "ta" ? "\u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BC8 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAE\u0BC2\u0BB2\u0BAE\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BB5\u0BC1\u0BAE\u0BCD. \u0B85\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0B95\u0BCD\u0B95\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0B9A\u0BCD \u0B9A\u0BC6\u0BA9\u0BCD\u0BB1\u0BC1 \u0B87\u0BA3\u0BC8\u0BB5\u0BBE\u0BB0\u0BCD\u0B95\u0BB3\u0BCD." : "Share this student invitation link with your students. Tapping this link will open the Student Join page directly."), /* @__PURE__ */ import_react61.default.createElement("div", { className: "p-3 bg-[#0a071c] border border-purple-500/40 rounded-2xl flex items-center justify-between gap-3 mb-4" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "text-xs font-mono text-purple-200 truncate select-all" }, createdSession.inviteUrl), /* @__PURE__ */ import_react61.default.createElement(
+      isCreatingClass ? /* @__PURE__ */ import_react62.default.createElement(import_react62.default.Fragment, null, /* @__PURE__ */ import_react62.default.createElement(RefreshCw, { size: 18, className: "animate-spin" }), /* @__PURE__ */ import_react62.default.createElement("span", null, lang === "ta" ? "\u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Creating Room...")) : /* @__PURE__ */ import_react62.default.createElement(import_react62.default.Fragment, null, /* @__PURE__ */ import_react62.default.createElement(Video, { size: 20 }), /* @__PURE__ */ import_react62.default.createElement("span", null, lang === "ta" ? "\u{1F3A5} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F3A5} Start Live Class as Host"))
+    )))), createdSession && /* @__PURE__ */ import_react62.default.createElement("section", { className: "p-6 rounded-3xl bg-gradient-to-b from-[#1c1442] to-[#120c2e] border-2 border-purple-400/60 shadow-2xl animate-fadeIn" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react62.default.createElement("span", { className: "w-3 h-3 rounded-full bg-emerald-400 animate-ping" }), /* @__PURE__ */ import_react62.default.createElement("h3", { className: "font-bold text-lg text-white" }, lang === "ta" ? "\u{1F389} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "\u{1F389} Live Class Session Active!")), /* @__PURE__ */ import_react62.default.createElement("span", { className: "px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 font-mono text-xs border border-purple-500/30" }, "Session ID: ", createdSession.sessionId)), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs text-purple-200/80 mb-4" }, lang === "ta" ? "\u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B85\u0BB4\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BC8 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BB5\u0BBE\u0B9F\u0BCD\u0BB8\u0BCD\u0B85\u0BAA\u0BCD \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAE\u0BC2\u0BB2\u0BAE\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BB5\u0BC1\u0BAE\u0BCD. \u0B85\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0BA8\u0BC7\u0BB0\u0B9F\u0BBF\u0BAF\u0BBE\u0B95 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0B95\u0BCD\u0B95\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0B9A\u0BCD \u0B9A\u0BC6\u0BA9\u0BCD\u0BB1\u0BC1 \u0B87\u0BA3\u0BC8\u0BB5\u0BBE\u0BB0\u0BCD\u0B95\u0BB3\u0BCD." : "Share this student invitation link with your students. Tapping this link will open the Student Join page directly."), /* @__PURE__ */ import_react62.default.createElement("div", { className: "p-3 bg-[#0a071c] border border-purple-500/40 rounded-2xl flex items-center justify-between gap-3 mb-4" }, /* @__PURE__ */ import_react62.default.createElement("span", { className: "text-xs font-mono text-purple-200 truncate select-all" }, createdSession.inviteUrl), /* @__PURE__ */ import_react62.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => handleCopyLink(createdSession.inviteUrl),
         className: "px-4 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold flex items-center gap-1.5 shrink-0 transition-colors cursor-pointer"
       },
-      copiedLink ? /* @__PURE__ */ import_react61.default.createElement(Check, { size: 14, className: "text-emerald-300" }) : /* @__PURE__ */ import_react61.default.createElement(Copy, { size: 14 }),
-      /* @__PURE__ */ import_react61.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Copied!" : lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF" : "Copy Link")
-    )), /* @__PURE__ */ import_react61.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react61.default.createElement(
+      copiedLink ? /* @__PURE__ */ import_react62.default.createElement(Check, { size: 14, className: "text-emerald-300" }) : /* @__PURE__ */ import_react62.default.createElement(Copy, { size: 14 }),
+      /* @__PURE__ */ import_react62.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Copied!" : lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBF" : "Copy Link")
+    )), /* @__PURE__ */ import_react62.default.createElement("div", { className: "grid grid-cols-1 sm:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react62.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => handleWhatsAppShare(createdSession.inviteUrl, createdSession.class?.title),
         className: "py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-emerald-600/20"
       },
-      /* @__PURE__ */ import_react61.default.createElement("span", null, "\u260E Share on WhatsApp")
-    ), /* @__PURE__ */ import_react61.default.createElement(
+      /* @__PURE__ */ import_react62.default.createElement("span", null, "\u260E Share on WhatsApp")
+    ), /* @__PURE__ */ import_react62.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => handleNativeShare(createdSession.inviteUrl, createdSession.class?.title),
         className: "py-3 px-4 rounded-xl bg-purple-700 hover:bg-purple-600 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer"
       },
-      /* @__PURE__ */ import_react61.default.createElement(Share2, { size: 15 }),
-      /* @__PURE__ */ import_react61.default.createElement("span", null, "Share Link")
-    ), /* @__PURE__ */ import_react61.default.createElement(
+      /* @__PURE__ */ import_react62.default.createElement(Share2, { size: 15 }),
+      /* @__PURE__ */ import_react62.default.createElement("span", null, "Share Link")
+    ), /* @__PURE__ */ import_react62.default.createElement(
       "button",
       {
         type: "button",
@@ -87609,34 +87696,34 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         },
         className: "py-3 px-4 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 text-white font-bold text-xs flex items-center justify-center gap-2 transition-all cursor-pointer shadow-lg shadow-violet-600/20"
       },
-      /* @__PURE__ */ import_react61.default.createElement("span", null, "\u{1F680} Enter Live Room as Host"),
-      /* @__PURE__ */ import_react61.default.createElement(ArrowRight, { size: 15 })
-    ))), /* @__PURE__ */ import_react61.default.createElement("section", { className: "p-6 rounded-3xl bg-[#130e2e]/90 border border-purple-500/30 backdrop-blur-xl" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react61.default.createElement(Calendar, { size: 18, className: "text-purple-400" }), /* @__PURE__ */ import_react61.default.createElement("h3", { className: "font-bold text-base text-white" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BB2\u0BBE\u0BB1\u0BC1 & \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BA8\u0BBF\u0BB2\u0BC8" : "Yoga Classes & Session Status")), /* @__PURE__ */ import_react61.default.createElement(
+      /* @__PURE__ */ import_react62.default.createElement("span", null, "\u{1F680} Enter Live Room as Host"),
+      /* @__PURE__ */ import_react62.default.createElement(ArrowRight, { size: 15 })
+    ))), /* @__PURE__ */ import_react62.default.createElement("section", { className: "p-6 rounded-3xl bg-[#130e2e]/90 border border-purple-500/30 backdrop-blur-xl" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react62.default.createElement(Calendar, { size: 18, className: "text-purple-400" }), /* @__PURE__ */ import_react62.default.createElement("h3", { className: "font-bold text-base text-white" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BB5\u0BB0\u0BB2\u0BBE\u0BB1\u0BC1 & \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BA8\u0BBF\u0BB2\u0BC8" : "Yoga Classes & Session Status")), /* @__PURE__ */ import_react62.default.createElement(
       "button",
       {
         type: "button",
         onClick: loadClasses,
         className: "text-xs text-purple-300 hover:text-white flex items-center gap-1 cursor-pointer"
       },
-      /* @__PURE__ */ import_react61.default.createElement(RefreshCw, { size: 12, className: isLoadingClasses ? "animate-spin" : "" }),
-      /* @__PURE__ */ import_react61.default.createElement("span", null, "Refresh")
-    )), classList.length === 0 ? /* @__PURE__ */ import_react61.default.createElement("div", { className: "text-center py-8 text-xs text-purple-300/50" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No yoga classes found. Create your first live class above.") : /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex flex-col gap-3" }, classList.slice(0, 8).map((cls) => {
+      /* @__PURE__ */ import_react62.default.createElement(RefreshCw, { size: 12, className: isLoadingClasses ? "animate-spin" : "" }),
+      /* @__PURE__ */ import_react62.default.createElement("span", null, "Refresh")
+    )), classList.length === 0 ? /* @__PURE__ */ import_react62.default.createElement("div", { className: "text-center py-8 text-xs text-purple-300/50" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No yoga classes found. Create your first live class above.") : /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex flex-col gap-3" }, classList.slice(0, 8).map((cls) => {
       const isLive = cls.status === "live";
       const isEnded = cls.status === "ended";
-      return /* @__PURE__ */ import_react61.default.createElement(
+      return /* @__PURE__ */ import_react62.default.createElement(
         "div",
         {
           key: cls.id,
           className: "p-4 rounded-2xl bg-[#0b071e]/80 border border-purple-500/20 flex items-center justify-between flex-wrap gap-3"
         },
-        /* @__PURE__ */ import_react61.default.createElement("div", null, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react61.default.createElement("h4", { className: "font-bold text-sm text-white" }, cls.title || cls.name), /* @__PURE__ */ import_react61.default.createElement(
+        /* @__PURE__ */ import_react62.default.createElement("div", null, /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react62.default.createElement("h4", { className: "font-bold text-sm text-white" }, cls.title || cls.name), /* @__PURE__ */ import_react62.default.createElement(
           "span",
           {
             className: `px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider ${isLive ? "bg-rose-500/20 text-rose-300 border border-rose-500/40 animate-pulse" : isEnded ? "bg-slate-700/40 text-slate-400 border border-slate-600/30" : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"}`
           },
           cls.status || "scheduled"
-        )), /* @__PURE__ */ import_react61.default.createElement("p", { className: "text-xs text-purple-300/60 mt-0.5" }, "Instructor: ", cls.instructor || "NITHYA Master", " \xB7 ID: ", /* @__PURE__ */ import_react61.default.createElement("span", { className: "font-mono" }, cls.id))),
-        /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center gap-2" }, isLive && /* @__PURE__ */ import_react61.default.createElement(import_react61.default.Fragment, null, /* @__PURE__ */ import_react61.default.createElement(
+        )), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs text-purple-300/60 mt-0.5" }, "Instructor: ", cls.instructor || "NITHYA Master", " \xB7 ID: ", /* @__PURE__ */ import_react62.default.createElement("span", { className: "font-mono" }, cls.id))),
+        /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center gap-2" }, isLive && /* @__PURE__ */ import_react62.default.createElement(import_react62.default.Fragment, null, /* @__PURE__ */ import_react62.default.createElement(
           "button",
           {
             type: "button",
@@ -87648,7 +87735,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
             className: "text-xs px-3 py-1.5 rounded-xl bg-purple-950/60 hover:bg-purple-900 border border-purple-500/30 text-purple-200"
           },
           "Copy Student Link"
-        ), /* @__PURE__ */ import_react61.default.createElement(
+        ), /* @__PURE__ */ import_react62.default.createElement(
           "button",
           {
             type: "button",
@@ -87662,7 +87749,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
             className: "text-xs px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold"
           },
           "Enter Host Room"
-        ), /* @__PURE__ */ import_react61.default.createElement(
+        ), /* @__PURE__ */ import_react62.default.createElement(
           "button",
           {
             type: "button",
@@ -87670,7 +87757,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
             className: "text-xs px-3 py-1.5 rounded-xl bg-rose-950/60 hover:bg-rose-900 border border-rose-500/40 text-rose-300 font-bold"
           },
           "End Class"
-        )), !isLive && /* @__PURE__ */ import_react61.default.createElement(
+        )), !isLive && /* @__PURE__ */ import_react62.default.createElement(
           "button",
           {
             type: "button",
@@ -87685,10 +87772,10 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       );
     })))));
   }
-  var import_react61;
+  var import_react62;
   var init_TeacherDashboardPage = __esm({
     "src/components/TeacherDashboardPage.jsx"() {
-      import_react61 = __toESM(require_react());
+      import_react62 = __toESM(require_react());
       init_lucide_react();
       init_api();
     }
@@ -87696,7 +87783,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
 
   // src/components/StudentJoinPage.jsx
   function StudentJoinPage({ sessionId: propSessionId, onJoinClass, onNavigate, lang = "en" }) {
-    const [resolvedSessionId, setResolvedSessionId] = (0, import_react62.useState)(() => {
+    const [resolvedSessionId, setResolvedSessionId] = (0, import_react63.useState)(() => {
       if (propSessionId) return propSessionId;
       try {
         const hash = window.location.hash || "";
@@ -87710,11 +87797,11 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         return "";
       }
     });
-    const [isLoadingSession, setIsLoadingSession] = (0, import_react62.useState)(true);
-    const [sessionData, setSessionData] = (0, import_react62.useState)(null);
-    const [sessionError, setSessionError] = (0, import_react62.useState)("");
-    const [isClassEnded, setIsClassEnded] = (0, import_react62.useState)(false);
-    const [name, setName] = (0, import_react62.useState)(() => {
+    const [isLoadingSession, setIsLoadingSession] = (0, import_react63.useState)(true);
+    const [sessionData, setSessionData] = (0, import_react63.useState)(null);
+    const [sessionError, setSessionError] = (0, import_react63.useState)("");
+    const [isClassEnded, setIsClassEnded] = (0, import_react63.useState)(false);
+    const [name, setName] = (0, import_react63.useState)(() => {
       try {
         const saved = JSON.parse(localStorage.getItem("nithya_student_session") || "{}");
         return saved.name || localStorage.getItem("nithya_student_name") || "";
@@ -87722,7 +87809,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         return "";
       }
     });
-    const [phone, setPhone] = (0, import_react62.useState)(() => {
+    const [phone, setPhone] = (0, import_react63.useState)(() => {
       try {
         const saved = JSON.parse(localStorage.getItem("nithya_student_session") || "{}");
         return saved.phone || localStorage.getItem("nithya_student_phone") || "";
@@ -87730,11 +87817,11 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         return "";
       }
     });
-    const [formError, setFormError] = (0, import_react62.useState)("");
-    const [isJoining, setIsJoining] = (0, import_react62.useState)(false);
-    const [micActive, setMicActive] = (0, import_react62.useState)(true);
-    const [cameraActive, setCameraActive] = (0, import_react62.useState)(true);
-    (0, import_react62.useEffect)(() => {
+    const [formError, setFormError] = (0, import_react63.useState)("");
+    const [isJoining, setIsJoining] = (0, import_react63.useState)(false);
+    const [micActive, setMicActive] = (0, import_react63.useState)(true);
+    const [cameraActive, setCameraActive] = (0, import_react63.useState)(true);
+    (0, import_react63.useEffect)(() => {
       let isMounted = true;
       async function validateSession() {
         const activeId = resolvedSessionId || "cls-1";
@@ -87846,16 +87933,16 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         setIsJoining(false);
       }
     };
-    return /* @__PURE__ */ import_react62.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif]" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px]" }), /* @__PURE__ */ import_react62.default.createElement("div", { className: "absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-800/15 rounded-full blur-[120px]" })), /* @__PURE__ */ import_react62.default.createElement("div", { className: "relative w-full max-w-lg bg-gradient-to-b from-[#181236]/90 to-[#0e0a24]/95 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl my-6" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center justify-between mb-6" }, /* @__PURE__ */ import_react62.default.createElement(
+    return /* @__PURE__ */ import_react63.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif]" }, /* @__PURE__ */ import_react63.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden" }, /* @__PURE__ */ import_react63.default.createElement("div", { className: "absolute top-1/3 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-600/15 rounded-full blur-[140px]" }), /* @__PURE__ */ import_react63.default.createElement("div", { className: "absolute bottom-1/4 right-1/4 w-80 h-80 bg-indigo-800/15 rounded-full blur-[120px]" })), /* @__PURE__ */ import_react63.default.createElement("div", { className: "relative w-full max-w-lg bg-gradient-to-b from-[#181236]/90 to-[#0e0a24]/95 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl my-6" }, /* @__PURE__ */ import_react63.default.createElement("div", { className: "flex items-center justify-between mb-6" }, /* @__PURE__ */ import_react63.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => onNavigate && onNavigate("/"),
         className: "text-xs text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
       },
-      /* @__PURE__ */ import_react62.default.createElement(ArrowLeft, { size: 14 }),
-      /* @__PURE__ */ import_react62.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react62.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/30 text-indigo-300 text-[11px] font-bold" }, /* @__PURE__ */ import_react62.default.createElement(Radio, { size: 13, className: "text-indigo-400" }), /* @__PURE__ */ import_react62.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Student Live Join"))), isLoadingSession && /* @__PURE__ */ import_react62.default.createElement("div", { className: "text-center py-12 flex flex-col items-center" }, /* @__PURE__ */ import_react62.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react62.default.createElement("h3", { className: "font-bold text-base text-purple-200" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Validating Live Yoga Class Link..."), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "Connecting to NITHYA Yoga Studio")), !isLoadingSession && sessionError && /* @__PURE__ */ import_react62.default.createElement("div", { className: "text-center py-8" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400" }, /* @__PURE__ */ import_react62.default.createElement(CircleAlert, { size: 32 })), /* @__PURE__ */ import_react62.default.createElement("h3", { className: "text-xl font-bold text-white mb-2" }, lang === "ta" ? "\u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BC1\u0BAA\u0B9F\u0BBF\u0BAF\u0BBE\u0B95\u0BBE\u0BA4 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Invalid Live Class Link"), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6" }, sessionError), /* @__PURE__ */ import_react62.default.createElement(
+      /* @__PURE__ */ import_react63.default.createElement(ArrowLeft, { size: 14 }),
+      /* @__PURE__ */ import_react63.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react63.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-400/30 text-indigo-300 text-[11px] font-bold" }, /* @__PURE__ */ import_react63.default.createElement(Radio, { size: 13, className: "text-indigo-400" }), /* @__PURE__ */ import_react63.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Student Live Join"))), isLoadingSession && /* @__PURE__ */ import_react63.default.createElement("div", { className: "text-center py-12 flex flex-col items-center" }, /* @__PURE__ */ import_react63.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react63.default.createElement("h3", { className: "font-bold text-base text-purple-200" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Validating Live Yoga Class Link..."), /* @__PURE__ */ import_react63.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "Connecting to NITHYA Yoga Studio")), !isLoadingSession && sessionError && /* @__PURE__ */ import_react63.default.createElement("div", { className: "text-center py-8" }, /* @__PURE__ */ import_react63.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-rose-500/10 border border-rose-500/30 flex items-center justify-center text-rose-400" }, /* @__PURE__ */ import_react63.default.createElement(CircleAlert, { size: 32 })), /* @__PURE__ */ import_react63.default.createElement("h3", { className: "text-xl font-bold text-white mb-2" }, lang === "ta" ? "\u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BC1\u0BAA\u0B9F\u0BBF\u0BAF\u0BBE\u0B95\u0BBE\u0BA4 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Invalid Live Class Link"), /* @__PURE__ */ import_react63.default.createElement("p", { className: "text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6" }, sessionError), /* @__PURE__ */ import_react63.default.createElement(
       "button",
       {
         type: "button",
@@ -87863,7 +87950,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         className: "px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all"
       },
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0B9A\u0BCD \u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BB5\u0BC1\u0BAE\u0BCD" : "Return to Home"
-    )), !isLoadingSession && !sessionError && isClassEnded && /* @__PURE__ */ import_react62.default.createElement("div", { className: "text-center py-8" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400" }, /* @__PURE__ */ import_react62.default.createElement(Clock, { size: 32 })), /* @__PURE__ */ import_react62.default.createElement("h3", { className: "text-xl font-bold text-white mb-2" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Live Class Has Ended"), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BBE\u0BB0\u0BCD. \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9F\u0BBE\u0BB7\u0BCD\u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BC8\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "The instructor has concluded this live yoga session. Thank you for your practice. Check the schedule for upcoming classes."), /* @__PURE__ */ import_react62.default.createElement(
+    )), !isLoadingSession && !sessionError && isClassEnded && /* @__PURE__ */ import_react63.default.createElement("div", { className: "text-center py-8" }, /* @__PURE__ */ import_react63.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400" }, /* @__PURE__ */ import_react63.default.createElement(Clock, { size: 32 })), /* @__PURE__ */ import_react63.default.createElement("h3", { className: "text-xl font-bold text-white mb-2" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Live Class Has Ended"), /* @__PURE__ */ import_react63.default.createElement("p", { className: "text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BBE\u0BB0\u0BCD. \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9F\u0BBE\u0BB7\u0BCD\u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BC8\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "The instructor has concluded this live yoga session. Thank you for your practice. Check the schedule for upcoming classes."), /* @__PURE__ */ import_react63.default.createElement(
       "button",
       {
         type: "button",
@@ -87871,7 +87958,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         className: "px-6 py-3 bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs rounded-xl shadow-lg transition-all"
       },
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0B9A\u0BCD \u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BB5\u0BC1\u0BAE\u0BCD" : "Go to Home"
-    )), !isLoadingSession && !sessionError && !isClassEnded && sessionData && /* @__PURE__ */ import_react62.default.createElement("div", null, /* @__PURE__ */ import_react62.default.createElement("div", { className: "p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 to-indigo-950/60 border border-purple-500/30 mb-6 flex items-center gap-4" }, /* @__PURE__ */ import_react62.default.createElement("div", { className: "w-14 h-14 rounded-xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0" }, /* @__PURE__ */ import_react62.default.createElement("span", { className: "text-2xl" }, "\u{1F9D8}\u200D\u2640\uFE0F")), /* @__PURE__ */ import_react62.default.createElement("div", { className: "min-w-0" }, /* @__PURE__ */ import_react62.default.createElement("span", { className: "text-[10px] uppercase font-black tracking-wider text-purple-300" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "LIVE YOGA CLASS"), /* @__PURE__ */ import_react62.default.createElement("h3", { className: "font-bold text-base text-white truncate" }, sessionData.title || sessionData.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react62.default.createElement("p", { className: "text-xs text-purple-200/70 truncate" }, "Instructor: ", /* @__PURE__ */ import_react62.default.createElement("strong", null, sessionData.instructor || "NITHYA Master")))), formError && /* @__PURE__ */ import_react62.default.createElement("div", { className: "mb-4 p-3.5 rounded-2xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-2.5 text-rose-200 text-xs" }, /* @__PURE__ */ import_react62.default.createElement(CircleAlert, { size: 16, className: "text-rose-400 shrink-0" }), /* @__PURE__ */ import_react62.default.createElement("span", { className: "leading-snug" }, formError)), /* @__PURE__ */ import_react62.default.createElement("form", { onSubmit: handleJoin, className: "flex flex-col gap-4" }, /* @__PURE__ */ import_react62.default.createElement("div", null, /* @__PURE__ */ import_react62.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1.5" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Your Full Name"), /* @__PURE__ */ import_react62.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react62.default.createElement(User, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react62.default.createElement(
+    )), !isLoadingSession && !sessionError && !isClassEnded && sessionData && /* @__PURE__ */ import_react63.default.createElement("div", null, /* @__PURE__ */ import_react63.default.createElement("div", { className: "p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 to-indigo-950/60 border border-purple-500/30 mb-6 flex items-center gap-4" }, /* @__PURE__ */ import_react63.default.createElement("div", { className: "w-14 h-14 rounded-xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0" }, /* @__PURE__ */ import_react63.default.createElement("span", { className: "text-2xl" }, "\u{1F9D8}\u200D\u2640\uFE0F")), /* @__PURE__ */ import_react63.default.createElement("div", { className: "min-w-0" }, /* @__PURE__ */ import_react63.default.createElement("span", { className: "text-[10px] uppercase font-black tracking-wider text-purple-300" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "LIVE YOGA CLASS"), /* @__PURE__ */ import_react63.default.createElement("h3", { className: "font-bold text-base text-white truncate" }, sessionData.title || sessionData.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react63.default.createElement("p", { className: "text-xs text-purple-200/70 truncate" }, "Instructor: ", /* @__PURE__ */ import_react63.default.createElement("strong", null, sessionData.instructor || "NITHYA Master")))), formError && /* @__PURE__ */ import_react63.default.createElement("div", { className: "mb-4 p-3.5 rounded-2xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-2.5 text-rose-200 text-xs" }, /* @__PURE__ */ import_react63.default.createElement(CircleAlert, { size: 16, className: "text-rose-400 shrink-0" }), /* @__PURE__ */ import_react63.default.createElement("span", { className: "leading-snug" }, formError)), /* @__PURE__ */ import_react63.default.createElement("form", { onSubmit: handleJoin, className: "flex flex-col gap-4" }, /* @__PURE__ */ import_react63.default.createElement("div", null, /* @__PURE__ */ import_react63.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1.5" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD" : "Your Full Name"), /* @__PURE__ */ import_react63.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react63.default.createElement(User, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react63.default.createElement(
       "input",
       {
         type: "text",
@@ -87881,7 +87968,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         required: true,
         className: "w-full pl-10 pr-4 py-3 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
       }
-    ))), /* @__PURE__ */ import_react62.default.createElement("div", null, /* @__PURE__ */ import_react62.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1.5" }, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (10 \u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BAE\u0BCD)" : "Mobile Phone Number (10 Digits)"), /* @__PURE__ */ import_react62.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react62.default.createElement(Phone, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react62.default.createElement(
+    ))), /* @__PURE__ */ import_react63.default.createElement("div", null, /* @__PURE__ */ import_react63.default.createElement("label", { className: "block text-xs font-semibold text-purple-200 mb-1.5" }, lang === "ta" ? "\u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD (10 \u0B87\u0BB2\u0B95\u0BCD\u0B95\u0BAE\u0BCD)" : "Mobile Phone Number (10 Digits)"), /* @__PURE__ */ import_react63.default.createElement("div", { className: "relative" }, /* @__PURE__ */ import_react63.default.createElement(Phone, { size: 16, className: "absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" }), /* @__PURE__ */ import_react63.default.createElement(
       "input",
       {
         type: "tel",
@@ -87891,38 +87978,38 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         required: true,
         className: "w-full pl-10 pr-4 py-3 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
       }
-    ))), /* @__PURE__ */ import_react62.default.createElement("div", { className: "flex items-center justify-center gap-3 py-2" }, /* @__PURE__ */ import_react62.default.createElement(
+    ))), /* @__PURE__ */ import_react63.default.createElement("div", { className: "flex items-center justify-center gap-3 py-2" }, /* @__PURE__ */ import_react63.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => setMicActive(!micActive),
         className: `px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all cursor-pointer ${micActive ? "bg-purple-900/40 border-purple-400/50 text-purple-200" : "bg-rose-950/40 border-rose-500/40 text-rose-300"}`
       },
-      micActive ? /* @__PURE__ */ import_react62.default.createElement(Mic, { size: 14 }) : /* @__PURE__ */ import_react62.default.createElement(MicOff, { size: 14 }),
-      /* @__PURE__ */ import_react62.default.createElement("span", null, micActive ? "Mic Ready" : "Mic Muted")
-    ), /* @__PURE__ */ import_react62.default.createElement(
+      micActive ? /* @__PURE__ */ import_react63.default.createElement(Mic, { size: 14 }) : /* @__PURE__ */ import_react63.default.createElement(MicOff, { size: 14 }),
+      /* @__PURE__ */ import_react63.default.createElement("span", null, micActive ? "Mic Ready" : "Mic Muted")
+    ), /* @__PURE__ */ import_react63.default.createElement(
       "button",
       {
         type: "button",
         onClick: () => setCameraActive(!cameraActive),
         className: `px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all cursor-pointer ${cameraActive ? "bg-purple-900/40 border-purple-400/50 text-purple-200" : "bg-rose-950/40 border-rose-500/40 text-rose-300"}`
       },
-      cameraActive ? /* @__PURE__ */ import_react62.default.createElement(Video, { size: 14 }) : /* @__PURE__ */ import_react62.default.createElement(VideoOff, { size: 14 }),
-      /* @__PURE__ */ import_react62.default.createElement("span", null, cameraActive ? "Camera Ready" : "Camera Off")
-    )), /* @__PURE__ */ import_react62.default.createElement(
+      cameraActive ? /* @__PURE__ */ import_react63.default.createElement(Video, { size: 14 }) : /* @__PURE__ */ import_react63.default.createElement(VideoOff, { size: 14 }),
+      /* @__PURE__ */ import_react63.default.createElement("span", null, cameraActive ? "Camera Ready" : "Camera Off")
+    )), /* @__PURE__ */ import_react63.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isJoining,
         className: "w-full mt-2 py-4 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base rounded-2xl shadow-xl shadow-purple-600/30 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
       },
-      isJoining ? /* @__PURE__ */ import_react62.default.createElement(import_react62.default.Fragment, null, /* @__PURE__ */ import_react62.default.createElement(RefreshCw, { size: 18, className: "animate-spin" }), /* @__PURE__ */ import_react62.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Entering Classroom...")) : /* @__PURE__ */ import_react62.default.createElement(import_react62.default.Fragment, null, /* @__PURE__ */ import_react62.default.createElement(Radio, { size: 18, className: "animate-pulse" }), /* @__PURE__ */ import_react62.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "\u{1F680} Enter Live Yoga Room"), /* @__PURE__ */ import_react62.default.createElement(ArrowRight, { size: 18 }))
+      isJoining ? /* @__PURE__ */ import_react63.default.createElement(import_react63.default.Fragment, null, /* @__PURE__ */ import_react63.default.createElement(RefreshCw, { size: 18, className: "animate-spin" }), /* @__PURE__ */ import_react63.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Entering Classroom...")) : /* @__PURE__ */ import_react63.default.createElement(import_react63.default.Fragment, null, /* @__PURE__ */ import_react63.default.createElement(Radio, { size: 18, className: "animate-pulse" }), /* @__PURE__ */ import_react63.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "\u{1F680} Enter Live Yoga Room"), /* @__PURE__ */ import_react63.default.createElement(ArrowRight, { size: 18 }))
     )))));
   }
-  var import_react62;
+  var import_react63;
   var init_StudentJoinPage = __esm({
     "src/components/StudentJoinPage.jsx"() {
-      import_react62 = __toESM(require_react());
+      import_react63 = __toESM(require_react());
       init_lucide_react();
       init_api();
     }
@@ -87932,11 +88019,11 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   function TeacherLiveStudioRoute({ lang = "en" }) {
     const { sessionId } = useParams();
     const navigate = useNavigate();
-    const [isVerifying, setIsVerifying] = (0, import_react63.useState)(true);
-    const [authError, setAuthError] = (0, import_react63.useState)("");
-    const [teacher, setTeacher] = (0, import_react63.useState)(null);
-    const [classData, setClassData] = (0, import_react63.useState)(null);
-    (0, import_react63.useEffect)(() => {
+    const [isVerifying, setIsVerifying] = (0, import_react64.useState)(true);
+    const [authError, setAuthError] = (0, import_react64.useState)("");
+    const [teacher, setTeacher] = (0, import_react64.useState)(null);
+    const [classData, setClassData] = (0, import_react64.useState)(null);
+    (0, import_react64.useEffect)(() => {
       let isMounted = true;
       async function verifyAndLoad() {
         const token = localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_admin_token");
@@ -87981,10 +88068,10 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       };
     }, [sessionId, navigate, lang]);
     if (isVerifying) {
-      return /* @__PURE__ */ import_react63.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react63.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react63.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying Teacher Authorization on Server..."), /* @__PURE__ */ import_react63.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "Host Studio Security Guard"));
+      return /* @__PURE__ */ import_react64.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react64.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react64.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Verifying Teacher Authorization on Server..."), /* @__PURE__ */ import_react64.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "Host Studio Security Guard"));
     }
     if (authError) {
-      return /* @__PURE__ */ import_react63.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react63.default.createElement(ShieldAlert, { size: 44, className: "text-rose-400 mb-3" }), /* @__PURE__ */ import_react63.default.createElement("h3", { className: "text-lg font-bold text-rose-300 mb-2" }, authError), /* @__PURE__ */ import_react63.default.createElement(
+      return /* @__PURE__ */ import_react64.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react64.default.createElement(ShieldAlert, { size: 44, className: "text-rose-400 mb-3" }), /* @__PURE__ */ import_react64.default.createElement("h3", { className: "text-lg font-bold text-rose-300 mb-2" }, authError), /* @__PURE__ */ import_react64.default.createElement(
         "button",
         {
           onClick: () => navigate("/teacher/login"),
@@ -88009,15 +88096,15 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       role: "trainer",
       isInstructor: true
     };
-    return /* @__PURE__ */ import_react63.default.createElement("div", { className: "min-h-screen bg-[#05051B] text-white" }, /* @__PURE__ */ import_react63.default.createElement("div", { className: "bg-[#120E2C] border-b border-purple-500/20 px-4 py-3 flex items-center justify-between" }, /* @__PURE__ */ import_react63.default.createElement(
+    return /* @__PURE__ */ import_react64.default.createElement("div", { className: "min-h-screen bg-[#05051B] text-white" }, /* @__PURE__ */ import_react64.default.createElement("div", { className: "bg-[#120E2C] border-b border-purple-500/20 px-4 py-3 flex items-center justify-between" }, /* @__PURE__ */ import_react64.default.createElement(
       "button",
       {
         onClick: () => navigate("/teacher/dashboard"),
         className: "flex items-center gap-2 text-xs font-semibold text-purple-300 hover:text-white transition-colors cursor-pointer"
       },
-      /* @__PURE__ */ import_react63.default.createElement(ArrowLeft, { size: 16 }),
-      /* @__PURE__ */ import_react63.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8\u0B95\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Teacher Dashboard")
-    ), /* @__PURE__ */ import_react63.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react63.default.createElement("span", { className: "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react63.default.createElement("span", { className: "text-xs font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8 (Host)" : "Host Studio: Teacher Mode"))), /* @__PURE__ */ import_react63.default.createElement("div", { className: "p-2 sm:p-4 max-w-7xl mx-auto" }, /* @__PURE__ */ import_react63.default.createElement(
+      /* @__PURE__ */ import_react64.default.createElement(ArrowLeft, { size: 16 }),
+      /* @__PURE__ */ import_react64.default.createElement("span", null, lang === "ta" ? "\u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8\u0B95\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Teacher Dashboard")
+    ), /* @__PURE__ */ import_react64.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react64.default.createElement("span", { className: "w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react64.default.createElement("span", { className: "text-xs font-bold text-purple-200" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B95\u0B9F\u0BCD\u0B9F\u0BC1\u0BAA\u0BCD\u0BAA\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1 \u0B85\u0BB1\u0BC8 (Host)" : "Host Studio: Teacher Mode"))), /* @__PURE__ */ import_react64.default.createElement("div", { className: "p-2 sm:p-4 max-w-7xl mx-auto" }, /* @__PURE__ */ import_react64.default.createElement(
       LiveYogaClassRoom,
       {
         activeClass,
@@ -88032,10 +88119,10 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       }
     )));
   }
-  var import_react63;
+  var import_react64;
   var init_TeacherLiveStudioRoute = __esm({
     "src/components/TeacherLiveStudioRoute.jsx"() {
-      import_react63 = __toESM(require_react());
+      import_react64 = __toESM(require_react());
       init_dist();
       init_lucide_react();
       init_LiveYogaClassRoom();
@@ -88048,10 +88135,10 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   function StudentLiveStudioRoute({ lang = "en" }) {
     const { sessionId } = useParams();
     const navigate = useNavigate();
-    const [isLoading, setIsLoading] = (0, import_react64.useState)(true);
-    const [sessionData, setSessionData] = (0, import_react64.useState)(null);
-    const [studentSession, setStudentSession] = (0, import_react64.useState)(null);
-    (0, import_react64.useEffect)(() => {
+    const [isLoading, setIsLoading] = (0, import_react65.useState)(true);
+    const [sessionData, setSessionData] = (0, import_react65.useState)(null);
+    const [studentSession, setStudentSession] = (0, import_react65.useState)(null);
+    (0, import_react65.useEffect)(() => {
       let isMounted = true;
       async function checkStudentAndSession() {
         let storedStudent = null;
@@ -88094,7 +88181,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       };
     }, [sessionId, navigate]);
     if (isLoading) {
-      return /* @__PURE__ */ import_react64.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react64.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react64.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8\u0BAF\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Yoga Classroom..."), /* @__PURE__ */ import_react64.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "NITHYA Yoga Live Stream"));
+      return /* @__PURE__ */ import_react65.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col items-center justify-center p-4" }, /* @__PURE__ */ import_react65.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react65.default.createElement("h3", { className: "text-base font-bold text-purple-200" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8\u0BAF\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Yoga Classroom..."), /* @__PURE__ */ import_react65.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "NITHYA Yoga Live Stream"));
     }
     const activeClass = sessionData || {
       id: sessionId,
@@ -88112,15 +88199,15 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       role: "student",
       isInstructor: false
     };
-    return /* @__PURE__ */ import_react64.default.createElement("div", { className: "min-h-screen bg-[#05051B] text-white" }, /* @__PURE__ */ import_react64.default.createElement("div", { className: "bg-[#120E2C] border-b border-purple-500/20 px-4 py-3 flex items-center justify-between" }, /* @__PURE__ */ import_react64.default.createElement(
+    return /* @__PURE__ */ import_react65.default.createElement("div", { className: "min-h-screen bg-[#05051B] text-white" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "bg-[#120E2C] border-b border-purple-500/20 px-4 py-3 flex items-center justify-between" }, /* @__PURE__ */ import_react65.default.createElement(
       "button",
       {
         onClick: () => navigate("/"),
         className: "flex items-center gap-2 text-xs font-semibold text-purple-300 hover:text-white transition-colors cursor-pointer"
       },
-      /* @__PURE__ */ import_react64.default.createElement(ArrowLeft, { size: 16 }),
-      /* @__PURE__ */ import_react64.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react64.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react64.default.createElement(Radio, { size: 14, className: "text-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react64.default.createElement("span", { className: "text-xs font-bold text-purple-200" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 (\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF)" : "Live Yoga Classroom (Student)"))), /* @__PURE__ */ import_react64.default.createElement("div", { className: "p-2 sm:p-4 max-w-7xl mx-auto" }, /* @__PURE__ */ import_react64.default.createElement(
+      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 16 }),
+      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react65.default.createElement(Radio, { size: 14, className: "text-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-xs font-bold text-purple-200" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 (\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0B95\u0BC1\u0BA4\u0BBF)" : "Live Yoga Classroom (Student)"))), /* @__PURE__ */ import_react65.default.createElement("div", { className: "p-2 sm:p-4 max-w-7xl mx-auto" }, /* @__PURE__ */ import_react65.default.createElement(
       LiveYogaClassRoom,
       {
         activeClass,
@@ -88136,10 +88223,10 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       }
     )));
   }
-  var import_react64;
+  var import_react65;
   var init_StudentLiveStudioRoute = __esm({
     "src/components/StudentLiveStudioRoute.jsx"() {
-      import_react64 = __toESM(require_react());
+      import_react65 = __toESM(require_react());
       init_dist();
       init_lucide_react();
       init_LiveYogaClassRoom();
@@ -89172,7 +89259,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   // src/App.jsx
   function TeacherRegisterRoute({ lang }) {
     const navigate = useNavigate();
-    return /* @__PURE__ */ import_react65.default.createElement(
+    return /* @__PURE__ */ import_react66.default.createElement(
       TeacherRegisterPage,
       {
         onNavigate: (path) => navigate(path),
@@ -89183,7 +89270,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   }
   function TeacherLoginRoute({ lang }) {
     const navigate = useNavigate();
-    return /* @__PURE__ */ import_react65.default.createElement(
+    return /* @__PURE__ */ import_react66.default.createElement(
       TeacherLoginPage,
       {
         onNavigate: (path) => navigate(path),
@@ -89194,7 +89281,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   }
   function TeacherDashboardRoute({ lang }) {
     const navigate = useNavigate();
-    return /* @__PURE__ */ import_react65.default.createElement(
+    return /* @__PURE__ */ import_react66.default.createElement(
       TeacherDashboardPage,
       {
         onNavigate: (path) => navigate(path),
@@ -89206,7 +89293,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   function StudentJoinRoute({ lang }) {
     const navigate = useNavigate();
     const { sessionId } = useParams();
-    return /* @__PURE__ */ import_react65.default.createElement(
+    return /* @__PURE__ */ import_react66.default.createElement(
       StudentJoinPage,
       {
         sessionId,
@@ -89218,7 +89305,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   }
   function MainPublicApp({ lang, setLang, theme, setTheme }) {
     const navigate = useNavigate();
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
         const liveParam = params.get("live") || params.get("room");
@@ -89229,7 +89316,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       } catch (_2) {
       }
     }, [navigate]);
-    const [currentTab, setCurrentTab] = (0, import_react65.useState)(() => {
+    const [currentTab, setCurrentTab] = (0, import_react66.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         if (params) {
@@ -89241,10 +89328,10 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       }
       return loadStorage("nithya_active_tab", "home");
     });
-    const [searchQuery, setSearchQuery] = (0, import_react65.useState)("");
-    const [updateAvailable, setUpdateAvailable] = (0, import_react65.useState)(false);
-    const [activeAlarm, setActiveAlarm] = (0, import_react65.useState)(null);
-    const [inviteToken, setInviteToken] = (0, import_react65.useState)(() => {
+    const [searchQuery, setSearchQuery] = (0, import_react66.useState)("");
+    const [updateAvailable, setUpdateAvailable] = (0, import_react66.useState)(false);
+    const [activeAlarm, setActiveAlarm] = (0, import_react66.useState)(null);
+    const [inviteToken, setInviteToken] = (0, import_react66.useState)(() => {
       try {
         const params = new URLSearchParams(window.location.search);
         return params.get("invite") || "";
@@ -89252,10 +89339,10 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         return "";
       }
     });
-    const [studentSession, setStudentSession] = (0, import_react65.useState)(() => {
+    const [studentSession, setStudentSession] = (0, import_react66.useState)(() => {
       return loadStorage("nithya_student_session", null);
     });
-    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react65.useState)(() => {
+    const [showStudentJoinModal, setShowStudentJoinModal] = (0, import_react66.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         if (params && (params.get("live") || params.get("room") || params.get("join") === "student")) {
@@ -89267,7 +89354,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       }
       return false;
     });
-    const [user2, setUser] = (0, import_react65.useState)(() => {
+    const [user2, setUser] = (0, import_react66.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         const isStudentQuery = params && (params.get("join") === "student" || params.get("role") === "student" || Boolean(params.get("live")));
@@ -89320,9 +89407,9 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         isInstructor: false
       };
     });
-    const [reminders, setReminders] = (0, import_react65.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
-    const [classes, setClasses] = (0, import_react65.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
-    const [activeClass, setActiveClass] = (0, import_react65.useState)(() => {
+    const [reminders, setReminders] = (0, import_react66.useState)(() => loadStorage("nithya_reminders", DEFAULT_REMINDERS));
+    const [classes, setClasses] = (0, import_react66.useState)(() => loadStorage("nithya_classes", DEFAULT_CLASSES));
+    const [activeClass, setActiveClass] = (0, import_react66.useState)(() => {
       try {
         const params = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
         const liveId = params ? params.get("live") || params.get("room") : null;
@@ -89345,22 +89432,22 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       }
       return classes[0] || DEFAULT_CLASSES[0];
     });
-    const [attendanceLogs, setAttendanceLogs] = (0, import_react65.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
-    const [toasts, setToasts] = (0, import_react65.useState)([]);
-    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react65.useState)(false);
-    const [editingReminder, setEditingReminder] = (0, import_react65.useState)(null);
-    (0, import_react65.useEffect)(() => {
+    const [attendanceLogs, setAttendanceLogs] = (0, import_react66.useState)(() => loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS));
+    const [toasts, setToasts] = (0, import_react66.useState)([]);
+    const [isReminderModalOpen, setIsReminderModalOpen] = (0, import_react66.useState)(false);
+    const [editingReminder, setEditingReminder] = (0, import_react66.useState)(null);
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_theme", theme);
       document.documentElement.setAttribute("data-theme", theme);
     }, [theme]);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_lang", lang);
       document.documentElement.setAttribute("data-lang", lang);
     }, [lang]);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_user", user2);
     }, [user2]);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       try {
         const stored = localStorage.getItem("nithya_live_participants");
         if (stored) {
@@ -89375,20 +89462,20 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       } catch (_2) {
       }
     }, []);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_reminders", reminders);
       syncAllRemindersWithSystem(reminders, lang);
     }, [reminders, lang]);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_classes", classes);
     }, [classes]);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_attendance", attendanceLogs);
     }, [attendanceLogs]);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_active_tab", currentTab);
     }, [currentTab]);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       checkRemoteAppVersion().then((res) => {
         if (res && res.isUpdateAvailable) {
           setUpdateAvailable(true);
@@ -89398,11 +89485,11 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       }).catch(() => {
       });
     }, []);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       initNotificationSystem();
     }, []);
-    const firedRemindersRef = (0, import_react65.useRef)(/* @__PURE__ */ new Set());
-    (0, import_react65.useEffect)(() => {
+    const firedRemindersRef = (0, import_react66.useRef)(/* @__PURE__ */ new Set());
+    (0, import_react66.useEffect)(() => {
       const checkScheduledReminders = () => {
         const now2 = /* @__PURE__ */ new Date();
         const currentHours = now2.getHours();
@@ -89524,7 +89611,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         }
       }, 100);
     };
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       const processDeepLinkUrl = (rawUrl) => {
         try {
           if (!rawUrl) return;
@@ -89848,7 +89935,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         remEl.scrollIntoView({ behavior: "smooth" });
       }
     };
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       const handleSwMessage = (e2) => {
         if (e2.data && e2.data.type === "NAVIGATE_TAB") {
           handleTabChange(e2.data.tab);
@@ -89863,15 +89950,15 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         }
       };
     }, []);
-    return /* @__PURE__ */ import_react65.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, typeof window !== "undefined" && !window.Capacitor?.isNativePlatform() && /Android/i.test(navigator.userAgent) && /* @__PURE__ */ import_react65.default.createElement("div", { className: "open-in-native-app-banner bg-gradient-to-r from-violet-900 to-indigo-900 text-white px-3 py-2 text-xs flex items-center justify-between shadow-md sticky top-0 z-50 border-b border-violet-500/30" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-base animate-pulse" }, "\u{1F4F1}"), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-semibold" }, lang === "ta" ? "NITHYA Yoga App \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE?" : "Open in NITHYA Yoga App:")), /* @__PURE__ */ import_react65.default.createElement(
+    return /* @__PURE__ */ import_react66.default.createElement("div", { className: "nithya-app-root yoga-advanced" }, typeof window !== "undefined" && !window.Capacitor?.isNativePlatform() && /Android/i.test(navigator.userAgent) && /* @__PURE__ */ import_react66.default.createElement("div", { className: "open-in-native-app-banner bg-gradient-to-r from-violet-900 to-indigo-900 text-white px-3 py-2 text-xs flex items-center justify-between shadow-md sticky top-0 z-50 border-b border-violet-500/30" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react66.default.createElement("span", { className: "text-base animate-pulse" }, "\u{1F4F1}"), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-semibold" }, lang === "ta" ? "NITHYA Yoga App \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BBE?" : "Open in NITHYA Yoga App:")), /* @__PURE__ */ import_react66.default.createElement(
       "a",
       {
         href: `intent://sarath2003-sketch.github.io/nithya-yoga/${window.location.search || ""}#Intent;scheme=https;package=com.nithya.yoga;end`,
         className: "px-3 py-1 bg-white text-purple-900 font-bold rounded-full text-xs shadow hover:bg-slate-100 transition-all flex items-center gap-1 cursor-pointer"
       },
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1" : "Open App"),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, "\u2794")
-    )), /* @__PURE__ */ import_react65.default.createElement(InAppUpdateBanner, { lang }), /* @__PURE__ */ import_react65.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA4\u0BBF\u0BB1" : "Open App"),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, "\u2794")
+    )), /* @__PURE__ */ import_react66.default.createElement(InAppUpdateBanner, { lang }), /* @__PURE__ */ import_react66.default.createElement("div", { className: "app-main-layout" }, /* @__PURE__ */ import_react66.default.createElement(
       Sidebar,
       {
         currentTab,
@@ -89879,7 +89966,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         lang,
         user: user2
       }
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "main-viewport-content" }, /* @__PURE__ */ import_react66.default.createElement(
       Header,
       {
         searchQuery,
@@ -89895,16 +89982,16 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onQuickUpdate: handleTriggerAppUpdate,
         updateAvailable
       }
-    ), currentTab === "student" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-page-viewport dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react65.default.createElement(
+    ), currentTab === "student" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-page-viewport dedicated-student-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F393} ", lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F393} ", lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Student Learning Portal")), /* @__PURE__ */ import_react66.default.createElement(
       StudentDashboard,
       {
         user: user2,
@@ -89925,16 +90012,16 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         },
         lang
       }
-    )) : currentTab === "admin" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react65.default.createElement(
+    )) : currentTab === "admin" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F6E1}\uFE0F ", lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD & \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F6E1}\uFE0F ", lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD & \u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF \u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Instructor & Admin Portal")), /* @__PURE__ */ import_react66.default.createElement(
       AdminPortalSection,
       {
         theme,
@@ -89961,16 +90048,16 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         showToast,
         lang
       }
-    )) : currentTab === "live" || currentTab === "live-classes" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react65.default.createElement(
+    )) : currentTab === "live" || currentTab === "live-classes" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-live-class-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "live-studio-premium-frame mb-4" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3 flex-wrap" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-white/20 hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react65.default.createElement("span", { className: "live-indicator-dot animate-pulse" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "live-studio-heading-title font-black text-sm sm:text-base tracking-wide text-white" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Studio"), /* @__PURE__ */ import_react65.default.createElement("span", { className: "badge-private-hd" }, "HD WebRTC"))), /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2 ml-auto" }, /* @__PURE__ */ import_react65.default.createElement("span", { className: "studio-class-label text-xs text-[#E2D9F3] font-bold hidden sm:inline" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-white/20 hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react66.default.createElement("span", { className: "live-indicator-dot animate-pulse" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "live-studio-heading-title font-black text-sm sm:text-base tracking-wide text-white" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8" : "Live Yoga Studio"), /* @__PURE__ */ import_react66.default.createElement("span", { className: "badge-private-hd" }, "HD WebRTC"))), /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-2 ml-auto" }, /* @__PURE__ */ import_react66.default.createElement("span", { className: "studio-class-label text-xs text-[#E2D9F3] font-bold hidden sm:inline" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1:" : "Class:"), /* @__PURE__ */ import_react66.default.createElement(
       "select",
       {
         value: activeClass?.id,
@@ -89980,8 +90067,8 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         },
         className: "studio-class-dropdown"
       },
-      classes.map((c) => /* @__PURE__ */ import_react65.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
-    ))), /* @__PURE__ */ import_react65.default.createElement(
+      classes.map((c) => /* @__PURE__ */ import_react66.default.createElement("option", { key: c.id, value: c.id }, c.title || c.name, " (", c.instructor, ")"))
+    ))), /* @__PURE__ */ import_react66.default.createElement(
       LiveYogaClassRoom,
       {
         activeClass,
@@ -89998,16 +90085,16 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onNavigateAdmin: () => handleTabChange("admin"),
         lang
       }
-    )) : currentTab === "yoga" || currentTab === "classes" || currentTab === "yoga-classes" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-page-viewport dedicated-yoga-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react65.default.createElement(
+    )) : currentTab === "yoga" || currentTab === "classes" || currentTab === "yoga-classes" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-page-viewport dedicated-yoga-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Classes & Asanas Library")), /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Classes & Asanas Library")), /* @__PURE__ */ import_react66.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -90017,16 +90104,16 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         },
         lang
       }
-    )) : currentTab === "reminders" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-page-viewport dedicated-reminders-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react65.default.createElement(
+    )) : currentTab === "reminders" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-page-viewport dedicated-reminders-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center justify-between mb-4 flex-wrap gap-2" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B85\u0BB2\u0BBE\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Reminders & Daily Alarms")), /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD & \u0B85\u0BB2\u0BBE\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Reminders & Daily Alarms")), /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
@@ -90038,7 +90125,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       },
       "+ ",
       lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Add Reminder"
-    )), /* @__PURE__ */ import_react65.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react65.default.createElement(
+    )), /* @__PURE__ */ import_react66.default.createElement("div", { className: "mb-6" }, /* @__PURE__ */ import_react66.default.createElement(
       SmartCareTimeline,
       {
         reminders,
@@ -90053,22 +90140,22 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         },
         lang
       }
-    )), /* @__PURE__ */ import_react65.default.createElement("div", { className: "max-w-xl mx-auto" }, /* @__PURE__ */ import_react65.default.createElement(
+    )), /* @__PURE__ */ import_react66.default.createElement("div", { className: "max-w-xl mx-auto" }, /* @__PURE__ */ import_react66.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ))) : currentTab === "profile" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-page-viewport dedicated-profile-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react65.default.createElement(
+    ))) : currentTab === "profile" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-page-viewport dedicated-profile-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F464} ", lang === "ta" ? "\u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BB0\u0BCD \u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD & \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Member Profile & App Settings")), /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F464} ", lang === "ta" ? "\u0B89\u0BB1\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BB0\u0BCD \u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD & \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Member Profile & App Settings")), /* @__PURE__ */ import_react66.default.createElement(
       ProfileSection,
       {
         user: user2,
@@ -90077,41 +90164,41 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         showToast,
         lang
       }
-    )) : currentTab === "notes" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-page-viewport dedicated-notes-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react65.default.createElement(
+    )) : currentTab === "notes" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-page-viewport dedicated-notes-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4DD} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Practice Notes")), /* @__PURE__ */ import_react65.default.createElement(YogaNotesSection, { lang })) : currentTab === "attendance" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-page-viewport dedicated-attendance-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4DD} ", lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Yoga Practice Notes")), /* @__PURE__ */ import_react66.default.createElement(YogaNotesSection, { lang })) : currentTab === "attendance" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-page-viewport dedicated-attendance-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4CA} ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Attendance Analytics")), /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F4CA} ", lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BC1\u0BB3\u0BCD\u0BB3\u0BBF\u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Attendance Analytics")), /* @__PURE__ */ import_react66.default.createElement(
       AttendanceProgressSection,
       {
         user: user2,
         attendanceLogs,
         lang
       }
-    )) : currentTab === "relaxation" ? /* @__PURE__ */ import_react65.default.createElement("main", { className: "dedicated-page-viewport dedicated-relaxation-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react65.default.createElement(
+    )) : currentTab === "relaxation" ? /* @__PURE__ */ import_react66.default.createElement("main", { className: "dedicated-page-viewport dedicated-relaxation-viewport p-4 max-w-7xl mx-auto ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-3 mb-4 flex-wrap" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
         className: "btn-back-dashboard-modern",
         onClick: () => handleTabChange("home")
       },
-      /* @__PURE__ */ import_react65.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F3B5} ", lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD & \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Relaxation & Pranayama")), /* @__PURE__ */ import_react65.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react65.default.createElement(PranayamaBreathingOrb, { lang }), /* @__PURE__ */ import_react65.default.createElement(RelaxationZone, { lang }))) : /* @__PURE__ */ import_react65.default.createElement("main", { className: "dashboard-content-grid-wrapper ya-reveal" }, /* @__PURE__ */ import_react65.default.createElement(
+      /* @__PURE__ */ import_react66.default.createElement(ArrowLeft, { size: 14, className: "back-arrow-icon" }),
+      /* @__PURE__ */ import_react66.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "h-4 w-px bg-subtle hidden sm:block" }), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-bold text-sm text-heading flex items-center gap-1.5" }, "\u{1F3B5} ", lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD & \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Relaxation & Pranayama")), /* @__PURE__ */ import_react66.default.createElement("div", { className: "grid grid-cols-1 md:grid-cols-2 gap-4" }, /* @__PURE__ */ import_react66.default.createElement(PranayamaBreathingOrb, { lang }), /* @__PURE__ */ import_react66.default.createElement(RelaxationZone, { lang }))) : /* @__PURE__ */ import_react66.default.createElement("main", { className: "dashboard-content-grid-wrapper ya-reveal" }, /* @__PURE__ */ import_react66.default.createElement(
       HeroSection,
       {
         user: user2,
@@ -90120,14 +90207,14 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onTabChange: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       AttendanceProgressSection,
       {
         user: user2,
         attendanceLogs,
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       RecentlyPlayedDailyMix,
       {
         onSelectClass: (cls) => {
@@ -90140,7 +90227,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         showToast,
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       SmartCareTimeline,
       {
         reminders,
@@ -90152,7 +90239,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onShowAll: () => handleTabChange("reminders"),
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement("div", { className: "dashboard-row-3-grid" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "grid-col col-classes" }, /* @__PURE__ */ import_react66.default.createElement(
       YogaClassesSection,
       {
         onSelectClass: (cls) => {
@@ -90161,7 +90248,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onShowAll: () => handleTabChange("yoga"),
         lang
       }
-    )), /* @__PURE__ */ import_react65.default.createElement("div", { className: "grid-col col-live" }, user2?.role === "trainer" || Boolean(localStorage.getItem("nithya_admin_token")) ? /* @__PURE__ */ import_react65.default.createElement(
+    )), /* @__PURE__ */ import_react66.default.createElement("div", { className: "grid-col col-live" }, user2?.role === "trainer" || Boolean(localStorage.getItem("nithya_admin_token")) ? /* @__PURE__ */ import_react66.default.createElement(
       LiveClassStudio,
       {
         activeClass,
@@ -90173,7 +90260,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onOpenFullStudio: () => handleTabChange("live"),
         lang
       }
-    ) : /* @__PURE__ */ import_react65.default.createElement("div", { className: "glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md" }, /* @__PURE__ */ import_react65.default.createElement("div", null, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react65.default.createElement("span", { className: "px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Daily Routine & Reminders"), /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BAA\u0BCA\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Public Portal")), /* @__PURE__ */ import_react65.default.createElement("h3", { className: "text-xl font-bold text-heading mb-2" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE & \u0BA8\u0BB2\u0BB5\u0BBE\u0BB4\u0BCD\u0BB5\u0BC1 \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Habits & Yoga Reminders"), /* @__PURE__ */ import_react65.default.createElement("p", { className: "text-xs text-muted leading-relaxed mb-4" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u0B86\u0B9A\u0BA9\u0BAE\u0BCD, \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1\u0BAA\u0BCD\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BB2\u0BC8 \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BA3\u0BBF \u0B92\u0BB2\u0BBF\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BAE\u0BC8\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Maintain healthy rhythm with customized audio chimes for morning asana, pranayama, and evening meditation."), /* @__PURE__ */ import_react65.default.createElement("div", { className: "space-y-2 mb-4" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2.5 p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/10 text-xs" }, /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-base" }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-semibold text-heading flex-1" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD" : "Morning Surya Namaskar"), /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-primary font-bold" }, "06:00 AM")), /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2.5 p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/10 text-xs" }, /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-base" }, "\u{1FAC1}"), /* @__PURE__ */ import_react65.default.createElement("span", { className: "font-semibold text-heading flex-1" }, lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BBF \u0B9A\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Nadi Shodhana Pranayama"), /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-primary font-bold" }, "06:45 AM")))), /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex flex-col gap-2 mt-2" }, /* @__PURE__ */ import_react65.default.createElement(
+    ) : /* @__PURE__ */ import_react66.default.createElement("div", { className: "glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md" }, /* @__PURE__ */ import_react66.default.createElement("div", null, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react66.default.createElement("span", { className: "px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Daily Routine & Reminders"), /* @__PURE__ */ import_react66.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BAA\u0BCA\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Public Portal")), /* @__PURE__ */ import_react66.default.createElement("h3", { className: "text-xl font-bold text-heading mb-2" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE & \u0BA8\u0BB2\u0BB5\u0BBE\u0BB4\u0BCD\u0BB5\u0BC1 \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Habits & Yoga Reminders"), /* @__PURE__ */ import_react66.default.createElement("p", { className: "text-xs text-muted leading-relaxed mb-4" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u0B86\u0B9A\u0BA9\u0BAE\u0BCD, \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1\u0BAA\u0BCD\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BB2\u0BC8 \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BA3\u0BBF \u0B92\u0BB2\u0BBF\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BAE\u0BC8\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Maintain healthy rhythm with customized audio chimes for morning asana, pranayama, and evening meditation."), /* @__PURE__ */ import_react66.default.createElement("div", { className: "space-y-2 mb-4" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-2.5 p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/10 text-xs" }, /* @__PURE__ */ import_react66.default.createElement("span", { className: "text-base" }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-semibold text-heading flex-1" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD" : "Morning Surya Namaskar"), /* @__PURE__ */ import_react66.default.createElement("span", { className: "text-primary font-bold" }, "06:00 AM")), /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex items-center gap-2.5 p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/10 text-xs" }, /* @__PURE__ */ import_react66.default.createElement("span", { className: "text-base" }, "\u{1FAC1}"), /* @__PURE__ */ import_react66.default.createElement("span", { className: "font-semibold text-heading flex-1" }, lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BBF \u0B9A\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Nadi Shodhana Pranayama"), /* @__PURE__ */ import_react66.default.createElement("span", { className: "text-primary font-bold" }, "06:45 AM")))), /* @__PURE__ */ import_react66.default.createElement("div", { className: "flex flex-col gap-2 mt-2" }, /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
@@ -90182,7 +90269,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       },
       "\u{1F514} ",
       lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAF\u0BC8\u0B95\u0BCD \u0B95\u0BBE\u0BA3\u0BCD\u0B95" : "Open Mindful Reminders"
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       "button",
       {
         type: "button",
@@ -90192,28 +90279,28 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       "\u{1F6E1}\uFE0F ",
       lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0B85\u0B9F\u0BCD\u0BAE\u0BBF\u0BA9\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BBF\u0BB2\u0BCD \u0BA8\u0BC1\u0BB4\u0BC8\u0BAF" : "Instructor? Access Admin Portal",
       " \u2794"
-    )))), /* @__PURE__ */ import_react65.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react65.default.createElement(
+    )))), /* @__PURE__ */ import_react66.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react66.default.createElement(
       QuickAddReminderCard,
       {
         onAddReminder: handleAddReminder,
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       PranayamaBreathingOrb,
       {
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       RelaxationZone,
       {
         lang
       }
-    ))), /* @__PURE__ */ import_react65.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react65.default.createElement(
+    ))), /* @__PURE__ */ import_react66.default.createElement("div", { className: "dashboard-row-4-grid" }, /* @__PURE__ */ import_react66.default.createElement("div", { className: "grid-col col-notes" }, /* @__PURE__ */ import_react66.default.createElement(
       YogaNotesSection,
       {
         lang
       }
-    )), /* @__PURE__ */ import_react65.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react65.default.createElement(
+    )), /* @__PURE__ */ import_react66.default.createElement("div", { className: "grid-col col-profile" }, /* @__PURE__ */ import_react66.default.createElement(
       ProfileSection,
       {
         user: user2,
@@ -90222,20 +90309,20 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         showToast,
         lang
       }
-    ))), /* @__PURE__ */ import_react65.default.createElement(
+    ))), /* @__PURE__ */ import_react66.default.createElement(
       BottomBanner,
       {
         onExplore: () => handleTabChange("yoga"),
         lang
       }
-    )))), currentTab !== "live" && currentTab !== "live-classes" && /* @__PURE__ */ import_react65.default.createElement(
+    )))), currentTab !== "live" && currentTab !== "live-classes" && /* @__PURE__ */ import_react66.default.createElement(
       MobileBottomNav,
       {
         currentTab,
         setCurrentTab: handleTabChange,
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       ReminderModal,
       {
         isOpen: isReminderModalOpen,
@@ -90248,7 +90335,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         initialData: editingReminder,
         lang
       }
-    ), inviteToken && /* @__PURE__ */ import_react65.default.createElement(
+    ), inviteToken && /* @__PURE__ */ import_react66.default.createElement(
       InviteRegistrationModal,
       {
         inviteToken,
@@ -90274,7 +90361,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         },
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       ActiveAlarmModal,
       {
         alarm: activeAlarm,
@@ -90282,7 +90369,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onSnooze: handleSnoozeAlarm,
         lang
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       StudentJoinModal,
       {
         isOpen: showStudentJoinModal,
@@ -90314,7 +90401,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
           );
         }
       }
-    ), /* @__PURE__ */ import_react65.default.createElement(
+    ), /* @__PURE__ */ import_react66.default.createElement(
       ToastContainer,
       {
         toasts,
@@ -90323,21 +90410,21 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
     ));
   }
   function App() {
-    const [theme, setTheme] = (0, import_react65.useState)(() => loadStorage("nithya_theme", "light"));
-    const [lang, setLang] = (0, import_react65.useState)(() => loadStorage("nithya_lang", "en"));
-    (0, import_react65.useEffect)(() => {
+    const [theme, setTheme] = (0, import_react66.useState)(() => loadStorage("nithya_theme", "light"));
+    const [lang, setLang] = (0, import_react66.useState)(() => loadStorage("nithya_lang", "en"));
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_theme", theme);
       document.documentElement.setAttribute("data-theme", theme);
     }, [theme]);
-    (0, import_react65.useEffect)(() => {
+    (0, import_react66.useEffect)(() => {
       saveStorage("nithya_lang", lang);
       document.documentElement.setAttribute("data-lang", lang);
     }, [lang]);
-    return /* @__PURE__ */ import_react65.default.createElement(HashRouter, null, /* @__PURE__ */ import_react65.default.createElement(Routes, null, /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/teacher/register", element: /* @__PURE__ */ import_react65.default.createElement(TeacherRegisterRoute, { lang }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/teacher/login", element: /* @__PURE__ */ import_react65.default.createElement(TeacherLoginRoute, { lang }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/teacher/dashboard", element: /* @__PURE__ */ import_react65.default.createElement(TeacherDashboardRoute, { lang }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/teacher/live/:sessionId", element: /* @__PURE__ */ import_react65.default.createElement(TeacherLiveStudioRoute, { lang }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/teacher/live", element: /* @__PURE__ */ import_react65.default.createElement(Navigate, { to: "/teacher/dashboard", replace: true }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/teacher", element: /* @__PURE__ */ import_react65.default.createElement(Navigate, { to: "/teacher/dashboard", replace: true }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/student/join/:sessionId", element: /* @__PURE__ */ import_react65.default.createElement(StudentJoinRoute, { lang }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/student/join", element: /* @__PURE__ */ import_react65.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/student/live/:sessionId", element: /* @__PURE__ */ import_react65.default.createElement(StudentLiveStudioRoute, { lang }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/student/live", element: /* @__PURE__ */ import_react65.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react65.default.createElement(Route, { path: "/student", element: /* @__PURE__ */ import_react65.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react65.default.createElement(
+    return /* @__PURE__ */ import_react66.default.createElement(HashRouter, null, /* @__PURE__ */ import_react66.default.createElement(Routes, null, /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/teacher/register", element: /* @__PURE__ */ import_react66.default.createElement(TeacherRegisterRoute, { lang }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/teacher/login", element: /* @__PURE__ */ import_react66.default.createElement(TeacherLoginRoute, { lang }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/teacher/dashboard", element: /* @__PURE__ */ import_react66.default.createElement(TeacherDashboardRoute, { lang }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/teacher/live/:sessionId", element: /* @__PURE__ */ import_react66.default.createElement(TeacherLiveStudioRoute, { lang }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/teacher/live", element: /* @__PURE__ */ import_react66.default.createElement(Navigate, { to: "/teacher/dashboard", replace: true }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/teacher", element: /* @__PURE__ */ import_react66.default.createElement(Navigate, { to: "/teacher/dashboard", replace: true }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/student/join/:sessionId", element: /* @__PURE__ */ import_react66.default.createElement(StudentJoinRoute, { lang }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/student/join", element: /* @__PURE__ */ import_react66.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/student/live/:sessionId", element: /* @__PURE__ */ import_react66.default.createElement(StudentLiveStudioRoute, { lang }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/student/live", element: /* @__PURE__ */ import_react66.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react66.default.createElement(Route, { path: "/student", element: /* @__PURE__ */ import_react66.default.createElement(Navigate, { to: "/", replace: true }) }), /* @__PURE__ */ import_react66.default.createElement(
       Route,
       {
         path: "*",
-        element: /* @__PURE__ */ import_react65.default.createElement(
+        element: /* @__PURE__ */ import_react66.default.createElement(
           MainPublicApp,
           {
             lang,
@@ -90349,10 +90436,10 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       }
     )));
   }
-  var import_react65;
+  var import_react66;
   var init_App = __esm({
     "src/App.jsx"() {
-      import_react65 = __toESM(require_react());
+      import_react66 = __toESM(require_react());
       init_dist();
       init_Sidebar();
       init_Header();
@@ -90395,13 +90482,13 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   // src/index.jsx
   var require_index = __commonJS({
     "src/index.jsx"() {
-      var import_react66 = __toESM(require_react());
+      var import_react67 = __toESM(require_react());
       var import_client = __toESM(require_client());
       init_App();
       var container = document.getElementById("root");
       if (container) {
         const root = (0, import_client.createRoot)(container);
-        root.render(/* @__PURE__ */ import_react66.default.createElement(App, null));
+        root.render(/* @__PURE__ */ import_react67.default.createElement(App, null));
       }
     }
   });

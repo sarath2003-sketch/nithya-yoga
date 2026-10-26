@@ -54,6 +54,7 @@ import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus } from './ThreeDIcons';
 import { apiFetch, getProductionLiveUrl } from '../utils/api';
 import { FamilyReceiveComponent } from './FamilyReceiveComponent';
+import { FloatingInput } from './FloatingInput';
 
 export default function AdminPortalSection({
   onLaunchInstructorStudio,
@@ -1082,42 +1083,25 @@ export default function AdminPortalSection({
 
         {authMode === 'login' ? (
           /* FORM 1: SIGN IN */
-          <form onSubmit={handleLogin} className="admin-auth-form">
-            <div className="admin-auth-field">
-              <label className="admin-auth-label">
-                <span className="admin-auth-label-icon"><Mail size={14} /></span>
-                <span>{lang === 'ta' ? 'ஜிமெயில் / மின்னஞ்சல் முகவரி' : 'Gmail / Email ID'}</span>
-                <span className="admin-auth-req-star">*</span>
-              </label>
-              <div className="admin-auth-input-wrap">
-                <Mail size={16} className="admin-auth-input-icon" />
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="admin-auth-input"
-                  placeholder={lang === 'ta' ? 'எ.கா. master@gmail.com' : 'e.g. master@gmail.com'}
-                />
-              </div>
-            </div>
+          <form onSubmit={handleLogin} className="admin-auth-form" style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+            <FloatingInput
+              type="email"
+              label={lang === 'ta' ? 'ஜிமெயில் / மின்னஞ்சல் முகவரி' : 'Gmail / Email ID'}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              icon={<Mail size={18} />}
+              autoComplete="email"
+            />
 
-            <div className="admin-auth-field">
-              <label className="admin-auth-label">
-                <span className="admin-auth-label-icon"><Lock size={14} /></span>
-                <span>{lang === 'ta' ? 'கடவுச்சொல்' : 'Password'}</span>
-                <span className="admin-auth-req-star">*</span>
-              </label>
-              <div className="admin-auth-input-wrap">
-                <Lock size={16} className="admin-auth-input-icon" />
-                <input
-                  type={showPassword ? 'text' : 'password'}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="admin-auth-input has-eye"
-                  placeholder="••••••••••••"
-                />
+            <FloatingInput
+              type={showPassword ? 'text' : 'password'}
+              label={lang === 'ta' ? 'கடவுச்சொல்' : 'Password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              icon={<Lock size={18} />}
+              rightElement={
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
@@ -1127,8 +1111,8 @@ export default function AdminPortalSection({
                 >
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
-              </div>
-            </div>
+              }
+            />
 
             <button
               type="submit"

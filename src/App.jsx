@@ -643,12 +643,6 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
   };
 
   const handleTabChange = (tabId) => {
-    if (tabId === 'admin') {
-      const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_teacher_token') || localStorage.getItem('nithya_admin_token'));
-      navigate(hasTeacherToken ? '/teacher/dashboard' : '/teacher/login');
-      return;
-    }
-
     saveStorage('nithya_active_tab', tabId);
 
     // Live Class tab security & routing:
@@ -932,9 +926,41 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
             </main>
           ) : currentTab === 'admin' ? (
             <main className="dedicated-page-viewport dedicated-admin-viewport p-4 max-w-7xl mx-auto ya-reveal">
-              <TeacherDashboardPage
-                onNavigate={(p) => navigate(p)}
-                onLaunchLive={(cls) => navigate(`/teacher/live/${encodeURIComponent(cls?.id || cls?.sessionId || 'session')}`)}
+              <div className="flex items-center gap-3 mb-4 flex-wrap">
+                <button 
+                  type="button" 
+                  className="btn-back-dashboard-modern"
+                  onClick={() => handleTabChange('home')}
+                >
+                  <ArrowLeft size={14} className="back-arrow-icon" />
+                  <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
+                </button>
+                <div className="h-4 w-px bg-subtle hidden sm:block"></div>
+                <span className="font-bold text-sm text-heading flex items-center gap-1.5">
+                  🛡️ {lang === 'ta' ? 'பயிற்றுநர் & நிர்வாகி பகுதி' : 'Instructor & Admin Portal'}
+                </span>
+              </div>
+              <AdminPortalSection
+                onAuthSuccess={(trainer) => {
+                  setUser(prev => ({
+                    ...prev,
+                    name: trainer?.name || 'NITHYA Master',
+                    email: trainer?.email || prev.email,
+                    role: 'trainer',
+                    isInstructor: true
+                  }));
+                }}
+                onLaunchInstructorStudio={(cls) => {
+                  setUser(prev => ({
+                    ...prev,
+                    role: 'trainer',
+                    isInstructor: true,
+                    name: cls?.instructor || 'NITHYA Master'
+                  }));
+                  if (cls) setActiveClass(cls);
+                  handleTabChange('live');
+                }}
+                showToast={showToast}
                 lang={lang}
               />
             </main>

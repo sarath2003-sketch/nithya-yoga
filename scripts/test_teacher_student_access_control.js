@@ -53,15 +53,15 @@ async function runTests() {
   });
 
   serverProcess.stdout.on('data', d => {
-    // console.log('[Server]', d.toString().trim());
+    console.log('[Server]', d.toString().trim());
   });
   serverProcess.stderr.on('data', d => {
-    // console.error('[Server Err]', d.toString().trim());
+    console.error('[Server Err]', d.toString().trim());
   });
 
   // Wait for server to boot
   let ready = false;
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 40; i++) {
     try {
       const res = await request('GET', '/api/health');
       if (res.status === 200) {

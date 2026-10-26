@@ -778,101 +778,109 @@ export default function AdminPortalSection({
   // -------------------------------------------------------------
   if (!adminToken) {
     return (
-      <div className="dashboard-card admin-login-card max-w-lg mx-auto my-6 p-6 sm:p-8 rounded-3xl border border-subtle bg-card shadow-2xl ya-reveal">
-        <div className="card-header-block text-center pb-5 border-b border-subtle">
-          <div className="inline-flex p-3.5 rounded-2xl bg-gradient-to-br from-violet-500/20 to-purple-500/10 text-primary mb-3 shadow-inner">
-            <ShieldCheck size={36} className="text-primary" />
+      <div className="admin-auth-card ya-reveal">
+        {/* Header Block */}
+        <div className="admin-auth-header">
+          <div className="admin-auth-shield-wrap">
+            <ShieldCheck size={32} />
           </div>
-          <h2 className="text-xl sm:text-2xl font-bold text-heading m-0 font-['Poppins']">
-            {lang === 'ta' ? 'பயிற்றுநர் & நிர்வாகி போர்ட்டல்' : 'NITHYA Yoga Trainer Portal'}
+          <h2 className="admin-auth-title">
+            {lang === 'ta' ? 'பயிற்றுநர் & நிர்வாகி பகுதி' : 'NITHYA Yoga Trainer Portal'}
           </h2>
-          <p className="text-xs text-muted mt-1.5 max-w-sm mx-auto leading-relaxed">
+          <p className="admin-auth-subtitle">
             {lang === 'ta' 
               ? 'நேரலை வகுப்புகளைத் தொடங்க, லைவ் ரூம் உருவாக்க மற்றும் மாணவர்களை நிர்வகிக்க உங்கள் கணக்கில் உள்நுழையவும்.' 
               : 'Sign in or register to create live yoga rooms, generate student links, stream live, and manage student attendance.'}
           </p>
 
           {/* Tab Switcher: Login vs Register */}
-          <div className="flex p-1.5 mt-5 rounded-2xl bg-subtle/70 border border-subtle/80 max-w-xs mx-auto">
+          <div className="admin-auth-tabs">
             <button
               type="button"
-              className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${authMode === 'login' ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-heading'}`}
+              className={`admin-auth-tab-btn ${authMode === 'login' ? 'active' : ''}`}
               onClick={() => {
                 setAuthMode('login');
                 setLoginError('');
               }}
             >
-              <span>🔑 {lang === 'ta' ? 'உள்நுழைவு' : 'Sign In'}</span>
+              <Key size={14} />
+              <span>{lang === 'ta' ? 'உள்நுழைவு' : 'Sign In'}</span>
             </button>
 
             <button
               type="button"
-              className={`flex-1 py-2 text-xs font-bold rounded-xl transition-all cursor-pointer ${authMode === 'register' ? 'bg-primary text-white shadow-md' : 'text-muted hover:text-heading'}`}
+              className={`admin-auth-tab-btn ${authMode === 'register' ? 'active' : ''}`}
               onClick={() => {
                 setAuthMode('register');
                 setLoginError('');
               }}
             >
-              <span>📝 {lang === 'ta' ? 'புதிய பதிவு' : 'Create Account'}</span>
+              <User size={14} />
+              <span>{lang === 'ta' ? 'புதிய பதிவு' : 'Create Account'}</span>
             </button>
           </div>
         </div>
 
         {loginError && (
-          <div className="alert-box-error flex items-center gap-2 p-3 my-4 rounded-xl bg-red-500/10 border border-red-500/25 text-red-500 text-xs">
-            <AlertCircle size={16} className="shrink-0" />
+          <div className="admin-auth-alert-error">
+            <AlertCircle size={18} className="shrink-0" />
             <span>{loginError}</span>
           </div>
         )}
 
         {registerSuccess && (
-          <div className="alert-box-success flex items-center gap-2 p-3 my-4 rounded-xl bg-emerald-500/10 border border-emerald-500/25 text-emerald-600 text-xs">
-            <CheckCircle2 size={16} className="shrink-0" />
+          <div className="admin-auth-alert-success">
+            <CheckCircle2 size={18} className="shrink-0" />
             <span>{registerSuccess}</span>
           </div>
         )}
 
         {authMode === 'login' ? (
           /* FORM 1: SIGN IN */
-          <form onSubmit={handleLogin} className="flex flex-col gap-4 mt-5">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-heading flex items-center gap-1.5">
-                <Mail size={13} className="text-primary" />
-                <span>{lang === 'ta' ? 'ஜிமெயில் / மின்னஞ்சல் முகவரி (Email ID)' : 'Gmail / Email ID'}</span>
-                <span className="text-red-500">*</span>
+          <form onSubmit={handleLogin} className="admin-auth-form">
+            <div className="admin-auth-field">
+              <label className="admin-auth-label">
+                <span className="admin-auth-label-icon"><Mail size={14} /></span>
+                <span>{lang === 'ta' ? 'ஜிமெயில் / மின்னஞ்சல் முகவரி' : 'Gmail / Email ID'}</span>
+                <span className="admin-auth-req-star">*</span>
               </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="ya-input w-full text-xs p-3 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
-                placeholder={lang === 'ta' ? 'உங்கள் ஜிமெயில் (எ.கா. master@gmail.com)' : 'e.g. master@gmail.com'}
-              />
+              <div className="admin-auth-input-wrap">
+                <Mail size={16} className="admin-auth-input-icon" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  className="admin-auth-input"
+                  placeholder={lang === 'ta' ? 'எ.கா. master@gmail.com' : 'e.g. master@gmail.com'}
+                />
+              </div>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-heading flex items-center gap-1.5">
-                <Lock size={13} className="text-primary" />
-                <span>{lang === 'ta' ? 'கடவுச்சொல் (Password)' : 'Password'}</span>
-                <span className="text-red-500">*</span>
+            <div className="admin-auth-field">
+              <label className="admin-auth-label">
+                <span className="admin-auth-label-icon"><Lock size={14} /></span>
+                <span>{lang === 'ta' ? 'கடவுச்சொல்' : 'Password'}</span>
+                <span className="admin-auth-req-star">*</span>
               </label>
-              <div className="relative">
+              <div className="admin-auth-input-wrap">
+                <Lock size={16} className="admin-auth-input-icon" />
                 <input
                   type={showPassword ? 'text' : 'password'}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="ya-input w-full text-xs p-3 pr-10 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
+                  className="admin-auth-input has-eye"
                   placeholder="••••••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-heading cursor-pointer"
+                  className="admin-auth-eye-btn"
                   tabIndex={-1}
+                  aria-label="Toggle password visibility"
                 >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
@@ -880,119 +888,133 @@ export default function AdminPortalSection({
             <button
               type="submit"
               disabled={loginLoading}
-              className="ya-btn ya-btn--primary w-full py-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 mt-2 shadow-lg cursor-pointer transition-all hover:opacity-95"
+              className="admin-auth-submit-btn"
             >
-              {loginLoading ? <RefreshCw size={15} className="animate-spin" /> : <Key size={15} />}
-              <span>{lang === 'ta' ? 'உள்நுழைக (Sign In as Trainer)' : 'Sign In as Trainer'}</span>
+              {loginLoading ? <RefreshCw size={17} className="animate-spin" /> : <Key size={17} />}
+              <span>{lang === 'ta' ? 'பயிற்றுநராக உள்நுழைக' : 'Sign In as Trainer'}</span>
             </button>
 
-            <div className="text-center pt-2">
+            <div className="admin-auth-switch-wrap">
               <button
                 type="button"
                 onClick={() => setAuthMode('register')}
-                className="text-xs text-primary font-semibold hover:underline cursor-pointer"
+                className="admin-auth-switch-link"
               >
-                {lang === 'ta' ? 'புதிய பயிற்றுநரா? புதிய கணக்கு தொடங்க இங்கே கிளிக் செய்க ➡️' : 'New instructor? Create your account here ➡️'}
+                <span>{lang === 'ta' ? 'புதிய பயிற்றுநரா? புதிய கணக்கு தொடங்கவும்' : 'New instructor? Create your account here'}</span>
+                <ArrowRight size={14} />
               </button>
             </div>
           </form>
         ) : (
           /* FORM 2: REGISTER NEW TRAINER ACCOUNT */
-          <form onSubmit={handleRegister} className="flex flex-col gap-3.5 mt-5">
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-heading flex items-center gap-1.5">
-                <User size={13} className="text-primary" />
-                <span>{lang === 'ta' ? 'பயிற்றுநர் முழுப் பெயர் (Full Name)' : 'Full Name'}</span>
-                <span className="text-red-500">*</span>
+          <form onSubmit={handleRegister} className="admin-auth-form">
+            <div className="admin-auth-field">
+              <label className="admin-auth-label">
+                <span className="admin-auth-label-icon"><User size={14} /></span>
+                <span>{lang === 'ta' ? 'பயிற்றுநர் முழுப் பெயர்' : 'Full Name'}</span>
+                <span className="admin-auth-req-star">*</span>
               </label>
-              <input
-                type="text"
-                value={regName}
-                onChange={(e) => setRegName(e.target.value)}
-                required
-                className="ya-input w-full text-xs p-3 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
-                placeholder={lang === 'ta' ? 'எ.கா. நித்யா தேவி' : 'e.g. Nithya Devi'}
-              />
+              <div className="admin-auth-input-wrap">
+                <User size={16} className="admin-auth-input-icon" />
+                <input
+                  type="text"
+                  value={regName}
+                  onChange={(e) => setRegName(e.target.value)}
+                  required
+                  className="admin-auth-input"
+                  placeholder={lang === 'ta' ? 'எ.கா. நித்யா தேவி' : 'e.g. Nithya Devi'}
+                />
+              </div>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-heading flex items-center gap-1.5">
-                <Mail size={13} className="text-primary" />
-                <span>{lang === 'ta' ? 'ஜிமெயில் முகவரி (Gmail ID)' : 'Gmail / Email ID'}</span>
-                <span className="text-red-500">*</span>
+            <div className="admin-auth-field">
+              <label className="admin-auth-label">
+                <span className="admin-auth-label-icon"><Mail size={14} /></span>
+                <span>{lang === 'ta' ? 'ஜிமெயில் / மின்னஞ்சல் முகவரி' : 'Gmail / Email ID'}</span>
+                <span className="admin-auth-req-star">*</span>
               </label>
-              <input
-                type="email"
-                value={regEmail}
-                onChange={(e) => setRegEmail(e.target.value)}
-                required
-                className="ya-input w-full text-xs p-3 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
-                placeholder="nithya.yoga@gmail.com"
-              />
+              <div className="admin-auth-input-wrap">
+                <Mail size={16} className="admin-auth-input-icon" />
+                <input
+                  type="email"
+                  value={regEmail}
+                  onChange={(e) => setRegEmail(e.target.value)}
+                  required
+                  className="admin-auth-input"
+                  placeholder="nithya.yoga@gmail.com"
+                />
+              </div>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-heading flex items-center gap-1.5">
-                <Phone size={13} className="text-primary" />
+            <div className="admin-auth-field">
+              <label className="admin-auth-label">
+                <span className="admin-auth-label-icon"><Phone size={14} /></span>
                 <span>{lang === 'ta' ? 'மொபைல் எண் (Mobile Phone)' : 'Mobile Phone'}</span>
               </label>
-              <input
-                type="tel"
-                value={regPhone}
-                onChange={(e) => setRegPhone(e.target.value)}
-                className="ya-input w-full text-xs p-3 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
-                placeholder={lang === 'ta' ? 'எ.கா. 9876543210' : 'e.g. 9876543210'}
-              />
+              <div className="admin-auth-input-wrap">
+                <Phone size={16} className="admin-auth-input-icon" />
+                <input
+                  type="tel"
+                  value={regPhone}
+                  onChange={(e) => setRegPhone(e.target.value)}
+                  className="admin-auth-input"
+                  placeholder={lang === 'ta' ? 'எ.கா. 9876543210' : 'e.g. 9876543210'}
+                />
+              </div>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-heading flex items-center gap-1.5">
-                <Lock size={13} className="text-primary" />
-                <span>{lang === 'ta' ? 'கடவுச்சொல் (Password - min 6 chars)' : 'Password (min 6 characters)'}</span>
-                <span className="text-red-500">*</span>
+            <div className="admin-auth-field">
+              <label className="admin-auth-label">
+                <span className="admin-auth-label-icon"><Lock size={14} /></span>
+                <span>{lang === 'ta' ? 'கடவுச்சொல் (குறைந்தது 6 எழுத்துகள்)' : 'Password (min 6 characters)'}</span>
+                <span className="admin-auth-req-star">*</span>
               </label>
-              <div className="relative">
+              <div className="admin-auth-input-wrap">
+                <Lock size={16} className="admin-auth-input-icon" />
                 <input
                   type={showRegPassword ? 'text' : 'password'}
                   value={regPassword}
                   onChange={(e) => setRegPassword(e.target.value)}
                   required
-                  className="ya-input w-full text-xs p-3 pr-10 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
+                  className="admin-auth-input has-eye"
                   placeholder="••••••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowRegPassword(!showRegPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-heading cursor-pointer"
+                  className="admin-auth-eye-btn"
                   tabIndex={-1}
+                  aria-label="Toggle password visibility"
                 >
-                  {showRegPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showRegPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
 
-            <div className="flex flex-col gap-1.5">
-              <label className="text-xs font-bold text-heading flex items-center gap-1.5">
-                <Lock size={13} className="text-primary" />
+            <div className="admin-auth-field">
+              <label className="admin-auth-label">
+                <span className="admin-auth-label-icon"><Lock size={14} /></span>
                 <span>{lang === 'ta' ? 'கடவுச்சொல்லை மீண்டும் உள்ளிடவும்' : 'Confirm Password'}</span>
-                <span className="text-red-500">*</span>
+                <span className="admin-auth-req-star">*</span>
               </label>
-              <div className="relative">
+              <div className="admin-auth-input-wrap">
+                <Lock size={16} className="admin-auth-input-icon" />
                 <input
                   type={showRegConfirmPassword ? 'text' : 'password'}
                   value={regConfirmPassword}
                   onChange={(e) => setRegConfirmPassword(e.target.value)}
                   required
-                  className="ya-input w-full text-xs p-3 pr-10 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
+                  className="admin-auth-input has-eye"
                   placeholder="••••••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowRegConfirmPassword(!showRegConfirmPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-muted hover:text-heading cursor-pointer"
+                  className="admin-auth-eye-btn"
                   tabIndex={-1}
+                  aria-label="Toggle confirm password visibility"
                 >
-                  {showRegConfirmPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showRegConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
@@ -1000,19 +1022,20 @@ export default function AdminPortalSection({
             <button
               type="submit"
               disabled={loginLoading}
-              className="ya-btn ya-btn--primary w-full py-3 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 mt-2 shadow-lg cursor-pointer transition-all hover:opacity-95"
+              className="admin-auth-submit-btn"
             >
-              {loginLoading ? <RefreshCw size={15} className="animate-spin" /> : <ShieldCheck size={15} />}
-              <span>{lang === 'ta' ? 'கணக்கு தொடங்கி உள்நுழைக (Create Account & Sign In)' : 'Create Account & Sign In'}</span>
+              {loginLoading ? <RefreshCw size={17} className="animate-spin" /> : <ShieldCheck size={17} />}
+              <span>{lang === 'ta' ? 'கணக்கு தொடங்கி உள்நுழைக' : 'Create Account & Sign In'}</span>
             </button>
 
-            <div className="text-center pt-2">
+            <div className="admin-auth-switch-wrap">
               <button
                 type="button"
                 onClick={() => setAuthMode('login')}
-                className="text-xs text-primary font-semibold hover:underline cursor-pointer"
+                className="admin-auth-switch-link"
               >
-                {lang === 'ta' ? 'ஏற்கனவே கணக்கு உள்ளதா? உள்நுழைய இங்கே கிளிக் செய்க ➡️' : 'Already have an account? Sign In here ➡️'}
+                <span>{lang === 'ta' ? 'ஏற்கனவே கணக்கு உள்ளதா? உள்நுழைக' : 'Already have an account? Sign In here'}</span>
+                <ArrowRight size={14} />
               </button>
             </div>
           </form>

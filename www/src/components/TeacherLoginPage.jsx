@@ -78,92 +78,104 @@ export default function TeacherLoginPage({ onLoginSuccess, onNavigate, lang = 'e
   };
 
   return (
-    <div className="min-h-screen bg-[#070514] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif]">
-      {/* Background celestial glow elements */}
-      <div className="fixed inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-purple-600/20 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-violet-800/15 rounded-full blur-[100px]"></div>
-      </div>
-
-      <div className="relative w-full max-w-md bg-gradient-to-b from-[#181236]/90 to-[#0e0a24]/95 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-xl">
+    <div className="min-h-screen flex flex-col justify-center items-center p-4 sm:p-6" style={{ background: 'var(--bg-app)' }}>
+      <div className="admin-auth-card ya-reveal">
         {/* Top Navigation */}
-        <div className="flex items-center justify-between mb-6">
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
           <button
             type="button"
             onClick={() => onNavigate && onNavigate('/')}
-            className="text-xs text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="admin-auth-switch-link"
+            style={{ padding: '4px 8px', fontSize: '12px' }}
           >
             <ArrowLeft size={14} />
             <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
           </button>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-400/30 text-purple-300 text-[11px] font-bold">
-            <ShieldCheck size={13} className="text-purple-400" />
+          <div style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: '6px',
+            padding: '4px 10px',
+            borderRadius: '9999px',
+            background: 'var(--primary-light)',
+            color: 'var(--primary-dark)',
+            fontSize: '11px',
+            fontWeight: 700
+          }}>
+            <ShieldCheck size={13} />
             <span>{lang === 'ta' ? 'பயிற்றுநர் பகுதி' : 'Teacher Portal'}</span>
           </div>
         </div>
 
         {/* Brand Header */}
-        <div className="text-center mb-6">
-          <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-gradient-to-tr from-purple-600 to-violet-400 flex items-center justify-center shadow-lg shadow-purple-500/30">
-            <span className="text-2xl">❀</span>
+        <div className="admin-auth-header">
+          <div className="admin-auth-shield-wrap">
+            <ShieldCheck size={32} />
           </div>
-          <h2 className="text-2xl font-black tracking-wide text-white font-['Georgia',serif]">
+          <h2 className="admin-auth-title">
             {lang === 'ta' ? 'பயிற்றுநர் உள்நுழைவு' : 'Teacher Login'}
           </h2>
-          <p className="text-xs text-purple-200/70 mt-1">
-            {lang === 'ta' ? 'நேரலை வகுப்புகளை நிர்வகிக்க உங்கள் கணக்கில் உள்நுழையவும்' : 'Sign in to create & host live yoga classes'}
+          <p className="admin-auth-subtitle">
+            {lang === 'ta' 
+              ? 'நேரலை வகுப்புகளை நிர்வகிக்க உங்கள் பயிற்றுநர் கணக்கில் உள்நுழையவும்.' 
+              : 'Sign in to create, schedule, and host live yoga sessions.'}
           </p>
         </div>
 
         {/* Error Alert */}
         {errorMessage && (
-          <div className="mb-5 p-3.5 rounded-2xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-2.5 text-rose-200 text-xs">
-            <AlertCircle size={16} className="text-rose-400 shrink-0" />
-            <span className="leading-snug">{errorMessage}</span>
+          <div className="admin-auth-alert-error">
+            <AlertCircle size={18} className="shrink-0" />
+            <span>{errorMessage}</span>
           </div>
         )}
 
         {/* Form */}
-        <form onSubmit={handleLogin} className="flex flex-col gap-4">
-          <div>
-            <label className="block text-xs font-semibold text-purple-200 mb-1.5">
-              {lang === 'ta' ? 'ஜிமெயில் / மின்னஞ்சல் முகவரி' : 'Gmail / Email Address'}
+        <form onSubmit={handleLogin} className="admin-auth-form">
+          <div className="admin-auth-field">
+            <label className="admin-auth-label">
+              <span className="admin-auth-label-icon"><Mail size={14} /></span>
+              <span>{lang === 'ta' ? 'ஜிமெயில் / மின்னஞ்சல் முகவரி' : 'Gmail / Email Address'}</span>
+              <span className="admin-auth-req-star">*</span>
             </label>
-            <div className="relative">
-              <Mail size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" />
+            <div className="admin-auth-input-wrap">
+              <Mail size={16} className="admin-auth-input-icon" />
               <input
                 type="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="teacher@nithyayoga.com"
                 required
-                className="w-full pl-10 pr-4 py-3 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                className="admin-auth-input"
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-xs font-semibold text-purple-200 mb-1.5">
-              {lang === 'ta' ? 'கடவுச்சொல்' : 'Password'}
+          <div className="admin-auth-field">
+            <label className="admin-auth-label">
+              <span className="admin-auth-label-icon"><Lock size={14} /></span>
+              <span>{lang === 'ta' ? 'கடவுச்சொல்' : 'Password'}</span>
+              <span className="admin-auth-req-star">*</span>
             </label>
-            <div className="relative">
-              <Lock size={16} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-purple-400/70" />
+            <div className="admin-auth-input-wrap">
+              <Lock size={16} className="admin-auth-input-icon" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder="••••••••••••"
                 required
-                className="w-full pl-10 pr-11 py-3 bg-[#0d0922]/80 border border-purple-500/30 rounded-xl text-white text-sm placeholder-purple-300/30 focus:outline-none focus:border-purple-400 focus:ring-2 focus:ring-purple-500/20 transition-all"
+                className="admin-auth-input has-eye"
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-purple-400/70 hover:text-white p-1"
+                className="admin-auth-eye-btn"
+                tabIndex={-1}
                 aria-label={showPassword ? 'Hide password' : 'Show password'}
               >
-                {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>
@@ -171,35 +183,32 @@ export default function TeacherLoginPage({ onLoginSuccess, onNavigate, lang = 'e
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full mt-2 py-3.5 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-sm rounded-xl shadow-lg shadow-purple-600/30 flex items-center justify-center gap-2 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
+            className="admin-auth-submit-btn"
           >
             {isLoading ? (
               <>
-                <RefreshCw size={16} className="animate-spin" />
+                <RefreshCw size={17} className="animate-spin" />
                 <span>{lang === 'ta' ? 'உள்நுழைகிறது...' : 'Signing In...'}</span>
               </>
             ) : (
               <>
                 <span>{lang === 'ta' ? 'உள்நுழைக' : 'Sign In as Teacher'}</span>
-                <ArrowRight size={16} />
+                <ArrowRight size={17} />
               </>
             )}
           </button>
-        </form>
 
-        {/* Navigation to Register */}
-        <div className="mt-6 pt-5 border-t border-purple-500/20 text-center">
-          <p className="text-xs text-purple-200/70 mb-2">
-            {lang === 'ta' ? 'பயிற்றுநர் கணக்கு இல்லையா?' : "Don't have a teacher account?"}
-          </p>
-          <button
-            type="button"
-            onClick={() => onNavigate && onNavigate('/teacher/register')}
-            className="text-xs font-bold text-purple-300 hover:text-white hover:underline cursor-pointer"
-          >
-            {lang === 'ta' ? 'இங்கே புதிய கணக்கை பதிவு செய்யவும் ➡️' : 'Register New Teacher Account ➡️'}
-          </button>
-        </div>
+          <div className="admin-auth-switch-wrap">
+            <button
+              type="button"
+              onClick={() => onNavigate && onNavigate('/teacher/register')}
+              className="admin-auth-switch-link"
+            >
+              <span>{lang === 'ta' ? 'புதிய பயிற்றுநரா? புதிய கணக்கு தொடங்கவும்' : "Don't have an account? Register here"}</span>
+              <ArrowRight size={14} />
+            </button>
+          </div>
+        </form>
       </div>
     </div>
   );

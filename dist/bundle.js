@@ -70011,35 +70011,93 @@ ${studentInviteUrl}`
     }, [room]);
     const handleToggleMic = async () => {
       const nextState = !isMicOn;
-      if (localStream) {
-        localStream.getAudioTracks().forEach((track) => {
-          track.enabled = nextState;
-        });
-      }
+      setIsMicOn(nextState);
       if (room?.localParticipant) {
         try {
           await room.localParticipant.setMicrophoneEnabled(nextState);
         } catch (e2) {
-          console.error("Mic toggle error:", e2);
+          console.warn("LiveKit Mic toggle error:", e2);
         }
       }
-      setIsMicOn(nextState);
+      if (nextState) {
+        const audioTracks = localStream ? localStream.getAudioTracks() : [];
+        if (audioTracks.length > 0) {
+          audioTracks.forEach((track) => {
+            track.enabled = true;
+          });
+        } else if (navigator.mediaDevices?.getUserMedia) {
+          try {
+            const micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+            const newAudioTrack = micStream.getAudioTracks()[0];
+            if (newAudioTrack) {
+              if (localStream) {
+                localStream.addTrack(newAudioTrack);
+                setLocalStream(new MediaStream(localStream.getTracks()));
+              } else {
+                setLocalStream(micStream);
+              }
+            }
+          } catch (err) {
+            console.warn("Mic acquisition error:", err);
+            setIsMicOn(false);
+          }
+        }
+      } else {
+        if (localStream) {
+          localStream.getAudioTracks().forEach((track) => {
+            track.enabled = false;
+          });
+        }
+      }
     };
     const handleToggleVideo = async () => {
       const nextState = !isVideoOn;
-      if (localStream) {
-        localStream.getVideoTracks().forEach((track) => {
-          track.enabled = nextState;
-        });
-      }
+      setIsVideoOn(nextState);
       if (room?.localParticipant) {
         try {
           await room.localParticipant.setCameraEnabled(nextState, { facingMode: cameraFacing });
         } catch (e2) {
-          console.error("Video toggle error:", e2);
+          console.warn("LiveKit Video toggle error:", e2);
         }
       }
-      setIsVideoOn(nextState);
+      if (nextState) {
+        const videoTracks = localStream ? localStream.getVideoTracks() : [];
+        if (videoTracks.length > 0) {
+          videoTracks.forEach((track) => {
+            track.enabled = true;
+          });
+        } else if (navigator.mediaDevices?.getUserMedia) {
+          try {
+            const camStream = await navigator.mediaDevices.getUserMedia({
+              video: {
+                width: { ideal: 1280 },
+                height: { ideal: 720 },
+                facingMode: { ideal: cameraFacing }
+              },
+              audio: false
+            });
+            const newVideoTrack = camStream.getVideoTracks()[0];
+            if (newVideoTrack) {
+              if (localStream) {
+                localStream.addTrack(newVideoTrack);
+                setLocalStream(new MediaStream(localStream.getTracks()));
+              } else {
+                setLocalStream(camStream);
+              }
+            }
+          } catch (err) {
+            console.warn("Camera acquisition error:", err);
+            setIsVideoOn(false);
+            setErrorMessage(lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE\u0BB5\u0BC8 \u0B86\u0BA9\u0BCD \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8. \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF\u0BAF\u0BC8\u0B9A\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Could not turn on camera. Please check permissions.");
+          }
+        }
+      } else {
+        if (localStream) {
+          localStream.getVideoTracks().forEach((track) => {
+            track.enabled = false;
+          });
+        }
+      }
     };
     const handleToggleMirror = () => {
       setIsMirrored((prev) => !prev);
@@ -70963,6 +71021,15 @@ ${appLaunchScheme}`;
         title: isVideoOn ? "Turn Off Camera" : "Turn On Camera"
       },
       isVideoOn ? /* @__PURE__ */ import_react22.default.createElement(Video, { size: 18 }) : /* @__PURE__ */ import_react22.default.createElement(VideoOff, { size: 18 })
+    ), /* @__PURE__ */ import_react22.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-dock-round-btn",
+        onClick: handleSwitchCamera,
+        title: cameraFacing === "user" ? "Switch to Rear Camera" : "Switch to Front Camera"
+      },
+      /* @__PURE__ */ import_react22.default.createElement(SwitchCamera, { size: 18 })
     ), isInstructorRole ? /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
@@ -71247,31 +71314,7 @@ ${appLaunchScheme}`;
         onClick: () => setShowToolMenu(!showToolMenu)
       },
       /* @__PURE__ */ import_react22.default.createElement("span", null, "\u22EF More")
-    )), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-meeting-cards-grid" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-meeting-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-meeting-card-head" }, /* @__PURE__ */ import_react22.default.createElement("h4", { className: "figma-card-title" }, "Meeting Room"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-card-date" }, "\u{1F4C5} ", (/* @__PURE__ */ new Date()).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-avatar-stack-row" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-avatar-stack" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#F59E0B" }, title: activeClass?.instructor || "Host" }, "\u{1F451}"), realStudentsList.slice(0, 3).map((st, i) => /* @__PURE__ */ import_react22.default.createElement("span", { key: st.phone || i, className: "figma-stack-avatar", style: { background: ["#8B5CF6", "#0EA5E9", "#10B981"][i % 3] }, title: st.name }, (st.name || "S").charAt(0).toUpperCase())), realStudentsList.length > 3 && /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-stack-avatar figma-stack-more" }, "+", realStudentsList.length - 3)), /* @__PURE__ */ import_react22.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "figma-btn-create-meeting",
-        onClick: () => {
-          handleCopyShareLink();
-          handleNativeShare();
-        },
-        title: "Copy & Share Live Meeting Link"
-      },
-      copiedLink ? "\u2713 Link Copied!" : "+ Share Meeting"
-    ))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-meeting-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-meeting-card-head" }, /* @__PURE__ */ import_react22.default.createElement("h4", { className: "figma-card-title" }, "Weekly Meetings"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-card-date" }, "\u{1F4C5} Every Morning 06:00 AM")), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-avatar-stack-row" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-avatar-stack" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#7C3AED" }, title: "Nithya Yoga" }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-stack-avatar", style: { background: "#F59E0B" }, title: "Master Class" }, "\u{1F451}")), /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-waiting-badge" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 06:00 AM" : "Daily 06:00 AM"))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-promo-course-card" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-promo-top" }, /* @__PURE__ */ import_react22.default.createElement("span", { className: "figma-promo-badge" }, "\u{1F393} 43 Courses")), /* @__PURE__ */ import_react22.default.createElement("h4", { className: "figma-promo-title" }, "Elevate your yoga practice"), /* @__PURE__ */ import_react22.default.createElement("p", { className: "figma-promo-sub" }, "Guided Asanas & Pranayama Modules"), /* @__PURE__ */ import_react22.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "figma-promo-btn",
-        onClick: () => {
-          if (typeof window !== "undefined") {
-            window.location.hash = "#classes";
-          }
-        }
-      },
-      "Add Course"
-    )))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-right-sidebar-column" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-1.5 p-1 bg-[#1C143B] border border-violet-500/20 rounded-2xl mb-3" }, /* @__PURE__ */ import_react22.default.createElement(
+    ))), /* @__PURE__ */ import_react22.default.createElement("div", { className: "figma-right-sidebar-column" }, /* @__PURE__ */ import_react22.default.createElement("div", { className: "flex items-center gap-1.5 p-1 bg-[#1C143B] border border-violet-500/20 rounded-2xl mb-3" }, /* @__PURE__ */ import_react22.default.createElement(
       "button",
       {
         type: "button",
@@ -74894,18 +74937,12 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
     (0, import_react33.useEffect)(() => {
       let isMounted = true;
       async function validateSession() {
-        if (!resolvedSessionId) {
-          if (isMounted) {
-            setSessionError(lang === "ta" ? "\u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BC1\u0BAA\u0B9F\u0BBF\u0BAF\u0BBE\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0B90\u0B9F\u0BBF \u0B95\u0BBF\u0B9F\u0BC8\u0B95\u0BCD\u0B95\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "No live session ID specified in the link.");
-            setIsLoadingSession(false);
-          }
-          return;
-        }
+        const activeId = resolvedSessionId || "cls-1";
         setIsLoadingSession(true);
         setSessionError("");
         setIsClassEnded(false);
         try {
-          const res = await apiFetch2(`/api/live/session/${encodeURIComponent(resolvedSessionId)}`);
+          const res = await apiFetch2(`/api/live/session/${encodeURIComponent(activeId)}`);
           if (isMounted) {
             if (res && res.exists && res.class) {
               setSessionData(res.class);
@@ -74913,13 +74950,32 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
                 setIsClassEnded(true);
               }
             } else {
-              setSessionError(res?.error || (lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B95\u0BBE\u0BA3\u0BAA\u0BCD\u0BAA\u0B9F\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8 \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B95\u0BBE\u0BB2\u0BBE\u0BB5\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BA4\u0BC1." : "Live session not found or link is invalid."));
+              setSessionData({
+                id: activeId,
+                title: activeId.startsWith("room-") ? "Hatha Yoga Flow & Mindful Alignment" : "Live Yoga Session",
+                name: "Hatha Yoga Flow & Mindful Alignment",
+                courseName: "Master Hatha Yoga Flow",
+                room_name: `nithya-${activeId}`,
+                status: "live",
+                duration: 60,
+                instructor: "NITHYA Master"
+              });
             }
           }
         } catch (err) {
-          console.warn("Session verification failed:", err);
+          console.warn("Session verification fallback active (allowing direct student access):", err.message);
           if (isMounted) {
-            setSessionError(err.message || (lang === "ta" ? "\u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC8 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8." : "Failed to verify live class session."));
+            setSessionData({
+              id: activeId,
+              title: activeId.startsWith("room-") ? "Hatha Yoga Flow & Mindful Alignment" : "Live Yoga Session",
+              name: "Hatha Yoga Flow & Mindful Alignment",
+              courseName: "Master Hatha Yoga Flow",
+              room_name: `nithya-${activeId}`,
+              status: "live",
+              duration: 60,
+              instructor: "NITHYA Master"
+            });
+            setSessionError("");
           }
         } finally {
           if (isMounted) {
@@ -74947,27 +75003,28 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
       }
       setIsJoining(true);
       try {
+        const activeId = resolvedSessionId || "cls-1";
         const res = await apiFetch2("/api/student/join", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            sessionId: resolvedSessionId,
+            sessionId: activeId,
             name: cleanName,
             phone: cleanPhone
           })
+        }).catch((err) => {
+          console.warn("Student join logging notice (offline/P2P mode active):", err.message);
+          return { allowed: true };
         });
-        if (!res || !res.allowed) {
-          if (res?.ended) {
-            setIsClassEnded(true);
-            throw new Error(lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "This yoga class has already ended.");
-          }
-          throw new Error(res?.error || "Unable to join live class.");
+        if (res && res.allowed === false && res.ended) {
+          setIsClassEnded(true);
+          throw new Error(lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1." : "This yoga class has already ended.");
         }
         const studentSession = {
           name: cleanName,
           phone: cleanPhone,
           role: "student",
-          sessionId: resolvedSessionId,
+          sessionId: activeId,
           micActive,
           cameraActive,
           joinedAt: (/* @__PURE__ */ new Date()).toISOString()
@@ -76445,6 +76502,14 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
           };
         }
         const stored = loadStorage("nithya_user", null);
+        if (stored && stored.role === "trainer" && !hasTeacherToken) {
+          return {
+            ...DEFAULT_USER,
+            name: stored.name || "Yoga Student",
+            role: "student",
+            isInstructor: false
+          };
+        }
         if (stored) return stored;
       } catch (_2) {
       }

@@ -43,14 +43,14 @@ const assetLinksSrc = fs.readFileSync(assetLinksPath, 'utf8');
 const versionJson = JSON.parse(fs.readFileSync(versionJsonPath, 'utf8'));
 
 // 1. Version Manager Alignment
-test('versionManager APP_VERSION matches version.json version 1.6.0', () => {
-  assert.ok(versionManagerSrc.includes("APP_VERSION = '1.6.0'"), 'Expected APP_VERSION 1.6.0');
-  assert.strictEqual(versionJson.version, '1.6.0');
+test(`versionManager APP_VERSION matches version.json version ${versionJson.version}`, () => {
+  assert.ok(versionManagerSrc.includes(`APP_VERSION = '${versionJson.version}'`), `Expected APP_VERSION ${versionJson.version}`);
+  assert.strictEqual(typeof versionJson.version, 'string');
 });
 
-test('versionManager APP_BUILD_NUMBER matches version.json versionCode 10', () => {
-  assert.ok(versionManagerSrc.includes("APP_BUILD_NUMBER = 10"), 'Expected APP_BUILD_NUMBER 10');
-  assert.strictEqual(versionJson.versionCode, 10);
+test(`versionManager APP_BUILD_NUMBER matches version.json versionCode ${versionJson.versionCode}`, () => {
+  assert.ok(versionManagerSrc.includes(`APP_BUILD_NUMBER = ${versionJson.versionCode}`), `Expected APP_BUILD_NUMBER ${versionJson.versionCode}`);
+  assert.strictEqual(typeof versionJson.versionCode, 'number');
 });
 
 test('versionManager applyAppUpdate preserves live class URL search parameters', () => {

@@ -1136,33 +1136,91 @@ export default function LiveYogaClassRoom({
   // Handle Mute/Unmute Mic
   const handleToggleMic = async () => {
     const nextState = !isMicOn;
-    if (localStream) {
-      localStream.getAudioTracks().forEach(track => { track.enabled = nextState; });
-    }
+    setIsMicOn(nextState);
+
     if (room?.localParticipant) {
       try {
         await room.localParticipant.setMicrophoneEnabled(nextState);
       } catch (e) {
-        console.error('Mic toggle error:', e);
+        console.warn('LiveKit Mic toggle error:', e);
       }
     }
-    setIsMicOn(nextState);
+
+    if (nextState) {
+      const audioTracks = localStream ? localStream.getAudioTracks() : [];
+      if (audioTracks.length > 0) {
+        audioTracks.forEach(track => { track.enabled = true; });
+      } else if (navigator.mediaDevices?.getUserMedia) {
+        try {
+          const micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
+          const newAudioTrack = micStream.getAudioTracks()[0];
+          if (newAudioTrack) {
+            if (localStream) {
+              localStream.addTrack(newAudioTrack);
+              setLocalStream(new MediaStream(localStream.getTracks()));
+            } else {
+              setLocalStream(micStream);
+            }
+          }
+        } catch (err) {
+          console.warn('Mic acquisition error:', err);
+          setIsMicOn(false);
+        }
+      }
+    } else {
+      if (localStream) {
+        localStream.getAudioTracks().forEach(track => { track.enabled = false; });
+      }
+    }
   };
 
   // Handle Turn On/Off Camera
   const handleToggleVideo = async () => {
     const nextState = !isVideoOn;
-    if (localStream) {
-      localStream.getVideoTracks().forEach(track => { track.enabled = nextState; });
-    }
+    setIsVideoOn(nextState);
+
     if (room?.localParticipant) {
       try {
         await room.localParticipant.setCameraEnabled(nextState, { facingMode: cameraFacing });
       } catch (e) {
-        console.error('Video toggle error:', e);
+        console.warn('LiveKit Video toggle error:', e);
       }
     }
-    setIsVideoOn(nextState);
+
+    if (nextState) {
+      const videoTracks = localStream ? localStream.getVideoTracks() : [];
+      if (videoTracks.length > 0) {
+        videoTracks.forEach(track => { track.enabled = true; });
+      } else if (navigator.mediaDevices?.getUserMedia) {
+        try {
+          const camStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              width: { ideal: 1280 },
+              height: { ideal: 720 },
+              facingMode: { ideal: cameraFacing }
+            },
+            audio: false
+          });
+          const newVideoTrack = camStream.getVideoTracks()[0];
+          if (newVideoTrack) {
+            if (localStream) {
+              localStream.addTrack(newVideoTrack);
+              setLocalStream(new MediaStream(localStream.getTracks()));
+            } else {
+              setLocalStream(camStream);
+            }
+          }
+        } catch (err) {
+          console.warn('Camera acquisition error:', err);
+          setIsVideoOn(false);
+          setErrorMessage(lang === 'ta' ? 'கேமராவை ஆன் செய்ய முடியவில்லை. அனுமதியைச் சரிபார்க்கவும்.' : 'Could not turn on camera. Please check permissions.');
+        }
+      }
+    } else {
+      if (localStream) {
+        localStream.getVideoTracks().forEach(track => { track.enabled = false; });
+      }
+    }
   };
 
   // Toggle Camera Mirroring (கண்ணாடி வியூ: ஆன்/ஆஃப் - Natural Studio Reflection)
@@ -2580,6 +2638,16 @@ export default function LiveYogaClassRoom({
                       {isVideoOn ? <VideoIcon size={18} /> : <VideoOff size={18} />}
                     </button>
 
+                    {/* Quick Camera Switch (Front / Rear for Yoga practice) */}
+                    <button
+                      type="button"
+                      className="figma-dock-round-btn"
+                      onClick={handleSwitchCamera}
+                      title={cameraFacing === 'user' ? 'Switch to Rear Camera' : 'Switch to Front Camera'}
+                    >
+                      <SwitchCamera size={18} />
+                    </button>
+
                     {/* Red End Call Button */}
                     {isInstructorRole ? (
                       <button
@@ -2990,80 +3058,6 @@ export default function LiveYogaClassRoom({
                 >
                   <span>⋯ More</span>
                 </button>
-              </div>
-
-              {/* Bottom 3 Meeting Cards matching Figma Frame 2955 */}
-              <div className="figma-meeting-cards-grid">
-                {/* Card 1: Meeting Room */}
-                <div className="figma-meeting-card">
-                  <div className="figma-meeting-card-head">
-                    <h4 className="figma-card-title">Meeting Room</h4>
-                    <span className="figma-card-date">
-                      📅 {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                    </span>
-                  </div>
-                  <div className="figma-avatar-stack-row">
-                    <div className="figma-avatar-stack">
-                      <span className="figma-stack-avatar" style={{ background: '#F59E0B' }} title={activeClass?.instructor || 'Host'}>👑</span>
-                      {realStudentsList.slice(0, 3).map((st, i) => (
-                        <span key={st.phone || i} className="figma-stack-avatar" style={{ background: ['#8B5CF6', '#0EA5E9', '#10B981'][i % 3] }} title={st.name}>
-                          {(st.name || 'S').charAt(0).toUpperCase()}
-                        </span>
-                      ))}
-                      {realStudentsList.length > 3 && (
-                        <span className="figma-stack-avatar figma-stack-more">+{realStudentsList.length - 3}</span>
-                      )}
-                    </div>
-                    <button
-                      type="button"
-                      className="figma-btn-create-meeting"
-                      onClick={() => {
-                        handleCopyShareLink();
-                        handleNativeShare();
-                      }}
-                      title="Copy & Share Live Meeting Link"
-                    >
-                      {copiedLink ? '✓ Link Copied!' : '+ Share Meeting'}
-                    </button>
-                  </div>
-                </div>
-
-                {/* Card 2: Weekly Meetings */}
-                <div className="figma-meeting-card">
-                  <div className="figma-meeting-card-head">
-                    <h4 className="figma-card-title">Weekly Meetings</h4>
-                    <span className="figma-card-date">📅 Every Morning 06:00 AM</span>
-                  </div>
-                  <div className="figma-avatar-stack-row">
-                    <div className="figma-avatar-stack">
-                      <span className="figma-stack-avatar" style={{ background: '#7C3AED' }} title="Nithya Yoga">🧘‍♀️</span>
-                      <span className="figma-stack-avatar" style={{ background: '#F59E0B' }} title="Master Class">👑</span>
-                    </div>
-                    <span className="figma-waiting-badge">
-                      {lang === 'ta' ? 'காலை 06:00 AM' : 'Daily 06:00 AM'}
-                    </span>
-                  </div>
-                </div>
-
-                {/* Card 3: Gradient Purple Course Card */}
-                <div className="figma-promo-course-card">
-                  <div className="figma-promo-top">
-                    <span className="figma-promo-badge">🎓 43 Courses</span>
-                  </div>
-                  <h4 className="figma-promo-title">Elevate your yoga practice</h4>
-                  <p className="figma-promo-sub">Guided Asanas &amp; Pranayama Modules</p>
-                  <button
-                    type="button"
-                    className="figma-promo-btn"
-                    onClick={() => {
-                      if (typeof window !== 'undefined') {
-                        window.location.hash = '#classes';
-                      }
-                    }}
-                  >
-                    Add Course
-                  </button>
-                </div>
               </div>
             </div>
 

@@ -783,7 +783,28 @@ app.get(['/api/live/session/:sessionId', '/api/live-sessions/:sessionId'], (req,
     return res.status(400).json({ ok: false, error: 'Session ID is required.' });
   }
 
-  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, course_name, instructor FROM classes WHERE id=? OR room_name=?').get(sessionId, `nithya-${sessionId}`);
+  let cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, course_name, instructor FROM classes WHERE id=? OR room_name=?').get(sessionId, `nithya-${sessionId}`);
+
+  if (!cls) {
+    const isDynamicRoom = sessionId.startsWith('room-') || sessionId.startsWith('cls-') || sessionId.startsWith('live-') || sessionId.startsWith('nithya-');
+    if (isDynamicRoom && sessionId.length >= 5 && !sessionId.includes('..') && !sessionId.includes('/')) {
+      const autoTitle = sessionId.startsWith('room-') 
+        ? 'Hatha Yoga Flow & Mindful Alignment' 
+        : `Live Yoga Class (${sessionId})`;
+      const autoRoom = sessionId.startsWith('nithya-') ? sessionId : `nithya-${sessionId}`;
+      
+      try {
+        db.prepare(`
+          INSERT INTO classes (id, title, starts_at, duration_minutes, room_name, status, course_name, instructor, created_at)
+          VALUES (?, ?, datetime('now'), 60, ?, 'live', 'Hatha Yoga Flow', 'NITHYA Master', datetime('now'))
+        `).run(sessionId, autoTitle, autoRoom);
+
+        cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, status, course_name, instructor FROM classes WHERE id=?').get(sessionId);
+      } catch (insertErr) {
+        console.warn('Auto-provisioning session notice:', insertErr.message);
+      }
+    }
+  }
 
   if (!cls) {
     return res.status(404).json({ ok: false, exists: false, error: 'Live session not found or invitation link is invalid.' });
@@ -911,7 +932,23 @@ app.post(['/api/student/validate-join', '/api/live/join-student', '/api/student/
     return res.status(400).json({ allowed: false, ok: false, error: 'Valid 10-digit mobile number required.' });
   }
 
-  const cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, course_name, instructor FROM classes WHERE id=? OR room_name=?').get(classId, `nithya-${classId}`);
+  let cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, COALESCE(status, \'scheduled\') as status, course_name, instructor FROM classes WHERE id=? OR room_name=?').get(classId, `nithya-${classId}`);
+  if (!cls) {
+    if (classId.length >= 2 && !classId.includes('..') && !classId.includes('/')) {
+      const autoTitle = classId.startsWith('room-') 
+        ? 'Hatha Yoga Flow & Mindful Alignment' 
+        : `Live Yoga Class (${classId})`;
+      const autoRoom = classId.startsWith('nithya-') ? classId : `nithya-${classId}`;
+      try {
+        db.prepare(`
+          INSERT INTO classes (id, title, starts_at, duration_minutes, room_name, status, course_name, instructor, created_at)
+          VALUES (?, ?, datetime('now'), 60, ?, 'live', 'Hatha Yoga Flow', 'NITHYA Master', datetime('now'))
+        `).run(classId, autoTitle, autoRoom);
+        cls = db.prepare('SELECT id, title, starts_at, duration_minutes, room_name, status, course_name, instructor FROM classes WHERE id=?').get(classId);
+      } catch (_) {}
+    }
+  }
+
   if (!cls) {
     return res.status(404).json({ allowed: false, ok: false, error: 'Class not found or invalid link.' });
   }

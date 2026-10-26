@@ -200,6 +200,14 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
       }
 
       const stored = loadStorage('nithya_user', null);
+      if (stored && stored.role === 'trainer' && !hasTeacherToken) {
+        return {
+          ...DEFAULT_USER,
+          name: stored.name || 'Yoga Student',
+          role: 'student',
+          isInstructor: false
+        };
+      }
       if (stored) return stored;
     } catch (_) {}
 

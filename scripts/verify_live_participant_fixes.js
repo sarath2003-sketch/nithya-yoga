@@ -1,6 +1,9 @@
 const assert = require('assert');
+const jwt = require('jsonwebtoken');
 
 const BASE_URL = 'http://localhost:8080';
+const jwtSecret = process.env.JWT_SECRET || 'nithya_yoga_secure_jwt_secret_key_2026_mindful_wellness_prod';
+const trainerToken = jwt.sign({ id: 'admin', email: 'admin@nithyayoga.com', role: 'trainer', name: 'NITHYA Master' }, jwtSecret);
 
 async function run() {
   console.log('🧪 Starting Verification of Live Participant Fixes...');
@@ -20,7 +23,7 @@ async function run() {
   const startRes = await fetch(`${BASE_URL}/api/trainer/classes/${classId}/start`, {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer nithya_master_active',
+      'Authorization': `Bearer ${trainerToken}`,
       'Content-Type': 'application/json'
     }
   });
@@ -32,7 +35,7 @@ async function run() {
   const trainerHbRes = await fetch(`${BASE_URL}/api/live/heartbeat`, {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer nithya_master_active',
+      'Authorization': `Bearer ${trainerToken}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
@@ -137,7 +140,7 @@ async function run() {
   const afterLeaveHbRes = await fetch(`${BASE_URL}/api/live/heartbeat`, {
     method: 'POST',
     headers: {
-      'Authorization': 'Bearer nithya_master_active',
+      'Authorization': `Bearer ${trainerToken}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({

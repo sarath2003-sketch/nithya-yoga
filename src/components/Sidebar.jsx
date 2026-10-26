@@ -18,15 +18,14 @@ import {
 
 export default function Sidebar({ currentTab, setCurrentTab, lang = 'en', user = { name: 'Nithya' } }) {
   const navItems = [
-    { id: 'home', label: 'Dashboard', labelTa: 'டாஷ்போர்டு', icon: Home },
-    { id: 'classes', label: 'My Music & Yoga', labelTa: 'யோகா & இசை', icon: Music },
-    { id: 'notes', label: 'Favorites', labelTa: 'விருப்பங்கள்', icon: Heart },
-    { id: 'student', label: 'Playlists', labelTa: 'பயிற்சிப் பட்டியல்', icon: Flower2 },
-    { id: 'live', label: 'Live Yoga Studio', labelTa: 'நேரலை வகுப்புகள்', icon: Radio },
-    { id: 'attendance', label: 'Activity', labelTa: 'செயல்பாடுகள்', icon: Activity },
+    { id: 'home', label: 'Public Portal', labelTa: 'பொதுப்பகுதி', icon: Home },
     { id: 'reminders', label: 'Reminders', labelTa: 'நினைவூட்டல்', icon: Bell },
+    { id: 'classes', label: 'My Music & Yoga', labelTa: 'யோகா & இசை', icon: Music },
+    { id: 'notes', label: 'Favorites & Notes', labelTa: 'விருப்பங்கள்', icon: Heart },
+    { id: 'student', label: 'Student Playlists', labelTa: 'பயிற்சிப் பட்டியல்', icon: Flower2 },
+    { id: 'attendance', label: 'Activity & Progress', labelTa: 'செயல்பாடுகள்', icon: Activity },
     { id: 'profile', label: 'Settings', labelTa: 'அமைப்புகள்', icon: Settings },
-    { id: 'admin', label: 'Trainer Portal', labelTa: 'பயிற்றுநர் பகுதி', icon: ShieldCheck },
+    { id: 'admin', label: 'Admin Portal', labelTa: 'அட்மின் போர்டல்', icon: ShieldCheck },
   ];
 
   const displayName = user?.name ? user.name.split(' ')[0] : 'Nithya';

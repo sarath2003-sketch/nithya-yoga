@@ -38,7 +38,15 @@ export default function HeroSection({
             <button 
               type="button" 
               className="btn-pastel-cta-primary ya-ripple"
-              onClick={onJoinLive}
+              onClick={() => {
+                if (user?.role === 'trainer' || user?.isInstructor) {
+                  onJoinLive();
+                } else if (onTabChange) {
+                  onTabChange('classes');
+                } else {
+                  onViewSchedule();
+                }
+              }}
             >
               <span className="cta-icon-circle">
                 <Play size={12} fill="currentColor" />
@@ -46,7 +54,7 @@ export default function HeroSection({
               <span>
                 {user?.role === 'trainer' || user?.isInstructor
                   ? (lang === 'ta' ? '👑 நேரலை வகுப்பைத் தொடங்கு' : '👑 Start Live Class')
-                  : (lang === 'ta' ? 'இசையைத் தொடங்கு ▶' : 'Play Something')}
+                  : (lang === 'ta' ? 'யோகா பயிற்சி தொடங்கு ▶' : 'Start Yoga Practice ▶')}
               </span>
             </button>
 
@@ -83,29 +91,29 @@ export default function HeroSection({
 
       {/* 2. Four Interactive Practice & Feature Shortcut Cards */}
       <div className="pastel-stat-card-row">
-        {/* Card 1: Lavender - Live Yoga Studio Shortcut */}
+        {/* Card 1: Lavender - Mindful Reminders Shortcut */}
         <div 
           className="pastel-stat-card card-tone-lavender ya-ripple cursor-pointer transition-all hover:scale-[1.02] active:scale-95"
-          onClick={() => (onTabChange ? onTabChange('live') : onJoinLive())}
-          title={lang === 'ta' ? 'நேரலை வகுப்பறைக்குச் செல்லவும்' : 'Enter Live Yoga Studio'}
+          onClick={() => (onTabChange ? onTabChange('reminders') : onViewSchedule())}
+          title={lang === 'ta' ? 'நினைவூட்டல் பகுதிக்குச் செல்லவும்' : 'Open Mindful Reminders'}
         >
           <div className="stat-card-top-row">
             <span className="stat-card-icon-pill icon-lavender icon-3d-wrap">
               <Stat3DMusicNote size={28} />
             </span>
             <span className="stat-trend-tag tag-lavender font-bold">
-              ✨ {lang === 'ta' ? 'நேரலை' : 'Live'}
+              🔔 {lang === 'ta' ? 'நினைவூட்டல்' : 'Reminders'}
             </span>
           </div>
           <div className="stat-card-meta">
             <span className="stat-card-title">
-              {lang === 'ta' ? 'நேரலை வகுப்புகள்' : 'Live Yoga Studio'}
+              {lang === 'ta' ? 'தினசரி நினைவூட்டல்' : 'Mindful Alarms'}
             </span>
             <strong className="stat-card-value text-base">
-              {lang === 'ta' ? 'அமர்வு தயார்' : 'Session Ready'}
+              {lang === 'ta' ? 'பயிற்சி நேரம்' : 'Daily Schedule'}
             </strong>
             <span className="stat-card-subtext font-semibold text-primary flex items-center gap-1 mt-1">
-              {lang === 'ta' ? 'இணைய தட்டவும் ➔' : 'Tap to enter ➔'}
+              {lang === 'ta' ? 'அமைக்க தட்டவும் ➔' : 'Manage Reminders ➔'}
             </span>
           </div>
         </div>

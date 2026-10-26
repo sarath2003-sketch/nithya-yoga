@@ -1,23 +1,23 @@
 import React from 'react';
-import { Home, Flower2, Radio, BellRing, User } from 'lucide-react';
+import { Home, Flower2, BellRing, User, ShieldCheck } from 'lucide-react';
 
 /**
  * Mobile Bottom Navigation — Design 05 (Pill Highlight)
  * 
  * Features:
+ * - Public Portal and Admin Portal separation as per user request
+ * - Live Class creation removed from public bottom navigation
+ * - Reminders prominently displayed
  * - Rounded pill-style container floating above system navigation bar
  * - Dedicated pill highlight background on the active tab
- * - Subtle purple accent (#7c3aed) matching Nithya Yoga identity
  * - Bilingual labels (English / Tamil)
- * - Safe-area inset support for modern Android devices and iPhones
- * - Smooth, subtle transitions without excessive animation
  */
 export default function MobileBottomNav({ currentTab, setCurrentTab, lang = 'en' }) {
   const bottomItems = [
-    { id: 'home', labelEn: 'Home', labelTa: 'முகப்பு', icon: Home },
-    { id: 'yoga', labelEn: 'Yoga', labelTa: 'யோகா', icon: Flower2 },
-    { id: 'live', labelEn: 'Live Class', labelTa: 'நேரலை', icon: Radio },
+    { id: 'home', labelEn: 'Public Portal', labelTa: 'பொதுப்பகுதி', icon: Home },
     { id: 'reminders', labelEn: 'Reminders', labelTa: 'நினைவூட்டல்', icon: BellRing },
+    { id: 'yoga', labelEn: 'Yoga Classes', labelTa: 'யோகா', icon: Flower2 },
+    { id: 'admin', labelEn: 'Admin Portal', labelTa: 'அட்மின் போர்டல்', icon: ShieldCheck },
     { id: 'profile', labelEn: 'Profile', labelTa: 'சுயவிவரம்', icon: User }
   ];
 
@@ -28,7 +28,7 @@ export default function MobileBottomNav({ currentTab, setCurrentTab, lang = 'en'
           const Icon = item.icon;
           const isActive = currentTab === item.id || 
             (item.id === 'yoga' && (currentTab === 'classes' || currentTab === 'yoga-classes')) ||
-            (item.id === 'live' && (currentTab === 'live' || currentTab === 'live-classes'));
+            (item.id === 'admin' && currentTab === 'admin');
           
           return (
             <button
@@ -44,9 +44,6 @@ export default function MobileBottomNav({ currentTab, setCurrentTab, lang = 'en'
               
               <div className="pill-nav-icon-wrap icon-glow-container">
                 <Icon size={19} className="pill-nav-icon" />
-                {item.id === 'live' && currentTab === 'live' && (
-                  <span className="live-status-dot-ping" title="Live Class Active" />
-                )}
               </div>
 
               <span className="pill-nav-label mobile-nav-label">

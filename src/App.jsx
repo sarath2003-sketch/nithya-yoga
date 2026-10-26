@@ -649,15 +649,29 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
     if (tabId === 'live' || tabId === 'live-classes') {
       const hasTeacherToken = typeof localStorage !== 'undefined' && Boolean(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_trainer_token'));
       const isTrainer = hasTeacherToken && user?.role === 'trainer';
-      setCurrentTab('live');
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      if (!isTrainer) {
-        const rawSession = loadStorage('nithya_student_session', null);
-        const isValid = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
-        if (!isValid) {
-          setShowStudentJoinModal(true);
-        }
+      if (isTrainer) {
+        setCurrentTab('live');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
       }
+
+      // Check if student has valid session from an invitation link
+      const rawSession = loadStorage('nithya_student_session', null);
+      const isValid = rawSession && rawSession.name && rawSession.phone && rawSession.phone.replace(/\D/g, '').length >= 10 && !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram'].includes(rawSession.name);
+      if (isValid) {
+        setCurrentTab('live');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
+
+      // General public visitor: live class creation is teacher-only in Admin Portal
+      showToast(
+        lang === 'ta' ? 'அட்மின் & பயிற்றுநர் பகுதி' : 'Instructor Access Required',
+        lang === 'ta' ? 'நேரலை வகுப்பைத் தொடங்க அட்மின் போர்ட்டலில் பதிவு/உள்நுழையவும்.' : 'Please sign in to the Admin Portal to create or host live classes.',
+        'info'
+      );
+      setCurrentTab('admin');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
       return;
     }
 
@@ -1247,18 +1261,75 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
                   />
                 </div>
 
-                {/* Col 2: Live Class Studio */}
+                {/* Col 2: Live Class Studio (Instructor only) OR Mindful Reminders Showcase (Public) */}
                 <div className="grid-col col-live">
-                  <LiveClassStudio
-                    activeClass={activeClass}
-                    user={user}
-                    showToast={showToast}
-                    onLeaveClass={() => showToast(lang === 'ta' ? 'அமர்வு முடிந்தது' : 'Session Ended', lang === 'ta' ? 'நீங்கள் அமர்விலிருந்து வெளியேறினீர்கள்' : 'You left the live session', 'info')}
-                    onRecordAttendance={handleRecordAttendance}
-                    onScheduleClass={handleScheduleClass}
-                    onOpenFullStudio={() => handleTabChange('live')}
-                    lang={lang}
-                  />
+                  {(user?.role === 'trainer' || Boolean(localStorage.getItem('nithya_admin_token'))) ? (
+                    <LiveClassStudio
+                      activeClass={activeClass}
+                      user={user}
+                      showToast={showToast}
+                      onLeaveClass={() => showToast(lang === 'ta' ? 'அமர்வு முடிந்தது' : 'Session Ended', lang === 'ta' ? 'நீங்கள் அமர்விலிருந்து வெளியேறினீர்கள்' : 'You left the live session', 'info')}
+                      onRecordAttendance={handleRecordAttendance}
+                      onScheduleClass={handleScheduleClass}
+                      onOpenFullStudio={() => handleTabChange('live')}
+                      lang={lang}
+                    />
+                  ) : (
+                    <div className="glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md">
+                      <div>
+                        <div className="flex items-center justify-between mb-4">
+                          <span className="px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5">
+                            🔔 {lang === 'ta' ? 'தினசரி நினைவூட்டல்' : 'Daily Routine & Reminders'}
+                          </span>
+                          <span className="text-xs text-muted font-medium">
+                            {lang === 'ta' ? 'பொதுப்பகுதி' : 'Public Portal'}
+                          </span>
+                        </div>
+                        <h3 className="text-xl font-bold text-heading mb-2">
+                          {lang === 'ta' ? 'யோகா & நலவாழ்வு நினைவூட்டல்கள்' : 'Mindful Habits & Yoga Reminders'}
+                        </h3>
+                        <p className="text-xs text-muted leading-relaxed mb-4">
+                          {lang === 'ta' 
+                            ? 'காலை ஆசனம், மூச்சுப்பயிற்சி மற்றும் மாலை தியானத்திற்கான அமைதியான மணி ஒலிகளுடன் தினசரி நினைவூட்டல்களை அமைக்கவும்.' 
+                            : 'Maintain healthy rhythm with customized audio chimes for morning asana, pranayama, and evening meditation.'}
+                        </p>
+                        
+                        <div className="space-y-2 mb-4">
+                          <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/10 text-xs">
+                            <span className="text-base">🧘‍♀️</span>
+                            <span className="font-semibold text-heading flex-1">
+                              {lang === 'ta' ? 'காலை சூரிய நமஸ்காரம்' : 'Morning Surya Namaskar'}
+                            </span>
+                            <span className="text-primary font-bold">06:00 AM</span>
+                          </div>
+                          <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/10 text-xs">
+                            <span className="text-base">🫁</span>
+                            <span className="font-semibold text-heading flex-1">
+                              {lang === 'ta' ? 'நாடி சுத்தி பிராணாயாமம்' : 'Nadi Shodhana Pranayama'}
+                            </span>
+                            <span className="text-primary font-bold">06:45 AM</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex flex-col gap-2 mt-2">
+                        <button
+                          type="button"
+                          className="btn-hero-primary w-full py-2.5 text-xs font-bold rounded-xl"
+                          onClick={() => handleTabChange('reminders')}
+                        >
+                          🔔 {lang === 'ta' ? 'நினைவூட்டல் அட்டவணையைக் காண்க' : 'Open Mindful Reminders'}
+                        </button>
+                        <button
+                          type="button"
+                          className="w-full py-2 text-xs font-semibold text-muted hover:text-heading transition-colors"
+                          onClick={() => handleTabChange('admin')}
+                        >
+                          🛡️ {lang === 'ta' ? 'பயிற்றுநரா? அட்மின் போர்ட்டலில் நுழைய' : 'Instructor? Access Admin Portal'} ➔
+                        </button>
+                      </div>
+                    </div>
+                  )}
                 </div>
 
               {/* Col 3: Quick Add Reminder (Top) + Breathing Orb (Middle) + Relaxation Zone (Bottom) */}

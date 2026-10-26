@@ -53,6 +53,7 @@ import {
 import { audioEngine } from '../utils/audioEngine';
 import { ThreeDLotus } from './ThreeDIcons';
 import { apiFetch, getProductionLiveUrl } from '../utils/api';
+import { FamilyReceiveComponent } from './FamilyReceiveComponent';
 
 export default function AdminPortalSection({
   onLaunchInstructorStudio,
@@ -1450,10 +1451,19 @@ export default function AdminPortalSection({
           </p>
         </div>
 
-        <div>
-          <button
-            type="button"
-            onClick={() => {
+        <div className="flex items-center justify-center">
+          <FamilyReceiveComponent
+            triggerLabel={lang === 'ta' ? '🎥 நேரலை ஸ்டுடியோவைத் தொடங்கு' : '🎥 Launch Live Studio as Host'}
+            title={lang === 'ta' ? 'நேரலை வகுப்பைத் தொடங்கவா?' : 'Launch Live Yoga Studio?'}
+            description={lang === 'ta'
+              ? 'உங்களுக்கான பிரத்தியேக WebRTC நேரலை அறை உருவாக்கப்பட்டு மாணவர்கள் இணைவதற்கான லிங்க் தானாகவே உருவாக்கப்படும்.'
+              : 'Your low-latency WebRTC live yoga studio will be launched and a unique student invitation link will be generated.'}
+            confirmLabel={lang === 'ta' ? 'நேரலை தொடங்கு 🔴' : 'Start Studio Live 🔴'}
+            cancelLabel={lang === 'ta' ? 'ரத்து' : 'Cancel'}
+            accentColor="#7C3AED"
+            buttonWidth="w-full sm:w-80"
+            icon={<Video size={22} className="text-violet-400" />}
+            onConfirm={() => {
               const uniqueRoomId = `room-${Date.now().toString(36)}-${Math.random().toString(36).substring(2, 6)}`;
               const instructorClass = {
                 id: uniqueRoomId,
@@ -1463,7 +1473,7 @@ export default function AdminPortalSection({
                 room_name: `nithya-${uniqueRoomId}`,
                 status: 'live',
                 duration: 60,
-                instructor: 'NITHYA Master (You)'
+                instructor: user?.name ? `${user.name} (Host)` : 'NITHYA Master (You)'
               };
               localStorage.setItem('nithya_active_role', 'instructor');
               localStorage.removeItem('nithya_student_session');
@@ -1471,11 +1481,7 @@ export default function AdminPortalSection({
                 onLaunchInstructorStudio(instructorClass);
               }
             }}
-            className="trainer-start-stream-btn"
-          >
-            <Video size={18} />
-            <span>{lang === 'ta' ? '🎥 நேரலை ஸ்டுடியோவைத் தொடங்கு' : '🎥 Launch Live Studio as Host'}</span>
-          </button>
+          />
         </div>
       </div>
 

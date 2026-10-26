@@ -75,19 +75,20 @@ export async function apiFetch(endpoint, options = {}) {
 
   const contentType = response.headers.get('content-type') || '';
 
-  // Handle 404 / HTML responses (typically returned by GitHub Pages for non-existent /api routes)
-  if (response.status === 404 || contentType.includes('text/html')) {
-    const isGitHubPages = typeof window !== 'undefined' && window.location.hostname.includes('github.io');
-    if (isGitHubPages && !baseUrl) {
-      throw new Error(
-        `Backend server not configured. GitHub Pages is a static host and does not run a Node.js backend. ` +
-        `Please open LiveKit Settings and enter your hosted backend API URL (e.g. from Render or Railway).`
-      );
-    }
-    throw new Error(
-      `API endpoint "${cleanEndpoint}" not found on ${baseUrl || window.location.origin} (HTTP 404). ` +
-      `Check your backend URL configuration.`
+  // Handle 404 / 405 / HTML responses (typically returned by GitHub Pages for non-existent /api routes or POST requests)
+  if (response.status === 404 || response.status === 405 || contentType.includes('text/html')) {
+    const isGitHubPages = typeof window !== 'undefined' && (
+      window.location.hostname.includes('github.io') || 
+      window.location.protocol === 'file:'
     );
+    const err = new Error(
+      isGitHubPages && !baseUrl
+        ? `Static host (GitHub Pages) does not run an active backend (HTTP ${response.status}). Using offline/client fallback.`
+        : `API endpoint "${cleanEndpoint}" not supported on this host (HTTP ${response.status}).`
+    );
+    err.status = response.status;
+    err.isStaticHost = isGitHubPages;
+    throw err;
   }
 
   // Handle non-OK status codes (4xx, 5xx)

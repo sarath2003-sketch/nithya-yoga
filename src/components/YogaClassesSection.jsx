@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Clock, User, ChevronRight, Sparkles, Compass, Play, Pause, RotateCcw, X, Video } from 'lucide-react';
 import { ThreeDLotus } from './ThreeDIcons';
 import { audioEngine } from '../utils/audioEngine';
+import CardSplitAccordion from './CardSplitAccordion';
 
 export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'en' }) {
   const [activeTab, setActiveTab] = useState('classes'); // 'classes' | 'asanas'
@@ -178,21 +179,28 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
         </button>
       </div>
 
-      {/* Segmented Switch: Classes vs Daily Asanas */}
+      {/* Segmented Switch: Classes vs Daily Asanas vs Interactive Split Syllabus */}
       <div className="yoga-view-switch-tabs flex p-1 bg-subtle rounded-xl my-2.5">
         <button
           type="button"
-          className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'classes' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
+          className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'classes' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
           onClick={() => setActiveTab('classes')}
         >
           {lang === 'ta' ? '🧘 நேரலை வகுப்புகள்' : '🧘 Live Classes (4)'}
         </button>
         <button
           type="button"
-          className={`flex-1 py-1.5 px-3 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'asanas' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
+          className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'asanas' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
           onClick={() => setActiveTab('asanas')}
         >
-          {lang === 'ta' ? '🪷 5 சக்கர ஆசனங்கள்' : '🪷 Daily Asanas (5)'}
+          {lang === 'ta' ? '🪷 சக்கர ஆசனங்கள்' : '🪷 Daily Asanas (5)'}
+        </button>
+        <button
+          type="button"
+          className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'syllabus' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
+          onClick={() => setActiveTab('syllabus')}
+        >
+          {lang === 'ta' ? '✨ ஸ்பிளிட் சிலபஸ்' : '✨ Split Syllabus'}
         </button>
       </div>
 
@@ -304,6 +312,22 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
               </div>
             </div>
           ))}
+        </div>
+      )}
+
+      {/* VIEW C: Watermelon Card Split Accordion Syllabus */}
+      {activeTab === 'syllabus' && (
+        <div className="py-2 animate-fadeIn" style={{ padding: '8px 0' }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '14px', padding: '0 4px' }}>
+            <span style={{ fontSize: '12px', fontWeight: 700, color: 'var(--text-heading, #1e1b4b)', display: 'flex', alignItems: 'center', gap: '6px' }}>
+              <Sparkles size={14} className="text-primary" />
+              <span>{lang === 'ta' ? 'அதிநவீன ஸ்பிளிட் அக்கார்டியன் பாடத்திட்டம்' : 'Interactive Split-Radius Syllabus'}</span>
+            </span>
+            <span style={{ fontSize: '11px', fontWeight: 600, color: 'var(--text-muted, #94a3b8)', background: 'var(--bg-subtle, #f1f5f9)', padding: '2px 8px', borderRadius: '12px' }}>
+              Watermelon UI
+            </span>
+          </div>
+          <CardSplitAccordion />
         </div>
       )}
 

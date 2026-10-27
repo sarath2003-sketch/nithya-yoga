@@ -28,99 +28,168 @@ export const FamilyReceiveComponent = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
 
-  const activeColor = accentColor || '#7C3AED';
-
   return (
-    <div className={`relative flex min-h-[160px] max-w-full items-center justify-center ${fullWidth ? 'w-full' : 'w-auto'} ${className}`}>
+    <div 
+      className={`relative ${className}`}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: fullWidth ? '100%' : 'auto',
+        minHeight: isOpen ? '260px' : '64px',
+        margin: '8px 0',
+        transition: 'min-height 0.3s ease'
+      }}
+    >
       <LayoutGroup>
-        <AnimatePresence>
-          {!isOpen && (
+        <AnimatePresence mode="wait">
+          {!isOpen ? (
             <motion.button
               key="trigger"
               layoutId="action-button"
               onClick={() => setIsOpen(true)}
-              style={{ background: activeColor }}
-              className={`relative h-12 ${buttonWidth} cursor-pointer rounded-full text-base font-semibold text-white shadow-xl transition-all hover:opacity-95 md:h-14 md:text-lg flex items-center justify-center gap-2 ${triggerClassName}`}
+              style={{
+                background: 'linear-gradient(135deg, #7C3AED, #9333EA)',
+                color: '#FFFFFF',
+                border: 'none',
+                borderRadius: '9999px',
+                padding: '14px 28px',
+                fontSize: '15px',
+                fontWeight: 700,
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '10px',
+                boxShadow: '0 10px 25px -4px rgba(124, 58, 237, 0.45)',
+                width: fullWidth ? '100%' : 'auto',
+                minWidth: '240px',
+                maxWidth: '380px'
+              }}
               whileTap={{ scale: 0.96 }}
               whileHover={{ scale: 1.02 }}
               transition={springTransition}
             >
-              {icon && <span className="flex items-center">{icon}</span>}
+              {icon && <span style={{ display: 'flex', alignItems: 'center' }}>{icon}</span>}
               <span>{triggerLabel}</span>
             </motion.button>
-          )}
-        </AnimatePresence>
-
-        <AnimatePresence>
-          {isOpen && (
+          ) : (
             <motion.div
-              key="overlay"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4"
-              onClick={(e) => {
-                if (e.target === e.currentTarget) setIsOpen(false);
+              key="dialog-card"
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 30, scale: 0.95 }}
+              transition={springTransition}
+              style={{
+                position: 'relative',
+                width: '100%',
+                maxWidth: '380px',
+                borderRadius: '24px',
+                border: '1px solid rgba(139, 92, 246, 0.4)',
+                backgroundColor: 'rgba(26, 16, 56, 0.95)',
+                backdropFilter: 'blur(16px)',
+                padding: '24px',
+                color: '#FFFFFF',
+                boxShadow: '0 20px 45px rgba(15, 7, 36, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.15)',
+                boxSizing: 'border-box'
               }}
             >
-              <motion.div
-                initial={{ y: 80, opacity: 0, scale: 0.96 }}
-                animate={{ y: 0, opacity: 1, scale: 1 }}
-                exit={{ y: 80, opacity: 0, scale: 0.96 }}
-                transition={springTransition}
-                className="relative w-full max-w-[420px] overflow-hidden rounded-[28px] border border-violet-500/20 bg-[#16102E] p-6 text-white shadow-2xl md:rounded-[32px] md:p-7"
-                onClick={(e) => e.stopPropagation()}
+              <button
+                type="button"
+                onClick={() => setIsOpen(false)}
+                style={{
+                  position: 'absolute',
+                  top: '16px',
+                  right: '16px',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                  border: 'none',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  color: '#94A3B8',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s'
+                }}
+                aria-label="Close"
               >
+                <X size={16} />
+              </button>
+
+              <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    width: '40px',
+                    height: '40px',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: '12px',
+                    backgroundColor: 'rgba(124, 58, 237, 0.2)',
+                    border: '1px solid rgba(124, 58, 237, 0.4)',
+                    color: '#C084FC',
+                    flexShrink: 0
+                  }}
+                >
+                  {icon ?? <Fingerprint size={22} style={{ color: '#C084FC' }} />}
+                </div>
+                <h3 style={{ margin: 0, fontSize: '17px', fontWeight: 800, color: '#FFFFFF', letterSpacing: '-0.01em' }}>
+                  {title}
+                </h3>
+              </div>
+
+              <p style={{ margin: '0 0 20px 0', fontSize: '13px', fontWeight: 500, color: '#DDD6FE', lineHeight: 1.55 }}>
+                {description}
+              </p>
+
+              <div style={{ display: 'flex', gap: '10px' }}>
                 <button
                   type="button"
                   onClick={() => setIsOpen(false)}
-                  className="absolute top-5 right-5 h-9 w-9 rounded-full bg-white/5 flex items-center justify-center text-zinc-400 transition-colors hover:bg-white/10 hover:text-white cursor-pointer"
-                  aria-label="Close dialog"
+                  style={{
+                    height: '44px',
+                    flex: 1,
+                    borderRadius: '9999px',
+                    backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                    border: '1px solid rgba(255, 255, 255, 0.15)',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    color: '#E2E8F0',
+                    cursor: 'pointer'
+                  }}
                 >
-                  <X size={20} />
+                  {cancelLabel}
                 </button>
 
-                <div className="mb-4 flex items-center gap-3.5">
-                  <div
-                    className="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-500/10 border border-violet-500/20 text-violet-400"
-                    style={{ color: activeColor }}
-                  >
-                    {icon ?? (
-                      <Fingerprint size={24} style={{ color: activeColor }} />
-                    )}
-                  </div>
-                  <h2 className="text-xl font-bold text-white md:text-2xl tracking-tight">
-                    {title}
-                  </h2>
-                </div>
-
-                <p className="my-4 text-base font-medium text-purple-200/80 leading-relaxed md:my-5">
-                  {description}
-                </p>
-
-                <div className="flex gap-3 pt-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsOpen(false)}
-                    className="h-12 flex-1 rounded-full bg-white/5 border border-white/10 text-sm font-semibold text-purple-200 transition-colors hover:bg-white/10 cursor-pointer"
-                  >
-                    {cancelLabel}
-                  </button>
-
-                  <motion.button
-                    layoutId="action-button"
-                    style={{ background: activeColor }}
-                    onClick={() => {
-                      onConfirm?.();
-                      setIsOpen(false);
-                    }}
-                    className="h-12 flex-1 cursor-pointer rounded-full text-sm font-bold text-white shadow-lg transition-transform hover:opacity-95"
-                    transition={springTransition}
-                  >
-                    {confirmLabel}
-                  </motion.button>
-                </div>
-              </motion.div>
+                <motion.button
+                  layoutId="action-button"
+                  style={{
+                    height: '44px',
+                    flex: 1.3,
+                    borderRadius: '9999px',
+                    background: 'linear-gradient(135deg, #7C3AED, #9333EA)',
+                    border: 'none',
+                    fontSize: '13px',
+                    fontWeight: 700,
+                    color: '#FFFFFF',
+                    cursor: 'pointer',
+                    boxShadow: '0 8px 20px -3px rgba(124, 58, 237, 0.5)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}
+                  onClick={() => {
+                    onConfirm?.();
+                    setIsOpen(false);
+                  }}
+                  whileTap={{ scale: 0.96 }}
+                  transition={springTransition}
+                >
+                  {confirmLabel}
+                </motion.button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>

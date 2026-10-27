@@ -81,16 +81,26 @@ async function run() {
   server.stdout.on('data', d => {
     // console.log('[SERVER]', d.toString().trim());
   });
+  server.stderr.on('data', d => {
+    // console.error('[SERVER ERR]', d.toString().trim());
+  });
 
-  // Wait for server to bind
-  await new Promise(r => setTimeout(r, 2500));
+  // Wait for server to bind with retry loop
+  for (let attempt = 0; attempt < 15; attempt++) {
+    try {
+      await request({ hostname: '127.0.0.1', port: PORT, path: '/api/health', method: 'GET' });
+      break;
+    } catch (_) {
+      await new Promise(r => setTimeout(r, 400));
+    }
+  }
 
   try {
     // 3. Teacher Registration Test
     console.log('\n[TEST 3] Teacher Registration (Name, Email, Phone, Password):');
     const testEmail = `teacher_${Date.now()}@nithyayoga.com`;
     const regRes = await request({
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       port: PORT,
       path: '/api/admin/register',
       method: 'POST',
@@ -111,7 +121,7 @@ async function run() {
     // 4. Teacher Login Test
     console.log('\n[TEST 4] Teacher Login Verification:');
     const loginRes = await request({
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       port: PORT,
       path: '/api/admin/login',
       method: 'POST',
@@ -128,7 +138,7 @@ async function run() {
     // 5. Teacher Token Verification Guard
     console.log('\n[TEST 5] Teacher Token Verification Guard:');
     const verifyRes = await request({
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       port: PORT,
       path: '/api/teacher/verify',
       method: 'GET',
@@ -140,7 +150,7 @@ async function run() {
     // 6. Student Attendance & Duration Analytics (Kumar's 2-hour record & monthly stats)
     console.log('\n[TEST 6] Student Attendance & Monthly Duration Analytics:');
     const analyticsRes = await request({
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       port: PORT,
       path: '/api/trainer/attendance/analytics',
       method: 'GET',
@@ -167,7 +177,7 @@ async function run() {
     // 7. Student Free Joining (No Teacher Account Needed)
     console.log('\n[TEST 7] Student Invite Link Joining (No Account Needed):');
     const studentJoinRes = await request({
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       port: PORT,
       path: '/api/student/validate-join',
       method: 'POST',
@@ -184,7 +194,7 @@ async function run() {
     // 8. Log Priya Attendance & Verify Multi-Student Real-time Tracking
     console.log('\n[TEST 8] Student Attendance Logging & Multi-Student Tracking:');
     const logRes = await request({
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       port: PORT,
       path: '/api/attendance/log',
       method: 'POST',
@@ -202,7 +212,7 @@ async function run() {
     // 9. Automated Database & File Backup Verification
     console.log('\n[TEST 9] Automated SQLite & JSON Database Backup:');
     const backupRes = await request({
-      hostname: 'localhost',
+      hostname: '127.0.0.1',
       port: PORT,
       path: '/api/admin/backup',
       method: 'GET',

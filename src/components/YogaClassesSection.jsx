@@ -186,7 +186,7 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
           className={`flex-1 py-1.5 px-2.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${activeTab === 'classes' ? 'bg-card text-heading shadow-sm' : 'text-muted hover:text-heading'}`}
           onClick={() => setActiveTab('classes')}
         >
-          {lang === 'ta' ? '🧘 நேரலை வகுப்புகள்' : '🧘 Live Classes (4)'}
+          {lang === 'ta' ? '🧘 யோகா வகுப்புகள்' : '🧘 Yoga Classes (4)'}
         </button>
         <button
           type="button"
@@ -391,18 +391,44 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
 
             {/* Action Buttons */}
             <div className="flex items-center gap-2 pt-2">
-              <button
-                type="button"
-                onClick={() => {
-                  const target = activeClassModal;
-                  setActiveClassModal(null);
-                  if (onSelectClass) onSelectClass(target);
-                }}
-                className="ya-btn ya-btn--primary flex-1 py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/25"
-              >
-                <Video size={14} />
-                <span>{lang === 'ta' ? 'வகுப்பைத் தொடங்கு / இணையவும்' : 'Start & Enter Live Studio'}</span>
-              </button>
+              {Boolean(typeof localStorage !== 'undefined' && localStorage.getItem('nithya_admin_token')) ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const target = activeClassModal;
+                    setActiveClassModal(null);
+                    if (onSelectClass) onSelectClass(target);
+                  }}
+                  className="ya-btn ya-btn--primary flex-1 py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/25"
+                >
+                  <Video size={14} />
+                  <span>{lang === 'ta' ? 'பயிற்றுநர் ஸ்டுடியோவில் தொடங்கவும்' : 'Launch Studio as Instructor'}</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => {
+                    const target = activeClassModal;
+                    setActiveClassModal(null);
+                    handlePracticeAsana({
+                      id: target?.id || 'as-custom',
+                      name: target?.title || 'Yoga Practice',
+                      nameTa: target?.titleTa || 'யோகா பயிற்சி',
+                      sanskrit: 'योग साधना',
+                      chakra: 'Anahata • Heart Chakra 💚',
+                      chakraTa: 'அனாகத சக்கரம் 💚',
+                      duration: target?.duration || '10 min',
+                      benefit: target?.desc || 'Mindful flexibility and posture alignment',
+                      benefitTa: target?.descTa || 'ஆழ்ந்த உடற்பயிற்சி மற்றும் அமைதி',
+                      bgGrad: 'linear-gradient(135deg, rgba(168,85,247,0.1), rgba(139,92,246,0.1))'
+                    });
+                  }}
+                  className="ya-btn ya-btn--primary flex-1 py-2.5 rounded-xl text-xs font-black flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-primary/25"
+                >
+                  <Sparkles size={14} />
+                  <span>{lang === 'ta' ? 'ஆசனப் பயிற்சியைத் தொடங்கு 🪷' : 'Start Asana Practice 🪷'}</span>
+                </button>
+              )}
 
               <button
                 type="button"
@@ -545,17 +571,31 @@ export default function YogaClassesSection({ onSelectClass, onShowAll, lang = 'e
                     </div>
                   </div>
 
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowAllModal(false);
-                      if (onSelectClass) onSelectClass(c);
-                    }}
-                    className="ya-btn ya-btn--primary text-xs py-1.5 rounded-lg flex items-center justify-center gap-1.5 font-bold cursor-pointer mt-1"
-                  >
-                    <Video size={12} />
-                    <span>{lang === 'ta' ? 'வகுப்பில் இணையவும்' : 'Join Live Class'}</span>
-                  </button>
+                  {Boolean(typeof localStorage !== 'undefined' && localStorage.getItem('nithya_admin_token')) ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowAllModal(false);
+                        if (onSelectClass) onSelectClass(c);
+                      }}
+                      className="ya-btn ya-btn--primary text-xs py-1.5 rounded-lg flex items-center justify-center gap-1.5 font-bold cursor-pointer mt-1"
+                    >
+                      <Video size={12} />
+                      <span>{lang === 'ta' ? 'நேரலை ஸ்டுடியோ' : 'Live Studio'}</span>
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowAllModal(false);
+                        setActiveClassModal(c);
+                      }}
+                      className="ya-btn ya-btn--primary text-xs py-1.5 rounded-lg flex items-center justify-center gap-1.5 font-bold cursor-pointer mt-1"
+                    >
+                      <Sparkles size={12} />
+                      <span>{lang === 'ta' ? 'பாடத்திட்டம் & ஆசனங்கள்' : 'View Syllabus & Poses'}</span>
+                    </button>
+                  )}
                 </div>
               ))}
             </div>

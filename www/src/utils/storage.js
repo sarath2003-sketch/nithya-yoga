@@ -1,17 +1,17 @@
 // LocalStorage Persistence Layer for NITHYA Yoga & Wellness
 
 export const DEFAULT_USER = {
-  name: "NITHYA Master",
-  role: "trainer",
-  isInstructor: true,
-  email: "nithya@nithyayoga.com",
-  age: 28,
-  goal: "Master Yoga Instructor & Studio Guide",
+  name: "Yoga Practitioner",
+  role: "student",
+  isInstructor: false,
+  email: "",
+  age: 26,
+  goal: "Daily Mindful Yoga & Healthy Living",
   joined: "Oct 2026",
-  classesAttended: 48,
-  attendanceRate: 100,
-  dayStreak: 30,
-  level: "Master Instructor",
+  classesAttended: 0,
+  attendanceRate: 0,
+  dayStreak: 1,
+  level: "Beginner",
   avatar: "" // Supports Base64 data URL from file upload
 };
 

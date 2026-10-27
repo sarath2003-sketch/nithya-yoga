@@ -13,8 +13,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = 8089;
-process.env.PORT = String(PORT);
+let PORT = 8080;
+let server = null;
 
 let passedCount = 0;
 let totalCount = 0;
@@ -70,28 +70,32 @@ async function run() {
   assert(appContent.includes("user?.role === 'trainer' || Boolean(localStorage.getItem('nithya_admin_token'))"), 'App.jsx restricts LiveClassStudio rendering to verified trainers only');
   assert(appContent.includes('Daily Routine & Reminders'), 'App.jsx presents Mindful Reminders on public home page');
 
-  // 2. Start Backend Server
-  console.log('\n[TEST 2] Starting Backend Server on port ' + PORT + '...');
-  const server = spawn('node', ['serve.js'], {
-    cwd: path.join(__dirname, '..'),
-    env: { ...process.env, PORT: String(PORT) },
-    stdio: ['ignore', 'pipe', 'pipe']
-  });
+  // 2. Connect to Running Backend or Start Test Server
+  console.log('\n[TEST 2] Verifying Backend Server on port ' + PORT + '...');
+  let isAlreadyRunning = false;
+  try {
+    const health = await request({ hostname: '127.0.0.1', port: PORT, path: '/api/health', method: 'GET' });
+    if (health.status === 200) {
+      isAlreadyRunning = true;
+      console.log('  ✓ Connected to running server on port ' + PORT);
+    }
+  } catch (_) {}
 
-  server.stdout.on('data', d => {
-    // console.log('[SERVER]', d.toString().trim());
-  });
-  server.stderr.on('data', d => {
-    // console.error('[SERVER ERR]', d.toString().trim());
-  });
+  if (!isAlreadyRunning) {
+    PORT = 8089;
+    server = spawn('node', ['serve.js'], {
+      cwd: path.join(__dirname, '..'),
+      env: { ...process.env, PORT: String(PORT) },
+      stdio: ['ignore', 'pipe', 'pipe']
+    });
 
-  // Wait for server to bind with retry loop
-  for (let attempt = 0; attempt < 15; attempt++) {
-    try {
-      await request({ hostname: '127.0.0.1', port: PORT, path: '/api/health', method: 'GET' });
-      break;
-    } catch (_) {
-      await new Promise(r => setTimeout(r, 400));
+    for (let attempt = 0; attempt < 15; attempt++) {
+      try {
+        await request({ hostname: '127.0.0.1', port: PORT, path: '/api/health', method: 'GET' });
+        break;
+      } catch (_) {
+        await new Promise(r => setTimeout(r, 400));
+      }
     }
   }
 
@@ -243,7 +247,9 @@ async function run() {
       process.exit(1);
     }
   } finally {
-    server.kill();
+    if (server) {
+      try { server.kill(); } catch (_) {}
+    }
   }
 }
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { X, User, Phone, Radio, ShieldCheck, Sparkles, CheckCircle2, AlertCircle, Clock, RefreshCw, Check, Download } from 'lucide-react';
 import { ThreeDLotus } from './ThreeDIcons';
+import { FloatingInput } from './FloatingInput';
 import { audioEngine } from '../utils/audioEngine';
 import { apiFetch } from '../utils/api';
 
@@ -251,45 +252,36 @@ export default function StudentJoinModal({
             </div>
 
             {/* Field 1: Name */}
-            <div className="form-field-unit flex flex-col gap-1">
-              <label className="text-xs font-semibold text-heading flex items-center gap-1.5">
-                <User size={13} className="text-primary" />
-                <span>{lang === 'ta' ? 'மாணவர் முழுப் பெயர் (Student Name):' : 'Student Full Name:'}</span>
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="text"
-                className="ya-input w-full text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
-                placeholder={lang === 'ta' ? 'உங்கள் பெயர் (எ.கா. சரத்)' : 'Your Name (e.g. Sarath)'}
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  if (error) setError('');
-                }}
-                required
-                autoFocus
-              />
-            </div>
+            <FloatingInput
+              id="student-modal-name"
+              label={lang === 'ta' ? 'மாணவர் முழுப் பெயர் (Student Name)' : 'Student Full Name'}
+              value={name}
+              onChange={(e) => {
+                setName(e.target.value);
+                if (error) setError('');
+              }}
+              icon={<User size={15} />}
+              placeholder="e.g. Sarath Santhosh"
+              required
+              autoFocus
+              className="w-full"
+            />
 
             {/* Field 2: Mobile Number */}
-            <div className="form-field-unit flex flex-col gap-1">
-              <label className="text-xs font-semibold text-heading flex items-center gap-1.5">
-                <Phone size={13} className="text-primary" />
-                <span>{lang === 'ta' ? 'மொபைல் எண் (Mobile Number):' : 'Mobile Number:'}</span>
-                <span className="text-red-500">*</span>
-              </label>
-              <input
-                type="tel"
-                className="ya-input w-full text-xs p-2.5 rounded-xl border border-subtle bg-card text-heading focus:border-primary outline-none"
-                placeholder={lang === 'ta' ? 'எ.கா. 9876543210' : 'e.g. 9876543210'}
-                value={phone}
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                  if (error) setError('');
-                }}
-                required
-              />
-            </div>
+            <FloatingInput
+              id="student-modal-phone"
+              type="tel"
+              label={lang === 'ta' ? 'மொபைல் எண் (Mobile Number)' : 'Mobile Phone Number'}
+              value={phone}
+              onChange={(e) => {
+                setPhone(e.target.value);
+                if (error) setError('');
+              }}
+              icon={<Phone size={15} />}
+              placeholder="9876543210"
+              required
+              className="w-full"
+            />
 
             {/* Attendance Notice */}
             <div className="p-2.5 bg-subtle/80 rounded-xl text-[11px] text-muted flex items-start gap-2 border border-subtle">

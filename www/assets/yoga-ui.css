@@ -1672,31 +1672,31 @@ html {
 }
 
 .figma-dock-round-btn {
-  width: 44px;
-  height: 44px;
+  width: 48px;
+  height: 48px;
   border-radius: 50%;
   border: none;
-  background: rgba(255, 255, 255, 0.95);
-  color: #1E293B;
+  background: #3C4043;
+  color: #FFFFFF;
   display: grid;
   place-items: center;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
 }
 
 .figma-dock-round-btn:hover {
-  background: #FFFFFF;
-  transform: scale(1.08);
+  background: #4A4E51;
+  transform: scale(1.06);
 }
 
 .figma-dock-round-btn.btn-danger-muted {
-  background: #EF4444;
+  background: #EA4335;
   color: #FFFFFF;
 }
 
 .figma-dock-round-btn.btn-amber-active {
-  background: #F59E0B;
+  background: #2563EB;
   color: #FFFFFF;
 }
 
@@ -1704,17 +1704,17 @@ html {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 0 20px;
-  height: 44px;
+  padding: 0 22px;
+  height: 48px;
   border-radius: 999px;
-  background: #EF4444;
+  background: #EA4335;
   color: #FFFFFF;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
   border: none;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.45);
+  box-shadow: 0 4px 16px rgba(234, 67, 53, 0.45);
 }
 
 .figma-dock-end-pill-btn:hover {
@@ -1722,7 +1722,63 @@ html {
   transform: scale(1.04);
 }
 
-/* 5. Row of 3 Participant Video Tiles */
+/* 5. Google Meet Style Balanced Participant Video Grid */
+.meet-participant-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.meet-participant-grid.two-participants {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+}
+
+@media (min-width: 768px) {
+  .meet-participant-grid.two-participants {
+    grid-template-columns: 1fr 1fr;
+  }
+  .meet-participant-grid.multi-participants {
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  }
+}
+
+@media (max-width: 767px) {
+  .meet-participant-grid.two-participants {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+.meet-participant-tile {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  background: #130E2E;
+  border: 1.5px solid rgba(167, 139, 250, 0.25);
+  aspect-ratio: 16 / 9;
+  min-height: 220px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  transition: all 0.25s ease;
+}
+
+@media (max-width: 767px) {
+  .meet-participant-tile {
+    min-height: 220px;
+    max-height: 42vh;
+    aspect-ratio: 4 / 3;
+    flex: 1;
+  }
+}
+
 .figma-participant-tiles-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1737,7 +1793,9 @@ html {
 
 .figma-student-tile {
   position: relative;
-  height: 135px;
+  min-height: 180px;
+  height: auto;
+  aspect-ratio: 16 / 9;
   border-radius: 16px;
   overflow: hidden;
   background: #111827;
@@ -1747,6 +1805,13 @@ html {
   justify-content: center;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   transition: all 0.2s ease;
+}
+
+@media (max-width: 640px) {
+  .figma-student-tile {
+    min-height: 210px;
+    aspect-ratio: 4 / 3;
+  }
 }
 
 .figma-student-tile.is-active-speaker {

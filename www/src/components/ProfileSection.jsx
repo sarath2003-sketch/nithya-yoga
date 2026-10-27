@@ -1,14 +1,54 @@
 import React, { useState, useEffect } from 'react';
-import { User, Edit3, Flower2, Mail, Calendar, Target, Heart, Camera, Check, X, Trash2, RefreshCw, Download, Sparkles, ShieldCheck } from 'lucide-react';
+import ReactDOM from 'react-dom';
+import { 
+  User, 
+  Edit3, 
+  Flower2, 
+  Mail, 
+  Calendar, 
+  Target, 
+  Heart, 
+  Camera, 
+  Check, 
+  X, 
+  Trash2, 
+  RefreshCw, 
+  Download, 
+  Sparkles, 
+  ShieldCheck,
+  LogOut,
+  Key,
+  Lock,
+  AlertTriangle,
+  ArrowRight
+} from 'lucide-react';
 import { audioEngine } from '../utils/audioEngine';
 import { CURRENT_APP_VERSION, CURRENT_BUILD_NUMBER, triggerApkDownload } from './InAppUpdateBanner';
+import { TimedUndoAction } from './TimedUndoAction';
+import { FloatingInput } from './FloatingInput';
+import { apiFetch } from '../utils/api';
+import { DEFAULT_USER } from '../utils/storage';
 
-export default function ProfileSection({ user, onUpdateUser, onNavigateAdmin, showToast, lang = 'en' }) {
+export default function ProfileSection({ 
+  user, 
+  onUpdateUser, 
+  onNavigateAdmin, 
+  onNavigateHome,
+  showToast, 
+  lang = 'en' 
+}) {
   const [activeTab, setActiveTab] = useState('Personal Info');
   const [isEditing, setIsEditing] = useState(false);
   const [remoteUpdate, setRemoteUpdate] = useState(null);
   const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
   const [isUpdatingApp, setIsUpdatingApp] = useState(false);
+
+  // Account Management & Deletion States
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deletePassword, setDeletePassword] = useState('');
+  const [deleteError, setDeleteError] = useState('');
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [countdownActive, setCountdownActive] = useState(false);
   const [formData, setFormData] = useState({
     name: user?.name || (user?.role === 'trainer' ? 'NITHYA Master' : 'Yoga Student'),
     email: user?.email || 'student@nithyayoga.com',
@@ -152,6 +192,153 @@ export default function ProfileSection({ user, onUpdateUser, onNavigateAdmin, sh
     }, 500);
   };
 
+  // Log Out and Redirect to Home Page
+  const handleLogout = () => {
+    try {
+      localStorage.removeItem('nithya_admin_token');
+      localStorage.removeItem('nithya_teacher_token');
+      localStorage.removeItem('nithya_auth_token');
+      localStorage.removeItem('nithya_member');
+      localStorage.removeItem('nithya_student_session');
+      localStorage.removeItem('nithya_trainer_id');
+      localStorage.removeItem('nithya_trainer_profile');
+      localStorage.setItem('nithya_active_role', 'student');
+      localStorage.setItem('nithya_active_tab', 'home');
+    } catch (_) {}
+
+    if (onUpdateUser) {
+      onUpdateUser({
+        ...DEFAULT_USER,
+        name: 'Yoga Student',
+        role: 'student',
+        isInstructor: false
+      });
+    }
+
+    if (showToast) {
+      showToast(
+        lang === 'ta' ? 'வெளியேறியாச்சு ✓' : 'Logged Out Successfully ✓',
+        lang === 'ta' ? 'அனைத்து அமர்வுகளும் முடிக்கப்பட்டன. முகப்பிற்குச் செல்கிறது...' : 'Session ended. Navigating to Home...',
+        'info'
+      );
+    }
+
+    setTimeout(() => {
+      if (onNavigateHome) {
+        onNavigateHome();
+      } else if (typeof window !== 'undefined') {
+        window.location.hash = '';
+        window.location.reload();
+      }
+    }, 300);
+  };
+
+  const handleStartDeleteCountdown = (e) => {
+    if (e) e.preventDefault();
+    setDeleteError('');
+    const isTrainerOrAdmin = Boolean(
+      localStorage.getItem('nithya_admin_token') ||
+      localStorage.getItem('nithya_teacher_token') ||
+      user?.role === 'trainer'
+    );
+
+    if (isTrainerOrAdmin && !deletePassword.trim()) {
+      setDeleteError(lang === 'ta' ? 'தயவுசெய்து உங்கள் கடவுச்சொல்லை உள்ளிடவும்.' : 'Please enter your password to confirm account deletion.');
+      return;
+    }
+
+    setCountdownActive(true);
+  };
+
+  const handleExecuteAccountDeletion = async () => {
+    setIsDeleting(true);
+    setDeleteError('');
+
+    try {
+      const isTrainerOrAdmin = Boolean(
+        localStorage.getItem('nithya_admin_token') ||
+        localStorage.getItem('nithya_teacher_token') ||
+        user?.role === 'trainer'
+      );
+
+      if (isTrainerOrAdmin) {
+        const token = localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_teacher_token');
+        const res = await apiFetch('/api/admin/delete-account', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+          },
+          body: JSON.stringify({
+            password: deletePassword.trim()
+          })
+        }).catch(async () => {
+          return await apiFetch('/api/trainer/delete-account', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              ...(token ? { 'Authorization': `Bearer ${token}` } : {})
+            },
+            body: JSON.stringify({ password: deletePassword.trim() })
+          });
+        });
+
+        if (res && res.error) {
+          throw new Error(res.error);
+        }
+      }
+
+      // Purge all user tokens and data locally
+      try {
+        localStorage.removeItem('nithya_admin_token');
+        localStorage.removeItem('nithya_teacher_token');
+        localStorage.removeItem('nithya_auth_token');
+        localStorage.removeItem('nithya_member');
+        localStorage.removeItem('nithya_student_session');
+        localStorage.removeItem('nithya_trainer_id');
+        localStorage.removeItem('nithya_trainer_profile');
+        localStorage.removeItem('nithya_live_participants');
+        localStorage.setItem('nithya_active_role', 'student');
+        localStorage.setItem('nithya_active_tab', 'home');
+      } catch (_) {}
+
+      if (onUpdateUser) {
+        onUpdateUser({
+          ...DEFAULT_USER,
+          name: 'Yoga Student',
+          role: 'student',
+          isInstructor: false
+        });
+      }
+
+      setShowDeleteModal(false);
+      setCountdownActive(false);
+      setDeletePassword('');
+
+      if (showToast) {
+        showToast(
+          lang === 'ta' ? 'கணக்கு நிரந்தரமாக நீக்கப்பட்டது ✓' : 'Account Permanently Deleted ✓',
+          lang === 'ta' ? 'உங்கள் கணக்கு விவரங்கள் அனைத்தும் அழிக்கப்பட்டன.' : 'All user data and records have been purged.',
+          'success'
+        );
+      }
+
+      setTimeout(() => {
+        if (onNavigateHome) {
+          onNavigateHome();
+        } else if (typeof window !== 'undefined') {
+          window.location.hash = '';
+          window.location.reload();
+        }
+      }, 400);
+    } catch (err) {
+      setDeleteError(err.message || (lang === 'ta' ? 'கணக்கை நீக்குவதில் பிழை ஏற்பட்டது.' : 'Failed to delete account.'));
+      setCountdownActive(false);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
   // Keep form data synced if prop changes
   React.useEffect(() => {
     if (user) {
@@ -207,18 +394,30 @@ export default function ProfileSection({ user, onUpdateUser, onNavigateAdmin, sh
           <User size={18} className="text-violet" />
           <span>{lang === 'ta' ? 'சுயவிவரம்' : 'Profile'}</span>
         </h3>
-        <button 
-          type="button" 
-          className="btn-edit-profile-pill"
-          onClick={() => setIsEditing(!isEditing)}
-        >
-          {isEditing ? <X size={13} /> : <Edit3 size={13} />}
-          <span>
-            {isEditing 
-              ? (lang === 'ta' ? 'ரத்து செய்' : 'Cancel') 
-              : (lang === 'ta' ? 'சுயவிவரம் திருத்து' : 'Edit Profile')}
-          </span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button 
+            type="button" 
+            className="btn-edit-profile-pill"
+            onClick={() => setIsEditing(!isEditing)}
+          >
+            {isEditing ? <X size={13} /> : <Edit3 size={13} />}
+            <span>
+              {isEditing 
+                ? (lang === 'ta' ? 'ரத்து செய்' : 'Cancel') 
+                : (lang === 'ta' ? 'சுயவிவரம் திருத்து' : 'Edit Profile')}
+            </span>
+          </button>
+
+          <button
+            type="button"
+            className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5 cursor-pointer font-bold text-rose-500 hover:bg-rose-500/10 rounded-full border border-rose-500/20 transition-colors"
+            onClick={handleLogout}
+            title={lang === 'ta' ? 'கணக்கிலிருந்து வெளியேறு' : 'Log Out'}
+          >
+            <LogOut size={13} />
+            <span>{lang === 'ta' ? 'லாக் அவுட்' : 'Log Out'}</span>
+          </button>
+        </div>
       </div>
 
       {/* User Header Strip */}
@@ -495,6 +694,48 @@ export default function ProfileSection({ user, onUpdateUser, onNavigateAdmin, sh
                 {lang === 'ta' ? 'அட்மின் போர்ட்டல் ➡️' : 'Open Admin Portal ➡️'}
               </button>
             </div>
+
+            {/* Account Management & Security Zone */}
+            <div className="p-4 rounded-xl border border-rose-500/30 bg-rose-500/5 flex flex-col gap-3">
+              <div className="flex items-center justify-between flex-wrap gap-2">
+                <div className="min-w-0">
+                  <strong className="text-xs text-heading flex items-center gap-1.5 text-rose-700 dark:text-rose-300 font-bold">
+                    <User size={16} className="text-rose-600 dark:text-rose-400 shrink-0" />
+                    <span>{lang === 'ta' ? 'கணக்கு மேலாண்மை & பாதுகாப்பு' : 'Account Management & Security'}</span>
+                  </strong>
+                  <span className="text-[11px] text-muted block mt-0.5">
+                    {lang === 'ta' 
+                      ? 'கணக்கிலிருந்து வெளியேறலாம் அல்லது உங்கள் கணக்கை நிரந்தரமாக நீக்கலாம்' 
+                      : 'Sign out of your session or permanently delete your account and data'}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2 flex-wrap">
+                  <button
+                    type="button"
+                    onClick={handleLogout}
+                    className="ya-btn ya-btn--soft text-xs px-3.5 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 border border-amber-500/30 rounded-xl transition-all"
+                  >
+                    <LogOut size={14} />
+                    <span>{lang === 'ta' ? 'லாக் அவுட்' : 'Log Out'}</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setDeletePassword('');
+                      setDeleteError('');
+                      setCountdownActive(false);
+                      setShowDeleteModal(true);
+                    }}
+                    className="ya-btn text-xs px-3.5 py-2 flex items-center gap-1.5 cursor-pointer font-bold bg-rose-600 hover:bg-rose-700 text-white shadow-md shadow-rose-600/20 rounded-xl transition-all"
+                  >
+                    <Trash2 size={14} />
+                    <span>{lang === 'ta' ? 'கணக்கை நீக்கு' : 'Delete Account'}</span>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         ) : activeTab === 'Preferences' ? (
           <div className="profile-preferences-view p-3 flex flex-col gap-3">
@@ -556,6 +797,139 @@ export default function ProfileSection({ user, onUpdateUser, onNavigateAdmin, sh
             </div>
           </div>
         )
+      )}
+
+      {/* Account Deletion Confirmation Modal via Portal */}
+      {showDeleteModal && typeof document !== 'undefined' && ReactDOM.createPortal(
+        <div 
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/80 backdrop-blur-md ya-reveal"
+          onClick={() => {
+            if (!countdownActive && !isDeleting) {
+              setShowDeleteModal(false);
+              setDeletePassword('');
+              setDeleteError('');
+            }
+          }}
+        >
+          <div 
+            className="relative w-full max-w-md p-6 sm:p-7 rounded-3xl bg-[#130E2E] border border-rose-500/40 shadow-2xl text-white font-['Poppins',sans-serif]"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-rose-500/20 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-xl bg-rose-500/20 border border-rose-500/40 flex items-center justify-center text-rose-400">
+                  <Trash2 size={18} />
+                </div>
+                <div>
+                  <h3 className="font-black text-base text-rose-100">
+                    {lang === 'ta' ? 'கணக்கை நிரந்தரமாக நீக்கு' : 'Permanently Delete Account'}
+                  </h3>
+                  <span className="text-[11px] text-rose-300/70 block">
+                    {lang === 'ta' ? 'அனைத்து தரவுகளும் நிரந்தரமாக அழிக்கப்படும்' : 'Irreversible permanent account purge'}
+                  </span>
+                </div>
+              </div>
+              {!countdownActive && !isDeleting && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setShowDeleteModal(false);
+                    setDeletePassword('');
+                    setDeleteError('');
+                  }}
+                  className="p-1 rounded-full text-rose-300/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                >
+                  <X size={18} />
+                </button>
+              )}
+            </div>
+
+            {/* Error Message */}
+            {deleteError && (
+              <div className="mb-4 p-3 rounded-xl bg-rose-950/80 border border-rose-500/50 flex items-center gap-2 text-rose-200 text-xs">
+                <AlertTriangle size={15} className="text-rose-400 shrink-0" />
+                <span>{deleteError}</span>
+              </div>
+            )}
+
+            {!countdownActive ? (
+              <form onSubmit={handleStartDeleteCountdown} className="flex flex-col gap-3">
+                <p className="text-xs text-rose-200/80 leading-relaxed">
+                  {lang === 'ta'
+                    ? 'எச்சரிக்கை: இந்தச் செயல் உங்கள் வகுப்புகள், குறிப்புகள், வருகைப் பதிவுகள் மற்றும் சுயவிவரத் தரவுகள் அனைத்தையும் தரவுத்தளத்திலிருந்து நிரந்தரமாக அழிக்கும். இதை மீட்டெடுக்க முடியாது.'
+                    : 'Warning: This action will permanently wipe all your hosted classes, attendance logs, and profile records from the database. This cannot be undone.'}
+                </p>
+
+                {(localStorage.getItem('nithya_admin_token') || localStorage.getItem('nithya_teacher_token') || user?.role === 'trainer') && (
+                  <div className="mt-1">
+                    <label className="block text-xs font-semibold text-rose-200 mb-1">
+                      {lang === 'ta' ? 'கடவுச்சொல்லை உள்ளிடவும் (Verify Password):' : 'Enter Password to Confirm:'}
+                    </label>
+                    <FloatingInput
+                      type="password"
+                      label={lang === 'ta' ? 'கடவுச்சொல் (Password)' : 'Account Password'}
+                      value={deletePassword}
+                      onChange={(e) => {
+                        setDeletePassword(e.target.value);
+                        if (deleteError) setDeleteError('');
+                      }}
+                      icon={<Lock size={15} />}
+                      required
+                      placeholder="••••••••"
+                      className="w-full"
+                    />
+                  </div>
+                )}
+
+                <div className="flex items-center gap-2.5 mt-3">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowDeleteModal(false);
+                      setDeletePassword('');
+                      setDeleteError('');
+                    }}
+                    className="flex-1 py-3 px-4 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-xs cursor-pointer transition-all"
+                  >
+                    {lang === 'ta' ? 'ரத்து செய்' : 'Cancel'}
+                  </button>
+
+                  <button
+                    type="submit"
+                    className="flex-1 py-3 px-4 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-black text-xs cursor-pointer shadow-lg shadow-rose-600/30 transition-all flex items-center justify-center gap-1.5"
+                  >
+                    <Trash2 size={14} />
+                    <span>{lang === 'ta' ? 'தொடரவும் (10s Countdown)' : 'Proceed to Delete'}</span>
+                  </button>
+                </div>
+              </form>
+            ) : (
+              <div className="flex flex-col items-center justify-center py-4 text-center">
+                <div className="w-full mb-4">
+                  <TimedUndoAction
+                    duration={10}
+                    initialText={lang === 'ta' ? 'கணக்கு 10 விநாடிகளில் அழிக்கப்படும்...' : 'Account will be permanently deleted in 10s...'}
+                    actionText={lang === 'ta' ? 'அழிக்கப்படுகிறது...' : 'Purging Account Records...'}
+                    accentColor="#EF4444"
+                    buttonWidth="w-full"
+                    onComplete={handleExecuteAccountDeletion}
+                    onUndo={() => {
+                      setCountdownActive(false);
+                      setDeleteError(lang === 'ta' ? 'நீக்குதல் ரத்து செய்யப்பட்டது.' : 'Deletion cancelled.');
+                    }}
+                  />
+                </div>
+                <p className="text-[11px] text-rose-300/70">
+                  {lang === 'ta'
+                    ? '10 விநாடிகளுக்குள் நீங்கள் "Undo" அழுத்தினால் கணக்கு நீக்கப்படாது.'
+                    : 'Tap Undo within 10 seconds to stop account deletion.'}
+                </p>
+              </div>
+            )}
+          </div>
+        </div>,
+        document.body
       )}
     </div>
   );

@@ -1150,6 +1150,7 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
                 user={user}
                 onUpdateUser={handleUpdateUser}
                 onNavigateAdmin={() => handleTabChange('admin')}
+                onNavigateHome={() => handleTabChange('home')}
                 showToast={showToast}
                 lang={lang}
               />
@@ -1374,6 +1375,7 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
                   user={user}
                   onUpdateUser={handleUpdateUser}
                   onNavigateAdmin={() => handleTabChange('admin')}
+                  onNavigateHome={() => handleTabChange('home')}
                   showToast={showToast}
                   lang={lang}
                 />

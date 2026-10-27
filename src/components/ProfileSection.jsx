@@ -45,6 +45,7 @@ export default function ProfileSection({
 
   // Account Management & Deletion States
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
   const [deletePassword, setDeletePassword] = useState('');
   const [deleteError, setDeleteError] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
@@ -407,16 +408,6 @@ export default function ProfileSection({
                 : (lang === 'ta' ? 'சுயவிவரம் திருத்து' : 'Edit Profile')}
             </span>
           </button>
-
-          <button
-            type="button"
-            className="ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5 cursor-pointer font-bold text-rose-500 hover:bg-rose-500/10 rounded-full border border-rose-500/20 transition-colors"
-            onClick={handleLogout}
-            title={lang === 'ta' ? 'கணக்கிலிருந்து வெளியேறு' : 'Log Out'}
-          >
-            <LogOut size={13} />
-            <span>{lang === 'ta' ? 'லாக் அவுட்' : 'Log Out'}</span>
-          </button>
         </div>
       </div>
 
@@ -713,7 +704,7 @@ export default function ProfileSection({
                 <div className="flex items-center gap-2 flex-wrap">
                   <button
                     type="button"
-                    onClick={handleLogout}
+                    onClick={() => setShowLogoutModal(true)}
                     className="ya-btn ya-btn--soft text-xs px-3.5 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 border border-amber-500/30 rounded-xl transition-all"
                   >
                     <LogOut size={14} />
@@ -927,6 +918,72 @@ export default function ProfileSection({
                 </p>
               </div>
             )}
+          </div>
+        </div>,
+        document.body
+      )}
+
+      {/* Logout Confirmation Dialog Modal (Portaled) */}
+      {showLogoutModal && typeof document !== 'undefined' && ReactDOM.createPortal(
+        <div 
+          className="modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4 fixed inset-0 bg-black/75 backdrop-blur-sm"
+          onClick={() => setShowLogoutModal(false)}
+        >
+          <div 
+            className="relative w-full max-w-md p-6 sm:p-7 rounded-3xl bg-[#130E2E] border border-amber-500/40 shadow-2xl text-white font-['Poppins',sans-serif]"
+            onClick={e => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+                  <LogOut size={20} />
+                </div>
+                <div>
+                  <h3 className="font-black text-base text-amber-100">
+                    {lang === 'ta' ? 'வெளியேறுவதை உறுதிப்படுத்தவும்' : 'Confirm Sign Out'}
+                  </h3>
+                  <span className="text-[11px] text-amber-200/70 block">
+                    {lang === 'ta' ? 'அமர்வு பாதுகாப்பு' : 'Session Security & Sign Out'}
+                  </span>
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowLogoutModal(false)}
+                className="p-1 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                <X size={18} />
+              </button>
+            </div>
+
+            <p className="text-xs text-slate-200 leading-relaxed mb-6">
+              {lang === 'ta'
+                ? 'உங்கள் தற்போதைய அமர்விலிருந்து வெளியேற விரும்புகிறீர்களா? உங்கள் கணக்குத் தரவுகள் அனைத்தும் பாதுகாப்பாக இருக்கும், நீங்கள் எப்போது வேண்டுமானாலும் மீண்டும் உள்நுழையலாம்.'
+                : 'Are you sure you want to log out of your session? Your profile and class data remain safe, and you can sign in anytime.'}
+            </p>
+
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setShowLogoutModal(false)}
+                className="flex-1 py-3 px-4 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-xs cursor-pointer transition-all"
+              >
+                {lang === 'ta' ? 'ரத்து செய்' : 'Cancel'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setShowLogoutModal(false);
+                  handleLogout();
+                }}
+                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-rose-600 hover:from-amber-500 hover:to-rose-500 text-white font-black text-xs cursor-pointer shadow-lg shadow-amber-600/30 transition-all flex items-center justify-center gap-1.5"
+              >
+                <LogOut size={14} />
+                <span>{lang === 'ta' ? 'ஆம், வெளியேறு' : 'Yes, Sign Out'}</span>
+              </button>
+            </div>
           </div>
         </div>,
         document.body

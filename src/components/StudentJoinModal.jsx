@@ -78,10 +78,7 @@ export default function StudentJoinModal({
     try {
       localStorage.setItem('nithya_student_name', cleanName);
       localStorage.setItem('nithya_student_phone', cleanPhone);
-      // Ensure student does not have trainer privileges
-      localStorage.removeItem('nithya_admin_token');
-      localStorage.removeItem('nithya_trainer_token');
-      localStorage.setItem('nithya_active_role', 'student');
+      sessionStorage.setItem('nithya_current_role', 'student');
 
       const studentSession = {
         name: cleanName,

@@ -58,6 +58,7 @@ function ParticipantTile({
   isLocalMicOn = true,
   isLocalVideoOn = true,
   isMirrored = true,
+  videoFitMode = 'contain',
   lang = 'en',
   onPin
 }) {
@@ -219,7 +220,7 @@ function ParticipantTile({
         className={`participant-video-stream ${effectiveHasVideo ? 'visible' : 'hidden'} ${isLocal && isMirrored ? 'is-mirrored' : ''}`}
         style={{
           display: effectiveHasVideo ? 'block' : 'none',
-          objectFit: 'cover',
+          objectFit: videoFitMode || 'contain',
           width: '100%',
           height: '100%',
           background: '#0B0819'
@@ -514,8 +515,10 @@ export default function LiveYogaClassRoom({
   const peerInstanceRef = useRef(null);
   const activeConnsRef = useRef([]);
   const activeCallsRef = useRef([]);
+  const currentCallRef = useRef(null);
   const localStreamRef = useRef(null);
   localStreamRef.current = localStream;
+  const [videoFitMode, setVideoFitMode] = useState('contain'); // 'contain' for full-body uncropped posture | 'cover' for cropped fill
 
   // Class session timer
   const [sessionSeconds, setSessionSeconds] = useState(0);
@@ -704,35 +707,49 @@ export default function LiveYogaClassRoom({
               }
             });
 
-            // 2. Media Call: Call Instructor with student's localStream
+            // 2. Media Call: Call Instructor with student's localStream (Only if not already connecting/active)
             const streamToSend = localStreamRef.current || localStream;
-            if (streamToSend) {
-              const call = peer.call(trainerPeerId, streamToSend, {
-                metadata: { name: studentName, phone: cleanPhone }
-              });
-
-              if (call) {
-                activeCallsRef.current = [call];
-                call.on('stream', (incomingTeacherStream) => {
-                  setTeacherStream(incomingTeacherStream);
-                  setTeacherOnline(true);
+            if (streamToSend && !currentCallRef.current) {
+              try {
+                const call = peer.call(trainerPeerId, streamToSend, {
+                  metadata: { name: studentName, phone: cleanPhone }
                 });
 
-                call.on('close', () => {
-                  setTeacherStream(null);
-                });
+                if (call) {
+                  currentCallRef.current = call;
+                  activeCallsRef.current = [call];
 
-                call.on('error', () => {});
+                  call.on('stream', (incomingTeacherStream) => {
+                    setTeacherStream(incomingTeacherStream);
+                    setTeacherOnline(true);
+                    setConnectionState('connected');
+                  });
+
+                  call.on('close', () => {
+                    setTeacherStream(null);
+                    currentCallRef.current = null;
+                  });
+
+                  call.on('error', (err) => {
+                    console.warn('[WebRTC PeerJS] Call error note:', err);
+                    currentCallRef.current = null;
+                  });
+                }
+              } catch (e) {
+                console.warn('[WebRTC PeerJS] Peer call exception:', e);
+                currentCallRef.current = null;
               }
             }
           };
 
           connectToTrainer();
+
+          // Resilient reconnection check: only reconnects if disconnected (never triggers duplicate renegotiations)
           const retryTimer = setInterval(() => {
-            if (!teacherStream) {
+            if (!currentCallRef.current && !teacherStream) {
               connectToTrainer();
             }
-          }, 4000);
+          }, 6000);
 
           return () => clearInterval(retryTimer);
         }
@@ -835,6 +852,28 @@ export default function LiveYogaClassRoom({
       }
     };
   }, [isInstructorRole, activeClass?.id, activeRoomSessionId]);
+
+  // Clean up all local media hardware tracks when leaving or unmounting the Live Class
+  useEffect(() => {
+    return () => {
+      if (localStreamRef.current) {
+        try {
+          localStreamRef.current.getTracks().forEach(track => {
+            track.stop();
+            track.enabled = false;
+          });
+        } catch (_) {}
+      }
+      if (activeCallsRef.current) {
+        activeCallsRef.current.forEach(c => {
+          try { c.close(); } catch (_) {}
+        });
+      }
+      if (peerInstanceRef.current) {
+        try { peerInstanceRef.current.destroy(); } catch (_) {}
+      }
+    };
+  }, []);
 
   // Ensure active class is marked 'live' on backend when instructor enters room
   useEffect(() => {
@@ -2616,6 +2655,7 @@ export default function LiveYogaClassRoom({
                       isLocalMicOn={isMicOn}
                       isLocalVideoOn={isVideoOn}
                       isMirrored={isMirrored}
+                      videoFitMode={videoFitMode}
                       lang={lang}
                     />
                   ) : (
@@ -2708,6 +2748,16 @@ export default function LiveYogaClassRoom({
                         <Hand size={18} />
                       </button>
                     )}
+
+                    {/* Video Sizing & Cropping Mode Toggle (Contain Full Body vs Cover Fill) */}
+                    <button
+                      type="button"
+                      className={`figma-dock-round-btn ${videoFitMode === 'cover' ? 'btn-active' : ''}`}
+                      onClick={() => setVideoFitMode(prev => prev === 'contain' ? 'cover' : 'contain')}
+                      title={videoFitMode === 'contain' ? (lang === 'ta' ? 'முழு உடல் தோற்றம் (Uncropped)' : 'Full View (Uncropped)') : (lang === 'ta' ? 'திரை நிரப்புதல் (Fill)' : 'Fill Screen')}
+                    >
+                      {videoFitMode === 'contain' ? <Maximize2 size={18} /> : <Minimize2 size={18} />}
+                    </button>
 
                     {/* Settings / Extra Tools */}
                     <button
@@ -2868,7 +2918,7 @@ export default function LiveYogaClassRoom({
                             }}
                             autoPlay
                             playsInline
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            style={{ width: '100%', height: '100%', objectFit: videoFitMode || 'contain', background: '#000000' }}
                           />
                         ) : (
                           <div className="participant-avatar-fallback">
@@ -2978,7 +3028,7 @@ export default function LiveYogaClassRoom({
                             }}
                             autoPlay
                             playsInline
-                            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                            style={{ width: '100%', height: '100%', objectFit: videoFitMode || 'contain', background: '#000000' }}
                           />
                         ) : (
                           <div className="participant-avatar-fallback">

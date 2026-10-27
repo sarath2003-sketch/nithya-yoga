@@ -27021,31 +27021,12 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
     }
   });
 
-  // node_modules/lucide-react/dist/esm/icons/circle-check-big.mjs
-  var __iconData14, CircleCheckBig;
-  var init_circle_check_big = __esm({
-    "node_modules/lucide-react/dist/esm/icons/circle-check-big.mjs"() {
-      init_createLucideIcon();
-      __iconData14 = {
-        name: "circle-check-big",
-        size: 24,
-        node: [
-          ["path", { d: "M21.801 10A10 10 0 1 1 17 3.335", key: "yps3ct" }],
-          ["path", { d: "m9 11 3 3L22 4", key: "1pflzl" }]
-        ],
-        aliases: ["check-circle"]
-      };
-      __iconData14.node;
-      CircleCheckBig = createLucideIcon(__iconData14);
-    }
-  });
-
   // node_modules/lucide-react/dist/esm/icons/circle-check.mjs
-  var __iconData15, CircleCheck;
+  var __iconData14, CircleCheck;
   var init_circle_check = __esm({
     "node_modules/lucide-react/dist/esm/icons/circle-check.mjs"() {
       init_createLucideIcon();
-      __iconData15 = {
+      __iconData14 = {
         name: "circle-check",
         size: 24,
         node: [
@@ -27054,17 +27035,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         ],
         aliases: ["check-circle-2"]
       };
-      __iconData15.node;
-      CircleCheck = createLucideIcon(__iconData15);
+      __iconData14.node;
+      CircleCheck = createLucideIcon(__iconData14);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/clock.mjs
-  var __iconData16, Clock;
+  var __iconData15, Clock;
   var init_clock = __esm({
     "node_modules/lucide-react/dist/esm/icons/clock.mjs"() {
       init_createLucideIcon();
-      __iconData16 = {
+      __iconData15 = {
         name: "clock",
         size: 24,
         node: [
@@ -27072,17 +27053,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M12 6v6l4 2", key: "mmk7yg" }]
         ]
       };
-      __iconData16.node;
-      Clock = createLucideIcon(__iconData16);
+      __iconData15.node;
+      Clock = createLucideIcon(__iconData15);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/compass.mjs
-  var __iconData17, Compass;
+  var __iconData16, Compass;
   var init_compass = __esm({
     "node_modules/lucide-react/dist/esm/icons/compass.mjs"() {
       init_createLucideIcon();
-      __iconData17 = {
+      __iconData16 = {
         name: "compass",
         size: 24,
         node: [
@@ -27096,17 +27077,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ]
         ]
       };
-      __iconData17.node;
-      Compass = createLucideIcon(__iconData17);
+      __iconData16.node;
+      Compass = createLucideIcon(__iconData16);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/copy.mjs
-  var __iconData18, Copy;
+  var __iconData17, Copy;
   var init_copy = __esm({
     "node_modules/lucide-react/dist/esm/icons/copy.mjs"() {
       init_createLucideIcon();
-      __iconData18 = {
+      __iconData17 = {
         name: "copy",
         size: 24,
         node: [
@@ -27114,17 +27095,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2", key: "zix9uf" }]
         ]
       };
-      __iconData18.node;
-      Copy = createLucideIcon(__iconData18);
+      __iconData17.node;
+      Copy = createLucideIcon(__iconData17);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/crown.mjs
-  var __iconData19, Crown;
+  var __iconData18, Crown;
   var init_crown = __esm({
     "node_modules/lucide-react/dist/esm/icons/crown.mjs"() {
       init_createLucideIcon();
-      __iconData19 = {
+      __iconData18 = {
         name: "crown",
         size: 24,
         node: [
@@ -27138,17 +27119,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M5 21h14", key: "11awu3" }]
         ]
       };
-      __iconData19.node;
-      Crown = createLucideIcon(__iconData19);
+      __iconData18.node;
+      Crown = createLucideIcon(__iconData18);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/database.mjs
-  var __iconData20, Database;
+  var __iconData19, Database;
   var init_database = __esm({
     "node_modules/lucide-react/dist/esm/icons/database.mjs"() {
       init_createLucideIcon();
-      __iconData20 = {
+      __iconData19 = {
         name: "database",
         size: 24,
         node: [
@@ -27157,17 +27138,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "M3 12A9 3 0 0 0 21 12", key: "mv7ke4" }]
         ]
       };
-      __iconData20.node;
-      Database = createLucideIcon(__iconData20);
+      __iconData19.node;
+      Database = createLucideIcon(__iconData19);
     }
   });
 
   // node_modules/lucide-react/dist/esm/icons/download.mjs
-  var __iconData21, Download;
+  var __iconData20, Download;
   var init_download = __esm({
     "node_modules/lucide-react/dist/esm/icons/download.mjs"() {
       init_createLucideIcon();
-      __iconData21 = {
+      __iconData20 = {
         name: "download",
         size: 24,
         node: [
@@ -27176,8 +27157,27 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           ["path", { d: "m7 10 5 5 5-5", key: "brsn70" }]
         ]
       };
+      __iconData20.node;
+      Download = createLucideIcon(__iconData20);
+    }
+  });
+
+  // node_modules/lucide-react/dist/esm/icons/external-link.mjs
+  var __iconData21, ExternalLink;
+  var init_external_link = __esm({
+    "node_modules/lucide-react/dist/esm/icons/external-link.mjs"() {
+      init_createLucideIcon();
+      __iconData21 = {
+        name: "external-link",
+        size: 24,
+        node: [
+          ["path", { d: "M15 3h6v6", key: "1q9fwt" }],
+          ["path", { d: "M10 14 21 3", key: "gplh6r" }],
+          ["path", { d: "M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6", key: "a6xqqp" }]
+        ]
+      };
       __iconData21.node;
-      Download = createLucideIcon(__iconData21);
+      ExternalLink = createLucideIcon(__iconData21);
     }
   });
 
@@ -28596,7 +28596,6 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       "use strict";
       init_fingerprint_pattern();
       init_circle_alert();
-      init_circle_check_big();
       init_circle_check();
       init_house();
       init_layers();
@@ -28623,6 +28622,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       init_crown();
       init_database();
       init_download();
+      init_external_link();
       init_eye_off();
       init_eye();
       init_file_text();
@@ -29136,9 +29136,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         type: "button",
         className: "btn-pastel-cta-primary ya-ripple",
         onClick: () => {
-          if (user2?.role === "trainer" || user2?.isInstructor) {
-            onJoinLive();
-          } else if (onTabChange) {
+          if (onTabChange) {
             onTabChange("classes");
           } else {
             onViewSchedule();
@@ -29146,7 +29144,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         }
       },
       /* @__PURE__ */ import_react7.default.createElement("span", { className: "cta-icon-circle" }, /* @__PURE__ */ import_react7.default.createElement(Play, { size: 12, fill: "currentColor" })),
-      /* @__PURE__ */ import_react7.default.createElement("span", null, user2?.role === "trainer" || user2?.isInstructor ? lang === "ta" ? "\u{1F451} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "\u{1F451} Start Live Class" : lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1 \u25B6" : "Start Yoga Practice \u25B6")
+      /* @__PURE__ */ import_react7.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1 \u25B6" : "Start Yoga Practice \u25B6")
     ), /* @__PURE__ */ import_react7.default.createElement(
       "button",
       {
@@ -43330,355 +43328,10 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
   });
 
   // src/components/LiveClassStudio.jsx
-  function LiveClassStudio({
-    activeClass,
-    user: user2,
-    showToast,
-    onLeaveClass,
-    onRecordAttendance,
-    onScheduleClass,
-    onOpenFullStudio,
-    lang = "en"
-  }) {
-    const isInstructorRole = Boolean(
-      user2?.role === "trainer" || user2?.role === "instructor" || user2?.isInstructor || typeof localStorage !== "undefined" && Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"))
-    );
-    const [sessionStatus, setSessionStatus] = (0, import_react44.useState)(() => {
-      if (activeClass?.status === "live") return "live";
-      if (activeClass?.status === "ended") return "ended";
-      return "idle";
-    });
-    const [isStartingSession, setIsStartingSession] = (0, import_react44.useState)(false);
-    const [sessionSeconds, setSessionSeconds] = (0, import_react44.useState)(0);
-    const [isMicOn, setIsMicOn] = (0, import_react44.useState)(true);
-    const [isVideoOn, setIsVideoOn] = (0, import_react44.useState)(true);
-    const [copiedLink, setCopiedLink] = (0, import_react44.useState)(false);
-    const [attendanceVerified, setAttendanceVerified] = (0, import_react44.useState)(false);
-    (0, import_react44.useEffect)(() => {
-      let isMounted = true;
-      const syncServerStatus = async () => {
-        if (!activeClass?.id) return;
-        try {
-          const cls = await apiFetch2(`/api/classes/${activeClass.id}`);
-          if (!isMounted) return;
-          if (cls && cls.status) {
-            if (cls.status === "live") {
-              setSessionStatus("live");
-            } else if (cls.status === "ended") {
-              setSessionStatus("ended");
-            } else if (!isStartingSession) {
-              setSessionStatus("idle");
-            }
-          }
-        } catch (_2) {
-        }
-      };
-      syncServerStatus();
-      const interval = setInterval(syncServerStatus, 6e3);
-      return () => {
-        isMounted = false;
-        clearInterval(interval);
-      };
-    }, [activeClass?.id, isStartingSession]);
-    (0, import_react44.useEffect)(() => {
-      let interval = null;
-      if (sessionStatus === "live") {
-        interval = setInterval(() => {
-          setSessionSeconds((prev) => prev + 1);
-        }, 1e3);
-      } else {
-        clearInterval(interval);
-      }
-      return () => clearInterval(interval);
-    }, [sessionStatus]);
-    const formatTimer = (totalSec) => {
-      const hrs = Math.floor(totalSec / 3600);
-      const mins = Math.floor(totalSec % 3600 / 60);
-      const secs = totalSec % 60;
-      return `${hrs.toString().padStart(2, "0")}:${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-    };
-    const handleStartLiveClass = async () => {
-      if (!isInstructorRole) return;
-      if (isStartingSession || sessionStatus === "live") return;
-      setIsStartingSession(true);
-      setSessionStatus("starting");
-      try {
-        const adminToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token");
-        if (!adminToken) {
-          throw new Error(lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8. \u0BAE\u0BC1\u0BA4\u0BB2\u0BBF\u0BB2\u0BCD \u0B85\u0B99\u0BCD\u0B95\u0BC0\u0B95\u0BB0\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE\u0B95 \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD." : "Instructor session missing. Please sign in with an authorized instructor account.");
-        }
-        await apiFetch2(`/api/trainer/classes/${activeClass?.id || "cls-1"}/start`, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${adminToken}`
-          }
-        });
-        setSessionStatus("live");
-        setSessionSeconds(0);
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1!" : "Live Class Started!",
-            lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BA4\u0BC1." : "The server confirmed the class started.",
-            "success"
-          );
-        }
-      } catch (err) {
-        setSessionStatus("idle");
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8" : "Could Not Start Live Class",
-            err?.message || (lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BC8\u0B9A\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0BA4\u0BCD\u0BA4\u0BC1 \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0BAF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Check the backend connection and try again."),
-            "error"
-          );
-        }
-      } finally {
-        setIsStartingSession(false);
-      }
-    };
-    const handleEndLiveClass = async () => {
-      if (sessionStatus === "ended") return;
-      try {
-        const adminToken = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token");
-        if (!adminToken) {
-          throw new Error(lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BC1 \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "Instructor session missing.");
-        }
-        await apiFetch2(`/api/trainer/classes/${activeClass?.id || "cls-1"}/end`, {
-          method: "POST",
-          headers: {
-            "Authorization": `Bearer ${adminToken}`
-          }
-        });
-        setSessionStatus("ended");
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Class Ended",
-            lang === "ta" ? "\u0B9A\u0BB0\u0BCD\u0BB5\u0BB0\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BA4\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BAF\u0BA4\u0BC1." : "The server confirmed the class ended.",
-            "info"
-          );
-        }
-        if (onLeaveClass) onLeaveClass();
-      } catch (err) {
-        if (showToast) {
-          showToast(
-            lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0B95\u0BCD\u0B95 \u0BAE\u0BC1\u0B9F\u0BBF\u0BAF\u0BB5\u0BBF\u0BB2\u0BCD\u0BB2\u0BC8" : "Could Not End Class",
-            err?.message || (lang === "ta" ? "\u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0BAE\u0BC1\u0BAF\u0BB1\u0BCD\u0B9A\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Please try again."),
-            "error"
-          );
-        }
-      }
-    };
-    const handleResetSession = () => {
-      setSessionStatus("idle");
-      setSessionSeconds(0);
-    };
-    const studentInviteUrl = getProductionLiveUrl(activeClass?.id || "cls-1", { join: "student" });
-    const handleCopyLiveLink = () => {
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(studentInviteUrl).then(() => {
-          setCopiedLink(true);
-          setTimeout(() => setCopiedLink(false), 2500);
-          if (showToast) {
-            showToast(lang === "ta" ? "\u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1 \u2713" : "Link Copied \u2713", studentInviteUrl, "success");
-          }
-        }).catch(() => {
-          prompt("Student Join Link:", studentInviteUrl);
-        });
-      } else {
-        prompt("Student Join Link:", studentInviteUrl);
-      }
-    };
-    const handleWhatsAppShare = () => {
-      const className = activeClass?.title || activeClass?.name || "Live Yoga Class";
-      const text = encodeURIComponent(
-        lang === "ta" ? `\u{1F9D8}\u200D\u2640\uFE0F NITHYA Yoga ${sessionStatus === "live" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1"}
-\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1: ${className}
-\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD: ${activeClass?.instructor || "NITHYA Master"}
-
-\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B87\u0BA8\u0BCD\u0BA4 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD\u0B95\u0BC8 \u0BAA\u0BAF\u0BA9\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BB5\u0BC1\u0BAE\u0BCD:
-${studentInviteUrl}` : `\u{1F9D8}\u200D\u2640\uFE0F NITHYA Yoga ${sessionStatus === "live" ? "Live Class is NOW LIVE!" : "Class Invitation"}
-Class: ${className}
-Instructor: ${activeClass?.instructor || "NITHYA Master"}
-
-Join as a student (the class opens when the instructor starts):
-${studentInviteUrl}`
-      );
-      window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
-    };
-    const handleNativeShare = async () => {
-      const className = activeClass?.title || activeClass?.name || "Live Yoga Class";
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: `NITHYA Yoga: ${className}`,
-            text: lang === "ta" ? `\u{1F9D8}\u200D\u2640\uFE0F \u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD:` : `\u{1F9D8}\u200D\u2640\uFE0F Join NITHYA Yoga Live Class:`,
-            url: studentInviteUrl
-          });
-        } catch (_2) {
-        }
-      } else {
-        handleWhatsAppShare();
-      }
-    };
-    const handleVerifyAttendance = () => {
-      const studentSession = (() => {
-        try {
-          return JSON.parse(localStorage.getItem("nithya_student_session") || "{}");
-        } catch (_2) {
-          return {};
-        }
-      })();
-      const studentName = studentSession.name || localStorage.getItem("nithya_student_name") || user2?.name || "Student";
-      const minutesSpent = Math.max(1, Math.floor(sessionSeconds / 60));
-      if (onRecordAttendance) {
-        onRecordAttendance({
-          id: `att-${Date.now()}`,
-          studentName,
-          classId: activeClass?.id || "cls-1",
-          className: activeClass?.title || activeClass?.name || "Hatha Yoga",
-          instructor: activeClass?.instructor || "NITHYA Master",
-          date: (/* @__PURE__ */ new Date()).toISOString().split("T")[0],
-          durationMinutes: minutesSpent,
-          status: minutesSpent >= 1 ? "Verified (Present)" : "Verified",
-          timestamp: (/* @__PURE__ */ new Date()).toISOString()
-        });
-      }
-      setAttendanceVerified(true);
-      if (showToast) {
-        showToast(lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BAF\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Attendance Verified", "Your attendance was logged in database.", "success");
-      }
-    };
-    const instructorName = activeClass?.instructor || "NITHYA Master";
-    const studentDisplayName = user2?.name || (lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Yoga Student");
-    return /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-studio-card-container" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-studio-head" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-studio-brand" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-studio-logo-emblem-wrap" }, /* @__PURE__ */ import_react44.default.createElement("img", { src: "assets/images/logo.png?v=20261024", alt: "Nithya Yoga", className: "live-studio-logo-img" })), /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-studio-meta" }, /* @__PURE__ */ import_react44.default.createElement("h3", { className: "live-studio-title" }, activeClass?.title || activeClass?.name || "Hatha Yoga Flow"), /* @__PURE__ */ import_react44.default.createElement("span", { className: "live-studio-subtitle" }, lang === "ta" ? `\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD: ${instructorName}` : `Lead Instructor: ${instructorName}`))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-studio-badge-wrapper" }, sessionStatus === "idle" && /* @__PURE__ */ import_react44.default.createElement("span", { className: "live-badge-pill badge-idle" }, /* @__PURE__ */ import_react44.default.createElement(Calendar, { size: 13 }), /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Scheduled")), sessionStatus === "starting" && /* @__PURE__ */ import_react44.default.createElement("span", { className: "live-badge-pill badge-starting" }, /* @__PURE__ */ import_react44.default.createElement("span", { className: "live-pulse-dot amber" }), /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting...")), sessionStatus === "live" && /* @__PURE__ */ import_react44.default.createElement("span", { className: "live-badge-pill badge-live" }, /* @__PURE__ */ import_react44.default.createElement("span", { className: "live-pulse-dot red" }), /* @__PURE__ */ import_react44.default.createElement("span", null, "LIVE NOW")), sessionStatus === "ended" && /* @__PURE__ */ import_react44.default.createElement("span", { className: "live-badge-pill badge-ended" }, /* @__PURE__ */ import_react44.default.createElement(CircleCheckBig, { size: 13 }), /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Class Ended")))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-studio-stage" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-studio-stage-orbit", "aria-hidden": "true" }), sessionStatus === "live" && /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-stage-timer" }, /* @__PURE__ */ import_react44.default.createElement("span", { className: "timer-dot" }, "\u{1F534}"), /* @__PURE__ */ import_react44.default.createElement("span", null, formatTimer(sessionSeconds))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-stage-center-box" }, sessionStatus === "idle" && /* @__PURE__ */ import_react44.default.createElement("div", { className: "stage-idle-message" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "stage-icon-circle" }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react44.default.createElement("h4", { className: "stage-heading" }, isInstructorRole ? lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BA4\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE?" : "Ready to Start Live Class?" : lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBF\u0BA9\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Waiting for Instructor to Start..."), /* @__PURE__ */ import_react44.default.createElement("p", { className: "stage-subtext" }, isInstructorRole ? lang === "ta" ? "\u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAA\u0B9F\u0BCD\u0B9F\u0BA9\u0BC8 \u0B85\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0BA9 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Click below to initiate the live WebRTC studio session." : lang === "ta" ? "\u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BB5\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BBE\u0BA9\u0BBE\u0B95 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BA4\u0BCB\u0BA9\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD." : "The live video stream will connect automatically once the teacher is live.")), sessionStatus === "starting" && /* @__PURE__ */ import_react44.default.createElement("div", { className: "stage-starting-message" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "stage-spinner" }), /* @__PURE__ */ import_react44.default.createElement("h4", { className: "stage-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Studio..."), /* @__PURE__ */ import_react44.default.createElement("p", { className: "stage-subtext" }, lang === "ta" ? "\u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B86\u0B9F\u0BBF\u0BAF\u0BCB \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BBF\u0BA9\u0BCD\u0BB1\u0BA9." : "Establishing low-latency peer media channels.")), sessionStatus === "live" && /* @__PURE__ */ import_react44.default.createElement("div", { className: "stage-live-message" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "stage-icon-circle live-pulse" }, "\u2728"), /* @__PURE__ */ import_react44.default.createElement("h4", { className: "stage-heading" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BC0\u0BB5\u0BBF\u0BB0\u0BAE\u0BBE\u0B95 \u0B87\u0BAF\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1" : "Live Class is Actively Streaming"), /* @__PURE__ */ import_react44.default.createElement("p", { className: "stage-subtext" }, lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC8 HD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8\u0B95\u0BCD\u0B95\u0BC1 \u0B9A\u0BC6\u0BB2\u0BCD\u0BB2 \u0B95\u0BC0\u0BB4\u0BC7 \u0B89\u0BB3\u0BCD\u0BB3 \u0BAA\u0B9F\u0BCD\u0B9F\u0BA9\u0BC8 \u0B85\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BB5\u0BC1\u0BAE\u0BCD." : "Tap below to enter the full interactive HD classroom.")), sessionStatus === "ended" && /* @__PURE__ */ import_react44.default.createElement("div", { className: "stage-ended-message" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "stage-icon-circle ended" }, "\u{1F3C1}"), /* @__PURE__ */ import_react44.default.createElement("h4", { className: "stage-heading" }, lang === "ta" ? "\u0B87\u0BA9\u0BCD\u0BB1\u0BC8\u0BAF \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Session Has Concluded"), /* @__PURE__ */ import_react44.default.createElement("p", { className: "stage-subtext" }, lang === "ta" ? "\u0BAA\u0B99\u0BCD\u0B95\u0BC7\u0BB1\u0BCD\u0BB1\u0BAE\u0BC8\u0B95\u0BCD\u0B95\u0BC1 \u0BA8\u0BA9\u0BCD\u0BB1\u0BBF. \u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BA9\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BB5\u0BBF\u0BB0\u0BC8\u0BB5\u0BBF\u0BB2\u0BCD \u0B85\u0BB1\u0BBF\u0BB5\u0BBF\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Thank you for your practice. Check the schedule for upcoming batches."))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-stage-dock" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "dock-media-toggles" }, /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `stage-dock-btn ${isMicOn ? "active" : "muted"}`,
-        onClick: () => setIsMicOn(!isMicOn),
-        title: isMicOn ? "Mute Mic" : "Unmute Mic",
-        "aria-label": "Toggle Microphone"
-      },
-      isMicOn ? /* @__PURE__ */ import_react44.default.createElement(Mic, { size: 15 }) : /* @__PURE__ */ import_react44.default.createElement(MicOff, { size: 15 })
-    ), /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: `stage-dock-btn ${isVideoOn ? "active" : "muted"}`,
-        onClick: () => setIsVideoOn(!isVideoOn),
-        title: isVideoOn ? "Turn Off Camera" : "Turn On Camera",
-        "aria-label": "Toggle Camera"
-      },
-      isVideoOn ? /* @__PURE__ */ import_react44.default.createElement(Video, { size: 15 }) : /* @__PURE__ */ import_react44.default.createElement(VideoOff, { size: 15 })
-    )), sessionStatus === "live" && /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-dock-leave",
-        onClick: isInstructorRole ? handleEndLiveClass : onLeaveClass,
-        title: lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave"
-      },
-      /* @__PURE__ */ import_react44.default.createElement(PhoneOff, { size: 14 }),
-      /* @__PURE__ */ import_react44.default.createElement("span", null, isInstructorRole ? lang === "ta" ? "\u0BAE\u0BC1\u0B9F\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "End" : lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Leave")
-    ))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-primary-actions-row" }, sessionStatus === "idle" && isInstructorRole && /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-live-flow-primary ya-ripple",
-        onClick: handleStartLiveClass
-      },
-      /* @__PURE__ */ import_react44.default.createElement(Play, { size: 16, fill: "currentColor" }),
-      /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1" : "Start Live Class")
-    ), sessionStatus === "idle" && !isInstructorRole && /* @__PURE__ */ import_react44.default.createElement("div", { className: "student-waiting-status-notice" }, /* @__PURE__ */ import_react44.default.createElement(Clock, { size: 16, className: "text-violet-400" }), /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BBF\u0BA9\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1 (Standby)" : "Waiting for instructor to start the live class")), sessionStatus === "starting" && /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        disabled: true,
-        className: "btn-live-flow-primary is-loading"
-      },
-      /* @__PURE__ */ import_react44.default.createElement("span", { className: "btn-loading-spinner" }),
-      /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Starting Live Class...")
-    ), sessionStatus === "live" && /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-active-actions-group" }, /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-live-flow-primary ya-ripple",
-        onClick: onOpenFullStudio
-      },
-      /* @__PURE__ */ import_react44.default.createElement(Radio, { size: 16, className: "animate-pulse" }),
-      /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "HD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB\u0BB5\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BB3\u0BCD \u0B9A\u0BC6\u0BB2\u0BCD \u{1F9D8}\u200D\u2640\uFE0F" : "Enter HD Live Studio \u{1F9D8}\u200D\u2640\uFE0F")
-    ), isInstructorRole && /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-live-flow-danger ya-ripple",
-        onClick: handleEndLiveClass,
-        title: "End Class for All"
-      },
-      /* @__PURE__ */ import_react44.default.createElement(PhoneOff, { size: 15 }),
-      /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0B85\u0BA9\u0BC8\u0BB5\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF" : "End Class for All")
-    ), !isInstructorRole && !attendanceVerified && /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-live-flow-attendance",
-        onClick: handleVerifyAttendance
-      },
-      /* @__PURE__ */ import_react44.default.createElement(ShieldCheck, { size: 15 }),
-      /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAF\u0BC8 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD \u2713" : "Verify Attendance \u2713")
-    ), !isInstructorRole && attendanceVerified && /* @__PURE__ */ import_react44.default.createElement("div", { className: "attendance-logged-tag" }, /* @__PURE__ */ import_react44.default.createElement(CircleCheckBig, { size: 14 }), /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0BB0\u0BC1\u0B95\u0BC8 \u0BAA\u0BA4\u0BBF\u0BB5\u0BBE\u0BA9\u0BA4\u0BC1 \u2713" : "Attendance Logged \u2713"))), sessionStatus === "ended" && /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-ended-actions-group" }, isInstructorRole ? /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-live-flow-secondary ya-ripple",
-        onClick: handleResetSession
-      },
-      /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u{1F504} \u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BAE\u0BC0\u0B9F\u0BCD\u0B9F\u0BAE\u0BC8" : "\u{1F504} Reset for New Session")
-    ) : /* @__PURE__ */ import_react44.default.createElement("div", { className: "session-ended-notice" }, /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u{1F3C1} \u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BBF\u0BB1\u0BC8\u0BB5\u0B9F\u0BC8\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1." : "\u{1F3C1} This session has ended.")))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-roles-card-grid" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-role-card instructor-card" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "role-card-top" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "role-avatar-circle crown-gold" }, /* @__PURE__ */ import_react44.default.createElement(Crown, { size: 16 })), /* @__PURE__ */ import_react44.default.createElement("div", { className: "role-meta" }, /* @__PURE__ */ import_react44.default.createElement("span", { className: "role-name" }, instructorName), /* @__PURE__ */ import_react44.default.createElement("span", { className: "role-label" }, lang === "ta" ? "\u0BA4\u0BB2\u0BC8\u0BAE\u0BC8 \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD" : "Lead Instructor"))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "role-status-indicators" }, /* @__PURE__ */ import_react44.default.createElement("span", { className: `status-pill ${isMicOn ? "ready" : "off"}` }, /* @__PURE__ */ import_react44.default.createElement(Mic, { size: 11 }), " ", isMicOn ? "Mic On" : "Muted"), /* @__PURE__ */ import_react44.default.createElement("span", { className: `status-pill ${isVideoOn ? "ready" : "off"}` }, /* @__PURE__ */ import_react44.default.createElement(Video, { size: 11 }), " ", isVideoOn ? "Cam On" : "Off"))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-role-card student-card" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "role-card-top" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "role-avatar-circle student-teal" }, /* @__PURE__ */ import_react44.default.createElement(User, { size: 16 })), /* @__PURE__ */ import_react44.default.createElement("div", { className: "role-meta" }, /* @__PURE__ */ import_react44.default.createElement("span", { className: "role-name" }, studentDisplayName), /* @__PURE__ */ import_react44.default.createElement("span", { className: "role-label" }, isInstructorRole ? lang === "ta" ? "\u0BA8\u0BBF\u0BB0\u0BCD\u0BB5\u0BBE\u0B95\u0BBF (Host)" : "Host Account" : lang === "ta" ? "\u0BAA\u0BA4\u0BBF\u0BB5\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD\u0BA4 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Enrolled Student"))), /* @__PURE__ */ import_react44.default.createElement("div", { className: "role-status-indicators" }, /* @__PURE__ */ import_react44.default.createElement("span", { className: "status-pill ready" }, /* @__PURE__ */ import_react44.default.createElement(ShieldCheck, { size: 11 }), " ", sessionStatus === "live" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B85\u0BA3\u0BC1\u0B95\u0BB2\u0BCD" : "Live Access" : lang === "ta" ? "\u0BA4\u0BAF\u0BBE\u0BB0\u0BCD \u0BA8\u0BBF\u0BB2\u0BC8" : "Standby")))), sessionStatus !== "ended" && /* @__PURE__ */ import_react44.default.createElement("div", { className: "live-invitation-card ya-reveal" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "invitation-card-head" }, /* @__PURE__ */ import_react44.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react44.default.createElement("span", { className: "invitation-icon" }, "\u{1F517}"), /* @__PURE__ */ import_react44.default.createElement("div", null, /* @__PURE__ */ import_react44.default.createElement("h4", { className: "invitation-title" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD" : "Student Class Invitation Link"), /* @__PURE__ */ import_react44.default.createElement("p", { className: "invitation-sub" }, sessionStatus === "live" ? lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8\u0BAF\u0BBF\u0BB2\u0BCD \u0B89\u0BB3\u0BCD\u0BB3\u0BA4\u0BC1. \u0B87\u0BA8\u0BCD\u0BA4 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BB2\u0BBE\u0BAE\u0BCD." : "Class is live. Share this student-only link." : lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0BA9\u0BCD\u0B95\u0BC2\u0B9F\u0BCD\u0B9F\u0BBF\u0BAF\u0BC7 \u0BAA\u0B95\u0BBF\u0BB0\u0BB2\u0BBE\u0BAE\u0BCD; \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8\u0BA4\u0BCD \u0BA4\u0BCA\u0B9F\u0B99\u0BCD\u0B95\u0BBF\u0BAF\u0BA4\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB2\u0BBE\u0BAE\u0BCD." : "Share ahead of time; students can join when the instructor starts the class."))), /* @__PURE__ */ import_react44.default.createElement("span", { className: "badge-student-only" }, "Student Role Only")), /* @__PURE__ */ import_react44.default.createElement("div", { className: "invitation-input-bar" }, /* @__PURE__ */ import_react44.default.createElement(
-      "input",
-      {
-        type: "text",
-        readOnly: true,
-        value: studentInviteUrl,
-        className: "invitation-url-field",
-        title: "Student Join URL",
-        onClick: (e2) => e2.target.select()
-      }
-    ), /* @__PURE__ */ import_react44.default.createElement("div", { className: "invitation-action-buttons" }, /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-invite-copy",
-        onClick: handleCopyLiveLink,
-        title: "Copy Link"
-      },
-      /* @__PURE__ */ import_react44.default.createElement(Copy, { size: 13 }),
-      /* @__PURE__ */ import_react44.default.createElement("span", null, copiedLink ? lang === "ta" ? "\u2713 \u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "\u2713 Copied" : lang === "ta" ? "\u0BA8\u0B95\u0BB2\u0BC6\u0B9F\u0BC1" : "Copy")
-    ), /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-invite-whatsapp",
-        onClick: handleWhatsAppShare,
-        title: "Share via WhatsApp"
-      },
-      /* @__PURE__ */ import_react44.default.createElement("span", null, "\u{1F4F2} WhatsApp")
-    ), /* @__PURE__ */ import_react44.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "btn-invite-share",
-        onClick: handleNativeShare,
-        title: "Share Link"
-      },
-      /* @__PURE__ */ import_react44.default.createElement(Share2, { size: 13 }),
-      /* @__PURE__ */ import_react44.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0B95\u0BBF\u0BB0\u0BCD" : "Share")
-    )))));
-  }
   var import_react44;
   var init_LiveClassStudio = __esm({
     "src/components/LiveClassStudio.jsx"() {
       import_react44 = __toESM(require_react());
-      init_lucide_react();
       init_api();
       init_LotusMark();
     }
@@ -44825,23 +44478,72 @@ ${studentInviteUrl}`
   function AttendanceProgressSection({ user: user2, attendanceLogs = [], lang = "en" }) {
     const [showLogsModal, setShowLogsModal] = (0, import_react48.useState)(false);
     const [selectedWeek, setSelectedWeek] = (0, import_react48.useState)("This Week");
-    const logs = attendanceLogs && attendanceLogs.length > 0 ? attendanceLogs : loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS);
+    const [logSearchQuery, setLogSearchQuery] = (0, import_react48.useState)("");
+    const [dateFilter, setDateFilter] = (0, import_react48.useState)("");
+    const logs = Array.isArray(attendanceLogs) && attendanceLogs.length > 0 ? attendanceLogs : loadStorage("nithya_attendance", DEFAULT_ATTENDANCE_LOGS);
+    const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+    const dayTotals = { Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0 };
+    let totalHoursSum = 0;
+    const categoryMinutes = {
+      Asanas: 0,
+      Pranayama: 0,
+      Meditation: 0,
+      Relaxation: 0,
+      Other: 0
+    };
+    logs.forEach((l) => {
+      try {
+        const d = l.joinedAt ? new Date(l.joinedAt) : l.date ? new Date(l.date) : /* @__PURE__ */ new Date();
+        const dayName = dayNames[d.getDay()] || "Mon";
+        const durationMins = l.durationMinutes || Math.round((l.durationSeconds || 0) / 60) || 45;
+        const hours = durationMins / 60;
+        if (dayTotals[dayName] !== void 0) {
+          dayTotals[dayName] += hours;
+          totalHoursSum += hours;
+        }
+        const title = (l.className || l.classTitle || "").toLowerCase();
+        if (title.includes("pranayama") || title.includes("breath") || title.includes("shodhana")) {
+          categoryMinutes.Pranayama += durationMins;
+        } else if (title.includes("meditation") || title.includes("chakra") || title.includes("yin") || title.includes("dhyana")) {
+          categoryMinutes.Meditation += durationMins;
+        } else if (title.includes("relax") || title.includes("sleep") || title.includes("nidra")) {
+          categoryMinutes.Relaxation += durationMins;
+        } else {
+          categoryMinutes.Asanas += durationMins;
+        }
+      } catch (_2) {
+      }
+    });
+    const maxDaily = Math.max(2, ...Object.values(dayTotals));
     const weeklyBars = [
-      { day: "Mon", hours: 2.5, heightPct: 42, color: "#B89EFA" },
-      { day: "Tue", hours: 4.2, heightPct: 70, color: "#F8B4C8" },
-      { day: "Wed", hours: 3, heightPct: 50, color: "#FCD385" },
-      { day: "Thu", hours: 5.5, heightPct: 92, color: "#A8E090" },
-      { day: "Fri", hours: 3.8, heightPct: 63, color: "#88D49E" },
-      { day: "Sat", hours: 4.8, heightPct: 80, color: "#8ECCFA" },
-      { day: "Sun", hours: 4, heightPct: 66, color: "#9B7AE8" }
+      { day: "Mon", hours: parseFloat(dayTotals.Mon.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round(dayTotals.Mon / maxDaily * 90))), color: "#B89EFA" },
+      { day: "Tue", hours: parseFloat(dayTotals.Tue.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round(dayTotals.Tue / maxDaily * 90))), color: "#F8B4C8" },
+      { day: "Wed", hours: parseFloat(dayTotals.Wed.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round(dayTotals.Wed / maxDaily * 90))), color: "#FCD385" },
+      { day: "Thu", hours: parseFloat(dayTotals.Thu.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round(dayTotals.Thu / maxDaily * 90))), color: "#A8E090" },
+      { day: "Fri", hours: parseFloat(dayTotals.Fri.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round(dayTotals.Fri / maxDaily * 90))), color: "#88D49E" },
+      { day: "Sat", hours: parseFloat(dayTotals.Sat.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round(dayTotals.Sat / maxDaily * 90))), color: "#8ECCFA" },
+      { day: "Sun", hours: parseFloat(dayTotals.Sun.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round(dayTotals.Sun / maxDaily * 90))), color: "#9B7AE8" }
     ];
+    const totalCatMins = Object.values(categoryMinutes).reduce((a, b) => a + b, 0) || 1;
     const focusAreas = [
-      { name: lang === "ta" ? "\u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Asanas", pct: "45%", color: "#9B7AE8" },
-      { name: lang === "ta" ? "\u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Pranayama", pct: "25%", color: "#F8B4C8" },
-      { name: lang === "ta" ? "\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD" : "Meditation", pct: "15%", color: "#FCD385" },
-      { name: lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD" : "Relaxation", pct: "10%", color: "#A8E090" },
-      { name: lang === "ta" ? "\u0BAE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC8" : "Other", pct: "5%", color: "#8ECCFA" }
+      { name: lang === "ta" ? "\u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Asanas", pct: `${Math.round(categoryMinutes.Asanas / totalCatMins * 100)}%`, color: "#9B7AE8" },
+      { name: lang === "ta" ? "\u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Pranayama", pct: `${Math.round(categoryMinutes.Pranayama / totalCatMins * 100)}%`, color: "#F8B4C8" },
+      { name: lang === "ta" ? "\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD" : "Meditation", pct: `${Math.round(categoryMinutes.Meditation / totalCatMins * 100)}%`, color: "#FCD385" },
+      { name: lang === "ta" ? "\u0BB0\u0BBF\u0BB2\u0BBE\u0B95\u0BCD\u0B9A\u0BC7\u0BB7\u0BA9\u0BCD" : "Relaxation", pct: `${Math.round(categoryMinutes.Relaxation / totalCatMins * 100)}%`, color: "#A8E090" },
+      { name: lang === "ta" ? "\u0BAE\u0BB1\u0BCD\u0BB1\u0BB5\u0BC8" : "Other", pct: `${Math.round(categoryMinutes.Other / totalCatMins * 100)}%`, color: "#8ECCFA" }
     ];
+    const filteredLogs = logs.filter((log3) => {
+      if (logSearchQuery.trim()) {
+        const q = logSearchQuery.toLowerCase();
+        const matchName = (log3.className || log3.classTitle || "").toLowerCase().includes(q);
+        const matchTeacher = (log3.instructor || "").toLowerCase().includes(q);
+        if (!matchName && !matchTeacher) return false;
+      }
+      if (dateFilter && log3.date && !log3.date.includes(dateFilter)) {
+        return false;
+      }
+      return true;
+    });
     return /* @__PURE__ */ import_react48.default.createElement("div", { className: "attendance-progress-wrapper" }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "charts-split-grid" }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "dashboard-card chart-box-card" }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "chart-header-row" }, /* @__PURE__ */ import_react48.default.createElement("div", null, /* @__PURE__ */ import_react48.default.createElement("h4", { className: "chart-title-main" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0B95\u0BA3\u0BCD\u0BA3\u0BCB\u0B9F\u0BCD\u0B9F\u0BAE\u0BCD" : "Practice Overview"), /* @__PURE__ */ import_react48.default.createElement("span", { className: "chart-subtitle-text" }, lang === "ta" ? "\u0BB5\u0BBE\u0BB0\u0BBE\u0BA8\u0BCD\u0BA4\u0BBF\u0BB0 \u0BAF\u0BCB\u0B95\u0BBE \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Weekly mindful practice hours")), /* @__PURE__ */ import_react48.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "time-select-pill" }, /* @__PURE__ */ import_react48.default.createElement("span", null, lang === "ta" ? "\u0B87\u0BA8\u0BCD\u0BA4 \u0BB5\u0BBE\u0BB0\u0BAE\u0BCD" : selectedWeek), /* @__PURE__ */ import_react48.default.createElement(ChevronDown, { size: 14, className: "text-muted" })), /* @__PURE__ */ import_react48.default.createElement(
       "button",
       {
@@ -44926,7 +44628,36 @@ ${studentInviteUrl}`
         className: "dot-color-round",
         style: { backgroundColor: item.color }
       }
-    ), /* @__PURE__ */ import_react48.default.createElement("span", { className: "leg-name" }, item.name), /* @__PURE__ */ import_react48.default.createElement("span", { className: "leg-val" }, item.pct))))))), showLogsModal && /* @__PURE__ */ import_react48.default.createElement("div", { className: "modal-backdrop-scrim", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "modal-bottom-sheet", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react48.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react48.default.createElement(ShieldCheck, { size: 18, className: "text-green" }), /* @__PURE__ */ import_react48.default.createElement("h3", { className: "modal-title-bold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Verified Attendance Records")), /* @__PURE__ */ import_react48.default.createElement("button", { type: "button", className: "btn-modal-close", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react48.default.createElement(X, { size: 18 }))), /* @__PURE__ */ import_react48.default.createElement("div", { className: "attendance-history-table-wrapper max-h-60 overflow-y-auto" }, /* @__PURE__ */ import_react48.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react48.default.createElement("thead", null, /* @__PURE__ */ import_react48.default.createElement("tr", { className: "border-b border-subtle text-muted" }, /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class"), /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Teacher"), /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA4\u0BC7\u0BA4\u0BBF" : "Date"), /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Duration"), /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Status"))), /* @__PURE__ */ import_react48.default.createElement("tbody", null, logs.map((log3) => /* @__PURE__ */ import_react48.default.createElement("tr", { key: log3.id, className: "border-b border-subtle" }, /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1 font-semibold" }, log3.className), /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1 text-muted" }, log3.instructor), /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1" }, log3.date), /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1" }, log3.durationMinutes, " mins"), /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1" }, /* @__PURE__ */ import_react48.default.createElement("span", { className: "inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium" }, "\u2713 ", log3.status || "Verified"))))))), /* @__PURE__ */ import_react48.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react48.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setShowLogsModal(false) }, lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close")))));
+    ), /* @__PURE__ */ import_react48.default.createElement("span", { className: "leg-name" }, item.name), /* @__PURE__ */ import_react48.default.createElement("span", { className: "leg-val" }, item.pct))))))), showLogsModal && /* @__PURE__ */ import_react48.default.createElement("div", { className: "modal-backdrop-scrim", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "modal-bottom-sheet", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "sheet-drag-handle" }), /* @__PURE__ */ import_react48.default.createElement("div", { className: "modal-header-bar" }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react48.default.createElement(ShieldCheck, { size: 18, className: "text-green" }), /* @__PURE__ */ import_react48.default.createElement("h3", { className: "modal-title-bold" }, lang === "ta" ? "\u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1" : "Verified Attendance Records")), /* @__PURE__ */ import_react48.default.createElement("button", { type: "button", className: "btn-modal-close", onClick: () => setShowLogsModal(false) }, /* @__PURE__ */ import_react48.default.createElement(X, { size: 18 }))), /* @__PURE__ */ import_react48.default.createElement("div", { className: "flex items-center gap-2 mb-3 pt-2" }, /* @__PURE__ */ import_react48.default.createElement("div", { className: "relative flex-1" }, /* @__PURE__ */ import_react48.default.createElement(Search, { size: 14, className: "absolute left-2.5 top-2.5 text-muted pointer-events-none" }), /* @__PURE__ */ import_react48.default.createElement(
+      "input",
+      {
+        type: "text",
+        placeholder: lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B85\u0BB2\u0BCD\u0BB2\u0BA4\u0BC1 \u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD \u0BA4\u0BC7\u0B9F..." : "Search class or instructor...",
+        value: logSearchQuery,
+        onChange: (e2) => setLogSearchQuery(e2.target.value),
+        className: "w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-subtle bg-card outline-none"
+      }
+    )), /* @__PURE__ */ import_react48.default.createElement(
+      "input",
+      {
+        type: "date",
+        value: dateFilter,
+        onChange: (e2) => setDateFilter(e2.target.value),
+        className: "text-xs px-2.5 py-1.5 rounded-xl border border-subtle bg-card outline-none text-muted",
+        title: "Filter by date"
+      }
+    ), (logSearchQuery || dateFilter) && /* @__PURE__ */ import_react48.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          setLogSearchQuery("");
+          setDateFilter("");
+        },
+        className: "text-xs px-2 py-1 text-primary font-bold cursor-pointer hover:underline"
+      },
+      lang === "ta" ? "\u0B85\u0BB4\u0BBF" : "Clear"
+    )), /* @__PURE__ */ import_react48.default.createElement("div", { className: "attendance-history-table-wrapper max-h-64 overflow-y-auto" }, filteredLogs.length === 0 ? /* @__PURE__ */ import_react48.default.createElement("div", { className: "text-center py-6 text-xs text-muted" }, lang === "ta" ? "\u0BAA\u0BCA\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B8E\u0BA4\u0BC1\u0BB5\u0BC1\u0BAE\u0BCD \u0B87\u0BB2\u0BCD\u0BB2\u0BC8." : "No matching attendance logs found.") : /* @__PURE__ */ import_react48.default.createElement("table", { className: "w-full text-left text-xs border-collapse" }, /* @__PURE__ */ import_react48.default.createElement("thead", null, /* @__PURE__ */ import_react48.default.createElement("tr", { className: "border-b border-subtle text-muted" }, /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Class"), /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0B86\u0B9A\u0BBF\u0BB0\u0BBF\u0BAF\u0BB0\u0BCD" : "Teacher"), /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA4\u0BC7\u0BA4\u0BBF" : "Date"), /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BAE\u0BCD" : "Duration"), /* @__PURE__ */ import_react48.default.createElement("th", { className: "py-2 px-1" }, lang === "ta" ? "\u0BA8\u0BBF\u0BB2\u0BC8" : "Status"))), /* @__PURE__ */ import_react48.default.createElement("tbody", null, filteredLogs.map((log3) => /* @__PURE__ */ import_react48.default.createElement("tr", { key: log3.id, className: "border-b border-subtle" }, /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1 font-semibold" }, log3.className || log3.classTitle), /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1 text-muted" }, log3.instructor || "NITHYA Master"), /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1" }, log3.date || log3.session_date || "Today"), /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1" }, log3.durationMinutes || Math.round((log3.durationSeconds || 0) / 60), " mins"), /* @__PURE__ */ import_react48.default.createElement("td", { className: "py-2 px-1" }, /* @__PURE__ */ import_react48.default.createElement("span", { className: "inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium" }, "\u2713 ", log3.status || "Verified"))))))), /* @__PURE__ */ import_react48.default.createElement("div", { className: "modal-actions-bar mt-4" }, /* @__PURE__ */ import_react48.default.createElement("button", { type: "button", className: "btn-modal-cancel", onClick: () => setShowLogsModal(false) }, lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close")))));
   }
   var import_react48;
   var init_AttendanceProgressSection = __esm({
@@ -45649,6 +45380,7 @@ ${studentInviteUrl}`
     const [isCheckingUpdate, setIsCheckingUpdate] = (0, import_react54.useState)(false);
     const [isUpdatingApp, setIsUpdatingApp] = (0, import_react54.useState)(false);
     const [showDeleteModal, setShowDeleteModal] = (0, import_react54.useState)(false);
+    const [showLogoutModal, setShowLogoutModal] = (0, import_react54.useState)(false);
     const [deletePassword, setDeletePassword] = (0, import_react54.useState)("");
     const [deleteError, setDeleteError] = (0, import_react54.useState)("");
     const [isDeleting, setIsDeleting] = (0, import_react54.useState)(false);
@@ -45952,16 +45684,6 @@ ${studentInviteUrl}`
       },
       isEditing ? /* @__PURE__ */ import_react54.default.createElement(X, { size: 13 }) : /* @__PURE__ */ import_react54.default.createElement(PenLine, { size: 13 }),
       /* @__PURE__ */ import_react54.default.createElement("span", null, isEditing ? lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD" : "Cancel" : lang === "ta" ? "\u0B9A\u0BC1\u0BAF\u0BB5\u0BBF\u0BB5\u0BB0\u0BAE\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BA4\u0BCD\u0BA4\u0BC1" : "Edit Profile")
-    ), /* @__PURE__ */ import_react54.default.createElement(
-      "button",
-      {
-        type: "button",
-        className: "ya-btn ya-btn--soft text-xs px-2.5 py-1.5 flex items-center gap-1.5 cursor-pointer font-bold text-rose-500 hover:bg-rose-500/10 rounded-full border border-rose-500/20 transition-colors",
-        onClick: handleLogout,
-        title: lang === "ta" ? "\u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Log Out"
-      },
-      /* @__PURE__ */ import_react54.default.createElement(LogOut, { size: 13 }),
-      /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0BB2\u0BBE\u0B95\u0BCD \u0B85\u0BB5\u0BC1\u0B9F\u0BCD" : "Log Out")
     ))), /* @__PURE__ */ import_react54.default.createElement("div", { className: "profile-user-strip" }, /* @__PURE__ */ import_react54.default.createElement("div", { className: "profile-round-avatar relative-avatar-wrap" }, formData.avatar ? /* @__PURE__ */ import_react54.default.createElement("img", { src: formData.avatar, alt: formData.name, className: "profile-img-fit" }) : /* @__PURE__ */ import_react54.default.createElement("img", { src: "assets/images/pastel/nithya_3d_avatar.png", alt: formData.name, className: "profile-img-fit" }), /* @__PURE__ */ import_react54.default.createElement("label", { className: "avatar-camera-overlay-badge", title: "Upload Profile Picture" }, /* @__PURE__ */ import_react54.default.createElement(Camera, { size: 13 }), /* @__PURE__ */ import_react54.default.createElement(
       "input",
       {
@@ -46112,7 +45834,7 @@ ${studentInviteUrl}`
         "button",
         {
           type: "button",
-          onClick: handleLogout,
+          onClick: () => setShowLogoutModal(true),
           className: "ya-btn ya-btn--soft text-xs px-3.5 py-2 flex items-center gap-1.5 cursor-pointer font-bold text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 border border-amber-500/30 rounded-xl transition-all"
         },
         /* @__PURE__ */ import_react54.default.createElement(LogOut, { size: 14 }),
@@ -46218,6 +45940,53 @@ ${studentInviteUrl}`
               }
             }
           )), /* @__PURE__ */ import_react54.default.createElement("p", { className: "text-[11px] text-rose-300/70" }, lang === "ta" ? '10 \u0BB5\u0BBF\u0BA8\u0BBE\u0B9F\u0BBF\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BB3\u0BCD \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD "Undo" \u0B85\u0BB4\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF\u0BA9\u0BBE\u0BB2\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1 \u0BA8\u0BC0\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BBE\u0BA4\u0BC1.' : "Tap Undo within 10 seconds to stop account deletion."))
+        )
+      ),
+      document.body
+    ), showLogoutModal && typeof document !== "undefined" && import_react_dom.default.createPortal(
+      /* @__PURE__ */ import_react54.default.createElement(
+        "div",
+        {
+          className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4 fixed inset-0 bg-black/75 backdrop-blur-sm",
+          onClick: () => setShowLogoutModal(false)
+        },
+        /* @__PURE__ */ import_react54.default.createElement(
+          "div",
+          {
+            className: "relative w-full max-w-md p-6 sm:p-7 rounded-3xl bg-[#130E2E] border border-amber-500/40 shadow-2xl text-white font-['Poppins',sans-serif]",
+            onClick: (e2) => e2.stopPropagation()
+          },
+          /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex items-center justify-between pb-4 border-b border-white/10 mb-4" }, /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex items-center gap-2.5" }, /* @__PURE__ */ import_react54.default.createElement("div", { className: "w-10 h-10 rounded-2xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400" }, /* @__PURE__ */ import_react54.default.createElement(LogOut, { size: 20 })), /* @__PURE__ */ import_react54.default.createElement("div", null, /* @__PURE__ */ import_react54.default.createElement("h3", { className: "font-black text-base text-amber-100" }, lang === "ta" ? "\u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1\u0BB5\u0BA4\u0BC8 \u0B89\u0BB1\u0BC1\u0BA4\u0BBF\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BB5\u0BC1\u0BAE\u0BCD" : "Confirm Sign Out"), /* @__PURE__ */ import_react54.default.createElement("span", { className: "text-[11px] text-amber-200/70 block" }, lang === "ta" ? "\u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BC1" : "Session Security & Sign Out"))), /* @__PURE__ */ import_react54.default.createElement(
+            "button",
+            {
+              type: "button",
+              onClick: () => setShowLogoutModal(false),
+              className: "p-1 rounded-full text-white/60 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            },
+            /* @__PURE__ */ import_react54.default.createElement(X, { size: 18 })
+          )),
+          /* @__PURE__ */ import_react54.default.createElement("p", { className: "text-xs text-slate-200 leading-relaxed mb-6" }, lang === "ta" ? "\u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BA4\u0BB1\u0BCD\u0BAA\u0BCB\u0BA4\u0BC8\u0BAF \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1 \u0BB5\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1\u0B95\u0BBF\u0BB1\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BBE? \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BB0\u0BB5\u0BC1\u0B95\u0BB3\u0BCD \u0B85\u0BA9\u0BC8\u0BA4\u0BCD\u0BA4\u0BC1\u0BAE\u0BCD \u0BAA\u0BBE\u0BA4\u0BC1\u0B95\u0BBE\u0BAA\u0BCD\u0BAA\u0BBE\u0B95 \u0B87\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD, \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B8E\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BB5\u0BC7\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BBE\u0BA9\u0BBE\u0BB2\u0BC1\u0BAE\u0BCD \u0BAE\u0BC0\u0BA3\u0BCD\u0B9F\u0BC1\u0BAE\u0BCD \u0B89\u0BB3\u0BCD\u0BA8\u0BC1\u0BB4\u0BC8\u0BAF\u0BB2\u0BBE\u0BAE\u0BCD." : "Are you sure you want to log out of your session? Your profile and class data remain safe, and you can sign in anytime."),
+          /* @__PURE__ */ import_react54.default.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ import_react54.default.createElement(
+            "button",
+            {
+              type: "button",
+              onClick: () => setShowLogoutModal(false),
+              className: "flex-1 py-3 px-4 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-white font-bold text-xs cursor-pointer transition-all"
+            },
+            lang === "ta" ? "\u0BB0\u0BA4\u0BCD\u0BA4\u0BC1 \u0B9A\u0BC6\u0BAF\u0BCD" : "Cancel"
+          ), /* @__PURE__ */ import_react54.default.createElement(
+            "button",
+            {
+              type: "button",
+              onClick: () => {
+                setShowLogoutModal(false);
+                handleLogout();
+              },
+              className: "flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-600 to-rose-600 hover:from-amber-500 hover:to-rose-500 text-white font-black text-xs cursor-pointer shadow-lg shadow-amber-600/30 transition-all flex items-center justify-center gap-1.5"
+            },
+            /* @__PURE__ */ import_react54.default.createElement(LogOut, { size: 14 }),
+            /* @__PURE__ */ import_react54.default.createElement("span", null, lang === "ta" ? "\u0B86\u0BAE\u0BCD, \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BC1" : "Yes, Sign Out")
+          ))
         )
       ),
       document.body
@@ -82997,6 +82766,7 @@ ${studentInviteUrl}`
     isLocalMicOn = true,
     isLocalVideoOn = true,
     isMirrored = true,
+    videoFitMode = "contain",
     lang = "en",
     onPin
   }) {
@@ -83136,7 +82906,7 @@ ${studentInviteUrl}`
           className: `participant-video-stream ${effectiveHasVideo ? "visible" : "hidden"} ${isLocal && isMirrored ? "is-mirrored" : ""}`,
           style: {
             display: effectiveHasVideo ? "block" : "none",
-            objectFit: "cover",
+            objectFit: videoFitMode || "contain",
             width: "100%",
             height: "100%",
             background: "#0B0819"
@@ -83366,8 +83136,10 @@ ${studentInviteUrl}`
     const peerInstanceRef = (0, import_react58.useRef)(null);
     const activeConnsRef = (0, import_react58.useRef)([]);
     const activeCallsRef = (0, import_react58.useRef)([]);
+    const currentCallRef = (0, import_react58.useRef)(null);
     const localStreamRef = (0, import_react58.useRef)(null);
     localStreamRef.current = localStream2;
+    const [videoFitMode, setVideoFitMode] = (0, import_react58.useState)("contain");
     const [sessionSeconds, setSessionSeconds] = (0, import_react58.useState)(0);
     const [hasAttendanceRecorded, setHasAttendanceRecorded] = (0, import_react58.useState)(false);
     const [showChat, setShowChat] = (0, import_react58.useState)(false);
@@ -83532,30 +83304,40 @@ ${studentInviteUrl}`
                 }
               });
               const streamToSend = localStreamRef.current || localStream2;
-              if (streamToSend) {
-                const call = peer.call(trainerPeerId, streamToSend, {
-                  metadata: { name: studentName, phone: cleanPhone }
-                });
-                if (call) {
-                  activeCallsRef.current = [call];
-                  call.on("stream", (incomingTeacherStream) => {
-                    setTeacherStream(incomingTeacherStream);
-                    setTeacherOnline(true);
+              if (streamToSend && !currentCallRef.current) {
+                try {
+                  const call = peer.call(trainerPeerId, streamToSend, {
+                    metadata: { name: studentName, phone: cleanPhone }
                   });
-                  call.on("close", () => {
-                    setTeacherStream(null);
-                  });
-                  call.on("error", () => {
-                  });
+                  if (call) {
+                    currentCallRef.current = call;
+                    activeCallsRef.current = [call];
+                    call.on("stream", (incomingTeacherStream) => {
+                      setTeacherStream(incomingTeacherStream);
+                      setTeacherOnline(true);
+                      setConnectionState("connected");
+                    });
+                    call.on("close", () => {
+                      setTeacherStream(null);
+                      currentCallRef.current = null;
+                    });
+                    call.on("error", (err) => {
+                      console.warn("[WebRTC PeerJS] Call error note:", err);
+                      currentCallRef.current = null;
+                    });
+                  }
+                } catch (e2) {
+                  console.warn("[WebRTC PeerJS] Peer call exception:", e2);
+                  currentCallRef.current = null;
                 }
               }
             };
             connectToTrainer();
             const retryTimer = setInterval(() => {
-              if (!teacherStream) {
+              if (!currentCallRef.current && !teacherStream) {
                 connectToTrainer();
               }
-            }, 4e3);
+            }, 6e3);
             return () => clearInterval(retryTimer);
           }
         });
@@ -83648,6 +83430,33 @@ ${studentInviteUrl}`
         }
       };
     }, [isInstructorRole, activeClass?.id, activeRoomSessionId]);
+    (0, import_react58.useEffect)(() => {
+      return () => {
+        if (localStreamRef.current) {
+          try {
+            localStreamRef.current.getTracks().forEach((track) => {
+              track.stop();
+              track.enabled = false;
+            });
+          } catch (_2) {
+          }
+        }
+        if (activeCallsRef.current) {
+          activeCallsRef.current.forEach((c) => {
+            try {
+              c.close();
+            } catch (_2) {
+            }
+          });
+        }
+        if (peerInstanceRef.current) {
+          try {
+            peerInstanceRef.current.destroy();
+          } catch (_2) {
+          }
+        }
+      };
+    }, []);
     (0, import_react58.useEffect)(() => {
       if (isInstructorRole && activeClass?.id) {
         try {
@@ -84926,6 +84735,7 @@ ${appLaunchScheme}`;
         isLocalMicOn: isMicOn,
         isLocalVideoOn: isVideoOn,
         isMirrored,
+        videoFitMode,
         lang
       }
     ) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-live-connecting-placeholder" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-ambient-orbit-bg-layer", "aria-hidden": "true" }), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-placeholder-content" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "flex justify-center mb-3" }, /* @__PURE__ */ import_react58.default.createElement(ThreeDLotus, { size: 64 })), /* @__PURE__ */ import_react58.default.createElement("h4", { className: "font-bold text-base text-white mb-1" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Teacher Video..."), /* @__PURE__ */ import_react58.default.createElement("p", { className: "text-xs text-slate-300" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB8\u0BCD\u0B9F\u0BCD\u0BB0\u0BC0\u0BAE\u0BCD" : "Low-latency peer-to-peer WebRTC video active"))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-stage-name-badge" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464}"), /* @__PURE__ */ import_react58.default.createElement("span", null, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react58.default.createElement("span", { className: "figma-badge-role-tag" }, "Host")), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-stage-floating-dock" }, /* @__PURE__ */ import_react58.default.createElement(
@@ -84984,6 +84794,15 @@ ${appLaunchScheme}`;
         title: "Raise Hand"
       },
       /* @__PURE__ */ import_react58.default.createElement(Hand, { size: 18 })
+    ), /* @__PURE__ */ import_react58.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `figma-dock-round-btn ${videoFitMode === "cover" ? "btn-active" : ""}`,
+        onClick: () => setVideoFitMode((prev) => prev === "contain" ? "cover" : "contain"),
+        title: videoFitMode === "contain" ? lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1 \u0B89\u0B9F\u0BB2\u0BCD \u0BA4\u0BCB\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD (Uncropped)" : "Full View (Uncropped)" : lang === "ta" ? "\u0BA4\u0BBF\u0BB0\u0BC8 \u0BA8\u0BBF\u0BB0\u0BAA\u0BCD\u0BAA\u0BC1\u0BA4\u0BB2\u0BCD (Fill)" : "Fill Screen"
+      },
+      videoFitMode === "contain" ? /* @__PURE__ */ import_react58.default.createElement(Maximize2, { size: 18 }) : /* @__PURE__ */ import_react58.default.createElement(Minimize2, { size: 18 })
     ), /* @__PURE__ */ import_react58.default.createElement(
       "button",
       {
@@ -85136,7 +84955,7 @@ ${appLaunchScheme}`;
             },
             autoPlay: true,
             playsInline: true,
-            style: { width: "100%", height: "100%", objectFit: "cover" }
+            style: { width: "100%", height: "100%", objectFit: videoFitMode || "contain", background: "#000000" }
           }
         ) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "avatar-circle", style: { width: 64, height: 64, fontSize: 24 } }, /* @__PURE__ */ import_react58.default.createElement("span", null, (student.name || "S").charAt(0).toUpperCase())), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-fallback-name", style: { fontSize: 13, marginTop: 8 } }, student.name || (lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Student")), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-status-pill" }, lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")),
         /* @__PURE__ */ import_react58.default.createElement("div", { className: "absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464} ", student.name || (lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Student")))
@@ -85205,7 +85024,7 @@ ${appLaunchScheme}`;
             },
             autoPlay: true,
             playsInline: true,
-            style: { width: "100%", height: "100%", objectFit: "cover" }
+            style: { width: "100%", height: "100%", objectFit: videoFitMode || "contain", background: "#000000" }
           }
         ) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "avatar-circle", style: { width: 64, height: 64, fontSize: 24, background: "linear-gradient(135deg, #0284C7, #0369A1)" } }, /* @__PURE__ */ import_react58.default.createElement("span", null, (realStudentsList[0].name || "S").charAt(0).toUpperCase())), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-fallback-name", style: { fontSize: 13, marginTop: 8 } }, realStudentsList[0].name), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-status-pill" }, lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")),
         /* @__PURE__ */ import_react58.default.createElement("div", { className: "absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464} ", realStudentsList[0].name))
@@ -85676,8 +85495,36 @@ Verified WebRTC Attendance Session`;
     theme = "light",
     setTheme
   }) {
-    const [adminToken, setAdminToken] = (0, import_react61.useState)(() => localStorage.getItem("nithya_admin_token") || "");
+    const [adminToken, setAdminToken] = (0, import_react61.useState)(() => {
+      return localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_trainer_token") || "";
+    });
     const [activeTab, setActiveTab] = (0, import_react61.useState)("classes");
+    (0, import_react61.useEffect)(() => {
+      let isMounted = true;
+      const token = localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_trainer_token");
+      if (!token) return;
+      apiFetch2("/api/teacher/verify", {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+      }).then((res) => {
+        if (!isMounted) return;
+        if (res && res.ok && res.user) {
+          setAdminToken(token);
+          if (onAuthSuccess) {
+            onAuthSuccess(res.user);
+          }
+        }
+      }).catch((err) => {
+        if (!isMounted) return;
+        if (err.status === 401 || err.status === 403) {
+          console.warn("Admin session expired on server:", err.message);
+          handleLogout();
+        }
+      });
+      return () => {
+        isMounted = false;
+      };
+    }, []);
     const [activeTheme, setActiveTheme] = (0, import_react61.useState)(() => localStorage.getItem("nithya_theme") || theme || "light");
     const handleThemeChange = (newTheme) => {
       setActiveTheme(newTheme);
@@ -87295,32 +87142,12 @@ ${newlyCreatedClassInfo.url}`);
               totalClassDaysThisMonth: 20,
               monthlyAttendancePercent: 90,
               totalHoursThisMonth: "26.5",
-              totalSessions: 18,
+              totalSessions: 1,
               lastJoinedAt: l.joinedAt
             };
+          } else {
+            map[cleanPhone].totalSessions += 1;
           }
-        }
-        const hasKumar = Object.values(map).some(
-          (s) => (s.studentName || "").toLowerCase().includes("kumar") || (s.studentPhone || "").includes("9876543210")
-        );
-        if (!hasKumar) {
-          map["9876543210"] = {
-            studentName: "Kumar (\u0B95\u0BC1\u0BAE\u0BBE\u0BB0\u0BCD)",
-            studentPhone: "9876543210",
-            email: "kumar@student.nithyayoga.com",
-            todayDurationSeconds: 7200,
-            todayDurationFormatted: "2.0 hrs (120 mins)",
-            todayAttendancePercent: 100,
-            todayClassTitle: "Hatha Yoga Flow & Mindful Alignment",
-            todayStatus: "\u2713 Present (100%)",
-            monthStartDate: "2026-10-01",
-            daysAttendedThisMonth: 18,
-            totalClassDaysThisMonth: 20,
-            monthlyAttendancePercent: 90,
-            totalHoursThisMonth: "26.5",
-            totalSessions: 18,
-            lastJoinedAt: (/* @__PURE__ */ new Date()).toISOString()
-          };
         }
         return Object.values(map);
       })();
@@ -87471,7 +87298,17 @@ ${newlyCreatedClassInfo.url}`);
         className: "text-muted hover:text-red-500 cursor-pointer p-1"
       },
       /* @__PURE__ */ import_react61.default.createElement(Trash, { size: 13 })
-    )), /* @__PURE__ */ import_react61.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, mat.title), /* @__PURE__ */ import_react61.default.createElement("p", { className: "text-[11px] text-muted mt-1" }, mat.description)), /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center justify-between text-[11px] pt-2 border-t border-subtle" }, /* @__PURE__ */ import_react61.default.createElement("span", { className: "text-muted font-mono" }, mat.file_url || "Note"), /* @__PURE__ */ import_react61.default.createElement("span", { className: "text-primary font-bold" }, "\u2713 Accessible to Students"))))))), activeTab === "videos" && /* @__PURE__ */ import_react61.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react61.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react61.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Add Yoga Video to Library")), /* @__PURE__ */ import_react61.default.createElement("form", { onSubmit: handleAddVideo, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react61.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video Title"), /* @__PURE__ */ import_react61.default.createElement(
+    )), /* @__PURE__ */ import_react61.default.createElement("h4", { className: "text-xs font-bold text-heading mt-1" }, mat.title), /* @__PURE__ */ import_react61.default.createElement("p", { className: "text-[11px] text-muted mt-1" }, mat.description)), /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex items-center justify-between text-[11px] pt-2 border-t border-subtle" }, mat.file_url ? /* @__PURE__ */ import_react61.default.createElement(
+      "a",
+      {
+        href: mat.file_url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "text-primary font-bold hover:underline flex items-center gap-1"
+      },
+      /* @__PURE__ */ import_react61.default.createElement(ExternalLink, { size: 12 }),
+      /* @__PURE__ */ import_react61.default.createElement("span", null, mat.file_url.split("/").pop())
+    ) : /* @__PURE__ */ import_react61.default.createElement("span", { className: "text-muted font-mono" }, "Text Note"), /* @__PURE__ */ import_react61.default.createElement("span", { className: "text-primary font-bold" }, "\u2713 Accessible to Students"))))))), activeTab === "videos" && /* @__PURE__ */ import_react61.default.createElement("div", { className: "trainer-card-standard", style: { display: "flex", flexDirection: "column", gap: "22px" } }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "p-4 rounded-xl border border-subtle bg-card/50" }, /* @__PURE__ */ import_react61.default.createElement("h3", { className: "text-sm font-bold text-heading flex items-center gap-2 m-0 mb-3" }, /* @__PURE__ */ import_react61.default.createElement(Plus, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BC1\u0BA4\u0BBF\u0BAF \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0B9A\u0BC7\u0BB0\u0BCD\u0B95\u0BCD\u0B95" : "Add Yoga Video to Library")), /* @__PURE__ */ import_react61.default.createElement("form", { onSubmit: handleAddVideo, className: "grid grid-cols-1 md:grid-cols-3 gap-3" }, /* @__PURE__ */ import_react61.default.createElement("div", { className: "flex flex-col gap-1" }, /* @__PURE__ */ import_react61.default.createElement("label", { className: "text-[11px] font-bold text-muted" }, "Video Title"), /* @__PURE__ */ import_react61.default.createElement(
       "input",
       {
         type: "text",
@@ -88098,9 +87935,7 @@ ${newlyCreatedClassInfo.url}`);
       try {
         localStorage.setItem("nithya_student_name", cleanName);
         localStorage.setItem("nithya_student_phone", cleanPhone);
-        localStorage.removeItem("nithya_admin_token");
-        localStorage.removeItem("nithya_trainer_token");
-        localStorage.setItem("nithya_active_role", "student");
+        sessionStorage.setItem("nithya_current_role", "student");
         const studentSession = {
           name: cleanName,
           phone: cleanPhone,
@@ -88574,26 +88409,42 @@ ${newlyCreatedClassInfo.url}`);
         allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",
         allowFullScreen: true
       }
-    )), /* @__PURE__ */ import_react65.default.createElement("p", { className: "text-xs text-muted leading-relaxed" }, activeVideoModal.description))), activeNoteModal && /* @__PURE__ */ import_react65.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4", onClick: () => setActiveNoteModal(null) }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "modal-bottom-sheet max-w-lg w-full bg-card rounded-2xl p-5 shadow-2xl border border-subtle", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react65.default.createElement(BookOpen, { size: 16, className: "text-primary" }), /* @__PURE__ */ import_react65.default.createElement("h3", { className: "text-sm font-bold text-heading m-0" }, activeNoteModal.title)), /* @__PURE__ */ import_react65.default.createElement(
+    )), /* @__PURE__ */ import_react65.default.createElement("p", { className: "text-xs text-muted leading-relaxed" }, activeVideoModal.description))), activeNoteModal && /* @__PURE__ */ import_react65.default.createElement("div", { className: "modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4 fixed inset-0 bg-black/75 backdrop-blur-sm", onClick: () => setActiveNoteModal(null) }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "modal-bottom-sheet max-w-xl w-full bg-card rounded-3xl p-6 shadow-2xl border border-subtle max-h-[90vh] flex flex-col justify-between", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react65.default.createElement("div", null, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center justify-between pb-3 mb-3 border-b border-subtle" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center" }, /* @__PURE__ */ import_react65.default.createElement(BookOpen, { size: 16 })), /* @__PURE__ */ import_react65.default.createElement("div", null, /* @__PURE__ */ import_react65.default.createElement("h3", { className: "text-sm font-bold text-heading m-0" }, activeNoteModal.title), /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-[10px] text-primary uppercase font-bold tracking-wider" }, activeNoteModal.category || "Yoga"))), /* @__PURE__ */ import_react65.default.createElement(
       "button",
       {
         type: "button",
-        className: "text-muted hover:text-heading cursor-pointer p-1",
+        className: "text-muted hover:text-heading cursor-pointer p-1 rounded-full hover:bg-subtle/50 transition-colors",
         onClick: () => setActiveNoteModal(null)
       },
       /* @__PURE__ */ import_react65.default.createElement(X, { size: 18 })
-    )), /* @__PURE__ */ import_react65.default.createElement("div", { className: "p-4 rounded-xl bg-subtle/50 text-xs text-heading leading-relaxed mb-4 border border-subtle" }, activeNoteModal.content || activeNoteModal.description), /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center justify-between text-xs text-muted" }, /* @__PURE__ */ import_react65.default.createElement("span", null, "Category: ", /* @__PURE__ */ import_react65.default.createElement("strong", null, activeNoteModal.category || "Yoga")), /* @__PURE__ */ import_react65.default.createElement(
+    )), /* @__PURE__ */ import_react65.default.createElement("div", { className: "p-4 rounded-2xl bg-subtle/40 text-xs text-heading leading-relaxed mb-4 border border-subtle overflow-y-auto max-h-48" }, /* @__PURE__ */ import_react65.default.createElement("p", { className: "font-semibold text-primary mb-2" }, lang === "ta" ? "\u0BAA\u0BBE\u0B9F\u0B95\u0BCD \u0B95\u0BC1\u0BB1\u0BBF\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD & \u0BB5\u0BB4\u0BBF\u0B95\u0BBE\u0B9F\u0BCD\u0B9F\u0BC1\u0BA4\u0BB2\u0BCD:" : "Learning Notes & Practice Breakdown:"), activeNoteModal.content || activeNoteModal.description), activeNoteModal.file_url && /* @__PURE__ */ import_react65.default.createElement("div", { className: "p-3.5 rounded-2xl bg-primary/5 border border-primary/20 flex items-center justify-between gap-3 mb-4" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2.5 min-w-0" }, /* @__PURE__ */ import_react65.default.createElement(FileText, { size: 18, className: "text-primary shrink-0" }), /* @__PURE__ */ import_react65.default.createElement("div", { className: "truncate" }, /* @__PURE__ */ import_react65.default.createElement("strong", { className: "text-xs text-heading block truncate" }, activeNoteModal.file_url.split("/").pop() || "guide.pdf"), /* @__PURE__ */ import_react65.default.createElement("span", { className: "text-[11px] text-muted block" }, "PDF Document \u2022 Official NITHYA Yoga Guide"))), /* @__PURE__ */ import_react65.default.createElement(
+      "a",
+      {
+        href: activeNoteModal.file_url,
+        target: "_blank",
+        rel: "noopener noreferrer",
+        className: "ya-btn ya-btn--soft text-xs px-3 py-1.5 rounded-xl shrink-0 flex items-center gap-1.5 font-bold"
+      },
+      /* @__PURE__ */ import_react65.default.createElement(ExternalLink, { size: 13 }),
+      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BA4\u0BBF\u0BB1\u0B95\u0BCD\u0B95" : "Open PDF")
+    ))), /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center justify-between text-xs text-muted pt-3 border-t border-subtle gap-2" }, /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BBF\u0BB0\u0BBF\u0BB5\u0BC1:" : "Category:", " ", /* @__PURE__ */ import_react65.default.createElement("strong", { className: "text-heading" }, activeNoteModal.category || "Yoga")), /* @__PURE__ */ import_react65.default.createElement("div", { className: "flex items-center gap-2" }, activeNoteModal.file_url && /* @__PURE__ */ import_react65.default.createElement(
+      "a",
+      {
+        href: activeNoteModal.file_url,
+        download: activeNoteModal.file_url.split("/").pop() || "nithya_yoga_guide.pdf",
+        className: "ya-btn ya-btn--primary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-primary/20"
+      },
+      /* @__PURE__ */ import_react65.default.createElement(Download, { size: 13 }),
+      /* @__PURE__ */ import_react65.default.createElement("span", null, lang === "ta" ? "PDF \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0B95\u0BCD\u0B95\u0BC1" : "Download PDF")
+    ), /* @__PURE__ */ import_react65.default.createElement(
       "button",
       {
         type: "button",
-        className: "ya-btn ya-btn--primary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5",
-        onClick: () => {
-          alert(`Note saved for offline reading: ${activeNoteModal.title}`);
-        }
+        className: "ya-btn ya-btn--soft px-3 py-1.5 rounded-xl text-xs",
+        onClick: () => setActiveNoteModal(null)
       },
-      /* @__PURE__ */ import_react65.default.createElement(Download, { size: 13 }),
-      /* @__PURE__ */ import_react65.default.createElement("span", null, "Save Offline")
-    )))));
+      lang === "ta" ? "\u0BAE\u0BC2\u0B9F\u0BC1" : "Close"
+    ))))));
   }
   var import_react65;
   var init_StudentDashboard = __esm({
@@ -89587,9 +89438,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         localStorage.setItem("nithya_student_session", JSON.stringify(studentSession));
         localStorage.setItem("nithya_student_name", cleanName);
         localStorage.setItem("nithya_student_phone", cleanPhone);
-        localStorage.setItem("nithya_active_role", "student");
-        localStorage.removeItem("nithya_teacher_token");
-        localStorage.removeItem("nithya_admin_token");
+        sessionStorage.setItem("nithya_current_role", "student");
         try {
           const classTitle = sessionData?.title || sessionData?.name || "Live Yoga Flow";
           const logs = JSON.parse(localStorage.getItem("nithya_attendance_logs") || "[]");
@@ -90818,7 +90667,26 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
   async function syncAllRemindersWithSystem(reminders, lang = "en") {
     if (!reminders || !Array.isArray(reminders)) return;
     const isNative = Capacitor.isNativePlatform();
-    if (!isNative) return;
+    if (!isNative) {
+      try {
+        const enabledReminders = reminders.filter((r) => r.enabled !== false && !r.completed);
+        for (const r of enabledReminders.slice(0, 5)) {
+          fetch("./api/reminders", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title: r.title,
+              time: r.time,
+              repeat: r.repeat || "Daily",
+              sound: r.sound || "Soft Bell"
+            })
+          }).catch(() => {
+          });
+        }
+      } catch (_2) {
+      }
+      return;
+    }
     try {
       const pending = await LocalNotifications.getPending();
       const activeEnabledIds = new Set(
@@ -91056,7 +90924,9 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         const isStudentQuery = params && (params.get("join") === "student" || params.get("role") === "student" || Boolean(params.get("live")));
         const activeRole = typeof localStorage !== "undefined" ? localStorage.getItem("nithya_active_role") : null;
         const studentSession2 = loadStorage("nithya_student_session", null);
-        const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
+        const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(
+          localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_trainer_token")
+        );
         if (isStudentQuery || activeRole === "student" || !hasTeacherToken && studentSession2) {
           if (studentSession2) {
             return {
@@ -91183,6 +91053,24 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
     }, []);
     (0, import_react74.useEffect)(() => {
       initNotificationSystem();
+    }, []);
+    (0, import_react74.useEffect)(() => {
+      const token = typeof localStorage !== "undefined" ? localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_trainer_token") : null;
+      if (!token) return;
+      fetch("./api/teacher/verify", {
+        headers: { "Authorization": `Bearer ${token}` }
+      }).then((res) => res.json()).then((data2) => {
+        if (data2 && data2.ok && data2.user) {
+          setUser((prev) => ({
+            ...prev,
+            name: data2.user.name || "NITHYA Master",
+            email: data2.user.email || prev.email,
+            role: "trainer",
+            isInstructor: true
+          }));
+        }
+      }).catch(() => {
+      });
     }, []);
     const firedRemindersRef = (0, import_react74.useRef)(/* @__PURE__ */ new Set());
     (0, import_react74.useEffect)(() => {
@@ -91462,7 +91350,9 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
     const handleTabChange = (tabId) => {
       saveStorage("nithya_active_tab", tabId);
       if (tabId === "live" || tabId === "live-classes") {
-        const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_trainer_token"));
+        const hasTeacherToken = typeof localStorage !== "undefined" && Boolean(
+          localStorage.getItem("nithya_admin_token") || localStorage.getItem("nithya_teacher_token") || localStorage.getItem("nithya_trainer_token")
+        );
         const isTrainer = hasTeacherToken && user2?.role === "trainer";
         if (isTrainer) {
           setCurrentTab("live");
@@ -91945,27 +91835,22 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onShowAll: () => handleTabChange("yoga"),
         lang
       }
-    )), /* @__PURE__ */ import_react74.default.createElement("div", { className: "grid-col col-live" }, user2?.role === "trainer" || Boolean(localStorage.getItem("nithya_admin_token")) ? /* @__PURE__ */ import_react74.default.createElement(
-      LiveClassStudio,
+    )), /* @__PURE__ */ import_react74.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md relative overflow-hidden" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "relative z-10" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Upcoming Live Yoga Class"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-xs text-muted font-medium flex items-center gap-1" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-400 animate-pulse" }), activeClass?.status === "live" ? lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8" : "Live Now" : lang === "ta" ? "\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Scheduled")), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center gap-4 mb-4 p-3 rounded-2xl bg-purple-900/20 border border-purple-500/15" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-purple-950/60 border border-purple-500/30 flex items-center justify-center p-1" }, /* @__PURE__ */ import_react74.default.createElement(
+      "img",
       {
-        activeClass,
-        user: user2,
-        showToast,
-        onLeaveClass: () => showToast(lang === "ta" ? "\u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BA4\u0BC1" : "Session Ended", lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B85\u0BAE\u0BB0\u0BCD\u0BB5\u0BBF\u0BB2\u0BBF\u0BB0\u0BC1\u0BA8\u0BCD\u0BA4\u0BC1 \u0BB5\u0BC6\u0BB3\u0BBF\u0BAF\u0BC7\u0BB1\u0BBF\u0BA9\u0BC0\u0BB0\u0BCD\u0B95\u0BB3\u0BCD" : "You left the live session", "info"),
-        onRecordAttendance: handleRecordAttendance,
-        onScheduleClass: handleScheduleClass,
-        onOpenFullStudio: () => handleTabChange("live"),
-        lang
+        src: "assets/premium-yoga/chakra-moon-hero.svg",
+        alt: "Nithya Yoga 7 Chakras Moon",
+        className: "w-full h-full object-contain"
       }
-    ) : /* @__PURE__ */ import_react74.default.createElement("div", { className: "glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md" }, /* @__PURE__ */ import_react74.default.createElement("div", null, /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5" }, "\u{1F514} ", lang === "ta" ? "\u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD" : "Daily Routine & Reminders"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-xs text-muted font-medium" }, lang === "ta" ? "\u0BAA\u0BCA\u0BA4\u0BC1\u0BAA\u0BCD\u0BAA\u0B95\u0BC1\u0BA4\u0BBF" : "Public Portal")), /* @__PURE__ */ import_react74.default.createElement("h3", { className: "text-xl font-bold text-heading mb-2" }, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE & \u0BA8\u0BB2\u0BB5\u0BBE\u0BB4\u0BCD\u0BB5\u0BC1 \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BCD" : "Mindful Habits & Yoga Reminders"), /* @__PURE__ */ import_react74.default.createElement("p", { className: "text-xs text-muted leading-relaxed mb-4" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u0B86\u0B9A\u0BA9\u0BAE\u0BCD, \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1\u0BAA\u0BCD\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BBE\u0BB2\u0BC8 \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BA4\u0BCD\u0BA4\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0BA9 \u0B85\u0BAE\u0BC8\u0BA4\u0BBF\u0BAF\u0BBE\u0BA9 \u0BAE\u0BA3\u0BBF \u0B92\u0BB2\u0BBF\u0B95\u0BB3\u0BC1\u0B9F\u0BA9\u0BCD \u0BA4\u0BBF\u0BA9\u0B9A\u0BB0\u0BBF \u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD\u0B95\u0BB3\u0BC8 \u0B85\u0BAE\u0BC8\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "Maintain healthy rhythm with customized audio chimes for morning asana, pranayama, and evening meditation."), /* @__PURE__ */ import_react74.default.createElement("div", { className: "space-y-2 mb-4" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center gap-2.5 p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/10 text-xs" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-base" }, "\u{1F9D8}\u200D\u2640\uFE0F"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "font-semibold text-heading flex-1" }, lang === "ta" ? "\u0B95\u0BBE\u0BB2\u0BC8 \u0B9A\u0BC2\u0BB0\u0BBF\u0BAF \u0BA8\u0BAE\u0BB8\u0BCD\u0B95\u0BBE\u0BB0\u0BAE\u0BCD" : "Morning Surya Namaskar"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-primary font-bold" }, "06:00 AM")), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center gap-2.5 p-2.5 rounded-xl bg-purple-900/20 border border-purple-500/10 text-xs" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-base" }, "\u{1FAC1}"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "font-semibold text-heading flex-1" }, lang === "ta" ? "\u0BA8\u0BBE\u0B9F\u0BBF \u0B9A\u0BC1\u0BA4\u0BCD\u0BA4\u0BBF \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE\u0BAE\u0BCD" : "Nadi Shodhana Pranayama"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-primary font-bold" }, "06:45 AM")))), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex flex-col gap-2 mt-2" }, /* @__PURE__ */ import_react74.default.createElement(
+    )), /* @__PURE__ */ import_react74.default.createElement("div", null, /* @__PURE__ */ import_react74.default.createElement("h4", { className: "text-sm font-bold text-heading m-0 leading-tight" }, activeClass?.title || activeClass?.name || "Hatha Yoga & Prana Flow"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-xs text-primary font-semibold block mt-1" }, "\u{1F464} ", activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-[11px] text-muted block mt-0.5" }, "\u23F1\uFE0F ", activeClass?.duration_minutes || activeClass?.duration || 60, " ", lang === "ta" ? "\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Minutes", " \u2022 1080p HD"))), /* @__PURE__ */ import_react74.default.createElement("p", { className: "text-xs text-muted leading-relaxed mb-4" }, lang === "ta" ? "\u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD, \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0B95\u0BCD\u0BB0\u0BBE \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD \u0B86\u0B95\u0BBF\u0BAF\u0BB5\u0BB1\u0BCD\u0BB1\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Experience balanced asanas, guided pranayama breathing, and peaceful chakra meditation.")), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex flex-col gap-2 mt-2 relative z-10" }, /* @__PURE__ */ import_react74.default.createElement(
       "button",
       {
         type: "button",
-        className: "btn-hero-primary w-full py-2.5 text-xs font-bold rounded-xl",
-        onClick: () => handleTabChange("reminders")
+        className: "btn-hero-primary w-full py-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-2",
+        onClick: () => handleJoinLive(activeClass)
       },
-      "\u{1F514} ",
-      lang === "ta" ? "\u0BA8\u0BBF\u0BA9\u0BC8\u0BB5\u0BC2\u0B9F\u0BCD\u0B9F\u0BB2\u0BCD \u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAF\u0BC8\u0B95\u0BCD \u0B95\u0BBE\u0BA3\u0BCD\u0B95" : "Open Mindful Reminders"
+      /* @__PURE__ */ import_react74.default.createElement(Play, { size: 14, fill: "currentColor" }),
+      /* @__PURE__ */ import_react74.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD (Join Class)" : "Join Live Class")
     ), /* @__PURE__ */ import_react74.default.createElement(
       "button",
       {
@@ -91974,7 +91859,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onClick: () => handleTabChange("admin")
       },
       "\u{1F6E1}\uFE0F ",
-      lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0B85\u0B9F\u0BCD\u0BAE\u0BBF\u0BA9\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BBF\u0BB2\u0BCD \u0BA8\u0BC1\u0BB4\u0BC8\u0BAF" : "Instructor? Access Admin Portal",
+      lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BBE? \u0B85\u0B9F\u0BCD\u0BAE\u0BBF\u0BA9\u0BCD \u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BCD\u0B9F\u0BB2\u0BBF\u0BB2\u0BCD \u0BA8\u0BC1\u0BB4\u0BC8\u0BAF" : "Instructor? Enter Admin Portal",
       " \u2794"
     )))), /* @__PURE__ */ import_react74.default.createElement("div", { className: "grid-col col-quick-relax" }, /* @__PURE__ */ import_react74.default.createElement(
       QuickAddReminderCard,
@@ -92290,7 +92175,6 @@ lucide-react/dist/esm/icons/check.mjs:
 lucide-react/dist/esm/icons/chevron-down.mjs:
 lucide-react/dist/esm/icons/chevron-right.mjs:
 lucide-react/dist/esm/icons/circle-alert.mjs:
-lucide-react/dist/esm/icons/circle-check-big.mjs:
 lucide-react/dist/esm/icons/circle-check.mjs:
 lucide-react/dist/esm/icons/clock.mjs:
 lucide-react/dist/esm/icons/compass.mjs:
@@ -92298,6 +92182,7 @@ lucide-react/dist/esm/icons/copy.mjs:
 lucide-react/dist/esm/icons/crown.mjs:
 lucide-react/dist/esm/icons/database.mjs:
 lucide-react/dist/esm/icons/download.mjs:
+lucide-react/dist/esm/icons/external-link.mjs:
 lucide-react/dist/esm/icons/eye-off.mjs:
 lucide-react/dist/esm/icons/eye.mjs:
 lucide-react/dist/esm/icons/file-text.mjs:

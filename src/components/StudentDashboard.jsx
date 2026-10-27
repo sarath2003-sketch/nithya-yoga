@@ -473,40 +473,87 @@ export default function StudentDashboard({
         </div>
       )}
 
-      {/* Note Reader Modal */}
+      {/* Note & PDF Document Reader Modal */}
       {activeNoteModal && (
-        <div className="modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4" onClick={() => setActiveNoteModal(null)}>
-          <div className="modal-bottom-sheet max-w-lg w-full bg-card rounded-2xl p-5 shadow-2xl border border-subtle" onClick={(e) => e.stopPropagation()}>
-            <div className="flex items-center justify-between pb-3 mb-3 border-b border-subtle">
-              <div className="flex items-center gap-2">
-                <BookOpen size={16} className="text-primary" />
-                <h3 className="text-sm font-bold text-heading m-0">{activeNoteModal.title}</h3>
+        <div className="modal-backdrop-scrim ya-reveal z-50 flex items-center justify-center p-4 fixed inset-0 bg-black/75 backdrop-blur-sm" onClick={() => setActiveNoteModal(null)}>
+          <div className="modal-bottom-sheet max-w-xl w-full bg-card rounded-3xl p-6 shadow-2xl border border-subtle max-h-[90vh] flex flex-col justify-between" onClick={(e) => e.stopPropagation()}>
+            <div>
+              <div className="flex items-center justify-between pb-3 mb-3 border-b border-subtle">
+                <div className="flex items-center gap-2">
+                  <div className="w-8 h-8 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                    <BookOpen size={16} />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-heading m-0">{activeNoteModal.title}</h3>
+                    <span className="text-[10px] text-primary uppercase font-bold tracking-wider">{activeNoteModal.category || 'Yoga'}</span>
+                  </div>
+                </div>
+                <button 
+                  type="button" 
+                  className="text-muted hover:text-heading cursor-pointer p-1 rounded-full hover:bg-subtle/50 transition-colors"
+                  onClick={() => setActiveNoteModal(null)}
+                >
+                  <X size={18} />
+                </button>
               </div>
-              <button 
-                type="button" 
-                className="text-muted hover:text-heading cursor-pointer p-1"
-                onClick={() => setActiveNoteModal(null)}
-              >
-                <X size={18} />
-              </button>
+
+              {/* Note Content / Overview */}
+              <div className="p-4 rounded-2xl bg-subtle/40 text-xs text-heading leading-relaxed mb-4 border border-subtle overflow-y-auto max-h-48">
+                <p className="font-semibold text-primary mb-2">
+                  {lang === 'ta' ? 'பாடக் குறிப்புகள் & வழிகாட்டுதல்:' : 'Learning Notes & Practice Breakdown:'}
+                </p>
+                {activeNoteModal.content || activeNoteModal.description}
+              </div>
+
+              {/* Embedded Document / PDF Details */}
+              {activeNoteModal.file_url && (
+                <div className="p-3.5 rounded-2xl bg-primary/5 border border-primary/20 flex items-center justify-between gap-3 mb-4">
+                  <div className="flex items-center gap-2.5 min-w-0">
+                    <FileText size={18} className="text-primary shrink-0" />
+                    <div className="truncate">
+                      <strong className="text-xs text-heading block truncate">
+                        {activeNoteModal.file_url.split('/').pop() || 'guide.pdf'}
+                      </strong>
+                      <span className="text-[11px] text-muted block">
+                        PDF Document • Official NITHYA Yoga Guide
+                      </span>
+                    </div>
+                  </div>
+                  <a
+                    href={activeNoteModal.file_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="ya-btn ya-btn--soft text-xs px-3 py-1.5 rounded-xl shrink-0 flex items-center gap-1.5 font-bold"
+                  >
+                    <ExternalLink size={13} />
+                    <span>{lang === 'ta' ? 'திறக்க' : 'Open PDF'}</span>
+                  </a>
+                </div>
+              )}
             </div>
 
-            <div className="p-4 rounded-xl bg-subtle/50 text-xs text-heading leading-relaxed mb-4 border border-subtle">
-              {activeNoteModal.content || activeNoteModal.description}
-            </div>
-
-            <div className="flex items-center justify-between text-xs text-muted">
-              <span>Category: <strong>{activeNoteModal.category || 'Yoga'}</strong></span>
-              <button
-                type="button"
-                className="ya-btn ya-btn--primary px-3 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5"
-                onClick={() => {
-                  alert(`Note saved for offline reading: ${activeNoteModal.title}`);
-                }}
-              >
-                <Download size={13} />
-                <span>Save Offline</span>
-              </button>
+            <div className="flex items-center justify-between text-xs text-muted pt-3 border-t border-subtle gap-2">
+              <span>{lang === 'ta' ? 'பிரிவு:' : 'Category:'} <strong className="text-heading">{activeNoteModal.category || 'Yoga'}</strong></span>
+              
+              <div className="flex items-center gap-2">
+                {activeNoteModal.file_url && (
+                  <a
+                    href={activeNoteModal.file_url}
+                    download={activeNoteModal.file_url.split('/').pop() || 'nithya_yoga_guide.pdf'}
+                    className="ya-btn ya-btn--primary px-3.5 py-1.5 rounded-xl text-xs font-bold flex items-center gap-1.5 shadow-md shadow-primary/20"
+                  >
+                    <Download size={13} />
+                    <span>{lang === 'ta' ? 'PDF பதிவிறக்கு' : 'Download PDF'}</span>
+                  </a>
+                )}
+                <button
+                  type="button"
+                  className="ya-btn ya-btn--soft px-3 py-1.5 rounded-xl text-xs"
+                  onClick={() => setActiveNoteModal(null)}
+                >
+                  {lang === 'ta' ? 'மூடு' : 'Close'}
+                </button>
+              </div>
             </div>
           </div>
         </div>

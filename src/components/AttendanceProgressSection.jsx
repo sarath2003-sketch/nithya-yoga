@@ -1,31 +1,86 @@
 import React, { useState } from 'react';
-import { TrendingUp, Flower2, Calendar, CheckCircle2, Star, ListFilter, X, ShieldCheck, ChevronDown } from 'lucide-react';
+import { TrendingUp, Flower2, Calendar, CheckCircle2, Star, ListFilter, X, ShieldCheck, ChevronDown, Search } from 'lucide-react';
 import { loadStorage, DEFAULT_ATTENDANCE_LOGS } from '../utils/storage';
 
 export default function AttendanceProgressSection({ user, attendanceLogs = [], lang = 'en' }) {
   const [showLogsModal, setShowLogsModal] = useState(false);
   const [selectedWeek, setSelectedWeek] = useState('This Week');
-  const logs = attendanceLogs && attendanceLogs.length > 0 
+  const [logSearchQuery, setLogSearchQuery] = useState('');
+  const [dateFilter, setDateFilter] = useState('');
+
+  const logs = Array.isArray(attendanceLogs) && attendanceLogs.length > 0 
     ? attendanceLogs 
     : loadStorage('nithya_attendance', DEFAULT_ATTENDANCE_LOGS);
 
+  // Compute actual daily hours from real attendance logs
+  const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+  const dayTotals = { Mon: 0, Tue: 0, Wed: 0, Thu: 0, Fri: 0, Sat: 0, Sun: 0 };
+  let totalHoursSum = 0;
+
+  const categoryMinutes = {
+    Asanas: 0,
+    Pranayama: 0,
+    Meditation: 0,
+    Relaxation: 0,
+    Other: 0
+  };
+
+  logs.forEach(l => {
+    try {
+      const d = l.joinedAt ? new Date(l.joinedAt) : (l.date ? new Date(l.date) : new Date());
+      const dayName = dayNames[d.getDay()] || 'Mon';
+      const durationMins = l.durationMinutes || Math.round((l.durationSeconds || 0) / 60) || 45;
+      const hours = durationMins / 60;
+      if (dayTotals[dayName] !== undefined) {
+        dayTotals[dayName] += hours;
+        totalHoursSum += hours;
+      }
+
+      const title = (l.className || l.classTitle || '').toLowerCase();
+      if (title.includes('pranayama') || title.includes('breath') || title.includes('shodhana')) {
+        categoryMinutes.Pranayama += durationMins;
+      } else if (title.includes('meditation') || title.includes('chakra') || title.includes('yin') || title.includes('dhyana')) {
+        categoryMinutes.Meditation += durationMins;
+      } else if (title.includes('relax') || title.includes('sleep') || title.includes('nidra')) {
+        categoryMinutes.Relaxation += durationMins;
+      } else {
+        categoryMinutes.Asanas += durationMins;
+      }
+    } catch (_) {}
+  });
+
+  const maxDaily = Math.max(2, ...Object.values(dayTotals));
   const weeklyBars = [
-    { day: 'Mon', hours: 2.5, heightPct: 42, color: '#B89EFA' },
-    { day: 'Tue', hours: 4.2, heightPct: 70, color: '#F8B4C8' },
-    { day: 'Wed', hours: 3.0, heightPct: 50, color: '#FCD385' },
-    { day: 'Thu', hours: 5.5, heightPct: 92, color: '#A8E090' },
-    { day: 'Fri', hours: 3.8, heightPct: 63, color: '#88D49E' },
-    { day: 'Sat', hours: 4.8, heightPct: 80, color: '#8ECCFA' },
-    { day: 'Sun', hours: 4.0, heightPct: 66, color: '#9B7AE8' }
+    { day: 'Mon', hours: parseFloat(dayTotals.Mon.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round((dayTotals.Mon / maxDaily) * 90))), color: '#B89EFA' },
+    { day: 'Tue', hours: parseFloat(dayTotals.Tue.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round((dayTotals.Tue / maxDaily) * 90))), color: '#F8B4C8' },
+    { day: 'Wed', hours: parseFloat(dayTotals.Wed.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round((dayTotals.Wed / maxDaily) * 90))), color: '#FCD385' },
+    { day: 'Thu', hours: parseFloat(dayTotals.Thu.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round((dayTotals.Thu / maxDaily) * 90))), color: '#A8E090' },
+    { day: 'Fri', hours: parseFloat(dayTotals.Fri.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round((dayTotals.Fri / maxDaily) * 90))), color: '#88D49E' },
+    { day: 'Sat', hours: parseFloat(dayTotals.Sat.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round((dayTotals.Sat / maxDaily) * 90))), color: '#8ECCFA' },
+    { day: 'Sun', hours: parseFloat(dayTotals.Sun.toFixed(1)), heightPct: Math.min(100, Math.max(12, Math.round((dayTotals.Sun / maxDaily) * 90))), color: '#9B7AE8' }
   ];
 
+  const totalCatMins = Object.values(categoryMinutes).reduce((a, b) => a + b, 0) || 1;
   const focusAreas = [
-    { name: lang === 'ta' ? 'ஆசனங்கள்' : 'Asanas', pct: '45%', color: '#9B7AE8' },
-    { name: lang === 'ta' ? 'பிராணாயாமம்' : 'Pranayama', pct: '25%', color: '#F8B4C8' },
-    { name: lang === 'ta' ? 'தியானம்' : 'Meditation', pct: '15%', color: '#FCD385' },
-    { name: lang === 'ta' ? 'ரிலாக்சேஷன்' : 'Relaxation', pct: '10%', color: '#A8E090' },
-    { name: lang === 'ta' ? 'மற்றவை' : 'Other', pct: '5%', color: '#8ECCFA' }
+    { name: lang === 'ta' ? 'ஆசனங்கள்' : 'Asanas', pct: `${Math.round((categoryMinutes.Asanas / totalCatMins) * 100)}%`, color: '#9B7AE8' },
+    { name: lang === 'ta' ? 'பிராணாயாமம்' : 'Pranayama', pct: `${Math.round((categoryMinutes.Pranayama / totalCatMins) * 100)}%`, color: '#F8B4C8' },
+    { name: lang === 'ta' ? 'தியானம்' : 'Meditation', pct: `${Math.round((categoryMinutes.Meditation / totalCatMins) * 100)}%`, color: '#FCD385' },
+    { name: lang === 'ta' ? 'ரிலாக்சேஷன்' : 'Relaxation', pct: `${Math.round((categoryMinutes.Relaxation / totalCatMins) * 100)}%`, color: '#A8E090' },
+    { name: lang === 'ta' ? 'மற்றவை' : 'Other', pct: `${Math.round((categoryMinutes.Other / totalCatMins) * 100)}%`, color: '#8ECCFA' }
   ];
+
+  const filteredLogs = logs.filter(log => {
+    if (logSearchQuery.trim()) {
+      const q = logSearchQuery.toLowerCase();
+      const matchName = (log.className || log.classTitle || '').toLowerCase().includes(q);
+      const matchTeacher = (log.instructor || '').toLowerCase().includes(q);
+      if (!matchName && !matchTeacher) return false;
+    }
+    if (dateFilter && log.date && !log.date.includes(dateFilter)) {
+      return false;
+    }
+    return true;
+  });
 
   return (
     <div className="attendance-progress-wrapper">
@@ -203,33 +258,69 @@ export default function AttendanceProgressSection({ user, attendanceLogs = [], l
               </button>
             </div>
 
-            <div className="attendance-history-table-wrapper max-h-60 overflow-y-auto">
-              <table className="w-full text-left text-xs border-collapse">
-                <thead>
-                  <tr className="border-b border-subtle text-muted">
-                    <th className="py-2 px-1">{lang === 'ta' ? 'வகுப்பு' : 'Class'}</th>
-                    <th className="py-2 px-1">{lang === 'ta' ? 'ஆசிரியர்' : 'Teacher'}</th>
-                    <th className="py-2 px-1">{lang === 'ta' ? 'தேதி' : 'Date'}</th>
-                    <th className="py-2 px-1">{lang === 'ta' ? 'நேரம்' : 'Duration'}</th>
-                    <th className="py-2 px-1">{lang === 'ta' ? 'நிலை' : 'Status'}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {logs.map((log) => (
-                    <tr key={log.id} className="border-b border-subtle">
-                      <td className="py-2 px-1 font-semibold">{log.className}</td>
-                      <td className="py-2 px-1 text-muted">{log.instructor}</td>
-                      <td className="py-2 px-1">{log.date}</td>
-                      <td className="py-2 px-1">{log.durationMinutes} mins</td>
-                      <td className="py-2 px-1">
-                        <span className="inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium">
-                          ✓ {log.status || 'Verified'}
-                        </span>
-                      </td>
+            {/* Search & Filter Bar */}
+            <div className="flex items-center gap-2 mb-3 pt-2">
+              <div className="relative flex-1">
+                <Search size={14} className="absolute left-2.5 top-2.5 text-muted pointer-events-none" />
+                <input
+                  type="text"
+                  placeholder={lang === 'ta' ? 'வகுப்பு அல்லது ஆசிரியர் பெயர் தேட...' : 'Search class or instructor...'}
+                  value={logSearchQuery}
+                  onChange={(e) => setLogSearchQuery(e.target.value)}
+                  className="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-subtle bg-card outline-none"
+                />
+              </div>
+              <input
+                type="date"
+                value={dateFilter}
+                onChange={(e) => setDateFilter(e.target.value)}
+                className="text-xs px-2.5 py-1.5 rounded-xl border border-subtle bg-card outline-none text-muted"
+                title="Filter by date"
+              />
+              {(logSearchQuery || dateFilter) && (
+                <button
+                  type="button"
+                  onClick={() => { setLogSearchQuery(''); setDateFilter(''); }}
+                  className="text-xs px-2 py-1 text-primary font-bold cursor-pointer hover:underline"
+                >
+                  {lang === 'ta' ? 'அழி' : 'Clear'}
+                </button>
+              )}
+            </div>
+
+            <div className="attendance-history-table-wrapper max-h-64 overflow-y-auto">
+              {filteredLogs.length === 0 ? (
+                <div className="text-center py-6 text-xs text-muted">
+                  {lang === 'ta' ? 'பொருந்தும் வருகைப் பதிவுகள் எதுவும் இல்லை.' : 'No matching attendance logs found.'}
+                </div>
+              ) : (
+                <table className="w-full text-left text-xs border-collapse">
+                  <thead>
+                    <tr className="border-b border-subtle text-muted">
+                      <th className="py-2 px-1">{lang === 'ta' ? 'வகுப்பு' : 'Class'}</th>
+                      <th className="py-2 px-1">{lang === 'ta' ? 'ஆசிரியர்' : 'Teacher'}</th>
+                      <th className="py-2 px-1">{lang === 'ta' ? 'தேதி' : 'Date'}</th>
+                      <th className="py-2 px-1">{lang === 'ta' ? 'நேரம்' : 'Duration'}</th>
+                      <th className="py-2 px-1">{lang === 'ta' ? 'நிலை' : 'Status'}</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {filteredLogs.map((log) => (
+                      <tr key={log.id} className="border-b border-subtle">
+                        <td className="py-2 px-1 font-semibold">{log.className || log.classTitle}</td>
+                        <td className="py-2 px-1 text-muted">{log.instructor || 'NITHYA Master'}</td>
+                        <td className="py-2 px-1">{log.date || log.session_date || 'Today'}</td>
+                        <td className="py-2 px-1">{log.durationMinutes || Math.round((log.durationSeconds || 0) / 60)} mins</td>
+                        <td className="py-2 px-1">
+                          <span className="inline-block px-1.5 py-0.5 rounded text-[10px] bg-green-subtle text-green font-medium">
+                            ✓ {log.status || 'Verified'}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              )}
             </div>
 
             <div className="modal-actions-bar mt-4">

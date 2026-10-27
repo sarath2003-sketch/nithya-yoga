@@ -39,9 +39,7 @@ export default function HeroSection({
               type="button" 
               className="btn-pastel-cta-primary ya-ripple"
               onClick={() => {
-                if (user?.role === 'trainer' || user?.isInstructor) {
-                  onJoinLive();
-                } else if (onTabChange) {
+                if (onTabChange) {
                   onTabChange('classes');
                 } else {
                   onViewSchedule();
@@ -52,9 +50,7 @@ export default function HeroSection({
                 <Play size={12} fill="currentColor" />
               </span>
               <span>
-                {user?.role === 'trainer' || user?.isInstructor
-                  ? (lang === 'ta' ? '👑 நேரலை வகுப்பைத் தொடங்கு' : '👑 Start Live Class')
-                  : (lang === 'ta' ? 'யோகா பயிற்சி தொடங்கு ▶' : 'Start Yoga Practice ▶')}
+                {lang === 'ta' ? 'யோகா பயிற்சி தொடங்கு ▶' : 'Start Yoga Practice ▶'}
               </span>
             </button>
 

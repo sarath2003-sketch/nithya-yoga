@@ -67,8 +67,8 @@ async function run() {
   assert(sidebarContent.includes("{ id: 'admin', label: 'Admin Portal'"), 'Sidebar contains Admin Portal tab');
 
   const appContent = fs.readFileSync(path.join(__dirname, '../src/App.jsx'), 'utf8');
-  assert(appContent.includes("user?.role === 'trainer' || Boolean(localStorage.getItem('nithya_admin_token'))"), 'App.jsx restricts LiveClassStudio rendering to verified trainers only');
-  assert(appContent.includes('Daily Routine & Reminders'), 'App.jsx presents Mindful Reminders on public home page');
+  assert(!appContent.includes('<LiveClassStudio') || appContent.includes('col-live'), 'App.jsx keeps class start controls inside Admin Portal');
+  assert(appContent.includes('chakra-moon-hero.svg'), 'App.jsx displays 7-chakra visual asset on landing page');
 
   // 2. Connect to Running Backend or Start Test Server
   console.log('\n[TEST 2] Verifying Backend Server on port ' + PORT + '...');

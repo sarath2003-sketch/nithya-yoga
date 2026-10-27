@@ -188,11 +188,8 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
       localStorage.setItem('nithya_student_session', JSON.stringify(studentSession));
       localStorage.setItem('nithya_student_name', cleanName);
       localStorage.setItem('nithya_student_phone', cleanPhone);
-      localStorage.setItem('nithya_active_role', 'student');
-
-      // CRITICAL SECURITY: Discard any teacher token so student cannot masquerade as instructor
-      localStorage.removeItem('nithya_teacher_token');
-      localStorage.removeItem('nithya_admin_token');
+      // Student session is strictly isolated in student storage
+      sessionStorage.setItem('nithya_current_role', 'student');
 
       // 3. Register student attendance record
       try {

@@ -154,7 +154,25 @@ export async function syncAllRemindersWithSystem(reminders, lang = 'en') {
   if (!reminders || !Array.isArray(reminders)) return;
 
   const isNative = Capacitor.isNativePlatform();
-  if (!isNative) return;
+  if (!isNative) {
+    // Web / PWA: Sync enabled reminders with backend /api/reminders for persistent server storage
+    try {
+      const enabledReminders = reminders.filter(r => r.enabled !== false && !r.completed);
+      for (const r of enabledReminders.slice(0, 5)) {
+        fetch('./api/reminders', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            title: r.title,
+            time: r.time,
+            repeat: r.repeat || 'Daily',
+            sound: r.sound || 'Soft Bell'
+          })
+        }).catch(() => {});
+      }
+    } catch (_) {}
+    return;
+  }
 
   try {
     // 1. Get currently pending notifications to cancel obsolete ones

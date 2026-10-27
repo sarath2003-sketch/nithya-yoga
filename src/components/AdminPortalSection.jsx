@@ -32,6 +32,7 @@ import {
   Mail,
   Lock,
   ArrowRight,
+  ExternalLink,
   X,
   Search,
   Database,
@@ -66,8 +67,43 @@ export default function AdminPortalSection({
   theme = 'light',
   setTheme
 }) {
-  const [adminToken, setAdminToken] = useState(() => localStorage.getItem('nithya_admin_token') || '');
+  const [adminToken, setAdminToken] = useState(() => {
+    return localStorage.getItem('nithya_admin_token') || 
+           localStorage.getItem('nithya_teacher_token') || 
+           localStorage.getItem('nithya_trainer_token') || '';
+  });
   const [activeTab, setActiveTab] = useState('classes'); // 'classes' | 'attendance' | 'checklist' | 'curriculum' | 'themes' | 'notes' | 'videos' | 'settings'
+
+  // Server-side Session Verification & Persistence on Mount
+  useEffect(() => {
+    let isMounted = true;
+    const token = localStorage.getItem('nithya_admin_token') || 
+                  localStorage.getItem('nithya_teacher_token') || 
+                  localStorage.getItem('nithya_trainer_token');
+
+    if (!token) return;
+
+    apiFetch('/api/teacher/verify', {
+      method: 'GET',
+      headers: { 'Authorization': `Bearer ${token}` }
+    }).then(res => {
+      if (!isMounted) return;
+      if (res && res.ok && res.user) {
+        setAdminToken(token);
+        if (onAuthSuccess) {
+          onAuthSuccess(res.user);
+        }
+      }
+    }).catch(err => {
+      if (!isMounted) return;
+      if (err.status === 401 || err.status === 403) {
+        console.warn('Admin session expired on server:', err.message);
+        handleLogout();
+      }
+    });
+
+    return () => { isMounted = false; };
+  }, []);
 
   // Multi-Theme support
   const [activeTheme, setActiveTheme] = useState(() => localStorage.getItem('nithya_theme') || theme || 'light');
@@ -2337,35 +2373,12 @@ export default function AdminPortalSection({
                 totalClassDaysThisMonth: 20,
                 monthlyAttendancePercent: 90,
                 totalHoursThisMonth: '26.5',
-                totalSessions: 18,
+                totalSessions: 1,
                 lastJoinedAt: l.joinedAt
               };
+            } else {
+              map[cleanPhone].totalSessions += 1;
             }
-          }
-
-          // Ensure Kumar is always populated if not already present
-          const hasKumar = Object.values(map).some(s => 
-            (s.studentName || '').toLowerCase().includes('kumar') || 
-            (s.studentPhone || '').includes('9876543210')
-          );
-          if (!hasKumar) {
-            map['9876543210'] = {
-              studentName: 'Kumar (குமார்)',
-              studentPhone: '9876543210',
-              email: 'kumar@student.nithyayoga.com',
-              todayDurationSeconds: 7200,
-              todayDurationFormatted: '2.0 hrs (120 mins)',
-              todayAttendancePercent: 100,
-              todayClassTitle: 'Hatha Yoga Flow & Mindful Alignment',
-              todayStatus: '✓ Present (100%)',
-              monthStartDate: '2026-10-01',
-              daysAttendedThisMonth: 18,
-              totalClassDaysThisMonth: 20,
-              monthlyAttendancePercent: 90,
-              totalHoursThisMonth: '26.5',
-              totalSessions: 18,
-              lastJoinedAt: new Date().toISOString()
-            };
           }
 
           return Object.values(map);
@@ -2848,7 +2861,19 @@ export default function AdminPortalSection({
                   </div>
 
                   <div className="flex items-center justify-between text-[11px] pt-2 border-t border-subtle">
-                    <span className="text-muted font-mono">{mat.file_url || 'Note'}</span>
+                    {mat.file_url ? (
+                      <a 
+                        href={mat.file_url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="text-primary font-bold hover:underline flex items-center gap-1"
+                      >
+                        <ExternalLink size={12} />
+                        <span>{mat.file_url.split('/').pop()}</span>
+                      </a>
+                    ) : (
+                      <span className="text-muted font-mono">Text Note</span>
+                    )}
                     <span className="text-primary font-bold">✓ Accessible to Students</span>
                   </div>
                 </div>

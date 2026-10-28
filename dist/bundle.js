@@ -1112,7 +1112,7 @@
             var dispatcher = resolveDispatcher();
             return dispatcher.useReducer(reducer, initialArg, init);
           }
-          function useRef20(initialValue) {
+          function useRef21(initialValue) {
             var dispatcher = resolveDispatcher();
             return dispatcher.useRef(initialValue);
           }
@@ -1906,7 +1906,7 @@
           exports.useLayoutEffect = useLayoutEffect5;
           exports.useMemo = useMemo14;
           exports.useReducer = useReducer;
-          exports.useRef = useRef20;
+          exports.useRef = useRef21;
           exports.useState = useState34;
           exports.useSyncExternalStore = useSyncExternalStore;
           exports.useTransition = useTransition;
@@ -82885,8 +82885,8 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
     const hasVideoTracks = Boolean(
       participant?.stream && participant.stream.getVideoTracks().length > 0 && participant.stream.getVideoTracks().some((t) => t.enabled !== false && t.readyState !== "ended")
     );
-    const effectiveHasVideo = isLocal ? isLocalVideoOn && Boolean(videoTrack || hasVideoTracks || localStream) : Boolean(videoTrack) || hasVideoTracks || hasVideo;
-    const effectiveHasAudio = isLocal ? isLocalMicOn : hasAudio || Boolean(participant?.stream?.getAudioTracks()?.some((t) => t.enabled !== false && t.readyState !== "ended"));
+    const effectiveHasVideo = isLocal ? isLocalVideoOn && Boolean(videoTrack || hasVideoTracks || participant?.stream) : Boolean(videoTrack) || hasVideoTracks || hasVideo || Boolean(participant?.stream?.getVideoTracks()?.some((t) => t.enabled !== false));
+    const effectiveHasAudio = isLocal ? isLocalMicOn : hasAudio || Boolean(participant?.stream?.getAudioTracks()?.some((t) => t.enabled !== false));
     return /* @__PURE__ */ import_react58.default.createElement(
       "div",
       {
@@ -83121,7 +83121,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       } catch (_2) {
       }
     };
-    const [localStream2, setLocalStream] = (0, import_react58.useState)(null);
+    const [localStream, setLocalStream] = (0, import_react58.useState)(null);
     const [screenStream, setScreenStream] = (0, import_react58.useState)(null);
     const [studioMode, setStudioMode] = (0, import_react58.useState)("auto");
     const [isMirrored, setIsMirrored] = (0, import_react58.useState)(true);
@@ -83133,12 +83133,13 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
     const [connectedStudentsList, setConnectedStudentsList] = (0, import_react58.useState)([]);
     const [teacherStream, setTeacherStream] = (0, import_react58.useState)(null);
     const [remoteStreams, setRemoteStreams] = (0, import_react58.useState)({});
+    const [remoteMediaStates, setRemoteMediaStates] = (0, import_react58.useState)({});
     const peerInstanceRef = (0, import_react58.useRef)(null);
     const activeConnsRef = (0, import_react58.useRef)([]);
     const activeCallsRef = (0, import_react58.useRef)([]);
     const currentCallRef = (0, import_react58.useRef)(null);
     const localStreamRef = (0, import_react58.useRef)(null);
-    localStreamRef.current = localStream2;
+    localStreamRef.current = localStream;
     const [videoFitMode, setVideoFitMode] = (0, import_react58.useState)("contain");
     const [sessionSeconds, setSessionSeconds] = (0, import_react58.useState)(0);
     const [hasAttendanceRecorded, setHasAttendanceRecorded] = (0, import_react58.useState)(false);
@@ -83288,7 +83289,15 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
                 });
               });
               conn.on("data", (data2) => {
-                if (data2?.type === "chat" && data2.text) {
+                if (data2?.type === "media_state") {
+                  setRemoteMediaStates((prev) => ({
+                    ...prev,
+                    [data2.identity || "instructor-lead"]: {
+                      isVideoOn: data2.isVideoOn,
+                      isMicOn: data2.isMicOn
+                    }
+                  }));
+                } else if (data2?.type === "chat" && data2.text) {
                   setChatMessages((prev) => [
                     ...prev,
                     {
@@ -83303,7 +83312,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
                   setClassEndedNotice(true);
                 }
               });
-              const streamToSend = localStreamRef.current || localStream2;
+              const streamToSend = localStreamRef.current || localStream;
               if (streamToSend && !currentCallRef.current) {
                 try {
                   const call = peer.call(trainerPeerId, streamToSend, {
@@ -83344,7 +83353,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         if (isInstructorRole) {
           peer.on("call", (call) => {
             activeCallsRef.current.push(call);
-            const streamToSend = localStreamRef.current || localStream2;
+            const streamToSend = localStreamRef.current || localStream;
             call.answer(streamToSend);
             call.on("stream", (studentStream) => {
               const name = call.metadata?.name || "Student";
@@ -83365,6 +83374,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
                   name,
                   phone,
                   role: "student",
+                  stream: studentStream,
                   joinedAt: (/* @__PURE__ */ new Date()).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
                 };
                 const updated = [studentObj, ...prev.filter((s) => s.phone !== phone && s.identity !== call.peer)];
@@ -83385,7 +83395,15 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           peer.on("connection", (conn) => {
             activeConnsRef.current.push(conn);
             conn.on("data", (data2) => {
-              if (data2?.type === "student_joined" && data2.student) {
+              if (data2?.type === "media_state") {
+                setRemoteMediaStates((prev) => ({
+                  ...prev,
+                  [data2.identity || conn.peer]: {
+                    isVideoOn: data2.isVideoOn,
+                    isMicOn: data2.isMicOn
+                  }
+                }));
+              } else if (data2?.type === "student_joined" && data2.student) {
                 setConnectedStudentsList((prev) => {
                   const updated = [
                     data2.student,
@@ -83725,6 +83743,18 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
       }
     }, [activeClass, user2, isInstructorRole, isMicOn, isVideoOn, activeRoomSessionId]);
     (0, import_react58.useEffect)(() => {
+      let studentSession = null;
+      try {
+        studentSession = JSON.parse(localStorage.getItem("nithya_student_session") || "{}");
+      } catch (_2) {
+      }
+      const shouldAutoConnect = studentSession?.autoConnect || !isInstructorRole && sessionId;
+      if (shouldAutoConnect && connectionState === "idle") {
+        const targetRoom = activeRoomSessionId || sessionId || activeClass?.id || "cls-1";
+        connectToRoom(targetRoom);
+      }
+    }, [sessionId, isInstructorRole, connectionState, activeRoomSessionId, connectToRoom]);
+    (0, import_react58.useEffect)(() => {
       return () => {
         if (room) {
           try {
@@ -83744,7 +83774,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           console.warn("LiveKit Mic toggle error:", e2);
         }
       }
-      const currentStream = localStreamRef.current || localStream2;
+      const currentStream = localStreamRef.current || localStream;
       if (nextState) {
         const audioTracks = currentStream ? currentStream.getAudioTracks() : [];
         const hasLiveTrack = audioTracks.some((t) => t.readyState === "live");
@@ -83752,16 +83782,39 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           audioTracks.forEach((track) => {
             track.enabled = true;
           });
+          if (currentStream) {
+            const freshStream = new MediaStream([
+              ...currentStream.getVideoTracks(),
+              ...audioTracks
+            ]);
+            localStreamRef.current = freshStream;
+            setLocalStream(freshStream);
+          }
         } else if (navigator.mediaDevices?.getUserMedia) {
           try {
             const micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
             const newAudioTrack = micStream.getAudioTracks()[0];
             if (newAudioTrack) {
-              if (currentStream) {
-                currentStream.addTrack(newAudioTrack);
-              } else {
-                setLocalStream(micStream);
-              }
+              const freshStream = new MediaStream([
+                ...currentStream ? currentStream.getVideoTracks() : [],
+                newAudioTrack
+              ]);
+              localStreamRef.current = freshStream;
+              setLocalStream(freshStream);
+              activeCallsRef.current.forEach((call) => {
+                if (call?.peerConnection) {
+                  const sender = call.peerConnection.getSenders().find((s) => s.track && s.track.kind === "audio");
+                  if (sender) {
+                    sender.replaceTrack(newAudioTrack).catch(() => {
+                    });
+                  } else {
+                    try {
+                      call.peerConnection.addTrack(newAudioTrack, freshStream);
+                    } catch (_2) {
+                    }
+                  }
+                }
+              });
             }
           } catch (err) {
             console.warn("Mic acquisition error:", err);
@@ -83775,6 +83828,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           });
         }
       }
+      activeConnsRef.current.forEach((conn) => {
+        try {
+          conn.send({
+            type: "media_state",
+            identity: isInstructorRole ? "instructor-lead" : user2?.phone || "student",
+            isVideoOn,
+            isMicOn: nextState
+          });
+        } catch (_2) {
+        }
+      });
     };
     const handleToggleVideo = async () => {
       const nextState = !isVideoOn;
@@ -83786,7 +83850,7 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           console.warn("LiveKit Video toggle error:", e2);
         }
       }
-      const currentStream = localStreamRef.current || localStream2;
+      const currentStream = localStreamRef.current || localStream;
       if (nextState) {
         const videoTracks = currentStream ? currentStream.getVideoTracks() : [];
         const hasLiveTrack = videoTracks.some((t) => t.readyState === "live");
@@ -83794,6 +83858,14 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           videoTracks.forEach((track) => {
             track.enabled = true;
           });
+          if (currentStream) {
+            const freshStream = new MediaStream([
+              ...videoTracks,
+              ...currentStream.getAudioTracks()
+            ]);
+            localStreamRef.current = freshStream;
+            setLocalStream(freshStream);
+          }
         } else if (navigator.mediaDevices?.getUserMedia) {
           try {
             const camStream = await navigator.mediaDevices.getUserMedia({
@@ -83806,16 +83878,24 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
             });
             const newVideoTrack = camStream.getVideoTracks()[0];
             if (newVideoTrack) {
-              if (currentStream) {
-                currentStream.addTrack(newVideoTrack);
-              } else {
-                setLocalStream(camStream);
-              }
+              const freshStream = new MediaStream([
+                newVideoTrack,
+                ...currentStream ? currentStream.getAudioTracks() : []
+              ]);
+              localStreamRef.current = freshStream;
+              setLocalStream(freshStream);
               activeCallsRef.current.forEach((call) => {
                 if (call?.peerConnection) {
                   const sender = call.peerConnection.getSenders().find((s) => s.track && s.track.kind === "video");
-                  if (sender) sender.replaceTrack(newVideoTrack).catch(() => {
-                  });
+                  if (sender) {
+                    sender.replaceTrack(newVideoTrack).catch(() => {
+                    });
+                  } else {
+                    try {
+                      call.peerConnection.addTrack(newVideoTrack, freshStream);
+                    } catch (_2) {
+                    }
+                  }
                 }
               });
             }
@@ -83832,6 +83912,17 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           });
         }
       }
+      activeConnsRef.current.forEach((conn) => {
+        try {
+          conn.send({
+            type: "media_state",
+            identity: isInstructorRole ? "instructor-lead" : user2?.phone || "student",
+            isVideoOn: nextState,
+            isMicOn
+          });
+        } catch (_2) {
+        }
+      });
     };
     const handleToggleMirror = () => {
       setIsMirrored((prev) => !prev);
@@ -83856,9 +83947,9 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
           console.warn("[LiveKit] Switch camera warning:", err);
         }
       }
-      if (!room?.localParticipant && localStream2) {
+      if (!room?.localParticipant && localStream) {
         try {
-          const oldTracks = localStream2.getVideoTracks();
+          const oldTracks = localStream.getVideoTracks();
           if (isVideoOn && navigator.mediaDevices?.getUserMedia) {
             const newStream = await navigator.mediaDevices.getUserMedia({
               video: {
@@ -83871,11 +83962,11 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
             const newVTrack = newStream.getVideoTracks()[0];
             if (newVTrack) {
               oldTracks.forEach((track) => {
-                localStream2.removeTrack(track);
+                localStream.removeTrack(track);
                 track.stop();
               });
-              localStream2.addTrack(newVTrack);
-              setLocalStream(new MediaStream(localStream2.getTracks()));
+              localStream.addTrack(newVTrack);
+              setLocalStream(new MediaStream(localStream.getTracks()));
             }
           } else if (!isVideoOn) {
             oldTracks.forEach((track) => track.stop());
@@ -84047,9 +84138,9 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
         } catch (e2) {
         }
       }
-      if (localStream2) {
+      if (localStream) {
         try {
-          localStream2.getTracks().forEach((t) => {
+          localStream.getTracks().forEach((t) => {
             t.stop();
             t.enabled = false;
           });
@@ -84380,7 +84471,7 @@ ${appLaunchScheme}`;
       name: isInstructorRole ? "NITHYA Master" : studentInfoForPresence?.name || (user2?.name && user2.name !== "Kavitha Ram" && user2.name !== "Yoga Practitioner" && user2.name !== "NITHYA Master" ? user2.name : "Yoga Student"),
       role: isInstructorRole ? "instructor" : "student",
       phone: studentInfoForPresence?.phone || (isInstructorRole ? "" : user2?.phone || ""),
-      stream: localStream2,
+      stream: localStream,
       isLocal: true,
       isInstructor: isInstructorRole
     };
@@ -84394,7 +84485,7 @@ ${appLaunchScheme}`;
         role: "student",
         phone: s.phone,
         joinedAt: s.joinedAt,
-        stream: remoteObj ? remoteObj.stream : null,
+        stream: remoteObj ? remoteObj.stream : s.stream || null,
         isLocal: false,
         isInstructor: false
       };
@@ -84407,14 +84498,31 @@ ${appLaunchScheme}`;
       isLocal: false,
       stream: teacherStream || null
     }] : [];
-    const allParticipants = room ? [room.localParticipant, ...participants.filter((p2) => p2 && p2.role !== "instructor" && !String(p2.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(p2.name))] : isInstructorRole ? localStream2 ? [localWebrtcParticipant, ...simulatedPeers.filter((p2) => p2.name !== localWebrtcParticipant.name)] : [localWebrtcParticipant, ...simulatedPeers] : localStream2 ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter((p2) => p2.name !== localWebrtcParticipant.name)] : [...instructorPeer, localWebrtcParticipant, ...simulatedPeers];
-    const spotlightParticipant = isInstructorRole ? localWebrtcParticipant : spotlightParticipantId ? allParticipants.find((p2) => p2.identity === spotlightParticipantId) : allParticipants.find((p2) => p2.isInstructor) || allParticipants[0];
-    const otherParticipants = isInstructorRole ? allParticipants.filter(
-      (p2) => p2 && p2.identity !== spotlightParticipant?.identity && p2.name !== spotlightParticipant?.name && p2.role !== "instructor" && !p2.isInstructor && !String(p2.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Yoga Member", "Yoga Student", "Student"].includes(p2.name) && (p2.isLocal || p2.phone && String(p2.phone).replace(/\D/g, "").length >= 10)
-    ) : allParticipants.filter((p2) => p2?.identity !== spotlightParticipant?.identity);
+    const allParticipants = room ? [room.localParticipant, ...participants.filter((p2) => p2 && p2.role !== "instructor" && !String(p2.identity || "").startsWith("instructor") && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram"].includes(p2.name))] : isInstructorRole ? localStream ? [localWebrtcParticipant, ...simulatedPeers.filter((p2) => p2.name !== localWebrtcParticipant.name)] : [localWebrtcParticipant, ...simulatedPeers] : localStream ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter((p2) => p2.name !== localWebrtcParticipant.name)] : [...instructorPeer, localWebrtcParticipant, ...simulatedPeers];
+    let spotlightParticipant = null;
+    if (spotlightParticipantId) {
+      spotlightParticipant = allParticipants.find((p2) => p2?.identity === spotlightParticipantId || p2?.id === spotlightParticipantId);
+    }
+    if (!spotlightParticipant) {
+      if (isInstructorRole) {
+        const remoteStudent = allParticipants.find((p2) => !p2?.isLocal && p2?.role !== "instructor" && p2?.stream);
+        spotlightParticipant = remoteStudent || localWebrtcParticipant;
+      } else {
+        const leadInstructor = allParticipants.find((p2) => p2?.isInstructor || p2?.role === "instructor" || p2?.identity === "instructor-lead");
+        spotlightParticipant = leadInstructor || allParticipants[0] || localWebrtcParticipant;
+      }
+    }
+    const otherParticipants = allParticipants.filter((p2) => p2 && p2.identity !== spotlightParticipant?.identity && p2.name !== spotlightParticipant?.name);
     const realStudentsList = connectedStudentsList.filter(
       (s) => s && s.role !== "instructor" && !String(s.identity || "").startsWith("instructor") && s.identity !== "instructor-lead" && s.identity !== "instructor-local" && !["Yoga Practitioner", "Yoga Practice", "Practitioner", "Kavitha Ram", "NITHYA Master", "Yoga Member", "Yoga Student", "Student"].includes(s.name) && Boolean(s.phone && String(s.phone).replace(/\D/g, "").length >= 10)
-    );
+    ).map((s) => {
+      const remoteObj = Object.values(remoteStreams).find((r) => r && (r.phone === s.phone || r.identity === s.identity || r.name === s.name));
+      return {
+        ...s,
+        identity: s.identity || s.id || s.phone || s.name,
+        stream: remoteObj ? remoteObj.stream : s.stream || null
+      };
+    });
     const currentStudentCount = isInstructorRole ? realStudentsList.length : Math.max(1, realStudentsList.length);
     return /* @__PURE__ */ import_react58.default.createElement("div", { className: `livekit-yoga-studio-container ${isFullscreen ? "fullscreen-mode" : ""}`, ref: containerRef }, showShareModal && (typeof document !== "undefined" && document.body ? (0, import_react_dom2.createPortal)(
       /* @__PURE__ */ import_react58.default.createElement("div", { className: "live-share-modal-overlay", onClick: () => setShowShareModal(false) }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "user-live-ready-viewport live-share-modal-card", onClick: (e2) => e2.stopPropagation() }, /* @__PURE__ */ import_react58.default.createElement("header", { className: "user-live-ready-header" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "user-live-brand-col" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "user-live-brand-title-row" }, /* @__PURE__ */ import_react58.default.createElement("span", { className: "user-live-logo-icon" }, "\u2740"), /* @__PURE__ */ import_react58.default.createElement("h1", { className: "user-live-brand-title" }, "Nithya")), /* @__PURE__ */ import_react58.default.createElement("p", { className: "user-live-brand-tagline" }, "Breathe \xB7 Balance \xB7 Be You")), /* @__PURE__ */ import_react58.default.createElement("div", { className: "user-live-hero-avatar-wrap" }, /* @__PURE__ */ import_react58.default.createElement(
@@ -84738,7 +84846,37 @@ ${appLaunchScheme}`;
         videoFitMode,
         lang
       }
-    ) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-live-connecting-placeholder" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-ambient-orbit-bg-layer", "aria-hidden": "true" }), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-placeholder-content" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "flex justify-center mb-3" }, /* @__PURE__ */ import_react58.default.createElement(ThreeDLotus, { size: 64 })), /* @__PURE__ */ import_react58.default.createElement("h4", { className: "font-bold text-base text-white mb-1" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Teacher Video..."), /* @__PURE__ */ import_react58.default.createElement("p", { className: "text-xs text-slate-300" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB8\u0BCD\u0B9F\u0BCD\u0BB0\u0BC0\u0BAE\u0BCD" : "Low-latency peer-to-peer WebRTC video active"))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-stage-name-badge" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464}"), /* @__PURE__ */ import_react58.default.createElement("span", null, activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react58.default.createElement("span", { className: "figma-badge-role-tag" }, "Host")), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-stage-floating-dock" }, /* @__PURE__ */ import_react58.default.createElement(
+    ) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-live-connecting-placeholder" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-ambient-orbit-bg-layer", "aria-hidden": "true" }), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-placeholder-content" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "flex justify-center mb-3" }, /* @__PURE__ */ import_react58.default.createElement(ThreeDLotus, { size: 64 })), /* @__PURE__ */ import_react58.default.createElement("h4", { className: "font-bold text-base text-white mb-1" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0BB5\u0BC0\u0B9F\u0BBF\u0BAF\u0BCB \u0BA4\u0BAF\u0BBE\u0BB0\u0BBE\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Connecting to Live Teacher Video..."), /* @__PURE__ */ import_react58.default.createElement("p", { className: "text-xs text-slate-300" }, lang === "ta" ? "\u0BA8\u0BBF\u0BA4\u0BCD\u0BAF\u0BBE \u0BAF\u0BCB\u0B95\u0BBE \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB8\u0BCD\u0B9F\u0BCD\u0BB0\u0BC0\u0BAE\u0BCD" : "Low-latency peer-to-peer WebRTC video active"))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-stage-name-badge" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464}"), /* @__PURE__ */ import_react58.default.createElement("span", null, spotlightParticipant?.name || (spotlightParticipant?.isInstructor ? "NITHYA Master" : "Student")), spotlightParticipant?.isInstructor && /* @__PURE__ */ import_react58.default.createElement("span", { className: "figma-badge-role-tag" }, "Host"), spotlightParticipant?.isLocal && /* @__PURE__ */ import_react58.default.createElement("span", { className: "figma-badge-role-tag", style: { background: "rgba(124, 58, 237, 0.4)" } }, "You"), /* @__PURE__ */ import_react58.default.createElement("span", { className: "text-[10px] text-purple-300/80 ml-1 font-mono" }, "\u{1F4CC} Spotlight")), otherParticipants.length === 1 && /* @__PURE__ */ import_react58.default.createElement(
+      "div",
+      {
+        className: "figma-pip-floating-tile",
+        onClick: (e2) => {
+          e2.stopPropagation();
+          setSpotlightParticipantId(otherParticipants[0].identity);
+        },
+        onDoubleClick: (e2) => {
+          e2.stopPropagation();
+          setSpotlightParticipantId(otherParticipants[0].identity);
+        },
+        title: lang === "ta" ? `${otherParticipants[0].name} \u0BA4\u0BBF\u0BB0\u0BC8\u0BAF\u0BC8 \u0BAA\u0BC6\u0BB0\u0BBF\u0BA4\u0BBE\u0B95\u0BCD\u0B95 \u0BA4\u0B9F\u0BCD\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD` : `Click to swap ${otherParticipants[0].name} to Main Stage`
+      },
+      /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-pip-swap-badge" }, /* @__PURE__ */ import_react58.default.createElement(RefreshCw, { size: 10 }), /* @__PURE__ */ import_react58.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BB1\u0BCD\u0BB1 \u0BA4\u0B9F\u0BCD\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD" : "Tap to Swap")),
+      /* @__PURE__ */ import_react58.default.createElement(
+        ParticipantTile,
+        {
+          participant: otherParticipants[0],
+          isLocal: Boolean(otherParticipants[0].isLocal),
+          isSpotlight: false,
+          isSpeaking: activeSpeakers.includes(otherParticipants[0].identity),
+          isLocalMicOn: isMicOn,
+          isLocalVideoOn: isVideoOn,
+          isMirrored,
+          videoFitMode,
+          lang
+        }
+      ),
+      /* @__PURE__ */ import_react58.default.createElement("div", { className: "absolute bottom-2 left-2 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center gap-1 text-white text-[10px] font-semibold z-20 pointer-events-none" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464} ", otherParticipants[0].name || (otherParticipants[0].isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : "Participant")))
+    ), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-stage-floating-dock" }, /* @__PURE__ */ import_react58.default.createElement(
       "button",
       {
         type: "button",
@@ -84803,6 +84941,39 @@ ${appLaunchScheme}`;
         title: videoFitMode === "contain" ? lang === "ta" ? "\u0BAE\u0BC1\u0BB4\u0BC1 \u0B89\u0B9F\u0BB2\u0BCD \u0BA4\u0BCB\u0BB1\u0BCD\u0BB1\u0BAE\u0BCD (Uncropped)" : "Full View (Uncropped)" : lang === "ta" ? "\u0BA4\u0BBF\u0BB0\u0BC8 \u0BA8\u0BBF\u0BB0\u0BAA\u0BCD\u0BAA\u0BC1\u0BA4\u0BB2\u0BCD (Fill)" : "Fill Screen"
       },
       videoFitMode === "contain" ? /* @__PURE__ */ import_react58.default.createElement(Maximize2, { size: 18 }) : /* @__PURE__ */ import_react58.default.createElement(Minimize2, { size: 18 })
+    ), /* @__PURE__ */ import_react58.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `figma-dock-round-btn ${showParticipantsDrawer ? "btn-active" : ""}`,
+        onClick: () => {
+          setShowParticipantsDrawer((prev) => !prev);
+          setActiveSidebarTab("participants");
+        },
+        title: lang === "ta" ? `\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD (${currentStudentCount})` : `Students (${currentStudentCount})`
+      },
+      /* @__PURE__ */ import_react58.default.createElement(Users, { size: 18 })
+    ), /* @__PURE__ */ import_react58.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `figma-dock-round-btn ${showChatDrawer ? "btn-active" : ""}`,
+        onClick: () => {
+          setShowChatDrawer((prev) => !prev);
+          setActiveSidebarTab("chat");
+        },
+        title: lang === "ta" ? "\u0B9A\u0BBE\u0B9F\u0BCD" : "Chat"
+      },
+      /* @__PURE__ */ import_react58.default.createElement(MessageSquare, { size: 18 })
+    ), /* @__PURE__ */ import_react58.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "figma-dock-round-btn",
+        onClick: () => setShowShareModal(true),
+        title: lang === "ta" ? "\u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAA\u0B95\u0BBF\u0BB0\u0BCD" : "Share Invite Link"
+      },
+      /* @__PURE__ */ import_react58.default.createElement(Share2, { size: 18 })
     ), /* @__PURE__ */ import_react58.default.createElement(
       "button",
       {
@@ -84932,111 +85103,49 @@ ${appLaunchScheme}`;
         /* @__PURE__ */ import_react58.default.createElement(Settings, { size: 15, className: "text-purple-400" }),
         /* @__PURE__ */ import_react58.default.createElement("span", null, "Server Credentials")
       )
-    ))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-participant-tiles-grid" }, isInstructorRole ? (
-      /* Instructor Mode: Show real connected students with Google Meet styling */
-      /* @__PURE__ */ import_react58.default.createElement(import_react58.default.Fragment, null, realStudentsList.length > 0 ? realStudentsList.map((student, index) => /* @__PURE__ */ import_react58.default.createElement(
-        "div",
+    ))), otherParticipants.length > 1 && /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-participant-tiles-grid", style: { marginTop: "12px" } }, otherParticipants.map((p2, idx) => /* @__PURE__ */ import_react58.default.createElement(
+      "div",
+      {
+        key: p2.identity || `tile-${idx}`,
+        className: "figma-student-tile relative overflow-hidden rounded-2xl bg-[#130E2E] border border-purple-500/30 cursor-pointer hover:border-purple-400 transition-all hover:scale-[1.01]",
+        style: { minHeight: "180px", aspectRatio: "4/3", width: "100%" },
+        onClick: () => setSpotlightParticipantId(p2.identity),
+        onDoubleClick: () => setSpotlightParticipantId(p2.identity),
+        title: lang === "ta" ? `${p2.name} \u0BA4\u0BBF\u0BB0\u0BC8\u0BAF\u0BC8 \u0BAA\u0BC6\u0BB0\u0BBF\u0BA4\u0BBE\u0B95\u0BCD\u0B95 \u0BA4\u0B9F\u0BCD\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD` : `Click to spotlight ${p2.name}`
+      },
+      /* @__PURE__ */ import_react58.default.createElement("div", { className: "absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-purple-200 text-[10px] font-bold z-20 flex items-center gap-1 border border-white/10" }, /* @__PURE__ */ import_react58.default.createElement(Maximize2, { size: 10 }), /* @__PURE__ */ import_react58.default.createElement("span", null, "Spotlight")),
+      /* @__PURE__ */ import_react58.default.createElement(
+        ParticipantTile,
         {
-          className: "figma-student-tile relative overflow-hidden rounded-2xl bg-[#130E2E] border border-purple-500/30",
-          key: student.phone || student.identity || student.id || `student-${index}`,
-          style: { minHeight: "220px", aspectRatio: "4/3", width: "100%" }
-        },
-        student.stream ? /* @__PURE__ */ import_react58.default.createElement(
-          "video",
-          {
-            ref: (el) => {
-              if (el && student.stream && el.srcObject !== student.stream) {
-                el.srcObject = student.stream;
-                el.playsInline = true;
-                el.muted = false;
-                el.play().catch(() => {
-                });
-              }
-            },
-            autoPlay: true,
-            playsInline: true,
-            style: { width: "100%", height: "100%", objectFit: videoFitMode || "contain", background: "#000000" }
-          }
-        ) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "avatar-circle", style: { width: 64, height: 64, fontSize: 24 } }, /* @__PURE__ */ import_react58.default.createElement("span", null, (student.name || "S").charAt(0).toUpperCase())), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-fallback-name", style: { fontSize: 13, marginTop: 8 } }, student.name || (lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Student")), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-status-pill" }, lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")),
-        /* @__PURE__ */ import_react58.default.createElement("div", { className: "absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464} ", student.name || (lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD" : "Student")))
-      )) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-student-tile figma-empty-waiting-slot", style: { minHeight: "220px", aspectRatio: "4/3", width: "100%", gridColumn: "span 3" } }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-empty-waiting-content p-6 text-center flex flex-col items-center" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "w-14 h-14 mx-auto mb-3 rounded-2xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300" }, /* @__PURE__ */ import_react58.default.createElement(Radio, { size: 24, className: "animate-pulse" })), /* @__PURE__ */ import_react58.default.createElement("span", { className: "figma-empty-waiting-title text-sm font-bold text-white block mb-1" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Waiting for Students to Join..."), /* @__PURE__ */ import_react58.default.createElement("span", { className: "figma-empty-waiting-desc text-xs text-purple-300/70 block mb-4 max-w-sm" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B87\u0BA8\u0BCD\u0BA4 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BC8 \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BB5\u0BC1\u0BAE\u0BCD" : "Invite your students with this live studio access link"), /* @__PURE__ */ import_react58.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => setShowShareModal(true),
-          className: "px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-600/30 cursor-pointer hover:from-purple-500 hover:to-indigo-500 transition-all inline-flex items-center gap-2"
-        },
-        /* @__PURE__ */ import_react58.default.createElement(Share2, { size: 14 }),
-        /* @__PURE__ */ import_react58.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BCD" : "Share Student Invite Link")
-      ))))
-    ) : (
-      /* Student Mode: Tile 1 is You, styled with full uncropped Google Meet aspect ratio */
-      /* @__PURE__ */ import_react58.default.createElement(import_react58.default.Fragment, null, /* @__PURE__ */ import_react58.default.createElement(
-        "div",
-        {
-          className: "figma-student-tile is-active-speaker relative overflow-hidden rounded-2xl bg-[#130E2E] border border-purple-500/30",
-          style: { minHeight: "220px", aspectRatio: "4/3", width: "100%" }
-        },
-        localStream2 && isVideoOn ? /* @__PURE__ */ import_react58.default.createElement(
-          "video",
-          {
-            ref: (el) => {
-              if (el && localStream2) {
-                el.srcObject = localStream2;
-                el.muted = true;
-                el.playsInline = true;
-                el.play().catch(() => {
-                });
-              }
-            },
-            autoPlay: true,
-            playsInline: true,
-            muted: true,
-            className: `participant-video-stream ${isMirrored ? "is-mirrored" : ""}`,
-            style: { width: "100%", height: "100%", objectFit: "cover" }
-          }
-        ) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "avatar-circle", style: { width: 64, height: 64, fontSize: 24 } }, /* @__PURE__ */ import_react58.default.createElement("span", null, (user2?.name || "Y").charAt(0).toUpperCase())), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-fallback-name", style: { fontSize: 13, marginTop: 8 } }, user2?.name || (lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You")), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-status-pill" }, lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")),
-        !isMicOn && /* @__PURE__ */ import_react58.default.createElement(
-          "div",
-          {
-            className: "absolute top-3 right-3 w-7 h-7 rounded-full bg-[#EA4335] flex items-center justify-center text-white shadow-lg z-20 pointer-events-none",
-            title: "Microphone is muted"
-          },
-          /* @__PURE__ */ import_react58.default.createElement(MicOff, { size: 13 })
-        ),
-        /* @__PURE__ */ import_react58.default.createElement("div", { className: "absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg pointer-events-none" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464} ", lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD (You)" : "You"))
-      ), realStudentsList[0] && /* @__PURE__ */ import_react58.default.createElement(
-        "div",
-        {
-          className: "figma-student-tile relative overflow-hidden rounded-2xl bg-[#130E2E] border border-purple-500/30",
-          style: { minHeight: "220px", aspectRatio: "4/3", width: "100%" }
-        },
-        realStudentsList[0].stream ? /* @__PURE__ */ import_react58.default.createElement(
-          "video",
-          {
-            ref: (el) => {
-              if (el && realStudentsList[0].stream) {
-                el.srcObject = realStudentsList[0].stream;
-                el.playsInline = true;
-                el.play().catch(() => {
-                });
-              }
-            },
-            autoPlay: true,
-            playsInline: true,
-            style: { width: "100%", height: "100%", objectFit: videoFitMode || "contain", background: "#000000" }
-          }
-        ) : /* @__PURE__ */ import_react58.default.createElement("div", { className: "participant-avatar-fallback" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "avatar-circle", style: { width: 64, height: 64, fontSize: 24, background: "linear-gradient(135deg, #0284C7, #0369A1)" } }, /* @__PURE__ */ import_react58.default.createElement("span", null, (realStudentsList[0].name || "S").charAt(0).toUpperCase())), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-fallback-name", style: { fontSize: 13, marginTop: 8 } }, realStudentsList[0].name), /* @__PURE__ */ import_react58.default.createElement("span", { className: "avatar-status-pill" }, lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")),
-        /* @__PURE__ */ import_react58.default.createElement("div", { className: "absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464} ", realStudentsList[0].name))
-      ))
-    )), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-actions-toolbar" }, /* @__PURE__ */ import_react58.default.createElement(
+          participant: p2,
+          isLocal: Boolean(p2.isLocal),
+          isSpotlight: false,
+          isSpeaking: activeSpeakers.includes(p2.identity),
+          isLocalMicOn: isMicOn,
+          isLocalVideoOn: isVideoOn,
+          isMirrored,
+          videoFitMode,
+          lang
+        }
+      ),
+      /* @__PURE__ */ import_react58.default.createElement("div", { className: "absolute bottom-2 left-2 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg pointer-events-none" }, /* @__PURE__ */ import_react58.default.createElement("span", null, "\u{1F464} ", p2.name || (p2.isLocal ? lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You" : "Student")))
+    ))), isInstructorRole && otherParticipants.length === 0 && /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-student-tile figma-empty-waiting-slot", style: { minHeight: "140px", width: "100%", marginTop: "12px", borderRadius: "18px" } }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-empty-waiting-content p-4 text-center flex flex-col items-center justify-center" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300" }, /* @__PURE__ */ import_react58.default.createElement(Radio, { size: 18, className: "animate-pulse" })), /* @__PURE__ */ import_react58.default.createElement("span", { className: "figma-empty-waiting-title text-xs font-bold text-white block mb-0.5" }, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BCD\u0B95\u0BBE\u0B95 \u0B95\u0BBE\u0BA4\u0BCD\u0BA4\u0BBF\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Waiting for Students to Join..."), /* @__PURE__ */ import_react58.default.createElement("span", { className: "figma-empty-waiting-desc text-[11px] text-purple-300/70 block mb-3 max-w-sm" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B87\u0BA8\u0BCD\u0BA4 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BC8 \u0B85\u0BA9\u0BC1\u0BAA\u0BCD\u0BAA\u0BB5\u0BC1\u0BAE\u0BCD" : "Invite your students with this live studio access link"), /* @__PURE__ */ import_react58.default.createElement(
       "button",
       {
         type: "button",
-        className: "figma-toolbar-action-btn",
+        onClick: () => setShowShareModal(true),
+        className: "px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-600/30 cursor-pointer hover:from-purple-500 hover:to-indigo-500 transition-all inline-flex items-center gap-2"
+      },
+      /* @__PURE__ */ import_react58.default.createElement(Share2, { size: 13 }),
+      /* @__PURE__ */ import_react58.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0BB2\u0BBF\u0B99\u0BCD\u0B95\u0BCD \u0BAA\u0B95\u0BBF\u0BB0\u0BCD" : "Share Student Invite Link")
+    ))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-actions-toolbar" }, /* @__PURE__ */ import_react58.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: `figma-toolbar-action-btn ${showParticipantsDrawer ? "is-active" : ""}`,
         onClick: () => {
-          const el = document.getElementById("figma-participants-roster");
-          if (el) el.scrollIntoView({ behavior: "smooth" });
+          setShowParticipantsDrawer((prev) => !prev);
+          setActiveSidebarTab("participants");
         }
       },
       /* @__PURE__ */ import_react58.default.createElement(Users, { size: 15, className: "text-violet-500" }),
@@ -85085,7 +85194,19 @@ ${appLaunchScheme}`;
         onClick: () => setShowToolMenu(!showToolMenu)
       },
       /* @__PURE__ */ import_react58.default.createElement("span", null, "\u22EF More")
-    ))), /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-right-sidebar-column" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "flex items-center gap-1.5 p-1 bg-[#1C143B] border border-violet-500/20 rounded-2xl mb-3" }, /* @__PURE__ */ import_react58.default.createElement(
+    ))), (showParticipantsDrawer || showChatDrawer) && /* @__PURE__ */ import_react58.default.createElement("div", { className: "figma-right-sidebar-column" }, /* @__PURE__ */ import_react58.default.createElement("div", { className: "flex items-center justify-between pb-2 mb-2 border-b border-purple-500/20" }, /* @__PURE__ */ import_react58.default.createElement("span", { className: "text-xs font-bold text-white flex items-center gap-1.5" }, activeSidebarTab === "participants" ? /* @__PURE__ */ import_react58.default.createElement(Users, { size: 14, className: "text-purple-400" }) : /* @__PURE__ */ import_react58.default.createElement(MessageSquare, { size: 14, className: "text-purple-400" }), activeSidebarTab === "participants" ? lang === "ta" ? `\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD\u0B95\u0BB3\u0BCD (${currentStudentCount})` : `Students (${currentStudentCount})` : lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B9A\u0BBE\u0B9F\u0BCD" : "Live Chat"), /* @__PURE__ */ import_react58.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: () => {
+          setShowParticipantsDrawer(false);
+          setShowChatDrawer(false);
+        },
+        className: "p-1 rounded-lg text-purple-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer",
+        title: "Close Drawer"
+      },
+      /* @__PURE__ */ import_react58.default.createElement(X, { size: 16 })
+    )), /* @__PURE__ */ import_react58.default.createElement("div", { className: "flex items-center gap-1.5 p-1 bg-[#1C143B] border border-violet-500/20 rounded-2xl mb-3" }, /* @__PURE__ */ import_react58.default.createElement(
       "button",
       {
         type: "button",
@@ -86814,57 +86935,7 @@ ${liveUrl}`;
       },
       isCreatingClass ? /* @__PURE__ */ import_react61.default.createElement(RefreshCw, { size: 15, className: "animate-spin" }) : /* @__PURE__ */ import_react61.default.createElement(Plus, { size: 15 }),
       /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BBF \u0B9A\u0BC7\u0BAE\u0BBF\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Generate & Schedule Class Room")
-    ))), newlyCreatedClassInfo && /* @__PURE__ */ import_react61.default.createElement(
-      "div",
-      {
-        className: "trainer-invite-strip",
-        style: {
-          marginTop: "18px",
-          background: "rgba(16, 185, 129, 0.08)",
-          borderColor: "rgba(16, 185, 129, 0.4)"
-        }
-      },
-      /* @__PURE__ */ import_react61.default.createElement("div", { style: { display: "flex", flexDirection: "column", gap: "4px", maxWidth: "580px" } }, /* @__PURE__ */ import_react61.default.createElement("div", { style: { display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react61.default.createElement("span", { style: { color: "#059669", fontWeight: 800, fontSize: "13px" } }, "\u{1F389} ", lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B89\u0BB0\u0BC1\u0BB5\u0BBE\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1!" : "Live Session Created Successfully!"), /* @__PURE__ */ import_react61.default.createElement("span", { style: { fontWeight: 800, fontSize: "13px", color: "var(--text-heading)" } }, newlyCreatedClassInfo.title)), /* @__PURE__ */ import_react61.default.createElement("span", { className: "trainer-invite-url-text", style: { color: "#059669" } }, newlyCreatedClassInfo.url)),
-      /* @__PURE__ */ import_react61.default.createElement("div", { className: "trainer-invite-btn-group" }, /* @__PURE__ */ import_react61.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => {
-            navigator.clipboard.writeText(newlyCreatedClassInfo.url);
-            setCopiedId(`new-${newlyCreatedClassInfo.id}`);
-            setTimeout(() => setCopiedId(null), 2500);
-            if (showToast) showToast("Link Copied \u2713", newlyCreatedClassInfo.url, "success");
-          },
-          className: "trainer-btn-copy-link"
-        },
-        copiedId === `new-${newlyCreatedClassInfo.id}` ? /* @__PURE__ */ import_react61.default.createElement(Check, { size: 13 }) : /* @__PURE__ */ import_react61.default.createElement(Copy, { size: 13 }),
-        /* @__PURE__ */ import_react61.default.createElement("span", null, copiedId === `new-${newlyCreatedClassInfo.id}` ? "Copied!" : "Copy Link")
-      ), /* @__PURE__ */ import_react61.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => {
-            const text = encodeURIComponent(`\u{1F9D8} *NITHYA Yoga Live Class: ${newlyCreatedClassInfo.title}*
-
-Join the live yoga session as a student:
-${newlyCreatedClassInfo.url}`);
-            window.open(`https://api.whatsapp.com/send?text=${text}`, "_blank");
-          },
-          className: "trainer-btn-whatsapp-share"
-        },
-        /* @__PURE__ */ import_react61.default.createElement(Share2, { size: 13 }),
-        /* @__PURE__ */ import_react61.default.createElement("span", null, "WhatsApp")
-      ), /* @__PURE__ */ import_react61.default.createElement(
-        "button",
-        {
-          type: "button",
-          onClick: () => setNewlyCreatedClassInfo(null),
-          style: { background: "transparent", border: "none", cursor: "pointer", color: "var(--text-muted)", padding: "4px 8px" },
-          title: "Dismiss"
-        },
-        "\u2715"
-      ))
-    )), /* @__PURE__ */ import_react61.default.createElement("div", null, /* @__PURE__ */ import_react61.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" } }, /* @__PURE__ */ import_react61.default.createElement("h3", { style: { fontSize: "15px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react61.default.createElement(Calendar, { size: 18, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Scheduled Yoga Classes & Student Links")), /* @__PURE__ */ import_react61.default.createElement(
+    )))), /* @__PURE__ */ import_react61.default.createElement("div", null, /* @__PURE__ */ import_react61.default.createElement("div", { style: { display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "14px" } }, /* @__PURE__ */ import_react61.default.createElement("h3", { style: { fontSize: "15px", fontWeight: 800, color: "var(--text-heading)", margin: 0, display: "flex", alignItems: "center", gap: "8px" } }, /* @__PURE__ */ import_react61.default.createElement(Calendar, { size: 18, style: { color: "#7C3AED" } }), /* @__PURE__ */ import_react61.default.createElement("span", null, lang === "ta" ? "\u0B85\u0B9F\u0BCD\u0B9F\u0BB5\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD" : "Scheduled Yoga Classes & Student Links")), /* @__PURE__ */ import_react61.default.createElement(
       "button",
       {
         type: "button",
@@ -89340,6 +89411,88 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
     const [isJoining, setIsJoining] = (0, import_react71.useState)(false);
     const [micActive, setMicActive] = (0, import_react71.useState)(true);
     const [cameraActive, setCameraActive] = (0, import_react71.useState)(true);
+    const [previewStream, setPreviewStream] = (0, import_react71.useState)(null);
+    const [deviceError, setDeviceError] = (0, import_react71.useState)("");
+    const previewVideoRef = (0, import_react71.useRef)(null);
+    (0, import_react71.useEffect)(() => {
+      let isMounted = true;
+      let localMediaStream = null;
+      async function initPreview() {
+        if (!cameraActive && !micActive) {
+          if (previewStream) {
+            previewStream.getTracks().forEach((t) => t.stop());
+            setPreviewStream(null);
+          }
+          return;
+        }
+        try {
+          if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+            const stream = await navigator.mediaDevices.getUserMedia({
+              video: cameraActive ? { width: { ideal: 640 }, height: { ideal: 360 }, facingMode: "user" } : false,
+              audio: micActive
+            });
+            if (isMounted) {
+              localMediaStream = stream;
+              setPreviewStream(stream);
+              setDeviceError("");
+              if (previewVideoRef.current && cameraActive) {
+                previewVideoRef.current.srcObject = stream;
+                previewVideoRef.current.play().catch(() => {
+                });
+              }
+            } else {
+              stream.getTracks().forEach((t) => t.stop());
+            }
+          }
+        } catch (err) {
+          console.warn("Hardware preview acquisition notice:", err.message);
+          if (isMounted) {
+            setDeviceError(lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE/\u0BAE\u0BC8\u0B95\u0BCD \u0B85\u0BA3\u0BC1\u0B95\u0BB2\u0BCD \u0B85\u0BA9\u0BC1\u0BAE\u0BA4\u0BBF\u0BAF\u0BC8 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Camera/mic permission needed");
+          }
+        }
+      }
+      initPreview();
+      return () => {
+        isMounted = false;
+        if (localMediaStream) {
+          localMediaStream.getTracks().forEach((t) => t.stop());
+        }
+      };
+    }, [cameraActive, micActive]);
+    (0, import_react71.useEffect)(() => {
+      if (previewVideoRef.current && previewStream && cameraActive) {
+        previewVideoRef.current.srcObject = previewStream;
+        previewVideoRef.current.play().catch(() => {
+        });
+      }
+    }, [previewStream, cameraActive]);
+    const handleTogglePreviewCamera = () => {
+      if (cameraActive) {
+        if (previewStream) {
+          previewStream.getVideoTracks().forEach((t) => t.stop());
+        }
+        setCameraActive(false);
+      } else {
+        setCameraActive(true);
+      }
+    };
+    const handleTogglePreviewMic = () => {
+      if (micActive) {
+        if (previewStream) {
+          previewStream.getAudioTracks().forEach((t) => {
+            t.enabled = false;
+          });
+        }
+        setMicActive(false);
+      } else {
+        if (previewStream) {
+          previewStream.getAudioTracks().forEach((t) => {
+            t.enabled = true;
+          });
+        }
+        setMicActive(true);
+      }
+    };
     (0, import_react71.useEffect)(() => {
       let isMounted = true;
       async function validateSession() {
@@ -89358,7 +89511,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
             } else {
               setSessionData({
                 id: activeId,
-                title: activeId.startsWith("room-") ? "Hatha Yoga Flow & Mindful Alignment" : "Live Yoga Session",
+                title: activeId.startsWith("room-") || activeId.startsWith("cls-") ? "Hatha Yoga Flow & Mindful Alignment" : "Live Yoga Session",
                 name: "Hatha Yoga Flow & Mindful Alignment",
                 courseName: "Master Hatha Yoga Flow",
                 room_name: `nithya-${activeId}`,
@@ -89373,7 +89526,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
           if (isMounted) {
             setSessionData({
               id: activeId,
-              title: activeId.startsWith("room-") ? "Hatha Yoga Flow & Mindful Alignment" : "Live Yoga Session",
+              title: activeId.startsWith("room-") || activeId.startsWith("cls-") ? "Hatha Yoga Flow & Mindful Alignment" : "Live Yoga Session",
               name: "Hatha Yoga Flow & Mindful Alignment",
               courseName: "Master Hatha Yoga Flow",
               room_name: `nithya-${activeId}`,
@@ -89408,6 +89561,9 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         return;
       }
       setIsJoining(true);
+      if (previewStream) {
+        previewStream.getTracks().forEach((t) => t.stop());
+      }
       try {
         const activeId = resolvedSessionId || "cls-1";
         const res = await apiFetch2("/api/student/join", {
@@ -89433,6 +89589,7 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
           sessionId: activeId,
           micActive,
           cameraActive,
+          autoConnect: true,
           joinedAt: (/* @__PURE__ */ new Date()).toISOString()
         };
         localStorage.setItem("nithya_student_session", JSON.stringify(studentSession));
@@ -89465,6 +89622,8 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
           onJoinClass(res?.class || sessionData, studentSession);
         } else if (onNavigate) {
           onNavigate(`/student/live/${encodeURIComponent(resolvedSessionId || activeId)}`);
+        } else {
+          window.location.hash = `#/student/live/${encodeURIComponent(resolvedSessionId || activeId)}`;
         }
       } catch (err) {
         setFormError(err.message || "Error joining class.");
@@ -89472,24 +89631,59 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         setIsJoining(false);
       }
     };
-    return /* @__PURE__ */ import_react71.default.createElement("div", { className: "min-h-screen bg-[#070514] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif] relative overflow-hidden" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden", "aria-hidden": "true" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-purple-700/25 to-violet-600/20 rounded-full blur-[140px]" }), /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-900/20 rounded-full blur-[120px]" }), /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute -top-20 -right-20 w-80 h-80 bg-purple-900/20 rounded-full blur-[120px]" })), /* @__PURE__ */ import_react71.default.createElement("div", { className: "relative w-full max-w-lg bg-gradient-to-b from-[#181136]/95 via-[#130E2E]/95 to-[#0b081c]/98 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl my-6 z-10" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex items-center justify-between mb-5" }, /* @__PURE__ */ import_react71.default.createElement(
+    return /* @__PURE__ */ import_react71.default.createElement("div", { className: "min-h-screen bg-gradient-to-br from-[#0A071B] via-[#0E0A26] to-[#070512] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif] relative overflow-hidden" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "fixed inset-0 pointer-events-none overflow-hidden", "aria-hidden": "true" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-purple-700/20 via-violet-600/15 to-indigo-600/20 rounded-full blur-[150px]" }), /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-900/25 rounded-full blur-[140px]" }), /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute -top-24 -right-24 w-96 h-96 bg-purple-900/25 rounded-full blur-[140px]" })), /* @__PURE__ */ import_react71.default.createElement("div", { className: "relative w-full max-w-xl bg-gradient-to-b from-[#181136]/90 via-[#130E2E]/95 to-[#0b081c]/98 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl my-6 z-10" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex items-center justify-between mb-5 pb-3 border-b border-white/10" }, /* @__PURE__ */ import_react71.default.createElement(
       "button",
       {
         type: "button",
-        onClick: () => onNavigate && onNavigate("/"),
-        className: "text-xs text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer py-1 px-2.5 rounded-lg hover:bg-white/5"
+        onClick: () => {
+          if (previewStream) previewStream.getTracks().forEach((t) => t.stop());
+          if (onNavigate) onNavigate("/");
+          else window.location.hash = "#/";
+        },
+        className: "text-xs font-semibold text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer py-1.5 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
       },
       /* @__PURE__ */ import_react71.default.createElement(ArrowLeft, { size: 14 }),
       /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BA4\u0BCD \u0BA4\u0BBF\u0BB0\u0BC1\u0BAE\u0BCD\u0BAA\u0BC1" : "Back to Home")
-    ), /* @__PURE__ */ import_react71.default.createElement("div", { className: "inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/15 to-violet-500/15 border border-purple-400/40 text-purple-200 text-[11px] font-bold tracking-wide" }, /* @__PURE__ */ import_react71.default.createElement(Radio, { size: 13, className: "text-purple-400 animate-pulse" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u0BAE\u0BBE\u0BA3\u0BB5\u0BB0\u0BCD \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B87\u0BA3\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1" : "Student Live Portal"))), /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex flex-col items-center text-center mb-6" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "relative mb-2" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute -inset-2 bg-gradient-to-r from-purple-600 to-violet-600 rounded-full blur-md opacity-40" }), /* @__PURE__ */ import_react71.default.createElement(ThreeDLotus, { size: 56 })), /* @__PURE__ */ import_react71.default.createElement("h1", { className: "text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-purple-300 tracking-tight" }, "NITHYA Live Yoga Studio"), /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-xs text-purple-300/70 mt-1 max-w-xs" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BAA\u0BC6\u0BAF\u0BB0\u0BCD \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0BAE\u0BCA\u0BAA\u0BC8\u0BB2\u0BCD \u0B8E\u0BA3\u0BCD\u0BA3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BB5\u0BC1\u0BAE\u0BCD" : "Enter your details to join the live interactive yoga studio")), isLoadingSession && /* @__PURE__ */ import_react71.default.createElement("div", { className: "text-center py-10 flex flex-col items-center" }, /* @__PURE__ */ import_react71.default.createElement(RefreshCw, { size: 36, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react71.default.createElement("h3", { className: "font-bold text-base text-purple-200" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Validating Live Yoga Class Link..."), /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-xs text-purple-300/50 mt-1" }, "Connecting to NITHYA Yoga Studio")), !isLoadingSession && isClassEnded && /* @__PURE__ */ import_react71.default.createElement("div", { className: "text-center py-8" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-lg shadow-amber-500/10" }, /* @__PURE__ */ import_react71.default.createElement(Clock, { size: 32 })), /* @__PURE__ */ import_react71.default.createElement("h3", { className: "text-xl font-bold text-white mb-2" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Live Class Has Ended"), /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BBE\u0BB0\u0BCD. \u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9F\u0BBE\u0BB7\u0BCD\u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BC8\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "The instructor has concluded this live yoga session. Thank you for your practice. Check the schedule for upcoming classes."), /* @__PURE__ */ import_react71.default.createElement(
+    ), /* @__PURE__ */ import_react71.default.createElement("div", { className: "inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500/15 to-teal-500/15 border border-emerald-400/40 text-emerald-300 text-[11px] font-bold tracking-wide" }, /* @__PURE__ */ import_react71.default.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-400 animate-pulse" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "HD \u0BB5\u0BC6\u0BAA\u0BCD\u0B86\u0BB0\u0BCD\u0B9F\u0BBF\u0B9A\u0BBF \u0BB8\u0BCD\u0B9F\u0BC1\u0B9F\u0BBF\u0BAF\u0BCB" : "HD WebRTC Studio"))), /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex flex-col items-center text-center mb-6" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "relative mb-2" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute -inset-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full blur-lg opacity-50 animate-pulse" }), /* @__PURE__ */ import_react71.default.createElement(ThreeDLotus, { size: 58 })), /* @__PURE__ */ import_react71.default.createElement("h1", { className: "text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-purple-300 tracking-tight" }, "NITHYA Live Yoga Studio"), /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-xs sm:text-sm text-purple-200/80 mt-1 max-w-md" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BC8 \u0B89\u0BB3\u0BCD\u0BB3\u0BBF\u0B9F\u0BCD\u0B9F\u0BC1 \u0B9A\u0BBE\u0BA4\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BC8\u0B9A\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Interactive Live Yoga Studio \u2014 Join certified masters in real-time practice")), isLoadingSession && /* @__PURE__ */ import_react71.default.createElement("div", { className: "text-center py-12 flex flex-col items-center" }, /* @__PURE__ */ import_react71.default.createElement(RefreshCw, { size: 38, className: "text-purple-400 animate-spin mb-4" }), /* @__PURE__ */ import_react71.default.createElement("h3", { className: "font-bold text-base text-purple-200" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Validating Live Yoga Class Link..."), /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-xs text-purple-300/60 mt-1" }, "Negotiating secure connection to NITHYA Studio")), !isLoadingSession && isClassEnded && /* @__PURE__ */ import_react71.default.createElement("div", { className: "text-center py-8" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "w-16 h-16 mx-auto mb-4 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 shadow-lg shadow-amber-500/10" }, /* @__PURE__ */ import_react71.default.createElement(Clock, { size: 32 })), /* @__PURE__ */ import_react71.default.createElement("h3", { className: "text-xl font-bold text-white mb-2" }, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA8\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Live Class Has Ended"), /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6" }, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD \u0B87\u0BA8\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC8 \u0BAE\u0BC1\u0B9F\u0BBF\u0BA4\u0BCD\u0BA4\u0BC1\u0BB5\u0BBF\u0B9F\u0BCD\u0B9F\u0BBE\u0BB0\u0BCD. \u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BC1\u0B95\u0BCD\u0B95\u0BC1 \u0B89\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B9F\u0BBE\u0BB7\u0BCD\u0BAA\u0BCB\u0BB0\u0BCD\u0B9F\u0BC8\u0BAA\u0BCD \u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD." : "The instructor has concluded this live yoga session. Check the schedule for upcoming live sessions."), /* @__PURE__ */ import_react71.default.createElement(
       "button",
       {
         type: "button",
-        onClick: () => onNavigate && onNavigate("/"),
+        onClick: () => {
+          if (onNavigate) onNavigate("/");
+          else window.location.hash = "#/";
+        },
         className: "px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-600/30 transition-all cursor-pointer"
       },
       lang === "ta" ? "\u0BAE\u0BC1\u0B95\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0B9A\u0BCD \u0B9A\u0BC6\u0BB2\u0BCD\u0BB2\u0BB5\u0BC1\u0BAE\u0BCD" : "Go to Home"
-    )), !isLoadingSession && !isClassEnded && sessionData && /* @__PURE__ */ import_react71.default.createElement("div", null, /* @__PURE__ */ import_react71.default.createElement("div", { className: "p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 via-violet-950/40 to-indigo-950/60 border border-purple-500/35 mb-6 flex items-center gap-4 shadow-lg backdrop-blur-md" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "w-13 h-13 rounded-2xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0 shadow-inner" }, /* @__PURE__ */ import_react71.default.createElement("span", { className: "text-2xl" }, "\u{1F9D8}\u200D\u2640\uFE0F")), /* @__PURE__ */ import_react71.default.createElement("div", { className: "min-w-0 flex-1" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex items-center gap-2 mb-0.5" }, /* @__PURE__ */ import_react71.default.createElement("span", { className: "inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-black tracking-wider uppercase" }, /* @__PURE__ */ import_react71.default.createElement("span", { className: "w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" }), lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8" : "CLASS LIVE NOW"), /* @__PURE__ */ import_react71.default.createElement("span", { className: "text-[11px] text-purple-300/70" }, "\u23F1\uFE0F ", sessionData.duration || 60, "m")), /* @__PURE__ */ import_react71.default.createElement("h3", { className: "font-bold text-sm sm:text-base text-white truncate" }, sessionData.title || sessionData.name || "Hatha Yoga Flow & Alignment"), /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-xs text-purple-200/80 truncate" }, "Instructor: ", /* @__PURE__ */ import_react71.default.createElement("strong", { className: "text-purple-100" }, sessionData.instructor || "NITHYA Master")))), formError && /* @__PURE__ */ import_react71.default.createElement("div", { className: "mb-4 p-3.5 rounded-2xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-2.5 text-rose-200 text-xs" }, /* @__PURE__ */ import_react71.default.createElement(CircleAlert, { size: 16, className: "text-rose-400 shrink-0" }), /* @__PURE__ */ import_react71.default.createElement("span", { className: "leading-snug" }, formError)), /* @__PURE__ */ import_react71.default.createElement("form", { onSubmit: handleJoin, className: "flex flex-col gap-3" }, /* @__PURE__ */ import_react71.default.createElement(
+    )), !isLoadingSession && !isClassEnded && sessionData && /* @__PURE__ */ import_react71.default.createElement("div", null, /* @__PURE__ */ import_react71.default.createElement("div", { className: "p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 via-violet-950/40 to-indigo-950/60 border border-purple-500/35 mb-5 flex items-center gap-4 shadow-lg backdrop-blur-md" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "w-13 h-13 rounded-2xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0 shadow-inner" }, /* @__PURE__ */ import_react71.default.createElement("span", { className: "text-2xl" }, "\u{1F9D8}\u200D\u2640\uFE0F")), /* @__PURE__ */ import_react71.default.createElement("div", { className: "min-w-0 flex-1" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex items-center gap-2 mb-1" }, /* @__PURE__ */ import_react71.default.createElement("span", { className: "inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-black tracking-wider uppercase" }, /* @__PURE__ */ import_react71.default.createElement("span", { className: "w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" }), lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8" : "CLASS LIVE NOW"), /* @__PURE__ */ import_react71.default.createElement("span", { className: "text-[11px] text-purple-300/70" }, "\u23F1\uFE0F ", sessionData.duration || 60, "m")), /* @__PURE__ */ import_react71.default.createElement("h3", { className: "font-bold text-sm sm:text-base text-white truncate" }, sessionData.title || sessionData.name || "Hatha Yoga Flow & Alignment"), /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-xs text-purple-200/80 truncate flex items-center gap-1 mt-0.5" }, /* @__PURE__ */ import_react71.default.createElement(Crown, { size: 12, className: "text-amber-400" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0BB1\u0BC1\u0BA8\u0BB0\u0BCD:" : "Instructor:"), /* @__PURE__ */ import_react71.default.createElement("strong", { className: "text-purple-100" }, sessionData.instructor || "NITHYA Master")))), /* @__PURE__ */ import_react71.default.createElement("div", { className: "mb-5 p-3.5 rounded-2xl bg-[#0F0A24] border border-purple-500/30" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex items-center justify-between mb-2 px-1" }, /* @__PURE__ */ import_react71.default.createElement("span", { className: "text-xs font-bold text-purple-200 flex items-center gap-1.5" }, /* @__PURE__ */ import_react71.default.createElement(Video, { size: 14, className: "text-purple-400" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B9A\u0BCB\u0BA4\u0BA9\u0BC8 (Self-Check):" : "Camera & Audio Check:")), /* @__PURE__ */ import_react71.default.createElement("span", { className: "text-[10px] text-purple-300/60" }, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB1\u0BCD\u0B95\u0BC1\u0BB3\u0BCD \u0BA8\u0BC1\u0BB4\u0BC8\u0BB5\u0BA4\u0BB1\u0BCD\u0B95\u0BC1 \u0BAE\u0BC1\u0BA9\u0BCD \u0B9A\u0BB0\u0BBF\u0BAA\u0BBE\u0BB0\u0BCD\u0B95\u0BCD\u0B95\u0BB5\u0BC1\u0BAE\u0BCD" : "Preview before entering room")), /* @__PURE__ */ import_react71.default.createElement("div", { className: "relative w-full aspect-video rounded-2xl overflow-hidden bg-black/60 border border-purple-500/25 flex items-center justify-center shadow-inner" }, cameraActive ? /* @__PURE__ */ import_react71.default.createElement(
+      "video",
+      {
+        ref: previewVideoRef,
+        autoPlay: true,
+        playsInline: true,
+        muted: true,
+        style: { transform: "scaleX(-1)" },
+        className: "w-full h-full object-cover"
+      }
+    ) : /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex flex-col items-center justify-center p-6 text-center" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "w-16 h-16 rounded-full bg-purple-900/30 border border-purple-500/30 flex items-center justify-center text-purple-300 text-xl font-bold mb-2" }, (name || "Y").charAt(0).toUpperCase()), /* @__PURE__ */ import_react71.default.createElement("span", { className: "text-xs font-bold text-purple-200" }, name || (lang === "ta" ? "\u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "You")), /* @__PURE__ */ import_react71.default.createElement("span", { className: "text-[10px] text-rose-300 font-semibold mt-0.5 bg-rose-950/40 border border-rose-500/30 px-2 py-0.5 rounded-full" }, lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")), /* @__PURE__ */ import_react71.default.createElement("div", { className: "absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 z-10" }, /* @__PURE__ */ import_react71.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: handleTogglePreviewMic,
+        className: `w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer ${micActive ? "bg-purple-600/80 hover:bg-purple-600 text-white shadow-md" : "bg-rose-600 hover:bg-rose-700 text-white shadow-md"}`,
+        title: micActive ? "Mute Microphone" : "Unmute Microphone"
+      },
+      micActive ? /* @__PURE__ */ import_react71.default.createElement(Mic, { size: 16 }) : /* @__PURE__ */ import_react71.default.createElement(MicOff, { size: 16 })
+    ), /* @__PURE__ */ import_react71.default.createElement(
+      "button",
+      {
+        type: "button",
+        onClick: handleTogglePreviewCamera,
+        className: `w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer ${cameraActive ? "bg-purple-600/80 hover:bg-purple-600 text-white shadow-md" : "bg-rose-600 hover:bg-rose-700 text-white shadow-md"}`,
+        title: cameraActive ? "Turn Off Camera" : "Turn On Camera"
+      },
+      cameraActive ? /* @__PURE__ */ import_react71.default.createElement(Video, { size: 16 }) : /* @__PURE__ */ import_react71.default.createElement(VideoOff, { size: 16 })
+    ))), deviceError && /* @__PURE__ */ import_react71.default.createElement("p", { className: "text-[11px] text-amber-300/80 text-center mt-2" }, "\u26A0\uFE0F ", deviceError)), formError && /* @__PURE__ */ import_react71.default.createElement("div", { className: "mb-4 p-3.5 rounded-2xl bg-rose-950/70 border border-rose-500/50 flex items-center gap-2.5 text-rose-200 text-xs" }, /* @__PURE__ */ import_react71.default.createElement(CircleAlert, { size: 16, className: "text-rose-400 shrink-0" }), /* @__PURE__ */ import_react71.default.createElement("span", { className: "leading-snug" }, formError)), /* @__PURE__ */ import_react71.default.createElement("form", { onSubmit: handleJoin, className: "flex flex-col gap-3" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "bg-[#120D2C] p-4 rounded-2xl border border-purple-500/25 flex flex-col gap-3" }, /* @__PURE__ */ import_react71.default.createElement(
       FloatingInput,
       {
         id: "student-name-input",
@@ -89521,32 +89715,14 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         required: true,
         className: "w-full"
       }
-    ), /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex items-center justify-between gap-2.5 p-3 rounded-2xl bg-[#110C29]/80 border border-purple-500/25 my-1" }, /* @__PURE__ */ import_react71.default.createElement("div", { className: "text-[11px] text-purple-300 font-medium" }, lang === "ta" ? "\u0B9A\u0BBE\u0BA4\u0BA9 \u0B85\u0BAE\u0BC8\u0BAA\u0BCD\u0BAA\u0BC1\u0B95\u0BB3\u0BCD:" : "Device Preview:"), /* @__PURE__ */ import_react71.default.createElement("div", { className: "flex items-center gap-2" }, /* @__PURE__ */ import_react71.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => setMicActive(!micActive),
-        className: `px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all cursor-pointer ${micActive ? "bg-purple-900/40 border-purple-400/50 text-purple-200 hover:bg-purple-900/60" : "bg-rose-950/40 border-rose-500/40 text-rose-300 hover:bg-rose-950/60"}`
-      },
-      micActive ? /* @__PURE__ */ import_react71.default.createElement(Mic, { size: 13, className: "text-emerald-400" }) : /* @__PURE__ */ import_react71.default.createElement(MicOff, { size: 13, className: "text-rose-400" }),
-      /* @__PURE__ */ import_react71.default.createElement("span", null, micActive ? lang === "ta" ? "\u0BAE\u0BC8\u0B95\u0BCD \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD" : "Mic On" : lang === "ta" ? "\u0BAE\u0BC8\u0B95\u0BCD \u0BAE\u0BBF\u0BAF\u0BC2\u0B9F\u0BCD" : "Mic Off")
-    ), /* @__PURE__ */ import_react71.default.createElement(
-      "button",
-      {
-        type: "button",
-        onClick: () => setCameraActive(!cameraActive),
-        className: `px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all cursor-pointer ${cameraActive ? "bg-purple-900/40 border-purple-400/50 text-purple-200 hover:bg-purple-900/60" : "bg-rose-950/40 border-rose-500/40 text-rose-300 hover:bg-rose-950/60"}`
-      },
-      cameraActive ? /* @__PURE__ */ import_react71.default.createElement(Video, { size: 13, className: "text-emerald-400" }) : /* @__PURE__ */ import_react71.default.createElement(VideoOff, { size: 13, className: "text-rose-400" }),
-      /* @__PURE__ */ import_react71.default.createElement("span", null, cameraActive ? lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0BA4\u0BAF\u0BBE\u0BB0\u0BCD" : "Camera On" : lang === "ta" ? "\u0B95\u0BC7\u0BAE\u0BB0\u0BBE \u0B86\u0B83\u0BAA\u0BCD" : "Camera Off")
-    ))), /* @__PURE__ */ import_react71.default.createElement("div", { className: "p-2.5 rounded-xl bg-purple-950/30 border border-purple-500/20 text-[11px] text-purple-300/80 flex items-start gap-2" }, /* @__PURE__ */ import_react71.default.createElement(ShieldCheck, { size: 15, className: "text-emerald-400 shrink-0 mt-0.5" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0B95\u0B95\u0BCD (70%+) \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Your live session attendance will be tracked for 70%+ completion certificate.")), /* @__PURE__ */ import_react71.default.createElement(
+    )), /* @__PURE__ */ import_react71.default.createElement("div", { className: "p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 text-[11px] text-purple-300/80 flex items-start gap-2" }, /* @__PURE__ */ import_react71.default.createElement(ShieldCheck, { size: 16, className: "text-emerald-400 shrink-0 mt-0.5" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0BA8\u0BC0\u0B99\u0BCD\u0B95\u0BB3\u0BCD \u0B87\u0BB0\u0BC1\u0B95\u0BCD\u0B95\u0BC1\u0BAE\u0BCD \u0BA8\u0BC7\u0BB0\u0BAE\u0BCD \u0BB5\u0BB0\u0BC1\u0B95\u0BC8\u0BAA\u0BCD \u0BAA\u0BA4\u0BBF\u0BB5\u0BBF\u0BB1\u0BCD\u0B95\u0BBE\u0B95\u0B95\u0BCD (70%+) \u0B95\u0BA3\u0B95\u0BCD\u0B95\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BC1\u0BAE\u0BCD." : "Your live session attendance will be logged automatically for 70%+ certificate verification.")), /* @__PURE__ */ import_react71.default.createElement(
       "button",
       {
         type: "submit",
         disabled: isJoining,
-        className: "w-full mt-3 py-4 px-6 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base rounded-2xl shadow-xl shadow-purple-600/35 flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
+        className: "w-full mt-2 py-4 px-6 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base rounded-2xl shadow-xl shadow-purple-600/35 flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
       },
-      isJoining ? /* @__PURE__ */ import_react71.default.createElement(import_react71.default.Fragment, null, /* @__PURE__ */ import_react71.default.createElement(RefreshCw, { size: 18, className: "animate-spin" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8\u0BAF\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Entering Classroom...")) : /* @__PURE__ */ import_react71.default.createElement(import_react71.default.Fragment, null, /* @__PURE__ */ import_react71.default.createElement(Radio, { size: 18, className: "animate-pulse text-purple-200" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0B95" : "\u{1F680} Enter Live Yoga Room"), /* @__PURE__ */ import_react71.default.createElement(ArrowRight, { size: 18 }))
+      isJoining ? /* @__PURE__ */ import_react71.default.createElement(import_react71.default.Fragment, null, /* @__PURE__ */ import_react71.default.createElement(RefreshCw, { size: 18, className: "animate-spin" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BB1\u0BC8\u0BAF\u0BC1\u0B9F\u0BA9\u0BCD \u0B87\u0BA3\u0BC8\u0B95\u0BBF\u0BB1\u0BA4\u0BC1..." : "Entering Classroom...")) : /* @__PURE__ */ import_react71.default.createElement(import_react71.default.Fragment, null, /* @__PURE__ */ import_react71.default.createElement(Radio, { size: 18, className: "animate-pulse text-purple-200" }), /* @__PURE__ */ import_react71.default.createElement("span", null, lang === "ta" ? "\u{1F680} \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "\u{1F680} Enter Live Yoga Room"), /* @__PURE__ */ import_react71.default.createElement(ArrowRight, { size: 18 }))
     )))));
   }
   var import_react71;
@@ -91835,23 +92011,42 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onShowAll: () => handleTabChange("yoga"),
         lang
       }
-    )), /* @__PURE__ */ import_react74.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md relative overflow-hidden" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "relative z-10" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", lang === "ta" ? "\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Upcoming Live Yoga Class"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-xs text-muted font-medium flex items-center gap-1" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "w-2 h-2 rounded-full bg-emerald-400 animate-pulse" }), activeClass?.status === "live" ? lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8" : "Live Now" : lang === "ta" ? "\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Scheduled")), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center gap-4 mb-4 p-3 rounded-2xl bg-purple-900/20 border border-purple-500/15" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-purple-950/60 border border-purple-500/30 flex items-center justify-center p-1" }, /* @__PURE__ */ import_react74.default.createElement(
+    )), /* @__PURE__ */ import_react74.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md relative overflow-hidden" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "relative z-10" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center justify-between mb-4" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5" }, "\u{1F9D8}\u200D\u2640\uFE0F ", activeClass?.status === "live" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Live Yoga Stream" : lang === "ta" ? "\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Upcoming Yoga Class"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-xs text-muted font-medium flex items-center gap-1" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: `w-2 h-2 rounded-full ${activeClass?.status === "live" ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}` }), activeClass?.status === "live" ? lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8" : "Live Now" : lang === "ta" ? "\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Scheduled")), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center gap-4 mb-4 p-3 rounded-2xl bg-purple-900/20 border border-purple-500/15" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-purple-950/60 border border-purple-500/30 flex items-center justify-center p-1" }, /* @__PURE__ */ import_react74.default.createElement(
       "img",
       {
         src: "assets/premium-yoga/chakra-moon-hero.svg",
         alt: "Nithya Yoga 7 Chakras Moon",
         className: "w-full h-full object-contain"
       }
-    )), /* @__PURE__ */ import_react74.default.createElement("div", null, /* @__PURE__ */ import_react74.default.createElement("h4", { className: "text-sm font-bold text-heading m-0 leading-tight" }, activeClass?.title || activeClass?.name || "Hatha Yoga & Prana Flow"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-xs text-primary font-semibold block mt-1" }, "\u{1F464} ", activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-[11px] text-muted block mt-0.5" }, "\u23F1\uFE0F ", activeClass?.duration_minutes || activeClass?.duration || 60, " ", lang === "ta" ? "\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Minutes", " \u2022 1080p HD"))), /* @__PURE__ */ import_react74.default.createElement("p", { className: "text-xs text-muted leading-relaxed mb-4" }, lang === "ta" ? "\u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD, \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0B95\u0BCD\u0BB0\u0BBE \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD \u0B86\u0B95\u0BBF\u0BAF\u0BB5\u0BB1\u0BCD\u0BB1\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Experience balanced asanas, guided pranayama breathing, and peaceful chakra meditation.")), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex flex-col gap-2 mt-2 relative z-10" }, /* @__PURE__ */ import_react74.default.createElement(
+    )), /* @__PURE__ */ import_react74.default.createElement("div", null, /* @__PURE__ */ import_react74.default.createElement("h4", { className: "text-sm font-bold text-heading m-0 leading-tight" }, activeClass?.title || activeClass?.name || "Hatha Yoga & Prana Flow"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-xs text-primary font-semibold block mt-1" }, "\u{1F464} ", activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-[11px] text-muted block mt-0.5" }, "\u23F1\uFE0F ", activeClass?.duration_minutes || activeClass?.duration || 60, " ", lang === "ta" ? "\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Minutes", " \u2022 1080p HD"))), /* @__PURE__ */ import_react74.default.createElement("p", { className: "text-xs text-muted leading-relaxed mb-4" }, lang === "ta" ? "\u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD, \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0B95\u0BCD\u0BB0\u0BBE \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD \u0B86\u0B95\u0BBF\u0BAF\u0BB5\u0BB1\u0BCD\u0BB1\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Experience balanced asanas, guided pranayama breathing, and peaceful chakra meditation.")), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex flex-col gap-2 mt-2 relative z-10" }, activeClass?.status === "live" ? /* @__PURE__ */ import_react74.default.createElement(
       "button",
       {
         type: "button",
-        className: "btn-hero-primary w-full py-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-2",
+        className: "btn-hero-primary w-full py-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 shadow-lg shadow-emerald-600/25 animate-pulse",
         onClick: () => handleJoinLive(activeClass)
       },
       /* @__PURE__ */ import_react74.default.createElement(Play, { size: 14, fill: "currentColor" }),
-      /* @__PURE__ */ import_react74.default.createElement("span", null, lang === "ta" ? "\u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD (Join Class)" : "Join Live Class")
+      /* @__PURE__ */ import_react74.default.createElement("span", null, lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BB5\u0BC1\u0BAE\u0BCD (Join Live)" : "Join Live Class")
+    ) : /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex gap-2" }, /* @__PURE__ */ import_react74.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "btn-hero-primary flex-1 py-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5",
+        onClick: () => handleTabChange("yoga")
+      },
+      /* @__PURE__ */ import_react74.default.createElement("span", null, "\u{1F9D8}\u200D\u2640\uFE0F"),
+      /* @__PURE__ */ import_react74.default.createElement("span", null, lang === "ta" ? "\u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0BBF\u0BB5\u0BB0\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Yoga Details")
     ), /* @__PURE__ */ import_react74.default.createElement(
+      "button",
+      {
+        type: "button",
+        className: "py-2.5 px-3 rounded-xl bg-purple-900/50 hover:bg-purple-800 text-purple-200 text-xs font-bold border border-purple-500/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer",
+        onClick: () => handleTabChange("reminders"),
+        title: lang === "ta" ? "\u0BB0\u0BBF\u0BAE\u0BC8\u0BA3\u0BCD\u0B9F\u0BB0\u0BCD \u0B85\u0BAE\u0BC8" : "Set Class Reminder"
+      },
+      /* @__PURE__ */ import_react74.default.createElement("span", null, "\u23F0"),
+      /* @__PURE__ */ import_react74.default.createElement("span", null, lang === "ta" ? "\u0BB0\u0BBF\u0BAE\u0BC8\u0BA3\u0BCD\u0B9F\u0BB0\u0BCD" : "Reminder")
+    )), /* @__PURE__ */ import_react74.default.createElement(
       "button",
       {
         type: "button",

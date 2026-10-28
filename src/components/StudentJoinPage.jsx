@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   User,
   Phone,
@@ -16,9 +16,11 @@ import {
   Sparkles,
   ShieldCheck,
   Flame,
-  Calendar
+  Calendar,
+  Volume2,
+  Crown
 } from 'lucide-react';
-import { apiFetch } from '../utils/api';
+import { apiFetch, getProductionLiveUrl } from '../utils/api';
 import { FloatingInput } from './FloatingInput';
 import { ThreeDLotus } from './ThreeDIcons';
 
@@ -68,9 +70,98 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
   const [formError, setFormError] = useState('');
   const [isJoining, setIsJoining] = useState(false);
 
-  // Pre-join media check states
+  // Pre-join live device preview stream (Microsoft Teams / Google Meet style)
   const [micActive, setMicActive] = useState(true);
   const [cameraActive, setCameraActive] = useState(true);
+  const [previewStream, setPreviewStream] = useState(null);
+  const [deviceError, setDeviceError] = useState('');
+  const previewVideoRef = useRef(null);
+
+  // Start hardware camera/mic preview for pre-join self check
+  useEffect(() => {
+    let isMounted = true;
+    let localMediaStream = null;
+
+    async function initPreview() {
+      if (!cameraActive && !micActive) {
+        if (previewStream) {
+          previewStream.getTracks().forEach(t => t.stop());
+          setPreviewStream(null);
+        }
+        return;
+      }
+
+      try {
+        if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+          const stream = await navigator.mediaDevices.getUserMedia({
+            video: cameraActive ? { width: { ideal: 640 }, height: { ideal: 360 }, facingMode: 'user' } : false,
+            audio: micActive
+          });
+
+          if (isMounted) {
+            localMediaStream = stream;
+            setPreviewStream(stream);
+            setDeviceError('');
+            if (previewVideoRef.current && cameraActive) {
+              previewVideoRef.current.srcObject = stream;
+              previewVideoRef.current.play().catch(() => {});
+            }
+          } else {
+            stream.getTracks().forEach(t => t.stop());
+          }
+        }
+      } catch (err) {
+        console.warn('Hardware preview acquisition notice:', err.message);
+        if (isMounted) {
+          setDeviceError(lang === 'ta' ? 'கேமரா/மைக் அணுகல் அனுமதியை சரிபார்க்கவும்' : 'Camera/mic permission needed');
+        }
+      }
+    }
+
+    initPreview();
+
+    return () => {
+      isMounted = false;
+      if (localMediaStream) {
+        localMediaStream.getTracks().forEach(t => t.stop());
+      }
+    };
+  }, [cameraActive, micActive]);
+
+  // Handle video element update when previewStream changes
+  useEffect(() => {
+    if (previewVideoRef.current && previewStream && cameraActive) {
+      previewVideoRef.current.srcObject = previewStream;
+      previewVideoRef.current.play().catch(() => {});
+    }
+  }, [previewStream, cameraActive]);
+
+  // Toggle Camera
+  const handleTogglePreviewCamera = () => {
+    if (cameraActive) {
+      if (previewStream) {
+        previewStream.getVideoTracks().forEach(t => t.stop());
+      }
+      setCameraActive(false);
+    } else {
+      setCameraActive(true);
+    }
+  };
+
+  // Toggle Mic
+  const handleTogglePreviewMic = () => {
+    if (micActive) {
+      if (previewStream) {
+        previewStream.getAudioTracks().forEach(t => { t.enabled = false; });
+      }
+      setMicActive(false);
+    } else {
+      if (previewStream) {
+        previewStream.getAudioTracks().forEach(t => { t.enabled = true; });
+      }
+      setMicActive(true);
+    }
+  };
 
   // Validate session on backend on mount with resilient client fallback
   useEffect(() => {
@@ -93,10 +184,10 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
               setIsClassEnded(true);
             }
           } else {
-            // Graceful auto-provisioning for any valid session so student is NEVER blocked!
+            // Graceful auto-provisioning for any valid session so student is NEVER blocked
             setSessionData({
               id: activeId,
-              title: activeId.startsWith('room-') ? 'Hatha Yoga Flow & Mindful Alignment' : 'Live Yoga Session',
+              title: activeId.startsWith('room-') || activeId.startsWith('cls-') ? 'Hatha Yoga Flow & Mindful Alignment' : 'Live Yoga Session',
               name: 'Hatha Yoga Flow & Mindful Alignment',
               courseName: 'Master Hatha Yoga Flow',
               room_name: `nithya-${activeId}`,
@@ -109,10 +200,9 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
       } catch (err) {
         console.warn('Session verification fallback active (allowing direct student access):', err.message);
         if (isMounted) {
-          // Resilient client fallback: never block student with invalid link error
           setSessionData({
             id: activeId,
-            title: activeId.startsWith('room-') ? 'Hatha Yoga Flow & Mindful Alignment' : 'Live Yoga Session',
+            title: activeId.startsWith('room-') || activeId.startsWith('cls-') ? 'Hatha Yoga Flow & Mindful Alignment' : 'Live Yoga Session',
             name: 'Hatha Yoga Flow & Mindful Alignment',
             courseName: 'Master Hatha Yoga Flow',
             room_name: `nithya-${activeId}`,
@@ -152,6 +242,11 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
 
     setIsJoining(true);
 
+    // Stop local preview stream before entering main classroom
+    if (previewStream) {
+      previewStream.getTracks().forEach(t => t.stop());
+    }
+
     try {
       const activeId = resolvedSessionId || 'cls-1';
 
@@ -182,13 +277,13 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
         sessionId: activeId,
         micActive,
         cameraActive,
+        autoConnect: true,
         joinedAt: new Date().toISOString()
       };
 
       localStorage.setItem('nithya_student_session', JSON.stringify(studentSession));
       localStorage.setItem('nithya_student_name', cleanName);
       localStorage.setItem('nithya_student_phone', cleanPhone);
-      // Student session is strictly isolated in student storage
       sessionStorage.setItem('nithya_current_role', 'student');
 
       // 3. Register student attendance record
@@ -214,11 +309,13 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
         localStorage.setItem('nithya_attendance_logs', JSON.stringify(updatedLogs));
       } catch (_) {}
 
-      // 4. Enter the live class room in student mode
+      // 4. Enter the live class room in student mode (DIRECT SEAMLESS TRANSITION)
       if (onJoinClass) {
         onJoinClass(res?.class || sessionData, studentSession);
       } else if (onNavigate) {
         onNavigate(`/student/live/${encodeURIComponent(resolvedSessionId || activeId)}`);
+      } else {
+        window.location.hash = `#/student/live/${encodeURIComponent(resolvedSessionId || activeId)}`;
       }
     } catch (err) {
       setFormError(err.message || 'Error joining class.');
@@ -228,56 +325,60 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
   };
 
   return (
-    <div className="min-h-screen bg-[#070514] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-[#0A071B] via-[#0E0A26] to-[#070512] text-white flex flex-col justify-center items-center p-4 sm:p-6 font-['Poppins',sans-serif] relative overflow-hidden">
       {/* Background Luxury Ambient Glow Orbs */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-to-tr from-purple-700/25 to-violet-600/20 rounded-full blur-[140px]"></div>
-        <div className="absolute -bottom-20 -left-20 w-80 h-80 bg-indigo-900/20 rounded-full blur-[120px]"></div>
-        <div className="absolute -top-20 -right-20 w-80 h-80 bg-purple-900/20 rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-gradient-to-tr from-purple-700/20 via-violet-600/15 to-indigo-600/20 rounded-full blur-[150px]"></div>
+        <div className="absolute -bottom-24 -left-24 w-96 h-96 bg-indigo-900/25 rounded-full blur-[140px]"></div>
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-purple-900/25 rounded-full blur-[140px]"></div>
       </div>
 
-      <div className="relative w-full max-w-lg bg-gradient-to-b from-[#181136]/95 via-[#130E2E]/95 to-[#0b081c]/98 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl my-6 z-10">
+      <div className="relative w-full max-w-xl bg-gradient-to-b from-[#181136]/90 via-[#130E2E]/95 to-[#0b081c]/98 border border-purple-500/30 rounded-3xl p-6 sm:p-8 shadow-2xl backdrop-blur-2xl my-6 z-10">
         {/* Top Header Navigation */}
-        <div className="flex items-center justify-between mb-5">
+        <div className="flex items-center justify-between mb-5 pb-3 border-b border-white/10">
           <button
             type="button"
-            onClick={() => onNavigate && onNavigate('/')}
-            className="text-xs text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer py-1 px-2.5 rounded-lg hover:bg-white/5"
+            onClick={() => {
+              if (previewStream) previewStream.getTracks().forEach(t => t.stop());
+              if (onNavigate) onNavigate('/');
+              else window.location.hash = '#/';
+            }}
+            className="text-xs font-semibold text-purple-300 hover:text-white flex items-center gap-1.5 transition-colors cursor-pointer py-1.5 px-3 rounded-xl hover:bg-white/5 border border-transparent hover:border-white/10"
           >
             <ArrowLeft size={14} />
             <span>{lang === 'ta' ? 'முகப்பிற்குத் திரும்பு' : 'Back to Home'}</span>
           </button>
 
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gradient-to-r from-purple-500/15 to-violet-500/15 border border-purple-400/40 text-purple-200 text-[11px] font-bold tracking-wide">
-            <Radio size={13} className="text-purple-400 animate-pulse" />
-            <span>{lang === 'ta' ? 'மாணவர் நேரலை இணைப்பு' : 'Student Live Portal'}</span>
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500/15 to-teal-500/15 border border-emerald-400/40 text-emerald-300 text-[11px] font-bold tracking-wide">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>{lang === 'ta' ? 'HD வெப்ஆர்டிசி ஸ்டுடியோ' : 'HD WebRTC Studio'}</span>
           </div>
         </div>
 
-        {/* Brand Icon & Heading */}
+        {/* Brand Icon & Heading (Microsoft Fluent Style) */}
         <div className="flex flex-col items-center text-center mb-6">
           <div className="relative mb-2">
-            <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 to-violet-600 rounded-full blur-md opacity-40"></div>
-            <ThreeDLotus size={56} />
+            <div className="absolute -inset-2 bg-gradient-to-r from-purple-600 to-indigo-600 rounded-full blur-lg opacity-50 animate-pulse"></div>
+            <ThreeDLotus size={58} />
           </div>
-          <h1 className="text-xl sm:text-2xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-purple-300 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-purple-100 to-purple-300 tracking-tight">
             NITHYA Live Yoga Studio
           </h1>
-          <p className="text-xs text-purple-300/70 mt-1 max-w-xs">
+          <p className="text-xs sm:text-sm text-purple-200/80 mt-1 max-w-md">
             {lang === 'ta'
-              ? 'நேரலை வகுப்பில் இணைய உங்கள் பெயர் மற்றும் மொபைல் எண்ணை உள்ளிடவும்'
-              : 'Enter your details to join the live interactive yoga studio'}
+              ? 'நேரலை வகுப்பில் இணைய உங்கள் விவரங்களை உள்ளிட்டு சாதனங்களைச் சரிபார்க்கவும்'
+              : 'Interactive Live Yoga Studio — Join certified masters in real-time practice'}
           </p>
         </div>
 
         {/* LOADING STATE */}
         {isLoadingSession && (
-          <div className="text-center py-10 flex flex-col items-center">
-            <RefreshCw size={36} className="text-purple-400 animate-spin mb-4" />
+          <div className="text-center py-12 flex flex-col items-center">
+            <RefreshCw size={38} className="text-purple-400 animate-spin mb-4" />
             <h3 className="font-bold text-base text-purple-200">
               {lang === 'ta' ? 'நேரலை வகுப்பு சரிபார்க்கப்படுகிறது...' : 'Validating Live Yoga Class Link...'}
             </h3>
-            <p className="text-xs text-purple-300/50 mt-1">Connecting to NITHYA Yoga Studio</p>
+            <p className="text-xs text-purple-300/60 mt-1">Negotiating secure connection to NITHYA Studio</p>
           </div>
         )}
 
@@ -293,11 +394,14 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
             <p className="text-xs text-purple-200/70 max-w-sm mx-auto leading-relaxed mb-6">
               {lang === 'ta'
                 ? 'பயிற்றுநர் இந்த யோகா வகுப்பை முடித்துவிட்டார். அடுத்த நேரலை வகுப்புகளுக்கு உங்கள் டாஷ்போர்டைப் பார்க்கவும்.'
-                : 'The instructor has concluded this live yoga session. Thank you for your practice. Check the schedule for upcoming classes.'}
+                : 'The instructor has concluded this live yoga session. Check the schedule for upcoming live sessions.'}
             </p>
             <button
               type="button"
-              onClick={() => onNavigate && onNavigate('/')}
+              onClick={() => {
+                if (onNavigate) onNavigate('/');
+                else window.location.hash = '#/';
+              }}
               className="px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-600/30 transition-all cursor-pointer"
             >
               {lang === 'ta' ? 'முகப்பிற்குச் செல்லவும்' : 'Go to Home'}
@@ -308,14 +412,14 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
         {/* ACTIVE CLASS: LUXURY STUDENT JOIN FORM */}
         {!isLoadingSession && !isClassEnded && sessionData && (
           <div>
-            {/* Class Info Box (Lavender / Glass Card) */}
-            <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 via-violet-950/40 to-indigo-950/60 border border-purple-500/35 mb-6 flex items-center gap-4 shadow-lg backdrop-blur-md">
+            {/* Class Info Box (Glass Card) */}
+            <div className="p-4 rounded-2xl bg-gradient-to-r from-purple-950/60 via-violet-950/40 to-indigo-950/60 border border-purple-500/35 mb-5 flex items-center gap-4 shadow-lg backdrop-blur-md">
               <div className="w-13 h-13 rounded-2xl bg-purple-500/20 border border-purple-400/30 flex items-center justify-center shrink-0 shadow-inner">
                 <span className="text-2xl">🧘‍♀️</span>
               </div>
               <div className="min-w-0 flex-1">
-                <div className="flex items-center gap-2 mb-0.5">
-                  <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-black tracking-wider uppercase">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 text-[10px] font-black tracking-wider uppercase">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
                     {lang === 'ta' ? 'வகுப்பு நேரலை' : 'CLASS LIVE NOW'}
                   </span>
@@ -326,10 +430,84 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
                 <h3 className="font-bold text-sm sm:text-base text-white truncate">
                   {sessionData.title || sessionData.name || 'Hatha Yoga Flow & Alignment'}
                 </h3>
-                <p className="text-xs text-purple-200/80 truncate">
-                  Instructor: <strong className="text-purple-100">{sessionData.instructor || 'NITHYA Master'}</strong>
+                <p className="text-xs text-purple-200/80 truncate flex items-center gap-1 mt-0.5">
+                  <Crown size={12} className="text-amber-400" />
+                  <span>{lang === 'ta' ? 'பயிற்றுநர்:' : 'Instructor:'}</span>
+                  <strong className="text-purple-100">{sessionData.instructor || 'NITHYA Master'}</strong>
                 </p>
               </div>
+            </div>
+
+            {/* Live Camera & Mic Self-Check Mirror (Google Meet / Microsoft Teams Style) */}
+            <div className="mb-5 p-3.5 rounded-2xl bg-[#0F0A24] border border-purple-500/30">
+              <div className="flex items-center justify-between mb-2 px-1">
+                <span className="text-xs font-bold text-purple-200 flex items-center gap-1.5">
+                  <Video size={14} className="text-purple-400" />
+                  <span>{lang === 'ta' ? 'நேரலை கேமரா சோதனை (Self-Check):' : 'Camera & Audio Check:'}</span>
+                </span>
+                <span className="text-[10px] text-purple-300/60">
+                  {lang === 'ta' ? 'வகுப்பிற்குள் நுழைவதற்கு முன் சரிபார்க்கவும்' : 'Preview before entering room'}
+                </span>
+              </div>
+
+              {/* Video Preview Box */}
+              <div className="relative w-full aspect-video rounded-2xl overflow-hidden bg-black/60 border border-purple-500/25 flex items-center justify-center shadow-inner">
+                {cameraActive ? (
+                  <video
+                    ref={previewVideoRef}
+                    autoPlay
+                    playsInline
+                    muted
+                    style={{ transform: 'scaleX(-1)' }}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="flex flex-col items-center justify-center p-6 text-center">
+                    <div className="w-16 h-16 rounded-full bg-purple-900/30 border border-purple-500/30 flex items-center justify-center text-purple-300 text-xl font-bold mb-2">
+                      {(name || 'Y').charAt(0).toUpperCase()}
+                    </div>
+                    <span className="text-xs font-bold text-purple-200">{name || (lang === 'ta' ? 'நீங்கள்' : 'You')}</span>
+                    <span className="text-[10px] text-rose-300 font-semibold mt-0.5 bg-rose-950/40 border border-rose-500/30 px-2 py-0.5 rounded-full">
+                      {lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off'}
+                    </span>
+                  </div>
+                )}
+
+                {/* Bottom Overlay Device Controls */}
+                <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-black/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 z-10">
+                  <button
+                    type="button"
+                    onClick={handleTogglePreviewMic}
+                    className={`w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                      micActive
+                        ? 'bg-purple-600/80 hover:bg-purple-600 text-white shadow-md'
+                        : 'bg-rose-600 hover:bg-rose-700 text-white shadow-md'
+                    }`}
+                    title={micActive ? 'Mute Microphone' : 'Unmute Microphone'}
+                  >
+                    {micActive ? <Mic size={16} /> : <MicOff size={16} />}
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={handleTogglePreviewCamera}
+                    className={`w-9 h-9 rounded-full flex items-center justify-center transition-all cursor-pointer ${
+                      cameraActive
+                        ? 'bg-purple-600/80 hover:bg-purple-600 text-white shadow-md'
+                        : 'bg-rose-600 hover:bg-rose-700 text-white shadow-md'
+                    }`}
+                    title={cameraActive ? 'Turn Off Camera' : 'Turn On Camera'}
+                  >
+                    {cameraActive ? <Video size={16} /> : <VideoOff size={16} />}
+                  </button>
+                </div>
+              </div>
+
+              {deviceError && (
+                <p className="text-[11px] text-amber-300/80 text-center mt-2">
+                  ⚠️ {deviceError}
+                </p>
+              )}
             </div>
 
             {/* Form Error Alert */}
@@ -340,79 +518,47 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
               </div>
             )}
 
-            {/* Student Registration Form with FloatingInput */}
+            {/* Student Registration Form */}
             <form onSubmit={handleJoin} className="flex flex-col gap-3">
-              <FloatingInput
-                id="student-name-input"
-                label={lang === 'ta' ? 'மாணவர் முழுப் பெயர் (Your Full Name)' : 'Student Full Name'}
-                value={name}
-                onChange={(e) => {
-                  setName(e.target.value);
-                  if (formError) setFormError('');
-                }}
-                icon={<User size={16} />}
-                placeholder="e.g. Sarath Santhosh"
-                required
-                autoFocus
-                className="w-full"
-              />
+              <div className="bg-[#120D2C] p-4 rounded-2xl border border-purple-500/25 flex flex-col gap-3">
+                <FloatingInput
+                  id="student-name-input"
+                  label={lang === 'ta' ? 'மாணவர் முழுப் பெயர் (Your Full Name)' : 'Student Full Name'}
+                  value={name}
+                  onChange={(e) => {
+                    setName(e.target.value);
+                    if (formError) setFormError('');
+                  }}
+                  icon={<User size={16} />}
+                  placeholder="e.g. Sarath Santhosh"
+                  required
+                  autoFocus
+                  className="w-full"
+                />
 
-              <FloatingInput
-                id="student-phone-input"
-                type="tel"
-                label={lang === 'ta' ? 'மொபைல் எண் (10-Digit Mobile Number)' : 'Mobile Phone Number (10 Digits)'}
-                value={phone}
-                onChange={(e) => {
-                  setPhone(e.target.value);
-                  if (formError) setFormError('');
-                }}
-                icon={<Phone size={16} />}
-                placeholder="9876543210"
-                required
-                className="w-full"
-              />
-
-              {/* Pre-Join Device Quick-Check Toggles */}
-              <div className="flex items-center justify-between gap-2.5 p-3 rounded-2xl bg-[#110C29]/80 border border-purple-500/25 my-1">
-                <div className="text-[11px] text-purple-300 font-medium">
-                  {lang === 'ta' ? 'சாதன அமைப்புகள்:' : 'Device Preview:'}
-                </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setMicActive(!micActive)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all cursor-pointer ${
-                      micActive
-                        ? 'bg-purple-900/40 border-purple-400/50 text-purple-200 hover:bg-purple-900/60'
-                        : 'bg-rose-950/40 border-rose-500/40 text-rose-300 hover:bg-rose-950/60'
-                    }`}
-                  >
-                    {micActive ? <Mic size={13} className="text-emerald-400" /> : <MicOff size={13} className="text-rose-400" />}
-                    <span>{micActive ? (lang === 'ta' ? 'மைக் தயார்' : 'Mic On') : (lang === 'ta' ? 'மைக் மியூட்' : 'Mic Off')}</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={() => setCameraActive(!cameraActive)}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold flex items-center gap-1.5 border transition-all cursor-pointer ${
-                      cameraActive
-                        ? 'bg-purple-900/40 border-purple-400/50 text-purple-200 hover:bg-purple-900/60'
-                        : 'bg-rose-950/40 border-rose-500/40 text-rose-300 hover:bg-rose-950/60'
-                    }`}
-                  >
-                    {cameraActive ? <Video size={13} className="text-emerald-400" /> : <VideoOff size={13} className="text-rose-400" />}
-                    <span>{cameraActive ? (lang === 'ta' ? 'கேமரா தயார்' : 'Camera On') : (lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off')}</span>
-                  </button>
-                </div>
+                <FloatingInput
+                  id="student-phone-input"
+                  type="tel"
+                  label={lang === 'ta' ? 'மொபைல் எண் (10-Digit Mobile Number)' : 'Mobile Phone Number (10 Digits)'}
+                  value={phone}
+                  onChange={(e) => {
+                    setPhone(e.target.value);
+                    if (formError) setFormError('');
+                  }}
+                  icon={<Phone size={16} />}
+                  placeholder="9876543210"
+                  required
+                  className="w-full"
+                />
               </div>
 
               {/* Attendance Tracking Notice */}
-              <div className="p-2.5 rounded-xl bg-purple-950/30 border border-purple-500/20 text-[11px] text-purple-300/80 flex items-start gap-2">
-                <ShieldCheck size={15} className="text-emerald-400 shrink-0 mt-0.5" />
+              <div className="p-3 rounded-xl bg-purple-950/30 border border-purple-500/20 text-[11px] text-purple-300/80 flex items-start gap-2">
+                <ShieldCheck size={16} className="text-emerald-400 shrink-0 mt-0.5" />
                 <span>
                   {lang === 'ta'
                     ? 'வகுப்பில் நீங்கள் இருக்கும் நேரம் வருகைப் பதிவிற்காகக் (70%+) கணக்கிடப்படும்.'
-                    : 'Your live session attendance will be tracked for 70%+ completion certificate.'}
+                    : 'Your live session attendance will be logged automatically for 70%+ certificate verification.'}
                 </span>
               </div>
 
@@ -420,7 +566,7 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
               <button
                 type="submit"
                 disabled={isJoining}
-                className="w-full mt-3 py-4 px-6 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base rounded-2xl shadow-xl shadow-purple-600/35 flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
+                className="w-full mt-2 py-4 px-6 bg-gradient-to-r from-purple-600 via-violet-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm sm:text-base rounded-2xl shadow-xl shadow-purple-600/35 flex items-center justify-center gap-2.5 cursor-pointer transition-all hover:scale-[1.01] active:scale-[0.99] disabled:opacity-60"
               >
                 {isJoining ? (
                   <>
@@ -430,7 +576,7 @@ export default function StudentJoinPage({ sessionId: propSessionId, onJoinClass,
                 ) : (
                   <>
                     <Radio size={18} className="animate-pulse text-purple-200" />
-                    <span>{lang === 'ta' ? '🚀 நேரலை வகுப்பில் இணைக' : '🚀 Enter Live Yoga Room'}</span>
+                    <span>{lang === 'ta' ? '🚀 நேரலை யோகா வகுப்பில் இணையுங்கள்' : '🚀 Enter Live Yoga Room'}</span>
                     <ArrowRight size={18} />
                   </>
                 )}

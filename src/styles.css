@@ -6961,14 +6961,22 @@ html, body, #root, .app-root-container, .app-main-layout {
 }
 
 .figma-live-main-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  width: 100%;
+  position: relative;
+}
+
+.figma-live-main-grid.with-sidebar {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) 350px;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr) 340px;
+  gap: 18px;
   align-items: start;
 }
 
 @media (max-width: 1040px) {
-  .figma-live-main-grid {
+  .figma-live-main-grid.with-sidebar {
     grid-template-columns: 1fr;
   }
 }
@@ -6978,12 +6986,87 @@ html, body, #root, .app-root-container, .app-main-layout {
   flex-direction: column;
   gap: 16px;
   min-width: 0;
+  width: 100%;
+  position: relative;
 }
 
 .figma-right-sidebar-column {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  background: #140E2F;
+  border: 1px solid rgba(167, 139, 250, 0.25);
+  border-radius: 22px;
+  padding: 16px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  animation: figmaSlideInRight 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes figmaSlideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Floating Picture-in-Picture (PIP) Self-View / Peer Tile — Google Meet Style */
+.figma-pip-floating-tile {
+  position: absolute;
+  bottom: 84px;
+  right: 18px;
+  width: 210px;
+  max-width: 36%;
+  aspect-ratio: 4 / 3;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 2px solid rgba(167, 139, 250, 0.5);
+  background: #0E0924;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(139, 92, 246, 0.25);
+  z-index: 35;
+  cursor: pointer;
+  transition: transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.22s ease, border-color 0.22s ease;
+}
+
+.figma-pip-floating-tile:hover {
+  transform: scale(1.04);
+  border-color: #C4B5FD;
+  box-shadow: 0 20px 48px rgba(124, 58, 237, 0.45), 0 0 28px rgba(167, 139, 250, 0.4);
+}
+
+.figma-pip-swap-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 4px 8px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #DDD6FE;
+  font-size: 10px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  z-index: 20;
+  pointer-events: none;
+}
+
+@media (max-width: 640px) {
+  .figma-pip-floating-tile {
+    width: 135px;
+    bottom: 74px;
+    right: 10px;
+    border-radius: 14px;
+  }
+  .figma-pip-swap-badge {
+    font-size: 9px;
+    padding: 2px 6px;
+  }
 }
 
 .figma-featured-video-card {
@@ -7852,18 +7935,6 @@ html, body, #root, .app-root-container, .app-main-layout {
 .figma-live-classroom-container .figma-live-pulse-dot {
   box-shadow: 0 0 0 5px rgba(255, 75, 112, .13), 0 0 16px rgba(255, 75, 112, .85);
 }
-.figma-live-main-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.8fr) minmax(280px, .78fr);
-  gap: 20px;
-  align-items: start;
-}
-.figma-left-stage-column, .figma-right-sidebar-column {
-  min-width: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
 .figma-featured-video-card {
   position: relative;
   overflow: hidden;
@@ -7872,24 +7943,34 @@ html, body, #root, .app-root-container, .app-main-layout {
   background: linear-gradient(145deg, rgba(115, 92, 202, .23), rgba(26, 32, 65, .86));
   border: 1px solid rgba(175, 160, 255, .25);
   box-shadow: 0 20px 55px rgba(0, 0, 0, .25), inset 0 1px rgba(255,255,255,.08);
+  width: 100%;
 }
 .figma-video-viewport-wrapper {
   position: relative;
-  min-height: 300px;
+  min-height: 420px;
+  max-height: 75vh;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border-radius: 18px;
   background: radial-gradient(ellipse at 50% 30%, #282a54 0%, #151932 48%, #090d1d 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .figma-video-viewport-wrapper .livekit-participant-card {
   border-radius: 18px;
   border: 1px solid rgba(191, 178, 255, .18);
   background: #10152d;
+  width: 100%;
+  height: 100%;
 }
 .figma-video-viewport-wrapper video,
 .figma-video-viewport-wrapper .participant-video-stream {
   border-radius: inherit;
-  object-fit: cover;
-  background: #0B0819;
+  object-fit: contain;
+  background: #080517;
+  width: 100%;
+  height: 100%;
 }
 
 /* Suppress Android Chromium default tap-to-play icon and grey box */
@@ -8051,7 +8132,7 @@ html, body, #root, .app-root-container, .app-main-layout {
   }
   .figma-live-main-grid { gap: 14px; }
   .figma-featured-video-card { padding: 5px; border-radius: 18px; }
-  .figma-video-viewport-wrapper { min-height: 230px; border-radius: 14px; }
+  .figma-video-viewport-wrapper { min-height: 360px; height: 56vh; border-radius: 14px; }
   .figma-stage-floating-dock {
     gap: 6px;
     padding: 7px;

@@ -1793,66 +1793,7 @@ export default function AdminPortalSection({
               </div>
             </form>
 
-            {/* Instant Share Link Banner on Newly Created Class */}
-            {newlyCreatedClassInfo && (
-              <div 
-                className="trainer-invite-strip" 
-                style={{ 
-                  marginTop: '18px', 
-                  background: 'rgba(16, 185, 129, 0.08)', 
-                  borderColor: 'rgba(16, 185, 129, 0.4)' 
-                }}
-              >
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', maxWidth: '580px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                    <span style={{ color: '#059669', fontWeight: 800, fontSize: '13px' }}>
-                      🎉 {lang === 'ta' ? 'வகுப்பு உருவாக்கப்பட்டது!' : 'Live Session Created Successfully!'}
-                    </span>
-                    <span style={{ fontWeight: 800, fontSize: '13px', color: 'var(--text-heading)' }}>
-                      {newlyCreatedClassInfo.title}
-                    </span>
-                  </div>
-                  <span className="trainer-invite-url-text" style={{ color: '#059669' }}>
-                    {newlyCreatedClassInfo.url}
-                  </span>
-                </div>
 
-                <div className="trainer-invite-btn-group">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      navigator.clipboard.writeText(newlyCreatedClassInfo.url);
-                      setCopiedId(`new-${newlyCreatedClassInfo.id}`);
-                      setTimeout(() => setCopiedId(null), 2500);
-                      if (showToast) showToast('Link Copied ✓', newlyCreatedClassInfo.url, 'success');
-                    }}
-                    className="trainer-btn-copy-link"
-                  >
-                    {copiedId === `new-${newlyCreatedClassInfo.id}` ? <Check size={13} /> : <Copy size={13} />}
-                    <span>{copiedId === `new-${newlyCreatedClassInfo.id}` ? 'Copied!' : 'Copy Link'}</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      const text = encodeURIComponent(`🧘 *NITHYA Yoga Live Class: ${newlyCreatedClassInfo.title}*\n\nJoin the live yoga session as a student:\n${newlyCreatedClassInfo.url}`);
-                      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-                    }}
-                    className="trainer-btn-whatsapp-share"
-                  >
-                    <Share2 size={13} />
-                    <span>WhatsApp</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setNewlyCreatedClassInfo(null)}
-                    style={{ background: 'transparent', border: 'none', cursor: 'pointer', color: 'var(--text-muted)', padding: '4px 8px' }}
-                    title="Dismiss"
-                  >
-                    ✕
-                  </button>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Scheduled Classes Stack */}

@@ -1313,10 +1313,10 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
                     <div className="relative z-10">
                       <div className="flex items-center justify-between mb-4">
                         <span className="px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5">
-                          🧘‍♀️ {lang === 'ta' ? 'அடுத்த நேரலை யோகா வகுப்பு' : 'Upcoming Live Yoga Class'}
+                          🧘‍♀️ {activeClass?.status === 'live' ? (lang === 'ta' ? 'நேரலை யோகா வகுப்பு' : 'Live Yoga Stream') : (lang === 'ta' ? 'அடுத்த யோகா வகுப்பு' : 'Upcoming Yoga Class')}
                         </span>
                         <span className="text-xs text-muted font-medium flex items-center gap-1">
-                          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                          <span className={`w-2 h-2 rounded-full ${activeClass?.status === 'live' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`}></span>
                           {activeClass?.status === 'live' 
                             ? (lang === 'ta' ? 'இப்போது நேரலை' : 'Live Now') 
                             : (lang === 'ta' ? 'திட்டமிடப்பட்டது' : 'Scheduled')}
@@ -1353,14 +1353,36 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
                     </div>
 
                     <div className="flex flex-col gap-2 mt-2 relative z-10">
-                      <button
-                        type="button"
-                        className="btn-hero-primary w-full py-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-2"
-                        onClick={() => handleJoinLive(activeClass)}
-                      >
-                        <Play size={14} fill="currentColor" />
-                        <span>{lang === 'ta' ? 'வகுப்பில் இணையவும் (Join Class)' : 'Join Live Class'}</span>
-                      </button>
+                      {activeClass?.status === 'live' ? (
+                        <button
+                          type="button"
+                          className="btn-hero-primary w-full py-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-teal-600 shadow-lg shadow-emerald-600/25 animate-pulse"
+                          onClick={() => handleJoinLive(activeClass)}
+                        >
+                          <Play size={14} fill="currentColor" />
+                          <span>{lang === 'ta' ? 'நேரலை வகுப்பில் இணையவும் (Join Live)' : 'Join Live Class'}</span>
+                        </button>
+                      ) : (
+                        <div className="flex gap-2">
+                          <button
+                            type="button"
+                            className="btn-hero-primary flex-1 py-2.5 text-xs font-bold rounded-xl flex items-center justify-center gap-1.5"
+                            onClick={() => handleTabChange('yoga')}
+                          >
+                            <span>🧘‍♀️</span>
+                            <span>{lang === 'ta' ? 'யோகா விவரங்கள்' : 'Yoga Details'}</span>
+                          </button>
+                          <button
+                            type="button"
+                            className="py-2.5 px-3 rounded-xl bg-purple-900/50 hover:bg-purple-800 text-purple-200 text-xs font-bold border border-purple-500/30 flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+                            onClick={() => handleTabChange('reminders')}
+                            title={lang === 'ta' ? 'ரிமைண்டர் அமை' : 'Set Class Reminder'}
+                          >
+                            <span>⏰</span>
+                            <span>{lang === 'ta' ? 'ரிமைண்டர்' : 'Reminder'}</span>
+                          </button>
+                        </div>
+                      )}
 
                       <button
                         type="button"

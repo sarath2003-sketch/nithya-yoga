@@ -197,11 +197,11 @@ function ParticipantTile({
   );
 
   const effectiveHasVideo = isLocal
-    ? (isLocalVideoOn && Boolean(videoTrack || hasVideoTracks || localStream))
-    : (Boolean(videoTrack) || hasVideoTracks || hasVideo);
+    ? (isLocalVideoOn && Boolean(videoTrack || hasVideoTracks || participant?.stream))
+    : (Boolean(videoTrack) || hasVideoTracks || hasVideo || Boolean(participant?.stream?.getVideoTracks()?.some(t => t.enabled !== false)));
   const effectiveHasAudio = isLocal
     ? isLocalMicOn
-    : (hasAudio || Boolean(participant?.stream?.getAudioTracks()?.some(t => t.enabled !== false && t.readyState !== 'ended')));
+    : (hasAudio || Boolean(participant?.stream?.getAudioTracks()?.some(t => t.enabled !== false)));
 
   return (
     <div
@@ -512,6 +512,7 @@ export default function LiveYogaClassRoom({
   // PeerJS Multi-Device WebRTC Live Video & Data Streams
   const [teacherStream, setTeacherStream] = useState(null);
   const [remoteStreams, setRemoteStreams] = useState({});
+  const [remoteMediaStates, setRemoteMediaStates] = useState({});
   const peerInstanceRef = useRef(null);
   const activeConnsRef = useRef([]);
   const activeCallsRef = useRef([]);
@@ -691,7 +692,15 @@ export default function LiveYogaClassRoom({
             });
 
             conn.on('data', (data) => {
-              if (data?.type === 'chat' && data.text) {
+              if (data?.type === 'media_state') {
+                setRemoteMediaStates(prev => ({
+                  ...prev,
+                  [data.identity || 'instructor-lead']: {
+                    isVideoOn: data.isVideoOn,
+                    isMicOn: data.isMicOn
+                  }
+                }));
+              } else if (data?.type === 'chat' && data.text) {
                 setChatMessages(prev => [
                   ...prev,
                   {
@@ -783,6 +792,7 @@ export default function LiveYogaClassRoom({
                 name,
                 phone,
                 role: 'student',
+                stream: studentStream,
                 joinedAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
               };
               const updated = [studentObj, ...prev.filter(s => s.phone !== phone && s.identity !== call.peer)];
@@ -807,7 +817,15 @@ export default function LiveYogaClassRoom({
           activeConnsRef.current.push(conn);
 
           conn.on('data', (data) => {
-            if (data?.type === 'student_joined' && data.student) {
+            if (data?.type === 'media_state') {
+              setRemoteMediaStates(prev => ({
+                ...prev,
+                [data.identity || conn.peer]: {
+                  isVideoOn: data.isVideoOn,
+                  isMicOn: data.isMicOn
+                }
+              }));
+            } else if (data?.type === 'student_joined' && data.student) {
               setConnectedStudentsList(prev => {
                 const updated = [
                   data.student,
@@ -1179,6 +1197,20 @@ export default function LiveYogaClassRoom({
     }
   }, [activeClass, user, isInstructorRole, isMicOn, isVideoOn, activeRoomSessionId]);
 
+  // Seamless Auto-connect into room if entering from StudentJoinPage or authenticated live session
+  useEffect(() => {
+    let studentSession = null;
+    try {
+      studentSession = JSON.parse(localStorage.getItem('nithya_student_session') || '{}');
+    } catch (_) {}
+
+    const shouldAutoConnect = studentSession?.autoConnect || (!isInstructorRole && sessionId);
+    if (shouldAutoConnect && connectionState === 'idle') {
+      const targetRoom = activeRoomSessionId || sessionId || activeClass?.id || 'cls-1';
+      connectToRoom(targetRoom);
+    }
+  }, [sessionId, isInstructorRole, connectionState, activeRoomSessionId, connectToRoom]);
+
   // Clean up on unmount
   useEffect(() => {
     return () => {
@@ -1209,16 +1241,36 @@ export default function LiveYogaClassRoom({
       const hasLiveTrack = audioTracks.some(t => t.readyState === 'live');
       if (hasLiveTrack) {
         audioTracks.forEach(track => { track.enabled = true; });
+        if (currentStream) {
+          const freshStream = new MediaStream([
+            ...currentStream.getVideoTracks(),
+            ...audioTracks
+          ]);
+          localStreamRef.current = freshStream;
+          setLocalStream(freshStream);
+        }
       } else if (navigator.mediaDevices?.getUserMedia) {
         try {
           const micStream = await navigator.mediaDevices.getUserMedia({ audio: true, video: false });
           const newAudioTrack = micStream.getAudioTracks()[0];
           if (newAudioTrack) {
-            if (currentStream) {
-              currentStream.addTrack(newAudioTrack);
-            } else {
-              setLocalStream(micStream);
-            }
+            const freshStream = new MediaStream([
+              ...(currentStream ? currentStream.getVideoTracks() : []),
+              newAudioTrack
+            ]);
+            localStreamRef.current = freshStream;
+            setLocalStream(freshStream);
+
+            activeCallsRef.current.forEach(call => {
+              if (call?.peerConnection) {
+                const sender = call.peerConnection.getSenders().find(s => s.track && s.track.kind === 'audio');
+                if (sender) {
+                  sender.replaceTrack(newAudioTrack).catch(() => {});
+                } else {
+                  try { call.peerConnection.addTrack(newAudioTrack, freshStream); } catch (_) {}
+                }
+              }
+            });
           }
         } catch (err) {
           console.warn('Mic acquisition error:', err);
@@ -1230,6 +1282,18 @@ export default function LiveYogaClassRoom({
         currentStream.getAudioTracks().forEach(track => { track.enabled = false; });
       }
     }
+
+    // Broadcast audio state to peer connections
+    activeConnsRef.current.forEach(conn => {
+      try {
+        conn.send({
+          type: 'media_state',
+          identity: isInstructorRole ? 'instructor-lead' : (user?.phone || 'student'),
+          isVideoOn: isVideoOn,
+          isMicOn: nextState
+        });
+      } catch (_) {}
+    });
   };
 
   // Handle Turn On/Off Camera
@@ -1251,6 +1315,14 @@ export default function LiveYogaClassRoom({
       const hasLiveTrack = videoTracks.some(t => t.readyState === 'live');
       if (hasLiveTrack) {
         videoTracks.forEach(track => { track.enabled = true; });
+        if (currentStream) {
+          const freshStream = new MediaStream([
+            ...videoTracks,
+            ...currentStream.getAudioTracks()
+          ]);
+          localStreamRef.current = freshStream;
+          setLocalStream(freshStream);
+        }
       } else if (navigator.mediaDevices?.getUserMedia) {
         try {
           const camStream = await navigator.mediaDevices.getUserMedia({
@@ -1263,15 +1335,21 @@ export default function LiveYogaClassRoom({
           });
           const newVideoTrack = camStream.getVideoTracks()[0];
           if (newVideoTrack) {
-            if (currentStream) {
-              currentStream.addTrack(newVideoTrack);
-            } else {
-              setLocalStream(camStream);
-            }
+            const freshStream = new MediaStream([
+              newVideoTrack,
+              ...(currentStream ? currentStream.getAudioTracks() : [])
+            ]);
+            localStreamRef.current = freshStream;
+            setLocalStream(freshStream);
+
             activeCallsRef.current.forEach(call => {
               if (call?.peerConnection) {
                 const sender = call.peerConnection.getSenders().find(s => s.track && s.track.kind === 'video');
-                if (sender) sender.replaceTrack(newVideoTrack).catch(() => {});
+                if (sender) {
+                  sender.replaceTrack(newVideoTrack).catch(() => {});
+                } else {
+                  try { call.peerConnection.addTrack(newVideoTrack, freshStream); } catch (_) {}
+                }
               }
             });
           }
@@ -1286,6 +1364,18 @@ export default function LiveYogaClassRoom({
         currentStream.getVideoTracks().forEach(track => { track.enabled = false; });
       }
     }
+
+    // Broadcast video state to peer connections
+    activeConnsRef.current.forEach(conn => {
+      try {
+        conn.send({
+          type: 'media_state',
+          identity: isInstructorRole ? 'instructor-lead' : (user?.phone || 'student'),
+          isVideoOn: nextState,
+          isMicOn: isMicOn
+        });
+      } catch (_) {}
+    });
   };
 
   // Toggle Camera Mirroring (கண்ணாடி வியூ: ஆன்/ஆஃப் - Natural Studio Reflection)
@@ -1899,7 +1989,7 @@ export default function LiveYogaClassRoom({
             role: 'student',
             phone: s.phone,
             joinedAt: s.joinedAt,
-            stream: remoteObj ? remoteObj.stream : null,
+            stream: remoteObj ? remoteObj.stream : (s.stream || null),
             isLocal: false,
             isInstructor: false
           };
@@ -1923,35 +2013,47 @@ export default function LiveYogaClassRoom({
             ? [localWebrtcParticipant, ...instructorPeer, ...simulatedPeers.filter(p => p.name !== localWebrtcParticipant.name)] 
             : [...instructorPeer, localWebrtcParticipant, ...simulatedPeers]));
 
-  const spotlightParticipant = isInstructorRole
-    ? localWebrtcParticipant
-    : (spotlightParticipantId
-        ? allParticipants.find(p => p.identity === spotlightParticipantId)
-        : (allParticipants.find(p => p.isInstructor) || allParticipants[0]));
+  // Interactive Google Meet Spotlight:
+  // 1. If user clicked/tapped a participant, spotlight that participant on the main stage.
+  // 2. Otherwise default:
+  //    - For Student: Teacher is on main stage.
+  //    - For Instructor: Student (if present with stream) is on main stage, or local instructor.
+  let spotlightParticipant = null;
+  if (spotlightParticipantId) {
+    spotlightParticipant = allParticipants.find(p => p?.identity === spotlightParticipantId || p?.id === spotlightParticipantId);
+  }
+  if (!spotlightParticipant) {
+    if (isInstructorRole) {
+      const remoteStudent = allParticipants.find(p => !p?.isLocal && p?.role !== 'instructor' && p?.stream);
+      spotlightParticipant = remoteStudent || localWebrtcParticipant;
+    } else {
+      const leadInstructor = allParticipants.find(p => p?.isInstructor || p?.role === 'instructor' || p?.identity === 'instructor-lead');
+      spotlightParticipant = leadInstructor || allParticipants[0] || localWebrtcParticipant;
+    }
+  }
 
-  const otherParticipants = isInstructorRole
-    ? allParticipants.filter(p => 
-        p && 
-        p.identity !== spotlightParticipant?.identity && 
-        p.name !== spotlightParticipant?.name && 
-        p.role !== 'instructor' && 
-        !p.isInstructor && 
-        !String(p.identity || '').startsWith('instructor') && 
-        !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Yoga Member', 'Yoga Student', 'Student'].includes(p.name) &&
-        (p.isLocal || (p.phone && String(p.phone).replace(/\D/g, '').length >= 10))
-      )
-    : allParticipants.filter(p => p?.identity !== spotlightParticipant?.identity);
+  // Other non-spotlighted participants
+  const otherParticipants = allParticipants.filter(p => p && p.identity !== spotlightParticipant?.identity && p.name !== spotlightParticipant?.name);
 
   // Student count calculation: strictly genuine students only, excluding instructor
-  const realStudentsList = connectedStudentsList.filter(s => 
-    s && 
-    s.role !== 'instructor' && 
-    !String(s.identity || '').startsWith('instructor') && 
-    s.identity !== 'instructor-lead' && 
-    s.identity !== 'instructor-local' &&
-    !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Yoga Member', 'Yoga Student', 'Student'].includes(s.name) &&
-    Boolean(s.phone && String(s.phone).replace(/\D/g, '').length >= 10)
-  );
+  const realStudentsList = connectedStudentsList
+    .filter(s => 
+      s && 
+      s.role !== 'instructor' && 
+      !String(s.identity || '').startsWith('instructor') && 
+      s.identity !== 'instructor-lead' && 
+      s.identity !== 'instructor-local' &&
+      !['Yoga Practitioner', 'Yoga Practice', 'Practitioner', 'Kavitha Ram', 'NITHYA Master', 'Yoga Member', 'Yoga Student', 'Student'].includes(s.name) &&
+      Boolean(s.phone && String(s.phone).replace(/\D/g, '').length >= 10)
+    )
+    .map(s => {
+      const remoteObj = Object.values(remoteStreams).find(r => r && (r.phone === s.phone || r.identity === s.identity || r.name === s.name));
+      return {
+        ...s,
+        identity: s.identity || s.id || s.phone || s.name,
+        stream: remoteObj ? remoteObj.stream : (s.stream || null)
+      };
+    });
 
   const currentStudentCount = isInstructorRole
     ? realStudentsList.length
@@ -2675,12 +2777,49 @@ export default function LiveYogaClassRoom({
                     </div>
                   )}
 
-                  {/* Instructor Name Tag Overlay at Bottom-Left */}
+                  {/* Spotlight Name Tag Overlay at Bottom-Left */}
                   <div className="figma-stage-name-badge">
                     <span>👤</span>
-                    <span>{activeClass?.instructor || 'NITHYA Master'}</span>
-                    <span className="figma-badge-role-tag">Host</span>
+                    <span>{spotlightParticipant?.name || (spotlightParticipant?.isInstructor ? 'NITHYA Master' : 'Student')}</span>
+                    {spotlightParticipant?.isInstructor && <span className="figma-badge-role-tag">Host</span>}
+                    {spotlightParticipant?.isLocal && <span className="figma-badge-role-tag" style={{ background: 'rgba(124, 58, 237, 0.4)' }}>You</span>}
+                    <span className="text-[10px] text-purple-300/80 ml-1 font-mono">📌 Spotlight</span>
                   </div>
+
+                  {/* 1-on-1 Floating Picture-in-Picture (PIP) Card: Tapping it swaps to big stage */}
+                  {otherParticipants.length === 1 && (
+                    <div
+                      className="figma-pip-floating-tile"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSpotlightParticipantId(otherParticipants[0].identity);
+                      }}
+                      onDoubleClick={(e) => {
+                        e.stopPropagation();
+                        setSpotlightParticipantId(otherParticipants[0].identity);
+                      }}
+                      title={lang === 'ta' ? `${otherParticipants[0].name} திரையை பெரிதாக்க தட்டவும்` : `Click to swap ${otherParticipants[0].name} to Main Stage`}
+                    >
+                      <div className="figma-pip-swap-badge">
+                        <RefreshCw size={10} />
+                        <span>{lang === 'ta' ? 'மாற்ற தட்டவும்' : 'Tap to Swap'}</span>
+                      </div>
+                      <ParticipantTile
+                        participant={otherParticipants[0]}
+                        isLocal={Boolean(otherParticipants[0].isLocal)}
+                        isSpotlight={false}
+                        isSpeaking={activeSpeakers.includes(otherParticipants[0].identity)}
+                        isLocalMicOn={isMicOn}
+                        isLocalVideoOn={isVideoOn}
+                        isMirrored={isMirrored}
+                        videoFitMode={videoFitMode}
+                        lang={lang}
+                      />
+                      <div className="absolute bottom-2 left-2 px-2.5 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/10 flex items-center gap-1 text-white text-[10px] font-semibold z-20 pointer-events-none">
+                        <span>👤 {otherParticipants[0].name || (otherParticipants[0].isLocal ? (lang === 'ta' ? 'நீங்கள்' : 'You') : 'Participant')}</span>
+                      </div>
+                    </div>
+                  )}
 
                   {/* Floating Glassy Dock Centered at Bottom of Video */}
                   <div className="figma-stage-floating-dock">
@@ -2757,6 +2896,42 @@ export default function LiveYogaClassRoom({
                       title={videoFitMode === 'contain' ? (lang === 'ta' ? 'முழு உடல் தோற்றம் (Uncropped)' : 'Full View (Uncropped)') : (lang === 'ta' ? 'திரை நிரப்புதல் (Fill)' : 'Fill Screen')}
                     >
                       {videoFitMode === 'contain' ? <Maximize2 size={18} /> : <Minimize2 size={18} />}
+                    </button>
+
+                    {/* Participants Roster Drawer Toggle */}
+                    <button
+                      type="button"
+                      className={`figma-dock-round-btn ${showParticipantsDrawer ? 'btn-active' : ''}`}
+                      onClick={() => {
+                        setShowParticipantsDrawer(prev => !prev);
+                        setActiveSidebarTab('participants');
+                      }}
+                      title={lang === 'ta' ? `மாணவர்கள் (${currentStudentCount})` : `Students (${currentStudentCount})`}
+                    >
+                      <Users size={18} />
+                    </button>
+
+                    {/* Live Chat Drawer Toggle */}
+                    <button
+                      type="button"
+                      className={`figma-dock-round-btn ${showChatDrawer ? 'btn-active' : ''}`}
+                      onClick={() => {
+                        setShowChatDrawer(prev => !prev);
+                        setActiveSidebarTab('chat');
+                      }}
+                      title={lang === 'ta' ? 'சாட்' : 'Chat'}
+                    >
+                      <MessageSquare size={18} />
+                    </button>
+
+                    {/* Share Link Button */}
+                    <button
+                      type="button"
+                      className="figma-dock-round-btn"
+                      onClick={() => setShowShareModal(true)}
+                      title={lang === 'ta' ? 'இணைப்பு பகிர்' : 'Share Invite Link'}
+                    >
+                      <Share2 size={18} />
                     </button>
 
                     {/* Settings / Extra Tools */}
@@ -2895,169 +3070,74 @@ export default function LiveYogaClassRoom({
                 </div>
               </div>
 
-              {/* Row of 3 Participant Video Tiles (underneath teacher video) */}
-              <div className="figma-participant-tiles-grid">
-                {isInstructorRole ? (
-                  /* Instructor Mode: Show real connected students with Google Meet styling */
-                  <>
-                    {realStudentsList.length > 0 ? realStudentsList.map((student, index) => (
-                      <div 
-                        className="figma-student-tile relative overflow-hidden rounded-2xl bg-[#130E2E] border border-purple-500/30" 
-                        key={student.phone || student.identity || student.id || `student-${index}`}
-                        style={{ minHeight: '220px', aspectRatio: '4/3', width: '100%' }}
-                      >
-                        {student.stream ? (
-                          <video
-                            ref={el => {
-                              if (el && student.stream && el.srcObject !== student.stream) {
-                                el.srcObject = student.stream;
-                                el.playsInline = true;
-                                el.muted = false;
-                                el.play().catch(() => {});
-                              }
-                            }}
-                            autoPlay
-                            playsInline
-                            style={{ width: '100%', height: '100%', objectFit: videoFitMode || 'contain', background: '#000000' }}
-                          />
-                        ) : (
-                          <div className="participant-avatar-fallback">
-                            <div className="avatar-circle" style={{ width: 64, height: 64, fontSize: 24 }}>
-                              <span>{(student.name || 'S').charAt(0).toUpperCase()}</span>
-                            </div>
-                            <span className="avatar-fallback-name" style={{ fontSize: 13, marginTop: 8 }}>{student.name || (lang === 'ta' ? 'மாணவர்' : 'Student')}</span>
-                            <span className="avatar-status-pill">{lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off'}</span>
-                          </div>
-                        )}
-
-                        {/* Google Meet Bottom-Left Name Pill */}
-                        <div className="absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg">
-                          <span>👤 {student.name || (lang === 'ta' ? 'மாணவர்' : 'Student')}</span>
-                        </div>
-                      </div>
-                    )) : (
-                      <div className="figma-student-tile figma-empty-waiting-slot" style={{ minHeight: '220px', aspectRatio: '4/3', width: '100%', gridColumn: 'span 3' }}>
-                        <div className="figma-empty-waiting-content p-6 text-center flex flex-col items-center">
-                          <div className="w-14 h-14 mx-auto mb-3 rounded-2xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300">
-                            <Radio size={24} className="animate-pulse" />
-                          </div>
-                          <span className="figma-empty-waiting-title text-sm font-bold text-white block mb-1">
-                            {lang === 'ta' ? 'மாணவர் இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting for Students to Join...'}
-                          </span>
-                          <span className="figma-empty-waiting-desc text-xs text-purple-300/70 block mb-4 max-w-sm">
-                            {lang === 'ta' ? 'நேரலை வகுப்பில் இணைய உங்கள் மாணவர்களுக்கு இந்த லிங்கை அனுப்பவும்' : 'Invite your students with this live studio access link'}
-                          </span>
-                          <button
-                            type="button"
-                            onClick={() => setShowShareModal(true)}
-                            className="px-5 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-600/30 cursor-pointer hover:from-purple-500 hover:to-indigo-500 transition-all inline-flex items-center gap-2"
-                          >
-                            <Share2 size={14} />
-                            <span>{lang === 'ta' ? 'மாணவர்களுக்கு லிங்க் பகிர்' : 'Share Student Invite Link'}</span>
-                          </button>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  /* Student Mode: Tile 1 is You, styled with full uncropped Google Meet aspect ratio */
-                  <>
-                    {/* Tile 1: You */}
-                    <div 
-                      className="figma-student-tile is-active-speaker relative overflow-hidden rounded-2xl bg-[#130E2E] border border-purple-500/30"
-                      style={{ minHeight: '220px', aspectRatio: '4/3', width: '100%' }}
+              {/* Multi-Participant Filmstrip (When 2+ other participants exist) */}
+              {otherParticipants.length > 1 && (
+                <div className="figma-participant-tiles-grid" style={{ marginTop: '12px' }}>
+                  {otherParticipants.map((p, idx) => (
+                    <div
+                      key={p.identity || `tile-${idx}`}
+                      className="figma-student-tile relative overflow-hidden rounded-2xl bg-[#130E2E] border border-purple-500/30 cursor-pointer hover:border-purple-400 transition-all hover:scale-[1.01]"
+                      style={{ minHeight: '180px', aspectRatio: '4/3', width: '100%' }}
+                      onClick={() => setSpotlightParticipantId(p.identity)}
+                      onDoubleClick={() => setSpotlightParticipantId(p.identity)}
+                      title={lang === 'ta' ? `${p.name} திரையை பெரிதாக்க தட்டவும்` : `Click to spotlight ${p.name}`}
                     >
-                      {localStream && isVideoOn ? (
-                        <video
-                          ref={el => {
-                            if (el && localStream) {
-                              el.srcObject = localStream;
-                              el.muted = true;
-                              el.playsInline = true;
-                              el.play().catch(() => {});
-                            }
-                          }}
-                          autoPlay
-                          playsInline
-                          muted
-                          className={`participant-video-stream ${isMirrored ? 'is-mirrored' : ''}`}
-                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        />
-                      ) : (
-                        <div className="participant-avatar-fallback">
-                          <div className="avatar-circle" style={{ width: 64, height: 64, fontSize: 24 }}>
-                            <span>{(user?.name || 'Y').charAt(0).toUpperCase()}</span>
-                          </div>
-                          <span className="avatar-fallback-name" style={{ fontSize: 13, marginTop: 8 }}>
-                            {user?.name || (lang === 'ta' ? 'நீங்கள்' : 'You')}
-                          </span>
-                          <span className="avatar-status-pill">{lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off'}</span>
-                        </div>
-                      )}
-
-                      {/* Google Meet Top-Right Red Mic Muted Badge */}
-                      {!isMicOn && (
-                        <div 
-                          className="absolute top-3 right-3 w-7 h-7 rounded-full bg-[#EA4335] flex items-center justify-center text-white shadow-lg z-20 pointer-events-none"
-                          title="Microphone is muted"
-                        >
-                          <MicOff size={13} />
-                        </div>
-                      )}
-
-                      {/* Google Meet Bottom-Left Translucent Name Pill */}
-                      <div className="absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg pointer-events-none">
-                        <span>👤 {lang === 'ta' ? 'நீங்கள் (You)' : 'You'}</span>
+                      <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full bg-black/60 text-purple-200 text-[10px] font-bold z-20 flex items-center gap-1 border border-white/10">
+                        <Maximize2 size={10} />
+                        <span>Spotlight</span>
+                      </div>
+                      <ParticipantTile
+                        participant={p}
+                        isLocal={Boolean(p.isLocal)}
+                        isSpotlight={false}
+                        isSpeaking={activeSpeakers.includes(p.identity)}
+                        isLocalMicOn={isMicOn}
+                        isLocalVideoOn={isVideoOn}
+                        isMirrored={isMirrored}
+                        videoFitMode={videoFitMode}
+                        lang={lang}
+                      />
+                      <div className="absolute bottom-2 left-2 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg pointer-events-none">
+                        <span>👤 {p.name || (p.isLocal ? (lang === 'ta' ? 'நீங்கள்' : 'You') : 'Student')}</span>
                       </div>
                     </div>
+                  ))}
+                </div>
+              )}
 
-                    {/* Tile 2: Classmate 1 (if present) */}
-                    {realStudentsList[0] && (
-                      <div 
-                        className="figma-student-tile relative overflow-hidden rounded-2xl bg-[#130E2E] border border-purple-500/30"
-                        style={{ minHeight: '220px', aspectRatio: '4/3', width: '100%' }}
-                      >
-                        {realStudentsList[0].stream ? (
-                          <video
-                            ref={el => {
-                              if (el && realStudentsList[0].stream) {
-                                el.srcObject = realStudentsList[0].stream;
-                                el.playsInline = true;
-                                el.play().catch(() => {});
-                              }
-                            }}
-                            autoPlay
-                            playsInline
-                            style={{ width: '100%', height: '100%', objectFit: videoFitMode || 'contain', background: '#000000' }}
-                          />
-                        ) : (
-                          <div className="participant-avatar-fallback">
-                            <div className="avatar-circle" style={{ width: 64, height: 64, fontSize: 24, background: 'linear-gradient(135deg, #0284C7, #0369A1)' }}>
-                              <span>{(realStudentsList[0].name || 'S').charAt(0).toUpperCase()}</span>
-                            </div>
-                            <span className="avatar-fallback-name" style={{ fontSize: 13, marginTop: 8 }}>
-                              {realStudentsList[0].name}
-                            </span>
-                            <span className="avatar-status-pill">{lang === 'ta' ? 'கேமரா ஆஃப்' : 'Camera Off'}</span>
-                          </div>
-                        )}
-                        <div className="absolute bottom-3 left-3 px-3 py-1.5 rounded-full bg-black/65 backdrop-blur-md border border-white/10 flex items-center gap-1.5 text-white text-xs font-semibold z-10 shadow-lg">
-                          <span>👤 {realStudentsList[0].name}</span>
-                        </div>
-                      </div>
-                    )}
-                  </>
-                )}
-              </div>
+              {/* Waiting Slot for Instructor when no students have joined yet */}
+              {isInstructorRole && otherParticipants.length === 0 && (
+                <div className="figma-student-tile figma-empty-waiting-slot" style={{ minHeight: '140px', width: '100%', marginTop: '12px', borderRadius: '18px' }}>
+                  <div className="figma-empty-waiting-content p-4 text-center flex flex-col items-center justify-center">
+                    <div className="w-10 h-10 mx-auto mb-2 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300">
+                      <Radio size={18} className="animate-pulse" />
+                    </div>
+                    <span className="figma-empty-waiting-title text-xs font-bold text-white block mb-0.5">
+                      {lang === 'ta' ? 'மாணவர் இணைப்புக்காக காத்திருக்கிறது...' : 'Waiting for Students to Join...'}
+                    </span>
+                    <span className="figma-empty-waiting-desc text-[11px] text-purple-300/70 block mb-3 max-w-sm">
+                      {lang === 'ta' ? 'நேரலை வகுப்பில் இணைய உங்கள் மாணவர்களுக்கு இந்த லிங்கை அனுப்பவும்' : 'Invite your students with this live studio access link'}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setShowShareModal(true)}
+                      className="px-4 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-bold text-xs rounded-xl shadow-lg shadow-purple-600/30 cursor-pointer hover:from-purple-500 hover:to-indigo-500 transition-all inline-flex items-center gap-2"
+                    >
+                      <Share2 size={13} />
+                      <span>{lang === 'ta' ? 'மாணவர்களுக்கு லிங்க் பகிர்' : 'Share Student Invite Link'}</span>
+                    </button>
+                  </div>
+                </div>
+              )}
 
               {/* Control Actions Toolbar Bar */}
               <div className="figma-actions-toolbar">
                 <button
                   type="button"
-                  className="figma-toolbar-action-btn"
+                  className={`figma-toolbar-action-btn ${showParticipantsDrawer ? 'is-active' : ''}`}
                   onClick={() => {
-                    const el = document.getElementById('figma-participants-roster');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
+                    setShowParticipantsDrawer(prev => !prev);
+                    setActiveSidebarTab('participants');
                   }}
                 >
                   <Users size={15} className="text-violet-500" />
@@ -3110,8 +3190,26 @@ export default function LiveYogaClassRoom({
               </div>
             </div>
 
-            {/* Right Column (Meeting Participants & Chats Cards) */}
-            <div className="figma-right-sidebar-column">
+            {/* Right Column (Slide-over Participants & Chats Drawer) */}
+            {(showParticipantsDrawer || showChatDrawer) && (
+              <div className="figma-right-sidebar-column">
+                <div className="flex items-center justify-between pb-2 mb-2 border-b border-purple-500/20">
+                  <span className="text-xs font-bold text-white flex items-center gap-1.5">
+                    {activeSidebarTab === 'participants' ? <Users size={14} className="text-purple-400" /> : <MessageSquare size={14} className="text-purple-400" />}
+                    {activeSidebarTab === 'participants' ? (lang === 'ta' ? `மாணவர்கள் (${currentStudentCount})` : `Students (${currentStudentCount})`) : (lang === 'ta' ? 'நேரலை சாட்' : 'Live Chat')}
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowParticipantsDrawer(false);
+                      setShowChatDrawer(false);
+                    }}
+                    className="p-1 rounded-lg text-purple-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+                    title="Close Drawer"
+                  >
+                    <X size={16} />
+                  </button>
+                </div>
               {/* Tab Selector: Participants (Default) / Chats */}
               <div className="flex items-center gap-1.5 p-1 bg-[#1C143B] border border-violet-500/20 rounded-2xl mb-3">
                 <button
@@ -3298,7 +3396,8 @@ export default function LiveYogaClassRoom({
                 </form>
               </div>
             )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -3558,6 +3558,10 @@ input, select, textarea {
   .hero-right-visual-wrapper {
     display: none !important;
   }
+  .welcome-banner-art-wrap.hero-right-visual-wrapper {
+    display: flex !important;
+    margin: 8px auto 0;
+  }
   .progress-metrics-4row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
@@ -3611,6 +3615,10 @@ input, select, textarea {
   }
   .hero-right-visual-wrapper {
     display: none !important;
+  }
+  .welcome-banner-art-wrap.hero-right-visual-wrapper {
+    display: flex !important;
+    margin: 8px auto 0;
   }
   .hero-cta-buttons-row {
     flex-direction: column;
@@ -6228,6 +6236,58 @@ video::-webkit-media-controls-enclosure {
 
 .chakra-moon-hero-frame:hover .chakra-moon-hero-img {
   transform: scale(1.03);
+}
+
+/* Upcoming Yoga Class Card Chakra Thumbnail Frame & Meta Row */
+.chakra-card-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 16px;
+  background: rgba(88, 28, 135, 0.25);
+  border: 1px solid rgba(168, 85, 247, 0.2);
+}
+
+.chakra-card-thumb-frame {
+  width: 64px;
+  height: 64px;
+  min-width: 64px;
+  min-height: 64px;
+  border-radius: 14px;
+  overflow: hidden;
+  flex-shrink: 0;
+  background: rgba(59, 7, 100, 0.7);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.chakra-card-thumb-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+
+@media (max-width: 360px) {
+  .chakra-card-thumb-frame {
+    width: 56px;
+    height: 56px;
+    min-width: 56px;
+    min-height: 56px;
+    padding: 3px;
+    border-radius: 12px;
+  }
+  .chakra-card-thumb-img {
+    border-radius: 9px;
+  }
 }
 
 /* Ambient Orbit Background Layers */

@@ -302,7 +302,12 @@ export default function StudentDashboard({
                       src={vid.thumbnail_url || 'assets/images/class-thumb.jpg'} 
                       alt={vid.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-all duration-300 opacity-90"
-                      onError={(e) => { e.target.src = 'assets/images/class-thumb.jpg'; }}
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        if (!e.target.src.includes('class-thumb.jpg')) {
+                          e.target.src = 'assets/images/class-thumb.jpg';
+                        }
+                      }}
                     />
                     <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
                       <div className="w-10 h-10 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-all">

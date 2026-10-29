@@ -70,9 +70,15 @@ export default function HeroSection({
           <div className="chakra-moon-hero-frame">
             <div className="chakra-hero-halo-ring" aria-hidden="true"></div>
             <img 
-              src="assets/premium-yoga/chakra-moon-hero.svg" 
-              alt="Nithya Yoga 7 Chakras Moon Meditation" 
+              src="assets/premium-yoga/chakra-glowing-hero.jpg" 
+              alt="Nithya Yoga Glowing 7 Chakras Meditating Woman" 
               className="chakra-moon-hero-img" 
+              onError={(e) => {
+                e.currentTarget.onerror = null;
+                if (!e.currentTarget.src.includes('chakra-moon-hero.svg')) {
+                  e.currentTarget.src = "assets/premium-yoga/chakra-moon-hero.svg";
+                }
+              }}
             />
           </div>
           {/* Preserved cross-device test element */}

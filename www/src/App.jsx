@@ -1331,12 +1331,19 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
                       </div>
 
                       {/* Featured 7-Chakra Visual Artwork & Non-wrapping Metadata */}
-                      <div className="flex items-center gap-3.5 mb-4 p-3 rounded-2xl bg-purple-900/25 border border-purple-500/20">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-purple-950/70 border border-purple-500/30 flex items-center justify-center p-1.5 shadow-inner">
+                      <div className="chakra-card-meta-row">
+                        <div className="chakra-card-thumb-frame">
                           <img 
-                            src="assets/premium-yoga/chakra-moon-hero.svg" 
-                            alt="Nithya Yoga 7 Chakras Moon" 
-                            className="w-full h-full object-contain drop-shadow"
+                            src="assets/premium-yoga/chakra-glowing-hero.jpg" 
+                            alt="Nithya Yoga 7 Chakras Meditating Woman" 
+                            className="chakra-card-thumb-img" 
+                            data-supersedes="assets/premium-yoga/chakra-moon-hero.svg"
+                            onError={(e) => {
+                              e.currentTarget.onerror = null;
+                              if (!e.currentTarget.src.includes('chakra-moon-hero.svg')) {
+                                e.currentTarget.src = "assets/premium-yoga/chakra-moon-hero.svg";
+                              }
+                            }}
                           />
                         </div>
                         <div className="min-w-0 flex-1">

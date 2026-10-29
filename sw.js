@@ -11,7 +11,7 @@
  * - Client messaging for smooth update notification
  */
 
-const CACHE_VERSION = 'v5.2.0';
+const CACHE_VERSION = 'v5.2.1';
 const PRECACHE_NAME = `nithya-yoga-precache-${CACHE_VERSION}`;
 const RUNTIME_CACHE_NAME = `nithya-yoga-runtime-${CACHE_VERSION}`;
 
@@ -31,6 +31,8 @@ const PRECACHE_URLS = [
   './assets/icons/icon-maskable.png',
   './assets/images/logo.png',
   './assets/images/chakra-meditation.jpg',
+  './assets/premium-yoga/chakra-glowing-hero.jpg',
+  './assets/premium-yoga/chakra-moon-hero.svg',
   './assets/screenshots/screenshot-desktop.png',
   './assets/screenshots/screenshot-mobile.png'
 ];

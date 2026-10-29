@@ -29157,9 +29157,15 @@ Please change the parent <Route path="${parentPath}"> to <Route path="${parentPa
     ))), /* @__PURE__ */ import_react7.default.createElement("div", { className: "welcome-banner-art-wrap hero-right-visual-wrapper" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "chakra-moon-hero-frame" }, /* @__PURE__ */ import_react7.default.createElement("div", { className: "chakra-hero-halo-ring", "aria-hidden": "true" }), /* @__PURE__ */ import_react7.default.createElement(
       "img",
       {
-        src: "assets/premium-yoga/chakra-moon-hero.svg",
-        alt: "Nithya Yoga 7 Chakras Moon Meditation",
-        className: "chakra-moon-hero-img"
+        src: "assets/premium-yoga/chakra-glowing-hero.jpg",
+        alt: "Nithya Yoga Glowing 7 Chakras Meditating Woman",
+        className: "chakra-moon-hero-img",
+        onError: (e2) => {
+          e2.currentTarget.onerror = null;
+          if (!e2.currentTarget.src.includes("chakra-moon-hero.svg")) {
+            e2.currentTarget.src = "assets/premium-yoga/chakra-moon-hero.svg";
+          }
+        }
       }
     )), /* @__PURE__ */ import_react7.default.createElement(
       "img",
@@ -88421,7 +88427,10 @@ ${liveUrl}`;
           alt: vid.title,
           className: "w-full h-full object-cover group-hover:scale-105 transition-all duration-300 opacity-90",
           onError: (e2) => {
-            e2.target.src = "assets/images/class-thumb.jpg";
+            e2.target.onerror = null;
+            if (!e2.target.src.includes("class-thumb.jpg")) {
+              e2.target.src = "assets/images/class-thumb.jpg";
+            }
           }
         }
       ), /* @__PURE__ */ import_react65.default.createElement("div", { className: "absolute inset-0 bg-black/30 flex items-center justify-center" }, /* @__PURE__ */ import_react65.default.createElement("div", { className: "w-10 h-10 rounded-full bg-primary/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-all" }, /* @__PURE__ */ import_react65.default.createElement(Play, { size: 16, fill: "white", className: "ml-0.5" }))), /* @__PURE__ */ import_react65.default.createElement("span", { className: "absolute bottom-2 right-2 px-1.5 py-0.5 rounded bg-black/70 text-white text-[10px] font-mono" }, vid.duration_minutes || 30, "m")),
@@ -92011,12 +92020,19 @@ Please have your water bottle and yoga mat ready! Namaste \u{1F64F}`
         onShowAll: () => handleTabChange("yoga"),
         lang
       }
-    )), /* @__PURE__ */ import_react74.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md relative overflow-hidden" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "relative z-10" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex flex-wrap items-center justify-between gap-2 mb-4 pb-2 border-b border-purple-500/15" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5 shrink-0 shadow-sm" }, "\u{1F9D8}\u200D\u2640\uFE0F ", activeClass?.status === "live" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Live Yoga Stream" : lang === "ta" ? "\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Upcoming Yoga Class"), /* @__PURE__ */ import_react74.default.createElement("div", { className: `px-2.5 py-1 rounded-full text-[11px] font-semibold border flex items-center gap-1.5 shrink-0 ${activeClass?.status === "live" ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-sm" : "bg-amber-500/15 text-amber-300 border-amber-500/35"}` }, /* @__PURE__ */ import_react74.default.createElement("span", { className: `w-2 h-2 rounded-full shrink-0 ${activeClass?.status === "live" ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}` }), /* @__PURE__ */ import_react74.default.createElement("span", null, activeClass?.status === "live" ? lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8" : "Live Now" : lang === "ta" ? "\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Scheduled"))), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex items-center gap-3.5 mb-4 p-3 rounded-2xl bg-purple-900/25 border border-purple-500/20" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-purple-950/70 border border-purple-500/30 flex items-center justify-center p-1.5 shadow-inner" }, /* @__PURE__ */ import_react74.default.createElement(
+    )), /* @__PURE__ */ import_react74.default.createElement("div", { className: "grid-col col-live" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md relative overflow-hidden" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "relative z-10" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex flex-wrap items-center justify-between gap-2 mb-4 pb-2 border-b border-purple-500/15" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5 shrink-0 shadow-sm" }, "\u{1F9D8}\u200D\u2640\uFE0F ", activeClass?.status === "live" ? lang === "ta" ? "\u0BA8\u0BC7\u0BB0\u0BB2\u0BC8 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Live Yoga Stream" : lang === "ta" ? "\u0B85\u0B9F\u0BC1\u0BA4\u0BCD\u0BA4 \u0BAF\u0BCB\u0B95\u0BBE \u0BB5\u0B95\u0BC1\u0BAA\u0BCD\u0BAA\u0BC1" : "Upcoming Yoga Class"), /* @__PURE__ */ import_react74.default.createElement("div", { className: `px-2.5 py-1 rounded-full text-[11px] font-semibold border flex items-center gap-1.5 shrink-0 ${activeClass?.status === "live" ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-sm" : "bg-amber-500/15 text-amber-300 border-amber-500/35"}` }, /* @__PURE__ */ import_react74.default.createElement("span", { className: `w-2 h-2 rounded-full shrink-0 ${activeClass?.status === "live" ? "bg-emerald-400 animate-pulse" : "bg-amber-400"}` }), /* @__PURE__ */ import_react74.default.createElement("span", null, activeClass?.status === "live" ? lang === "ta" ? "\u0B87\u0BAA\u0BCD\u0BAA\u0BCB\u0BA4\u0BC1 \u0BA8\u0BC7\u0BB0\u0BB2\u0BC8" : "Live Now" : lang === "ta" ? "\u0BA4\u0BBF\u0B9F\u0BCD\u0B9F\u0BAE\u0BBF\u0B9F\u0BAA\u0BCD\u0BAA\u0B9F\u0BCD\u0B9F\u0BA4\u0BC1" : "Scheduled"))), /* @__PURE__ */ import_react74.default.createElement("div", { className: "chakra-card-meta-row" }, /* @__PURE__ */ import_react74.default.createElement("div", { className: "chakra-card-thumb-frame" }, /* @__PURE__ */ import_react74.default.createElement(
       "img",
       {
-        src: "assets/premium-yoga/chakra-moon-hero.svg",
-        alt: "Nithya Yoga 7 Chakras Moon",
-        className: "w-full h-full object-contain drop-shadow"
+        src: "assets/premium-yoga/chakra-glowing-hero.jpg",
+        alt: "Nithya Yoga 7 Chakras Meditating Woman",
+        className: "chakra-card-thumb-img",
+        "data-supersedes": "assets/premium-yoga/chakra-moon-hero.svg",
+        onError: (e2) => {
+          e2.currentTarget.onerror = null;
+          if (!e2.currentTarget.src.includes("chakra-moon-hero.svg")) {
+            e2.currentTarget.src = "assets/premium-yoga/chakra-moon-hero.svg";
+          }
+        }
       }
     )), /* @__PURE__ */ import_react74.default.createElement("div", { className: "min-w-0 flex-1" }, /* @__PURE__ */ import_react74.default.createElement("h4", { className: "text-sm font-bold text-heading m-0 leading-tight truncate" }, activeClass?.title || activeClass?.name || "Hatha Yoga & Prana Flow"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "text-xs text-primary font-semibold block mt-1" }, "\u{1F464} ", activeClass?.instructor || "NITHYA Master"), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex flex-wrap items-center gap-1.5 mt-1.5 text-[11px] text-muted" }, /* @__PURE__ */ import_react74.default.createElement("span", { className: "inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-purple-950/50 border border-purple-500/20 whitespace-nowrap" }, "\u23F1\uFE0F ", activeClass?.duration_minutes || activeClass?.duration || 60, " ", lang === "ta" ? "\u0BA8\u0BBF\u0BAE\u0BBF\u0B9F\u0B99\u0BCD\u0B95\u0BB3\u0BCD" : "Mins"), /* @__PURE__ */ import_react74.default.createElement("span", { className: "inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-purple-950/50 border border-purple-500/20 whitespace-nowrap font-medium text-emerald-300" }, "\u{1F3A5} 1080p HD")))), /* @__PURE__ */ import_react74.default.createElement("p", { className: "text-xs text-muted leading-relaxed mb-4" }, lang === "ta" ? "\u0B86\u0B9A\u0BA9\u0B99\u0BCD\u0B95\u0BB3\u0BCD, \u0BAA\u0BBF\u0BB0\u0BBE\u0BA3\u0BBE\u0BAF\u0BBE\u0BAE \u0BAE\u0BC2\u0B9A\u0BCD\u0B9A\u0BC1\u0BAA\u0BCD \u0BAA\u0BAF\u0BBF\u0BB1\u0BCD\u0B9A\u0BBF \u0BAE\u0BB1\u0BCD\u0BB1\u0BC1\u0BAE\u0BCD \u0B9A\u0B95\u0BCD\u0BB0\u0BBE \u0BA4\u0BBF\u0BAF\u0BBE\u0BA9\u0BAE\u0BCD \u0B86\u0B95\u0BBF\u0BAF\u0BB5\u0BB1\u0BCD\u0BB1\u0BBF\u0BB2\u0BCD \u0B87\u0BA3\u0BC8\u0BAF\u0BC1\u0B99\u0BCD\u0B95\u0BB3\u0BCD." : "Experience balanced asanas, guided pranayama breathing, and peaceful chakra meditation.")), /* @__PURE__ */ import_react74.default.createElement("div", { className: "flex flex-col gap-2 mt-2 relative z-10" }, activeClass?.status === "live" ? /* @__PURE__ */ import_react74.default.createElement(
       "button",

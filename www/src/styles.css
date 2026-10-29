@@ -3467,8 +3467,9 @@ input, select, textarea {
   .header-search-wrapper {
     display: none;
   }
-  .dashboard-content-grid-wrapper {
-    padding: 16px 16px calc(85px + env(safe-area-inset-bottom, 12px));
+  .dashboard-content-grid-wrapper,
+  .dedicated-page-viewport {
+    padding: 16px 16px calc(95px + env(safe-area-inset-bottom, 12px)) !important;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -4147,15 +4148,63 @@ input, select, textarea {
 .mobile-nav-label {
   position: relative;
   z-index: 1;
-  font-size: 0.65rem;
-  font-weight: 600;
+  font-size: 0.68rem;
+  font-weight: 700;
   letter-spacing: -0.01em;
-  line-height: 1.1;
+  line-height: 1.15;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   max-width: 100%;
   transition: color 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.nav-label-mobile {
+  display: inline !important;
+  white-space: nowrap !important;
+}
+
+.nav-label-full {
+  display: none !important;
+  white-space: nowrap !important;
+}
+
+@media (min-width: 640px) {
+  .nav-label-mobile {
+    display: none !important;
+  }
+  .nav-label-full {
+    display: inline !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-bottom-nav-container,
+  .mobile-bottom-nav {
+    padding: 0 8px !important;
+    bottom: calc(8px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+  .pill-highlight-dock,
+  .mobile-bottom-nav-dock {
+    padding: 4px 4px !important;
+    gap: 2px !important;
+  }
+  .pill-nav-btn,
+  .mobile-dock-item,
+  .mobile-nav-btn {
+    padding: 5px 2px !important;
+    min-width: 0 !important;
+  }
+  .pill-nav-label,
+  .dock-label-text,
+  .mobile-nav-label {
+    font-size: 0.66rem !important;
+    letter-spacing: -0.02em !important;
+  }
 }
 
 .live-status-dot-ping {
@@ -4401,8 +4450,10 @@ input, select, textarea {
 .card-mini-action-btn {
   background: rgba(255, 255, 255, 0.6);
   border: none;
-  border-radius: 6px;
-  padding: 4px;
+  border-radius: 8px;
+  padding: 5px;
+  min-width: 30px;
+  min-height: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -4412,7 +4463,7 @@ input, select, textarea {
 }
 .card-mini-action-btn:hover {
   background: rgba(255, 255, 255, 0.95);
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 /* ==========================================================================
@@ -6703,6 +6754,40 @@ html, body, #root, .app-root-container, .app-main-layout {
 
   .user-greeting-meta {
     display: none !important;
+  }
+
+  @media (max-width: 375px) {
+    .dashboard-top-header {
+      padding: max(env(safe-area-inset-top, 0px), 10px) 8px 8px 8px !important;
+      gap: 4px !important;
+    }
+    .header-left-cluster {
+      max-width: 100px !important;
+    }
+    .header-mobile-brand-wrap {
+      gap: 4px !important;
+    }
+    .header-mobile-logo-img {
+      width: 24px !important;
+      height: 24px !important;
+    }
+    .header-mobile-title {
+      font-size: 0.88rem !important;
+      letter-spacing: -0.01em !important;
+    }
+    .header-tools-cluster {
+      gap: 4px !important;
+    }
+    .header-tool-btn {
+      width: 30px !important;
+      height: 30px !important;
+      min-width: 30px !important;
+    }
+    .lang-pill-btn {
+      padding: 0 4px !important;
+      font-size: 0.68rem !important;
+      min-width: 30px !important;
+    }
   }
 
   .dashboard-content-grid-wrapper {
@@ -10689,6 +10774,24 @@ button:active,
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
   gap: 18px !important;
   margin-bottom: 22px !important;
+}
+
+.trainer-field-full {
+  grid-column: 1 / -1 !important;
+}
+
+@media (max-width: 640px) {
+  .trainer-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .trainer-field-group {
+    grid-column: 1 / -1 !important;
+  }
+  .trainer-btn-submit-class {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }
 
 .trainer-field-group {

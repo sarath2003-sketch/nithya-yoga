@@ -1311,37 +1311,49 @@ function MainPublicApp({ lang, setLang, theme, setTheme }) {
                 <div className="grid-col col-live">
                   <div className="glass-card p-6 rounded-3xl flex flex-col justify-between h-full border border-purple-500/20 bg-gradient-to-br from-indigo-950/40 via-purple-950/30 to-violet-900/20 shadow-xl backdrop-blur-md relative overflow-hidden">
                     <div className="relative z-10">
-                      <div className="flex items-center justify-between mb-4">
-                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5">
+                      {/* Header with separated heading badge & distinct status pill */}
+                      <div className="flex flex-wrap items-center justify-between gap-2 mb-4 pb-2 border-b border-purple-500/15">
+                        <span className="px-3 py-1 rounded-full text-xs font-bold bg-violet-600/20 text-violet-300 border border-violet-500/30 flex items-center gap-1.5 shrink-0 shadow-sm">
                           🧘‍♀️ {activeClass?.status === 'live' ? (lang === 'ta' ? 'நேரலை யோகா வகுப்பு' : 'Live Yoga Stream') : (lang === 'ta' ? 'அடுத்த யோகா வகுப்பு' : 'Upcoming Yoga Class')}
                         </span>
-                        <span className="text-xs text-muted font-medium flex items-center gap-1">
-                          <span className={`w-2 h-2 rounded-full ${activeClass?.status === 'live' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`}></span>
-                          {activeClass?.status === 'live' 
-                            ? (lang === 'ta' ? 'இப்போது நேரலை' : 'Live Now') 
-                            : (lang === 'ta' ? 'திட்டமிடப்பட்டது' : 'Scheduled')}
-                        </span>
+                        <div className={`px-2.5 py-1 rounded-full text-[11px] font-semibold border flex items-center gap-1.5 shrink-0 ${
+                          activeClass?.status === 'live' 
+                            ? 'bg-emerald-500/20 text-emerald-300 border-emerald-500/40 shadow-sm' 
+                            : 'bg-amber-500/15 text-amber-300 border-amber-500/35'
+                        }`}>
+                          <span className={`w-2 h-2 rounded-full shrink-0 ${activeClass?.status === 'live' ? 'bg-emerald-400 animate-pulse' : 'bg-amber-400'}`}></span>
+                          <span>
+                            {activeClass?.status === 'live' 
+                              ? (lang === 'ta' ? 'இப்போது நேரலை' : 'Live Now') 
+                              : (lang === 'ta' ? 'திட்டமிடப்பட்டது' : 'Scheduled')}
+                          </span>
+                        </div>
                       </div>
 
-                      {/* Featured 7-Chakra Visual Artwork */}
-                      <div className="flex items-center gap-4 mb-4 p-3 rounded-2xl bg-purple-900/20 border border-purple-500/15">
-                        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-purple-950/60 border border-purple-500/30 flex items-center justify-center p-1">
+                      {/* Featured 7-Chakra Visual Artwork & Non-wrapping Metadata */}
+                      <div className="flex items-center gap-3.5 mb-4 p-3 rounded-2xl bg-purple-900/25 border border-purple-500/20">
+                        <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-purple-950/70 border border-purple-500/30 flex items-center justify-center p-1.5 shadow-inner">
                           <img 
                             src="assets/premium-yoga/chakra-moon-hero.svg" 
                             alt="Nithya Yoga 7 Chakras Moon" 
-                            className="w-full h-full object-contain"
+                            className="w-full h-full object-contain drop-shadow"
                           />
                         </div>
-                        <div>
-                          <h4 className="text-sm font-bold text-heading m-0 leading-tight">
+                        <div className="min-w-0 flex-1">
+                          <h4 className="text-sm font-bold text-heading m-0 leading-tight truncate">
                             {activeClass?.title || activeClass?.name || 'Hatha Yoga & Prana Flow'}
                           </h4>
                           <span className="text-xs text-primary font-semibold block mt-1">
                             👤 {activeClass?.instructor || 'NITHYA Master'}
                           </span>
-                          <span className="text-[11px] text-muted block mt-0.5">
-                            ⏱️ {activeClass?.duration_minutes || activeClass?.duration || 60} {lang === 'ta' ? 'நிமிடங்கள்' : 'Minutes'} • 1080p HD
-                          </span>
+                          <div className="flex flex-wrap items-center gap-1.5 mt-1.5 text-[11px] text-muted">
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-purple-950/50 border border-purple-500/20 whitespace-nowrap">
+                              ⏱️ {activeClass?.duration_minutes || activeClass?.duration || 60} {lang === 'ta' ? 'நிமிடங்கள்' : 'Mins'}
+                            </span>
+                            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-purple-950/50 border border-purple-500/20 whitespace-nowrap font-medium text-emerald-300">
+                              🎥 1080p HD
+                            </span>
+                          </div>
                         </div>
                       </div>
 

@@ -14,11 +14,11 @@ import { Home, Flower2, BellRing, User, ShieldCheck } from 'lucide-react';
  */
 export default function MobileBottomNav({ currentTab, setCurrentTab, lang = 'en' }) {
   const bottomItems = [
-    { id: 'home', labelEn: 'Public Portal', labelTa: 'பொதுப்பகுதி', icon: Home },
-    { id: 'reminders', labelEn: 'Reminders', labelTa: 'நினைவூட்டல்', icon: BellRing },
-    { id: 'yoga', labelEn: 'Yoga Classes', labelTa: 'யோகா', icon: Flower2 },
-    { id: 'admin', labelEn: 'Admin Portal', labelTa: 'அட்மின் போர்டல்', icon: ShieldCheck },
-    { id: 'profile', labelEn: 'Profile', labelTa: 'சுயவிவரம்', icon: User }
+    { id: 'home', labelEn: 'Public Portal', mobileLabelEn: 'Portal', labelTa: 'பொதுப்பகுதி', mobileLabelTa: 'முகப்பு', icon: Home },
+    { id: 'reminders', labelEn: 'Reminders', mobileLabelEn: 'Reminders', labelTa: 'நினைவூட்டல்', mobileLabelTa: 'அலர்ட்', icon: BellRing },
+    { id: 'yoga', labelEn: 'Yoga Classes', mobileLabelEn: 'Yoga', labelTa: 'யோகா வகுப்புகள்', mobileLabelTa: 'யோகா', icon: Flower2 },
+    { id: 'admin', labelEn: 'Admin Portal', mobileLabelEn: 'Admin', labelTa: 'அட்மின் போர்டல்', mobileLabelTa: 'அட்மின்', icon: ShieldCheck },
+    { id: 'profile', labelEn: 'Profile', mobileLabelEn: 'Profile', labelTa: 'சுயவிவரம்', mobileLabelTa: 'சுயவிவரம்', icon: User }
   ];
 
   return (
@@ -47,7 +47,12 @@ export default function MobileBottomNav({ currentTab, setCurrentTab, lang = 'en'
               </div>
 
               <span className="pill-nav-label mobile-nav-label">
-                {lang === 'ta' ? item.labelTa : item.labelEn}
+                <span className="nav-label-mobile sm:hidden">
+                  {lang === 'ta' ? item.mobileLabelTa : item.mobileLabelEn}
+                </span>
+                <span className="nav-label-full hidden sm:inline">
+                  {lang === 'ta' ? item.labelTa : item.labelEn}
+                </span>
               </span>
             </button>
           );

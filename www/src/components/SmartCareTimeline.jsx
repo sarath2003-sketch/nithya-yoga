@@ -117,24 +117,26 @@ export default function SmartCareTimeline({
 
   return (
     <section className="dashboard-section today-reminders-section">
-      <div className="section-title-bar flex justify-between items-center mb-3">
-        <div className="flex items-center gap-2">
-          <ThreeDBell size={28} />
-          <div>
-            <h3 className="section-heading-with-icon m-0 font-bold text-base">
+      <div className="section-title-bar flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-3">
+        <div className="flex items-center gap-2.5 min-w-0">
+          <div className="shrink-0">
+            <ThreeDBell size={28} />
+          </div>
+          <div className="min-w-0">
+            <h3 className="section-heading-with-icon m-0 font-bold text-base leading-tight truncate">
               <span>{lang === 'ta' ? 'இன்றைய ஸ்மார்ட் நினைவூட்டல்கள்' : "Today's Smart Reminders"}</span>
             </h3>
-            <span className="text-xs text-muted">
+            <span className="text-xs text-muted block mt-0.5 truncate">
               {lang === 'ta' ? 'உங்கள் தினசரி ஆரோக்கிய வழக்கத்தைக் கண்காணிக்கவும்' : 'Mindful reminders with 3D audio chimes'}
             </span>
           </div>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2 shrink-0 w-full sm:w-auto">
           {onTestSystemNotification && (
             <button
               type="button"
-              className="test-system-notif-btn modern-pill-action text-xs font-semibold px-3 py-1.5 rounded-full bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-300 border border-violet-500/30 cursor-pointer flex items-center gap-1.5 transition-all shadow-sm"
+              className="test-system-notif-btn modern-pill-action text-xs font-semibold px-3.5 py-2 rounded-full bg-violet-500/10 hover:bg-violet-500/20 text-violet-600 dark:text-violet-300 border border-violet-500/30 cursor-pointer flex items-center gap-1.5 transition-all shadow-sm min-h-[38px]"
               onClick={onTestSystemNotification}
               title={lang === 'ta' ? 'மொபைல் திரை மற்றும் ஸ்டேட்டஸ் பாரில் தோன்றும் அறிவிப்பை உடனே சோதிக்க' : 'Test system notification outside app'}
             >
@@ -145,7 +147,7 @@ export default function SmartCareTimeline({
 
           <button 
             type="button" 
-            className="link-view-all modern-pill-action text-xs font-semibold px-3 py-1.5 rounded-full bg-subtle hover-accent cursor-pointer flex items-center gap-1" 
+            className="link-view-all modern-pill-action text-xs font-semibold px-3.5 py-2 rounded-full bg-subtle hover-accent cursor-pointer flex items-center gap-1 min-h-[38px]" 
             onClick={onShowAll}
           >
             <span>{lang === 'ta' ? 'அனைத்தும் பார்க்க' : 'Manage All'}</span>

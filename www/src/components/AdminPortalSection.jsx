@@ -1724,7 +1724,7 @@ export default function AdminPortalSection({
             <form onSubmit={handleCreateClass}>
               <div className="trainer-form-grid">
                 {/* Field 1: Class Title */}
-                <div className="trainer-field-group" style={{ gridColumn: 'span 2' }}>
+                <div className="trainer-field-group trainer-field-full">
                   <label className="trainer-field-label">
                     <FileText size={13} style={{ color: '#7C3AED' }} />
                     <span>{lang === 'ta' ? 'வகுப்பு தலைப்பு' : 'Class Title / Flow Name'}</span>
